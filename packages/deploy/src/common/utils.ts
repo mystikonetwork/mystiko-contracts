@@ -57,9 +57,8 @@ export function toDecimals(amount: string, decimals: number) {
   return amount + padDecimals;
 }
 
-export function getArtifact(contract: string): Promise<Artifact> {
-  const artifactsPath: string = '../mystiko-contracts/artifactsExternal';
-  // const artifactsPath: string = "./artifacts";
+export function getExternalArtifact(contract: string): Promise<Artifact> {
+  const artifactsPath: string = '../contracts/artifactsExternal';
   const artifacts = new Artifacts(artifactsPath);
   return artifacts.readArtifact(contract);
 }

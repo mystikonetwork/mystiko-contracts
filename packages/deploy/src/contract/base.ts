@@ -10,7 +10,7 @@ import {
   Rollup16Verifier__factory,
   Hasher3__factory,
 } from '@mystikonetwork/contracts-abi';
-import { getArtifact } from '../common/utils';
+import { getExternalArtifact } from '../common/utils';
 import { ChainConfig } from '../config/chain';
 
 let Transaction1x0Verifier: Transaction1x0Verifier__factory;
@@ -36,7 +36,7 @@ export async function initBaseContractFactory(ethers: any) {
   Transaction2x1Verifier = await ethers.getContractFactory('Transaction2x1Verifier');
   Transaction2x2Verifier = await ethers.getContractFactory('Transaction2x2Verifier');
 
-  const Hasher3Artifact = await getArtifact('Hasher3');
+  const Hasher3Artifact = await getExternalArtifact('Hasher3');
   Hasher3 = (await ethers.getContractFactoryFromArtifact(Hasher3Artifact)) as Hasher3__factory;
 }
 
