@@ -1,0 +1,34 @@
+{
+  "version": 2,
+  "circuits": [],
+  "chains": [
+  ],
+  "bridges": [
+    {
+      "name": "loop",
+      "contractName": "Loop",
+      "proxys": [
+      ],
+      "commitmentPools": [
+      ],
+      "pairs": [
+      ]
+    },
+    {
+      "name": "celer",
+      "contractName": "Celer",
+      "proxys": [
+      ],
+      "pairs": [
+      ]
+    },
+    {
+      "name": "tbridge",
+      "contractName": "TBridge",
+      "proxys": [
+      ],
+      "pairs": [
+      ]
+    }
+  ]
+}

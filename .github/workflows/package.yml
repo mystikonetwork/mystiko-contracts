@@ -1,0 +1,35 @@
+name: package
+
+on:
+  push:
+    tags:
+      - 'v*.*.*'
+  workflow_dispatch:
+
+jobs:
+  packages:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          token: ${{ secrets.PACKAGES_TOKEN }}
+          lfs: true
+          submodules: recursive
+      - uses: actions/setup-node@v2
+        with:
+          node-version: 14
+      - run: echo "@mystikonetwork:registry=https://npm.pkg.github.com" >> $HOME/.npmrc
+      - run: echo "//npm.pkg.github.com/:_authToken=${{ secrets.PACKAGES_TOKEN }}" >> $HOME/.npmrc
+      - run: npm install --global lerna
+      - run: lerna bootstrap
+      - run: lerna run build
+      - run: lerna publish from-package --yes
+      - name: Telegram Failure Notification
+        uses: appleboy/telegram-action@master
+        if: failure()
+        with:
+          message: ❗ Build failed for [${{ github.repository }}](https://github.com/${{ github.repository }}/actions) because of ${{ github.actor }}
+          format: markdown
+          to: ${{ secrets.TELEGRAM_CHAT_ID }}
+          token: ${{ secrets.TELEGRAM_BOT_TOKEN }}

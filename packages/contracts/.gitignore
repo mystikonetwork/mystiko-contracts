@@ -1,0 +1,5 @@
+.env
+.env.test
+artifacts
+artifactsExternal
+cache

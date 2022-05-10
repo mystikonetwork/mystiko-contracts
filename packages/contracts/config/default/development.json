@@ -1,0 +1,16 @@
+{
+  "version": "1.0",
+  "chains": [
+    {
+      "name": "hardhat",
+      "assetSymbol": "ETH",
+      "chainId": 0,
+      "explorerUrl": "",
+      "providers": [
+        "http://127.0.0.1:7545"
+      ],
+      "contracts": [
+      ]
+    }
+  ]
+}

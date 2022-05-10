@@ -1,0 +1,25 @@
+{
+  "chains": [
+    {
+      "network": "hardhat",
+      "privateKey": "",
+      "providers": []
+    }
+  ],
+  "bridge": {
+    "pairs": [
+    ]
+  },
+  "monitor": {
+    "checkTimer": 20,
+    "blockStuckCounter": 20,
+    "retryTimer": 10,
+    "transactionTimeout": 60,
+    "transactionMaxRetryCounter": 5,
+    "transactionRetryDelay": 5,
+    "getEventTimeout": 30,
+    "getEventMaxBatchNumber": 10000,
+    "blockGapMax": 5,
+    "blockGapToDelay": 2
+  }
+}

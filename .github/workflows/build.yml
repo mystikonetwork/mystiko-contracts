@@ -1,0 +1,52 @@
+name: build
+
+on:
+  push:
+    branches: ['master']
+  pull_request:
+    branches: ['*']
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          token: ${{ secrets.PACKAGES_TOKEN }}
+          lfs: true
+          submodules: recursive
+      - uses: actions/setup-node@v2
+        with:
+          node-version: 14
+      - run: echo "@mystikonetwork:registry=https://npm.pkg.github.com" >> $HOME/.npmrc
+      - run: echo "//npm.pkg.github.com/:_authToken=${{ secrets.PACKAGES_TOKEN }}" >> $HOME/.npmrc
+      - run: curl -L https://github.com/Zokrates/ZoKrates/releases/download/0.7.13/zokrates-0.7.13-x86_64-unknown-linux-gnu.tar.gz -o zokrates.tar.gz
+      - run: mkdir -p "$HOME/.zokrates/bin" && tar -xvvf zokrates.tar.gz -C "$HOME/.zokrates" && mv "$HOME/.zokrates/zokrates" "$HOME/.zokrates/bin" && chmod 755 "$HOME/.zokrates/bin/zokrates"
+      - run: echo "$HOME/.zokrates/bin" >> $GITHUB_PATH        
+      - run: npm install --global lerna
+      - run: lerna bootstrap
+      - run: lerna run build
+      - run: lerna run lint
+      - run: lerna run test
+      - run: git diff --quiet || (echo "some generated files are not included in repo" && exit 1)
+      - uses: codecov/codecov-action@v2
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          fail_ci_if_error: true
+      - name: Telegram Failure Notification
+        uses: appleboy/telegram-action@master
+        if: failure()
+        with:
+          message: ❗ Build failed for [${{ github.repository }}](https://github.com/${{ github.repository }}/actions) because of ${{ github.actor }}
+          format: markdown
+          to: ${{ secrets.TELEGRAM_CHAT_ID }}
+          token: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+      - name: Telegram Success Notification
+        uses: appleboy/telegram-action@master
+        if: success()
+        with:
+          message: Build succeeded for [${{ github.repository }}](https://github.com/${{ github.repository }}/actions)
+          format: markdown
+          to: ${{ secrets.TELEGRAM_CHAT_ID }}
+          token: ${{ secrets.TELEGRAM_BOT_TOKEN }}
