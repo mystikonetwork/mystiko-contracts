@@ -5,9 +5,9 @@ import { readJsonFile, writeJsonFile } from './common/utils';
 function getCoreConfigFileName(mystikoNetwork: string) {
   let fileNameWithPath = '';
   if (mystikoNetwork === MystikoTestnet) {
-    fileNameWithPath = './src/json/core//testnet.json';
+    fileNameWithPath = './src/json/core/testnet.json';
   } else if (mystikoNetwork === MystikoMainnet) {
-    fileNameWithPath = './src/json/core//mainnet.json';
+    fileNameWithPath = './src/json/core/mainnet.json';
   } else if (mystikoNetwork === MystikoDevelopment) {
     fileNameWithPath = './src/json/core/development.json';
   } else {
