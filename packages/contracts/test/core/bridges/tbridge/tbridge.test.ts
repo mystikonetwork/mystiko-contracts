@@ -27,6 +27,7 @@ import {
   MinAmount,
 } from '../../../util/constants';
 import { testBridgeDeposit } from '../../../common/bridgeDepositTests';
+import { testTBridgeProxyAdminOperations } from '../../../common/adminOperationTests';
 
 const { initialize } = require('zokrates-js/node');
 
@@ -161,6 +162,7 @@ describe('Test Mystiko tbridge', () => {
   it('test admin operation', () => {
     testBridgeAdminOperations('MystikoV2WithTBridgeMain', localMain, accounts);
     testBridgeAdminOperations('MystikoV2WithTBridgeERC20', localERC20, accounts);
+    testTBridgeProxyAdminOperations('MystikoTBridgeProxy', tbridgeProxy, accounts);
   });
 
   it('test bridge main to main deposit', async () => {

@@ -31,6 +31,18 @@ import { rollup } from '../../common/rollupTests';
 
 const { initialize } = require('zokrates-js/node');
 
+describe('Test Mystiko pool tree', () => {
+  it('test pool tree', async () => {
+    const accounts = waffle.provider.getWallets();
+    const { testToken, sanctionList } = await deployDependContracts(accounts);
+    for (let i = 0; i < 34; i += 1) {
+      await deployCommitmentPoolContracts(accounts, testToken.address, sanctionList.address, {
+        treeHeight: i,
+      });
+    }
+  });
+});
+
 describe('Test Mystiko pool', () => {
   async function fixture(accounts: Wallet[]) {
     const {

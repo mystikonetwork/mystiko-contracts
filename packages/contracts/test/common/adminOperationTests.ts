@@ -1,4 +1,5 @@
 import { expect } from 'chai';
+import { MystikoTBridgeProxy } from '@mystikonetwork/contracts-abi';
 
 export function testLoopAdminOperations(contractName: string, mystikoContract: any, accounts: any[]) {
   describe(`Test ${contractName} admin operations`, () => {
@@ -189,6 +190,28 @@ export function testCommitmentPoolAdminOperations(
       expect(await mystikoContract.operator()).to.equal(accounts[1].address);
       await mystikoContract.connect(accounts[1]).changeOperator(accounts[0].address);
       expect(await mystikoContract.operator()).to.equal(accounts[0].address);
+    });
+  });
+}
+
+export function testTBridgeProxyAdminOperations(
+  contractName: string,
+  tbridgeProxy: MystikoTBridgeProxy,
+  accounts: any[],
+) {
+  describe(`Test ${contractName} admin operations`, () => {
+    before(async () => {});
+
+    it('should remove executor whitelist  correctly', async () => {
+      await tbridgeProxy.removeExecutorWhitelist(accounts[1].address);
+    });
+
+    it('should remove register whitelist  correctly', async () => {
+      await tbridgeProxy.removeRegisterWhitelist(accounts[1].address);
+    });
+
+    it('should remove executor whitelist  correctly', async () => {
+      await tbridgeProxy.withdraw(accounts[1].address);
     });
   });
 }

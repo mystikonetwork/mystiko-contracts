@@ -9,6 +9,21 @@ export function testLoopConstructor(contractName: string, mystikoContract: any, 
     it('should initialize admin related resources correctly', async () => {
       expect(await mystikoContract.isDepositsDisabled()).to.equal(false);
     });
+    it('should initialize sanction check disabled correctly', async () => {
+      expect(await mystikoContract.isSanctionCheckDisabled()).to.equal(false);
+    });
+    it('should initialize sanction address correctly', async () => {
+      expect(await mystikoContract.getSanctionsContract()).to.not.equal('');
+    });
+
+    if (contractName === 'MystikoV2WithLoopERC20') {
+      it('should initialize erc20 token correctly', async () => {
+        expect(await mystikoContract.assetType()).to.equal('erc20');
+        expect(await mystikoContract.assetName()).to.equal('Mystiko Test Token');
+        expect(await mystikoContract.assetSymbol()).to.equal('MTT');
+        expect(await mystikoContract.assetDecimals()).to.equal(18);
+      });
+    }
   });
 }
 
