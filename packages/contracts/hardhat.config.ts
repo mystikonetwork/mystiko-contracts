@@ -6,6 +6,7 @@ import 'hardhat-gas-reporter';
 import * as dotenv from 'dotenv';
 import { HardhatUserConfig } from 'hardhat/types';
 import './scripts/compileHasher.hardhat';
+import 'solidity-coverage';
 
 dotenv.config();
 
