@@ -128,7 +128,7 @@ const config: HardhatUserConfig = {
     },
   },
   paths: {
-    artifacts: '../mystiko-contracts/artifacts',
+    artifacts: '../contracts/artifacts',
   },
 };
 
