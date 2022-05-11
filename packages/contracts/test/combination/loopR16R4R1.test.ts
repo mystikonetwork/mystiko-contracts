@@ -1,7 +1,6 @@
 import { Wallet } from '@ethersproject/wallet';
 import { waffle } from 'hardhat';
 import {
-  MystikoV2WithLoopERC20,
   MystikoV2WithLoopMain,
   Transaction1x0Verifier,
   Transaction1x1Verifier,
@@ -14,7 +13,6 @@ import {
   Rollup4Verifier,
   TestToken,
   CommitmentPoolMain,
-  CommitmentPoolERC20,
   DummySanctionsList,
 } from '@mystikonetwork/contracts-abi';
 import { ZokratesRuntime, MystikoProtocolV2, ZokratesCliRuntime } from '@mystikonetwork/protocol';
@@ -24,14 +22,14 @@ import {
   deployDependContracts,
   loadFixture,
   deployCommitmentPoolContracts,
-} from '../../util/common';
-import { constructCommitment, testLoopDeposit, testRollup, testTransact } from '../../common';
-import { testTransactRevert } from '../../common/transactTests';
-import { rollup } from '../../common/rollupTests';
+} from '../util/common';
+import { constructCommitment, testTransact } from '../common';
+import { rollup } from '../common/rollupTests';
+import { loopDeposit } from '../common/loopDepositTests';
 
 const { initialize } = require('zokrates-js/node');
 
-describe('Test Mystiko pool', () => {
+describe('Mystiko combination test R16R4R1 ', () => {
   async function fixture(accounts: Wallet[]) {
     const {
       testToken,
@@ -79,8 +77,6 @@ describe('Test Mystiko pool', () => {
   let testToken: TestToken;
   let sanctionList: DummySanctionsList;
   let poolMain: CommitmentPoolMain;
-  let poolErc20: CommitmentPoolERC20;
-  let loopERC20: MystikoV2WithLoopERC20;
   let loopMain: MystikoV2WithLoopMain;
   let transaction1x0Verifier: Transaction1x0Verifier;
   let transaction1x1Verifier: Transaction1x1Verifier;
@@ -105,9 +101,7 @@ describe('Test Mystiko pool', () => {
     sanctionList = r.sanctionList;
 
     poolMain = r.pool.poolMain;
-    poolErc20 = r.pool.poolERC20;
     loopMain = r.loop.coreMain;
-    loopERC20 = r.loop.coreERC20;
     transaction1x0Verifier = r.transaction1x0Verifier;
     transaction1x1Verifier = r.transaction1x1Verifier;
     transaction1x2Verifier = r.transaction1x2Verifier;
@@ -119,14 +113,14 @@ describe('Test Mystiko pool', () => {
     rollup16 = r.rollup16;
   });
 
-  it('test pool main', async () => {
+  it('combination main R16R4R1', async () => {
     const depositAmount = toDecimals(40);
 
     let queueSize = 21;
     let includedCounter = 0;
     const cmInfo = await constructCommitment(protocol, queueSize, depositAmount.toString());
 
-    await testLoopDeposit(
+    await loopDeposit(
       'MystikoV2WithLoopMain',
       protocol,
       loopMain,
@@ -139,41 +133,23 @@ describe('Test Mystiko pool', () => {
       cmInfo,
     );
 
-    testRollup('CommitmentPoolMain', protocol, poolMain, rollup16, testToken, accounts, cmInfo.commitments, {
+    rollup('CommitmentPoolMain', protocol, poolMain, rollup16, testToken, accounts, cmInfo.commitments, {
       rollupSize: 16,
       includedCount: 0,
     });
 
-    testRollup('CommitmentPoolMain', protocol, poolMain, rollup4, testToken, accounts, cmInfo.commitments, {
+    rollup('CommitmentPoolMain', protocol, poolMain, rollup4, testToken, accounts, cmInfo.commitments, {
       rollupSize: 4,
       includedCount: 16,
     });
 
-    testRollup('CommitmentPoolMain', protocol, poolMain, rollup1, testToken, accounts, cmInfo.commitments, {
+    rollup('CommitmentPoolMain', protocol, poolMain, rollup1, testToken, accounts, cmInfo.commitments, {
       rollupSize: 1,
       includedCount: 20,
     });
 
     queueSize = 0;
     includedCounter = 21;
-    testTransactRevert(
-      'CommitmentPoolMain',
-      protocol,
-      poolMain,
-      sanctionList,
-      transaction1x0Verifier,
-      cmInfo,
-      [0],
-      queueSize,
-      includedCounter,
-      depositAmount,
-      toBN(0),
-      [],
-      [],
-      'circuits/dist/zokrates/dev/Transaction1x0.program.gz',
-      'circuits/dist/zokrates/dev/Transaction1x0.abi.json',
-      'circuits/dist/zokrates/dev/Transaction1x0.pkey.gz',
-    );
 
     testTransact(
       'CommitmentPoolMain',
@@ -303,145 +279,31 @@ describe('Test Mystiko pool', () => {
       'circuits/dist/zokrates/dev/Transaction2x2.pkey.gz',
       'circuits/dist/zokrates/dev/Transaction2x2.vkey.gz',
     );
-  });
+    queueSize = 5;
+    includedCounter = 22;
 
-  it('test pool erc20', async () => {
-    const depositAmount = toDecimals(40);
-    let queueSize = 21;
-    let includedCounter = 0;
-    const cmInfo = await constructCommitment(protocol, queueSize, depositAmount.toString());
-
-    await testLoopDeposit(
-      'MystikoV2WithLoopERC20',
-      protocol,
-      loopERC20,
-      poolErc20,
-      testToken,
-      sanctionList,
-      accounts,
-      depositAmount.toString(),
-      false,
-      cmInfo,
-    );
-
-    testRollup(
-      'CommitmentPoolERC20',
-      protocol,
-      poolErc20,
-      rollup16,
-      testToken,
-      accounts,
-      cmInfo.commitments,
-      {
-        isMainAsset: false,
-        rollupSize: 16,
-        includedCount: 0,
-      },
-    );
-    testRollup('CommitmentPoolERC20', protocol, poolErc20, rollup4, testToken, accounts, cmInfo.commitments, {
-      isMainAsset: false,
-      rollupSize: 4,
-      includedCount: 16,
-    });
-    testRollup('CommitmentPoolERC20', protocol, poolErc20, rollup1, testToken, accounts, cmInfo.commitments, {
-      isMainAsset: false,
+    rollup('CommitmentPoolMain', protocol, poolMain, rollup1, testToken, accounts, cmInfo.commitments, {
       rollupSize: 1,
-      includedCount: 20,
+      rollupFee: toDecimals(1).toString(),
+      includedCount: 22,
     });
 
-    queueSize = 0;
-    includedCounter = 21;
-    testTransact(
-      'CommitmentPoolERC20',
-      protocol,
-      poolErc20,
-      transaction1x0Verifier,
-      cmInfo,
-      [0],
-      queueSize,
-      includedCounter,
-      depositAmount,
-      toBN(0),
-      [],
-      [],
-      'circuits/dist/zokrates/dev/Transaction1x0.program.gz',
-      'circuits/dist/zokrates/dev/Transaction1x0.abi.json',
-      'circuits/dist/zokrates/dev/Transaction1x0.pkey.gz',
-      'circuits/dist/zokrates/dev/Transaction1x0.vkey.gz',
-      testToken,
-    );
+    rollup('CommitmentPoolMain', protocol, poolMain, rollup1, testToken, accounts, cmInfo.commitments, {
+      rollupSize: 1,
+      rollupFee: toDecimals(1).toString(),
+      includedCount: 23,
+    });
 
-    testTransact(
-      'CommitmentPoolERC20',
-      protocol,
-      poolErc20,
-      transaction1x1Verifier,
-      cmInfo,
-      [1],
-      queueSize,
-      includedCounter,
-      depositAmount.sub(toDecimals(12)),
-      toDecimals(1),
-      [toDecimals(10)],
-      [toDecimals(1)],
-      'circuits/dist/zokrates/dev/Transaction1x1.program.gz',
-      'circuits/dist/zokrates/dev/Transaction1x1.abi.json',
-      'circuits/dist/zokrates/dev/Transaction1x1.pkey.gz',
-      'circuits/dist/zokrates/dev/Transaction1x1.vkey.gz',
-      testToken,
-    );
-    queueSize = 1;
-    includedCounter = 21;
-
-    testTransact(
-      'CommitmentPoolERC20',
-      protocol,
-      poolErc20,
-      transaction1x2Verifier,
-      cmInfo,
-      [2],
-      queueSize,
-      includedCounter,
-      depositAmount.sub(toDecimals(23)),
-      toDecimals(1),
-      [toDecimals(10), toDecimals(10)],
-      [toDecimals(1), toDecimals(1)],
-      'circuits/dist/zokrates/dev/Transaction1x2.program.gz',
-      'circuits/dist/zokrates/dev/Transaction1x2.abi.json',
-      'circuits/dist/zokrates/dev/Transaction1x2.pkey.gz',
-      'circuits/dist/zokrates/dev/Transaction1x2.vkey.gz',
-      testToken,
-    );
     queueSize = 3;
-    includedCounter = 21;
+    includedCounter = 24;
 
     testTransact(
-      'CommitmentPoolERC20',
+      'CommitmentPoolMain',
       protocol,
-      poolErc20,
-      transaction2x0Verifier,
-      cmInfo,
-      [3, 4],
-      queueSize,
-      includedCounter,
-      depositAmount.add(depositAmount).sub(toDecimals(1)),
-      toDecimals(1),
-      [],
-      [],
-      'circuits/dist/zokrates/dev/Transaction2x0.program.gz',
-      'circuits/dist/zokrates/dev/Transaction2x0.abi.json',
-      'circuits/dist/zokrates/dev/Transaction2x0.pkey.gz',
-      'circuits/dist/zokrates/dev/Transaction2x0.vkey.gz',
-      testToken,
-    );
-
-    testTransact(
-      'CommitmentPoolERC20',
-      protocol,
-      poolErc20,
+      poolMain,
       transaction2x1Verifier,
       cmInfo,
-      [5, 6],
+      [9, 10],
       queueSize,
       includedCounter,
       depositAmount.add(depositAmount).sub(toDecimals(12)),
@@ -452,29 +314,144 @@ describe('Test Mystiko pool', () => {
       'circuits/dist/zokrates/dev/Transaction2x1.abi.json',
       'circuits/dist/zokrates/dev/Transaction2x1.pkey.gz',
       'circuits/dist/zokrates/dev/Transaction2x1.vkey.gz',
-      testToken,
     );
-    queueSize = 4;
-    includedCounter = 21;
+
+    rollup('CommitmentPoolMain', protocol, poolMain, rollup4, testToken, accounts, cmInfo.commitments, {
+      rollupSize: 4,
+      rollupFee: toDecimals(1).toString(),
+      includedCount: 24,
+    });
+
+    queueSize = 0;
+    includedCounter = 28;
 
     testTransact(
-      'CommitmentPoolERC20',
+      'CommitmentPoolMain',
       protocol,
-      poolErc20,
-      transaction2x2Verifier,
+      poolMain,
+      transaction1x0Verifier,
       cmInfo,
-      [7, 8],
+      [21],
       queueSize,
       includedCounter,
-      depositAmount.add(depositAmount).sub(toDecimals(23)),
+      toDecimals(10),
+      toBN(0),
+      [],
+      [],
+      'circuits/dist/zokrates/dev/Transaction1x0.program.gz',
+      'circuits/dist/zokrates/dev/Transaction1x0.abi.json',
+      'circuits/dist/zokrates/dev/Transaction1x0.pkey.gz',
+      'circuits/dist/zokrates/dev/Transaction1x0.vkey.gz',
+    );
+
+    testTransact(
+      'CommitmentPoolMain',
+      protocol,
+      poolMain,
+      transaction2x0Verifier,
+      cmInfo,
+      [22, 23],
+      queueSize,
+      includedCounter,
+      toDecimals(20).sub(toDecimals(1)),
       toDecimals(1),
-      [toDecimals(10), toDecimals(10)],
+      [],
+      [],
+      'circuits/dist/zokrates/dev/Transaction2x0.program.gz',
+      'circuits/dist/zokrates/dev/Transaction2x0.abi.json',
+      'circuits/dist/zokrates/dev/Transaction2x0.pkey.gz',
+      'circuits/dist/zokrates/dev/Transaction2x0.vkey.gz',
+    );
+
+    testTransact(
+      'CommitmentPoolMain',
+      protocol,
+      poolMain,
+      transaction1x1Verifier,
+      cmInfo,
+      [24],
+      queueSize,
+      includedCounter,
+      toDecimals(10).sub(toDecimals(3)),
+      toDecimals(1),
+      [toDecimals(1)],
+      [toDecimals(1)],
+      'circuits/dist/zokrates/dev/Transaction1x1.program.gz',
+      'circuits/dist/zokrates/dev/Transaction1x1.abi.json',
+      'circuits/dist/zokrates/dev/Transaction1x1.pkey.gz',
+      'circuits/dist/zokrates/dev/Transaction1x1.vkey.gz',
+    );
+    queueSize = 1;
+    includedCounter = 28;
+
+    testTransact(
+      'CommitmentPoolMain',
+      protocol,
+      poolMain,
+      transaction1x1Verifier,
+      cmInfo,
+      [25],
+      queueSize,
+      includedCounter,
+      toDecimals(10).sub(toDecimals(3)),
+      toDecimals(1),
+      [toDecimals(1)],
+      [toDecimals(1)],
+      'circuits/dist/zokrates/dev/Transaction1x1.program.gz',
+      'circuits/dist/zokrates/dev/Transaction1x1.abi.json',
+      'circuits/dist/zokrates/dev/Transaction1x1.pkey.gz',
+      'circuits/dist/zokrates/dev/Transaction1x1.vkey.gz',
+    );
+    queueSize = 2;
+    includedCounter = 28;
+
+    testTransact(
+      'CommitmentPoolMain',
+      protocol,
+      poolMain,
+      transaction2x2Verifier,
+      cmInfo,
+      [26, 27],
+      queueSize,
+      includedCounter,
+      toDecimals(20).sub(toDecimals(5)),
+      toDecimals(1),
+      [toDecimals(1), toDecimals(1)],
       [toDecimals(1), toDecimals(1)],
       'circuits/dist/zokrates/dev/Transaction2x2.program.gz',
       'circuits/dist/zokrates/dev/Transaction2x2.abi.json',
       'circuits/dist/zokrates/dev/Transaction2x2.pkey.gz',
       'circuits/dist/zokrates/dev/Transaction2x2.vkey.gz',
-      testToken,
+    );
+
+    queueSize = 4;
+    includedCounter = 28;
+
+    rollup('CommitmentPoolMain', protocol, poolMain, rollup4, testToken, accounts, cmInfo.commitments, {
+      rollupSize: 4,
+      rollupFee: toDecimals(1).toString(),
+      includedCount: 28,
+    });
+
+    queueSize = 0;
+    includedCounter = 32;
+    testTransact(
+      'CommitmentPoolMain',
+      protocol,
+      poolMain,
+      transaction1x0Verifier,
+      cmInfo,
+      [28],
+      queueSize,
+      includedCounter,
+      toDecimals(1),
+      toBN(0),
+      [],
+      [],
+      'circuits/dist/zokrates/dev/Transaction1x0.program.gz',
+      'circuits/dist/zokrates/dev/Transaction1x0.abi.json',
+      'circuits/dist/zokrates/dev/Transaction1x0.pkey.gz',
+      'circuits/dist/zokrates/dev/Transaction1x0.vkey.gz',
     );
   });
 });

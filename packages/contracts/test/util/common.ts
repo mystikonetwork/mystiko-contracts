@@ -2,8 +2,10 @@ import { Fixture } from 'ethereum-waffle/dist/esm';
 import { Artifacts } from 'hardhat/internal/artifacts';
 import { Artifact } from 'hardhat/types';
 import { ethers, waffle } from 'hardhat';
+import BN from 'bn.js';
 import { parseUnits } from '@ethersproject/units';
 import { Wallet } from '@ethersproject/wallet';
+import { toBN } from '@mystikonetwork/utils';
 import {
   Hasher3,
   Hasher3__factory,
@@ -109,7 +111,7 @@ export async function deployCommitmentPoolContracts(
   )) as CommitmentPoolMain__factory;
   const poolMain = await poolMainFactory.connect(accounts[0]).deploy(treeHeight, rootHistoryLength);
   await poolMain.deployed();
-  await poolMain.setMinRollupFee(minRollupFee);
+  await poolMain.setMinRollupFee(minRollupFee.toString());
   await poolMain.updateSanctionContractAddress(sanctionListAddress);
 
   const poolERC20Factory = (await ethers.getContractFactory(
@@ -119,7 +121,7 @@ export async function deployCommitmentPoolContracts(
     .connect(accounts[0])
     .deploy(treeHeight, rootHistoryLength, tokenAddress);
   await poolERC20.deployed();
-  await poolERC20.setMinRollupFee(minRollupFee);
+  await poolERC20.setMinRollupFee(minRollupFee.toString());
   await poolERC20.updateSanctionContractAddress(sanctionListAddress);
 
   return { poolMain, poolERC20 };
@@ -321,4 +323,11 @@ export async function getAccounts(admin: Wallet, num: number): Promise<Wallet[]>
   await Promise.all(accountPromise);
   accounts.sort((a, b) => (a.address.toLowerCase() > b.address.toLowerCase() ? 1 : -1));
   return accounts;
+}
+
+export function getBalance(address: string, testToken: TestToken | undefined): Promise<BN> {
+  if (!testToken) {
+    return waffle.provider.getBalance(address).then((r: any) => toBN(r.toString()));
+  }
+  return testToken.balanceOf(address).then((r: any) => toBN(r.toString()));
 }

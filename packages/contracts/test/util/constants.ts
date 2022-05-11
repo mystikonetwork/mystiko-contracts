@@ -2,10 +2,10 @@ import { toDecimals } from '@mystikonetwork/utils';
 
 export const MerkleTreeHeight = 20;
 export const RootHistoryLength = 30;
-export const MinAmount = 100000000000000;
-export const MinBridgeFee = 1000;
-export const MinExecutorFee = 5000000000000;
-export const MinRollupFee = 10000000000000;
+export const MinAmount = toDecimals(0.1).toString();
+export const MinBridgeFee = toDecimals(1000, 0).toString();
+export const MinExecutorFee = toDecimals(0.005).toString();
+export const MinRollupFee = toDecimals(0.01).toString();
 
 export const BridgeAccountIndex = 5;
 export const BridgeExecutorIndex = 6;

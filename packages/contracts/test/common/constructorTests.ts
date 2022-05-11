@@ -1,7 +1,7 @@
 import { expect } from 'chai';
 import { MerkleTree } from '@mystikonetwork/utils';
 
-export function testLoopConstructor(contractName: string, mystikoContract: any, minAmount: number) {
+export function testLoopConstructor(contractName: string, mystikoContract: any, minAmount: string) {
   describe(`Test ${contractName} constructor`, () => {
     it('should initialize minAmount correctly', async () => {
       expect(await mystikoContract.getMinAmount()).to.equal(minAmount);
@@ -15,10 +15,10 @@ export function testLoopConstructor(contractName: string, mystikoContract: any, 
 export function testBridgeConstructor(
   contractName: string,
   mystikoContract: any,
-  minAmount: number,
-  minBridgeFee: number,
-  minExecutorFee: number,
-  peerMinRoolupFee: number,
+  minAmount: string,
+  minBridgeFee: string,
+  minExecutorFee: string,
+  peerMinRoolupFee: string,
 ) {
   describe(`Test ${contractName} constructor`, () => {
     it('should initialize minAmount correctly', async () => {

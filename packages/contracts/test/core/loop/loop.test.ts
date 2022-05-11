@@ -55,8 +55,6 @@ describe('Test Mystiko loop', () => {
   }
 
   let accounts: Wallet[];
-  // let poolMain: CommitmentPoolMain;
-  // let poolErc20: CommitmentPoolERC20;
   let loopERC20: MystikoV2WithLoopERC20;
   let loopMain: MystikoV2WithLoopMain;
 
@@ -64,8 +62,6 @@ describe('Test Mystiko loop', () => {
     accounts = waffle.provider.getWallets();
 
     const r = await loadFixture(fixture);
-    // poolMain = r.pool.poolMain;
-    // poolErc20 = r.pool.poolERC20;
     loopMain = r.loop.coreMain;
     loopERC20 = r.loop.coreERC20;
   });
@@ -81,38 +77,4 @@ describe('Test Mystiko loop', () => {
   });
 
   // test loop erc20 and main deposit with commitment pool test at pool.test.ts
-
-  // it('test loop main deposit', async () => {
-  //   const depositAmount = toDecimals(10);
-  //   const cmInfo = await constructCommitment(protocol, 21, depositAmount.toString());
-  //
-  //   await testLoopDeposit(
-  //     'MystikoV2WithLoopMain',
-  //     protocol,
-  //     loopMain,
-  //     poolMain,
-  //     testToken,
-  //     accounts,
-  //     depositAmount.toString(),
-  //     true,
-  //     cmInfo,
-  //   );
-  // });
-
-  // it('test loop erc20 deposit', async () => {
-  //   const depositAmount = toDecimals(100);
-  //   const cmInfo = await constructCommitment(protocol, 21, depositAmount.toString());
-  //
-  //   await testLoopDeposit(
-  //     'MystikoV2WithLoopERC20',
-  //     protocol,
-  //     loopERC20,
-  //     poolErc20,
-  //     testToken,
-  //     accounts,
-  //     depositAmount.toString(),
-  //     false,
-  //     cmInfo,
-  //   );
-  // });
 });

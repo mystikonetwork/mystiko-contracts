@@ -1,5 +1,6 @@
 import { Wallet } from '@ethersproject/wallet';
 import { waffle } from 'hardhat';
+import { toDecimals } from '@mystikonetwork/utils';
 import {
   MystikoTBridgeProxy,
   MystikoV2WithTBridgeERC20,
@@ -9,7 +10,6 @@ import {
   DummySanctionsList,
 } from '@mystikonetwork/contracts-abi';
 import { ZokratesRuntime, MystikoProtocolV2, ZokratesCliRuntime } from '@mystikonetwork/protocol';
-import { toDecimals } from '@mystikonetwork/utils';
 import {
   deployDependContracts,
   loadFixture,

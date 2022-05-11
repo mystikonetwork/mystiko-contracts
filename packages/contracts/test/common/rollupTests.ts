@@ -107,6 +107,7 @@ export function testRollup(
         rollupAccount,
         rollupAccount2,
       );
+
       proof = await generateProof(
         protocol,
         commitments,
@@ -172,7 +173,6 @@ export function testRollup(
         : balanceAfter.sub(balanceBefore);
       const expectRollupFee = toBN(rollupFee).muln(rollupSize).toString();
       expect(totalRollupFee.toString()).to.equal(expectRollupFee.toString());
-
       expect(await commitmentPoolContract.isKnownRoot(proof.newRoot)).to.equal(true);
     });
 
@@ -187,6 +187,72 @@ export function testRollup(
             proof.leafHash,
           ]),
       ).to.be.revertedWith('newRoot is duplicated');
+    });
+  });
+}
+
+export function rollup(
+  contractName: string,
+  protocol: MystikoProtocolV2,
+  commitmentPoolContract: any,
+  rollupVerifierContract: any,
+  testTokenContract: TestToken,
+  accounts: Wallet[],
+  commitments: any[],
+  {
+    isMainAsset = true,
+    rollupFee = MinRollupFee,
+    rollupSize = 4,
+    includedCount = 0,
+    treeHeight = MerkleTreeHeight,
+  },
+) {
+  let proof: any;
+  const rollupAccount = accounts[RollupAccountIndex1];
+  const rollupAccount2 = accounts[RollupAccountIndex2];
+
+  describe(`${contractName} rollup${rollupSize} operation`, () => {
+    before(async () => {
+      await enableRollupVerifier(
+        commitmentPoolContract,
+        rollupVerifierContract,
+        rollupSize,
+        rollupAccount,
+        rollupAccount2,
+      );
+
+      proof = await generateProof(
+        protocol,
+        commitments,
+        commitmentPoolContract,
+        treeHeight,
+        rollupSize,
+        includedCount,
+      );
+    });
+
+    it('should rollup successfully', async () => {
+      const balanceBefore = isMainAsset
+        ? await waffle.provider.getBalance(rollupAccount2.address)
+        : await testTokenContract.balanceOf(rollupAccount2.address);
+
+      const rollupTx = await commitmentPoolContract
+        .connect(rollupAccount2)
+        .rollup([[proof.proofA, proof.proofB, proof.proofC], `${rollupSize}`, proof.newRoot, proof.leafHash]);
+
+      const txReceipt = await waffle.provider.getTransactionReceipt(rollupTx.hash);
+      const totalGasFee = txReceipt.cumulativeGasUsed.mul(txReceipt.effectiveGasPrice);
+
+      const balanceAfter = isMainAsset
+        ? await waffle.provider.getBalance(rollupAccount2.address)
+        : await testTokenContract.balanceOf(rollupAccount2.address);
+
+      const totalRollupFee = isMainAsset
+        ? balanceAfter.add(totalGasFee).sub(balanceBefore)
+        : balanceAfter.sub(balanceBefore);
+      const expectRollupFee = toBN(rollupFee).muln(rollupSize).toString();
+      expect(totalRollupFee.toString()).to.equal(expectRollupFee.toString());
+      expect(await commitmentPoolContract.isKnownRoot(proof.newRoot)).to.equal(true);
     });
   });
 }
