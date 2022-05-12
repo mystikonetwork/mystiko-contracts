@@ -25,7 +25,14 @@ import {
   loadFixture,
   deployCommitmentPoolContracts,
 } from '../../util/common';
-import { constructCommitment, testLoopDeposit, testRollup, testTransact } from '../../common';
+import {
+  constructCommitment,
+  testCommitmentPoolAdminOperations,
+  testCommitmentPoolConstructor,
+  testLoopDeposit,
+  testRollup,
+  testTransact,
+} from '../../common';
 import { testTransactRevert } from '../../common/transactTests';
 import { rollup } from '../../common/rollupTests';
 
@@ -129,6 +136,16 @@ describe('Test Mystiko pool', () => {
     rollup1 = r.rollup1;
     rollup4 = r.rollup4;
     rollup16 = r.rollup16;
+  });
+
+  it('test constructor', async () => {
+    await testCommitmentPoolConstructor('CommitmentPoolMain', poolMain, {});
+    await testCommitmentPoolConstructor('CommitmentPoolERC20', poolErc20, {});
+  });
+
+  it('test admin operation', async () => {
+    await testCommitmentPoolAdminOperations('CommitmentPoolMain', poolMain, accounts);
+    await testCommitmentPoolAdminOperations('CommitmentPoolERC20', poolErc20, accounts);
   });
 
   it('test pool main', async () => {
