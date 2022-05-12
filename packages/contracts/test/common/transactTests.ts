@@ -1,19 +1,12 @@
 import BN from 'bn.js';
 import { expect } from 'chai';
-import { waffle } from 'hardhat';
 import { ethers } from 'ethers';
 import { Proof } from 'zokrates-js';
 import { DummySanctionsList, TestToken } from '@mystikonetwork/contracts-abi';
 import { CommitmentV2, MystikoProtocolV2 } from '@mystikonetwork/protocol';
 import { MerkleTree, toBN, toBuff, toHex, toHexNoPrefix } from '@mystikonetwork/utils';
 import { CommitmentInfo } from './commitment';
-
-function getBalance(address: string, testToken: TestToken | undefined): Promise<BN> {
-  if (!testToken) {
-    return waffle.provider.getBalance(address).then((r: any) => toBN(r.toString()));
-  }
-  return testToken.balanceOf(address).then((r: any) => toBN(r.toString()));
-}
+import { getBalance } from '../util/common';
 
 function generateSignatureKeys(): { wallet: ethers.Wallet; pk: Buffer; sk: Buffer } {
   const wallet = ethers.Wallet.createRandom();
@@ -172,11 +165,12 @@ export function testTransact(
   let recipientBalance: BN;
   let relayerBalance: BN;
   let proof: Proof;
-  let outCommitments: CommitmentV2[];
+  const outCommitments: CommitmentV2[] = [];
   let outEncryptedNotes: Buffer[];
   let signature: string;
   let txReceipt: any;
   const events: ethers.utils.LogDescription[] = [];
+
   describe(`Test ${contractName} transaction${numInputs}x${numOutputs} operations`, () => {
     before(async () => {
       await commitmentPoolContract.enableTransactVerifier(numInputs, numOutputs, transactVerifier.address);
@@ -197,7 +191,10 @@ export function testTransact(
         provingKeyFile,
       );
       proof = proofWithCommitments.proof;
-      outCommitments = proofWithCommitments.outCommitments;
+      proofWithCommitments.outCommitments.forEach((p) => {
+        outCommitments.push(p);
+        commitmentInfo.commitments.push(p);
+      });
       outEncryptedNotes = outCommitments.map((c) => c.privateNote);
       signature = await signRequest(
         signatureKeys.wallet,
@@ -294,8 +291,6 @@ export function testTransact(
       const commitmentExists = await Promise.all(commitmentPromises);
       commitmentExists.forEach((exist) => expect(exist).to.equal(true));
     });
-
-    // todo eric should test new commitment that insert by transact
   });
 }
 
@@ -316,17 +311,20 @@ export function testTransactRevert(
   programFile: string,
   abiFile: string,
   provingKeyFile: string,
+  testToken: TestToken | undefined = undefined,
 ) {
   const numInputs = inCommitmentsIndices.length;
   const numOutputs = outAmounts.length;
   const publicRecipientAddress = '0x2Bd6FBfDA256cebAC13931bc3E91F6e0f59A5e23';
   const relayerAddress = '0xc9192277ea18ff49618E412197C9c9eaCF43A5e3';
+  let recipientBalance: BN;
+  let relayerBalance: BN;
   const signatureKeys = generateSignatureKeys();
   let proof: Proof;
   let outCommitments: CommitmentV2[];
   let outEncryptedNotes: Buffer[];
   let signature: string;
-  describe(`Test ${contractName} transaction${numInputs}x${numOutputs} operations`, () => {
+  describe(`Test ${contractName} transaction${numInputs}x${numOutputs} operations revert`, () => {
     before(async () => {
       await commitmentPoolContract.enableTransactVerifier(numInputs, numOutputs, transactVerifier.address);
       const proofWithCommitments = await generateProof(
@@ -354,6 +352,9 @@ export function testTransactRevert(
         relayerAddress,
         outEncryptedNotes,
       );
+
+      recipientBalance = await getBalance(publicRecipientAddress, testToken);
+      relayerBalance = await getBalance(relayerAddress, testToken);
     });
 
     it('should revert when recipient in sanction list', async () => {
@@ -371,6 +372,13 @@ export function testTransactRevert(
         'sanctioned address',
       );
       await sanctionList.removeToSanctionsList(publicRecipientAddress);
+    });
+
+    it('should have correct balance', async () => {
+      const newRecipientBalance = await getBalance(publicRecipientAddress, testToken);
+      const newRelayerBalance = await getBalance(relayerAddress, testToken);
+      expect(newRecipientBalance.toString()).to.equal(recipientBalance.toString());
+      expect(newRelayerBalance.toString()).to.equal(relayerBalance.toString());
     });
   });
 }

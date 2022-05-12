@@ -31,9 +31,9 @@ export function testBridgeDeposit(
   isDstMainAsset: boolean,
   cmInfo: CommitmentInfo<CommitmentV2>,
 ) {
-  let minBridgeFee: number;
-  let minRollupFee: number;
-  let minExecutorFee: number;
+  let minBridgeFee: string;
+  let minRollupFee: string;
+  let minExecutorFee: string;
   let minTotalAmount: string;
   let minTotalValue: string;
   const { commitments } = cmInfo;
