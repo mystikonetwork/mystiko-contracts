@@ -5,8 +5,8 @@ import {
   MystikoContractFactory,
   MystikoV2Bridge,
   MystikoV2Loop,
-  MystikoV2WithCeler,
-  MystikoV2WithTBridge,
+  MystikoV2Celer,
+  MystikoV2TBridge,
 } from '../src';
 
 let provider: ethers.providers.Provider;
@@ -41,7 +41,7 @@ test('test connect MystikoV2Loop', () => {
   );
   expect(contract.address).toBe('0x5c7c88e07e3899fff3cc0effe23494591dfe87b6');
   contract = MystikoContractFactory.connect<MystikoV2Loop>(
-    'MystikoV2WithLoopERC20',
+    'MystikoV2LoopERC20',
     '0x5c7c88e07e3899fff3cc0effe23494591dfe87b6',
     provider,
   );
@@ -57,18 +57,18 @@ test('test connect MystikoV2Bridge', () => {
   expect(contract.address).toBe('0x5c7c88e07e3899fff3cc0effe23494591dfe87b6');
 });
 
-test('test connect MystikoV2WithCeler', () => {
-  const contract = MystikoContractFactory.connect<MystikoV2WithCeler>(
-    'MystikoV2WithCelerERC20',
+test('test connect MystikoV2Celer', () => {
+  const contract = MystikoContractFactory.connect<MystikoV2Celer>(
+    'MystikoV2CelerERC20',
     '0x5c7c88e07e3899fff3cc0effe23494591dfe87b6',
     provider,
   );
   expect(contract.address).toBe('0x5c7c88e07e3899fff3cc0effe23494591dfe87b6');
 });
 
-test('test connect MystikoV2WithTBridge', () => {
-  const contract = MystikoContractFactory.connect<MystikoV2WithTBridge>(
-    'MystikoV2WithTBridgeERC20',
+test('test connect MystikoV2TBridge', () => {
+  const contract = MystikoContractFactory.connect<MystikoV2TBridge>(
+    'MystikoV2TBridgeERC20',
     '0x5c7c88e07e3899fff3cc0effe23494591dfe87b6',
     provider,
   );

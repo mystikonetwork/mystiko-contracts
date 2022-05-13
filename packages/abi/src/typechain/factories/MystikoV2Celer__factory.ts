@@ -4,7 +4,7 @@
 
 import { Contract, Signer, utils } from 'ethers';
 import { Provider } from '@ethersproject/providers';
-import type { MystikoV2WithTBridge, MystikoV2WithTBridgeInterface } from '../MystikoV2WithTBridge';
+import type { MystikoV2Celer, MystikoV2CelerInterface } from '../MystikoV2Celer';
 
 const _abi = [
   {
@@ -62,40 +62,6 @@ const _abi = [
   {
     inputs: [
       {
-        internalType: 'uint64',
-        name: '_fromChainId',
-        type: 'uint64',
-      },
-      {
-        internalType: 'address',
-        name: '_fromContract',
-        type: 'address',
-      },
-      {
-        internalType: 'bytes',
-        name: '_message',
-        type: 'bytes',
-      },
-      {
-        internalType: 'address',
-        name: '_executor',
-        type: 'address',
-      },
-    ],
-    name: 'crossChainSyncTx',
-    outputs: [
-      {
-        internalType: 'bool',
-        name: '',
-        type: 'bool',
-      },
-    ],
-    stateMutability: 'nonpayable',
-    type: 'function',
-  },
-  {
-    inputs: [
-      {
         components: [
           {
             internalType: 'uint256',
@@ -145,6 +111,40 @@ const _abi = [
     ],
     name: 'deposit',
     outputs: [],
+    stateMutability: 'payable',
+    type: 'function',
+  },
+  {
+    inputs: [
+      {
+        internalType: 'address',
+        name: '_sender',
+        type: 'address',
+      },
+      {
+        internalType: 'uint64',
+        name: '_srcChainId',
+        type: 'uint64',
+      },
+      {
+        internalType: 'bytes',
+        name: '_message',
+        type: 'bytes',
+      },
+      {
+        internalType: 'address',
+        name: '_executor',
+        type: 'address',
+      },
+    ],
+    name: 'executeMessage',
+    outputs: [
+      {
+        internalType: 'bool',
+        name: '',
+        type: 'bool',
+      },
+    ],
     stateMutability: 'payable',
     type: 'function',
   },
@@ -402,12 +402,12 @@ const _abi = [
   },
 ];
 
-export class MystikoV2WithTBridge__factory {
+export class MystikoV2Celer__factory {
   static readonly abi = _abi;
-  static createInterface(): MystikoV2WithTBridgeInterface {
-    return new utils.Interface(_abi) as MystikoV2WithTBridgeInterface;
+  static createInterface(): MystikoV2CelerInterface {
+    return new utils.Interface(_abi) as MystikoV2CelerInterface;
   }
-  static connect(address: string, signerOrProvider: Signer | Provider): MystikoV2WithTBridge {
-    return new Contract(address, _abi, signerOrProvider) as MystikoV2WithTBridge;
+  static connect(address: string, signerOrProvider: Signer | Provider): MystikoV2Celer {
+    return new Contract(address, _abi, signerOrProvider) as MystikoV2Celer;
   }
 }

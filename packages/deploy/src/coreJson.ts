@@ -143,10 +143,10 @@ function addPoolContractConfig(
 
 function buildDepositContractName(bridgeContractName: string, bERC20: boolean): string {
   if (bERC20) {
-    return `MystikoV2With${bridgeContractName}ERC20`;
+    return `MystikoV2${bridgeContractName}ERC20`;
   }
 
-  return `MystikoV2With${bridgeContractName}Main`;
+  return `MystikoV2${bridgeContractName}Main`;
 }
 
 function addNewDepositContractConfig(

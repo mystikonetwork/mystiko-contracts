@@ -29,11 +29,11 @@ import {
   Transaction2x1Verifier,
   Transaction2x2Verifier__factory,
   Transaction2x2Verifier,
-  MystikoV2WithLoopERC20__factory,
-  MystikoV2WithLoopERC20,
-  MystikoV2WithLoopMain__factory,
-  MystikoV2WithLoopMain,
-  MystikoV2WithTBridgeMain__factory,
+  MystikoV2LoopERC20__factory,
+  MystikoV2LoopERC20,
+  MystikoV2LoopMain__factory,
+  MystikoV2LoopMain,
+  MystikoV2TBridgeMain__factory,
   MystikoTBridgeProxy__factory,
   CommitmentPoolMain,
   CommitmentPoolMain__factory,
@@ -42,7 +42,7 @@ import {
   MystikoTBridgeProxy,
   DummySanctionsList,
   DummySanctionsList__factory,
-  MystikoV2WithTBridgeERC20__factory,
+  MystikoV2TBridgeERC20__factory,
 } from '@mystikonetwork/contracts-abi';
 import {
   MerkleTreeHeight,
@@ -68,8 +68,8 @@ interface CommitmentPoolDeploymentInfo {
 }
 
 interface CoreLoopDeploymentInfo {
-  coreMain: MystikoV2WithLoopMain;
-  coreERC20: MystikoV2WithLoopERC20;
+  coreMain: MystikoV2LoopMain;
+  coreERC20: MystikoV2LoopERC20;
 }
 
 interface CoreBridgeDeploymentInfo {
@@ -137,8 +137,8 @@ export async function deployLoopContracts(
   { minAmount = MinAmount },
 ): Promise<CoreLoopDeploymentInfo> {
   const loopMainFactory = (await ethers.getContractFactory(
-    'MystikoV2WithLoopMain',
-  )) as MystikoV2WithLoopMain__factory;
+    'MystikoV2LoopMain',
+  )) as MystikoV2LoopMain__factory;
   const coreMain = await loopMainFactory.connect(accounts[0]).deploy(hasher3Address);
   await coreMain.deployed();
   await coreMain.setMinAmount(minAmount);
@@ -147,8 +147,8 @@ export async function deployLoopContracts(
   await poolMain.addEnqueueWhitelist(coreMain.address);
 
   const loopERC20Factory = (await ethers.getContractFactory(
-    'MystikoV2WithLoopERC20',
-  )) as MystikoV2WithLoopERC20__factory;
+    'MystikoV2LoopERC20',
+  )) as MystikoV2LoopERC20__factory;
   const coreERC20 = await loopERC20Factory.connect(accounts[0]).deploy(hasher3Address, tokenAddress);
   await coreERC20.deployed();
   await coreERC20.setMinAmount(minAmount);
@@ -175,8 +175,8 @@ export async function deployTBridgeContracts(
   },
 ): Promise<CoreBridgeDeploymentInfo> {
   const tBridgeMainFactory = (await ethers.getContractFactory(
-    'MystikoV2WithTBridgeMain',
-  )) as MystikoV2WithTBridgeMain__factory;
+    'MystikoV2TBridgeMain',
+  )) as MystikoV2TBridgeMain__factory;
 
   const coreMain = await tBridgeMainFactory.connect(accounts[0]).deploy(hasher3Address);
   await coreMain.deployed();
@@ -192,8 +192,8 @@ export async function deployTBridgeContracts(
   await tbridge.addRegisterWhitelist(coreMain.address);
 
   const tBridgeERC20Factory = (await ethers.getContractFactory(
-    'MystikoV2WithTBridgeERC20',
-  )) as MystikoV2WithTBridgeERC20__factory;
+    'MystikoV2TBridgeERC20',
+  )) as MystikoV2TBridgeERC20__factory;
 
   const coreERC20 = await tBridgeERC20Factory.connect(accounts[0]).deploy(hasher3Address, tokenAddress);
   await coreERC20.deployed();

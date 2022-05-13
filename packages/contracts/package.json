@@ -1,6 +1,6 @@
 {
   "name": "@mystikonetwork/contracts",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Core smart contracts of Mystiko.Network",
   "main": "index.js",
   "repository": {
@@ -39,7 +39,7 @@
     "@ethersproject/units": "^5.5.3",
     "@ethersproject/wallet": "^5.5.3",
     "@mystikonetwork/config": "^0.1.0",
-    "@mystikonetwork/contracts-abi": "^0.1.0",
+    "@mystikonetwork/contracts-abi": "^0.1.1",
     "@mystikonetwork/protocol": "^0.1.0",
     "@mystikonetwork/utils": "^0.1.0",
     "@nomiclabs/hardhat-ethers": "^2.0.5",
@@ -78,9 +78,9 @@
     "solc": "0.8.10",
     "solhint": "^3.3.6",
     "solhint-plugin-prettier": "^0.0.5",
+    "solidity-coverage": "0.8.0-rc.1",
     "ts-node": "^10.6.0",
     "typescript": "^4.6.2",
-    "zokrates-js": "1.0.41",
-    "solidity-coverage":"0.8.0-rc.1"
+    "zokrates-js": "1.0.41"
   }
 }

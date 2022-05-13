@@ -52,6 +52,9 @@ abstract contract MystikoV2Loop is IMystikoLoop, AssetPool, Sanctions {
     return hasher3.poseidon([_hashK, _amount, uint256(_randomS)]);
   }
 
+  /* @notice              Check deposit request parameter and process deposit
+   *  @param _request     The transact request parameter
+   */
   function deposit(DepositRequest memory _request) external payable override {
     require(!depositsDisabled, "deposits are disabled");
     require(_request.amount >= minAmount, "amount too few");
