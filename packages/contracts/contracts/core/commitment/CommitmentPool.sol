@@ -85,6 +85,11 @@ abstract contract CommitmentPool is ICommitmentPool, AssetPool, ReentrancyGuard,
     rootHistory[currentRootIndex] = currentRoot;
   }
 
+  /* @notice              Check commitment request parameter and insert commitment into commitment queue
+   *  @param _request     The commitment request parameter
+   *  @param _executor    Specific address that send enqueue transaction, only be valid address when do cross chain transaction
+   *  @return             True means commitment success insert into commitment queue , or exception and return false.
+   */
   function enqueue(CommitmentRequest memory _request, address _executor)
     external
     override
@@ -105,6 +110,9 @@ abstract contract CommitmentPool is ICommitmentPool, AssetPool, ReentrancyGuard,
     return true;
   }
 
+  /* @notice              Check rollup request parameter、verify rollup proof and update commitment merkle tree
+   *  @param _request     The rollup request parameter
+   */
   function rollup(RollupRequest memory _request) external override onlyRollupWhitelisted {
     require(!isKnownRoot(_request.newRoot), "newRoot is duplicated");
     require(
@@ -146,6 +154,10 @@ abstract contract CommitmentPool is ICommitmentPool, AssetPool, ReentrancyGuard,
     rootHistory[currentRootIndex] = _request.newRoot;
   }
 
+  /* @notice              Check transact request parameter、verify transact proof and do spend
+   *  @param _request     The transact request parameter
+   *  @param _signature   The signature of the transact request by proffer
+   */
   function transact(TransactRequest memory _request, bytes memory _signature)
     external
     payable

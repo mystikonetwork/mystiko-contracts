@@ -272,8 +272,8 @@ library Utils {
     return m >= _m;
   }
 
-  /* @notice              TODO
-   *  @param key
+  /* @notice
+   *  @param
    *  @return
    */
   function compressMCPubKey(bytes memory key) internal pure returns (bytes memory newkey) {
