@@ -34,7 +34,7 @@ export class MystikoContractFactory {
     if (contractName.startsWith('CommitmentPool')) {
       return CommitmentPool__factory.connect(address, signerOrProvider) as T;
     }
-    if (contractName === 'MystikoV2Loop') {
+    if (contractName === 'MystikoV2Loop' || contractName.startsWith('MystikoV2Loop')) {
       return MystikoV2Loop__factory.connect(address, signerOrProvider) as T;
     }
     if (contractName === 'MystikoV2Bridge') {
