@@ -187,7 +187,17 @@
             "100000000000000000000"
           ]
         }
-      ]
+      ],
+      "hasher3Address": "0x3Ba6f0763C9633F24A5B85f6cb34587Bf60e2037",
+      "rollup1Address": "0xcB35e9D9e49Dcd43adc88FeA18E7fd2F536F3d60",
+      "rollup4Address": "0x948E25F67323a139fF4eb0106d128307f6791A4A",
+      "rollup16Address": "0x83f3acbA0D1451855e4bC05A2Eb8C861d2E0A13a",
+      "transaction1x0VerifierAddress": "0xdD5620752f606EB33b7159339f1CDCFECfB40503",
+      "transaction1x1VerifierAddress": "0x7C26c82174E6d696b3d51b717899936626f475cb",
+      "transaction1x2VerifierAddress": "0x35CBEC1354Efb29d0e4137f62f064ACc1843D19E",
+      "transaction2x0VerifierAddress": "0x0F483509328f83cA0A1D1e6D7374F7D09f578524",
+      "transaction2x1VerifierAddress": "0x0a1372D8DC3a22A942341B603a8B1B82480De3E1",
+      "transaction2x2VerifierAddress": "0xED0ca5595099456C569B599e5Ea8F3d3B7b9a8B3"
     },
     {
       "name": "BSC Testnet",
@@ -314,7 +324,17 @@
             "1000000000"
           ]
         }
-      ]
+      ],
+      "hasher3Address": "0x8B39bF17DE6Da1Cb2f4fD1cbDF3dd84e8AD2c5a3",
+      "rollup1Address": "0x49Db93267F2E88fa3821E615C5f788ff250c86fB",
+      "rollup4Address": "0x8B1a4A5B4a4f425c125cB1bcEc04BF784e275340",
+      "rollup16Address": "0xCd83bF66eebe4a0b0E36526f1318064A0472814C",
+      "transaction1x0VerifierAddress": "0x0ee27cEeCe9b2446856474971CF80BAC406Fde7a",
+      "transaction1x1VerifierAddress": "0x22dD4Ff4631BB0ad56e0ed6274DCCE04D96AF84e",
+      "transaction1x2VerifierAddress": "0x52d4ddAf0a2da318aaBC4783b7d31C3bD328B6f2",
+      "transaction2x0VerifierAddress": "0xf5dEA968a62bB53844A2EA4226284c8bA1Ea516F",
+      "transaction2x1VerifierAddress": "0xe84F653b6A450efbAE1fA7aaff52c711b28Cc01E",
+      "transaction2x2VerifierAddress": "0x9921a79E9FAC18AcD7C5C7F926E8fA8f78167978"
     },
     {
       "name": "Fantom Testnet",
@@ -350,7 +370,17 @@
             "1000000000000000000000"
           ]
         }
-      ]
+      ],
+      "hasher3Address": "0x0e3Ce6d2a3692d1f638537733bd836f2FCb45A19",
+      "rollup1Address": "0xd5F0E1b5A37A58B26624811514006ceBB961ac1E",
+      "rollup4Address": "0x083C3808A4a43Fa8a2b19e5b577BE49F280084d0",
+      "rollup16Address": "0x3B96eAf28D9972F11ED57D7e8DDc5bF42675316E",
+      "transaction1x0VerifierAddress": "0x79A98BC35e6c65ef0cb47D9BFFC952FDff1a6E41",
+      "transaction1x1VerifierAddress": "0xa3bF511A38E6804a6ad680AA3B16CF5823ab5f81",
+      "transaction1x2VerifierAddress": "0x7702CD4Cc4dC777fBfdaE2C1B8bfAe123796110d",
+      "transaction2x0VerifierAddress": "0xd2DC932e781b99Cc6313b66f2888cEa5CA6cD85F",
+      "transaction2x1VerifierAddress": "0xB8dAE66AaC519bD05e37fe49BEDD3Ff2095e275A",
+      "transaction2x2VerifierAddress": "0x47bF4045f0821ECaCF6Cf365b1832FaD3d3ebFe7"
     },
     {
       "name": "Polygon Testnet",
@@ -416,7 +446,17 @@
             "100000000000000000000"
           ]
         }
-      ]
+      ],
+      "hasher3Address": "0x22dD4Ff4631BB0ad56e0ed6274DCCE04D96AF84e",
+      "rollup1Address": "0x52d4ddAf0a2da318aaBC4783b7d31C3bD328B6f2",
+      "rollup4Address": "0xf5dEA968a62bB53844A2EA4226284c8bA1Ea516F",
+      "rollup16Address": "0xe84F653b6A450efbAE1fA7aaff52c711b28Cc01E",
+      "transaction1x0VerifierAddress": "0x9921a79E9FAC18AcD7C5C7F926E8fA8f78167978",
+      "transaction1x1VerifierAddress": "0xe6487EC84D97bae9FE3bc345b54Ef9383dB44817",
+      "transaction1x2VerifierAddress": "0x3e65eefe55c37a26FDe51933e4D42dE91ECBD812",
+      "transaction2x0VerifierAddress": "0x23b52EFf5dCa09C7178eEE88Cc7D6E7fB1Bcca6B",
+      "transaction2x1VerifierAddress": "0x9bc4B95FfbEaFBe2D1dbF78C35cA54665B112DB2",
+      "transaction2x2VerifierAddress": "0x3a042B4722a53A204039933570AB85F9f43e0900"
     },
     {
       "name": "Avalanche Testnet",
@@ -482,7 +522,17 @@
             "100000000000000000000"
           ]
         }
-      ]
+      ],
+      "hasher3Address": "0xFE1229741a51133DDe078793Cf5B343570961f47",
+      "rollup1Address": "0xA33cB8399a362527Be3D5c899FD6819D7cE7Cf74",
+      "rollup4Address": "0x42641BE2F80DfC7a74D21991d26283ed360f640d",
+      "rollup16Address": "0x27689FDB2825631D26B03f8AE23cc07117D55EB1",
+      "transaction1x0VerifierAddress": "0xF0A8b74b9a68468829a9e0eE6d06225a6B6d2387",
+      "transaction1x1VerifierAddress": "0xFc62845484049cCFF01657a1406f02eFd5F9A4cA",
+      "transaction1x2VerifierAddress": "0x2c9668e0a45a645419f8e47CA14442c789CE72FD",
+      "transaction2x0VerifierAddress": "0xaD0EED4b5dFe5fa66613738450a1cb4E603cb575",
+      "transaction2x1VerifierAddress": "0x3FA30Fb19690E6632Be67D75508Ef924C64B9caF",
+      "transaction2x2VerifierAddress": "0xaFD0D820b66F29C839aE3a6F55FA4FA7edb96852"
     }
   ],
   "bridges": [
@@ -509,6 +559,72 @@
           "assetSymbol": "BNB",
           "address": "0xB747b16A55abC6E5DA53259017b5461745490DEd",
           "syncStart": 19060174
+        },
+        {
+          "network": "polygontestnet",
+          "assetSymbol": "MATIC",
+          "address": "0x3aa81FDaB706B85E391FCdC3bb310F8d2cE6E97E",
+          "syncStart": 26283336
+        },
+        {
+          "network": "polygontestnet",
+          "assetSymbol": "MTT",
+          "address": "0x7a538723a7229Ab2B2761913De8674894d17b144",
+          "syncStart": 26283392
+        },
+        {
+          "network": "polygontestnet",
+          "assetSymbol": "mUSD",
+          "address": "0x2f55427bc8a5f746a0FF9a4A426e0363ecC5bCF9",
+          "syncStart": 26283445
+        },
+        {
+          "network": "goerli",
+          "assetSymbol": "ETH",
+          "address": "0x5eF315d16694Feb96F9A18f867A2C714F6A09A1b",
+          "syncStart": 6870287
+        },
+        {
+          "network": "goerli",
+          "assetSymbol": "mUSD",
+          "address": "0xC861dA6a7860309E42e61bA74FBd2123202EC599",
+          "syncStart": 6870301
+        },
+        {
+          "network": "goerli",
+          "assetSymbol": "MTT",
+          "address": "0xaa05fe8aE6A2a1344466d14A0F230de857033c3E",
+          "syncStart": 6870384
+        },
+        {
+          "network": "fantomtestnet",
+          "assetSymbol": "FTM",
+          "address": "0x2CEE4E20bf2124D0A69048bdD2450F57D87c7768",
+          "syncStart": 8994993
+        },
+        {
+          "network": "fantomtestnet",
+          "assetSymbol": "MTT",
+          "address": "0x1095190c0C081099b125D61D467E92Ced1E747a2",
+          "syncStart": 8995201
+        },
+        {
+          "network": "avalanchetestnet",
+          "assetSymbol": "AVAX",
+          "address": "0x7536679826381a1C1831c0517f79DC43a04d84B1",
+          "syncStart": 9587701
+        },
+        {
+          "network": "avalanchetestnet",
+          "assetSymbol": "mUSD",
+          "address": "0x3810bB703b359B264D2afc25C86Dc017F72376eD",
+          "syncStart": 9587882
+        },
+        {
+          "network": "avalanchetestnet",
+          "assetSymbol": "MTT",
+          "address": "0x9cC81b320De3A6810De54743B2EEDfd28eFa1911",
+          "syncStart": 9587999
         }
       ],
       "pairs": [
@@ -533,6 +649,36 @@
             {
               "network": "ropsten",
               "assetSymbol": "mUSD"
+            }
+          ]
+        },
+        {
+          "pair": [
+            {
+              "network": "goerli",
+              "assetSymbol": "ETH",
+              "address": "0xb13733b8dcBC65EcAf8FFDFdE50DC5408e90b2c3",
+              "syncStart": 6870290
+            }
+          ]
+        },
+        {
+          "pair": [
+            {
+              "network": "goerli",
+              "assetSymbol": "MTT",
+              "address": "0x9291ff9AC5F4A2699699f67fBB065f91c8cD39a8",
+              "syncStart": 6870388
+            }
+          ]
+        },
+        {
+          "pair": [
+            {
+              "network": "goerli",
+              "assetSymbol": "mUSD",
+              "address": "0xF6CaC9d39c8080194098C58ED51e9a6705CBAA48",
+              "syncStart": 6870304
             }
           ]
         },
@@ -578,7 +724,9 @@
           "pair": [
             {
               "network": "polygontestnet",
-              "assetSymbol": "MATIC"
+              "assetSymbol": "MATIC",
+              "address": "0x5726dd80Fafb2951B82EDffb1Cb0d31F8221Bc22",
+              "syncStart": 26283341
             }
           ]
         },
@@ -586,7 +734,9 @@
           "pair": [
             {
               "network": "polygontestnet",
-              "assetSymbol": "MTT"
+              "assetSymbol": "MTT",
+              "address": "0xC0C2d2C5cEDbB020C09f31142C8599054986CB2B",
+              "syncStart": 26283395
             }
           ]
         },
@@ -594,6 +744,56 @@
           "pair": [
             {
               "network": "polygontestnet",
+              "assetSymbol": "mUSD",
+              "address": "0xEa164BED9684A0c2d8ed491E1aC24B58FA424476",
+              "syncStart": 26283449
+            }
+          ]
+        },
+        {
+          "pair": [
+            {
+              "network": "avalanchetestnet",
+              "assetSymbol": "AVAX",
+              "address": "0xc7EfE69d0Fe03F110DCe5aA91D559f33DaC97534",
+              "syncStart": 9587727
+            }
+          ]
+        },
+        {
+          "pair": [
+            {
+              "network": "avalanchetestnet",
+              "assetSymbol": "MTT",
+              "address": "0xa0F3e2fB7d7f24a8fB122748aC9288715e727cd1",
+              "syncStart": 9588025
+            }
+          ]
+        },
+        {
+          "pair": [
+            {
+              "network": "avalanchetestnet",
+              "assetSymbol": "mUSD",
+              "address": "0xc10B4E32c28cB2fACD3aF52F1bA74E88Dc82039C",
+              "syncStart": 9587915
+            }
+          ]
+        },
+        {
+          "pair": [
+            {
+              "network": "fantomtestnet",
+              "assetSymbol": "FTM",
+              "address": "0x4e5EaB2f5d25A709cBEe2c0c2d5B35514a2DD936",
+              "syncStart": 8995008
+            }
+          ]
+        },
+        {
+          "pair": [
+            {
+              "network": "fantomtestnet",
               "assetSymbol": "mUSD"
             }
           ]
@@ -601,24 +801,18 @@
         {
           "pair": [
             {
-              "network": "avalanchetestnet",
-              "assetSymbol": "AVAX"
+              "network": "fantomtestnet",
+              "assetSymbol": "MTT",
+              "address": "0x3FA30Fb19690E6632Be67D75508Ef924C64B9caF",
+              "syncStart": 8995216
             }
           ]
         },
         {
           "pair": [
             {
-              "network": "avalanchetestnet",
-              "assetSymbol": "MTT"
-            }
-          ]
-        },
-        {
-          "pair": [
-            {
-              "network": "avalanchetestnet",
-              "assetSymbol": "mUSD"
+              "network": "auroratestnet",
+              "assetSymbol": "aETH"
             }
           ]
         }
@@ -679,7 +873,26 @@
           "minimal": "1000"
         }
       ],
-      "commitmentPools": [],
+      "commitmentPools": [
+        {
+          "network": "goerli",
+          "assetSymbol": "MTT",
+          "address": "0xf43814B3f095E82429FD206ac9Cf4A5ebdA1f20A",
+          "syncStart": 6875907
+        },
+        {
+          "network": "bsctestnet",
+          "assetSymbol": "MTT",
+          "address": "0xD0C258Debe71f0268c7FE5C6Aa31fF6Fb761BCB4",
+          "syncStart": 19262001
+        },
+        {
+          "network": "bsctestnet",
+          "assetSymbol": "mUSD",
+          "address": "0x88d22fa0De82401eA88E57BFe053b0f0c1162238",
+          "syncStart": 19262076
+        }
+      ],
       "pairs": [
         {
           "pair": [
@@ -697,11 +910,15 @@
           "pair": [
             {
               "network": "goerli",
-              "assetSymbol": "MTT"
+              "assetSymbol": "MTT",
+              "address": "0x2f4f474cc257088EA060f4fc70184c927C6A406a",
+              "syncStart": 6875914
             },
             {
               "network": "bsctestnet",
-              "assetSymbol": "MTT"
+              "assetSymbol": "MTT",
+              "address": "0xfF8d44Fa9Bd4B94432A8F429f877A86f3fdAA759",
+              "syncStart": 19262013
             }
           ]
         },
@@ -713,7 +930,9 @@
             },
             {
               "network": "bsctestnet",
-              "assetSymbol": "mUSD"
+              "assetSymbol": "mUSD",
+              "address": "0x8d8ecbE8C34539Eb8F8A5eBa77876272d7127fe3",
+              "syncStart": 19262088
             }
           ]
         },
@@ -742,6 +961,14 @@
         {
           "network": "ropsten",
           "address": "0x6498ae1f9C9555E516036038ce2fB75D819b46D4"
+        },
+        {
+          "network": "fantomtestnet",
+          "address": "0x49Db93267F2E88fa3821E615C5f788ff250c86fB"
+        },
+        {
+          "network": "polygontestnet",
+          "address": "0x84DC8EBD5F614068766c3E7cEc1F5aAD1c18c401"
         }
       ],
       "fees": [
@@ -767,6 +994,10 @@
         },
         {
           "network": "auroratestnet",
+          "minimal": "1000"
+        },
+        {
+          "network": "fantomtestnet",
           "minimal": "1000"
         }
       ],
@@ -818,6 +1049,48 @@
           "assetSymbol": "BNB",
           "address": "0xaAB5706d42eCd69D6d952c3a26CA3B50f115B43a",
           "syncStart": 19063477
+        },
+        {
+          "network": "fantomtestnet",
+          "assetSymbol": "MTT",
+          "address": "0xCd83bF66eebe4a0b0E36526f1318064A0472814C",
+          "syncStart": 9012673
+        },
+        {
+          "network": "polygontestnet",
+          "assetSymbol": "MTT",
+          "address": "0xCc6483E6D8304b88AD3B650fA8c5c3E62f284B61",
+          "syncStart": 26302200
+        },
+        {
+          "network": "polygontestnet",
+          "assetSymbol": "mUSD",
+          "address": "0x4Ca06F314C022b593d287b1b16AB2959620619A2",
+          "syncStart": 26302296
+        },
+        {
+          "network": "ropsten",
+          "assetSymbol": "mMATIC",
+          "address": "0x34a51C686C7CbF4cd7ef4eE46ab398A32A40Ba30",
+          "syncStart": 12261050
+        },
+        {
+          "network": "polygontestnet",
+          "assetSymbol": "MATIC",
+          "address": "0xFa8E2bE6Cf88E9C738010e98d4d330E1ae74fbc5",
+          "syncStart": 26304221
+        },
+        {
+          "network": "polygontestnet",
+          "assetSymbol": "mETH",
+          "address": "0x7fDbFF9bAa9a256abc2e06860f4e9a0F8de868F2",
+          "syncStart": 26304240
+        },
+        {
+          "network": "ropsten",
+          "assetSymbol": "mAVAX",
+          "address": "0xCB66ff3F7aeBf93fD977A7a4ce2D536959B6c276",
+          "syncStart": 12261117
         }
       ],
       "pairs": [
@@ -826,14 +1099,14 @@
             {
               "network": "ropsten",
               "assetSymbol": "ETH",
-              "address": "0xec0Aef5aDdBE6f3253e0a2dAd2E45a98F66bB0D5",
-              "syncStart": 12241630
+              "address": "0xEf78E6c700e73b5d4d2EBEC517DcfE9327C27efd",
+              "syncStart": 12261019
             },
             {
               "network": "bsctestnet",
               "assetSymbol": "mETH",
-              "address": "0xcEC5C98b989150174984DD774Ab1d15977B4066E",
-              "syncStart": 19063410
+              "address": "0x5aB09fe96F3a2FB73dC78C9ebB98B9BF42ce763B",
+              "syncStart": 19263177
             }
           ]
         },
@@ -842,14 +1115,14 @@
             {
               "network": "ropsten",
               "assetSymbol": "MTT",
-              "address": "0x422830FE9D8B51cc8D999834f40AFfD524289E88",
-              "syncStart": 12241612
+              "address": "0x7A4999ccdb9F7474A08d5E49d085338C6Ce5c584",
+              "syncStart": 12260521
             },
             {
               "network": "bsctestnet",
               "assetSymbol": "MTT",
-              "address": "0xF69721A01Dce998554AFe7D6368510c2d64F473e",
-              "syncStart": 19063446
+              "address": "0x0F6abA0581F2cD888e3a3Eb76874C0cFEeDa34B7",
+              "syncStart": 19257618
             }
           ]
         },
@@ -858,14 +1131,14 @@
             {
               "network": "ropsten",
               "assetSymbol": "mUSD",
-              "address": "0x40385C519f94Ddec85dAbBcc7045978995E057b3",
-              "syncStart": 12241602
+              "address": "0x3E6966F88033312798305485bCB7341F1d1A4Ba4",
+              "syncStart": 12260545
             },
             {
               "network": "bsctestnet",
               "assetSymbol": "mUSD",
-              "address": "0x912E54f8b6AF4d211F88a153279750b865E78096",
-              "syncStart": 19062923
+              "address": "0xA78986dbE3131a85C85FF135FE81835f1A7813c2",
+              "syncStart": 19257969
             }
           ]
         },
@@ -874,14 +1147,14 @@
             {
               "network": "ropsten",
               "assetSymbol": "mBNB",
-              "address": "0x15C3Ac08D76Ceb9546B50872D3cB410f08077668",
-              "syncStart": 12241622
+              "address": "0x15024d81de14a4e9DD3F973004466c75434c96a7",
+              "syncStart": 12261032
             },
             {
               "network": "bsctestnet",
               "assetSymbol": "BNB",
-              "address": "0x29175CcC7afa0a0336149236F92CfE633047F6F9",
-              "syncStart": 19063490
+              "address": "0xf44041A0C4a66d01163280BFB156f878D1143979",
+              "syncStart": 19263315
             }
           ]
         },
@@ -889,11 +1162,15 @@
           "pair": [
             {
               "network": "ropsten",
-              "assetSymbol": "ETH"
+              "assetSymbol": "ETH",
+              "address": "0x207216aEfd5f4c85fAdd0aa8c4311C7993DfA85b",
+              "syncStart": 12261071
             },
             {
               "network": "polygontestnet",
-              "assetSymbol": "mETH"
+              "assetSymbol": "mETH",
+              "address": "0x2a4DCf5DeD6DD2A169Ce548ab897E6CCc89805A4",
+              "syncStart": 26304246
             }
           ]
         },
@@ -901,11 +1178,15 @@
           "pair": [
             {
               "network": "ropsten",
-              "assetSymbol": "MTT"
+              "assetSymbol": "MTT",
+              "address": "0x023F9AA2c07E6b5d336d86f11488ce47a3eDEfE4",
+              "syncStart": 12260622
             },
             {
               "network": "polygontestnet",
-              "assetSymbol": "MTT"
+              "assetSymbol": "MTT",
+              "address": "0xc06686F28046AE620126a37F399ee9432feeB1f6",
+              "syncStart": 26302211
             }
           ]
         },
@@ -913,11 +1194,15 @@
           "pair": [
             {
               "network": "ropsten",
-              "assetSymbol": "mUSD"
+              "assetSymbol": "mUSD",
+              "address": "0x897076c855C56463B08CC8f3feF347D5B3Bd39DF",
+              "syncStart": 12260629
             },
             {
               "network": "polygontestnet",
-              "assetSymbol": "mUSD"
+              "assetSymbol": "mUSD",
+              "address": "0xe9403b46EB15449C90B93Cd5BdBc9B980934Cf0E",
+              "syncStart": 26302301
             }
           ]
         },
@@ -925,11 +1210,15 @@
           "pair": [
             {
               "network": "ropsten",
-              "assetSymbol": "mMATIC"
+              "assetSymbol": "mMATIC",
+              "address": "0x1f4B1E892e8f4d5B072AA4394849678128599421",
+              "syncStart": 12261053
             },
             {
               "network": "polygontestnet",
-              "assetSymbol": "MATIC"
+              "assetSymbol": "MATIC",
+              "address": "0xAA0AbfD989Edf4ee9c4b6C4518b185Ab370B8D5A",
+              "syncStart": 26304226
             }
           ]
         },
@@ -937,7 +1226,9 @@
           "pair": [
             {
               "network": "ropsten",
-              "assetSymbol": "ETH"
+              "assetSymbol": "ETH",
+              "address": "0xB2416832bCF9Fb529E166A9468facf8527cBCC33",
+              "syncStart": 12261124
             },
             {
               "network": "avalanchetestnet",
@@ -949,7 +1240,9 @@
           "pair": [
             {
               "network": "ropsten",
-              "assetSymbol": "MTT"
+              "assetSymbol": "MTT",
+              "address": "0xf6C0f3Bfb37EE1b7E01f4E163C5786F6Ff098333",
+              "syncStart": 12261095
             },
             {
               "network": "avalanchetestnet",
@@ -961,7 +1254,9 @@
           "pair": [
             {
               "network": "ropsten",
-              "assetSymbol": "mUSD"
+              "assetSymbol": "mUSD",
+              "address": "0xe7618c67F9205A4aB7e3d7c3FD475E112B6D9d08",
+              "syncStart": 12261106
             },
             {
               "network": "avalanchetestnet",
@@ -973,7 +1268,9 @@
           "pair": [
             {
               "network": "ropsten",
-              "assetSymbol": "mAVAX"
+              "assetSymbol": "mAVAX",
+              "address": "0x52bEc97A5F14DD6953887dCFad0e4712f0E4CD6D",
+              "syncStart": 12261121
             },
             {
               "network": "avalanchetestnet",
@@ -1014,6 +1311,22 @@
             {
               "network": "auroratestnet",
               "assetSymbol": "mUSD"
+            }
+          ]
+        },
+        {
+          "pair": [
+            {
+              "network": "ropsten",
+              "assetSymbol": "MTT",
+              "address": "0x430bD2f588940c3041508c9189EC807158406f65",
+              "syncStart": 12260591
+            },
+            {
+              "network": "fantomtestnet",
+              "assetSymbol": "MTT",
+              "address": "0x10E8262dECf54EF16E5a5D0c53A6Af1323A5351C",
+              "syncStart": 9012688
             }
           ]
         }
