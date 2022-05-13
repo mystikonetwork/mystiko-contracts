@@ -8,10 +8,10 @@ import {
   MystikoV2Bridge__factory,
   MystikoV2Loop,
   MystikoV2Loop__factory,
-  MystikoV2WithCeler,
-  MystikoV2WithCeler__factory,
-  MystikoV2WithTBridge,
-  MystikoV2WithTBridge__factory,
+  MystikoV2Celer,
+  MystikoV2Celer__factory,
+  MystikoV2TBridge,
+  MystikoV2TBridge__factory,
 } from './typechain';
 
 export type SupportedContractType =
@@ -19,8 +19,8 @@ export type SupportedContractType =
   | CommitmentPool
   | MystikoV2Loop
   | MystikoV2Bridge
-  | MystikoV2WithCeler
-  | MystikoV2WithTBridge;
+  | MystikoV2Celer
+  | MystikoV2TBridge;
 
 export class MystikoContractFactory {
   public static connect<T extends SupportedContractType>(
@@ -34,17 +34,17 @@ export class MystikoContractFactory {
     if (contractName.startsWith('CommitmentPool')) {
       return CommitmentPool__factory.connect(address, signerOrProvider) as T;
     }
-    if (contractName === 'MystikoV2Loop' || contractName.startsWith('MystikoV2WithLoop')) {
+    if (contractName === 'MystikoV2Loop') {
       return MystikoV2Loop__factory.connect(address, signerOrProvider) as T;
     }
     if (contractName === 'MystikoV2Bridge') {
       return MystikoV2Bridge__factory.connect(address, signerOrProvider) as T;
     }
-    if (contractName.startsWith('MystikoV2WithTBridge')) {
-      return MystikoV2WithTBridge__factory.connect(address, signerOrProvider) as T;
+    if (contractName.startsWith('MystikoV2TBridge')) {
+      return MystikoV2TBridge__factory.connect(address, signerOrProvider) as T;
     }
-    if (contractName.startsWith('MystikoV2WithCeler')) {
-      return MystikoV2WithCeler__factory.connect(address, signerOrProvider) as T;
+    if (contractName.startsWith('MystikoV2Celer')) {
+      return MystikoV2Celer__factory.connect(address, signerOrProvider) as T;
     }
     throw new Error(`unsupported contract name ${contractName}`);
   }

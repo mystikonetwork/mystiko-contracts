@@ -20,7 +20,7 @@ export function testLoopConstructor(contractName: string, mystikoContract: any, 
       expect(await mystikoContract.bridgeType()).to.equal('loop');
     });
 
-    if (contractName === 'MystikoV2WithLoopERC20') {
+    if (contractName === 'MystikoV2LoopERC20') {
       it('should initialize erc20 token correctly', async () => {
         expect(await mystikoContract.assetType()).to.equal('erc20');
         expect(await mystikoContract.assetName()).to.equal('Mystiko Test Token');
@@ -63,7 +63,7 @@ export function testBridgeConstructor(
       expect(await mystikoContract.isDepositsDisabled()).to.equal(false);
     });
     it('should initialize bridge type correctly', async () => {
-      if (contractName === 'MystikoV2WithTBridgeMain' || contractName === 'MystikoV2WithTBridgeERC20') {
+      if (contractName === 'MystikoV2TBridgeMain' || contractName === 'MystikoV2TBridgeERC20') {
         expect(await mystikoContract.bridgeType()).to.equal('tbridge');
       }
     });

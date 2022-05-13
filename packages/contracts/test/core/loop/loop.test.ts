@@ -1,6 +1,6 @@
 import { Wallet } from '@ethersproject/wallet';
 import { waffle } from 'hardhat';
-import { MystikoV2WithLoopERC20, MystikoV2WithLoopMain } from '@mystikonetwork/contracts-abi';
+import { MystikoV2LoopERC20, MystikoV2LoopMain } from '@mystikonetwork/contracts-abi';
 import {
   deployLoopContracts,
   deployDependContracts,
@@ -55,8 +55,8 @@ describe('Test Mystiko loop', () => {
   }
 
   let accounts: Wallet[];
-  let loopERC20: MystikoV2WithLoopERC20;
-  let loopMain: MystikoV2WithLoopMain;
+  let loopERC20: MystikoV2LoopERC20;
+  let loopMain: MystikoV2LoopMain;
 
   beforeEach(async () => {
     accounts = waffle.provider.getWallets();
@@ -67,13 +67,13 @@ describe('Test Mystiko loop', () => {
   });
 
   it('test constructor', () => {
-    testLoopConstructor('MystikoV2WithLoopMain', loopMain, MinAmount);
-    testLoopConstructor('MystikoV2WithLoopERC20', loopERC20, MinAmount);
+    testLoopConstructor('MystikoV2LoopMain', loopMain, MinAmount);
+    testLoopConstructor('MystikoV2LoopERC20', loopERC20, MinAmount);
   });
 
   it('test admin operation', () => {
-    testLoopAdminOperations('MystikoV2WithLoopMain', loopMain, accounts);
-    testLoopAdminOperations('MystikoV2WithLoopERC20', loopERC20, accounts);
+    testLoopAdminOperations('MystikoV2LoopMain', loopMain, accounts);
+    testLoopAdminOperations('MystikoV2LoopERC20', loopERC20, accounts);
   });
 
   // test loop erc20 and main deposit with commitment pool test at pool.test.ts

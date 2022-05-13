@@ -3,8 +3,8 @@ import { waffle } from 'hardhat';
 import { toDecimals } from '@mystikonetwork/utils';
 import {
   MystikoTBridgeProxy,
-  MystikoV2WithTBridgeERC20,
-  MystikoV2WithTBridgeMain,
+  MystikoV2TBridgeERC20,
+  MystikoV2TBridgeMain,
   TestToken,
   CommitmentPoolMain,
   DummySanctionsList,
@@ -111,10 +111,10 @@ describe('Test Mystiko tbridge', () => {
   let localPoolMain: CommitmentPoolMain;
   let remotePoolMain: CommitmentPoolMain;
   // let localPoolERC20: CommitmentPoolERC20;
-  let localERC20: MystikoV2WithTBridgeERC20;
-  let localMain: MystikoV2WithTBridgeMain;
-  let remoteERC20: MystikoV2WithTBridgeERC20;
-  let remoteMain: MystikoV2WithTBridgeMain;
+  let localERC20: MystikoV2TBridgeERC20;
+  let localMain: MystikoV2TBridgeMain;
+  let remoteERC20: MystikoV2TBridgeERC20;
+  let remoteMain: MystikoV2TBridgeMain;
   let zokratesRuntime: ZokratesRuntime;
   let protocol: MystikoProtocolV2;
 
@@ -140,7 +140,7 @@ describe('Test Mystiko tbridge', () => {
   it('test constructor', async () => {
     await localMain.setPeerContract(DestinationChainID, remoteMain.address);
     testBridgeConstructor(
-      'MystikoV2WithTBridgeMain',
+      'MystikoV2TBridgeMain',
       localMain,
       MinAmount,
       MinBridgeFee,
@@ -150,7 +150,7 @@ describe('Test Mystiko tbridge', () => {
 
     await localERC20.setPeerContract(DestinationChainID, remoteERC20.address);
     testBridgeConstructor(
-      'MystikoV2WithTBridgeERC20',
+      'MystikoV2TBridgeERC20',
       localERC20,
       MinAmount,
       MinBridgeFee,
@@ -160,8 +160,8 @@ describe('Test Mystiko tbridge', () => {
   });
 
   it('test admin operation', () => {
-    testBridgeAdminOperations('MystikoV2WithTBridgeMain', localMain, accounts);
-    testBridgeAdminOperations('MystikoV2WithTBridgeERC20', localERC20, accounts);
+    testBridgeAdminOperations('MystikoV2TBridgeMain', localMain, accounts);
+    testBridgeAdminOperations('MystikoV2TBridgeERC20', localERC20, accounts);
     testTBridgeProxyAdminOperations('MystikoTBridgeProxy', tbridgeProxy, accounts);
   });
 
@@ -170,7 +170,7 @@ describe('Test Mystiko tbridge', () => {
     const cmInfo = await constructCommitment(protocol, 21, depositAmount.toString());
 
     await testBridgeDeposit(
-      'MystikoV2WithTBridgeMain',
+      'MystikoV2TBridgeMain',
       protocol,
       localMain,
       localPoolMain,
@@ -192,7 +192,7 @@ describe('Test Mystiko tbridge', () => {
   //   const cmInfo = await constructCommitment(protocol, 21, depositAmount.toString());
   //
   //   await testBridgeDeposit(
-  //     'MystikoV2WithTBridgeMain',
+  //     'MystikoV2TBridgeMain',
   //     protocol,
   //     localMain,
   //     remoteERC20,
@@ -211,7 +211,7 @@ describe('Test Mystiko tbridge', () => {
   //   const cmInfo = await constructCommitment(protocol, 21, depositAmount.toString());
   //
   //   await testBridgeDeposit(
-  //     'MystikoV2WithTBridgeERC20',
+  //     'MystikoV2TBridgeERC20',
   //     protocol,
   //     localERC20,
   //     remoteMain,
@@ -230,7 +230,7 @@ describe('Test Mystiko tbridge', () => {
   //   const cmInfo = await constructCommitment(protocol, 21, depositAmount.toString());
   //
   //   await testBridgeDeposit(
-  //     'MystikoV2WithTBridgeERC20',
+  //     'MystikoV2TBridgeERC20',
   //     protocol,
   //     localERC20,
   //     remoteERC20,

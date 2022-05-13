@@ -1,7 +1,7 @@
 import { Wallet } from '@ethersproject/wallet';
 import { waffle } from 'hardhat';
 import {
-  MystikoV2WithLoopMain,
+  MystikoV2LoopMain,
   Transaction1x0Verifier,
   Transaction1x1Verifier,
   Transaction1x2Verifier,
@@ -77,7 +77,7 @@ describe('Mystiko combination test R16R4R1 ', () => {
   let testToken: TestToken;
   let sanctionList: DummySanctionsList;
   let poolMain: CommitmentPoolMain;
-  let loopMain: MystikoV2WithLoopMain;
+  let loopMain: MystikoV2LoopMain;
   let transaction1x0Verifier: Transaction1x0Verifier;
   let transaction1x1Verifier: Transaction1x1Verifier;
   let transaction1x2Verifier: Transaction1x2Verifier;
@@ -121,7 +121,7 @@ describe('Mystiko combination test R16R4R1 ', () => {
     const cmInfo = await constructCommitment(protocol, queueSize, depositAmount.toString());
 
     await loopDeposit(
-      'MystikoV2WithLoopMain',
+      'MystikoV2LoopMain',
       protocol,
       loopMain,
       poolMain,

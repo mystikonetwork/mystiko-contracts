@@ -51,12 +51,9 @@ export declare namespace IMystikoBridge {
   };
 }
 
-export interface MystikoV2WithTBridgeERC20Interface extends utils.Interface {
-  contractName: 'MystikoV2WithTBridgeERC20';
+export interface MystikoV2TBridgeInterface extends utils.Interface {
+  contractName: 'MystikoV2TBridge';
   functions: {
-    'assetDecimals()': FunctionFragment;
-    'assetName()': FunctionFragment;
-    'assetSymbol()': FunctionFragment;
     'assetType()': FunctionFragment;
     'bridgeType()': FunctionFragment;
     'changeOperator(address)': FunctionFragment;
@@ -83,9 +80,6 @@ export interface MystikoV2WithTBridgeERC20Interface extends utils.Interface {
     'updateSanctionContractAddress(address)': FunctionFragment;
   };
 
-  encodeFunctionData(functionFragment: 'assetDecimals', values?: undefined): string;
-  encodeFunctionData(functionFragment: 'assetName', values?: undefined): string;
-  encodeFunctionData(functionFragment: 'assetSymbol', values?: undefined): string;
   encodeFunctionData(functionFragment: 'assetType', values?: undefined): string;
   encodeFunctionData(functionFragment: 'bridgeType', values?: undefined): string;
   encodeFunctionData(functionFragment: 'changeOperator', values: [string]): string;
@@ -114,9 +108,6 @@ export interface MystikoV2WithTBridgeERC20Interface extends utils.Interface {
   encodeFunctionData(functionFragment: 'toggleSanctionCheck', values: [boolean]): string;
   encodeFunctionData(functionFragment: 'updateSanctionContractAddress', values: [string]): string;
 
-  decodeFunctionResult(functionFragment: 'assetDecimals', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'assetName', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'assetSymbol', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'assetType', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'bridgeType', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'changeOperator', data: BytesLike): Result;
@@ -153,13 +144,13 @@ export type CommitmentCrossChainEvent = TypedEvent<[BigNumber], { commitment: Bi
 
 export type CommitmentCrossChainEventFilter = TypedEventFilter<CommitmentCrossChainEvent>;
 
-export interface MystikoV2WithTBridgeERC20 extends BaseContract {
-  contractName: 'MystikoV2WithTBridgeERC20';
+export interface MystikoV2TBridge extends BaseContract {
+  contractName: 'MystikoV2TBridge';
   connect(signerOrProvider: Signer | Provider | string): this;
   attach(addressOrName: string): this;
   deployed(): Promise<this>;
 
-  interface: MystikoV2WithTBridgeERC20Interface;
+  interface: MystikoV2TBridgeInterface;
 
   queryFilter<TEvent extends TypedEvent>(
     event: TypedEventFilter<TEvent>,
@@ -177,12 +168,6 @@ export interface MystikoV2WithTBridgeERC20 extends BaseContract {
   removeListener: OnEvent<this>;
 
   functions: {
-    assetDecimals(overrides?: CallOverrides): Promise<[number]>;
-
-    assetName(overrides?: CallOverrides): Promise<[string]>;
-
-    assetSymbol(overrides?: CallOverrides): Promise<[string]>;
-
     assetType(overrides?: CallOverrides): Promise<[string]>;
 
     bridgeType(overrides?: CallOverrides): Promise<[string]>;
@@ -277,12 +262,6 @@ export interface MystikoV2WithTBridgeERC20 extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<ContractTransaction>;
   };
-
-  assetDecimals(overrides?: CallOverrides): Promise<number>;
-
-  assetName(overrides?: CallOverrides): Promise<string>;
-
-  assetSymbol(overrides?: CallOverrides): Promise<string>;
 
   assetType(overrides?: CallOverrides): Promise<string>;
 
@@ -379,12 +358,6 @@ export interface MystikoV2WithTBridgeERC20 extends BaseContract {
   ): Promise<ContractTransaction>;
 
   callStatic: {
-    assetDecimals(overrides?: CallOverrides): Promise<number>;
-
-    assetName(overrides?: CallOverrides): Promise<string>;
-
-    assetSymbol(overrides?: CallOverrides): Promise<string>;
-
     assetType(overrides?: CallOverrides): Promise<string>;
 
     bridgeType(overrides?: CallOverrides): Promise<string>;
@@ -450,12 +423,6 @@ export interface MystikoV2WithTBridgeERC20 extends BaseContract {
   };
 
   estimateGas: {
-    assetDecimals(overrides?: CallOverrides): Promise<BigNumber>;
-
-    assetName(overrides?: CallOverrides): Promise<BigNumber>;
-
-    assetSymbol(overrides?: CallOverrides): Promise<BigNumber>;
-
     assetType(overrides?: CallOverrides): Promise<BigNumber>;
 
     bridgeType(overrides?: CallOverrides): Promise<BigNumber>;
@@ -552,12 +519,6 @@ export interface MystikoV2WithTBridgeERC20 extends BaseContract {
   };
 
   populateTransaction: {
-    assetDecimals(overrides?: CallOverrides): Promise<PopulatedTransaction>;
-
-    assetName(overrides?: CallOverrides): Promise<PopulatedTransaction>;
-
-    assetSymbol(overrides?: CallOverrides): Promise<PopulatedTransaction>;
-
     assetType(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     bridgeType(overrides?: CallOverrides): Promise<PopulatedTransaction>;

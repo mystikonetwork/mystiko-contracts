@@ -3,7 +3,7 @@ pragma solidity ^0.8.0;
 
 import "./interface/ICrossChainProxy.sol";
 import "../../base/CrossChainDataSerializable.sol";
-import "../MystikoV2WithTBridge.sol";
+import "../MystikoV2TBridge.sol";
 
 contract MystikoTBridgeProxy is ICrossChainProxy {
   address operator;
@@ -45,7 +45,7 @@ contract MystikoTBridgeProxy is ICrossChainProxy {
     bytes calldata _message
   ) external onlyExecutorWhitelisted returns (bool) {
     require(
-      MystikoV2WithTBridge(_toContract).crossChainSyncTx(_fromChainId, _fromContract, _message, _executor),
+      MystikoV2TBridge(_toContract).crossChainSyncTx(_fromChainId, _fromContract, _message, _executor),
       "call crossChainSyncTx error"
     );
     return true;

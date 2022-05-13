@@ -1,8 +1,8 @@
 import { Wallet } from '@ethersproject/wallet';
 import { waffle } from 'hardhat';
 import {
-  MystikoV2WithLoopERC20,
-  MystikoV2WithLoopMain,
+  MystikoV2LoopERC20,
+  MystikoV2LoopMain,
   Transaction1x0Verifier,
   Transaction1x1Verifier,
   Transaction1x2Verifier,
@@ -99,8 +99,8 @@ describe('Test Mystiko pool', () => {
   let sanctionList: DummySanctionsList;
   let poolMain: CommitmentPoolMain;
   let poolErc20: CommitmentPoolERC20;
-  let loopERC20: MystikoV2WithLoopERC20;
-  let loopMain: MystikoV2WithLoopMain;
+  let loopERC20: MystikoV2LoopERC20;
+  let loopMain: MystikoV2LoopMain;
   let transaction1x0Verifier: Transaction1x0Verifier;
   let transaction1x1Verifier: Transaction1x1Verifier;
   let transaction1x2Verifier: Transaction1x2Verifier;
@@ -156,7 +156,7 @@ describe('Test Mystiko pool', () => {
     const cmInfo = await constructCommitment(protocol, queueSize, depositAmount.toString());
 
     await testLoopDeposit(
-      'MystikoV2WithLoopMain',
+      'MystikoV2LoopMain',
       protocol,
       loopMain,
       poolMain,
@@ -341,7 +341,7 @@ describe('Test Mystiko pool', () => {
     const cmInfo = await constructCommitment(protocol, queueSize, depositAmount.toString());
 
     await testLoopDeposit(
-      'MystikoV2WithLoopERC20',
+      'MystikoV2LoopERC20',
       protocol,
       loopERC20,
       poolErc20,
