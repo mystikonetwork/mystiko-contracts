@@ -1,4 +1,4 @@
-import { MystikoProtocol } from '@mystikonetwork/protocol';
+import { CommitmentInput, MystikoProtocol } from '@mystikonetwork/protocol';
 import { toBN } from '@mystikonetwork/utils';
 
 export interface CommitmentInfo<C> {
@@ -11,7 +11,7 @@ export interface CommitmentInfo<C> {
 }
 
 export async function constructCommitment<C>(
-  protocol: MystikoProtocol<any, C>,
+  protocol: MystikoProtocol<any, any, CommitmentInput, C>,
   size: number,
   depositAmount: string,
 ): Promise<CommitmentInfo<C>> {
@@ -22,7 +22,10 @@ export async function constructCommitment<C>(
   const mystikoAddress = protocol.shieldedAddress(pkVerify, pkEnc);
   const commitments: any[] = [];
   for (let i = 0; i < size; i += 1) {
-    const commitment = await protocol.commitmentWithShieldedAddress(mystikoAddress, toBN(depositAmount));
+    const commitment = await protocol.commitment({
+      publicKeys: mystikoAddress,
+      amount: toBN(depositAmount),
+    });
     commitments.push(commitment);
   }
 

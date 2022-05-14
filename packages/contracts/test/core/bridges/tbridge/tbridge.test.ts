@@ -1,4 +1,5 @@
 import { Wallet } from '@ethersproject/wallet';
+import { ZokratesCliProverFactory } from '@mystikonetwork/zkp-node';
 import { waffle } from 'hardhat';
 import { toDecimals } from '@mystikonetwork/utils';
 import {
@@ -9,7 +10,7 @@ import {
   CommitmentPoolMain,
   DummySanctionsList,
 } from '@mystikonetwork/contracts-abi';
-import { ZokratesRuntime, MystikoProtocolV2, ZokratesCliRuntime } from '@mystikonetwork/protocol';
+import { MystikoProtocolV2, ProtocolFactoryV2 } from '@mystikonetwork/protocol';
 import {
   deployDependContracts,
   loadFixture,
@@ -28,8 +29,6 @@ import {
 } from '../../../util/constants';
 import { testBridgeDeposit } from '../../../common/bridgeDepositTests';
 import { testTBridgeProxyAdminOperations } from '../../../common/adminOperationTests';
-
-const { initialize } = require('zokrates-js/node');
 
 describe('Test Mystiko tbridge', () => {
   async function fixture(accounts: Wallet[]) {
@@ -115,14 +114,12 @@ describe('Test Mystiko tbridge', () => {
   let localMain: MystikoV2TBridgeMain;
   let remoteERC20: MystikoV2TBridgeERC20;
   let remoteMain: MystikoV2TBridgeMain;
-  let zokratesRuntime: ZokratesRuntime;
   let protocol: MystikoProtocolV2;
 
   beforeEach(async () => {
     accounts = waffle.provider.getWallets();
-    const zokrates = await initialize();
-    zokratesRuntime = new ZokratesCliRuntime(zokrates);
-    protocol = new MystikoProtocolV2(zokratesRuntime);
+    const protocolFactory = new ProtocolFactoryV2(new ZokratesCliProverFactory());
+    protocol = await protocolFactory.create();
 
     const r = await loadFixture(fixture);
     testToken = r.testToken;

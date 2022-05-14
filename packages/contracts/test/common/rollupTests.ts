@@ -1,9 +1,9 @@
+import { TestToken } from '@mystikonetwork/contracts-abi';
+import { CommitmentOutput, MystikoProtocolV2 } from '@mystikonetwork/protocol';
+import { toBN, MerkleTree } from '@mystikonetwork/utils';
 import { expect } from 'chai';
 import { waffle } from 'hardhat';
 import { Wallet } from '@ethersproject/wallet';
-import { TestToken } from '@mystikonetwork/contracts-abi';
-import { CommitmentV2, MystikoProtocolV2 } from '@mystikonetwork/protocol';
-import { toBN, MerkleTree } from '@mystikonetwork/utils';
 import { MerkleTreeHeight, MinRollupFee, RollupAccountIndex1, RollupAccountIndex2 } from '../util/constants';
 
 async function enableRollupVerifier(
@@ -20,7 +20,7 @@ async function enableRollupVerifier(
 
 async function generateProof(
   protocol: MystikoProtocolV2,
-  commitments: CommitmentV2[],
+  commitments: CommitmentOutput[],
   mystikoContract: any,
   treeHeight: number,
   rollupSize: number,

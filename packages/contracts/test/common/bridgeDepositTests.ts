@@ -2,7 +2,7 @@ import { expect } from 'chai';
 import { waffle } from 'hardhat';
 import { ethers } from 'ethers';
 import { DummySanctionsList, TestToken } from '@mystikonetwork/contracts-abi';
-import { CommitmentV2, MystikoProtocolV2 } from '@mystikonetwork/protocol';
+import { CommitmentOutput, MystikoProtocolV2 } from '@mystikonetwork/protocol';
 import { toHex, toBN } from '@mystikonetwork/utils';
 import { Wallet } from '@ethersproject/wallet';
 import { CommitmentInfo } from './commitment';
@@ -29,7 +29,7 @@ export function testBridgeDeposit(
   depositAmount: string,
   isMainAsset: boolean,
   isDstMainAsset: boolean,
-  cmInfo: CommitmentInfo<CommitmentV2>,
+  cmInfo: CommitmentInfo<CommitmentOutput>,
 ) {
   let minBridgeFee: string;
   let minRollupFee: string;
@@ -79,7 +79,7 @@ export function testBridgeDeposit(
             commitments[0].commitmentHash.toString(),
             commitments[0].k.toString(),
             commitments[0].randomS.toString(),
-            toHex(commitments[0].privateNote),
+            toHex(commitments[0].encryptedNote),
             minBridgeFee,
             minExecutorFee,
             minRollupFee,
@@ -99,7 +99,7 @@ export function testBridgeDeposit(
             commitments[0].commitmentHash.toString(),
             commitments[0].k.toString(),
             commitments[0].randomS.toString(),
-            toHex(commitments[0].privateNote),
+            toHex(commitments[0].encryptedNote),
             minBridgeFee,
             minExecutorFee,
             minRollupFee,
@@ -119,7 +119,7 @@ export function testBridgeDeposit(
             commitments[0].commitmentHash.toString(),
             commitments[0].k.toString(),
             commitments[0].randomS.toString(),
-            toHex(commitments[0].privateNote),
+            toHex(commitments[0].encryptedNote),
             '0',
             minExecutorFee,
             minRollupFee,
@@ -137,7 +137,7 @@ export function testBridgeDeposit(
             commitments[0].commitmentHash.toString(),
             commitments[0].k.toString(),
             commitments[0].randomS.toString(),
-            toHex(commitments[0].privateNote),
+            toHex(commitments[0].encryptedNote),
             '0',
             minExecutorFee,
             minRollupFee,
@@ -155,7 +155,7 @@ export function testBridgeDeposit(
             commitments[0].commitmentHash.toString(),
             commitments[0].k.toString(),
             commitments[0].randomS.toString(),
-            toHex(commitments[0].privateNote),
+            toHex(commitments[0].encryptedNote),
             minBridgeFee,
             '0',
             minRollupFee,
@@ -173,7 +173,7 @@ export function testBridgeDeposit(
             commitments[0].commitmentHash.toString(),
             commitments[0].k.toString(),
             commitments[0].randomS.toString(),
-            toHex(commitments[0].privateNote),
+            toHex(commitments[0].encryptedNote),
             minBridgeFee,
             minExecutorFee,
             '0',
@@ -191,7 +191,7 @@ export function testBridgeDeposit(
             commitments[0].commitmentHash.toString(),
             protocol.randomBigInt().toString(),
             commitments[0].randomS.toString(),
-            toHex(commitments[0].privateNote),
+            toHex(commitments[0].encryptedNote),
             minBridgeFee,
             minExecutorFee,
             minRollupFee,
@@ -221,7 +221,7 @@ export function testBridgeDeposit(
             commitments[i].commitmentHash.toString(),
             commitments[i].k.toString(),
             commitments[i].randomS.toString(),
-            toHex(commitments[i].privateNote),
+            toHex(commitments[i].encryptedNote),
             minBridgeFee,
             minExecutorFee,
             minRollupFee,
@@ -345,7 +345,7 @@ export function testBridgeDeposit(
             event.args.commitment.toString() === commitments[i].commitmentHash.toString() &&
             event.args.rollupFee.toString() === rollupFee.toString() &&
             event.args.leafIndex.toString() === `${i}` &&
-            event.args.encryptedNote === toHex(commitments[i].privateNote),
+            event.args.encryptedNote === toHex(commitments[i].encryptedNote),
         );
         expect(commitmentIndex).to.gte(0);
       }
@@ -372,7 +372,7 @@ export function testBridgeDeposit(
           commitments[0].commitmentHash.toString(),
           commitments[0].k.toString(),
           commitments[0].randomS.toString(),
-          toHex(commitments[0].privateNote),
+          toHex(commitments[0].encryptedNote),
           minBridgeFee,
           minExecutorFee,
           minRollupFee,

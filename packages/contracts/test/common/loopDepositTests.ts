@@ -2,7 +2,7 @@ import { expect } from 'chai';
 import { waffle } from 'hardhat';
 import { Wallet } from '@ethersproject/wallet';
 import { DummySanctionsList, TestToken } from '@mystikonetwork/contracts-abi';
-import { CommitmentV2, MystikoProtocolV2 } from '@mystikonetwork/protocol';
+import { CommitmentOutput, MystikoProtocolV2 } from '@mystikonetwork/protocol';
 import { toHex, toBN } from '@mystikonetwork/utils';
 import { CommitmentInfo } from './commitment';
 import { MinAmount } from '../util/constants';
@@ -17,7 +17,7 @@ export function testLoopDeposit(
   accounts: Wallet[],
   depositAmount: string,
   isMainAsset: boolean,
-  cmInfo: CommitmentInfo<CommitmentV2>,
+  cmInfo: CommitmentInfo<CommitmentOutput>,
 ) {
   let minTotalAmount: string;
   let minRollupFee: string;
@@ -40,7 +40,7 @@ export function testLoopDeposit(
             commitments[0].commitmentHash.toString(),
             commitments[0].k.toString(),
             commitments[0].randomS.toString(),
-            toHex(commitments[0].privateNote),
+            toHex(commitments[0].encryptedNote),
             minRollupFee,
           ],
           { from: accounts[0].address, value: isMainAsset ? minTotalAmount : '0' },
@@ -58,7 +58,7 @@ export function testLoopDeposit(
             commitments[0].commitmentHash.toString(),
             commitments[0].k.toString(),
             commitments[0].randomS.toString(),
-            toHex(commitments[0].privateNote),
+            toHex(commitments[0].encryptedNote),
             minRollupFee,
           ],
           { from: accounts[0].address, value: isMainAsset ? minTotalAmount : '0' },
@@ -76,7 +76,7 @@ export function testLoopDeposit(
             commitments[0].commitmentHash.toString(),
             commitments[0].k.toString(),
             commitments[0].randomS.toString(),
-            toHex(commitments[0].privateNote),
+            toHex(commitments[0].encryptedNote),
             '0',
           ],
           { from: accounts[0].address, value: isMainAsset ? amount : '0' },
@@ -92,7 +92,7 @@ export function testLoopDeposit(
             commitments[0].commitmentHash.toString(),
             protocol.randomBigInt().toString(),
             commitments[0].randomS.toString(),
-            toHex(commitments[0].privateNote),
+            toHex(commitments[0].encryptedNote),
             minRollupFee,
           ],
           { from: accounts[0].address, value: isMainAsset ? minTotalAmount : '0' },
@@ -117,7 +117,7 @@ export function testLoopDeposit(
             commitments[0].commitmentHash.toString(),
             commitments[0].k.toString(),
             commitments[0].randomS.toString(),
-            toHex(commitments[0].privateNote),
+            toHex(commitments[0].encryptedNote),
             '0',
           ],
           { from: accounts[0].address, value: isMainAsset ? depositAmount : '0' },
@@ -137,7 +137,7 @@ export function testLoopDeposit(
               commitments[i].commitmentHash.toString(),
               commitments[i].k.toString(),
               commitments[i].randomS.toString(),
-              toHex(commitments[i].privateNote),
+              toHex(commitments[i].encryptedNote),
               minRollupFee,
             ],
             { from: accounts[0].address, value: isMainAsset ? minTotalAmount : '0' },
@@ -148,7 +148,7 @@ export function testLoopDeposit(
             commitments[i].commitmentHash.toString(),
             minRollupFee,
             `${i}`,
-            toHex(commitments[i].privateNote),
+            toHex(commitments[i].encryptedNote),
           );
 
         expect(await commitmentPool.isHistoricCommitment(commitments[i].commitmentHash.toString())).to.equal(
@@ -187,7 +187,7 @@ export function testLoopDeposit(
             commitments[0].commitmentHash.toString(),
             commitments[0].k.toString(),
             commitments[0].randomS.toString(),
-            toHex(commitments[0].privateNote),
+            toHex(commitments[0].encryptedNote),
             minRollupFee,
           ],
           { from: accounts[0].address, value: isMainAsset ? minTotalAmount : '0' },
@@ -219,7 +219,7 @@ export function loopDeposit(
   accounts: Wallet[],
   depositAmount: string,
   isMainAsset: boolean,
-  cmInfo: CommitmentInfo<CommitmentV2>,
+  cmInfo: CommitmentInfo<CommitmentOutput>,
 ) {
   let minTotalAmount: string;
   let minRollupFee: string;
@@ -254,7 +254,7 @@ export function loopDeposit(
               commitments[i].commitmentHash.toString(),
               commitments[i].k.toString(),
               commitments[i].randomS.toString(),
-              toHex(commitments[i].privateNote),
+              toHex(commitments[i].encryptedNote),
               minRollupFee,
             ],
             { from: accounts[0].address, value: isMainAsset ? minTotalAmount : '0' },
@@ -265,7 +265,7 @@ export function loopDeposit(
             commitments[i].commitmentHash.toString(),
             minRollupFee,
             `${i}`,
-            toHex(commitments[i].privateNote),
+            toHex(commitments[i].encryptedNote),
           );
 
         expect(await commitmentPool.isHistoricCommitment(commitments[i].commitmentHash.toString())).to.equal(
