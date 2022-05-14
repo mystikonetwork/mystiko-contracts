@@ -188,16 +188,16 @@
           ]
         }
       ],
-      "hasher3Address": "0x3Ba6f0763C9633F24A5B85f6cb34587Bf60e2037",
-      "rollup1Address": "0xcB35e9D9e49Dcd43adc88FeA18E7fd2F536F3d60",
-      "rollup4Address": "0x948E25F67323a139fF4eb0106d128307f6791A4A",
-      "rollup16Address": "0x83f3acbA0D1451855e4bC05A2Eb8C861d2E0A13a",
-      "transaction1x0VerifierAddress": "0xdD5620752f606EB33b7159339f1CDCFECfB40503",
-      "transaction1x1VerifierAddress": "0x7C26c82174E6d696b3d51b717899936626f475cb",
-      "transaction1x2VerifierAddress": "0x35CBEC1354Efb29d0e4137f62f064ACc1843D19E",
-      "transaction2x0VerifierAddress": "0x0F483509328f83cA0A1D1e6D7374F7D09f578524",
-      "transaction2x1VerifierAddress": "0x0a1372D8DC3a22A942341B603a8B1B82480De3E1",
-      "transaction2x2VerifierAddress": "0xED0ca5595099456C569B599e5Ea8F3d3B7b9a8B3"
+      "hasher3Address": "0x4F19b30A24125032037aABB6edb2f994F6073627",
+      "rollup1Address": "0xf7B446F05585BDedE1CB21Db4f1EbeD2A48D6637",
+      "rollup4Address": "0x18fd88896B5dA4f8bD32053458c2Aa97d060094f",
+      "rollup16Address": "0xD7f921Af7b593c506F34732346dEd716fcF708fE",
+      "transaction1x0VerifierAddress": "0x3156e4ab3f8ad0dd36eF1A9Bd0799BDC785501d4",
+      "transaction1x1VerifierAddress": "0x6E40f2E0a4C7D1603303B8BD6CC41A7Ec0bdd299",
+      "transaction1x2VerifierAddress": "0x333c3919C48123415154eDc74058E6Ce89cE822f",
+      "transaction2x0VerifierAddress": "0x250f6ef62C89e3dddE674Fa27e5645Fa82b0cE7b",
+      "transaction2x1VerifierAddress": "0x6498ae1f9C9555E516036038ce2fB75D819b46D4",
+      "transaction2x2VerifierAddress": "0xeD92C57454c43d0f50bf6E9bb148eBE66DDB2B83"
     },
     {
       "name": "BSC Testnet",
@@ -264,16 +264,16 @@
           ]
         }
       ],
-      "hasher3Address": "0xa944c3141ED30cDd42C88720c0BF7c09Ebc0624f",
-      "rollup1Address": "0x3F24a57169c1726DDf3d4DD70CD97Fc2FCFce4e4",
-      "rollup4Address": "0xA998521C3Bb12C1f1690A8AE2892365Aa61b5d30",
-      "rollup16Address": "0x8f038D4fFeB97785aB224dCc7c0061029E83c4bA",
-      "transaction1x0VerifierAddress": "0x6D7EedB2E1bfDec4Eb7950e2232664d25d0830b0",
-      "transaction1x1VerifierAddress": "0xca1cDdA6b0CFE89963cE5Ad3f567B93D4F2a1108",
-      "transaction1x2VerifierAddress": "0xc8165Ccb7808E9B560831fa3C198eEAd22Edfc9a",
-      "transaction2x0VerifierAddress": "0x3dEc1f9AbD623eE549520B28Bc16Dc3CEaf20f6E",
-      "transaction2x1VerifierAddress": "0xF6FD5e80D455273e2D657c731536E96aE766F9a7",
-      "transaction2x2VerifierAddress": "0x3b2aa3DE917A59B86a5771F07fF24DF6Bc0F52d4"
+      "hasher3Address": "0x6318D7e5e7F176bF6600B2A8F61F4886D435E783",
+      "rollup1Address": "0xD49726d35d9656618a0f6fE85e0022D4dF8f4624",
+      "rollup4Address": "0x76e3eaED510F46C96ff6739BB90bc03ed1938b66",
+      "rollup16Address": "0x072dd355FDdB46F0bF685A26ec6c9CCcE2c6acFB",
+      "transaction1x0VerifierAddress": "0x6fc6C33d31fE057F7877eF55EAD54735D3B1f3aD",
+      "transaction1x1VerifierAddress": "0x396cD19a619caF2c32908EF7Cb954423fdF4DE20",
+      "transaction1x2VerifierAddress": "0x0E2c9908e8251D28C0fCEC2236CB5f08AA788fa7",
+      "transaction2x0VerifierAddress": "0x7C992DC5442C886464a22b46b186FFA47eE54051",
+      "transaction2x1VerifierAddress": "0xA57543Bb0c5509018B5C48Db868dE8924C16C16B",
+      "transaction2x2VerifierAddress": "0x19701aFAC070a70b66F08Ae15AC290966E62d347"
     },
     {
       "name": "Aurora Testnet",
@@ -371,16 +371,16 @@
           ]
         }
       ],
-      "hasher3Address": "0x0e3Ce6d2a3692d1f638537733bd836f2FCb45A19",
-      "rollup1Address": "0xd5F0E1b5A37A58B26624811514006ceBB961ac1E",
-      "rollup4Address": "0x083C3808A4a43Fa8a2b19e5b577BE49F280084d0",
-      "rollup16Address": "0x3B96eAf28D9972F11ED57D7e8DDc5bF42675316E",
-      "transaction1x0VerifierAddress": "0x79A98BC35e6c65ef0cb47D9BFFC952FDff1a6E41",
-      "transaction1x1VerifierAddress": "0xa3bF511A38E6804a6ad680AA3B16CF5823ab5f81",
-      "transaction1x2VerifierAddress": "0x7702CD4Cc4dC777fBfdaE2C1B8bfAe123796110d",
-      "transaction2x0VerifierAddress": "0xd2DC932e781b99Cc6313b66f2888cEa5CA6cD85F",
-      "transaction2x1VerifierAddress": "0xB8dAE66AaC519bD05e37fe49BEDD3Ff2095e275A",
-      "transaction2x2VerifierAddress": "0x47bF4045f0821ECaCF6Cf365b1832FaD3d3ebFe7"
+      "hasher3Address": "0x677eD6bdCDE106512dCFb44c4088a1e6664e64f6",
+      "rollup1Address": "0x8C774140e80F4412685370829EB6FaD84162e499",
+      "rollup4Address": "0x5726dd80Fafb2951B82EDffb1Cb0d31F8221Bc22",
+      "rollup16Address": "0x02755299C4059ec1fE3fb48d06a7D9ED807Bd778",
+      "transaction1x0VerifierAddress": "0xc7EfE69d0Fe03F110DCe5aA91D559f33DaC97534",
+      "transaction1x1VerifierAddress": "0xbbc79FA7c6E9CCe9E13Ce43B20c1aACbD963F65D",
+      "transaction1x2VerifierAddress": "0x48d23D0cF6A8581168A3DD485a1BC1cEEF2C7aa2",
+      "transaction2x0VerifierAddress": "0x7a538723a7229Ab2B2761913De8674894d17b144",
+      "transaction2x1VerifierAddress": "0x60Da92cAc906F7a1E733AF720d8c64A869656f9A",
+      "transaction2x2VerifierAddress": "0x3810bB703b359B264D2afc25C86Dc017F72376eD"
     },
     {
       "name": "Polygon Testnet",
@@ -447,16 +447,16 @@
           ]
         }
       ],
-      "hasher3Address": "0x22dD4Ff4631BB0ad56e0ed6274DCCE04D96AF84e",
-      "rollup1Address": "0x52d4ddAf0a2da318aaBC4783b7d31C3bD328B6f2",
-      "rollup4Address": "0xf5dEA968a62bB53844A2EA4226284c8bA1Ea516F",
-      "rollup16Address": "0xe84F653b6A450efbAE1fA7aaff52c711b28Cc01E",
-      "transaction1x0VerifierAddress": "0x9921a79E9FAC18AcD7C5C7F926E8fA8f78167978",
-      "transaction1x1VerifierAddress": "0xe6487EC84D97bae9FE3bc345b54Ef9383dB44817",
-      "transaction1x2VerifierAddress": "0x3e65eefe55c37a26FDe51933e4D42dE91ECBD812",
-      "transaction2x0VerifierAddress": "0x23b52EFf5dCa09C7178eEE88Cc7D6E7fB1Bcca6B",
-      "transaction2x1VerifierAddress": "0x9bc4B95FfbEaFBe2D1dbF78C35cA54665B112DB2",
-      "transaction2x2VerifierAddress": "0x3a042B4722a53A204039933570AB85F9f43e0900"
+      "hasher3Address": "0x6f6602995a7849bBba6AA58142356Bc7ecF626ED",
+      "rollup1Address": "0x0Dd4655fCe57F474241a638E11e4614334b925e0",
+      "rollup4Address": "0x53469e6A9c3a79a243eeA6E74f0e74aB345E49f1",
+      "rollup16Address": "0x4938041cFC8239C9d2031FBEF3F990fc0db09699",
+      "transaction1x0VerifierAddress": "0x1cC33EA386546BC07e6eaCa63e81d925313e5e03",
+      "transaction1x1VerifierAddress": "0x48df6E01660F89E2F4F1598905BC352d2CeEFaE0",
+      "transaction1x2VerifierAddress": "0x2692AD07FdF5e5ec4AD61Bf40DaaDa593168fab0",
+      "transaction2x0VerifierAddress": "0xdFB5b19F9Ce01ffA8251Ba9077E8b9e0108eA721",
+      "transaction2x1VerifierAddress": "0x9Ca99094fbA9de331C56460DD5c1f9C104679867",
+      "transaction2x2VerifierAddress": "0x0Dc6cef7f74520630C8fAc771CfBE5D324e5aDa5"
     },
     {
       "name": "Avalanche Testnet",
@@ -523,16 +523,16 @@
           ]
         }
       ],
-      "hasher3Address": "0xFE1229741a51133DDe078793Cf5B343570961f47",
-      "rollup1Address": "0xA33cB8399a362527Be3D5c899FD6819D7cE7Cf74",
-      "rollup4Address": "0x42641BE2F80DfC7a74D21991d26283ed360f640d",
-      "rollup16Address": "0x27689FDB2825631D26B03f8AE23cc07117D55EB1",
-      "transaction1x0VerifierAddress": "0xF0A8b74b9a68468829a9e0eE6d06225a6B6d2387",
-      "transaction1x1VerifierAddress": "0xFc62845484049cCFF01657a1406f02eFd5F9A4cA",
-      "transaction1x2VerifierAddress": "0x2c9668e0a45a645419f8e47CA14442c789CE72FD",
-      "transaction2x0VerifierAddress": "0xaD0EED4b5dFe5fa66613738450a1cb4E603cb575",
-      "transaction2x1VerifierAddress": "0x3FA30Fb19690E6632Be67D75508Ef924C64B9caF",
-      "transaction2x2VerifierAddress": "0xaFD0D820b66F29C839aE3a6F55FA4FA7edb96852"
+      "hasher3Address": "0xdED0D5bDe90a57a78072082CC0B3fBf1abbcc4c1",
+      "rollup1Address": "0x033b8612705c2B9ae93D9c9C60196caA7A3f4A9D",
+      "rollup4Address": "0x151b60d8E7d78B38edD4D982C25a9ca1b967f0bA",
+      "rollup16Address": "0x055a0EED02d63adE3e070C4813fBB18b0d7f6fec",
+      "transaction1x0VerifierAddress": "0x59b7943a3F0d450C54Fe8a482ADBD16474631042",
+      "transaction1x1VerifierAddress": "0xcf64972274a1B3421D2b45C0421BED9477A61184",
+      "transaction1x2VerifierAddress": "0x6f49614c3C2aB76850e8f9B7BA7b1772b4e57330",
+      "transaction2x0VerifierAddress": "0xf4dC3b2402B4202d70d3Df5B20a9690557548725",
+      "transaction2x1VerifierAddress": "0xA8B0fe795D341E793a41458730E700E47927393E",
+      "transaction2x2VerifierAddress": "0x436f9CdcFF3dC55ca09958c5b80b85d4C1A56d89"
     }
   ],
   "bridges": [
