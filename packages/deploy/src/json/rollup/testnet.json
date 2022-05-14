@@ -266,6 +266,22 @@
       "address": "0x7fDbFF9bAa9a256abc2e06860f4e9a0F8de868F2",
       "isRollupEnable": true,
       "syncStart": 26304240
+    },
+    {
+      "network": "ropsten",
+      "assetSymbol": "MTT",
+      "bridgeType": "loop",
+      "address": "0x420f04B4FD753d56B5BD79acAe19dbC6CFE5244D",
+      "isRollupEnable": true,
+      "syncStart": 12261341
+    },
+    {
+      "network": "ropsten",
+      "assetSymbol": "mUSD",
+      "bridgeType": "loop",
+      "address": "0xC45c598592CFdBFffF59b86B5Fc62C9c7912d8F0",
+      "isRollupEnable": true,
+      "syncStart": 12261350
     }
   ],
   "monitor": {
