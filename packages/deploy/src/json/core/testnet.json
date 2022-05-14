@@ -148,32 +148,6 @@
         },
         {
           "version": 2,
-          "name": "MystikoV2WithTBridgeMain",
-          "address": "0xEf78E6c700e73b5d4d2EBEC517DcfE9327C27efd",
-          "startBlock": 12261019,
-          "bridgeType": "tbridge",
-          "poolAddress": "0x5f6c81B15b431E13500f2dd5f21E7D9F62f6664E",
-          "peerChainId": 97,
-          "peerContractAddress": "0xcEC5C98b989150174984DD774Ab1d15977B4066E",
-          "minAmount": "100000000000000000",
-          "minBridgeFee": "1000",
-          "minExecutorFee": "5000000000000000"
-        },
-        {
-          "version": 2,
-          "name": "MystikoV2WithTBridgeERC20",
-          "address": "0x15024d81de14a4e9DD3F973004466c75434c96a7",
-          "startBlock": 12261032,
-          "bridgeType": "tbridge",
-          "poolAddress": "0x895eb5e0EBf6DC39Ce585F6F80D08657224475D3",
-          "peerChainId": 97,
-          "peerContractAddress": "0x29175CcC7afa0a0336149236F92CfE633047F6F9",
-          "minAmount": "100000000000000000",
-          "minBridgeFee": "1000",
-          "minExecutorFee": "5000000000000000"
-        },
-        {
-          "version": 2,
           "name": "MystikoV2WithTBridgeERC20",
           "address": "0x1f4B1E892e8f4d5B072AA4394849678128599421",
           "startBlock": 12261053,
@@ -197,6 +171,24 @@
           "minAmount": "100000000000000000",
           "minBridgeFee": "1000",
           "minExecutorFee": "5000000000000000"
+        },
+        {
+          "version": 2,
+          "name": "MystikoV2LoopERC20",
+          "address": "0xcF2791383f56800bFca739C6D1f55adCE950C12A",
+          "startBlock": 12261343,
+          "bridgeType": "loop",
+          "poolAddress": "0x420f04B4FD753d56B5BD79acAe19dbC6CFE5244D",
+          "minAmount": "100000000000000000"
+        },
+        {
+          "version": 2,
+          "name": "MystikoV2LoopERC20",
+          "address": "0x45438490c33Be83c4C56d889122B186861b7B57F",
+          "startBlock": 12261352,
+          "bridgeType": "loop",
+          "poolAddress": "0xC45c598592CFdBFffF59b86B5Fc62C9c7912d8F0",
+          "minAmount": "100000"
         }
       ],
       "poolContracts": [
@@ -238,6 +230,22 @@
           "startBlock": 12261050,
           "assetAddress": "0x10E8262dECf54EF16E5a5D0c53A6Af1323A5351C",
           "minRollupFee": "10000000000000000"
+        },
+        {
+          "version": 2,
+          "name": "CommitmentPool",
+          "address": "0x420f04B4FD753d56B5BD79acAe19dbC6CFE5244D",
+          "startBlock": 12261341,
+          "assetAddress": "0x39e68dd41AF6Fd870f27a6B77cBcfFA64626b0f3",
+          "minRollupFee": "10000000000000000"
+        },
+        {
+          "version": 2,
+          "name": "CommitmentPool",
+          "address": "0xC45c598592CFdBFffF59b86B5Fc62C9c7912d8F0",
+          "startBlock": 12261350,
+          "assetAddress": "0xb08AA0E20A4aEBc8E2B99d3247975D1C02959cFD",
+          "minRollupFee": "10000"
         }
       ],
       "assets": [
@@ -552,32 +560,6 @@
           "poolAddress": "0xD0C258Debe71f0268c7FE5C6Aa31fF6Fb761BCB4",
           "peerChainId": 5,
           "peerContractAddress": "0x2f4f474cc257088EA060f4fc70184c927C6A406a",
-          "minAmount": "100000000000000000",
-          "minBridgeFee": "1000",
-          "minExecutorFee": "5000000000000000"
-        },
-        {
-          "version": 2,
-          "name": "MystikoV2WithTBridgeERC20",
-          "address": "0x5aB09fe96F3a2FB73dC78C9ebB98B9BF42ce763B",
-          "startBlock": 19263177,
-          "bridgeType": "tbridge",
-          "poolAddress": "0xfc0a685ACABB417567d3D5472abe7E6BC8369B35",
-          "peerChainId": 3,
-          "peerContractAddress": "0xEf78E6c700e73b5d4d2EBEC517DcfE9327C27efd",
-          "minAmount": "100000000000000000",
-          "minBridgeFee": "1000",
-          "minExecutorFee": "5000000000000000"
-        },
-        {
-          "version": 2,
-          "name": "MystikoV2WithTBridgeMain",
-          "address": "0xf44041A0C4a66d01163280BFB156f878D1143979",
-          "startBlock": 19263315,
-          "bridgeType": "tbridge",
-          "poolAddress": "0xaAB5706d42eCd69D6d952c3a26CA3B50f115B43a",
-          "peerChainId": 3,
-          "peerContractAddress": "0x15024d81de14a4e9DD3F973004466c75434c96a7",
           "minAmount": "100000000000000000",
           "minBridgeFee": "1000",
           "minExecutorFee": "5000000000000000"
@@ -982,6 +964,7 @@
     },
     {
       "name": "Fantom Testnet",
+      "assetSymbol": "FTM",
       "network": "fantomtestnet",
       "chainId": 4002,
       "explorerUrl": "https://testnet.ftmscan.com",

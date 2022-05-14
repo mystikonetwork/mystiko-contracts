@@ -625,6 +625,18 @@
           "assetSymbol": "MTT",
           "address": "0x9cC81b320De3A6810De54743B2EEDfd28eFa1911",
           "syncStart": 9587999
+        },
+        {
+          "network": "ropsten",
+          "assetSymbol": "MTT",
+          "address": "0x420f04B4FD753d56B5BD79acAe19dbC6CFE5244D",
+          "syncStart": 12261341
+        },
+        {
+          "network": "ropsten",
+          "assetSymbol": "mUSD",
+          "address": "0xC45c598592CFdBFffF59b86B5Fc62C9c7912d8F0",
+          "syncStart": 12261350
         }
       ],
       "pairs": [
@@ -640,7 +652,9 @@
           "pair": [
             {
               "network": "ropsten",
-              "assetSymbol": "MTT"
+              "assetSymbol": "MTT",
+              "address": "0xcF2791383f56800bFca739C6D1f55adCE950C12A",
+              "syncStart": 12261343
             }
           ]
         },
@@ -648,7 +662,9 @@
           "pair": [
             {
               "network": "ropsten",
-              "assetSymbol": "mUSD"
+              "assetSymbol": "mUSD",
+              "address": "0x45438490c33Be83c4C56d889122B186861b7B57F",
+              "syncStart": 12261352
             }
           ]
         },
