@@ -1,10 +1,10 @@
+import { DummySanctionsList, TestToken } from '@mystikonetwork/contracts-abi';
+import { CommitmentOutput, MystikoProtocolV2 } from '@mystikonetwork/protocol';
+import { MerkleTree, toBN, toBuff, toHex, toHexNoPrefix } from '@mystikonetwork/utils';
+import { ZKProof } from '@mystikonetwork/zkp';
 import BN from 'bn.js';
 import { expect } from 'chai';
 import { ethers } from 'ethers';
-import { Proof } from 'zokrates-js';
-import { DummySanctionsList, TestToken } from '@mystikonetwork/contracts-abi';
-import { CommitmentV2, MystikoProtocolV2 } from '@mystikonetwork/protocol';
-import { MerkleTree, toBN, toBuff, toHex, toHexNoPrefix } from '@mystikonetwork/utils';
 import { CommitmentInfo } from './commitment';
 import { getBalance } from '../util/common';
 
@@ -17,7 +17,7 @@ async function generateProof(
   protocol: MystikoProtocolV2,
   numInputs: number,
   numOutputs: number,
-  commitmentInfo: CommitmentInfo<CommitmentV2>,
+  commitmentInfo: CommitmentInfo<CommitmentOutput>,
   inCommitmentsIndices: number[],
   includedCount: number,
   sigPk: Buffer,
@@ -28,7 +28,7 @@ async function generateProof(
   programFile: string,
   abiFile: string,
   provingKeyFile: string,
-): Promise<{ proof: Proof; outCommitments: CommitmentV2[] }> {
+): Promise<{ proof: ZKProof; outCommitments: CommitmentOutput[] }> {
   const commitments = commitmentInfo.commitments.slice(0, includedCount);
   const merkleTree = new MerkleTree(
     commitments.map((c) => c.commitmentHash),
@@ -48,22 +48,25 @@ async function generateProof(
     inEncPks.push(commitmentInfo.pkEnc);
     inEncSks.push(protocol.secretKeyForEncryption(commitmentInfo.rawSkEnc));
     inCommitments.push(commitmentInfo.commitments[inCommitmentsIndices[i]].commitmentHash);
-    inPrivateNotes.push(commitmentInfo.commitments[inCommitmentsIndices[i]].privateNote);
+    inPrivateNotes.push(commitmentInfo.commitments[inCommitmentsIndices[i]].encryptedNote);
     const fullPath = merkleTree.path(inCommitmentsIndices[i]);
     pathIndices.push(fullPath.pathIndices);
     pathElements.push(fullPath.pathElements);
   }
   const outVerifyPks: Buffer[] = [];
   const outCommitments: BN[] = [];
-  const outFullCommitments: CommitmentV2[] = [];
+  const outFullCommitments: CommitmentOutput[] = [];
   const outRandomPs: BN[] = [];
   const outRandomRs: BN[] = [];
   const outRandomSs: BN[] = [];
-  const outCommitmentsPromises: Promise<CommitmentV2>[] = [];
+  const outCommitmentsPromises: Promise<CommitmentOutput>[] = [];
   for (let i = 0; i < numOutputs; i += 1) {
     outVerifyPks.push(commitmentInfo.pkVerify);
     outCommitmentsPromises.push(
-      protocol.commitment(commitmentInfo.pkVerify, commitmentInfo.pkEnc, outAmounts[i]),
+      protocol.commitment({
+        publicKeys: { pkVerify: commitmentInfo.pkVerify, pkEnc: commitmentInfo.pkEnc },
+        amount: outAmounts[i],
+      }),
     );
   }
   (await Promise.all(outCommitmentsPromises)).forEach((commitment) => {
@@ -116,7 +119,7 @@ function signRequest(
 function buildRequest(
   numInputs: number,
   numOutputs: number,
-  proof: Proof,
+  proof: ZKProof,
   publicRecipientAddress: string,
   relayerAddress: string,
   outEncryptedNotes: Buffer[],
@@ -142,7 +145,7 @@ export function testTransact(
   protocol: MystikoProtocolV2,
   commitmentPoolContract: any,
   transactVerifier: any,
-  commitmentInfo: CommitmentInfo<CommitmentV2>,
+  commitmentInfo: CommitmentInfo<CommitmentOutput>,
   inCommitmentsIndices: number[],
   queueSize: number,
   includedCount: number,
@@ -164,8 +167,8 @@ export function testTransact(
   const signatureKeys = generateSignatureKeys();
   let recipientBalance: BN;
   let relayerBalance: BN;
-  let proof: Proof;
-  const outCommitments: CommitmentV2[] = [];
+  let proof: ZKProof;
+  const outCommitments: CommitmentOutput[] = [];
   let outEncryptedNotes: Buffer[];
   let signature: string;
   let txReceipt: any;
@@ -195,7 +198,7 @@ export function testTransact(
         outCommitments.push(p);
         commitmentInfo.commitments.push(p);
       });
-      outEncryptedNotes = outCommitments.map((c) => c.privateNote);
+      outEncryptedNotes = outCommitments.map((c) => c.encryptedNote);
       signature = await signRequest(
         signatureKeys.wallet,
         publicRecipientAddress,
@@ -300,7 +303,7 @@ export function testTransactRevert(
   commitmentPoolContract: any,
   sanctionList: DummySanctionsList,
   transactVerifier: any,
-  commitmentInfo: CommitmentInfo<CommitmentV2>,
+  commitmentInfo: CommitmentInfo<CommitmentOutput>,
   inCommitmentsIndices: number[],
   queueSize: number,
   includedCount: number,
@@ -320,8 +323,8 @@ export function testTransactRevert(
   let recipientBalance: BN;
   let relayerBalance: BN;
   const signatureKeys = generateSignatureKeys();
-  let proof: Proof;
-  let outCommitments: CommitmentV2[];
+  let proof: ZKProof;
+  let outCommitments: CommitmentOutput[];
   let outEncryptedNotes: Buffer[];
   let signature: string;
   describe(`Test ${contractName} transaction${numInputs}x${numOutputs} operations revert`, () => {
@@ -345,7 +348,7 @@ export function testTransactRevert(
       );
       proof = proofWithCommitments.proof;
       outCommitments = proofWithCommitments.outCommitments;
-      outEncryptedNotes = outCommitments.map((c) => c.privateNote);
+      outEncryptedNotes = outCommitments.map((c) => c.encryptedNote);
       signature = await signRequest(
         signatureKeys.wallet,
         publicRecipientAddress,

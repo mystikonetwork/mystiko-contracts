@@ -1794,10 +1794,10 @@
     tweetnacl "^1.0.3"
     tweetnacl-util "^0.15.1"
 
-"@mystikonetwork/config@^0.1.0":
-  version "0.1.0"
-  resolved "https://npm.pkg.github.com/download/@mystikonetwork/config/0.1.0/7073c58c69e51944c59f3ef2122a52c4ec33fb1422959f915f3c94e17d99d935#0de3bb198e2930b003343b291b65394509dbdbc1"
-  integrity sha512-AGNpLXvJp5eJbhzxjqY+nRH4qj2QcgPHWlEHTIq74R8GtY/BW5OC2ssmtLF2FedD7Je7w2S6MUvhFgSBcINtYQ==
+"@mystikonetwork/config@^0.1.1":
+  version "0.1.1"
+  resolved "https://npm.pkg.github.com/download/@mystikonetwork/config/0.1.1/14917873f4388447395669a470ce8cda7612535f6ea5e4564c43133bede7e4ab#dd8636cb124fd145bf92dd0084eb431728188a4c"
+  integrity sha512-W0Y4vROBwM0wnHW+GJyffoQMunu0e1YAQdGC1dZC1IRQf/NraWiTwVkr9hYUshwEx518nAXFMz+/VEgZiweEaA==
   dependencies:
     "@mystikonetwork/utils" "^0.1.0"
     bn.js "^5.2.0"
@@ -1811,12 +1811,13 @@
   resolved "https://npm.pkg.github.com/download/@mystikonetwork/fastfile/0.0.21/b3362f8527fa15a2d745c0b516c92d0a5ca0ceef4c2e103aac2d79305f0c4207#069a0d0d6a28a3f002fe97519456bbbd14880f9c"
   integrity sha512-o9vr4WoWEGord8+6ADBSulLO9arM2z0R5bOKj+GGPOFY/Zm8bg7alqRfuTvcxzll9TTk/rv7gDM4GnbBHhvyMA==
 
-"@mystikonetwork/protocol@^0.1.0":
-  version "0.1.0"
-  resolved "https://npm.pkg.github.com/download/@mystikonetwork/protocol/0.1.0/561f57b9d7854847e5817ba9a4061d000ae8f9893747f6c4ec285b91ee9731cd#28901a678a4e0905bddc59b9137a86379c05a1c2"
-  integrity sha512-ff/lDr00+5YDHCFymKqxxAFYSNWuG0IsYclLn47eKAerglPg0FrZW/v/aJhPaWg23M2MVYacScnVVszgaIWMaw==
+"@mystikonetwork/protocol@^0.1.1":
+  version "0.1.1"
+  resolved "https://npm.pkg.github.com/download/@mystikonetwork/protocol/0.1.1/2f97b83fada0c4317434bd313501d747b96f74b6269493616ac088d1e7db03c8#e1e725b41f1a3d1eeeb4334a05ce7abe00129cb5"
+  integrity sha512-qEzI0fSckaS72DJLii4w1/Dt4tjZvrAMPbdRwoJwtsU3AY4x8XEkjeLzCNCcn/d2EvW5vcTpPjD5V49ZYvTKqw==
   dependencies:
-    "@mystikonetwork/utils" "^0.1.0-beta.3"
+    "@mystikonetwork/utils" "^0.1.0"
+    "@mystikonetwork/zkp" "^0.1.1"
     blake-hash "^2.0.0"
     bn.js "^5.2.0"
     bs58 "^4.0.1"
@@ -1825,11 +1826,11 @@
     eccrypto "^1.1.6"
     ethers "^5.5.3"
     ffjavascript "^0.2.48"
+    loglevel "^1.8.0"
     randombytes "^2.1.0"
     snarkjs "^0.4.12"
-    zokrates-js "1.0.41"
 
-"@mystikonetwork/utils@^0.1.0", "@mystikonetwork/utils@^0.1.0-beta.3":
+"@mystikonetwork/utils@^0.1.0":
   version "0.1.0"
   resolved "https://npm.pkg.github.com/download/@mystikonetwork/utils/0.1.0/2b0e6cb7df102b5c8e9702dada768b71a132fa7b36dd7ed446bafff9145385ee#a6cf70eab722a62768ffa928d25aedfc6f9819f9"
   integrity sha512-R6g05DqI2ZOlJVaugfwnUv1tL5Qsb7Yo1uHxszECceLMxRReIaX9RtAhT0dhiFS73sX1sYKzpmIHmIlKRp6pRQ==
@@ -1842,6 +1843,19 @@
     loglevel "^1.8.0"
     loglevel-plugin-prefix "^0.8.4"
     pako "^2.0.4"
+
+"@mystikonetwork/zkp-node@^0.1.1":
+  version "0.1.1"
+  resolved "https://npm.pkg.github.com/download/@mystikonetwork/zkp-node/0.1.1/b32b3a67c120dd5bcfd0c9addccf6be9551146ab59abb9aa1fd3039e5344c3c3#d398e08e2de0938255e6ecfde73f39aab50d6d7a"
+  integrity sha512-z2gqpqL5Mhr7cb4r8quqGz2IuRX+s7jgUbUqqBJDN23lTeIAO/DdTum4rYQU6MZG1/Ph43q2+aC0EqihDnKvZg==
+  dependencies:
+    "@mystikonetwork/utils" "^0.1.0"
+    "@mystikonetwork/zkp" "^0.1.1"
+
+"@mystikonetwork/zkp@^0.1.1":
+  version "0.1.1"
+  resolved "https://npm.pkg.github.com/download/@mystikonetwork/zkp/0.1.1/cc2c645451f68dd80770ad7d5d554711721d8610f6709f2b2e7c82f872e87b25#d10bbc027993f7818089d39ff5c4c3a370f04277"
+  integrity sha512-nnXMEnZddxaJMT190YPSfyIJkP81Az1xTwBxRtKN4AqatiSQ0U+FddshLbOuadlsjF68Bm3Ci8j9mXMQ7UhOdA==
 
 "@nicolo-ribaudo/chokidar-2@2.1.8-no-fsevents.3":
   version "2.1.8-no-fsevents.3"
@@ -12685,8 +12699,3 @@ yocto-queue@^0.1.0:
   version "0.1.0"
   resolved "https://registry.yarnpkg.com/yocto-queue/-/yocto-queue-0.1.0.tgz#0294eb3dee05028d31ee1a5fa2c556a6aaf10a1b"
   integrity sha512-rVksvsnNCdJ/ohGc6xgPwyN8eheCxsiLM8mxuE/t/mOVqJewPuO1miLpTHQiRgTKCLexL4MeAFVagts7HmNZ2Q==
-
-zokrates-js@1.0.41:
-  version "1.0.41"
-  resolved "https://registry.yarnpkg.com/zokrates-js/-/zokrates-js-1.0.41.tgz#6af4630d1e88f1a52208c9649531b01c365c522d"
-  integrity sha512-lTBcmv3Tbk8MPphLP1t3ElRayXxKVMUQHOtCQdnTfVyeERHxcVfdaQ/ymTH3sqafSiiT5+F8zchfdZpC//LXuw==

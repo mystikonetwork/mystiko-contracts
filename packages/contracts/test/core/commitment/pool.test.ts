@@ -1,4 +1,5 @@
 import { Wallet } from '@ethersproject/wallet';
+import { ZokratesCliProverFactory } from '@mystikonetwork/zkp-node';
 import { waffle } from 'hardhat';
 import {
   MystikoV2LoopERC20,
@@ -17,7 +18,7 @@ import {
   CommitmentPoolERC20,
   DummySanctionsList,
 } from '@mystikonetwork/contracts-abi';
-import { ZokratesRuntime, MystikoProtocolV2, ZokratesCliRuntime } from '@mystikonetwork/protocol';
+import { MystikoProtocolV2, ProtocolFactoryV2 } from '@mystikonetwork/protocol';
 import { toBN, toDecimals } from '@mystikonetwork/utils';
 import {
   deployLoopContracts,
@@ -35,8 +36,6 @@ import {
 } from '../../common';
 import { testTransactRevert } from '../../common/transactTests';
 import { rollup } from '../../common/rollupTests';
-
-const { initialize } = require('zokrates-js/node');
 
 describe('Test Mystiko pool tree', () => {
   it('test pool tree', async () => {
@@ -110,14 +109,12 @@ describe('Test Mystiko pool', () => {
   let rollup1: Rollup1Verifier;
   let rollup4: Rollup4Verifier;
   let rollup16: Rollup16Verifier;
-  let zokratesRuntime: ZokratesRuntime;
   let protocol: MystikoProtocolV2;
 
   beforeEach(async () => {
     accounts = waffle.provider.getWallets();
-    const zokrates = await initialize();
-    zokratesRuntime = new ZokratesCliRuntime(zokrates);
-    protocol = new MystikoProtocolV2(zokratesRuntime);
+    const protocolFactory = new ProtocolFactoryV2(new ZokratesCliProverFactory());
+    protocol = await protocolFactory.create();
 
     const r = await loadFixture(fixture);
     testToken = r.testToken;
