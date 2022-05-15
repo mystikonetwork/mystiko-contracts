@@ -2,7 +2,7 @@
   "chains": [
     {
       "network": "bsctestnet",
-      "privateKey": "0x0de4f9eff17bff6a9d03a747439de8da2c2a9b3f5c6b7173d396174c5c080037",
+      "privateKey": "",
       "providers": [
         "https://data-seed-prebsc-1-s1.binance.org:8545",
         "https://data-seed-prebsc-1-s3.binance.org:8545",
@@ -16,7 +16,7 @@
     },
     {
       "network": "ropsten",
-      "privateKey": "0x0de4f9eff17bff6a9d03a747439de8da2c2a9b3f5c6b7173d396174c5c080037",
+      "privateKey": "",
       "providers": [
         "https://ropsten.infura.io/v3/9aa3d95b3bc440fa88ea12eaa4456161",
         "https://eth-ropsten.alchemyapi.io/v2/LPkA3Wlc-6tR-ZMGJLBgEhi-HTNo7H1j"
@@ -27,7 +27,7 @@
     },
     {
       "network": "goerli",
-      "privateKey": "0x0de4f9eff17bff6a9d03a747439de8da2c2a9b3f5c6b7173d396174c5c080037",
+      "privateKey": "",
       "providers": [
         "https://goerli.infura.io/v3/9aa3d95b3bc440fa88ea12eaa4456161",
         "https://eth-goerli.alchemyapi.io/v2/LPkA3Wlc-6tR-ZMGJLBgEhi-HTNo7H1j"
@@ -38,7 +38,7 @@
     },
     {
       "network": "polygontestnet",
-      "privateKey": "0x0de4f9eff17bff6a9d03a747439de8da2c2a9b3f5c6b7173d396174c5c080037",
+      "privateKey": "",
       "providers": [
         "https://matic.getblock.io/testnet/?api_key=71722c7c-f748-4ea3-bacd-6edc2900c4f0",
         "https://rpc-mumbai.matic.today",
@@ -50,7 +50,7 @@
     },
     {
       "network": "avalanchetestnet",
-      "privateKey": "0x0de4f9eff17bff6a9d03a747439de8da2c2a9b3f5c6b7173d396174c5c080037",
+      "privateKey": "",
       "providers": [
         "https://avax.getblock.io/testnet/ext/bc/C/rpc?api_key=71722c7c-f748-4ea3-bacd-6edc2900c4f0"
       ],
@@ -60,7 +60,7 @@
     },
     {
       "network": "fantomtestnet",
-      "privateKey": "0x0de4f9eff17bff6a9d03a747439de8da2c2a9b3f5c6b7173d396174c5c080037",
+      "privateKey": "",
       "providers": [
         "https://rpc.testnet.fantom.network"
       ],
@@ -70,7 +70,7 @@
     },
     {
       "network": "auroratestnet",
-      "privateKey": "0x0de4f9eff17bff6a9d03a747439de8da2c2a9b3f5c6b7173d396174c5c080037",
+      "privateKey": "",
       "providers": [
         "https://aurora-testnet.infura.io/v3/908e7e8a95ba42a9aea33300a8a743cd"
       ],
