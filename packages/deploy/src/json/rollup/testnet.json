@@ -24,264 +24,221 @@
       "gasPriceGweiStatic": "0",
       "maxGasPriceGweiDynamic": "200",
       "confirmBlocks": 3
+    },
+    {
+      "network": "goerli",
+      "privateKey": "0x0de4f9eff17bff6a9d03a747439de8da2c2a9b3f5c6b7173d396174c5c080037",
+      "providers": [
+        "https://goerli.infura.io/v3/9aa3d95b3bc440fa88ea12eaa4456161",
+        "https://eth-goerli.alchemyapi.io/v2/LPkA3Wlc-6tR-ZMGJLBgEhi-HTNo7H1j"
+      ],
+      "gasPriceGweiStatic": "0",
+      "maxGasPriceGweiDynamic": "200",
+      "confirmBlocks": 3
+    },
+    {
+      "network": "polygontestnet",
+      "privateKey": "0x0de4f9eff17bff6a9d03a747439de8da2c2a9b3f5c6b7173d396174c5c080037",
+      "providers": [
+        "https://matic.getblock.io/testnet/?api_key=71722c7c-f748-4ea3-bacd-6edc2900c4f0",
+        "https://rpc-mumbai.matic.today",
+        "https://matic-mumbai.chainstacklabs.com"
+      ],
+      "gasPriceGweiStatic": "0",
+      "maxGasPriceGweiDynamic": "200",
+      "confirmBlocks": 10
+    },
+    {
+      "network": "avalanchetestnet",
+      "privateKey": "0x0de4f9eff17bff6a9d03a747439de8da2c2a9b3f5c6b7173d396174c5c080037",
+      "providers": [
+        "https://avax.getblock.io/testnet/ext/bc/C/rpc?api_key=71722c7c-f748-4ea3-bacd-6edc2900c4f0"
+      ],
+      "gasPriceGweiStatic": "0",
+      "maxGasPriceGweiDynamic": "200",
+      "confirmBlocks": 10
+    },
+    {
+      "network": "fantomtestnet",
+      "privateKey": "0x0de4f9eff17bff6a9d03a747439de8da2c2a9b3f5c6b7173d396174c5c080037",
+      "providers": [
+        "https://rpc.testnet.fantom.network"
+      ],
+      "gasPriceGweiStatic": "0",
+      "maxGasPriceGweiDynamic": "200",
+      "confirmBlocks": 10
+    },
+    {
+      "network": "auroratestnet",
+      "privateKey": "0x0de4f9eff17bff6a9d03a747439de8da2c2a9b3f5c6b7173d396174c5c080037",
+      "providers": [
+        "https://aurora-testnet.infura.io/v3/908e7e8a95ba42a9aea33300a8a743cd"
+      ],
+      "gasPriceGweiStatic": "0",
+      "maxGasPriceGweiDynamic": "200",
+      "confirmBlocks": 10
     }
   ],
   "commitmentPools": [
     {
-      "network": "bsctestnet",
-      "assetSymbol": "BNB",
-      "bridgeType": "loop",
-      "address": "0xB747b16A55abC6E5DA53259017b5461745490DEd",
-      "isRollupEnable": true,
-      "syncStart": 19060174
-    },
-    {
-      "network": "bsctestnet",
-      "assetSymbol": "MTT",
-      "bridgeType": "loop",
-      "address": "0x92A11E718f9292028Aa1c08F0d25a2880EAE868C",
-      "isRollupEnable": true,
-      "syncStart": 19060120
-    },
-    {
-      "network": "bsctestnet",
-      "assetSymbol": "mUSD",
-      "bridgeType": "loop",
-      "address": "0x815b4f17cd88917F8430b3970d8247F8bB4AEde1",
-      "isRollupEnable": true,
-      "syncStart": 19060147
-    },
-    {
-      "network": "ropsten",
-      "assetSymbol": "mUSD",
-      "bridgeType": "tbridge",
-      "address": "0x263Eb2ddA80d48bb46DDAF059B6A76aC3eA19085",
-      "isRollupEnable": true,
-      "syncStart": 12241599
-    },
-    {
-      "network": "bsctestnet",
-      "assetSymbol": "mUSD",
-      "bridgeType": "tbridge",
-      "address": "0x89AF3538FcF16D80eb8A29528cd56a2C7CC77A78",
-      "isRollupEnable": true,
-      "syncStart": 19062907
-    },
-    {
-      "network": "bsctestnet",
-      "assetSymbol": "BNB",
-      "bridgeType": "tbridge",
-      "address": "0xaAB5706d42eCd69D6d952c3a26CA3B50f115B43a",
-      "isRollupEnable": true,
-      "syncStart": 19063477
-    },
-    {
-      "network": "bsctestnet",
-      "assetSymbol": "MTT",
-      "bridgeType": "tbridge",
-      "address": "0x58Cd5f56a612baCA57B19d056Ec5bAE00C1BC4a3",
-      "isRollupEnable": true,
-      "syncStart": 19063434
-    },
-    {
-      "network": "ropsten",
-      "assetSymbol": "mBNB",
-      "bridgeType": "tbridge",
-      "address": "0x895eb5e0EBf6DC39Ce585F6F80D08657224475D3",
-      "isRollupEnable": true,
-      "syncStart": 12241620
-    },
-    {
       "network": "ropsten",
       "assetSymbol": "MTT",
-      "bridgeType": "tbridge",
-      "address": "0x16c242AFA3D46870370f5654aa0EE33ae189A43A",
+      "bridgeType": "loop",
+      "address": "0x1e317Ec4a4b5bAD7E6005B7cEB231433883A571c",
       "isRollupEnable": true,
-      "syncStart": 12241607
+      "syncStart": 12264922
     },
     {
       "network": "ropsten",
       "assetSymbol": "ETH",
-      "bridgeType": "tbridge",
-      "address": "0x5f6c81B15b431E13500f2dd5f21E7D9F62f6664E",
+      "bridgeType": "loop",
+      "address": "0x4f1aA2A2727acF5d6c6C599a67bC3b90Cd93e2aE",
       "isRollupEnable": true,
-      "syncStart": 12241627
+      "syncStart": 12264918
+    },
+    {
+      "network": "goerli",
+      "assetSymbol": "ETH",
+      "bridgeType": "loop",
+      "address": "0x014125b656fa03Deb3b4EB040fA89a3971149e5b",
+      "isRollupEnable": true,
+      "syncStart": 6884769
     },
     {
       "network": "bsctestnet",
-      "assetSymbol": "mETH",
-      "bridgeType": "tbridge",
-      "address": "0xfc0a685ACABB417567d3D5472abe7E6BC8369B35",
+      "assetSymbol": "BNB",
+      "bridgeType": "loop",
+      "address": "0x4c2e5155DeEdC1F8354fB1cF5FE39fFCd38cDC54",
       "isRollupEnable": true,
-      "syncStart": 19063393
+      "syncStart": 19306068
     },
     {
       "network": "polygontestnet",
       "assetSymbol": "MATIC",
       "bridgeType": "loop",
-      "address": "0x3aa81FDaB706B85E391FCdC3bb310F8d2cE6E97E",
+      "address": "0xAd947Bd9e3E841135B13d83Ff088cd89D7F5898E",
       "isRollupEnable": true,
-      "syncStart": 26283336
-    },
-    {
-      "network": "polygontestnet",
-      "assetSymbol": "MTT",
-      "bridgeType": "loop",
-      "address": "0x7a538723a7229Ab2B2761913De8674894d17b144",
-      "isRollupEnable": true,
-      "syncStart": 26283392
-    },
-    {
-      "network": "polygontestnet",
-      "assetSymbol": "mUSD",
-      "bridgeType": "loop",
-      "address": "0x2f55427bc8a5f746a0FF9a4A426e0363ecC5bCF9",
-      "isRollupEnable": true,
-      "syncStart": 26283445
-    },
-    {
-      "network": "goerli",
-      "assetSymbol": "ETH",
-      "bridgeType": "loop",
-      "address": "0x5eF315d16694Feb96F9A18f867A2C714F6A09A1b",
-      "isRollupEnable": true,
-      "syncStart": 6870287
-    },
-    {
-      "network": "goerli",
-      "assetSymbol": "mUSD",
-      "bridgeType": "loop",
-      "address": "0xC861dA6a7860309E42e61bA74FBd2123202EC599",
-      "isRollupEnable": true,
-      "syncStart": 6870301
-    },
-    {
-      "network": "goerli",
-      "assetSymbol": "MTT",
-      "bridgeType": "loop",
-      "address": "0xaa05fe8aE6A2a1344466d14A0F230de857033c3E",
-      "isRollupEnable": true,
-      "syncStart": 6870384
+      "syncStart": 26318673
     },
     {
       "network": "fantomtestnet",
       "assetSymbol": "FTM",
       "bridgeType": "loop",
-      "address": "0x2CEE4E20bf2124D0A69048bdD2450F57D87c7768",
+      "address": "0x541c26E18F3f4B69011C32949e25B66263f0c3a1",
       "isRollupEnable": true,
-      "syncStart": 8994993
+      "syncStart": 9042211
+    },
+    {
+      "network": "goerli",
+      "assetSymbol": "MTT",
+      "bridgeType": "loop",
+      "address": "0xBDD450fAF90dEd89433a7C0f09b3c67503f6757E",
+      "isRollupEnable": true,
+      "syncStart": 6884782
+    },
+    {
+      "network": "bsctestnet",
+      "assetSymbol": "MTT",
+      "bridgeType": "loop",
+      "address": "0xdbBA020A9aa23c2EaEc445a2d71Ac9D514a84cE6",
+      "isRollupEnable": true,
+      "syncStart": 19306017
+    },
+    {
+      "network": "polygontestnet",
+      "assetSymbol": "MTT",
+      "bridgeType": "loop",
+      "address": "0x55E8ba54D21d801B82691EE789617d28A56408B9",
+      "isRollupEnable": true,
+      "syncStart": 26318681
     },
     {
       "network": "fantomtestnet",
       "assetSymbol": "MTT",
       "bridgeType": "loop",
-      "address": "0x1095190c0C081099b125D61D467E92Ced1E747a2",
+      "address": "0x982FF4a82C6e5DCf46DC564A9786b8440520d1F5",
       "isRollupEnable": true,
-      "syncStart": 8995201
+      "syncStart": 9042241
+    },
+    {
+      "network": "ropsten",
+      "assetSymbol": "mUSD",
+      "bridgeType": "loop",
+      "address": "0x398ecb9AaF4Fc05F2e91Cc3743952bAE99A001d6",
+      "isRollupEnable": true,
+      "syncStart": 12264926
+    },
+    {
+      "network": "goerli",
+      "assetSymbol": "mUSD",
+      "bridgeType": "loop",
+      "address": "0x55607D52161f2f2203f8A4Dd89abd3544de084C6",
+      "isRollupEnable": true,
+      "syncStart": 6884801
+    },
+    {
+      "network": "bsctestnet",
+      "assetSymbol": "mUSD",
+      "bridgeType": "loop",
+      "address": "0x27E3a126f2E149043CC149d34f363c16aE8c9b5d",
+      "isRollupEnable": true,
+      "syncStart": 19306038
+    },
+    {
+      "network": "polygontestnet",
+      "assetSymbol": "mUSD",
+      "bridgeType": "loop",
+      "address": "0x5A73A49676E748c5181cC0ED5aca8886AE471D2A",
+      "isRollupEnable": true,
+      "syncStart": 26318688
     },
     {
       "network": "avalanchetestnet",
       "assetSymbol": "AVAX",
       "bridgeType": "loop",
-      "address": "0x7536679826381a1C1831c0517f79DC43a04d84B1",
+      "address": "0x21FD01eeB7f16D830A74d5dAE8eC33457E7C4C04",
       "isRollupEnable": true,
-      "syncStart": 9587701
-    },
-    {
-      "network": "avalanchetestnet",
-      "assetSymbol": "mUSD",
-      "bridgeType": "loop",
-      "address": "0x3810bB703b359B264D2afc25C86Dc017F72376eD",
-      "isRollupEnable": true,
-      "syncStart": 9587882
+      "syncStart": 9683759
     },
     {
       "network": "avalanchetestnet",
       "assetSymbol": "MTT",
       "bridgeType": "loop",
-      "address": "0x9cC81b320De3A6810De54743B2EEDfd28eFa1911",
+      "address": "0x2D30408BbfBf6A8A7D75511cF594C0139c1bE17c",
       "isRollupEnable": true,
-      "syncStart": 9587999
+      "syncStart": 9684989
     },
     {
-      "network": "fantomtestnet",
-      "assetSymbol": "MTT",
-      "bridgeType": "tbridge",
-      "address": "0xCd83bF66eebe4a0b0E36526f1318064A0472814C",
-      "isRollupEnable": true,
-      "syncStart": 9012673
-    },
-    {
-      "network": "polygontestnet",
-      "assetSymbol": "MTT",
-      "bridgeType": "tbridge",
-      "address": "0xCc6483E6D8304b88AD3B650fA8c5c3E62f284B61",
-      "isRollupEnable": true,
-      "syncStart": 26302200
-    },
-    {
-      "network": "polygontestnet",
-      "assetSymbol": "mUSD",
-      "bridgeType": "tbridge",
-      "address": "0x4Ca06F314C022b593d287b1b16AB2959620619A2",
-      "isRollupEnable": true,
-      "syncStart": 26302296
-    },
-    {
-      "network": "bsctestnet",
-      "assetSymbol": "MTT",
-      "bridgeType": "celer",
-      "address": "0xD0C258Debe71f0268c7FE5C6Aa31fF6Fb761BCB4",
-      "isRollupEnable": true,
-      "syncStart": 19262001
-    },
-    {
-      "network": "goerli",
-      "assetSymbol": "MTT",
-      "bridgeType": "celer",
-      "address": "0xf43814B3f095E82429FD206ac9Cf4A5ebdA1f20A",
-      "isRollupEnable": true,
-      "syncStart": 6875907
-    },
-    {
-      "network": "ropsten",
-      "assetSymbol": "mMATIC",
-      "bridgeType": "tbridge",
-      "address": "0x34a51C686C7CbF4cd7ef4eE46ab398A32A40Ba30",
-      "isRollupEnable": true,
-      "syncStart": 12261050
-    },
-    {
-      "network": "polygontestnet",
-      "assetSymbol": "MATIC",
-      "bridgeType": "tbridge",
-      "address": "0xFa8E2bE6Cf88E9C738010e98d4d330E1ae74fbc5",
-      "isRollupEnable": true,
-      "syncStart": 26304221
-    },
-    {
-      "network": "polygontestnet",
-      "assetSymbol": "mETH",
-      "bridgeType": "tbridge",
-      "address": "0x7fDbFF9bAa9a256abc2e06860f4e9a0F8de868F2",
-      "isRollupEnable": true,
-      "syncStart": 26304240
-    },
-    {
-      "network": "ropsten",
-      "assetSymbol": "MTT",
-      "bridgeType": "loop",
-      "address": "0x420f04B4FD753d56B5BD79acAe19dbC6CFE5244D",
-      "isRollupEnable": true,
-      "syncStart": 12261341
-    },
-    {
-      "network": "ropsten",
+      "network": "avalanchetestnet",
       "assetSymbol": "mUSD",
       "bridgeType": "loop",
-      "address": "0xC45c598592CFdBFffF59b86B5Fc62C9c7912d8F0",
+      "address": "0xdFB5b19F9Ce01ffA8251Ba9077E8b9e0108eA721",
       "isRollupEnable": true,
-      "syncStart": 12261350
+      "syncStart": 9685119
+    },
+    {
+      "network": "auroratestnet",
+      "assetSymbol": "aETH",
+      "bridgeType": "loop",
+      "address": "0xc5bFDd5c1b0DA143072eF15416db8DF0E4231065",
+      "isRollupEnable": true,
+      "syncStart": 89894678
+    },
+    {
+      "network": "auroratestnet",
+      "assetSymbol": "MTT",
+      "bridgeType": "loop",
+      "address": "0x4938041cFC8239C9d2031FBEF3F990fc0db09699",
+      "isRollupEnable": true,
+      "syncStart": 89899030
+    },
+    {
+      "network": "auroratestnet",
+      "assetSymbol": "mUSD",
+      "bridgeType": "loop",
+      "address": "0x094535Df35b03009E9e73112E672464F5a630143",
+      "isRollupEnable": true,
+      "syncStart": 89899814
     }
   ],
   "monitor": {
