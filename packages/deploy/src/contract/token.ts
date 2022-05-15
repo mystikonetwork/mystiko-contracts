@@ -1,6 +1,8 @@
 import { TestToken__factory } from '@mystikonetwork/contracts-abi';
 import { LOGRED } from '../common/constant';
 import { toDecimals } from '../common/utils';
+import { PoolDeployConfig } from '../config/bridgePool';
+import { saveConfig } from '../config/config';
 
 let TestToken: TestToken__factory;
 
@@ -8,7 +10,12 @@ export async function initTestTokenContractFactory(ethers: any) {
   TestToken = await ethers.getContractFactory('TestToken');
 }
 
-export async function transferTokneToContract(tokenAddress: string, contractAddress: string) {
+export async function transferTokneToContract(c: any, tokenAddress: string, inPoolCfg: PoolDeployConfig) {
+  if (inPoolCfg.isTokenTransferSet) {
+    return;
+  }
+  const poolCfg = inPoolCfg;
+
   const testToken = await TestToken.attach(tokenAddress);
   console.log('transfer token to contract ');
   let tokenDecimals = 18;
@@ -31,9 +38,11 @@ export async function transferTokneToContract(tokenAddress: string, contractAddr
   }
 
   await testToken
-    .transfer(contractAddress, amount)
+    .transfer(inPoolCfg.address, amount)
     .then(() => {
       console.log('transfer token to contract success ');
+      poolCfg.isTokenTransferSet = true;
+      saveConfig(c.mystikoNetwork, c.cfg);
     })
     .catch((err: any) => {
       console.error(LOGRED, err);

@@ -3,6 +3,7 @@ import { BridgeConfig } from '../config/bridge';
 import { OperatorConfig } from '../config/operator';
 import { BridgeLoop, BridgeTBridge, LOGRED, MystikoDevelopment } from '../common/constant';
 import { BridgeProxyConfig } from '../config/bridgeProxy';
+import { saveConfig } from '../config/config';
 
 let MystikoTBridgeProxy: MystikoTBridgeProxy__factory;
 
@@ -17,29 +18,55 @@ async function deployTBridgeProxy() {
   return proxy.address;
 }
 
-async function addExecutorWhitelist(addr: string, executors: string[]) {
-  console.log('add executor whitelist');
+async function setExecutorWhitelist(addr: string, executor: string) {
+  console.log('set executor whitelist');
   const proxy = await MystikoTBridgeProxy.attach(addr);
 
   try {
-    const all = [];
-    for (let i = 0; i < executors.length; i += 1) {
-      const add = proxy.addExecutorWhitelist(executors[i]);
-      all.push(add);
-    }
-    await Promise.all(all);
+    const rsp = await proxy.addExecutorWhitelist(executor);
+    console.log('rsp hash ', rsp.hash);
   } catch (err: any) {
     console.error(LOGRED, err);
     process.exit(1);
   }
 }
 
-export async function addRegisterWhitelist(addr: string, depositContractAddress: string) {
+async function addExecutorWhitelist(c: any, inBridgeProxyCfg: BridgeProxyConfig, executors: string[]) {
+  // todo eric executor white list should be array
+  if (inBridgeProxyCfg.isExecutorWhitelistSet) {
+    return;
+  }
+
+  const bridgeProxyCfg = inBridgeProxyCfg;
+  /* eslint-disable no-await-in-loop */
+  for (let i = 0; i < executors.length; i += 1) {
+    await setExecutorWhitelist(bridgeProxyCfg.address, executors[i]);
+  }
+  /* eslint-enable no-await-in-loop */
+
+  bridgeProxyCfg.isExecutorWhitelistSet = true;
+  saveConfig(c.mystikoNetwork, c.cfg);
+}
+
+export async function addRegisterWhitelist(
+  c: any,
+  inBridgeProxyConfig: BridgeProxyConfig,
+  depositContractAddress: string,
+) {
+  // todo eric register white list should be array
+  // if (inBridgeProxyConfig.isRegisterWhitelistSet) {
+  //   return;
+  // }
+  const bridgeProxyConfig = inBridgeProxyConfig;
+
   console.log('add register whitelist');
-  const proxy = await MystikoTBridgeProxy.attach(addr);
+  const proxy = await MystikoTBridgeProxy.attach(bridgeProxyConfig.address);
 
   try {
-    await proxy.addRegisterWhitelist(depositContractAddress);
+    const rsp = await proxy.addRegisterWhitelist(depositContractAddress);
+    console.log('rsp hash ', rsp.hash);
+    // bridgeProxyConfig.isRegisterWhitelistSet = true;
+    saveConfig(c.mystikoNetwork, c.cfg);
   } catch (err: any) {
     console.error(LOGRED, err);
     process.exit(1);
@@ -47,34 +74,56 @@ export async function addRegisterWhitelist(addr: string, depositContractAddress:
 }
 
 export async function getOrDeployTBridgeProxy(
+  c: any,
   mystikoNetwork: string,
   bridgeCfg: BridgeConfig,
-  bridgeProxyCfg: BridgeProxyConfig | undefined,
+  inBridgeProxyCfg: BridgeProxyConfig | undefined,
   operatorCfg: OperatorConfig,
   chainNetwork: string,
+  override: string,
 ) {
   if (bridgeCfg.name === BridgeLoop) {
-    return '';
+    return undefined;
   }
 
   if (bridgeCfg.name === BridgeTBridge) {
-    if (bridgeProxyCfg === undefined || mystikoNetwork === MystikoDevelopment) {
-      console.log('tbridge proxy not exist, deploy');
+    if (override === 'true' || inBridgeProxyCfg === undefined || mystikoNetwork === MystikoDevelopment) {
+      console.log('deploy tbridge proxy');
+      let bridgeProxyCfg = inBridgeProxyCfg;
+      if (bridgeProxyCfg === undefined) {
+        bridgeProxyCfg = bridgeCfg.addBridgeProxyConfig(chainNetwork, '');
+      }
 
-      const addBridgeCfg = bridgeCfg.addOrUpdateBridgeProxyConfig(chainNetwork, '');
       const bridgeProxyAddress = await deployTBridgeProxy();
       console.log('bridgeProxy address is ', bridgeProxyAddress);
-      addBridgeCfg.address = bridgeProxyAddress;
-      await addExecutorWhitelist(bridgeProxyAddress, operatorCfg.executors);
-      return bridgeProxyAddress;
+      bridgeProxyCfg.address = bridgeProxyAddress;
+      bridgeProxyCfg.reset();
+      saveConfig(c.mystikoNetwork, c.cfg);
+      return bridgeProxyCfg;
     }
-    return bridgeProxyCfg.address;
   }
 
-  if (bridgeProxyCfg === undefined || bridgeProxyCfg.address === undefined || bridgeProxyCfg.address === '') {
+  if (
+    inBridgeProxyCfg === undefined ||
+    inBridgeProxyCfg.address === undefined ||
+    inBridgeProxyCfg.address === ''
+  ) {
     console.error(LOGRED, 'bridge proxy address not configure');
     process.exit(-1);
   }
 
-  return bridgeProxyCfg.address;
+  return inBridgeProxyCfg;
+}
+
+export async function doTBridgeProxyConfigure(
+  c: any,
+  bridgeCfg: BridgeConfig,
+  bridgeProxyCfg: BridgeProxyConfig | undefined,
+  operatorCfg: OperatorConfig,
+) {
+  if (bridgeCfg.name === BridgeLoop || bridgeProxyCfg === undefined) {
+    return;
+  }
+
+  await addExecutorWhitelist(c, bridgeProxyCfg, operatorCfg.executors);
 }

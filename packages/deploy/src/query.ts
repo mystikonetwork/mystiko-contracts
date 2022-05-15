@@ -15,7 +15,7 @@ async function commitmentQueueQuery(taskArgs: any) {
   const c = loadConfig(taskArgs);
 
   // @ts-ignore
-  const poolAddress = c.pairSrcPoolCfg.address;
+  const poolAddress = c.srcPoolCfg.address;
   await commitmentQueue(c.srcTokenCfg.erc20, poolAddress);
 }
 
@@ -24,7 +24,7 @@ async function sanctionQuery(taskArgs: any) {
   const c = loadConfig(taskArgs);
 
   // @ts-ignore
-  const poolAddress = c.pairSrcPoolCfg.address;
+  const poolAddress = c.srcPoolCfg.address;
   await poolSanctionQuery(c.srcTokenCfg.erc20, poolAddress);
 
   // @ts-ignore

@@ -21,12 +21,19 @@ async function toggleSaction(taskArgs: any) {
   const checkDisable = parameter === 'true';
   console.log('sanction check disabled ', checkDisable);
 
-  // @ts-ignore
-  const poolAddress = c.pairSrcPoolCfg.address;
-  await togglePoolSanctionCheck(c.srcTokenCfg.erc20, poolAddress, checkDisable);
+  if (c.srcPoolCfg === undefined) {
+    console.error('commitment pool configure not exist');
+    process.exit(-1);
+  }
 
-  const depositAddress = c.pairSrcDepositCfg.address;
-  await toggleDepositSanctionCheck(c.bridgeCfg.name, c.srcTokenCfg.erc20, depositAddress, checkDisable);
+  await togglePoolSanctionCheck(c, c.srcTokenCfg.erc20, c.srcPoolCfg, checkDisable);
+  await toggleDepositSanctionCheck(
+    c,
+    c.bridgeCfg.name,
+    c.srcTokenCfg.erc20,
+    c.pairSrcDepositCfg,
+    checkDisable,
+  );
 }
 
 async function tokenTransfer(taskArgs: any) {
@@ -36,7 +43,7 @@ async function tokenTransfer(taskArgs: any) {
   // transfer token to contract
   if (c.srcTokenCfg.erc20 && c.bridgeCfg.name !== BridgeLoop && c.mystikoNetwork === MystikoTestnet) {
     // @ts-ignore
-    await transferTokneToContract(c.srcTokenCfg.address, c.pairSrcPoolCfg.address);
+    await transferTokneToContract(c, c.srcTokenCfg.address, c.srcPoolCfg);
   }
 }
 

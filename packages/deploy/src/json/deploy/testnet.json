@@ -1479,20 +1479,40 @@
       "contractName": "TBridge",
       "proxys": [
         {
-          "network": "bsctestnet",
-          "address": "0xD0AbdF1Ac44901913d9B8d7FADb0cF90fE81E82f"
-        },
-        {
           "network": "ropsten",
-          "address": "0x6498ae1f9C9555E516036038ce2fB75D819b46D4"
+          "address": "0x51b8680731Fd7418BC94413B2a1B5105c686818a",
+          "isExecutorWhitelistSet": true,
+          "isRegisterWhitelistSet": false
         },
         {
-          "network": "fantomtestnet",
-          "address": "0x49Db93267F2E88fa3821E615C5f788ff250c86fB"
+          "network": "bsctestnet",
+          "address": "0x291845b20372511d5C0E59eDf94983498E4Eed6B",
+          "isExecutorWhitelistSet": true,
+          "isRegisterWhitelistSet": false
         },
         {
           "network": "polygontestnet",
-          "address": "0x84DC8EBD5F614068766c3E7cEc1F5aAD1c18c401"
+          "address": "0xBb4EE88D77a0AaD4f3226491F6119228910b5DB2",
+          "isExecutorWhitelistSet": true,
+          "isRegisterWhitelistSet": false
+        },
+        {
+          "network": "avalanchetestnet",
+          "address": "0xED0ca5595099456C569B599e5Ea8F3d3B7b9a8B3",
+          "isExecutorWhitelistSet": true,
+          "isRegisterWhitelistSet": false
+        },
+        {
+          "network": "fantomtestnet",
+          "address": "0x227F56821c3137aECC78e5Eb4441c558E3AB29c9",
+          "isExecutorWhitelistSet": true,
+          "isRegisterWhitelistSet": false
+        },
+        {
+          "network": "auroratestnet",
+          "address": "0xCe507D587783CCd3E2b31d75F6Dc0B5583601dbb",
+          "isExecutorWhitelistSet": true,
+          "isRegisterWhitelistSet": false
         }
       ],
       "fees": [
@@ -1525,21 +1545,480 @@
           "minimal": "1000"
         }
       ],
-      "commitmentPools": [],
+      "commitmentPools": [
+        {
+          "network": "ropsten",
+          "assetSymbol": "ETH",
+          "address": "0x4471873169EA7cd3f45beA9105f567Bdc8608240",
+          "syncStart": 12265315,
+          "isMinRollupFeeSet": true,
+          "isRollup1VerifierSet": true,
+          "isRollup4VerifierSet": true,
+          "isRollup16VerifierSet": true,
+          "isTransact1x0VerifierSet": true,
+          "isTransact1x1VerifierSet": true,
+          "isTransact1x2VerifierSet": true,
+          "isTransact2x0VerifierSet": true,
+          "isTransact2x1VerifierSet": true,
+          "isTransact2x2VerifierSet": true,
+          "isRollupWhitelistSet": true,
+          "isEnqueueWhitelistSet": true,
+          "isSanctionCheckSet": true,
+          "isTokenTransferSet": false
+        },
+        {
+          "network": "bsctestnet",
+          "assetSymbol": "mETH",
+          "address": "0x916b009bAD1FE24Ee55364Fafe4C31fdE6D3C7b0",
+          "syncStart": 19314250,
+          "isMinRollupFeeSet": true,
+          "isRollup1VerifierSet": true,
+          "isRollup4VerifierSet": true,
+          "isRollup16VerifierSet": true,
+          "isTransact1x0VerifierSet": true,
+          "isTransact1x1VerifierSet": true,
+          "isTransact1x2VerifierSet": true,
+          "isTransact2x0VerifierSet": true,
+          "isTransact2x1VerifierSet": true,
+          "isTransact2x2VerifierSet": true,
+          "isRollupWhitelistSet": true,
+          "isEnqueueWhitelistSet": true,
+          "isSanctionCheckSet": true,
+          "isTokenTransferSet": true
+        },
+        {
+          "network": "ropsten",
+          "assetSymbol": "MTT",
+          "address": "0x6A29C3E7DC05B2888243644DB079ff8Edf890665",
+          "syncStart": 12265351,
+          "isMinRollupFeeSet": true,
+          "isRollup1VerifierSet": true,
+          "isRollup4VerifierSet": true,
+          "isRollup16VerifierSet": true,
+          "isTransact1x0VerifierSet": true,
+          "isTransact1x1VerifierSet": true,
+          "isTransact1x2VerifierSet": true,
+          "isTransact2x0VerifierSet": true,
+          "isTransact2x1VerifierSet": true,
+          "isTransact2x2VerifierSet": true,
+          "isRollupWhitelistSet": true,
+          "isEnqueueWhitelistSet": true,
+          "isSanctionCheckSet": true,
+          "isTokenTransferSet": true
+        },
+        {
+          "network": "ropsten",
+          "assetSymbol": "mUSD",
+          "address": "0x9FC14A30Baa288C367A40E4723472B4e30c2D493",
+          "syncStart": 12265354,
+          "isMinRollupFeeSet": true,
+          "isRollup1VerifierSet": true,
+          "isRollup4VerifierSet": true,
+          "isRollup16VerifierSet": true,
+          "isTransact1x0VerifierSet": true,
+          "isTransact1x1VerifierSet": true,
+          "isTransact1x2VerifierSet": true,
+          "isTransact2x0VerifierSet": true,
+          "isTransact2x1VerifierSet": true,
+          "isTransact2x2VerifierSet": true,
+          "isRollupWhitelistSet": true,
+          "isEnqueueWhitelistSet": true,
+          "isSanctionCheckSet": true,
+          "isTokenTransferSet": true
+        },
+        {
+          "network": "ropsten",
+          "assetSymbol": "mBNB",
+          "address": "0xaa5C42e04ca2CdA34220EAfBB65f26F711031933",
+          "syncStart": 12265358,
+          "isMinRollupFeeSet": true,
+          "isRollup1VerifierSet": true,
+          "isRollup4VerifierSet": true,
+          "isRollup16VerifierSet": true,
+          "isTransact1x0VerifierSet": true,
+          "isTransact1x1VerifierSet": true,
+          "isTransact1x2VerifierSet": true,
+          "isTransact2x0VerifierSet": true,
+          "isTransact2x1VerifierSet": true,
+          "isTransact2x2VerifierSet": true,
+          "isRollupWhitelistSet": true,
+          "isEnqueueWhitelistSet": true,
+          "isSanctionCheckSet": true,
+          "isTokenTransferSet": true
+        },
+        {
+          "network": "ropsten",
+          "assetSymbol": "mMATIC",
+          "address": "0x9BF3E1bc9abc9D9BC7fd27b40FA3D61cFE1AAB24",
+          "syncStart": 12265362,
+          "isMinRollupFeeSet": true,
+          "isRollup1VerifierSet": true,
+          "isRollup4VerifierSet": true,
+          "isRollup16VerifierSet": true,
+          "isTransact1x0VerifierSet": true,
+          "isTransact1x1VerifierSet": true,
+          "isTransact1x2VerifierSet": true,
+          "isTransact2x0VerifierSet": true,
+          "isTransact2x1VerifierSet": true,
+          "isTransact2x2VerifierSet": true,
+          "isRollupWhitelistSet": true,
+          "isEnqueueWhitelistSet": true,
+          "isSanctionCheckSet": true,
+          "isTokenTransferSet": true
+        },
+        {
+          "network": "ropsten",
+          "assetSymbol": "mAVAX",
+          "address": "0xd7D8c269A35fd039b551b8E8c4F33d27FD6Bf77A",
+          "syncStart": 12265373,
+          "isMinRollupFeeSet": true,
+          "isRollup1VerifierSet": true,
+          "isRollup4VerifierSet": true,
+          "isRollup16VerifierSet": true,
+          "isTransact1x0VerifierSet": true,
+          "isTransact1x1VerifierSet": true,
+          "isTransact1x2VerifierSet": true,
+          "isTransact2x0VerifierSet": true,
+          "isTransact2x1VerifierSet": true,
+          "isTransact2x2VerifierSet": true,
+          "isRollupWhitelistSet": true,
+          "isEnqueueWhitelistSet": true,
+          "isSanctionCheckSet": true,
+          "isTokenTransferSet": true
+        },
+        {
+          "network": "bsctestnet",
+          "assetSymbol": "MTT",
+          "address": "0xB19a6Fe202216fF1218Ca0FAa52D9FB24d419583",
+          "syncStart": 19315785,
+          "isMinRollupFeeSet": true,
+          "isRollup1VerifierSet": true,
+          "isRollup4VerifierSet": true,
+          "isRollup16VerifierSet": true,
+          "isTransact1x0VerifierSet": true,
+          "isTransact1x1VerifierSet": true,
+          "isTransact1x2VerifierSet": true,
+          "isTransact2x0VerifierSet": true,
+          "isTransact2x1VerifierSet": true,
+          "isTransact2x2VerifierSet": true,
+          "isRollupWhitelistSet": true,
+          "isEnqueueWhitelistSet": true,
+          "isSanctionCheckSet": true,
+          "isTokenTransferSet": true
+        },
+        {
+          "network": "bsctestnet",
+          "assetSymbol": "mUSD",
+          "address": "0x7688D576465516caE181203bdfa29C2d238910c5",
+          "syncStart": 19315810,
+          "isMinRollupFeeSet": true,
+          "isRollup1VerifierSet": true,
+          "isRollup4VerifierSet": true,
+          "isRollup16VerifierSet": true,
+          "isTransact1x0VerifierSet": true,
+          "isTransact1x1VerifierSet": true,
+          "isTransact1x2VerifierSet": true,
+          "isTransact2x0VerifierSet": true,
+          "isTransact2x1VerifierSet": true,
+          "isTransact2x2VerifierSet": true,
+          "isRollupWhitelistSet": true,
+          "isEnqueueWhitelistSet": true,
+          "isSanctionCheckSet": true,
+          "isTokenTransferSet": true
+        },
+        {
+          "network": "bsctestnet",
+          "assetSymbol": "BNB",
+          "address": "0x5c96152fb012aC206e8a8374C158EeAcF662686b",
+          "syncStart": 19315851,
+          "isMinRollupFeeSet": true,
+          "isRollup1VerifierSet": true,
+          "isRollup4VerifierSet": true,
+          "isRollup16VerifierSet": true,
+          "isTransact1x0VerifierSet": true,
+          "isTransact1x1VerifierSet": true,
+          "isTransact1x2VerifierSet": true,
+          "isTransact2x0VerifierSet": true,
+          "isTransact2x1VerifierSet": true,
+          "isTransact2x2VerifierSet": true,
+          "isRollupWhitelistSet": true,
+          "isEnqueueWhitelistSet": true,
+          "isSanctionCheckSet": true,
+          "isTokenTransferSet": false
+        },
+        {
+          "network": "polygontestnet",
+          "assetSymbol": "MATIC",
+          "address": "0xBEA6fF6960311E89f0468Ba38270DfD82E29C5f5",
+          "syncStart": 26321464,
+          "isMinRollupFeeSet": true,
+          "isRollup1VerifierSet": true,
+          "isRollup4VerifierSet": true,
+          "isRollup16VerifierSet": true,
+          "isTransact1x0VerifierSet": true,
+          "isTransact1x1VerifierSet": true,
+          "isTransact1x2VerifierSet": true,
+          "isTransact2x0VerifierSet": true,
+          "isTransact2x1VerifierSet": true,
+          "isTransact2x2VerifierSet": true,
+          "isRollupWhitelistSet": true,
+          "isEnqueueWhitelistSet": true,
+          "isSanctionCheckSet": true,
+          "isTokenTransferSet": false
+        },
+        {
+          "network": "polygontestnet",
+          "assetSymbol": "mETH",
+          "address": "0xeD92C57454c43d0f50bf6E9bb148eBE66DDB2B83",
+          "syncStart": 26321472,
+          "isMinRollupFeeSet": true,
+          "isRollup1VerifierSet": true,
+          "isRollup4VerifierSet": true,
+          "isRollup16VerifierSet": true,
+          "isTransact1x0VerifierSet": true,
+          "isTransact1x1VerifierSet": true,
+          "isTransact1x2VerifierSet": true,
+          "isTransact2x0VerifierSet": true,
+          "isTransact2x1VerifierSet": true,
+          "isTransact2x2VerifierSet": true,
+          "isRollupWhitelistSet": true,
+          "isEnqueueWhitelistSet": true,
+          "isSanctionCheckSet": true,
+          "isTokenTransferSet": true
+        },
+        {
+          "network": "polygontestnet",
+          "assetSymbol": "MTT",
+          "address": "0x882A35e449121Eb6ab731C71745AFE6d0176Ab6e",
+          "syncStart": 26321480,
+          "isMinRollupFeeSet": true,
+          "isRollup1VerifierSet": true,
+          "isRollup4VerifierSet": true,
+          "isRollup16VerifierSet": true,
+          "isTransact1x0VerifierSet": true,
+          "isTransact1x1VerifierSet": true,
+          "isTransact1x2VerifierSet": true,
+          "isTransact2x0VerifierSet": true,
+          "isTransact2x1VerifierSet": true,
+          "isTransact2x2VerifierSet": true,
+          "isRollupWhitelistSet": true,
+          "isEnqueueWhitelistSet": true,
+          "isSanctionCheckSet": true,
+          "isTokenTransferSet": true
+        },
+        {
+          "network": "polygontestnet",
+          "assetSymbol": "mUSD",
+          "address": "0xad32a2e08A0Bd483B6Dd1105C87CCc09f08EF3D3",
+          "syncStart": 26321488,
+          "isMinRollupFeeSet": true,
+          "isRollup1VerifierSet": true,
+          "isRollup4VerifierSet": true,
+          "isRollup16VerifierSet": true,
+          "isTransact1x0VerifierSet": true,
+          "isTransact1x1VerifierSet": true,
+          "isTransact1x2VerifierSet": true,
+          "isTransact2x0VerifierSet": true,
+          "isTransact2x1VerifierSet": true,
+          "isTransact2x2VerifierSet": true,
+          "isRollupWhitelistSet": true,
+          "isEnqueueWhitelistSet": true,
+          "isSanctionCheckSet": true,
+          "isTokenTransferSet": true
+        },
+        {
+          "network": "avalanchetestnet",
+          "assetSymbol": "AVAX",
+          "address": "0x5eF315d16694Feb96F9A18f867A2C714F6A09A1b",
+          "syncStart": 9695758,
+          "isMinRollupFeeSet": true,
+          "isRollup1VerifierSet": true,
+          "isRollup4VerifierSet": true,
+          "isRollup16VerifierSet": true,
+          "isTransact1x0VerifierSet": true,
+          "isTransact1x1VerifierSet": true,
+          "isTransact1x2VerifierSet": true,
+          "isTransact2x0VerifierSet": true,
+          "isTransact2x1VerifierSet": true,
+          "isTransact2x2VerifierSet": true,
+          "isRollupWhitelistSet": true,
+          "isEnqueueWhitelistSet": true,
+          "isSanctionCheckSet": true,
+          "isTokenTransferSet": false
+        },
+        {
+          "network": "avalanchetestnet",
+          "assetSymbol": "mETH",
+          "address": "0xB66D6AA15839EEF3b8A1A94f04Da8213477AE272",
+          "syncStart": 9695948,
+          "isMinRollupFeeSet": true,
+          "isRollup1VerifierSet": true,
+          "isRollup4VerifierSet": true,
+          "isRollup16VerifierSet": true,
+          "isTransact1x0VerifierSet": true,
+          "isTransact1x1VerifierSet": true,
+          "isTransact1x2VerifierSet": true,
+          "isTransact2x0VerifierSet": true,
+          "isTransact2x1VerifierSet": true,
+          "isTransact2x2VerifierSet": true,
+          "isRollupWhitelistSet": true,
+          "isEnqueueWhitelistSet": true,
+          "isSanctionCheckSet": true,
+          "isTokenTransferSet": true
+        },
+        {
+          "network": "avalanchetestnet",
+          "assetSymbol": "MTT",
+          "address": "0xd445a7744CFdf49976175c643ce163bC8653F195",
+          "syncStart": 9696004,
+          "isMinRollupFeeSet": true,
+          "isRollup1VerifierSet": true,
+          "isRollup4VerifierSet": true,
+          "isRollup16VerifierSet": true,
+          "isTransact1x0VerifierSet": true,
+          "isTransact1x1VerifierSet": true,
+          "isTransact1x2VerifierSet": true,
+          "isTransact2x0VerifierSet": true,
+          "isTransact2x1VerifierSet": true,
+          "isTransact2x2VerifierSet": true,
+          "isRollupWhitelistSet": true,
+          "isEnqueueWhitelistSet": true,
+          "isSanctionCheckSet": true,
+          "isTokenTransferSet": true
+        },
+        {
+          "network": "avalanchetestnet",
+          "assetSymbol": "mUSD",
+          "address": "0xdA7C4d1C3637458734b4b01d55157068640B256E",
+          "syncStart": 9696297,
+          "isMinRollupFeeSet": true,
+          "isRollup1VerifierSet": true,
+          "isRollup4VerifierSet": true,
+          "isRollup16VerifierSet": true,
+          "isTransact1x0VerifierSet": true,
+          "isTransact1x1VerifierSet": true,
+          "isTransact1x2VerifierSet": true,
+          "isTransact2x0VerifierSet": true,
+          "isTransact2x1VerifierSet": true,
+          "isTransact2x2VerifierSet": true,
+          "isRollupWhitelistSet": true,
+          "isEnqueueWhitelistSet": true,
+          "isSanctionCheckSet": true,
+          "isTokenTransferSet": true
+        },
+        {
+          "network": "fantomtestnet",
+          "assetSymbol": "MTT",
+          "address": "0xD2AdD62027f27ec1876a497FDBC4c07646612409",
+          "syncStart": 9046297,
+          "isMinRollupFeeSet": true,
+          "isRollup1VerifierSet": true,
+          "isRollup4VerifierSet": true,
+          "isRollup16VerifierSet": true,
+          "isTransact1x0VerifierSet": true,
+          "isTransact1x1VerifierSet": true,
+          "isTransact1x2VerifierSet": true,
+          "isTransact2x0VerifierSet": true,
+          "isTransact2x1VerifierSet": true,
+          "isTransact2x2VerifierSet": true,
+          "isRollupWhitelistSet": true,
+          "isEnqueueWhitelistSet": true,
+          "isSanctionCheckSet": true,
+          "isTokenTransferSet": true
+        },
+        {
+          "network": "auroratestnet",
+          "assetSymbol": "aETH",
+          "address": "0xB66D6AA15839EEF3b8A1A94f04Da8213477AE272",
+          "syncStart": 89924354,
+          "isMinRollupFeeSet": true,
+          "isRollup1VerifierSet": true,
+          "isRollup4VerifierSet": true,
+          "isRollup16VerifierSet": true,
+          "isTransact1x0VerifierSet": true,
+          "isTransact1x1VerifierSet": true,
+          "isTransact1x2VerifierSet": true,
+          "isTransact2x0VerifierSet": true,
+          "isTransact2x1VerifierSet": true,
+          "isTransact2x2VerifierSet": true,
+          "isRollupWhitelistSet": true,
+          "isEnqueueWhitelistSet": true,
+          "isSanctionCheckSet": true,
+          "isTokenTransferSet": false
+        },
+        {
+          "network": "auroratestnet",
+          "assetSymbol": "MTT",
+          "address": "0x55E8ba54D21d801B82691EE789617d28A56408B9",
+          "syncStart": 89925001,
+          "isMinRollupFeeSet": true,
+          "isRollup1VerifierSet": true,
+          "isRollup4VerifierSet": true,
+          "isRollup16VerifierSet": true,
+          "isTransact1x0VerifierSet": true,
+          "isTransact1x1VerifierSet": true,
+          "isTransact1x2VerifierSet": true,
+          "isTransact2x0VerifierSet": true,
+          "isTransact2x1VerifierSet": true,
+          "isTransact2x2VerifierSet": true,
+          "isRollupWhitelistSet": true,
+          "isEnqueueWhitelistSet": true,
+          "isSanctionCheckSet": true,
+          "isTokenTransferSet": true
+        },
+        {
+          "network": "auroratestnet",
+          "assetSymbol": "mUSD",
+          "address": "0xac35D1C4B23e78F2Ba8C0B17C53D43F763666254",
+          "syncStart": 89925971,
+          "isMinRollupFeeSet": true,
+          "isRollup1VerifierSet": true,
+          "isRollup4VerifierSet": true,
+          "isRollup16VerifierSet": true,
+          "isTransact1x0VerifierSet": true,
+          "isTransact1x1VerifierSet": true,
+          "isTransact1x2VerifierSet": true,
+          "isTransact2x0VerifierSet": true,
+          "isTransact2x1VerifierSet": true,
+          "isTransact2x2VerifierSet": true,
+          "isRollupWhitelistSet": true,
+          "isEnqueueWhitelistSet": true,
+          "isSanctionCheckSet": true,
+          "isTokenTransferSet": true
+        }
+      ],
       "pairs": [
         {
           "pair": [
             {
               "network": "ropsten",
               "assetSymbol": "ETH",
-              "address": "",
-              "syncStart": 12261019
+              "address": "0x2829C83026ef66cDB222DF232953cca6c64663eA",
+              "syncStart": 12265318,
+              "isMinAmountSet": true,
+              "isCommitmentPoolSet": true,
+              "isMinBridgeFeeSet": true,
+              "isMinExecutorFeeSet": true,
+              "isPeerMinExecutorFeeSet": true,
+              "isPeerMinRollupFeeSet": true,
+              "isPeerContractSet": true,
+              "isSanctionCheckSet": true,
+              "isBridgeProxySet": true
             },
             {
               "network": "bsctestnet",
               "assetSymbol": "mETH",
-              "address": "",
-              "syncStart": 19263177
+              "address": "0x52EA85D7b11E8742200702dE4d7208C195970711",
+              "syncStart": 19314258,
+              "isMinAmountSet": true,
+              "isCommitmentPoolSet": true,
+              "isMinBridgeFeeSet": true,
+              "isMinExecutorFeeSet": true,
+              "isPeerMinExecutorFeeSet": true,
+              "isPeerMinRollupFeeSet": true,
+              "isPeerContractSet": true,
+              "isSanctionCheckSet": true,
+              "isBridgeProxySet": true
             }
           ]
         },
@@ -1548,14 +2027,32 @@
             {
               "network": "ropsten",
               "assetSymbol": "MTT",
-              "address": "",
-              "syncStart": 12260521
+              "address": "0x26308399736c1bB6d6ec39c1A0915473586455e9",
+              "syncStart": 12265352,
+              "isMinAmountSet": true,
+              "isCommitmentPoolSet": true,
+              "isMinBridgeFeeSet": true,
+              "isMinExecutorFeeSet": true,
+              "isPeerMinExecutorFeeSet": true,
+              "isPeerMinRollupFeeSet": true,
+              "isBridgeProxySet": true,
+              "isPeerContractSet": true,
+              "isSanctionCheckSet": true
             },
             {
               "network": "bsctestnet",
               "assetSymbol": "MTT",
-              "address": "",
-              "syncStart": 19257618
+              "address": "0xDc15E18859d9e790144f29E8612CE329036E5eB4",
+              "syncStart": 19315797,
+              "isMinAmountSet": true,
+              "isCommitmentPoolSet": true,
+              "isMinBridgeFeeSet": true,
+              "isMinExecutorFeeSet": true,
+              "isPeerMinExecutorFeeSet": true,
+              "isPeerMinRollupFeeSet": true,
+              "isBridgeProxySet": true,
+              "isPeerContractSet": true,
+              "isSanctionCheckSet": true
             }
           ]
         },
@@ -1564,14 +2061,32 @@
             {
               "network": "ropsten",
               "assetSymbol": "mUSD",
-              "address": "",
-              "syncStart": 12260545
+              "address": "0xbfA52Aa3Ad07E534b7583c7AE9D52238F35BA9bd",
+              "syncStart": 12265356,
+              "isMinAmountSet": true,
+              "isCommitmentPoolSet": true,
+              "isMinBridgeFeeSet": true,
+              "isMinExecutorFeeSet": true,
+              "isPeerMinExecutorFeeSet": true,
+              "isPeerMinRollupFeeSet": true,
+              "isBridgeProxySet": true,
+              "isPeerContractSet": true,
+              "isSanctionCheckSet": true
             },
             {
               "network": "bsctestnet",
               "assetSymbol": "mUSD",
-              "address": "",
-              "syncStart": 19257969
+              "address": "0x6Fc8C7Ad5CF5bEeA2C528295f1f99595E681Ea99",
+              "syncStart": 19315827,
+              "isMinAmountSet": true,
+              "isCommitmentPoolSet": true,
+              "isMinBridgeFeeSet": true,
+              "isMinExecutorFeeSet": true,
+              "isPeerMinExecutorFeeSet": true,
+              "isPeerMinRollupFeeSet": true,
+              "isBridgeProxySet": true,
+              "isPeerContractSet": true,
+              "isSanctionCheckSet": true
             }
           ]
         },
@@ -1580,14 +2095,32 @@
             {
               "network": "ropsten",
               "assetSymbol": "mBNB",
-              "address": "",
-              "syncStart": 12261032
+              "address": "0xC2d9B3fdeD8320e8d8BD25BDC765A6771f947148",
+              "syncStart": 12265359,
+              "isMinAmountSet": true,
+              "isCommitmentPoolSet": true,
+              "isMinBridgeFeeSet": true,
+              "isMinExecutorFeeSet": true,
+              "isPeerMinExecutorFeeSet": true,
+              "isPeerMinRollupFeeSet": true,
+              "isBridgeProxySet": true,
+              "isPeerContractSet": true,
+              "isSanctionCheckSet": true
             },
             {
               "network": "bsctestnet",
               "assetSymbol": "BNB",
-              "address": "",
-              "syncStart": 19263315
+              "address": "0x76751e6197Af30050556a082Ebc1Aa84D1980be4",
+              "syncStart": 19315857,
+              "isMinAmountSet": true,
+              "isCommitmentPoolSet": true,
+              "isMinBridgeFeeSet": true,
+              "isMinExecutorFeeSet": true,
+              "isPeerMinExecutorFeeSet": true,
+              "isPeerMinRollupFeeSet": true,
+              "isBridgeProxySet": true,
+              "isPeerContractSet": true,
+              "isSanctionCheckSet": true
             }
           ]
         },
@@ -1596,14 +2129,32 @@
             {
               "network": "ropsten",
               "assetSymbol": "ETH",
-              "address": "",
-              "syncStart": 12261071
+              "address": "0x60C46D18a7059e96ef67dB976BaAa847C2215eb2",
+              "syncStart": 12265371,
+              "isMinAmountSet": true,
+              "isCommitmentPoolSet": true,
+              "isMinBridgeFeeSet": true,
+              "isMinExecutorFeeSet": true,
+              "isPeerMinExecutorFeeSet": true,
+              "isPeerMinRollupFeeSet": true,
+              "isBridgeProxySet": true,
+              "isPeerContractSet": true,
+              "isSanctionCheckSet": true
             },
             {
               "network": "polygontestnet",
               "assetSymbol": "mETH",
-              "address": "",
-              "syncStart": 26304246
+              "address": "0x3723dfdc2CA695414C0970BC8E33B134CB9e666d",
+              "syncStart": 26321476,
+              "isMinAmountSet": true,
+              "isCommitmentPoolSet": true,
+              "isMinBridgeFeeSet": true,
+              "isMinExecutorFeeSet": true,
+              "isPeerMinExecutorFeeSet": true,
+              "isPeerMinRollupFeeSet": true,
+              "isBridgeProxySet": true,
+              "isPeerContractSet": true,
+              "isSanctionCheckSet": true
             }
           ]
         },
@@ -1612,14 +2163,32 @@
             {
               "network": "ropsten",
               "assetSymbol": "MTT",
-              "address": "",
-              "syncStart": 12260622
+              "address": "0x45497A6848e0927b49E8E466431cf3A12c5aa867",
+              "syncStart": 12265366,
+              "isMinAmountSet": true,
+              "isCommitmentPoolSet": true,
+              "isMinBridgeFeeSet": true,
+              "isMinExecutorFeeSet": true,
+              "isPeerMinExecutorFeeSet": true,
+              "isPeerMinRollupFeeSet": true,
+              "isBridgeProxySet": true,
+              "isPeerContractSet": true,
+              "isSanctionCheckSet": true
             },
             {
               "network": "polygontestnet",
               "assetSymbol": "MTT",
-              "address": "",
-              "syncStart": 26302211
+              "address": "0x8F89966e257E8077356f93A74c1F4247AC660BAE",
+              "syncStart": 26321484,
+              "isMinAmountSet": true,
+              "isCommitmentPoolSet": true,
+              "isMinBridgeFeeSet": true,
+              "isMinExecutorFeeSet": true,
+              "isPeerMinExecutorFeeSet": true,
+              "isPeerMinRollupFeeSet": true,
+              "isBridgeProxySet": true,
+              "isPeerContractSet": true,
+              "isSanctionCheckSet": true
             }
           ]
         },
@@ -1628,14 +2197,32 @@
             {
               "network": "ropsten",
               "assetSymbol": "mUSD",
-              "address": "",
-              "syncStart": 12260629
+              "address": "0x1f8073751eA1f8dFa115C802D772a7fF904565bf",
+              "syncStart": 12265369,
+              "isMinAmountSet": true,
+              "isCommitmentPoolSet": true,
+              "isMinBridgeFeeSet": true,
+              "isMinExecutorFeeSet": true,
+              "isPeerMinExecutorFeeSet": true,
+              "isPeerMinRollupFeeSet": true,
+              "isBridgeProxySet": true,
+              "isPeerContractSet": true,
+              "isSanctionCheckSet": true
             },
             {
               "network": "polygontestnet",
               "assetSymbol": "mUSD",
-              "address": "",
-              "syncStart": 26302301
+              "address": "0x4c4442D71890E69DEa18A7a1Ea8D44fB7229a3ff",
+              "syncStart": 26321492,
+              "isMinAmountSet": true,
+              "isCommitmentPoolSet": true,
+              "isMinBridgeFeeSet": true,
+              "isMinExecutorFeeSet": true,
+              "isPeerMinExecutorFeeSet": true,
+              "isPeerMinRollupFeeSet": true,
+              "isBridgeProxySet": true,
+              "isPeerContractSet": true,
+              "isSanctionCheckSet": true
             }
           ]
         },
@@ -1644,14 +2231,32 @@
             {
               "network": "ropsten",
               "assetSymbol": "mMATIC",
-              "address": "",
-              "syncStart": 12261053
+              "address": "0xE0deaE86a920Af9150bEbA6a0a158c06C50f1C2a",
+              "syncStart": 12265363,
+              "isMinAmountSet": true,
+              "isCommitmentPoolSet": true,
+              "isMinBridgeFeeSet": true,
+              "isMinExecutorFeeSet": true,
+              "isPeerMinExecutorFeeSet": true,
+              "isPeerMinRollupFeeSet": true,
+              "isBridgeProxySet": true,
+              "isPeerContractSet": true,
+              "isSanctionCheckSet": true
             },
             {
               "network": "polygontestnet",
               "assetSymbol": "MATIC",
-              "address": "",
-              "syncStart": 26304226
+              "address": "0x3C74C9Be93c95E60e012204682F978ADB360E70c",
+              "syncStart": 26321467,
+              "isMinAmountSet": true,
+              "isCommitmentPoolSet": true,
+              "isMinBridgeFeeSet": true,
+              "isMinExecutorFeeSet": true,
+              "isPeerMinExecutorFeeSet": true,
+              "isPeerMinRollupFeeSet": true,
+              "isBridgeProxySet": true,
+              "isPeerContractSet": true,
+              "isSanctionCheckSet": true
             }
           ]
         },
@@ -1660,12 +2265,32 @@
             {
               "network": "ropsten",
               "assetSymbol": "ETH",
-              "address": "",
-              "syncStart": 12261124
+              "address": "0x119F0aD1f5Fae316825d225b0E26E4fcC43Ec22B",
+              "syncStart": 12265381,
+              "isMinAmountSet": true,
+              "isCommitmentPoolSet": true,
+              "isMinBridgeFeeSet": true,
+              "isMinExecutorFeeSet": true,
+              "isPeerMinExecutorFeeSet": true,
+              "isPeerMinRollupFeeSet": true,
+              "isBridgeProxySet": true,
+              "isPeerContractSet": true,
+              "isSanctionCheckSet": true
             },
             {
               "network": "avalanchetestnet",
-              "assetSymbol": "mETH"
+              "assetSymbol": "mETH",
+              "isMinAmountSet": true,
+              "isCommitmentPoolSet": true,
+              "isMinBridgeFeeSet": true,
+              "isMinExecutorFeeSet": true,
+              "isPeerMinExecutorFeeSet": true,
+              "isPeerMinRollupFeeSet": true,
+              "isBridgeProxySet": true,
+              "isPeerContractSet": true,
+              "isSanctionCheckSet": true,
+              "address": "0x1cF3F084635FEa4a455f3165D75697499e8a1C53",
+              "syncStart": 9695980
             }
           ]
         },
@@ -1674,12 +2299,32 @@
             {
               "network": "ropsten",
               "assetSymbol": "MTT",
-              "address": "",
-              "syncStart": 12261095
+              "address": "0x8E34503a7307a7de5e18bAdb5422EF19cBb855e3",
+              "syncStart": 12265378,
+              "isMinAmountSet": true,
+              "isCommitmentPoolSet": true,
+              "isMinBridgeFeeSet": true,
+              "isMinExecutorFeeSet": true,
+              "isPeerMinExecutorFeeSet": true,
+              "isPeerMinRollupFeeSet": true,
+              "isBridgeProxySet": true,
+              "isPeerContractSet": true,
+              "isSanctionCheckSet": true
             },
             {
               "network": "avalanchetestnet",
-              "assetSymbol": "MTT"
+              "assetSymbol": "MTT",
+              "isMinAmountSet": true,
+              "isCommitmentPoolSet": true,
+              "isMinBridgeFeeSet": true,
+              "isMinExecutorFeeSet": true,
+              "isPeerMinExecutorFeeSet": true,
+              "isPeerMinRollupFeeSet": true,
+              "isBridgeProxySet": true,
+              "isPeerContractSet": true,
+              "isSanctionCheckSet": true,
+              "address": "0xeb2a6545516ce618807c07BB04E9CCb8ED7D8e6F",
+              "syncStart": 9696264
             }
           ]
         },
@@ -1688,12 +2333,32 @@
             {
               "network": "ropsten",
               "assetSymbol": "mUSD",
-              "address": "",
-              "syncStart": 12261106
+              "address": "0xB0D918020f70A416d9ce5753Db48A46905a75561",
+              "syncStart": 12265380,
+              "isMinAmountSet": true,
+              "isCommitmentPoolSet": true,
+              "isMinBridgeFeeSet": true,
+              "isMinExecutorFeeSet": true,
+              "isPeerMinExecutorFeeSet": true,
+              "isPeerMinRollupFeeSet": true,
+              "isBridgeProxySet": true,
+              "isPeerContractSet": true,
+              "isSanctionCheckSet": true
             },
             {
               "network": "avalanchetestnet",
-              "assetSymbol": "mUSD"
+              "assetSymbol": "mUSD",
+              "isMinAmountSet": true,
+              "isCommitmentPoolSet": true,
+              "isMinBridgeFeeSet": true,
+              "isMinExecutorFeeSet": true,
+              "isPeerMinExecutorFeeSet": true,
+              "isPeerMinRollupFeeSet": true,
+              "isBridgeProxySet": true,
+              "isPeerContractSet": true,
+              "isSanctionCheckSet": true,
+              "address": "0x3D960887d5365D21e782622BD9dC78757CAe7291",
+              "syncStart": 9696338
             }
           ]
         },
@@ -1702,12 +2367,32 @@
             {
               "network": "ropsten",
               "assetSymbol": "mAVAX",
-              "address": "",
-              "syncStart": 12261121
+              "address": "0x1855d712962f57141eCB68472f711c7061468b18",
+              "syncStart": 12265374,
+              "isMinAmountSet": true,
+              "isCommitmentPoolSet": true,
+              "isMinBridgeFeeSet": true,
+              "isMinExecutorFeeSet": true,
+              "isPeerMinExecutorFeeSet": true,
+              "isPeerMinRollupFeeSet": true,
+              "isBridgeProxySet": true,
+              "isPeerContractSet": true,
+              "isSanctionCheckSet": true
             },
             {
               "network": "avalanchetestnet",
-              "assetSymbol": "AVAX"
+              "assetSymbol": "AVAX",
+              "isMinAmountSet": true,
+              "isCommitmentPoolSet": true,
+              "isMinBridgeFeeSet": true,
+              "isMinExecutorFeeSet": true,
+              "isPeerMinExecutorFeeSet": true,
+              "isPeerMinRollupFeeSet": true,
+              "isBridgeProxySet": true,
+              "isPeerContractSet": true,
+              "isSanctionCheckSet": true,
+              "address": "0x9D4254756FecA66B58041b7Cf5B1067830ff9D69",
+              "syncStart": 9695923
             }
           ]
         },
@@ -1715,35 +2400,33 @@
           "pair": [
             {
               "network": "ropsten",
-              "assetSymbol": "ETH"
+              "assetSymbol": "ETH",
+              "isMinAmountSet": true,
+              "isCommitmentPoolSet": true,
+              "isMinBridgeFeeSet": true,
+              "isMinExecutorFeeSet": true,
+              "isPeerMinExecutorFeeSet": true,
+              "isPeerMinRollupFeeSet": true,
+              "isBridgeProxySet": true,
+              "isPeerContractSet": true,
+              "isSanctionCheckSet": true,
+              "address": "0x8a5A00054B9633273e9957b37043FeFE41fA97E1",
+              "syncStart": 12265385
             },
             {
               "network": "auroratestnet",
-              "assetSymbol": "aETH"
-            }
-          ]
-        },
-        {
-          "pair": [
-            {
-              "network": "ropsten",
-              "assetSymbol": "MTT"
-            },
-            {
-              "network": "auroratestnet",
-              "assetSymbol": "MTT"
-            }
-          ]
-        },
-        {
-          "pair": [
-            {
-              "network": "ropsten",
-              "assetSymbol": "mUSD"
-            },
-            {
-              "network": "auroratestnet",
-              "assetSymbol": "mUSD"
+              "assetSymbol": "aETH",
+              "isMinAmountSet": true,
+              "isCommitmentPoolSet": true,
+              "isMinBridgeFeeSet": true,
+              "isMinExecutorFeeSet": true,
+              "isPeerMinExecutorFeeSet": true,
+              "isPeerMinRollupFeeSet": true,
+              "isBridgeProxySet": true,
+              "isPeerContractSet": true,
+              "isSanctionCheckSet": true,
+              "address": "0xDdCa241E4F3607CDe5AbdfB34879B27a190FEb29",
+              "syncStart": 89924683
             }
           ]
         },
@@ -1752,14 +2435,100 @@
             {
               "network": "ropsten",
               "assetSymbol": "MTT",
-              "address": "",
-              "syncStart": 12260591
+              "isMinAmountSet": true,
+              "isCommitmentPoolSet": true,
+              "isMinBridgeFeeSet": true,
+              "isMinExecutorFeeSet": true,
+              "isPeerMinExecutorFeeSet": true,
+              "isPeerMinRollupFeeSet": true,
+              "isBridgeProxySet": true,
+              "isPeerContractSet": true,
+              "isSanctionCheckSet": true,
+              "address": "0xdf67d203d9811FB5a1adEE8105A37f51DfD2bB00",
+              "syncStart": 12265388
+            },
+            {
+              "network": "auroratestnet",
+              "assetSymbol": "MTT",
+              "isMinAmountSet": true,
+              "isCommitmentPoolSet": true,
+              "isMinBridgeFeeSet": true,
+              "isMinExecutorFeeSet": true,
+              "isPeerMinExecutorFeeSet": true,
+              "isPeerMinRollupFeeSet": true,
+              "isBridgeProxySet": true,
+              "isPeerContractSet": true,
+              "isSanctionCheckSet": true,
+              "address": "0x9d608fc0DC227bd6242dDD060F0479f8DA0935eD",
+              "syncStart": 89925111
+            }
+          ]
+        },
+        {
+          "pair": [
+            {
+              "network": "ropsten",
+              "assetSymbol": "mUSD",
+              "isMinAmountSet": true,
+              "isCommitmentPoolSet": true,
+              "isMinBridgeFeeSet": true,
+              "isMinExecutorFeeSet": true,
+              "isPeerMinExecutorFeeSet": true,
+              "isPeerMinRollupFeeSet": true,
+              "isBridgeProxySet": true,
+              "isPeerContractSet": true,
+              "isSanctionCheckSet": true,
+              "address": "0x1Fdb5728E298D1175ecF26B983CfD25C6999AaDB",
+              "syncStart": 12265392
+            },
+            {
+              "network": "auroratestnet",
+              "assetSymbol": "mUSD",
+              "isMinAmountSet": true,
+              "isCommitmentPoolSet": true,
+              "isMinBridgeFeeSet": true,
+              "isMinExecutorFeeSet": true,
+              "isPeerMinExecutorFeeSet": true,
+              "isPeerMinRollupFeeSet": true,
+              "isBridgeProxySet": true,
+              "isPeerContractSet": true,
+              "isSanctionCheckSet": true,
+              "address": "0xb85126A9D67c33c71105A69B2e13a0F94dF451E4",
+              "syncStart": 89926088
+            }
+          ]
+        },
+        {
+          "pair": [
+            {
+              "network": "ropsten",
+              "assetSymbol": "MTT",
+              "address": "0x951f12AD0a32B4B0f54a76fC06Ff0615882e5449",
+              "syncStart": 12265382,
+              "isMinAmountSet": true,
+              "isCommitmentPoolSet": true,
+              "isMinBridgeFeeSet": true,
+              "isMinExecutorFeeSet": true,
+              "isPeerMinExecutorFeeSet": true,
+              "isPeerMinRollupFeeSet": true,
+              "isBridgeProxySet": true,
+              "isPeerContractSet": true,
+              "isSanctionCheckSet": true
             },
             {
               "network": "fantomtestnet",
               "assetSymbol": "MTT",
-              "address": "",
-              "syncStart": 9012688
+              "address": "0x30F3045945773b38fCbB2DF414151ac33ED97EBA",
+              "syncStart": 9046313,
+              "isMinAmountSet": true,
+              "isCommitmentPoolSet": true,
+              "isMinBridgeFeeSet": true,
+              "isMinExecutorFeeSet": true,
+              "isPeerMinExecutorFeeSet": true,
+              "isPeerMinRollupFeeSet": true,
+              "isBridgeProxySet": true,
+              "isPeerContractSet": true,
+              "isSanctionCheckSet": true
             }
           ]
         }

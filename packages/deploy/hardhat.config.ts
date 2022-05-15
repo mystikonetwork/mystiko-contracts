@@ -13,10 +13,11 @@ import { query } from './src/query';
 dotenv.config();
 
 task('migrate', 'deploy contract')
-  .addParam('step', 'step1、step2、step3、updateProxy')
-  .addParam('bridge', 'loop、tbridge、celer')
-  .addParam('dst', 'ropsten、goerli、bsctestnet')
-  .addParam('token', 'ETH、BNB、MTT、mUSD')
+  .addParam('step', 'step1、step2、step3、check、dump、dumpRoller', 'step2')
+  .addParam('bridge', 'loop、tbridge、celer', 'loop')
+  .addParam('dst', 'ropsten、goerli、bsctestnet', 'bsctestnet')
+  .addParam('token', 'ETH、BNB、MTT、mUSD', 'MTT')
+  .addParam('override', 'true、false', 'false')
   .setAction(async (taskArgs, hre) => {
     // const accounts = await hre.ethers.getSigners();
     // const provider = await hre.ethers.getDefaultProvider();

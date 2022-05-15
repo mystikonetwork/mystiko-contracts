@@ -1,10 +1,10 @@
 import { check } from '@mystikonetwork/utils';
-import { ContractDeployConfig, RawContractDeployConfig } from './bridgeDeploy';
 import { BaseConfig } from './base';
+import { DepositDeployConfig, RawDepositDeployConfig } from './bridgeDeposit';
 
 export interface RawBridgeDepositPairConfig {
-  pair: RawContractDeployConfig[];
-  wrappedDeposits: ContractDeployConfig[];
+  pair: RawDepositDeployConfig[];
+  wrappedDeposits: DepositDeployConfig[];
 }
 
 export class BridgeDepositPairConfig extends BaseConfig {
@@ -15,7 +15,7 @@ export class BridgeDepositPairConfig extends BaseConfig {
     super(rawConfig);
     this.asRawBridgeTokenPairConfig().wrappedDeposits = this.asRawBridgeTokenPairConfig().pair.map(
       (deposit) => {
-        const depositCfg = new ContractDeployConfig(deposit);
+        const depositCfg = new DepositDeployConfig(deposit);
         this.insertDepositConfig(depositCfg);
         return depositCfg;
       },
@@ -28,7 +28,7 @@ export class BridgeDepositPairConfig extends BaseConfig {
     );
   }
 
-  insertDepositConfig(depositCfg: ContractDeployConfig) {
+  insertDepositConfig(depositCfg: DepositDeployConfig) {
     let m1 = this.depositByNetworkAndToken.get(depositCfg.network);
     if (m1 === undefined) {
       m1 = new Map();
@@ -40,11 +40,11 @@ export class BridgeDepositPairConfig extends BaseConfig {
     }
   }
 
-  public get pairTokens(): ContractDeployConfig[] {
+  public get pairTokens(): DepositDeployConfig[] {
     return Object.values(this.asRawBridgeTokenPairConfig().wrappedDeposits);
   }
 
-  public getPairDepositCfg(network: string, token: string): ContractDeployConfig | undefined {
+  public getPairDepositCfg(network: string, token: string): DepositDeployConfig | undefined {
     return this.depositByNetworkAndToken.get(network)?.get(token);
   }
 
@@ -52,7 +52,7 @@ export class BridgeDepositPairConfig extends BaseConfig {
     network: string,
     assetSymbol: string,
     dstNetwork: string,
-  ): ContractDeployConfig | undefined {
+  ): DepositDeployConfig | undefined {
     if (this.pairTokens.length === 1) {
       check(network === dstNetwork, 'src network must same with dst network');
       return this.getPairDepositCfg(network, assetSymbol);
@@ -60,7 +60,7 @@ export class BridgeDepositPairConfig extends BaseConfig {
     const m1 = this.depositByNetworkAndToken.get(dstNetwork);
 
     let depost: any;
-    m1.forEach((value: ContractDeployConfig) => {
+    m1.forEach((value: DepositDeployConfig) => {
       if (value.assetSymbol !== assetSymbol || value.network !== network) {
         depost = value;
       }

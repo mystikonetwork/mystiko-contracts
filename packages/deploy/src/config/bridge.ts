@@ -1,21 +1,20 @@
 import { check } from '@mystikonetwork/utils';
 import { BridgeProxyConfig, RawBridgeProxyConfig } from './bridgeProxy';
-import { ContractDeployConfig, RawContractDeployConfig } from './bridgeDeploy';
+import { PoolDeployConfig, RawPoolDeployConfig } from './bridgePool';
 import { BridgeDepositPairConfig, RawBridgeDepositPairConfig } from './bridgePair';
 import { BaseConfig } from './base';
 import { BridgeFeeConfig, RawBridgeFeeConfig } from './bridgeFee';
-import { LOGRED } from '../common/constant';
 
 export interface RawBridgeConfig {
   name: string;
   contractName: string;
   proxys: RawBridgeProxyConfig[];
   fees: RawBridgeFeeConfig[];
-  commitmentPools: RawContractDeployConfig[];
+  commitmentPools: RawPoolDeployConfig[];
   pairs: RawBridgeDepositPairConfig[];
   wrappedProxys: BridgeProxyConfig[];
   wrappedFees: BridgeFeeConfig[];
-  wrappedCommitmentPools: ContractDeployConfig[];
+  wrappedCommitmentPools: PoolDeployConfig[];
   wrappedPairs: BridgeDepositPairConfig[];
 }
 
@@ -51,8 +50,8 @@ export class BridgeConfig extends BaseConfig {
     });
 
     this.asRawBridgeConfig().wrappedCommitmentPools = this.asRawBridgeConfig().commitmentPools.map((pool) => {
-      const poolConfig = new ContractDeployConfig(pool);
-      this.insertPoolConfig(poolConfig);
+      const poolConfig = new PoolDeployConfig(pool);
+      this.insertCommitmentPoolConfig(poolConfig);
       return poolConfig;
     });
 
@@ -75,7 +74,7 @@ export class BridgeConfig extends BaseConfig {
     });
   }
 
-  insertPoolConfig(poolConfig: ContractDeployConfig) {
+  insertCommitmentPoolConfig(poolConfig: PoolDeployConfig) {
     let m1 = this.poolByNetworkAndToken.get(poolConfig.network);
     if (m1 === undefined) {
       m1 = new Map();
@@ -87,21 +86,16 @@ export class BridgeConfig extends BaseConfig {
     }
   }
 
-  public addNewPoolDeployConfig(network: string, assetSymbol: string, address: string, syncStart: number) {
-    if (this.getBridgeCommitmentPool(network, assetSymbol) !== undefined) {
-      console.log(LOGRED, 'commitment pool configure already exist');
-      process.exit(-1);
-    }
-
+  public addCommitmentPoolConfig(network: string, assetSymbol: string, address: string, syncStart: number) {
     const rawPoolCfg = {
       network,
       assetSymbol,
       address,
       syncStart,
     };
-    const poolCfg = new ContractDeployConfig(rawPoolCfg);
+    const poolCfg = new PoolDeployConfig(rawPoolCfg);
     this.asRawBridgeConfig().commitmentPools.push(rawPoolCfg);
-    this.insertPoolConfig(poolCfg);
+    this.insertCommitmentPoolConfig(poolCfg);
     return poolCfg;
   }
 
@@ -139,13 +133,7 @@ export class BridgeConfig extends BaseConfig {
     return this.asRawBridgeConfig().contractName;
   }
 
-  public addOrUpdateBridgeProxyConfig(network: string, address: string): BridgeProxyConfig {
-    const bridgeCfg = this.getBridgeProxyConfig(network);
-    if (bridgeCfg !== undefined) {
-      console.log('bridge proxy already exist, update');
-      return bridgeCfg;
-    }
-
+  public addBridgeProxyConfig(network: string, address: string): BridgeProxyConfig {
     const rawBridgeProxyCfg = {
       network,
       address,
@@ -172,7 +160,7 @@ export class BridgeConfig extends BaseConfig {
     return undefined;
   }
 
-  public getBridgeCommitmentPool(network: string, assetSymbol: string): ContractDeployConfig | undefined {
+  public getCommitmentPoolConfig(network: string, assetSymbol: string): PoolDeployConfig | undefined {
     return this.poolByNetworkAndToken.get(network)?.get(assetSymbol);
   }
 

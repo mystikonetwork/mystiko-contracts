@@ -40,6 +40,7 @@ export function loadConfig(taskArgs: any) {
   const dstNetwork = taskArgs.dst;
   const bridgeName = taskArgs.bridge;
   const assetSymbol = taskArgs.token;
+  const bOverride = taskArgs.override;
 
   const mystikoNetwork = getMystikoNetwork(srcNetwork);
 
@@ -84,7 +85,7 @@ export function loadConfig(taskArgs: any) {
     process.exit(-1);
   }
 
-  const pairSrcPoolCfg = bridgeCfg.getBridgeCommitmentPool(srcNetwork, assetSymbol);
+  const srcPoolCfg = bridgeCfg.getCommitmentPoolConfig(srcNetwork, assetSymbol);
 
   const pairDstDepositCfg = depositPairCfg.getPairPeerDepositCfg(srcNetwork, assetSymbol, dstNetwork);
   if (pairDstDepositCfg === undefined) {
@@ -123,8 +124,9 @@ export function loadConfig(taskArgs: any) {
     dstTokenCfg,
     pairSrcDepositCfg,
     pairDstDepositCfg,
-    pairSrcPoolCfg,
+    srcPoolCfg,
     proxyCfg,
     operatorCfg,
+    bOverride,
   };
 }
