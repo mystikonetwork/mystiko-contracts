@@ -97,11 +97,15 @@ export async function deployDepositContract(
   override: string,
 ) {
   const srcDepositCfg = pairSrcDepositContractCfg;
-  if (override === 'false' && srcDepositCfg.address !== undefined && srcDepositCfg.address !== '') {
-    return srcDepositCfg;
+
+  // todo eric override should set old contract disable to core configure
+  if (override === 'true' || srcDepositCfg.address === '') {
+    srcDepositCfg.reset();
   }
 
-  srcDepositCfg.reset();
+  if (srcDepositCfg.address !== '') {
+    return srcDepositCfg;
+  }
 
   const DepositContractFactory = getMystikoDeployContract(bridgeCfg.name, srcChainTokenCfg.erc20);
   if (DepositContractFactory === undefined) {

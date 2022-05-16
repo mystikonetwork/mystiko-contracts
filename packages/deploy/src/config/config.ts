@@ -40,7 +40,7 @@ export function loadConfig(taskArgs: any) {
   const dstNetwork = taskArgs.dst;
   const bridgeName = taskArgs.bridge;
   const assetSymbol = taskArgs.token;
-  const bOverride = taskArgs.override;
+  const { override } = taskArgs;
 
   const mystikoNetwork = getMystikoNetwork(srcNetwork);
 
@@ -127,6 +127,6 @@ export function loadConfig(taskArgs: any) {
     srcPoolCfg,
     proxyCfg,
     operatorCfg,
-    bOverride,
+    override,
   };
 }

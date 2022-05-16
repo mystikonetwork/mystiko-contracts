@@ -44,7 +44,11 @@ export async function initBaseContractFactory(ethers: any) {
 export async function deployBaseContract(c: any) {
   const chainCfg = c.srcChainCfg;
 
-  if (c.override === 'true' || chainCfg.hasher3Address === undefined || chainCfg.hasher3Address === '') {
+  if (c.override === 'true') {
+    chainCfg.reset();
+  }
+
+  if (chainCfg.hasher3Address === '') {
     console.log('deploy hasher3');
     const hasher3 = await Hasher3.deploy();
     await hasher3.deployed();
@@ -54,7 +58,7 @@ export async function deployBaseContract(c: any) {
     saveConfig(c.mystikoNetwork, c.cfg);
   }
 
-  if (c.override === 'true' || chainCfg.rollup1Address === undefined || chainCfg.rollup1Address === '') {
+  if (chainCfg.rollup1Address === '') {
     console.log('deploy rollup1 verifier');
     const rollup1 = await Rollup1Verifier.deploy();
     await rollup1.deployed();
@@ -64,7 +68,7 @@ export async function deployBaseContract(c: any) {
     saveConfig(c.mystikoNetwork, c.cfg);
   }
 
-  if (c.override === 'true' || chainCfg.rollup4Address === undefined || chainCfg.rollup4Address === '') {
+  if (chainCfg.rollup4Address === '') {
     console.log('deploy rollup4 verifier');
     const rollup4 = await Rollup4Verifier.deploy();
     await rollup4.deployed();
@@ -74,7 +78,7 @@ export async function deployBaseContract(c: any) {
     saveConfig(c.mystikoNetwork, c.cfg);
   }
 
-  if (c.override === 'true' || chainCfg.rollup16Address === undefined || chainCfg.rollup16Address === '') {
+  if (chainCfg.rollup16Address === '') {
     console.log('deploy rollup16 verifier');
     const rollup16 = await Rollup16Verifier.deploy();
     await rollup16.deployed();
@@ -84,11 +88,7 @@ export async function deployBaseContract(c: any) {
     saveConfig(c.mystikoNetwork, c.cfg);
   }
 
-  if (
-    c.override === 'true' ||
-    chainCfg.transaction1x0VerifierAddress === undefined ||
-    chainCfg.transaction1x0VerifierAddress === ''
-  ) {
+  if (chainCfg.transaction1x0VerifierAddress === '') {
     console.log('deploy transaction1x0 verifier');
     const transaction1x0Verifier = await Transaction1x0Verifier.deploy();
     await transaction1x0Verifier.deployed();
@@ -98,11 +98,7 @@ export async function deployBaseContract(c: any) {
     saveConfig(c.mystikoNetwork, c.cfg);
   }
 
-  if (
-    c.override === 'true' ||
-    chainCfg.transaction1x1VerifierAddress === undefined ||
-    chainCfg.transaction1x1VerifierAddress === ''
-  ) {
+  if (chainCfg.transaction1x1VerifierAddress === '') {
     console.log('deploy transaction1x1 verifier');
     const transaction1x1Verifier = await Transaction1x1Verifier.deploy();
     await transaction1x1Verifier.deployed();
@@ -112,11 +108,7 @@ export async function deployBaseContract(c: any) {
     saveConfig(c.mystikoNetwork, c.cfg);
   }
 
-  if (
-    c.override === 'true' ||
-    chainCfg.transaction1x2VerifierAddress === undefined ||
-    chainCfg.transaction1x2VerifierAddress === ''
-  ) {
+  if (chainCfg.transaction1x2VerifierAddress === '') {
     console.log('deploy transaction1x2 verifier');
     const transaction1x2Verifier = await Transaction1x2Verifier.deploy();
     await transaction1x2Verifier.deployed();
@@ -126,11 +118,7 @@ export async function deployBaseContract(c: any) {
     saveConfig(c.mystikoNetwork, c.cfg);
   }
 
-  if (
-    c.override === 'true' ||
-    chainCfg.transaction2x0VerifierAddress === undefined ||
-    chainCfg.transaction2x0VerifierAddress === ''
-  ) {
+  if (chainCfg.transaction2x0VerifierAddress === '') {
     console.log('deploy transaction2x0 verifier');
     const transaction2x0Verifier = await Transaction2x0Verifier.deploy();
     await transaction2x0Verifier.deployed();
@@ -140,11 +128,7 @@ export async function deployBaseContract(c: any) {
     saveConfig(c.mystikoNetwork, c.cfg);
   }
 
-  if (
-    c.override === 'true' ||
-    chainCfg.transaction2x1VerifierAddress === undefined ||
-    chainCfg.transaction2x1VerifierAddress === ''
-  ) {
+  if (chainCfg.transaction2x1VerifierAddress === '') {
     console.log('deploy transaction2x1 verifier');
     const transaction2x1Verifier = await Transaction2x1Verifier.deploy();
     await transaction2x1Verifier.deployed();
@@ -154,11 +138,7 @@ export async function deployBaseContract(c: any) {
     saveConfig(c.mystikoNetwork, c.cfg);
   }
 
-  if (
-    c.override === 'true' ||
-    chainCfg.transaction2x2VerifierAddress === undefined ||
-    chainCfg.transaction2x2VerifierAddress === ''
-  ) {
+  if (chainCfg.transaction2x2VerifierAddress === '') {
     console.log('deploy transaction2x2 verifier');
     const transaction2x2Verifier = await Transaction2x2Verifier.deploy();
     await transaction2x2Verifier.deployed();

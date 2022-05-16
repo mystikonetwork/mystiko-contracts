@@ -175,6 +175,8 @@ export class PoolDeployConfig extends BaseConfig {
   }
 
   public reset() {
+    this.address = '';
+    this.syncStart = 0;
     this.isMinRollupFeeSet = false;
     this.isRollup1VerifierSet = false;
     this.isRollup4VerifierSet = false;

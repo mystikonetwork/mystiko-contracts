@@ -130,6 +130,8 @@ export class DepositDeployConfig extends BaseConfig {
   }
 
   public reset() {
+    this.address = '';
+    this.syncStart = 0;
     this.isMinAmountSet = false;
     this.isCommitmentPoolSet = false;
     this.isMinBridgeFeeSet = false;

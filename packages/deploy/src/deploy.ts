@@ -21,7 +21,7 @@ import {
 } from './contract/depsit';
 import { deployBaseContract, initBaseContractFactory } from './contract/base';
 import { checkCoreConfig, saveCoreContractJson } from './coreJson';
-import { saveTBridgeJson } from './tbridgeJson';
+import { dumpChainTBridgeConfig, saveTBridgeJson } from './tbridgeJson';
 import { dumpChainRollerConfig, saveRollupJson } from './rollupJson';
 
 let ethers: any;
@@ -56,7 +56,7 @@ async function deployStep2(taskArgs: any) {
     c.proxyCfg,
     c.operatorCfg,
     c.srcChainCfg.network,
-    c.bOverride,
+    c.override,
   );
 
   await doTBridgeProxyConfigure(c, c.bridgeCfg, c.proxyCfg, c.operatorCfg);
@@ -69,7 +69,7 @@ async function deployStep2(taskArgs: any) {
     c.srcTokenCfg,
     c.srcPoolCfg,
     c.operatorCfg,
-    c.bOverride,
+    c.override,
   );
 
   await doCommitmentPoolConfigure(c, c.mystikoNetwork, poolCfg, c.srcChainCfg, c.srcTokenCfg, c.operatorCfg);
@@ -83,7 +83,7 @@ async function deployStep2(taskArgs: any) {
     c.dstTokenCfg,
     c.pairSrcDepositCfg,
     poolCfg.address,
-    c.bOverride,
+    c.override,
   );
 
   await doDepositContractConfigure(
@@ -155,8 +155,12 @@ function dump(taskArgs: any) {
 
 function dumpRollerConfig(taskArgs: any) {
   const srcNetwork = taskArgs.src;
-  console.log('src ', srcNetwork);
   dumpChainRollerConfig(srcNetwork);
+}
+
+function dumpTBridgeConfig(taskArgs: any) {
+  const srcNetwork = taskArgs.src;
+  dumpChainTBridgeConfig(srcNetwork);
 }
 
 function dumpAllRollerConfig() {
@@ -167,6 +171,26 @@ function dumpAllRollerConfig() {
   dumpChainRollerConfig('fantomtestnet');
   dumpChainRollerConfig('avalanchetestnet');
   dumpChainRollerConfig('auroratestnet');
+}
+
+function dumpAllTBridgeConfig() {
+  dumpChainTBridgeConfig('bsctestnet');
+  dumpChainTBridgeConfig('ropsten');
+  dumpChainTBridgeConfig('goerli');
+  dumpChainTBridgeConfig('polygontestnet');
+  dumpChainTBridgeConfig('fantomtestnet');
+  dumpChainTBridgeConfig('avalanchetestnet');
+  dumpChainTBridgeConfig('auroratestnet');
+}
+
+function dumpChain(taskArgs: any) {
+  dumpRollerConfig(taskArgs);
+  dumpTBridgeConfig(taskArgs);
+}
+
+function dumpAllChain() {
+  dumpAllRollerConfig();
+  dumpAllTBridgeConfig();
 }
 
 async function check(taskArgs: any) {
@@ -191,10 +215,10 @@ export async function deploy(taskArgs: any, hre: any) {
     await deployStep3(taskArgs);
   } else if (step === 'dump') {
     dump(taskArgs);
-  } else if (step === 'dumpRoller') {
-    dumpRollerConfig(taskArgs);
-  } else if (step === 'dumpAllRoller') {
-    dumpAllRollerConfig();
+  } else if (step === 'dumpChain') {
+    dumpChain(taskArgs);
+  } else if (step === 'dumpAllChain') {
+    dumpAllChain();
   } else if (step === 'check') {
     await check(taskArgs);
   } else {

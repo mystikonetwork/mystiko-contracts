@@ -142,6 +142,19 @@ export class ChainConfig extends BaseConfig {
     this.asRawChainConfig().transaction2x2VerifierAddress = address;
   }
 
+  public reset() {
+    this.hasher3Address = '';
+    this.rollup1Address = '';
+    this.rollup4Address = '';
+    this.rollup16Address = '';
+    this.transaction1x0VerifierAddress = '';
+    this.transaction1x1VerifierAddress = '';
+    this.transaction1x2VerifierAddress = '';
+    this.transaction2x0VerifierAddress = '';
+    this.transaction2x1VerifierAddress = '';
+    this.transaction2x2VerifierAddress = '';
+  }
+
   public checkBaseAddress(): boolean {
     if (
       this.asRawChainConfig().hasher3Address === undefined ||

@@ -87,20 +87,25 @@ export async function getOrDeployTBridgeProxy(
   }
 
   if (bridgeCfg.name === BridgeTBridge) {
-    if (override === 'true' || inBridgeProxyCfg === undefined || mystikoNetwork === MystikoDevelopment) {
+    let bridgeProxyCfg = inBridgeProxyCfg;
+    if (bridgeProxyCfg === undefined) {
+      bridgeProxyCfg = bridgeCfg.addBridgeProxyConfig(chainNetwork, '');
+    }
+
+    if (override === 'true' || bridgeProxyCfg.address === '' || mystikoNetwork === MystikoDevelopment) {
+      bridgeProxyCfg.reset();
+    }
+
+    if (bridgeProxyCfg.address === '') {
       console.log('deploy tbridge proxy');
-      let bridgeProxyCfg = inBridgeProxyCfg;
-      if (bridgeProxyCfg === undefined) {
-        bridgeProxyCfg = bridgeCfg.addBridgeProxyConfig(chainNetwork, '');
-      }
 
       const bridgeProxyAddress = await deployTBridgeProxy();
       console.log('bridgeProxy address is ', bridgeProxyAddress);
       bridgeProxyCfg.address = bridgeProxyAddress;
-      bridgeProxyCfg.reset();
-      saveConfig(c.mystikoNetwork, c.cfg);
-      return bridgeProxyCfg;
     }
+
+    saveConfig(c.mystikoNetwork, c.cfg);
+    return bridgeProxyCfg;
   }
 
   if (

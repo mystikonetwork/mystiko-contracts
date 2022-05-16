@@ -433,20 +433,16 @@ export async function getOrDeployCommitmentPool(
   override: string,
 ) {
   let poolCfg = inPoolCfg;
-  if (override === 'true' || poolCfg === undefined || poolCfg.address === '') {
-    poolCfg = bridgeCfg.getCommitmentPoolConfig(chainCfg.network, chainTokenCfg.assetSymbol);
-    if (poolCfg === undefined) {
-      poolCfg = bridgeCfg.addCommitmentPoolConfig(chainCfg.network, chainTokenCfg.assetSymbol, '', 0);
-    }
-
-    poolCfg.reset();
-
-    console.log('deploy commitment pool');
-    await deployCommitmentPool(poolCfg, chainCfg, chainTokenCfg);
-    saveConfig(c.mystikoNetwork, c.cfg);
+  if (poolCfg === undefined) {
+    poolCfg = bridgeCfg.addCommitmentPoolConfig(chainCfg.network, chainTokenCfg.assetSymbol, '', 0);
   }
 
-  if (mystikoNetwork === MystikoDevelopment) {
+  if (override === 'true' || poolCfg.address === '' || mystikoNetwork === MystikoDevelopment) {
+    poolCfg.reset();
+  }
+
+  if (poolCfg.address === '') {
+    console.log('deploy commitment pool');
     await deployCommitmentPool(poolCfg, chainCfg, chainTokenCfg);
   }
 

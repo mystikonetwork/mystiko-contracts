@@ -43,6 +43,7 @@ export class BridgeProxyConfig extends BaseConfig {
   }
 
   public reset() {
+    this.address = '';
     this.isExecutorWhitelistSet = false;
     this.isRegisterWhitelistSet = false;
   }
