@@ -2,7 +2,7 @@ import { CommitmentPoolMain__factory, CommitmentPoolERC20__factory } from '@myst
 import { ChainConfig } from '../config/chain';
 import { ChainTokenConfig } from '../config/chainToken';
 import { OperatorConfig } from '../config/operator';
-import { ContractDeployConfig } from '../config/bridgeDeploy';
+import { PoolDeployConfig } from '../config/bridgePool';
 import {
   LOGRED,
   MerkleTreeHeight,
@@ -11,6 +11,7 @@ import {
   RootHistoryLength,
 } from '../common/constant';
 import { BridgeConfig } from '../config/bridge';
+import { saveConfig } from '../config/config';
 
 let CommitmentPoolMain: CommitmentPoolMain__factory;
 let CommitmentPoolERC20: CommitmentPoolERC20__factory;
@@ -35,7 +36,7 @@ export function getMystikoPoolContract(bErc20: boolean) {
 }
 
 async function deployCommitmentPool(
-  commitmentPoolCfg: ContractDeployConfig,
+  commitmentPoolCfg: PoolDeployConfig,
   chainCfg: ChainConfig,
   chainTokenCfg: ChainTokenConfig,
 ) {
@@ -51,100 +52,422 @@ async function deployCommitmentPool(
   }
   await pool.deployed();
 
-  await pool.setMinRollupFee(chainTokenCfg.minRollupFee);
-  await pool.enableRollupVerifier(1, chainCfg.rollup1Address);
-  await pool.enableRollupVerifier(4, chainCfg.rollup4Address);
-  await pool.enableRollupVerifier(16, chainCfg.rollup16Address);
-  await pool.enableTransactVerifier(1, 0, chainCfg.transaction1x0VerifierAddress);
-  await pool.enableTransactVerifier(1, 1, chainCfg.transaction1x1VerifierAddress);
-  await pool.enableTransactVerifier(1, 2, chainCfg.transaction1x2VerifierAddress);
-  await pool.enableTransactVerifier(2, 0, chainCfg.transaction2x0VerifierAddress);
-  await pool.enableTransactVerifier(2, 1, chainCfg.transaction2x1VerifierAddress);
-  await pool.enableTransactVerifier(2, 2, chainCfg.transaction2x2VerifierAddress);
-
   const syncStart = await ethers.provider.getBlockNumber();
-
-  console.log('commitmentPool address is ', pool.address);
+  console.log('commitmentPool address ', pool.address);
   poolCfg.address = pool.address;
   poolCfg.syncStart = syncStart;
-
   return pool.address;
 }
 
-export async function togglePoolSanctionCheck(erc20: boolean, addr: string, check: boolean) {
+export async function setCommitmentPoolRollupFee(
+  c: any,
+  erc20: boolean,
+  inPoolCfg: PoolDeployConfig,
+  chainTokenCfg: ChainTokenConfig,
+) {
+  if (inPoolCfg.isMinRollupFeeSet) {
+    return;
+  }
+
+  const poolCfg = inPoolCfg;
+  console.log('set commitment pool min rollup fee');
+  const PoolContractFactory = getMystikoPoolContract(erc20);
+  const poolContract = await PoolContractFactory.attach(poolCfg.address);
+  try {
+    const rsp = await poolContract.setMinRollupFee(chainTokenCfg.minRollupFee);
+    console.log('rsp hash ', rsp.hash);
+    poolCfg.isMinRollupFeeSet = true;
+    saveConfig(c.mystikoNetwork, c.cfg);
+  } catch (err: any) {
+    console.error(LOGRED, err);
+    process.exit(1);
+  }
+}
+
+async function setCommitmentPoolRollup1Verifier(
+  c: any,
+  erc20: boolean,
+  inPoolCfg: PoolDeployConfig,
+  chainCfg: ChainConfig,
+) {
+  if (inPoolCfg.isRollup1VerifierSet) {
+    return;
+  }
+
+  const poolCfg = inPoolCfg;
+
+  console.log('set commitment pool rollup1 verifier');
+  const PoolContractFactory = getMystikoPoolContract(erc20);
+  const poolContract = await PoolContractFactory.attach(poolCfg.address);
+  try {
+    const rsp = await poolContract.enableRollupVerifier(1, chainCfg.rollup1Address);
+    console.log('rsp hash ', rsp.hash);
+    poolCfg.isRollup1VerifierSet = true;
+    saveConfig(c.mystikoNetwork, c.cfg);
+  } catch (err: any) {
+    console.error(LOGRED, err);
+    process.exit(1);
+  }
+}
+
+async function setCommitmentPoolRollup4Verifier(
+  c: any,
+  erc20: boolean,
+  inPoolCfg: PoolDeployConfig,
+  chainCfg: ChainConfig,
+) {
+  if (inPoolCfg.isRollup4VerifierSet) {
+    return;
+  }
+
+  const poolCfg = inPoolCfg;
+
+  console.log('set commitment pool rollup4 verifier');
+  const PoolContractFactory = getMystikoPoolContract(erc20);
+  const poolContract = await PoolContractFactory.attach(poolCfg.address);
+  try {
+    const rsp = await poolContract.enableRollupVerifier(4, chainCfg.rollup4Address);
+    console.log('rsp hash ', rsp.hash);
+    poolCfg.isRollup4VerifierSet = true;
+    saveConfig(c.mystikoNetwork, c.cfg);
+  } catch (err: any) {
+    console.error(LOGRED, err);
+    process.exit(1);
+  }
+}
+
+async function setCommitmentPoolRollup16Verifier(
+  c: any,
+  erc20: boolean,
+  inPoolCfg: PoolDeployConfig,
+  chainCfg: ChainConfig,
+) {
+  if (inPoolCfg.isRollup16VerifierSet) {
+    return;
+  }
+
+  const poolCfg = inPoolCfg;
+
+  console.log('set commitment pool rollup16 verifier');
+  const PoolContractFactory = getMystikoPoolContract(erc20);
+  const poolContract = await PoolContractFactory.attach(poolCfg.address);
+  try {
+    const rsp = await poolContract.enableRollupVerifier(16, chainCfg.rollup16Address);
+    console.log('rsp hash ', rsp.hash);
+    poolCfg.isRollup16VerifierSet = true;
+    saveConfig(c.mystikoNetwork, c.cfg);
+  } catch (err: any) {
+    console.error(LOGRED, err);
+    process.exit(1);
+  }
+}
+
+async function setCommitmentPoolTransact1x0Verifier(
+  c: any,
+  erc20: boolean,
+  inPoolCfg: PoolDeployConfig,
+  chainCfg: ChainConfig,
+) {
+  if (inPoolCfg.isTransact1x0VerifierSet) {
+    return;
+  }
+
+  const poolCfg = inPoolCfg;
+
+  console.log('set commitment pool transact1x0 verifier');
+  const PoolContractFactory = getMystikoPoolContract(erc20);
+  const poolContract = await PoolContractFactory.attach(poolCfg.address);
+  try {
+    const rsp = await poolContract.enableTransactVerifier(1, 0, chainCfg.transaction1x0VerifierAddress);
+    console.log('rsp hash ', rsp.hash);
+    poolCfg.isTransact1x0VerifierSet = true;
+    saveConfig(c.mystikoNetwork, c.cfg);
+  } catch (err: any) {
+    console.error(LOGRED, err);
+    process.exit(1);
+  }
+}
+
+async function setCommitmentPoolTransact1x1Verifier(
+  c: any,
+  erc20: boolean,
+  inPoolCfg: PoolDeployConfig,
+  chainCfg: ChainConfig,
+) {
+  if (inPoolCfg.isTransact1x1VerifierSet) {
+    return;
+  }
+
+  const poolCfg = inPoolCfg;
+
+  console.log('set commitment pool transact1x1 verifier');
+  const PoolContractFactory = getMystikoPoolContract(erc20);
+  const poolContract = await PoolContractFactory.attach(poolCfg.address);
+  try {
+    const rsp = await poolContract.enableTransactVerifier(1, 1, chainCfg.transaction1x1VerifierAddress);
+    console.log('rsp hash ', rsp.hash);
+    poolCfg.isTransact1x1VerifierSet = true;
+    saveConfig(c.mystikoNetwork, c.cfg);
+  } catch (err: any) {
+    console.error(LOGRED, err);
+    process.exit(1);
+  }
+}
+
+async function setCommitmentPoolTransact1x2Verifier(
+  c: any,
+  erc20: boolean,
+  inPoolCfg: PoolDeployConfig,
+  chainCfg: ChainConfig,
+) {
+  if (inPoolCfg.isTransact1x2VerifierSet) {
+    return;
+  }
+
+  const poolCfg = inPoolCfg;
+
+  console.log('set commitment pool transact1x2 verifier');
+  const PoolContractFactory = getMystikoPoolContract(erc20);
+  const poolContract = await PoolContractFactory.attach(poolCfg.address);
+  try {
+    const rsp = await poolContract.enableTransactVerifier(1, 2, chainCfg.transaction1x2VerifierAddress);
+    console.log('rsp hash ', rsp.hash);
+    poolCfg.isTransact1x2VerifierSet = true;
+    saveConfig(c.mystikoNetwork, c.cfg);
+  } catch (err: any) {
+    console.error(LOGRED, err);
+    process.exit(1);
+  }
+}
+
+async function setCommitmentPoolTransact2x0Verifier(
+  c: any,
+  erc20: boolean,
+  inPoolCfg: PoolDeployConfig,
+  chainCfg: ChainConfig,
+) {
+  if (inPoolCfg.isTransact2x0VerifierSet) {
+    return;
+  }
+
+  const poolCfg = inPoolCfg;
+
+  console.log('set commitment pool transact2x0 verifier');
+  const PoolContractFactory = getMystikoPoolContract(erc20);
+  const poolContract = await PoolContractFactory.attach(poolCfg.address);
+  try {
+    const rsp = await poolContract.enableTransactVerifier(2, 0, chainCfg.transaction2x0VerifierAddress);
+    console.log('rsp hash ', rsp.hash);
+    poolCfg.isTransact2x0VerifierSet = true;
+    saveConfig(c.mystikoNetwork, c.cfg);
+  } catch (err: any) {
+    console.error(LOGRED, err);
+    process.exit(1);
+  }
+}
+
+async function setCommitmentPoolTransact2x1Verifier(
+  c: any,
+  erc20: boolean,
+  inPoolCfg: PoolDeployConfig,
+  chainCfg: ChainConfig,
+) {
+  if (inPoolCfg.isTransact2x1VerifierSet) {
+    return;
+  }
+
+  const poolCfg = inPoolCfg;
+
+  console.log('set commitment pool transact2x1 verifier');
+  const PoolContractFactory = getMystikoPoolContract(erc20);
+  const poolContract = await PoolContractFactory.attach(poolCfg.address);
+  try {
+    const rsp = await poolContract.enableTransactVerifier(2, 1, chainCfg.transaction2x1VerifierAddress);
+    console.log('rsp hash ', rsp.hash);
+    poolCfg.isTransact2x1VerifierSet = true;
+    saveConfig(c.mystikoNetwork, c.cfg);
+  } catch (err: any) {
+    console.error(LOGRED, err);
+    process.exit(1);
+  }
+}
+
+async function setCommitmentPoolTransact2x2Verifier(
+  c: any,
+  erc20: boolean,
+  inPoolCfg: PoolDeployConfig,
+  chainCfg: ChainConfig,
+) {
+  if (inPoolCfg.isTransact2x2VerifierSet) {
+    return;
+  }
+
+  const poolCfg = inPoolCfg;
+  console.log('set commitment pool transact2x2 verifier');
+  const PoolContractFactory = getMystikoPoolContract(erc20);
+  const poolContract = await PoolContractFactory.attach(poolCfg.address);
+  try {
+    const rsp = await poolContract.enableTransactVerifier(2, 2, chainCfg.transaction2x2VerifierAddress);
+    console.log('rsp hash ', rsp.hash);
+    poolCfg.isTransact2x2VerifierSet = true;
+    saveConfig(c.mystikoNetwork, c.cfg);
+  } catch (err: any) {
+    console.error(LOGRED, err);
+    process.exit(1);
+  }
+}
+
+export async function setCommitmentPoolVerifier(
+  c: any,
+  erc20: boolean,
+  poolCfg: PoolDeployConfig,
+  chainCfg: ChainConfig,
+) {
+  await setCommitmentPoolRollup1Verifier(c, erc20, poolCfg, chainCfg);
+  await setCommitmentPoolRollup4Verifier(c, erc20, poolCfg, chainCfg);
+  await setCommitmentPoolRollup16Verifier(c, erc20, poolCfg, chainCfg);
+  await setCommitmentPoolTransact1x0Verifier(c, erc20, poolCfg, chainCfg);
+  await setCommitmentPoolTransact1x1Verifier(c, erc20, poolCfg, chainCfg);
+  await setCommitmentPoolTransact1x2Verifier(c, erc20, poolCfg, chainCfg);
+  await setCommitmentPoolTransact2x0Verifier(c, erc20, poolCfg, chainCfg);
+  await setCommitmentPoolTransact2x1Verifier(c, erc20, poolCfg, chainCfg);
+  await setCommitmentPoolTransact2x2Verifier(c, erc20, poolCfg, chainCfg);
+}
+
+export async function togglePoolSanctionCheck(
+  c: any,
+  erc20: boolean,
+  inPoolCfg: PoolDeployConfig,
+  check: boolean,
+) {
+  if (inPoolCfg.isSanctionCheckSet) {
+    return;
+  }
+  const poolCfg = inPoolCfg;
+
   console.log('toggle pool sanction check disable ', check);
   const PoolContractFactory = getMystikoPoolContract(erc20);
-  const poolContract = await PoolContractFactory.attach(addr);
+  const poolContract = await PoolContractFactory.attach(poolCfg.address);
 
   try {
-    await poolContract.toggleSanctionCheck(check);
+    const rsp = await poolContract.toggleSanctionCheck(check);
+    console.log('pool rsp hash ', rsp.hash);
+    poolCfg.isSanctionCheckSet = true;
+    saveConfig(c.mystikoNetwork, c.cfg);
   } catch (err: any) {
     console.error(LOGRED, err);
     process.exit(1);
   }
 }
 
-export async function addRollupWhitelist(erc20: boolean, addr: string, rollers: string[]) {
-  console.log('add roller whitelist');
+export async function setRollupWhitelist(erc20: boolean, poolCfg: PoolDeployConfig, roller: string) {
+  console.log('set roller whitelist');
   const PoolContractFactory = getMystikoPoolContract(erc20);
-  const pool = await PoolContractFactory.attach(addr);
+  const pool = await PoolContractFactory.attach(poolCfg.address);
 
   try {
-    const all = [];
-    for (let i = 0; i < rollers.length; i += 1) {
-      const add = pool.addRollupWhitelist(rollers[i]);
-      all.push(add);
-    }
-    await Promise.all(all);
+    const rsp = await pool.addRollupWhitelist(roller);
+    console.log('rsp hash ', rsp.hash);
   } catch (err: any) {
     console.error(LOGRED, err);
     process.exit(1);
   }
 }
 
-export async function addEnqueueWhitelist(erc20: boolean, addr: string, enqueueContractAddress: string) {
+export async function addRollupWhitelist(
+  c: any,
+  erc20: boolean,
+  inPoolCfg: PoolDeployConfig,
+  rollers: string[],
+) {
+  // todo zr rollup list should check with array
+  if (inPoolCfg.isRollupWhitelistSet) {
+    return;
+  }
+
+  const poolCfg = inPoolCfg;
+  /* eslint-disable no-await-in-loop */
+  for (let i = 0; i < rollers.length; i += 1) {
+    await setRollupWhitelist(erc20, inPoolCfg, rollers[i]);
+  }
+  /* eslint-enable no-await-in-loop */
+
+  poolCfg.isRollupWhitelistSet = true;
+  saveConfig(c.mystikoNetwork, c.cfg);
+}
+
+export async function addEnqueueWhitelist(
+  c: any,
+  erc20: boolean,
+  inPoolCfg: PoolDeployConfig,
+  enqueueContractAddress: string,
+) {
+  // todo zr enqueue list should check with array
+  // if (inPoolCfg.isEnqueueWhitelistSet) {
+  //   return;
+  // }
+
+  const poolCfg = inPoolCfg;
   const PoolContractFactory = getMystikoPoolContract(erc20);
-  const pool = await PoolContractFactory.attach(addr);
-  console.log('add enqueue whitelist');
+  const pool = await PoolContractFactory.attach(poolCfg.address);
+  console.log('set enqueue whitelist');
   try {
-    await pool.addEnqueueWhitelist(enqueueContractAddress);
+    const rsp = await pool.addEnqueueWhitelist(enqueueContractAddress);
+    console.log('rsp hash ', rsp.hash);
+    poolCfg.isEnqueueWhitelistSet = true;
+    saveConfig(c.mystikoNetwork, c.cfg);
   } catch (err: any) {
     console.error(LOGRED, err);
     process.exit(1);
   }
 }
 
-export async function getOrDeployCommitPool(
+export async function getOrDeployCommitmentPool(
+  c: any,
   mystikoNetwork: string,
   bridgeCfg: BridgeConfig,
   chainCfg: ChainConfig,
   chainTokenCfg: ChainTokenConfig,
-  pairSrcPoolCfg: ContractDeployConfig | undefined,
+  inPoolCfg: PoolDeployConfig | undefined,
   operatorCfg: OperatorConfig,
+  override: string,
 ) {
-  if (pairSrcPoolCfg === undefined) {
-    const newPairPoolCfg = bridgeCfg.addNewPoolDeployConfig(
-      chainCfg.network,
-      chainTokenCfg.assetSymbol,
-      '',
-      0,
-    );
-    console.log('commitment pool not exist, deploy');
-    const commitmentPoolAddress = await deployCommitmentPool(newPairPoolCfg, chainCfg, chainTokenCfg);
-    await addRollupWhitelist(chainTokenCfg.erc20, commitmentPoolAddress, operatorCfg.rollers);
-
-    if (mystikoNetwork === MystikoTestnet) {
-      togglePoolSanctionCheck(chainTokenCfg.erc20, commitmentPoolAddress, true);
+  let poolCfg = inPoolCfg;
+  if (override === 'true' || poolCfg === undefined || poolCfg.address === '') {
+    poolCfg = bridgeCfg.getCommitmentPoolConfig(chainCfg.network, chainTokenCfg.assetSymbol);
+    if (poolCfg === undefined) {
+      poolCfg = bridgeCfg.addCommitmentPoolConfig(chainCfg.network, chainTokenCfg.assetSymbol, '', 0);
     }
 
-    return commitmentPoolAddress;
+    poolCfg.reset();
+
+    console.log('deploy commitment pool');
+    await deployCommitmentPool(poolCfg, chainCfg, chainTokenCfg);
+    saveConfig(c.mystikoNetwork, c.cfg);
   }
 
   if (mystikoNetwork === MystikoDevelopment) {
-    const commitmentPoolAddress = await deployCommitmentPool(pairSrcPoolCfg, chainCfg, chainTokenCfg);
-    await addRollupWhitelist(chainTokenCfg.erc20, commitmentPoolAddress, operatorCfg.rollers);
-    return commitmentPoolAddress;
+    await deployCommitmentPool(poolCfg, chainCfg, chainTokenCfg);
   }
 
-  return pairSrcPoolCfg.address;
+  saveConfig(c.mystikoNetwork, c.cfg);
+  return poolCfg;
+}
+
+export async function doCommitmentPoolConfigure(
+  c: any,
+  mystikoNetwork: string,
+  poolCfg: PoolDeployConfig,
+  chainCfg: ChainConfig,
+  chainTokenCfg: ChainTokenConfig,
+  operatorCfg: OperatorConfig,
+) {
+  console.log('do commitment pool configure');
+
+  await setCommitmentPoolRollupFee(c, chainTokenCfg.erc20, poolCfg, chainTokenCfg);
+  await setCommitmentPoolVerifier(c, chainTokenCfg.erc20, poolCfg, chainCfg);
+  await addRollupWhitelist(c, chainTokenCfg.erc20, poolCfg, operatorCfg.rollers);
+  if (mystikoNetwork === MystikoTestnet) {
+    await togglePoolSanctionCheck(c, chainTokenCfg.erc20, poolCfg, true);
+  }
 }

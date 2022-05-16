@@ -37,11 +37,6 @@ export function readJsonFile(fileName: string): any {
 
 export function writeJsonFile(fileName: string, data: string) {
   try {
-    if (!fs.existsSync(fileName)) {
-      console.error(LOGRED, fileName, ' not exist');
-      return;
-    }
-
     fs.writeFileSync(fileName, data);
   } catch (err) {
     console.error(LOGRED, err);

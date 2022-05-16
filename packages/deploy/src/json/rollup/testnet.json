@@ -1,0 +1,440 @@
+{
+  "chains": [
+    {
+      "network": "bsctestnet",
+      "privateKey": "",
+      "providers": [
+        "https://data-seed-prebsc-1-s1.binance.org:8545",
+        "https://data-seed-prebsc-1-s3.binance.org:8545",
+        "https://data-seed-prebsc-2-s3.binance.org:8545",
+        "https://data-seed-prebsc-1-s2.binance.org:8545",
+        "https://data-seed-prebsc-2-s2.binance.org:8545"
+      ],
+      "gasPriceGweiStatic": "0",
+      "maxGasPriceGweiDynamic": "200",
+      "confirmBlocks": 5
+    },
+    {
+      "network": "ropsten",
+      "privateKey": "",
+      "providers": [
+        "https://ropsten.infura.io/v3/9aa3d95b3bc440fa88ea12eaa4456161",
+        "https://eth-ropsten.alchemyapi.io/v2/LPkA3Wlc-6tR-ZMGJLBgEhi-HTNo7H1j"
+      ],
+      "gasPriceGweiStatic": "0",
+      "maxGasPriceGweiDynamic": "200",
+      "confirmBlocks": 3
+    },
+    {
+      "network": "goerli",
+      "privateKey": "",
+      "providers": [
+        "https://goerli.infura.io/v3/9aa3d95b3bc440fa88ea12eaa4456161",
+        "https://eth-goerli.alchemyapi.io/v2/LPkA3Wlc-6tR-ZMGJLBgEhi-HTNo7H1j"
+      ],
+      "gasPriceGweiStatic": "0",
+      "maxGasPriceGweiDynamic": "200",
+      "confirmBlocks": 3
+    },
+    {
+      "network": "polygontestnet",
+      "privateKey": "",
+      "providers": [
+        "https://matic.getblock.io/testnet/?api_key=71722c7c-f748-4ea3-bacd-6edc2900c4f0",
+        "https://rpc-mumbai.matic.today",
+        "https://matic-mumbai.chainstacklabs.com"
+      ],
+      "gasPriceGweiStatic": "0",
+      "maxGasPriceGweiDynamic": "200",
+      "confirmBlocks": 10
+    },
+    {
+      "network": "avalanchetestnet",
+      "privateKey": "",
+      "providers": [
+        "https://avax.getblock.io/testnet/ext/bc/C/rpc?api_key=71722c7c-f748-4ea3-bacd-6edc2900c4f0"
+      ],
+      "gasPriceGweiStatic": "0",
+      "maxGasPriceGweiDynamic": "200",
+      "confirmBlocks": 10
+    },
+    {
+      "network": "fantomtestnet",
+      "privateKey": "",
+      "providers": [
+        "https://rpc.testnet.fantom.network"
+      ],
+      "gasPriceGweiStatic": "0",
+      "maxGasPriceGweiDynamic": "200",
+      "confirmBlocks": 10
+    },
+    {
+      "network": "auroratestnet",
+      "privateKey": "",
+      "providers": [
+        "https://aurora-testnet.infura.io/v3/908e7e8a95ba42a9aea33300a8a743cd"
+      ],
+      "gasPriceGweiStatic": "0",
+      "maxGasPriceGweiDynamic": "200",
+      "confirmBlocks": 10
+    }
+  ],
+  "commitmentPools": [
+    {
+      "network": "ropsten",
+      "assetSymbol": "MTT",
+      "bridgeType": "loop",
+      "address": "0x1e317Ec4a4b5bAD7E6005B7cEB231433883A571c",
+      "isRollupEnable": true,
+      "syncStart": 12264922
+    },
+    {
+      "network": "ropsten",
+      "assetSymbol": "ETH",
+      "bridgeType": "loop",
+      "address": "0x4f1aA2A2727acF5d6c6C599a67bC3b90Cd93e2aE",
+      "isRollupEnable": true,
+      "syncStart": 12264918
+    },
+    {
+      "network": "goerli",
+      "assetSymbol": "ETH",
+      "bridgeType": "loop",
+      "address": "0x014125b656fa03Deb3b4EB040fA89a3971149e5b",
+      "isRollupEnable": true,
+      "syncStart": 6884769
+    },
+    {
+      "network": "bsctestnet",
+      "assetSymbol": "BNB",
+      "bridgeType": "loop",
+      "address": "0x4c2e5155DeEdC1F8354fB1cF5FE39fFCd38cDC54",
+      "isRollupEnable": true,
+      "syncStart": 19306068
+    },
+    {
+      "network": "polygontestnet",
+      "assetSymbol": "MATIC",
+      "bridgeType": "loop",
+      "address": "0xAd947Bd9e3E841135B13d83Ff088cd89D7F5898E",
+      "isRollupEnable": true,
+      "syncStart": 26318673
+    },
+    {
+      "network": "fantomtestnet",
+      "assetSymbol": "FTM",
+      "bridgeType": "loop",
+      "address": "0x541c26E18F3f4B69011C32949e25B66263f0c3a1",
+      "isRollupEnable": true,
+      "syncStart": 9042211
+    },
+    {
+      "network": "goerli",
+      "assetSymbol": "MTT",
+      "bridgeType": "loop",
+      "address": "0xBDD450fAF90dEd89433a7C0f09b3c67503f6757E",
+      "isRollupEnable": true,
+      "syncStart": 6884782
+    },
+    {
+      "network": "bsctestnet",
+      "assetSymbol": "MTT",
+      "bridgeType": "loop",
+      "address": "0xdbBA020A9aa23c2EaEc445a2d71Ac9D514a84cE6",
+      "isRollupEnable": true,
+      "syncStart": 19306017
+    },
+    {
+      "network": "polygontestnet",
+      "assetSymbol": "MTT",
+      "bridgeType": "loop",
+      "address": "0x55E8ba54D21d801B82691EE789617d28A56408B9",
+      "isRollupEnable": true,
+      "syncStart": 26318681
+    },
+    {
+      "network": "fantomtestnet",
+      "assetSymbol": "MTT",
+      "bridgeType": "loop",
+      "address": "0x982FF4a82C6e5DCf46DC564A9786b8440520d1F5",
+      "isRollupEnable": true,
+      "syncStart": 9042241
+    },
+    {
+      "network": "ropsten",
+      "assetSymbol": "mUSD",
+      "bridgeType": "loop",
+      "address": "0x398ecb9AaF4Fc05F2e91Cc3743952bAE99A001d6",
+      "isRollupEnable": true,
+      "syncStart": 12264926
+    },
+    {
+      "network": "goerli",
+      "assetSymbol": "mUSD",
+      "bridgeType": "loop",
+      "address": "0x55607D52161f2f2203f8A4Dd89abd3544de084C6",
+      "isRollupEnable": true,
+      "syncStart": 6884801
+    },
+    {
+      "network": "bsctestnet",
+      "assetSymbol": "mUSD",
+      "bridgeType": "loop",
+      "address": "0x27E3a126f2E149043CC149d34f363c16aE8c9b5d",
+      "isRollupEnable": true,
+      "syncStart": 19306038
+    },
+    {
+      "network": "polygontestnet",
+      "assetSymbol": "mUSD",
+      "bridgeType": "loop",
+      "address": "0x5A73A49676E748c5181cC0ED5aca8886AE471D2A",
+      "isRollupEnable": true,
+      "syncStart": 26318688
+    },
+    {
+      "network": "avalanchetestnet",
+      "assetSymbol": "AVAX",
+      "bridgeType": "loop",
+      "address": "0x21FD01eeB7f16D830A74d5dAE8eC33457E7C4C04",
+      "isRollupEnable": true,
+      "syncStart": 9683759
+    },
+    {
+      "network": "avalanchetestnet",
+      "assetSymbol": "MTT",
+      "bridgeType": "loop",
+      "address": "0x2D30408BbfBf6A8A7D75511cF594C0139c1bE17c",
+      "isRollupEnable": true,
+      "syncStart": 9684989
+    },
+    {
+      "network": "avalanchetestnet",
+      "assetSymbol": "mUSD",
+      "bridgeType": "loop",
+      "address": "0xdFB5b19F9Ce01ffA8251Ba9077E8b9e0108eA721",
+      "isRollupEnable": true,
+      "syncStart": 9685119
+    },
+    {
+      "network": "auroratestnet",
+      "assetSymbol": "aETH",
+      "bridgeType": "loop",
+      "address": "0xc5bFDd5c1b0DA143072eF15416db8DF0E4231065",
+      "isRollupEnable": true,
+      "syncStart": 89894678
+    },
+    {
+      "network": "auroratestnet",
+      "assetSymbol": "MTT",
+      "bridgeType": "loop",
+      "address": "0x4938041cFC8239C9d2031FBEF3F990fc0db09699",
+      "isRollupEnable": true,
+      "syncStart": 89899030
+    },
+    {
+      "network": "auroratestnet",
+      "assetSymbol": "mUSD",
+      "bridgeType": "loop",
+      "address": "0x094535Df35b03009E9e73112E672464F5a630143",
+      "isRollupEnable": true,
+      "syncStart": 89899814
+    },
+    {
+      "network": "ropsten",
+      "assetSymbol": "ETH",
+      "bridgeType": "tbridge",
+      "address": "0x4471873169EA7cd3f45beA9105f567Bdc8608240",
+      "isRollupEnable": true,
+      "syncStart": 12265315
+    },
+    {
+      "network": "bsctestnet",
+      "assetSymbol": "mETH",
+      "bridgeType": "tbridge",
+      "address": "0x916b009bAD1FE24Ee55364Fafe4C31fdE6D3C7b0",
+      "isRollupEnable": true,
+      "syncStart": 19314250
+    },
+    {
+      "network": "ropsten",
+      "assetSymbol": "MTT",
+      "bridgeType": "tbridge",
+      "address": "0x6A29C3E7DC05B2888243644DB079ff8Edf890665",
+      "isRollupEnable": true,
+      "syncStart": 12265351
+    },
+    {
+      "network": "ropsten",
+      "assetSymbol": "mUSD",
+      "bridgeType": "tbridge",
+      "address": "0x9FC14A30Baa288C367A40E4723472B4e30c2D493",
+      "isRollupEnable": true,
+      "syncStart": 12265354
+    },
+    {
+      "network": "ropsten",
+      "assetSymbol": "mBNB",
+      "bridgeType": "tbridge",
+      "address": "0xaa5C42e04ca2CdA34220EAfBB65f26F711031933",
+      "isRollupEnable": true,
+      "syncStart": 12265358
+    },
+    {
+      "network": "ropsten",
+      "assetSymbol": "mMATIC",
+      "bridgeType": "tbridge",
+      "address": "0x9BF3E1bc9abc9D9BC7fd27b40FA3D61cFE1AAB24",
+      "isRollupEnable": true,
+      "syncStart": 12265362
+    },
+    {
+      "network": "ropsten",
+      "assetSymbol": "mAVAX",
+      "bridgeType": "tbridge",
+      "address": "0xd7D8c269A35fd039b551b8E8c4F33d27FD6Bf77A",
+      "isRollupEnable": true,
+      "syncStart": 12265373
+    },
+    {
+      "network": "bsctestnet",
+      "assetSymbol": "MTT",
+      "bridgeType": "tbridge",
+      "address": "0xB19a6Fe202216fF1218Ca0FAa52D9FB24d419583",
+      "isRollupEnable": true,
+      "syncStart": 19315785
+    },
+    {
+      "network": "bsctestnet",
+      "assetSymbol": "mUSD",
+      "bridgeType": "tbridge",
+      "address": "0x7688D576465516caE181203bdfa29C2d238910c5",
+      "isRollupEnable": true,
+      "syncStart": 19315810
+    },
+    {
+      "network": "bsctestnet",
+      "assetSymbol": "BNB",
+      "bridgeType": "tbridge",
+      "address": "0x5c96152fb012aC206e8a8374C158EeAcF662686b",
+      "isRollupEnable": true,
+      "syncStart": 19315851
+    },
+    {
+      "network": "polygontestnet",
+      "assetSymbol": "MATIC",
+      "bridgeType": "tbridge",
+      "address": "0xBEA6fF6960311E89f0468Ba38270DfD82E29C5f5",
+      "isRollupEnable": true,
+      "syncStart": 26321464
+    },
+    {
+      "network": "polygontestnet",
+      "assetSymbol": "mETH",
+      "bridgeType": "tbridge",
+      "address": "0xeD92C57454c43d0f50bf6E9bb148eBE66DDB2B83",
+      "isRollupEnable": true,
+      "syncStart": 26321472
+    },
+    {
+      "network": "polygontestnet",
+      "assetSymbol": "MTT",
+      "bridgeType": "tbridge",
+      "address": "0x882A35e449121Eb6ab731C71745AFE6d0176Ab6e",
+      "isRollupEnable": true,
+      "syncStart": 26321480
+    },
+    {
+      "network": "polygontestnet",
+      "assetSymbol": "mUSD",
+      "bridgeType": "tbridge",
+      "address": "0xad32a2e08A0Bd483B6Dd1105C87CCc09f08EF3D3",
+      "isRollupEnable": true,
+      "syncStart": 26321488
+    },
+    {
+      "network": "avalanchetestnet",
+      "assetSymbol": "AVAX",
+      "bridgeType": "tbridge",
+      "address": "0x5eF315d16694Feb96F9A18f867A2C714F6A09A1b",
+      "isRollupEnable": true,
+      "syncStart": 9695758
+    },
+    {
+      "network": "avalanchetestnet",
+      "assetSymbol": "mETH",
+      "bridgeType": "tbridge",
+      "address": "0xB66D6AA15839EEF3b8A1A94f04Da8213477AE272",
+      "isRollupEnable": true,
+      "syncStart": 9695948
+    },
+    {
+      "network": "avalanchetestnet",
+      "assetSymbol": "MTT",
+      "bridgeType": "tbridge",
+      "address": "0xd445a7744CFdf49976175c643ce163bC8653F195",
+      "isRollupEnable": true,
+      "syncStart": 9696004
+    },
+    {
+      "network": "avalanchetestnet",
+      "assetSymbol": "mUSD",
+      "bridgeType": "tbridge",
+      "address": "0xdA7C4d1C3637458734b4b01d55157068640B256E",
+      "isRollupEnable": true,
+      "syncStart": 9696297
+    },
+    {
+      "network": "auroratestnet",
+      "assetSymbol": "aETH",
+      "bridgeType": "tbridge",
+      "address": "0xB66D6AA15839EEF3b8A1A94f04Da8213477AE272",
+      "isRollupEnable": true,
+      "syncStart": 89924354
+    },
+    {
+      "network": "auroratestnet",
+      "assetSymbol": "MTT",
+      "bridgeType": "tbridge",
+      "address": "0x55E8ba54D21d801B82691EE789617d28A56408B9",
+      "isRollupEnable": true,
+      "syncStart": 89925001
+    },
+    {
+      "network": "auroratestnet",
+      "assetSymbol": "mUSD",
+      "bridgeType": "tbridge",
+      "address": "0xac35D1C4B23e78F2Ba8C0B17C53D43F763666254",
+      "isRollupEnable": true,
+      "syncStart": 89925971
+    },
+    {
+      "network": "fantomtestnet",
+      "assetSymbol": "MTT",
+      "bridgeType": "tbridge",
+      "address": "0xD2AdD62027f27ec1876a497FDBC4c07646612409",
+      "isRollupEnable": true,
+      "syncStart": 9046297
+    }
+  ],
+  "monitor": {
+    "checkTimer": 20,
+    "blockStuckCounter": 20,
+    "retryTimer": 20,
+    "transactionMaxBatch": 1,
+    "transactionTimeout": 240,
+    "transactionMaxRetryCounter": 20,
+    "transactionRetryDelay": 5,
+    "transactionCheckCounter": 120,
+    "getEventTimeout": 30,
+    "getEventMaxBatchNumber": 2000,
+    "blockGapMax": 5,
+    "blockGapToDelay": 2,
+    "gasPricePercent": 100
+  },
+  "rollup": {
+    "merkleTreeHeight": 20,
+    "rootHistoryLength": 30,
+    "minRollupFee": 10000000000000000
+  }
+}
