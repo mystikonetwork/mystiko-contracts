@@ -1,4 +1,3 @@
-import { deepCopy } from '@mystikonetwork/utils';
 import developmentJson from '../json/deploy/development.json';
 import testnetJson from '../json/deploy/testnet.json';
 import mainnetJson from '../json/deploy/mainnet.json';

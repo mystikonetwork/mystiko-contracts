@@ -999,7 +999,7 @@
         {
           "network": "ropsten",
           "remoteNetwork": "bsctestnet",
-          "address": "0xF22688C81068f03E421B2dF395B6D9286Dc37b68"
+          "address": "0xF22688C81068f03E421B2dF395B6D9286Dc37b68",
           "isRegisterWhitelistSet": false
         },
         {

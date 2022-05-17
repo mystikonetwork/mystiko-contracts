@@ -1,6 +1,5 @@
-import { BaseConfig } from './base';
-import { BridgeFeeConfig } from './bridgeFee';
 import { check } from '@mystikonetwork/utils';
+import { BaseConfig } from './base';
 
 export interface RawPoolDeployConfig {
   network: string;
@@ -25,6 +24,7 @@ export interface RawPoolDeployConfig {
 
 export class PoolDeployConfig extends BaseConfig {
   private enqueueWhitelistByAddress: { [key: string]: boolean };
+
   private rollupWhitelistByAddress: { [key: string]: boolean };
 
   constructor(rawConfig: any) {
@@ -35,13 +35,13 @@ export class PoolDeployConfig extends BaseConfig {
     BaseConfig.checkEthAddress(this.config, 'address', false);
 
     this.enqueueWhitelistByAddress = {};
-    this.asRawContractDeployConfig().enqueueWhitelist?.map((enqueueAddress) => {
+    this.asRawContractDeployConfig().enqueueWhitelist?.forEach((enqueueAddress) => {
       check(this.enqueueWhitelistByAddress[enqueueAddress] === undefined, 'enqueue address duplicate');
       this.enqueueWhitelistByAddress[enqueueAddress] = true;
     });
 
     this.rollupWhitelistByAddress = {};
-    this.asRawContractDeployConfig().rollupWhitelist?.map((rollupAddress) => {
+    this.asRawContractDeployConfig().rollupWhitelist?.forEach((rollupAddress) => {
       check(this.rollupWhitelistByAddress[rollupAddress] === undefined, 'rollup address duplicate');
       this.rollupWhitelistByAddress[rollupAddress] = true;
     });
@@ -80,8 +80,7 @@ export class PoolDeployConfig extends BaseConfig {
   }
 
   public isMinRollupFeeChange(fee: string): boolean {
-    if (
-      this.asRawContractDeployConfig().minRollupFee !== fee) {
+    if (this.asRawContractDeployConfig().minRollupFee !== fee) {
       return true;
     }
     return false;
@@ -190,15 +189,15 @@ export class PoolDeployConfig extends BaseConfig {
     this.asRawContractDeployConfig().transact2x2Verifier = address;
   }
 
-  public isSanctionCheckDisableChange(check: boolean): boolean {
-    if (this.asRawContractDeployConfig().sanctionCheckDisable !== check) {
+  public isSanctionCheckDisableChange(disable: boolean): boolean {
+    if (this.asRawContractDeployConfig().sanctionCheckDisable !== disable) {
       return true;
     }
     return false;
   }
 
-  public updateSanctionDisableCheck(check: boolean) {
-    this.asRawContractDeployConfig().sanctionCheckDisable = check;
+  public updateSanctionDisableCheck(disable: boolean) {
+    this.asRawContractDeployConfig().sanctionCheckDisable = disable;
   }
 
   public get tokenTransfer(): boolean {
@@ -211,12 +210,12 @@ export class PoolDeployConfig extends BaseConfig {
     return true;
   }
 
-  public set tokenTransfer(check: boolean) {
-    this.asRawContractDeployConfig().tokenTransfer = check;
+  public set tokenTransfer(transfer: boolean) {
+    this.asRawContractDeployConfig().tokenTransfer = transfer;
   }
 
   public isInRollupWhitelist(address: string): boolean {
-    return this.rollupWhitelistByAddress[address] ? true : false;
+    return this.rollupWhitelistByAddress[address];
   }
 
   public addRollupToWhitelist(address: string) {
@@ -234,10 +233,10 @@ export class PoolDeployConfig extends BaseConfig {
   }
 
   public isInEnqueueWhitelist(address: string): boolean {
-    return this.enqueueWhitelistByAddress[address] ? true : false;
+    return this.enqueueWhitelistByAddress[address];
   }
 
-  public  AddEnqueueToWhitelist(address: string) {
+  public AddEnqueueToWhitelist(address: string) {
     if (this.isInEnqueueWhitelist(address)) {
       return;
     }

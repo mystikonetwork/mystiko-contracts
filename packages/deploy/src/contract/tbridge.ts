@@ -18,14 +18,13 @@ async function deployTBridgeProxy() {
   return proxy.address;
 }
 
-async function setExecutorWhitelist(c: any, inBridgeProxyCfg: BridgeProxyConfig, executor: string) {
-  let bridgeCfg = inBridgeProxyCfg;
+async function setExecutorWhitelist(c: any, bridgeCfg: BridgeProxyConfig, executor: string) {
   if (bridgeCfg.isInExecutorWhitelist(executor)) {
     return;
   }
 
   console.log('add executor to whitelist');
-  const proxy = await MystikoTBridgeProxy.attach(inBridgeProxyCfg.address);
+  const proxy = await MystikoTBridgeProxy.attach(bridgeCfg.address);
 
   try {
     const rsp = await proxy.addExecutorWhitelist(executor);

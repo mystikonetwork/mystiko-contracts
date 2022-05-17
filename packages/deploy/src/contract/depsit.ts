@@ -153,7 +153,7 @@ export async function setBridgeProxyAddress(
   try {
     const rsp = await coreContract.setBridgeProxyAddress(bridgeProxyAddress);
     console.log('rsp hash ', rsp.hash);
-    depositCfg.updateBridgeProxy(bridgeProxyAddress) ;
+    depositCfg.updateBridgeProxy(bridgeProxyAddress);
     saveConfig(c.mystikoNetwork, c.cfg);
   } catch (err: any) {
     console.error(LOGRED, err);

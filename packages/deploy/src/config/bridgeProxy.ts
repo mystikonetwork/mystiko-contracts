@@ -1,5 +1,5 @@
-import { BaseConfig } from './base';
 import { check } from '@mystikonetwork/utils';
+import { BaseConfig } from './base';
 
 export interface RawBridgeProxyConfig {
   network: string;
@@ -11,6 +11,7 @@ export interface RawBridgeProxyConfig {
 
 export class BridgeProxyConfig extends BaseConfig {
   private executorWhitelistByAddress: { [key: string]: boolean };
+
   private registerWhitelistByAddress: { [key: string]: boolean };
 
   constructor(rawConfig: any) {
@@ -20,13 +21,13 @@ export class BridgeProxyConfig extends BaseConfig {
     BaseConfig.checkEthAddress(this.config, 'address', false);
 
     this.executorWhitelistByAddress = {};
-    this.asRawBridgeProxyConfig().executorWhitelist?.map((executor) => {
+    this.asRawBridgeProxyConfig().executorWhitelist?.forEach((executor) => {
       check(this.executorWhitelistByAddress[executor] === undefined, 'executor address duplicate');
       this.executorWhitelistByAddress[executor] = true;
     });
 
     this.registerWhitelistByAddress = {};
-    this.asRawBridgeProxyConfig().registerWhitelist?.map((executor) => {
+    this.asRawBridgeProxyConfig().registerWhitelist?.forEach((executor) => {
       check(this.registerWhitelistByAddress[executor] === undefined, 'executor address duplicate');
       this.registerWhitelistByAddress[executor] = true;
     });
@@ -49,7 +50,7 @@ export class BridgeProxyConfig extends BaseConfig {
   }
 
   public isInExecutorWhitelist(address: string): boolean {
-    return this.executorWhitelistByAddress[address] ? true : false;
+    return this.executorWhitelistByAddress[address];
   }
 
   public addExecutorToWhitelist(address: string) {
@@ -67,7 +68,7 @@ export class BridgeProxyConfig extends BaseConfig {
   }
 
   public isInRegisterWhitelist(address: string): boolean {
-    return this.registerWhitelistByAddress[address] ? true : false;
+    return this.registerWhitelistByAddress[address];
   }
 
   public addRegisterToWhitelist(address: string) {
