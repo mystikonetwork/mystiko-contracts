@@ -65,7 +65,7 @@ export async function setCommitmentPoolRollupFee(
   inPoolCfg: PoolDeployConfig,
   chainTokenCfg: ChainTokenConfig,
 ) {
-  if (inPoolCfg.isMinRollupFeeSet) {
+  if (!inPoolCfg.isMinRollupFeeChange(chainTokenCfg.minRollupFee)) {
     return;
   }
 
@@ -76,7 +76,7 @@ export async function setCommitmentPoolRollupFee(
   try {
     const rsp = await poolContract.setMinRollupFee(chainTokenCfg.minRollupFee);
     console.log('rsp hash ', rsp.hash);
-    poolCfg.isMinRollupFeeSet = true;
+    poolCfg.updateMinRollupFee(chainTokenCfg.minRollupFee);
     saveConfig(c.mystikoNetwork, c.cfg);
   } catch (err: any) {
     console.error(LOGRED, err);
@@ -90,7 +90,7 @@ async function setCommitmentPoolRollup1Verifier(
   inPoolCfg: PoolDeployConfig,
   chainCfg: ChainConfig,
 ) {
-  if (inPoolCfg.isRollup1VerifierSet) {
+  if (!inPoolCfg.isRollup1VerifierChange(chainCfg.rollup1Address)) {
     return;
   }
 
@@ -102,7 +102,7 @@ async function setCommitmentPoolRollup1Verifier(
   try {
     const rsp = await poolContract.enableRollupVerifier(1, chainCfg.rollup1Address);
     console.log('rsp hash ', rsp.hash);
-    poolCfg.isRollup1VerifierSet = true;
+    poolCfg.updateRollup1Verifier(chainCfg.rollup1Address);
     saveConfig(c.mystikoNetwork, c.cfg);
   } catch (err: any) {
     console.error(LOGRED, err);
@@ -116,7 +116,7 @@ async function setCommitmentPoolRollup4Verifier(
   inPoolCfg: PoolDeployConfig,
   chainCfg: ChainConfig,
 ) {
-  if (inPoolCfg.isRollup4VerifierSet) {
+  if (!inPoolCfg.isRollup4VerifierChange(chainCfg.rollup4Address)) {
     return;
   }
 
@@ -128,7 +128,7 @@ async function setCommitmentPoolRollup4Verifier(
   try {
     const rsp = await poolContract.enableRollupVerifier(4, chainCfg.rollup4Address);
     console.log('rsp hash ', rsp.hash);
-    poolCfg.isRollup4VerifierSet = true;
+    poolCfg.updateRollup4Verifier(chainCfg.rollup4Address);
     saveConfig(c.mystikoNetwork, c.cfg);
   } catch (err: any) {
     console.error(LOGRED, err);
@@ -142,7 +142,7 @@ async function setCommitmentPoolRollup16Verifier(
   inPoolCfg: PoolDeployConfig,
   chainCfg: ChainConfig,
 ) {
-  if (inPoolCfg.isRollup16VerifierSet) {
+  if (!inPoolCfg.isRollup16VerifierChange(chainCfg.rollup16Address)) {
     return;
   }
 
@@ -154,7 +154,7 @@ async function setCommitmentPoolRollup16Verifier(
   try {
     const rsp = await poolContract.enableRollupVerifier(16, chainCfg.rollup16Address);
     console.log('rsp hash ', rsp.hash);
-    poolCfg.isRollup16VerifierSet = true;
+    poolCfg.updateRollup16Verifier(chainCfg.rollup16Address);
     saveConfig(c.mystikoNetwork, c.cfg);
   } catch (err: any) {
     console.error(LOGRED, err);
@@ -168,7 +168,7 @@ async function setCommitmentPoolTransact1x0Verifier(
   inPoolCfg: PoolDeployConfig,
   chainCfg: ChainConfig,
 ) {
-  if (inPoolCfg.isTransact1x0VerifierSet) {
+  if (!inPoolCfg.isTransact1x0VerifierChange(chainCfg.transaction1x0VerifierAddress)) {
     return;
   }
 
@@ -180,7 +180,7 @@ async function setCommitmentPoolTransact1x0Verifier(
   try {
     const rsp = await poolContract.enableTransactVerifier(1, 0, chainCfg.transaction1x0VerifierAddress);
     console.log('rsp hash ', rsp.hash);
-    poolCfg.isTransact1x0VerifierSet = true;
+    poolCfg.updateTransact1x0Verifier(chainCfg.transaction1x0VerifierAddress);
     saveConfig(c.mystikoNetwork, c.cfg);
   } catch (err: any) {
     console.error(LOGRED, err);
@@ -194,7 +194,7 @@ async function setCommitmentPoolTransact1x1Verifier(
   inPoolCfg: PoolDeployConfig,
   chainCfg: ChainConfig,
 ) {
-  if (inPoolCfg.isTransact1x1VerifierSet) {
+  if (!inPoolCfg.isTransact1x1VerifierChange(chainCfg.transaction1x1VerifierAddress)) {
     return;
   }
 
@@ -206,7 +206,7 @@ async function setCommitmentPoolTransact1x1Verifier(
   try {
     const rsp = await poolContract.enableTransactVerifier(1, 1, chainCfg.transaction1x1VerifierAddress);
     console.log('rsp hash ', rsp.hash);
-    poolCfg.isTransact1x1VerifierSet = true;
+    poolCfg.updateTransact1x1Verifier(chainCfg.transaction1x1VerifierAddress);
     saveConfig(c.mystikoNetwork, c.cfg);
   } catch (err: any) {
     console.error(LOGRED, err);
@@ -220,7 +220,7 @@ async function setCommitmentPoolTransact1x2Verifier(
   inPoolCfg: PoolDeployConfig,
   chainCfg: ChainConfig,
 ) {
-  if (inPoolCfg.isTransact1x2VerifierSet) {
+  if (!inPoolCfg.isTransact1x2VerifierChange(chainCfg.transaction1x2VerifierAddress)) {
     return;
   }
 
@@ -232,7 +232,7 @@ async function setCommitmentPoolTransact1x2Verifier(
   try {
     const rsp = await poolContract.enableTransactVerifier(1, 2, chainCfg.transaction1x2VerifierAddress);
     console.log('rsp hash ', rsp.hash);
-    poolCfg.isTransact1x2VerifierSet = true;
+    poolCfg.updateTransact1x2Verifier(chainCfg.transaction1x2VerifierAddress);
     saveConfig(c.mystikoNetwork, c.cfg);
   } catch (err: any) {
     console.error(LOGRED, err);
@@ -246,7 +246,7 @@ async function setCommitmentPoolTransact2x0Verifier(
   inPoolCfg: PoolDeployConfig,
   chainCfg: ChainConfig,
 ) {
-  if (inPoolCfg.isTransact2x0VerifierSet) {
+  if (!inPoolCfg.isTransact2x0VerifierChange(chainCfg.transaction2x0VerifierAddress)) {
     return;
   }
 
@@ -258,7 +258,7 @@ async function setCommitmentPoolTransact2x0Verifier(
   try {
     const rsp = await poolContract.enableTransactVerifier(2, 0, chainCfg.transaction2x0VerifierAddress);
     console.log('rsp hash ', rsp.hash);
-    poolCfg.isTransact2x0VerifierSet = true;
+    poolCfg.updateTransact2x0Verifier(chainCfg.transaction2x0VerifierAddress);
     saveConfig(c.mystikoNetwork, c.cfg);
   } catch (err: any) {
     console.error(LOGRED, err);
@@ -272,7 +272,7 @@ async function setCommitmentPoolTransact2x1Verifier(
   inPoolCfg: PoolDeployConfig,
   chainCfg: ChainConfig,
 ) {
-  if (inPoolCfg.isTransact2x1VerifierSet) {
+  if (!inPoolCfg.isTransact2x1VerifierChange(chainCfg.transaction2x1VerifierAddress)) {
     return;
   }
 
@@ -284,7 +284,7 @@ async function setCommitmentPoolTransact2x1Verifier(
   try {
     const rsp = await poolContract.enableTransactVerifier(2, 1, chainCfg.transaction2x1VerifierAddress);
     console.log('rsp hash ', rsp.hash);
-    poolCfg.isTransact2x1VerifierSet = true;
+    poolCfg.updateTransact2x1Verifier(chainCfg.transaction2x1VerifierAddress);
     saveConfig(c.mystikoNetwork, c.cfg);
   } catch (err: any) {
     console.error(LOGRED, err);
@@ -298,7 +298,7 @@ async function setCommitmentPoolTransact2x2Verifier(
   inPoolCfg: PoolDeployConfig,
   chainCfg: ChainConfig,
 ) {
-  if (inPoolCfg.isTransact2x2VerifierSet) {
+  if (!inPoolCfg.isTransact2x2VerifierChange(chainCfg.transaction2x2VerifierAddress)) {
     return;
   }
 
@@ -309,7 +309,7 @@ async function setCommitmentPoolTransact2x2Verifier(
   try {
     const rsp = await poolContract.enableTransactVerifier(2, 2, chainCfg.transaction2x2VerifierAddress);
     console.log('rsp hash ', rsp.hash);
-    poolCfg.isTransact2x2VerifierSet = true;
+    poolCfg.updateTransact2x2Verifier(chainCfg.transaction2x2VerifierAddress);
     saveConfig(c.mystikoNetwork, c.cfg);
   } catch (err: any) {
     console.error(LOGRED, err);
@@ -340,9 +340,10 @@ export async function togglePoolSanctionCheck(
   inPoolCfg: PoolDeployConfig,
   check: boolean,
 ) {
-  if (inPoolCfg.isSanctionCheckSet) {
+  if (!inPoolCfg.isSanctionCheckDisableChange(check)) {
     return;
   }
+
   const poolCfg = inPoolCfg;
 
   console.log('toggle pool sanction check disable ', check);
@@ -352,7 +353,7 @@ export async function togglePoolSanctionCheck(
   try {
     const rsp = await poolContract.toggleSanctionCheck(check);
     console.log('pool rsp hash ', rsp.hash);
-    poolCfg.isSanctionCheckSet = true;
+    poolCfg.updateSanctionDisableCheck(check);
     saveConfig(c.mystikoNetwork, c.cfg);
   } catch (err: any) {
     console.error(LOGRED, err);
@@ -360,14 +361,20 @@ export async function togglePoolSanctionCheck(
   }
 }
 
-export async function setRollupWhitelist(erc20: boolean, poolCfg: PoolDeployConfig, roller: string) {
-  console.log('set roller whitelist');
+export async function setRollupWhitelist(c: any, erc20: boolean, poolCfg: PoolDeployConfig, roller: string) {
+  if (poolCfg.isInRollupWhitelist(roller)) {
+    return;
+  }
+
+  console.log('add roller to whitelist');
   const PoolContractFactory = getMystikoPoolContract(erc20);
   const pool = await PoolContractFactory.attach(poolCfg.address);
 
   try {
     const rsp = await pool.addRollupWhitelist(roller);
     console.log('rsp hash ', rsp.hash);
+    poolCfg.addRollupToWhitelist(roller);
+    saveConfig(c.mystikoNetwork, c.cfg);
   } catch (err: any) {
     console.error(LOGRED, err);
     process.exit(1);
@@ -380,20 +387,11 @@ export async function addRollupWhitelist(
   inPoolCfg: PoolDeployConfig,
   rollers: string[],
 ) {
-  // todo zr rollup list should check with array
-  if (inPoolCfg.isRollupWhitelistSet) {
-    return;
-  }
-
-  const poolCfg = inPoolCfg;
   /* eslint-disable no-await-in-loop */
   for (let i = 0; i < rollers.length; i += 1) {
-    await setRollupWhitelist(erc20, inPoolCfg, rollers[i]);
+    await setRollupWhitelist(c, erc20, inPoolCfg, rollers[i]);
   }
   /* eslint-enable no-await-in-loop */
-
-  poolCfg.isRollupWhitelistSet = true;
-  saveConfig(c.mystikoNetwork, c.cfg);
 }
 
 export async function addEnqueueWhitelist(
@@ -402,19 +400,19 @@ export async function addEnqueueWhitelist(
   inPoolCfg: PoolDeployConfig,
   enqueueContractAddress: string,
 ) {
-  // todo zr enqueue list should check with array
-  // if (inPoolCfg.isEnqueueWhitelistSet) {
-  //   return;
-  // }
+  if (inPoolCfg.isInEnqueueWhitelist(enqueueContractAddress)) {
+    return;
+  }
 
   const poolCfg = inPoolCfg;
   const PoolContractFactory = getMystikoPoolContract(erc20);
   const pool = await PoolContractFactory.attach(poolCfg.address);
-  console.log('set enqueue whitelist');
+  console.log('add enqueue whitelist');
+
   try {
     const rsp = await pool.addEnqueueWhitelist(enqueueContractAddress);
     console.log('rsp hash ', rsp.hash);
-    poolCfg.isEnqueueWhitelistSet = true;
+    poolCfg.AddEnqueueToWhitelist(enqueueContractAddress);
     saveConfig(c.mystikoNetwork, c.cfg);
   } catch (err: any) {
     console.error(LOGRED, err);

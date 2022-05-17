@@ -430,7 +430,7 @@
     "getEventMaxBatchNumber": 2000,
     "blockGapMax": 5,
     "blockGapToDelay": 2,
-    "gasPricePercent": 100
+    "gasPricePercent": 150
   },
   "rollup": {
     "merkleTreeHeight": 20,

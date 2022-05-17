@@ -19,9 +19,10 @@ export interface RawBridgeConfig {
 }
 
 export class BridgeConfig extends BaseConfig {
-  private readonly proxyByNetwork: { [key: string]: BridgeProxyConfig };
-
   private readonly feesByNetwork: { [key: string]: BridgeFeeConfig };
+
+  // first key is network, second key is remote network, for celer remote network is ''
+  private readonly proxyByNetworkAndRemote = new Map();
 
   // first key is network, second key is token
   // private readonly poolByNetworkAndToken: { [key: string]: { [key: string]: ContractDeployConfig } };
@@ -35,18 +36,18 @@ export class BridgeConfig extends BaseConfig {
     BaseConfig.checkString(this.config, 'name');
     BaseConfig.checkString(this.config, 'contractName');
 
-    this.proxyByNetwork = {};
-    this.asRawBridgeConfig().wrappedProxys = this.asRawBridgeConfig().proxys.map((proxy) => {
-      const proxyConfig = new BridgeProxyConfig(proxy);
-      this.proxyByNetwork[proxy.network] = proxyConfig;
-      return proxyConfig;
-    });
-
     this.feesByNetwork = {};
     this.asRawBridgeConfig().wrappedFees = this.asRawBridgeConfig().fees.map((fee) => {
       const feeConfig = new BridgeFeeConfig(fee);
+      check(this.feesByNetwork[fee.network] === undefined, 'fees duplicate');
       this.feesByNetwork[fee.network] = feeConfig;
       return feeConfig;
+    });
+
+    this.asRawBridgeConfig().wrappedProxys = this.asRawBridgeConfig().proxys.map((proxy) => {
+      const proxyConfig = new BridgeProxyConfig(proxy);
+      this.insertProxyConfig(proxyConfig);
+      return proxyConfig;
     });
 
     this.asRawBridgeConfig().wrappedCommitmentPools = this.asRawBridgeConfig().commitmentPools.map((pool) => {
@@ -74,6 +75,18 @@ export class BridgeConfig extends BaseConfig {
     });
   }
 
+  insertProxyConfig(proxyConfig: BridgeProxyConfig) {
+    let m1 = this.proxyByNetworkAndRemote.get(proxyConfig.network);
+    if (m1 === undefined) {
+      m1 = new Map();
+      m1.set(proxyConfig.remoteNetwork, proxyConfig);
+      this.proxyByNetworkAndRemote.set(proxyConfig.network, m1);
+    } else {
+      check(m1.get(proxyConfig.remoteNetwork) === undefined, 'proxy configure duplicate');
+      m1.set(proxyConfig.remoteNetwork, proxyConfig);
+    }
+  }
+
   insertCommitmentPoolConfig(poolConfig: PoolDeployConfig) {
     let m1 = this.poolByNetworkAndToken.get(poolConfig.network);
     if (m1 === undefined) {
@@ -84,6 +97,26 @@ export class BridgeConfig extends BaseConfig {
       check(m1.get(poolConfig.assetSymbol) === undefined, 'pool configure duplicate');
       m1.set(poolConfig.assetSymbol, poolConfig);
     }
+  }
+
+  public getBridgeProxyConfig(network: string, remoteNetwork: string): BridgeProxyConfig | undefined {
+    return this.proxyByNetworkAndRemote.get(network)?.get(remoteNetwork);
+  }
+
+  public addBridgeProxyConfig(network: string, remoteNetwork: string, address: string) {
+    const rawProxyCfg = {
+      network,
+      remoteNetwork,
+      address,
+    };
+    const proxyConfig = new BridgeProxyConfig(rawProxyCfg);
+    this.asRawBridgeConfig().proxys.push(rawProxyCfg);
+    this.insertProxyConfig(proxyConfig);
+    return proxyConfig;
+  }
+
+  public getCommitmentPoolConfig(network: string, assetSymbol: string): PoolDeployConfig | undefined {
+    return this.poolByNetworkAndToken.get(network)?.get(assetSymbol);
   }
 
   public addCommitmentPoolConfig(network: string, assetSymbol: string, address: string, syncStart: number) {
@@ -133,21 +166,6 @@ export class BridgeConfig extends BaseConfig {
     return this.asRawBridgeConfig().contractName;
   }
 
-  public addBridgeProxyConfig(network: string, address: string): BridgeProxyConfig {
-    const rawBridgeProxyCfg = {
-      network,
-      address,
-    };
-    const newBridgeCfg = new BridgeProxyConfig(rawBridgeProxyCfg);
-    this.asRawBridgeConfig().proxys.push(rawBridgeProxyCfg);
-    this.proxyByNetwork[network] = newBridgeCfg;
-    return newBridgeCfg;
-  }
-
-  public getBridgeProxyConfig(network: string): BridgeProxyConfig | undefined {
-    return this.proxyByNetwork[network];
-  }
-
   public getBridgeFeeConfig(network: string): BridgeFeeConfig {
     return this.feesByNetwork[network];
   }
@@ -158,10 +176,6 @@ export class BridgeConfig extends BaseConfig {
       return brideFeeCfg.minimal;
     }
     return undefined;
-  }
-
-  public getCommitmentPoolConfig(network: string, assetSymbol: string): PoolDeployConfig | undefined {
-    return this.poolByNetworkAndToken.get(network)?.get(assetSymbol);
   }
 
   public getBridgeTokenPair(

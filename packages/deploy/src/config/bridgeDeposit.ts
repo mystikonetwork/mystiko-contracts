@@ -5,15 +5,15 @@ export interface RawDepositDeployConfig {
   assetSymbol: string;
   address?: string;
   syncStart?: number;
-  isMinAmountSet?: boolean;
-  isMinBridgeFeeSet?: boolean;
-  isMinExecutorFeeSet?: boolean;
-  isPeerMinExecutorFeeSet?: boolean;
-  isPeerMinRollupFeeSet?: boolean;
-  isCommitmentPoolSet?: boolean;
-  isBridgeProxySet?: boolean;
-  isPeerContractSet?: boolean;
-  isSanctionCheckSet?: boolean;
+  minAmount?: string;
+  minBridgeFee?: string;
+  minExecutorFee?: string;
+  peerMinExecutorFee?: string;
+  peerMinRollupFee?: string;
+  commitmentPool?: string;
+  bridgeProxy?: string;
+  peerContract?: string;
+  sanctionCheckDisable?: boolean;
 }
 
 export class DepositDeployConfig extends BaseConfig {
@@ -57,90 +57,117 @@ export class DepositDeployConfig extends BaseConfig {
     this.asRawContractDeployConfig().syncStart = start;
   }
 
-  public get isMinBridgeFeeSet(): boolean {
-    return this.asRawContractDeployConfig().isMinBridgeFeeSet || false;
+  public isMinAmountChange(fee: string): boolean {
+    if (this.asRawContractDeployConfig().minAmount !== fee) {
+      return true;
+    }
+    return false;
   }
 
-  public set isMinBridgeFeeSet(set: boolean) {
-    this.asRawContractDeployConfig().isMinBridgeFeeSet = set;
+  public updateMinAmount(amount: string) {
+    this.asRawContractDeployConfig().minAmount = amount;
   }
 
-  public get isMinExecutorFeeSet(): boolean {
-    return this.asRawContractDeployConfig().isMinExecutorFeeSet || false;
+  public isMinBridgeFeeChange(fee: string): boolean {
+    if (this.asRawContractDeployConfig().minBridgeFee !== fee) {
+      return true;
+    }
+    return false;
   }
 
-  public set isMinExecutorFeeSet(set: boolean) {
-    this.asRawContractDeployConfig().isMinExecutorFeeSet = set;
+  public updateMinBridgeFee(fee: string) {
+    this.asRawContractDeployConfig().minBridgeFee = fee;
   }
 
-  public get isPeerMinExecutorFeeSet(): boolean {
-    return this.asRawContractDeployConfig().isPeerMinExecutorFeeSet || false;
+  public isMinExecutorFeeChange(fee: string): boolean {
+    if (this.asRawContractDeployConfig().minExecutorFee !== fee) {
+      return true;
+    }
+    return false;
   }
 
-  public set isPeerMinExecutorFeeSet(set: boolean) {
-    this.asRawContractDeployConfig().isPeerMinExecutorFeeSet = set;
+  public updateMinExecutorFee(fee: string) {
+    this.asRawContractDeployConfig().minExecutorFee = fee;
   }
 
-  public get isPeerMinRollupFeeSet(): boolean {
-    return this.asRawContractDeployConfig().isPeerMinRollupFeeSet || false;
+  public isPeerMinExecutorFeeChange(fee: string): boolean {
+    if (this.asRawContractDeployConfig().peerMinExecutorFee !== fee) {
+      return true;
+    }
+    return false;
   }
 
-  public set isPeerMinRollupFeeSet(set: boolean) {
-    this.asRawContractDeployConfig().isPeerMinRollupFeeSet = set;
+  public updatePeerMinExecutorFee(fee: string) {
+    this.asRawContractDeployConfig().peerMinExecutorFee = fee;
   }
 
-  public get isMinAmountSet(): boolean {
-    return this.asRawContractDeployConfig().isMinAmountSet || false;
+  public isPeerMinRollupFeeChange(fee: string): boolean {
+    if (this.asRawContractDeployConfig().peerMinRollupFee !== fee) {
+      return true;
+    }
+    return false;
   }
 
-  public set isMinAmountSet(set: boolean) {
-    this.asRawContractDeployConfig().isMinAmountSet = set;
+  public updatePeerMinRollupFee(fee: string) {
+    this.asRawContractDeployConfig().peerMinRollupFee = fee;
   }
 
-  public get isCommitmentPoolSet(): boolean {
-    return this.asRawContractDeployConfig().isCommitmentPoolSet || false;
+  public isCommitmentPoolChange(address: string): boolean {
+    if (this.asRawContractDeployConfig().commitmentPool !== address) {
+      return true;
+    }
+    return false;
   }
 
-  public set isCommitmentPoolSet(set: boolean) {
-    this.asRawContractDeployConfig().isCommitmentPoolSet = set;
+  public updateCommitmentPool(address: string) {
+    this.asRawContractDeployConfig().commitmentPool = address;
   }
 
-  public get isBridgeProxySet(): boolean {
-    return this.asRawContractDeployConfig().isBridgeProxySet || false;
+  public isBridgeProxyChange(address: string): boolean {
+    if (this.asRawContractDeployConfig().bridgeProxy !== address) {
+      return true;
+    }
+    return false;
   }
 
-  public set isBridgeProxySet(set: boolean) {
-    this.asRawContractDeployConfig().isBridgeProxySet = set;
+  public updateBridgeProxy(address: string) {
+    this.asRawContractDeployConfig().bridgeProxy = address;
   }
 
-  public get isPeerContractSet(): boolean {
-    return this.asRawContractDeployConfig().isPeerContractSet || false;
+  public isPeerContractChange(address: string): boolean {
+    if (this.asRawContractDeployConfig().peerContract !== address) {
+      return true;
+    }
+    return false;
   }
 
-  public set isPeerContractSet(set: boolean) {
-    this.asRawContractDeployConfig().isPeerContractSet = set;
+  public updatePeerContract(address: string) {
+    this.asRawContractDeployConfig().peerContract = address;
   }
 
-  public get isSanctionCheckSet(): boolean {
-    return this.asRawContractDeployConfig().isSanctionCheckSet || false;
+  public isSanctionCheckDisableChange(check: boolean): boolean {
+    if (this.asRawContractDeployConfig().sanctionCheckDisable !== check) {
+      return true;
+    }
+    return false;
   }
 
-  public set isSanctionCheckSet(set: boolean) {
-    this.asRawContractDeployConfig().isSanctionCheckSet = set;
+  public updateSanctionCheckDisable(check: boolean) {
+    this.asRawContractDeployConfig().sanctionCheckDisable = check;
   }
 
   public reset() {
-    this.address = '';
-    this.syncStart = 0;
-    this.isMinAmountSet = false;
-    this.isCommitmentPoolSet = false;
-    this.isMinBridgeFeeSet = false;
-    this.isMinExecutorFeeSet = false;
-    this.isPeerMinExecutorFeeSet = false;
-    this.isPeerMinRollupFeeSet = false;
-    this.isBridgeProxySet = false;
-    this.isPeerContractSet = false;
-    this.isSanctionCheckSet = false;
+    this.asRawContractDeployConfig().address = undefined;
+    this.asRawContractDeployConfig().syncStart = undefined;
+    this.asRawContractDeployConfig().minAmount = undefined;
+    this.asRawContractDeployConfig().minBridgeFee = undefined;
+    this.asRawContractDeployConfig().minExecutorFee = undefined;
+    this.asRawContractDeployConfig().peerMinExecutorFee = undefined;
+    this.asRawContractDeployConfig().peerMinRollupFee = undefined;
+    this.asRawContractDeployConfig().commitmentPool = undefined;
+    this.asRawContractDeployConfig().bridgeProxy = undefined;
+    this.asRawContractDeployConfig().peerContract = undefined;
+    this.asRawContractDeployConfig().sanctionCheckDisable = undefined;
   }
 
   private asRawContractDeployConfig(): RawDepositDeployConfig {

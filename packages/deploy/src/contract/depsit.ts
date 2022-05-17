@@ -66,9 +66,10 @@ export async function toggleDepositSanctionCheck(
   inDepositCfg: DepositDeployConfig,
   check: boolean,
 ) {
-  if (inDepositCfg.isSanctionCheckSet) {
+  if (!inDepositCfg.isSanctionCheckDisableChange(check)) {
     return;
   }
+
   const depositCfg = inDepositCfg;
   console.log('toggle deposit sanction check disable ', check);
   const DepositContractFactoruy = getMystikoDeployContract(bridgeName, erc20);
@@ -77,7 +78,7 @@ export async function toggleDepositSanctionCheck(
   try {
     const rsp = await coreContract.toggleSanctionCheck(check);
     console.log('deposit rsp hash ', rsp.hash);
-    depositCfg.isSanctionCheckSet = true;
+    depositCfg.updateSanctionCheckDisable(check);
     saveConfig(c.mystikoNetwork, c.cfg);
   } catch (err: any) {
     console.error(LOGRED, err);
@@ -140,7 +141,7 @@ export async function setBridgeProxyAddress(
   inDepositCfg: DepositDeployConfig,
   bridgeProxyAddress: string,
 ) {
-  if (inDepositCfg.isBridgeProxySet) {
+  if (!inDepositCfg.isBridgeProxyChange(bridgeProxyAddress)) {
     return;
   }
   const depositCfg = inDepositCfg;
@@ -152,7 +153,7 @@ export async function setBridgeProxyAddress(
   try {
     const rsp = await coreContract.setBridgeProxyAddress(bridgeProxyAddress);
     console.log('rsp hash ', rsp.hash);
-    depositCfg.isBridgeProxySet = true;
+    depositCfg.updateBridgeProxy(bridgeProxyAddress) ;
     saveConfig(c.mystikoNetwork, c.cfg);
   } catch (err: any) {
     console.error(LOGRED, err);
@@ -167,7 +168,7 @@ export async function setMinBridgeFee(
   inDepositCfg: DepositDeployConfig,
   fee: string,
 ) {
-  if (inDepositCfg.isMinBridgeFeeSet) {
+  if (!inDepositCfg.isMinBridgeFeeChange(fee)) {
     return;
   }
   const depositCfg = inDepositCfg;
@@ -179,7 +180,7 @@ export async function setMinBridgeFee(
   try {
     const rsp = await coreContract.setMinBridgeFee(fee);
     console.log('rsp hash ', rsp.hash);
-    depositCfg.isMinBridgeFeeSet = true;
+    depositCfg.updateMinBridgeFee(fee);
     saveConfig(c.mystikoNetwork, c.cfg);
   } catch (err: any) {
     console.error(LOGRED, err);
@@ -194,7 +195,7 @@ export async function setMinExecutorFee(
   inDepositCfg: DepositDeployConfig,
   fee: string,
 ) {
-  if (inDepositCfg.isMinExecutorFeeSet) {
+  if (!inDepositCfg.isMinExecutorFeeChange(fee)) {
     return;
   }
   const depositCfg = inDepositCfg;
@@ -206,7 +207,7 @@ export async function setMinExecutorFee(
   try {
     const rsp = await coreContract.setMinExecutorFee(fee);
     console.log('rsp hash ', rsp.hash);
-    depositCfg.isMinExecutorFeeSet = true;
+    depositCfg.updateMinExecutorFee(fee);
     saveConfig(c.mystikoNetwork, c.cfg);
   } catch (err: any) {
     console.error(LOGRED, err);
@@ -221,7 +222,7 @@ export async function setPeerMinExecutorFee(
   inDepositCfg: DepositDeployConfig,
   fee: string,
 ) {
-  if (inDepositCfg.isPeerMinExecutorFeeSet) {
+  if (!inDepositCfg.isPeerMinExecutorFeeChange(fee)) {
     return;
   }
   const depositCfg = inDepositCfg;
@@ -233,7 +234,7 @@ export async function setPeerMinExecutorFee(
   try {
     const rsp = await coreContract.setPeerMinExecutorFee(fee);
     console.log('rsp hash ', rsp.hash);
-    depositCfg.isPeerMinExecutorFeeSet = true;
+    depositCfg.updatePeerMinExecutorFee(fee);
     saveConfig(c.mystikoNetwork, c.cfg);
   } catch (err: any) {
     console.error(LOGRED, err);
@@ -248,7 +249,7 @@ export async function setPeerMinRollupFee(
   inDepositCfg: DepositDeployConfig,
   fee: string,
 ) {
-  if (inDepositCfg.isPeerMinRollupFeeSet) {
+  if (!inDepositCfg.isPeerMinRollupFeeChange(fee)) {
     return;
   }
   const depositCfg = inDepositCfg;
@@ -260,7 +261,7 @@ export async function setPeerMinRollupFee(
   try {
     const rsp = await coreContract.setPeerMinRollupFee(fee);
     console.log('rsp hash ', rsp.hash);
-    depositCfg.isPeerMinRollupFeeSet = true;
+    depositCfg.updatePeerMinRollupFee(fee);
     saveConfig(c.mystikoNetwork, c.cfg);
   } catch (err: any) {
     console.error(LOGRED, err);
@@ -275,7 +276,7 @@ export async function setMinAmount(
   inDepositCfg: DepositDeployConfig,
   minAmount: string,
 ) {
-  if (inDepositCfg.isMinAmountSet) {
+  if (!inDepositCfg.isMinAmountChange(minAmount)) {
     return;
   }
 
@@ -288,7 +289,7 @@ export async function setMinAmount(
   try {
     const rsp = await coreContract.setMinAmount(minAmount);
     console.log('rsp hash ', rsp.hash);
-    depositCfg.isMinAmountSet = true;
+    depositCfg.updateMinAmount(minAmount);
     saveConfig(c.mystikoNetwork, c.cfg);
   } catch (err: any) {
     console.error(LOGRED, err);
@@ -303,7 +304,7 @@ export async function setAssociatedCommitmentPool(
   inDepositCfg: DepositDeployConfig,
   poolAddress: string,
 ) {
-  if (inDepositCfg.isCommitmentPoolSet) {
+  if (!inDepositCfg.isCommitmentPoolChange(poolAddress)) {
     return;
   }
 
@@ -316,7 +317,7 @@ export async function setAssociatedCommitmentPool(
   try {
     const rsp = await coreContract.setAssociatedCommitmentPool(poolAddress);
     console.log('rsp hash ', rsp.hash);
-    depositCfg.isCommitmentPoolSet = true;
+    depositCfg.updateCommitmentPool(poolAddress);
     saveConfig(c.mystikoNetwork, c.cfg);
   } catch (err: any) {
     console.error(LOGRED, err);
@@ -393,7 +394,7 @@ export async function setPeerContract(
   peerChainId: number,
   peerContractAddress: string,
 ) {
-  if (inDepositConfig.isPeerContractSet) {
+  if (!inDepositConfig.isPeerContractChange(peerContractAddress)) {
     return;
   }
   const depositConfig = inDepositConfig;
@@ -404,7 +405,7 @@ export async function setPeerContract(
   try {
     const rsp = await coreContract.setPeerContract(peerChainId, peerContractAddress);
     console.log('rsp hash ', rsp.hash);
-    depositConfig.isPeerContractSet = true;
+    depositConfig.updatePeerContract(peerContractAddress);
     saveConfig(c.mystikoNetwork, c.cfg);
   } catch (err: any) {
     console.error(LOGRED, err);

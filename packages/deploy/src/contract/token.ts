@@ -11,7 +11,7 @@ export async function initTestTokenContractFactory(ethers: any) {
 }
 
 export async function transferTokneToContract(c: any, tokenAddress: string, inPoolCfg: PoolDeployConfig) {
-  if (inPoolCfg.isTokenTransferSet) {
+  if (inPoolCfg.tokenTransfer) {
     return;
   }
   const poolCfg = inPoolCfg;
@@ -41,7 +41,7 @@ export async function transferTokneToContract(c: any, tokenAddress: string, inPo
     .transfer(inPoolCfg.address, amount)
     .then(() => {
       console.log('transfer token to contract success ');
-      poolCfg.isTokenTransferSet = true;
+      poolCfg.tokenTransfer = true;
       saveConfig(c.mystikoNetwork, c.cfg);
     })
     .catch((err: any) => {

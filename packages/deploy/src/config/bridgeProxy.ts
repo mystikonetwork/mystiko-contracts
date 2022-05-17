@@ -1,21 +1,43 @@
 import { BaseConfig } from './base';
+import { check } from '@mystikonetwork/utils';
 
 export interface RawBridgeProxyConfig {
   network: string;
+  remoteNetwork: string;
   address: string;
-  isExecutorWhitelistSet?: boolean;
-  isRegisterWhitelistSet?: boolean;
+  executorWhitelist?: string[];
+  registerWhitelist?: string[];
 }
 
 export class BridgeProxyConfig extends BaseConfig {
+  private executorWhitelistByAddress: { [key: string]: boolean };
+  private registerWhitelistByAddress: { [key: string]: boolean };
+
   constructor(rawConfig: any) {
     super(rawConfig);
     BaseConfig.checkString(this.config, 'network');
+    BaseConfig.checkString(this.config, 'remoteNetwork', false);
     BaseConfig.checkEthAddress(this.config, 'address', false);
+
+    this.executorWhitelistByAddress = {};
+    this.asRawBridgeProxyConfig().executorWhitelist?.map((executor) => {
+      check(this.executorWhitelistByAddress[executor] === undefined, 'executor address duplicate');
+      this.executorWhitelistByAddress[executor] = true;
+    });
+
+    this.registerWhitelistByAddress = {};
+    this.asRawBridgeProxyConfig().registerWhitelist?.map((executor) => {
+      check(this.registerWhitelistByAddress[executor] === undefined, 'executor address duplicate');
+      this.registerWhitelistByAddress[executor] = true;
+    });
   }
 
   public get network(): string {
     return this.asRawBridgeProxyConfig().network;
+  }
+
+  public get remoteNetwork(): string {
+    return this.asRawBridgeProxyConfig().remoteNetwork;
   }
 
   public get address(): string {
@@ -26,26 +48,48 @@ export class BridgeProxyConfig extends BaseConfig {
     this.asRawBridgeProxyConfig().address = addr;
   }
 
-  public get isExecutorWhitelistSet(): boolean {
-    return this.asRawBridgeProxyConfig().isExecutorWhitelistSet || false;
+  public isInExecutorWhitelist(address: string): boolean {
+    return this.executorWhitelistByAddress[address] ? true : false;
   }
 
-  public set isExecutorWhitelistSet(set: boolean) {
-    this.asRawBridgeProxyConfig().isExecutorWhitelistSet = set;
+  public addExecutorToWhitelist(address: string) {
+    if (this.isInExecutorWhitelist(address)) {
+      return;
+    }
+
+    const raw = this.asRawBridgeProxyConfig();
+    if (raw.executorWhitelist === undefined) {
+      raw.executorWhitelist = [];
+    }
+
+    raw.executorWhitelist.push(address);
+    this.executorWhitelistByAddress[address] = true;
   }
 
-  public get isRegisterWhitelistSet(): boolean {
-    return this.asRawBridgeProxyConfig().isRegisterWhitelistSet || false;
+  public isInRegisterWhitelist(address: string): boolean {
+    return this.registerWhitelistByAddress[address] ? true : false;
   }
 
-  public set isRegisterWhitelistSet(set: boolean) {
-    this.asRawBridgeProxyConfig().isRegisterWhitelistSet = set;
+  public addRegisterToWhitelist(address: string) {
+    if (this.isInRegisterWhitelist(address)) {
+      return;
+    }
+
+    const raw = this.asRawBridgeProxyConfig();
+    if (raw.registerWhitelist === undefined) {
+      raw.registerWhitelist = [];
+    }
+
+    raw.registerWhitelist.push(address);
+    this.registerWhitelistByAddress[address] = true;
   }
 
   public reset() {
     this.address = '';
-    this.isExecutorWhitelistSet = false;
-    this.isRegisterWhitelistSet = false;
+    this.asRawBridgeProxyConfig().executorWhitelist = undefined;
+    this.executorWhitelistByAddress = {};
+    this.asRawBridgeProxyConfig().registerWhitelist = undefined;
+    this.registerWhitelistByAddress = {};
   }
 
   private asRawBridgeProxyConfig(): RawBridgeProxyConfig {

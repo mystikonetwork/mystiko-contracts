@@ -9,8 +9,8 @@ import {
 import { initTestTokenContractFactory, transferTokneToContract } from './contract/token';
 import {
   addRegisterWhitelist,
-  doTBridgeProxyConfigure,
-  getOrDeployTBridgeProxy,
+  doBridgeProxyConfigure,
+  getOrDeployBridgeProxy,
   initTBridgeContractFactory,
 } from './contract/tbridge';
 import {
@@ -49,17 +49,18 @@ async function deployStep2(taskArgs: any) {
     process.exit(-1);
   }
 
-  const bridgeProxyConfig = await getOrDeployTBridgeProxy(
+  const bridgeProxyConfig = await getOrDeployBridgeProxy(
     c,
     c.mystikoNetwork,
     c.bridgeCfg,
     c.proxyCfg,
     c.operatorCfg,
     c.srcChainCfg.network,
+    c.dstChainCfg?.network,
     c.override,
   );
 
-  await doTBridgeProxyConfigure(c, c.bridgeCfg, c.proxyCfg, c.operatorCfg);
+  await doBridgeProxyConfigure(c, c.bridgeCfg, bridgeProxyConfig, c.operatorCfg);
 
   const poolCfg = await getOrDeployCommitmentPool(
     c,
@@ -99,16 +100,7 @@ async function deployStep2(taskArgs: any) {
     bridgeProxyConfig ? bridgeProxyConfig.address : '',
   );
 
-  if (c.bridgeCfg.name === BridgeLoop) {
-    await addEnqueueWhitelist(c, c.srcTokenCfg.erc20, poolCfg, depositCfg.address);
-  } else {
-    await addEnqueueWhitelist(
-      c,
-      c.srcTokenCfg.erc20,
-      poolCfg,
-      bridgeProxyConfig ? bridgeProxyConfig.address : '',
-    );
-  }
+  await addEnqueueWhitelist(c, c.srcTokenCfg.erc20, poolCfg, depositCfg.address);
 
   if (c.bridgeCfg.name === BridgeTBridge) {
     if (bridgeProxyConfig === undefined) {

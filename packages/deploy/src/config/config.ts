@@ -1,9 +1,17 @@
+import { deepCopy } from '@mystikonetwork/utils';
 import developmentJson from '../json/deploy/development.json';
 import testnetJson from '../json/deploy/testnet.json';
 import mainnetJson from '../json/deploy/mainnet.json';
 
 import { getMystikoNetwork, writeJsonFile } from '../common/utils';
-import { LOGRED, MystikoTestnet, MystikoMainnet, MystikoDevelopment, BridgeLoop } from '../common/constant';
+import {
+  LOGRED,
+  MystikoTestnet,
+  MystikoMainnet,
+  MystikoDevelopment,
+  BridgeLoop,
+  BridgeTBridge,
+} from '../common/constant';
 import { DeployConfig } from './deployConfig';
 
 function load(mystikoNetwork: string): DeployConfig {
@@ -106,7 +114,12 @@ export function loadConfig(taskArgs: any) {
     process.exit(-1);
   }
 
-  const proxyCfg = bridgeCfg.getBridgeProxyConfig(srcNetwork);
+  let proxyCfg;
+  if (bridgeCfg.name === BridgeTBridge) {
+    proxyCfg = bridgeCfg.getBridgeProxyConfig(srcNetwork, dstNetwork);
+  } else {
+    proxyCfg = bridgeCfg.getBridgeProxyConfig(srcNetwork, '');
+  }
 
   const operatorCfg = cfg.getOperator();
   if (operatorCfg === undefined) {
