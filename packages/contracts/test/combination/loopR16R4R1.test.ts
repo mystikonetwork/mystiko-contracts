@@ -1,5 +1,5 @@
 import { Wallet } from '@ethersproject/wallet';
-import { ZokratesCliProverFactory } from '@mystikonetwork/zkp-node';
+import { ZokratesNodeProverFactory } from '@mystikonetwork/zkp-node';
 import { waffle } from 'hardhat';
 import {
   MystikoV2LoopMain,
@@ -90,7 +90,7 @@ describe('Mystiko combination test R16R4R1 ', () => {
 
   beforeEach(async () => {
     accounts = waffle.provider.getWallets();
-    const protocolFactory = new ProtocolFactoryV2(new ZokratesCliProverFactory());
+    const protocolFactory = new ProtocolFactoryV2(new ZokratesNodeProverFactory());
     protocol = await protocolFactory.create();
 
     const r = await loadFixture(fixture);
