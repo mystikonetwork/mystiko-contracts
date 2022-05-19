@@ -77,6 +77,18 @@
       "gasPriceGweiStatic": "0",
       "maxGasPriceGweiDynamic": "200",
       "confirmBlocks": 10
+    },
+    {
+      "network": "moonbase",
+      "privateKey": "",
+      "providers": [
+        "https://moonbase-alpha.public.blastapi.io",
+        "https://moonbeam-alpha.api.onfinality.io/public",
+        "https://rpc.api.moonbase.moonbeam.network"
+      ],
+      "gasPriceGweiStatic": "0",
+      "maxGasPriceGweiDynamic": "200",
+      "confirmBlocks": 10
     }
   ],
   "commitmentPools": [
@@ -415,6 +427,110 @@
       "address": "0xD2AdD62027f27ec1876a497FDBC4c07646612409",
       "isRollupEnable": true,
       "syncStart": 9046297
+    },
+    {
+      "network": "moonbase",
+      "assetSymbol": "DEV",
+      "bridgeType": "loop",
+      "address": "0xa0F3e2fB7d7f24a8fB122748aC9288715e727cd1",
+      "isRollupEnable": true,
+      "syncStart": 2176412
+    },
+    {
+      "network": "moonbase",
+      "assetSymbol": "mUSD",
+      "bridgeType": "loop",
+      "address": "0x57B69f33AecA77F1b18E33B47Ae48f8b8d35691e",
+      "isRollupEnable": true,
+      "syncStart": 2176437
+    },
+    {
+      "network": "moonbase",
+      "assetSymbol": "MTT",
+      "bridgeType": "loop",
+      "address": "0xc10B4E32c28cB2fACD3aF52F1bA74E88Dc82039C",
+      "isRollupEnable": true,
+      "syncStart": 2176405
+    },
+    {
+      "network": "fantomtestnet",
+      "assetSymbol": "mUSD",
+      "bridgeType": "loop",
+      "address": "0xbc23722aBFB9F19C1BED0CC6dBa195aC72A68290",
+      "isRollupEnable": true,
+      "syncStart": 9091081
+    },
+    {
+      "network": "fantomtestnet",
+      "assetSymbol": "mUSD",
+      "bridgeType": "tbridge",
+      "address": "0xbEb33076942A81eFa4e8e25f0ACCD6052cc6F5bb",
+      "isRollupEnable": true,
+      "syncStart": 9091221
+    },
+    {
+      "network": "fantomtestnet",
+      "assetSymbol": "FTM",
+      "bridgeType": "tbridge",
+      "address": "0x531d84f3d420e7Cb1FD077DA4988D4E4099816C1",
+      "isRollupEnable": true,
+      "syncStart": 9091250
+    },
+    {
+      "network": "fantomtestnet",
+      "assetSymbol": "mETH",
+      "bridgeType": "tbridge",
+      "address": "0xE9619b4233bF28109c7ba6C6Bd70625248105529",
+      "isRollupEnable": true,
+      "syncStart": 9091294
+    },
+    {
+      "network": "ropsten",
+      "assetSymbol": "mFTM",
+      "bridgeType": "tbridge",
+      "address": "0x3c1a5da9236D10B24B5736245b47E0f5Baf7c4E7",
+      "isRollupEnable": true,
+      "syncStart": 12279061
+    },
+    {
+      "network": "moonbase",
+      "assetSymbol": "MTT",
+      "bridgeType": "tbridge",
+      "address": "0xD2AdD62027f27ec1876a497FDBC4c07646612409",
+      "isRollupEnable": true,
+      "syncStart": 2176635
+    },
+    {
+      "network": "moonbase",
+      "assetSymbol": "mUSD",
+      "bridgeType": "tbridge",
+      "address": "0xb4359d3CA903567D6ed88940608952e7A4Cab511",
+      "isRollupEnable": true,
+      "syncStart": 2176641
+    },
+    {
+      "network": "moonbase",
+      "assetSymbol": "DEV",
+      "bridgeType": "tbridge",
+      "address": "0x151b60d8E7d78B38edD4D982C25a9ca1b967f0bA",
+      "isRollupEnable": true,
+      "syncStart": 2176646
+    },
+    {
+      "network": "moonbase",
+      "assetSymbol": "mETH",
+      "bridgeType": "tbridge",
+      "address": "0x3dC8cce87022c2a242a7A5f88bE5d0Ca652c2c88",
+      "isRollupEnable": true,
+      "syncStart": 2176655
+    },
+    {
+      "network": "ropsten",
+      "assetSymbol": "mDEV",
+      "bridgeType": "tbridge",
+      "address": "0xe6bbDD85c352aBAb56CFbb54AF796DFe68F34444",
+      "isRollupEnable": true,
+      "syncStart": 12279093
     }
   ],
   "monitor": {

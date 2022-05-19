@@ -13,7 +13,7 @@ import { query } from './src/query';
 dotenv.config();
 
 task('migrate', 'deploy contract')
-  .addParam('step', 'step1、step2、step3、check、dump、dumpRoller', 'step2')
+  .addParam('step', 'step1、step2、step3、check、dump、dumpRoller、testToken')
   .addParam('bridge', 'loop、tbridge、celer', 'loop')
   .addParam('dst', 'ropsten、goerli、bsctestnet', 'bsctestnet')
   .addParam('token', 'ETH、BNB、MTT、mUSD', 'MTT')
@@ -26,22 +26,22 @@ task('migrate', 'deploy contract')
   });
 
 task('set', 'update contract configure')
-  .addParam('bridge', 'loop、tbridge、celer')
-  .addParam('dst', 'ropsten、goerli、bsctestnet')
-  .addParam('token', 'ETH、BNB、MTT、mUSD')
-  .addParam('func', 'updateProxy、toggleSaction')
-  .addParam('param', 'parameter')
+  .addParam('bridge', 'loop、tbridge、celer', 'loop')
+  .addParam('dst', 'ropsten、goerli、bsctestnet', 'bsctestnet')
+  .addParam('token', 'ETH、BNB、MTT、mUSD', 'MTT')
+  .addParam('func', 'updateProxy、toggleSaction、depositDisable')
+  .addParam('param', 'parameter', '')
   .setAction(async (taskArgs, hre) => {
     taskArgs.src = hre.network.name;
     await set(taskArgs, hre);
   });
 
 task('query', 'update contract configure')
-  .addParam('bridge', 'loop、tbridge、celer')
-  .addParam('dst', 'ropsten、goerli、bsctestnet')
-  .addParam('token', 'ETH、BNB、MTT、mUSD')
-  .addParam('func', '')
-  .addParam('param', 'parameter')
+  .addParam('bridge', 'loop、tbridge、celer', 'loop')
+  .addParam('dst', 'ropsten、goerli、bsctestnet', 'bsctestnet')
+  .addParam('token', 'ETH、BNB、MTT、mUSD', 'MTT')
+  .addParam('func', 'commitmentQueue、sanction')
+  .addParam('param', 'parameter', '')
   .setAction(async (taskArgs, hre) => {
     taskArgs.src = hre.network.name;
     await query(taskArgs, hre);
@@ -72,8 +72,8 @@ const auroraTestPrivateKey = process.env.AURORA_TEST_PRIVATE_KEY || DEFAULT_PRIV
 const polygonTestEndpoint = process.env.POLYGON_TEST_ENDPOINT || DEFAULT_ENDPOINT;
 const polygonTestPrivateKey = process.env.POLYGON_TEST_PRIVATE_KEY || DEFAULT_PRIVATE_KEY;
 
-const moonbaseAlphaTestEndpoint = process.env.MOONBASE_ALPHA_TEST_ENDPOINT || DEFAULT_ENDPOINT;
-const moonbaseAlphaTestPrivateKey = process.env.MOONBASE_ALPHA_TEST_PRIVATE_KEY || DEFAULT_PRIVATE_KEY;
+const moonbaseAlphaTestEndpoint = process.env.MOONBASE_ALPHA_ENDPOINT || DEFAULT_ENDPOINT;
+const moonbaseAlphaTestPrivateKey = process.env.MOONBASE_ALPHA_PRIVATE_KEY || DEFAULT_PRIVATE_KEY;
 
 // Mainnets
 const ethMainnetEndpoint = process.env.ETH_MAINNET_ENDPOINT || DEFAULT_ENDPOINT;

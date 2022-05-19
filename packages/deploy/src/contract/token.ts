@@ -49,3 +49,31 @@ export async function transferTokneToContract(c: any, tokenAddress: string, inPo
       process.exit(1);
     });
 }
+
+export async function deployChainTestToken(assetSymbol: string) {
+  const tokenDecimals = 6;
+  console.log(assetSymbol);
+  const testToken = await TestToken.deploy(assetSymbol, assetSymbol, tokenDecimals);
+  await testToken.deployed();
+  console.log('test token address ', testToken.address);
+
+  const amount = toDecimals('200000000', tokenDecimals);
+  const holders = process.env.TOKEN_HOLDERS?.split(',');
+  if (holders === undefined) {
+    return;
+  }
+
+  /* eslint-disable no-await-in-loop */
+  for (let i = 0; i < holders.length; i += 1) {
+    await testToken
+      .transfer(holders[i], amount)
+      .then(() => {
+        console.log('transfer token to ', holders[i]);
+      })
+      .catch((err: any) => {
+        console.error(LOGRED, err);
+        process.exit(1);
+      });
+  }
+  /* eslint-enable no-await-in-loop */
+}

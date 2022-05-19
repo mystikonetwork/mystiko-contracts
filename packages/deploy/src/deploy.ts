@@ -6,7 +6,11 @@ import {
   getOrDeployCommitmentPool,
   initPoolContractFactory,
 } from './contract/commitment';
-import { initTestTokenContractFactory, transferTokneToContract } from './contract/token';
+import {
+  deployChainTestToken,
+  initTestTokenContractFactory,
+  transferTokneToContract,
+} from './contract/token';
 import {
   addRegisterWhitelist,
   doBridgeProxyConfigure,
@@ -140,6 +144,10 @@ async function deployStep3(taskArgs: any) {
   dumpConfig(c);
 }
 
+async function testToken(taskArgs: any) {
+  await deployChainTestToken(taskArgs.token);
+}
+
 function dump(taskArgs: any) {
   const c = loadConfig(taskArgs);
   dumpConfig(c);
@@ -205,6 +213,8 @@ export async function deploy(taskArgs: any, hre: any) {
     await deployStep2(taskArgs);
   } else if (step === 'step3') {
     await deployStep3(taskArgs);
+  } else if (step === 'testToken') {
+    await testToken(taskArgs);
   } else if (step === 'dump') {
     dump(taskArgs);
   } else if (step === 'dumpChain') {

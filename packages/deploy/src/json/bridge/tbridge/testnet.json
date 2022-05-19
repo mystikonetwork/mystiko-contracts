@@ -78,6 +78,18 @@
       "gasPriceGweiStatic": "0",
       "maxGasPriceGweiDynamic": "200",
       "confirmBlocks": 10
+    },
+    {
+      "network": "moonbase",
+      "privateKey": "",
+      "providers": [
+        "https://moonbase-alpha.public.blastapi.io",
+        "https://moonbeam-alpha.api.onfinality.io/public",
+        "https://rpc.api.moonbase.moonbeam.network"
+      ],
+      "gasPriceGweiStatic": "0",
+      "maxGasPriceGweiDynamic": "200",
+      "confirmBlocks": 10
     }
   ],
   "bridge": {
@@ -149,6 +161,20 @@
           "network": "auroratestnet",
           "chainId": 1313161555,
           "relayProxyAddress": "0x4e7FFa3edC590f7d2E495D47e98cc818ec0e74F2",
+          "bridgeEnalbe": true
+        }
+      },
+      {
+        "local": {
+          "network": "moonbase",
+          "chainId": 1287,
+          "relayProxyAddress": "0xBDdcA8ccf78F3B6442b5aDA8289b5A623a720fD8",
+          "bridgeEnalbe": true
+        },
+        "remote": {
+          "network": "ropsten",
+          "chainId": 3,
+          "relayProxyAddress": "0x26FbECa4090A8B9671797e771ac9c07f465c9946",
           "bridgeEnalbe": true
         }
       }
