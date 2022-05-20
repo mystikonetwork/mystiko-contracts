@@ -53,7 +53,7 @@
       "privateKey": "",
       "providers": [
         "https://api.avax-test.network/ext/bc/C/rpc",
-        "https://avax.getblock.io/testnet/ext/bc/C/rpc/?api_key=71722c7c-f748-4ea3-bacd-6edc2900c4f0"
+        "https://avax.getblock.io/testnet/ext/bc/C/rpc?api_key=71722c7c-f748-4ea3-bacd-6edc2900c4f0"
       ],
       "gasPriceGweiStatic": "0",
       "maxGasPriceGweiDynamic": "200",
@@ -63,6 +63,8 @@
       "network": "fantomtestnet",
       "privateKey": "",
       "providers": [
+        "https://apis.ankr.com/80d2a69a16ac47d6b6a29e0b1dac8b2d/4489eb2f81889dbdadb35a7136a70f34/fantom/full/test",
+        "https://nd-214-128-719.p2pify.com/601ca0e7925b0eabdc7bbd7e220604af",
         "https://rpc.testnet.fantom.network"
       ],
       "gasPriceGweiStatic": "0",
@@ -83,7 +85,7 @@
       "network": "moonbase",
       "privateKey": "",
       "providers": [
-        "https://moonbeam-alpha.api.onfinality.io/public",
+        "https://moonbeam-alpha.api.onfinality.io/rpc?apikey=493402f8-6d11-4a9b-a6f7-3428181f5910",
         "https://rpc.api.moonbase.moonbeam.network"
       ],
       "gasPriceGweiStatic": "0",
