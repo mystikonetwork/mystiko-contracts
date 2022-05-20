@@ -41,7 +41,7 @@ async function tokenTransfer(taskArgs: any) {
 
   console.log('token transfer');
   // transfer token to contract
-  if (c.srcTokenCfg.erc20 && c.bridgeCfg.name !== BridgeLoop && c.mystikoNetwork === MystikoTestnet) {
+  if (c.bridgeCfg.name !== BridgeLoop && c.mystikoNetwork === MystikoTestnet) {
     // @ts-ignore
     await transferToContract(ethers, c, c.srcTokenCfg, c.srcPoolCfg);
   }

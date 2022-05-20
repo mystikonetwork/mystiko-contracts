@@ -1480,7 +1480,7 @@
             "0xbad6A090B03B7a934D859a24Fd199626C553c479",
             "0x2829C83026ef66cDB222DF232953cca6c64663eA"
           ],
-          "tokenTransfer": "1"
+          "tokenTransfer": "2"
         },
         {
           "network": "bsctestnet",
@@ -1511,7 +1511,7 @@
           "enqueueWhitelist": [
             "0xdEAA07042436b545b32D149f53acc8038C713432"
           ],
-          "tokenTransfer": "10000"
+          "tokenTransfer": "20000"
         },
         {
           "network": "ropsten",
@@ -1572,13 +1572,15 @@
           "network": "bsctestnet",
           "assetSymbol": "BNB",
           "address": "0x5c96152fb012aC206e8a8374C158EeAcF662686b",
-          "syncStart": 19315851
+          "syncStart": 19315851,
+          "tokenTransfer": "1"
         },
         {
           "network": "polygontestnet",
           "assetSymbol": "MATIC",
           "address": "0xBEA6fF6960311E89f0468Ba38270DfD82E29C5f5",
-          "syncStart": 26321464
+          "syncStart": 26321464,
+          "tokenTransfer": "2"
         },
         {
           "network": "polygontestnet",
@@ -1602,7 +1604,8 @@
           "network": "avalanchetestnet",
           "assetSymbol": "AVAX",
           "address": "0x5eF315d16694Feb96F9A18f867A2C714F6A09A1b",
-          "syncStart": 9695758
+          "syncStart": 9695758,
+          "tokenTransfer": "2"
         },
         {
           "network": "avalanchetestnet",
@@ -1733,7 +1736,8 @@
           ],
           "enqueueWhitelist": [
             "0xB9c7d20193786Bdc08F3678af8CDfBC03241399d"
-          ]
+          ],
+          "tokenTransfer": "1"
         },
         {
           "network": "fantomtestnet",
@@ -1849,7 +1853,8 @@
           ],
           "enqueueWhitelist": [
             "0xFd3441F94a24702E555053E4c08288b290ce73Dc"
-          ]
+          ],
+          "tokenTransfer": "1"
         },
         {
           "network": "moonbase",

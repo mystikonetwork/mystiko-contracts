@@ -1,7 +1,7 @@
 ## @mystikonetwork/contracts
 This package contains the Smart Contract written in Solidity
 
-### Deploy Smart Contracts
+### Deploy
 #### Deploy Step 1
 deploy verifier contract and rollup contract, parameter:
 
@@ -13,7 +13,7 @@ deploy verifier contract and rollup contract, parameter:
 ```
 example:
 
-```yarn deploy:chain --network bsctestnet --step step1 --bridge tbridge --dst goerli --token MTT```
+```yarn deploy:chain --network ropsten --step step1 --bridge tbridge --dst bsctestnet --token MTT```
 
 #### Deploy Step 2
 deploy mystiko core contract, parameter
@@ -25,7 +25,7 @@ deploy mystiko core contract, parameter
 ```
 example:
 
-```yarn deploy:chain --network bsctestnet --step step2 --bridge tbridge --dst goerli --token MTT```
+```yarn deploy:chain --network ropsten --step step2 --bridge tbridge --dst bsctestnet --token MTT```
 
 #### Deploy Step 3
 configure peer contract address, parameter:
@@ -37,19 +37,54 @@ configure peer contract address, parameter:
 ```
 example:
 
-```yarn deploy:chain --network bsctestnet --step step3 --bridge tbridge --dst goerli --token MTT```
+```yarn deploy:chain --network ropsten --step step3 --bridge tbridge --dst bsctestnet --token MTT```
 
-#### update contract bridge proxy
-update contract bridge proxy address, parameter:
+#### Deploy check
+check core json file, parameter:
 ```
- step                : updateProxy
+ step                : check
  bridge              : tbridge、celer、poly、loop
  dst                 : ropsten、bsctestnet ...
  token               : ETH、MTT、mUSD、BNB...
 ```
 example:
 
-```yarn deploy:chain --network bsctestnet --step updateProxy --bridge tbridge --dst goerli --token MTT```
+```yarn deploy:chain --network ropsten --step check --bridge tbridge --dst bsctestnet --token MTT```
+
+#### Deploy dump json
+dump token pair configure to json file, parameter:
+```
+ step                : dump
+ bridge              : tbridge、celer、poly、loop
+ dst                 : ropsten、bsctestnet ...
+ token               : ETH、MTT、mUSD、BNB...
+```
+example:
+
+```yarn deploy:chain --network ropsten --step dump --bridge tbridge --dst bsctestnet --token MTT```
+
+#### Deploy dump rollup/tbridge json
+dump rollup/tbridge configure to json file with all network, parameter:
+```
+ step                : dumpAllChain
+```
+example:
+
+```yarn deploy:chain --network bsctestnet --step dumpAllChain```
+
+### Set
+#### transfer token to commitment pool
+transfer token to commitment pool by special token pair:
+```
+ bridge              : tbridge、celer、poly、loop
+ dst                 : ropsten、bsctestnet ...
+ token               : ETH、MTT、mUSD、BNB...
+ func               : tokenTransfer...
+```
+example:
+
+```yarn set --network ropsten --func tokenTransfer --bridge tbridge --dst bsctestnet --token ETH```
+
 
 ### Test the deployed contract
 We need to update the config file first and execute the following command
