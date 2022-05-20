@@ -83,7 +83,6 @@
       "network": "moonbase",
       "privateKey": "",
       "providers": [
-        "https://moonbase-alpha.public.blastapi.io",
         "https://moonbeam-alpha.api.onfinality.io/public",
         "https://rpc.api.moonbase.moonbeam.network"
       ],

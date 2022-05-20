@@ -736,13 +736,47 @@
           "network": "fantomtestnet",
           "assetSymbol": "FTM",
           "address": "0x541c26E18F3f4B69011C32949e25B66263f0c3a1",
-          "syncStart": 9042211
+          "syncStart": 9042211,
+          "minRollupFee": "10000000000000000",
+          "rollup1Verifier": "0x8C774140e80F4412685370829EB6FaD84162e499",
+          "rollup4Verifier": "0x5726dd80Fafb2951B82EDffb1Cb0d31F8221Bc22",
+          "rollup16Verifier": "0x02755299C4059ec1fE3fb48d06a7D9ED807Bd778",
+          "transact1x0Verifier": "0xc7EfE69d0Fe03F110DCe5aA91D559f33DaC97534",
+          "transact1x1Verifier": "0xbbc79FA7c6E9CCe9E13Ce43B20c1aACbD963F65D",
+          "transact1x2Verifier": "0x48d23D0cF6A8581168A3DD485a1BC1cEEF2C7aa2",
+          "transact2x0Verifier": "0x7a538723a7229Ab2B2761913De8674894d17b144",
+          "transact2x1Verifier": "0x60Da92cAc906F7a1E733AF720d8c64A869656f9A",
+          "transact2x2Verifier": "0x3810bB703b359B264D2afc25C86Dc017F72376eD",
+          "rollupWhitelist": [
+            "0xE30A04c01224E968EdA56cC92bA1e4F73369A420"
+          ],
+          "sanctionCheckDisable": true,
+          "enqueueWhitelist": [
+            "0xAddcaC0dA013642A70f38dd82aCfaDc525F3171F"
+          ]
         },
         {
           "network": "fantomtestnet",
           "assetSymbol": "MTT",
           "address": "0x982FF4a82C6e5DCf46DC564A9786b8440520d1F5",
-          "syncStart": 9042241
+          "syncStart": 9042241,
+          "minRollupFee": "10000000000000000",
+          "rollup1Verifier": "0x8C774140e80F4412685370829EB6FaD84162e499",
+          "rollup4Verifier": "0x5726dd80Fafb2951B82EDffb1Cb0d31F8221Bc22",
+          "rollup16Verifier": "0x02755299C4059ec1fE3fb48d06a7D9ED807Bd778",
+          "transact1x0Verifier": "0xc7EfE69d0Fe03F110DCe5aA91D559f33DaC97534",
+          "transact1x1Verifier": "0xbbc79FA7c6E9CCe9E13Ce43B20c1aACbD963F65D",
+          "transact1x2Verifier": "0x48d23D0cF6A8581168A3DD485a1BC1cEEF2C7aa2",
+          "transact2x0Verifier": "0x7a538723a7229Ab2B2761913De8674894d17b144",
+          "transact2x1Verifier": "0x60Da92cAc906F7a1E733AF720d8c64A869656f9A",
+          "transact2x2Verifier": "0x3810bB703b359B264D2afc25C86Dc017F72376eD",
+          "rollupWhitelist": [
+            "0xE30A04c01224E968EdA56cC92bA1e4F73369A420"
+          ],
+          "sanctionCheckDisable": true,
+          "enqueueWhitelist": [
+            "0x596a205eAF1bb30f66c949F880e1050d7e8938aa"
+          ]
         },
         {
           "network": "avalanchetestnet",
@@ -815,7 +849,7 @@
           "transact2x2Verifier": "0x4855735686F9b66E680495CBa1e5E1c1574c604b",
           "sanctionCheckDisable": true,
           "rollupWhitelist": [
-            "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022"
+            "0xE30A04c01224E968EdA56cC92bA1e4F73369A420"
           ],
           "enqueueWhitelist": [
             "0x0eebbf2A48e2aD44680bF1597E97beb70eb23C28"
@@ -837,7 +871,7 @@
           "transact2x1Verifier": "0xC0C2d2C5cEDbB020C09f31142C8599054986CB2B",
           "transact2x2Verifier": "0x4855735686F9b66E680495CBa1e5E1c1574c604b",
           "rollupWhitelist": [
-            "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022"
+            "0xE30A04c01224E968EdA56cC92bA1e4F73369A420"
           ],
           "sanctionCheckDisable": true,
           "enqueueWhitelist": [
@@ -861,7 +895,7 @@
           "transact2x2Verifier": "0x4855735686F9b66E680495CBa1e5E1c1574c604b",
           "sanctionCheckDisable": true,
           "rollupWhitelist": [
-            "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022"
+            "0xE30A04c01224E968EdA56cC92bA1e4F73369A420"
           ],
           "enqueueWhitelist": [
             "0xc7ff98df2bADC1483B685386fB7B5265Ed36693D"
@@ -884,7 +918,8 @@
           "transact2x2Verifier": "0x3810bB703b359B264D2afc25C86Dc017F72376eD",
           "sanctionCheckDisable": true,
           "rollupWhitelist": [
-            "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022"
+            "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
+            "0xE30A04c01224E968EdA56cC92bA1e4F73369A420"
           ],
           "enqueueWhitelist": [
             "0xbd55b1E9687DE2C5D509e9d3b11952E2be4543c7"
@@ -1048,7 +1083,10 @@
               "network": "fantomtestnet",
               "assetSymbol": "FTM",
               "address": "0xAddcaC0dA013642A70f38dd82aCfaDc525F3171F",
-              "syncStart": 9042231
+              "syncStart": 9042231,
+              "minAmount": "100000000000000000",
+              "commitmentPool": "0x541c26E18F3f4B69011C32949e25B66263f0c3a1",
+              "sanctionCheckDisable": true
             }
           ]
         },
@@ -1058,7 +1096,10 @@
               "network": "fantomtestnet",
               "assetSymbol": "MTT",
               "address": "0x596a205eAF1bb30f66c949F880e1050d7e8938aa",
-              "syncStart": 9042260
+              "syncStart": 9042260,
+              "minAmount": "100000000000000000",
+              "commitmentPool": "0x982FF4a82C6e5DCf46DC564A9786b8440520d1F5",
+              "sanctionCheckDisable": true
             }
           ]
         },
@@ -1280,7 +1321,13 @@
           "network": "ropsten",
           "remoteNetwork": "bsctestnet",
           "address": "0xF22688C81068f03E421B2dF395B6D9286Dc37b68",
-          "isRegisterWhitelistSet": false
+          "isRegisterWhitelistSet": false,
+          "executorWhitelist": [
+            "0x457584165DDc698feeB70A546e78B912E79fB94F"
+          ],
+          "registerWhitelist": [
+            "0x2829C83026ef66cDB222DF232953cca6c64663eA"
+          ]
         },
         {
           "network": "bsctestnet",
@@ -1330,7 +1377,8 @@
           "registerWhitelist": [
             "0xFE1d5aa18d6A75C06a072baF7984A9Bc39D4fd15",
             "0xB9c7d20193786Bdc08F3678af8CDfBC03241399d",
-            "0x49cfb680aD77b0D70Df898473af97f55d28BCB4c"
+            "0x49cfb680aD77b0D70Df898473af97f55d28BCB4c",
+            "0x30F3045945773b38fCbB2DF414151ac33ED97EBA"
           ]
         },
         {
@@ -1423,13 +1471,16 @@
           "transact2x1Verifier": "0xc9526144f4b340D4c375E1382A1A78191C8068F1",
           "transact2x2Verifier": "0xdf2c6C83b470E5C6da77341E4c505703E279206C",
           "rollupWhitelist": [
-            "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022"
+            "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
+            "0xE30A04c01224E968EdA56cC92bA1e4F73369A420"
           ],
           "sanctionCheckDisable": true,
           "enqueueWhitelist": [
             "0xfa9De6C63a631D008af7e2394295dBD1850b790a",
-            "0xbad6A090B03B7a934D859a24Fd199626C553c479"
-          ]
+            "0xbad6A090B03B7a934D859a24Fd199626C553c479",
+            "0x2829C83026ef66cDB222DF232953cca6c64663eA"
+          ],
+          "tokenTransfer": "1"
         },
         {
           "network": "bsctestnet",
@@ -1453,13 +1504,14 @@
           "transact2x1Verifier": "0xc9526144f4b340D4c375E1382A1A78191C8068F1",
           "transact2x2Verifier": "0xdf2c6C83b470E5C6da77341E4c505703E279206C",
           "rollupWhitelist": [
-            "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022"
+            "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
+            "0xE30A04c01224E968EdA56cC92bA1e4F73369A420"
           ],
           "sanctionCheckDisable": true,
           "enqueueWhitelist": [
             "0xdEAA07042436b545b32D149f53acc8038C713432"
           ],
-          "tokenTransfer": true
+          "tokenTransfer": "10000"
         },
         {
           "network": "ropsten",
@@ -1477,14 +1529,14 @@
           "transact2x1Verifier": "0xc9526144f4b340D4c375E1382A1A78191C8068F1",
           "transact2x2Verifier": "0xdf2c6C83b470E5C6da77341E4c505703E279206C",
           "rollupWhitelist": [
-            "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022"
+            "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
+            "0xE30A04c01224E968EdA56cC92bA1e4F73369A420"
           ],
           "sanctionCheckDisable": true,
           "enqueueWhitelist": [
             "0x51DeDC65F387E8889c2b3b1577d9112Acc6351BA",
             "0xc6361085408494C0f9697160143b8beC3a3f308f"
-          ],
-          "tokenTransfer": true
+          ]
         },
         {
           "network": "ropsten",
@@ -1574,7 +1626,24 @@
           "network": "fantomtestnet",
           "assetSymbol": "MTT",
           "address": "0xD2AdD62027f27ec1876a497FDBC4c07646612409",
-          "syncStart": 9046297
+          "syncStart": 9046297,
+          "minRollupFee": "10000000000000000",
+          "rollup1Verifier": "0x8C774140e80F4412685370829EB6FaD84162e499",
+          "rollup4Verifier": "0x5726dd80Fafb2951B82EDffb1Cb0d31F8221Bc22",
+          "rollup16Verifier": "0x02755299C4059ec1fE3fb48d06a7D9ED807Bd778",
+          "transact1x0Verifier": "0xc7EfE69d0Fe03F110DCe5aA91D559f33DaC97534",
+          "transact1x1Verifier": "0xbbc79FA7c6E9CCe9E13Ce43B20c1aACbD963F65D",
+          "transact1x2Verifier": "0x48d23D0cF6A8581168A3DD485a1BC1cEEF2C7aa2",
+          "transact2x0Verifier": "0x7a538723a7229Ab2B2761913De8674894d17b144",
+          "transact2x1Verifier": "0x60Da92cAc906F7a1E733AF720d8c64A869656f9A",
+          "transact2x2Verifier": "0x3810bB703b359B264D2afc25C86Dc017F72376eD",
+          "rollupWhitelist": [
+            "0xE30A04c01224E968EdA56cC92bA1e4F73369A420"
+          ],
+          "sanctionCheckDisable": true,
+          "enqueueWhitelist": [
+            "0x30F3045945773b38fCbB2DF414151ac33ED97EBA"
+          ]
         },
         {
           "network": "auroratestnet",
@@ -1611,12 +1680,12 @@
           "transact2x2Verifier": "0xdf2c6C83b470E5C6da77341E4c505703E279206C",
           "sanctionCheckDisable": true,
           "rollupWhitelist": [
-            "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022"
+            "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
+            "0xE30A04c01224E968EdA56cC92bA1e4F73369A420"
           ],
           "enqueueWhitelist": [
             "0x080C9cD8c8719af0b1ee6B0fcFcc49De3F5C6276"
-          ],
-          "tokenTransfer": true
+          ]
         },
         {
           "network": "fantomtestnet",
@@ -1635,12 +1704,12 @@
           "transact2x2Verifier": "0x3810bB703b359B264D2afc25C86Dc017F72376eD",
           "sanctionCheckDisable": true,
           "rollupWhitelist": [
-            "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022"
+            "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
+            "0xE30A04c01224E968EdA56cC92bA1e4F73369A420"
           ],
           "enqueueWhitelist": [
             "0xFE1d5aa18d6A75C06a072baF7984A9Bc39D4fd15"
-          ],
-          "tokenTransfer": true
+          ]
         },
         {
           "network": "fantomtestnet",
@@ -1659,7 +1728,8 @@
           "transact2x2Verifier": "0x3810bB703b359B264D2afc25C86Dc017F72376eD",
           "sanctionCheckDisable": true,
           "rollupWhitelist": [
-            "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022"
+            "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
+            "0xE30A04c01224E968EdA56cC92bA1e4F73369A420"
           ],
           "enqueueWhitelist": [
             "0xB9c7d20193786Bdc08F3678af8CDfBC03241399d"
@@ -1682,12 +1752,12 @@
           "transact2x2Verifier": "0x3810bB703b359B264D2afc25C86Dc017F72376eD",
           "sanctionCheckDisable": true,
           "rollupWhitelist": [
-            "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022"
+            "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
+            "0xE30A04c01224E968EdA56cC92bA1e4F73369A420"
           ],
           "enqueueWhitelist": [
             "0x49cfb680aD77b0D70Df898473af97f55d28BCB4c"
-          ],
-          "tokenTransfer": true
+          ]
         },
         {
           "network": "ropsten",
@@ -1710,8 +1780,7 @@
           ],
           "enqueueWhitelist": [
             "0x24FD23B04855879B3BaCF682f339e536aBE9E620"
-          ],
-          "tokenTransfer": true
+          ]
         },
         {
           "network": "moonbase",
@@ -1730,12 +1799,11 @@
           "transact2x2Verifier": "0x4855735686F9b66E680495CBa1e5E1c1574c604b",
           "sanctionCheckDisable": true,
           "rollupWhitelist": [
-            "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022"
+            "0xE30A04c01224E968EdA56cC92bA1e4F73369A420"
           ],
           "enqueueWhitelist": [
             "0x30F3045945773b38fCbB2DF414151ac33ED97EBA"
-          ],
-          "tokenTransfer": true
+          ]
         },
         {
           "network": "moonbase",
@@ -1754,12 +1822,11 @@
           "transact2x2Verifier": "0x4855735686F9b66E680495CBa1e5E1c1574c604b",
           "sanctionCheckDisable": true,
           "rollupWhitelist": [
-            "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022"
+            "0xE30A04c01224E968EdA56cC92bA1e4F73369A420"
           ],
           "enqueueWhitelist": [
             "0x983a5E99feb3d0d971E88A560fA2f3CAc6E63A19"
-          ],
-          "tokenTransfer": true
+          ]
         },
         {
           "network": "moonbase",
@@ -1778,7 +1845,7 @@
           "transact2x2Verifier": "0x4855735686F9b66E680495CBa1e5E1c1574c604b",
           "sanctionCheckDisable": true,
           "rollupWhitelist": [
-            "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022"
+            "0xE30A04c01224E968EdA56cC92bA1e4F73369A420"
           ],
           "enqueueWhitelist": [
             "0xFd3441F94a24702E555053E4c08288b290ce73Dc"
@@ -1801,12 +1868,11 @@
           "transact2x2Verifier": "0x4855735686F9b66E680495CBa1e5E1c1574c604b",
           "sanctionCheckDisable": true,
           "rollupWhitelist": [
-            "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022"
+            "0xE30A04c01224E968EdA56cC92bA1e4F73369A420"
           ],
           "enqueueWhitelist": [
             "0xD87A66666e826b31b3A946a5DA9fEB98CDA8152B"
-          ],
-          "tokenTransfer": true
+          ]
         }
       ],
       "pairs": [
@@ -1816,7 +1882,16 @@
               "network": "ropsten",
               "assetSymbol": "ETH",
               "address": "0x2829C83026ef66cDB222DF232953cca6c64663eA",
-              "syncStart": 12265318
+              "syncStart": 12265318,
+              "bridgeProxy": "0xF22688C81068f03E421B2dF395B6D9286Dc37b68",
+              "minBridgeFee": "1000",
+              "minExecutorFee": "5000000000000000",
+              "peerMinExecutorFee": "5000000000000000",
+              "peerMinRollupFee": "10000000000000000",
+              "minAmount": "100000000000000000",
+              "commitmentPool": "0x4471873169EA7cd3f45beA9105f567Bdc8608240",
+              "sanctionCheckDisable": true,
+              "peerContract": "0x52EA85D7b11E8742200702dE4d7208C195970711"
             },
             {
               "network": "bsctestnet",
@@ -1832,7 +1907,8 @@
               "network": "ropsten",
               "assetSymbol": "MTT",
               "address": "0x26308399736c1bB6d6ec39c1A0915473586455e9",
-              "syncStart": 12265352
+              "syncStart": 12265352,
+              "peerContract": "0xDc15E18859d9e790144f29E8612CE329036E5eB4"
             },
             {
               "network": "bsctestnet",
@@ -2062,7 +2138,15 @@
               "network": "fantomtestnet",
               "assetSymbol": "MTT",
               "address": "0x30F3045945773b38fCbB2DF414151ac33ED97EBA",
-              "syncStart": 9046313
+              "syncStart": 9046313,
+              "bridgeProxy": "0x5F1b0cF7bD527f38d95959D8f7641C76c101c56E",
+              "minBridgeFee": "1000",
+              "minExecutorFee": "5000000000000000",
+              "peerMinExecutorFee": "5000000000000000",
+              "peerMinRollupFee": "10000000000000000",
+              "minAmount": "100000000000000000",
+              "commitmentPool": "0xD2AdD62027f27ec1876a497FDBC4c07646612409",
+              "sanctionCheckDisable": true
             }
           ]
         },
@@ -2313,7 +2397,7 @@
       "0x457584165DDc698feeB70A546e78B912E79fB94F"
     ],
     "rollers": [
-      "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022"
+      "0xE30A04c01224E968EdA56cC92bA1e4F73369A420"
     ]
   }
 }

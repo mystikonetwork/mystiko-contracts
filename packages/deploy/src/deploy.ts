@@ -6,11 +6,7 @@ import {
   getOrDeployCommitmentPool,
   initPoolContractFactory,
 } from './contract/commitment';
-import {
-  deployChainTestToken,
-  initTestTokenContractFactory,
-  transferTokneToContract,
-} from './contract/token';
+import { deployChainTestToken, initTestTokenContractFactory, transferOnDeploy } from './contract/token';
 import {
   addRegisterWhitelist,
   doBridgeProxyConfigure,
@@ -125,9 +121,9 @@ async function deployStep3(taskArgs: any) {
   }
 
   // transfer token to contract
-  if (c.srcTokenCfg.erc20 && c.bridgeCfg.name !== BridgeLoop && c.mystikoNetwork === MystikoTestnet) {
+  if (c.bridgeCfg.name !== BridgeLoop && c.mystikoNetwork === MystikoTestnet) {
     // @ts-ignore
-    await transferTokneToContract(c, c.srcTokenCfg.address, c.srcPoolCfg);
+    await transferOnDeploy(ethers, c, c.srcTokenCfg, c.srcPoolCfg);
   }
 
   if (c.bridgeCfg.name !== BridgeLoop) {
@@ -171,6 +167,7 @@ function dumpAllRollerConfig() {
   dumpChainRollerConfig('fantomtestnet');
   dumpChainRollerConfig('avalanchetestnet');
   dumpChainRollerConfig('auroratestnet');
+  dumpChainRollerConfig('moonbase');
 }
 
 function dumpAllTBridgeConfig() {
@@ -181,6 +178,7 @@ function dumpAllTBridgeConfig() {
   dumpChainTBridgeConfig('fantomtestnet');
   dumpChainTBridgeConfig('avalanchetestnet');
   dumpChainTBridgeConfig('auroratestnet');
+  dumpChainTBridgeConfig('moonbase');
 }
 
 function dumpChain(taskArgs: any) {

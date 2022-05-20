@@ -1414,25 +1414,20 @@
       "explorerUrl": "https://moonbase.moonscan.io",
       "providers": [
         {
-          "url": "https://moonbase-alpha.public.blastapi.io"
+          "url": "wss://moonbeam-alpha.api.onfinality.io/rpc?apikey=493402f8-6d11-4a9b-a6f7-3428181f5910"
         },
         {
-          "url": "wss://moonbase-alpha.public.blastapi.io"
-        },
-        {
-          "url": "https://moonbeam-alpha.api.onfinality.io/public"
-        },
-        {
-          "url": "wss://moonbeam-alpha.api.onfinality.io/public-ws"
-        },
-        {
-          "url": "https://rpc.api.moonbase.moonbeam.network"
+          "url": "https://moonbeam-alpha.api.onfinality.io/rpc?apikey=493402f8-6d11-4a9b-a6f7-3428181f5910"
         },
         {
           "url": "wss://wss.api.moonbase.moonbeam.network"
+        },
+        {
+          "url": "https://rpc.api.moonbase.moonbeam.network"
         }
       ],
-      "signerEndpoint": "https://moonbase-alpha.public.blastapi.io",
+      "signerEndpoint": "https://moonbeam-alpha.api.onfinality.io/public",
+      "eventFilterSize": 1000,
       "depositContracts": [
         {
           "version": 2,

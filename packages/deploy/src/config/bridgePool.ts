@@ -17,7 +17,7 @@ export interface RawPoolDeployConfig {
   transact2x1Verifier?: string;
   transact2x2Verifier?: string;
   sanctionCheckDisable?: boolean;
-  tokenTransfer?: boolean;
+  tokenTransfer?: string;
   enqueueWhitelist?: string[];
   rollupWhitelist?: string[];
 }
@@ -200,17 +200,21 @@ export class PoolDeployConfig extends BaseConfig {
     this.asRawContractDeployConfig().sanctionCheckDisable = disable;
   }
 
-  public get tokenTransfer(): boolean {
+  public isTokenTransfer(): boolean {
     if (
       this.asRawContractDeployConfig().tokenTransfer === undefined ||
-      this.asRawContractDeployConfig().tokenTransfer === false
+      this.asRawContractDeployConfig().tokenTransfer === ''
     ) {
       return false;
     }
     return true;
   }
 
-  public set tokenTransfer(transfer: boolean) {
+  public get tokenTransfer(): string | undefined {
+    return this.asRawContractDeployConfig().tokenTransfer;
+  }
+
+  public updateTokenTransfer(transfer: string) {
     this.asRawContractDeployConfig().tokenTransfer = transfer;
   }
 
