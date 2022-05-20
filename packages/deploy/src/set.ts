@@ -1,5 +1,5 @@
 import { initBaseContractFactory } from './contract/base';
-import { initTestTokenContractFactory, transferTokneToContract } from './contract/token';
+import { initTestTokenContractFactory, transferToContract } from './contract/token';
 import { initTBridgeContractFactory } from './contract/tbridge';
 import { initPoolContractFactory, togglePoolSanctionCheck } from './contract/commitment';
 import { initDepositContractFactory, toggleDepositSanctionCheck } from './contract/depsit';
@@ -41,9 +41,9 @@ async function tokenTransfer(taskArgs: any) {
 
   console.log('token transfer');
   // transfer token to contract
-  if (c.srcTokenCfg.erc20 && c.bridgeCfg.name !== BridgeLoop && c.mystikoNetwork === MystikoTestnet) {
+  if (c.bridgeCfg.name !== BridgeLoop && c.mystikoNetwork === MystikoTestnet) {
     // @ts-ignore
-    await transferTokneToContract(c, c.srcTokenCfg.address, c.srcPoolCfg);
+    await transferToContract(ethers, c, c.srcTokenCfg, c.srcPoolCfg);
   }
 }
 

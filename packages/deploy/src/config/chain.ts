@@ -63,7 +63,7 @@ export class ChainConfig extends BaseConfig {
   }
 
   public get hasher3Address(): string {
-    return this.asRawChainConfig().hasher3Address;
+    return this.asRawChainConfig().hasher3Address ? this.asRawChainConfig().hasher3Address : '';
   }
 
   public set hasher3Address(address: string) {
@@ -71,7 +71,7 @@ export class ChainConfig extends BaseConfig {
   }
 
   public get rollup1Address(): string {
-    return this.asRawChainConfig().rollup1Address;
+    return this.asRawChainConfig().rollup1Address ? this.asRawChainConfig().rollup1Address : '';
   }
 
   public set rollup1Address(address: string) {
@@ -79,7 +79,7 @@ export class ChainConfig extends BaseConfig {
   }
 
   public get rollup4Address(): string {
-    return this.asRawChainConfig().rollup4Address;
+    return this.asRawChainConfig().rollup4Address ? this.asRawChainConfig().rollup4Address : '';
   }
 
   public set rollup4Address(address: string) {
@@ -87,7 +87,7 @@ export class ChainConfig extends BaseConfig {
   }
 
   public get rollup16Address(): string {
-    return this.asRawChainConfig().rollup16Address;
+    return this.asRawChainConfig().rollup16Address ? this.asRawChainConfig().rollup16Address : '';
   }
 
   public set rollup16Address(address: string) {
@@ -95,7 +95,9 @@ export class ChainConfig extends BaseConfig {
   }
 
   public get transaction1x0VerifierAddress(): string {
-    return this.asRawChainConfig().transaction1x0VerifierAddress;
+    return this.asRawChainConfig().transaction1x0VerifierAddress
+      ? this.asRawChainConfig().transaction1x0VerifierAddress
+      : '';
   }
 
   public set transaction1x0VerifierAddress(address: string) {
@@ -103,7 +105,9 @@ export class ChainConfig extends BaseConfig {
   }
 
   public get transaction1x1VerifierAddress(): string {
-    return this.asRawChainConfig().transaction1x1VerifierAddress;
+    return this.asRawChainConfig().transaction1x1VerifierAddress
+      ? this.asRawChainConfig().transaction1x1VerifierAddress
+      : '';
   }
 
   public set transaction1x1VerifierAddress(address: string) {
@@ -111,7 +115,9 @@ export class ChainConfig extends BaseConfig {
   }
 
   public get transaction1x2VerifierAddress(): string {
-    return this.asRawChainConfig().transaction1x2VerifierAddress;
+    return this.asRawChainConfig().transaction1x2VerifierAddress
+      ? this.asRawChainConfig().transaction1x2VerifierAddress
+      : '';
   }
 
   public set transaction1x2VerifierAddress(address: string) {
@@ -119,7 +125,9 @@ export class ChainConfig extends BaseConfig {
   }
 
   public get transaction2x0VerifierAddress(): string {
-    return this.asRawChainConfig().transaction2x0VerifierAddress;
+    return this.asRawChainConfig().transaction2x0VerifierAddress
+      ? this.asRawChainConfig().transaction2x0VerifierAddress
+      : '';
   }
 
   public set transaction2x0VerifierAddress(address: string) {
@@ -127,7 +135,9 @@ export class ChainConfig extends BaseConfig {
   }
 
   public get transaction2x1VerifierAddress(): string {
-    return this.asRawChainConfig().transaction2x1VerifierAddress;
+    return this.asRawChainConfig().transaction2x1VerifierAddress
+      ? this.asRawChainConfig().transaction2x1VerifierAddress
+      : '';
   }
 
   public set transaction2x1VerifierAddress(address: string) {
@@ -135,11 +145,26 @@ export class ChainConfig extends BaseConfig {
   }
 
   public get transaction2x2VerifierAddress(): string {
-    return this.asRawChainConfig().transaction2x2VerifierAddress;
+    return this.asRawChainConfig().transaction2x2VerifierAddress
+      ? this.asRawChainConfig().transaction2x2VerifierAddress
+      : '';
   }
 
   public set transaction2x2VerifierAddress(address: string) {
     this.asRawChainConfig().transaction2x2VerifierAddress = address;
+  }
+
+  public reset() {
+    this.hasher3Address = '';
+    this.rollup1Address = '';
+    this.rollup4Address = '';
+    this.rollup16Address = '';
+    this.transaction1x0VerifierAddress = '';
+    this.transaction1x1VerifierAddress = '';
+    this.transaction1x2VerifierAddress = '';
+    this.transaction2x0VerifierAddress = '';
+    this.transaction2x1VerifierAddress = '';
+    this.transaction2x2VerifierAddress = '';
   }
 
   public checkBaseAddress(): boolean {

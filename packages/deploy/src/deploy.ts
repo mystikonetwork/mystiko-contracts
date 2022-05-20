@@ -6,11 +6,11 @@ import {
   getOrDeployCommitmentPool,
   initPoolContractFactory,
 } from './contract/commitment';
-import { initTestTokenContractFactory, transferTokneToContract } from './contract/token';
+import { deployChainTestToken, initTestTokenContractFactory, transferOnDeploy } from './contract/token';
 import {
   addRegisterWhitelist,
-  doTBridgeProxyConfigure,
-  getOrDeployTBridgeProxy,
+  doBridgeProxyConfigure,
+  getOrDeployBridgeProxy,
   initTBridgeContractFactory,
 } from './contract/tbridge';
 import {
@@ -21,7 +21,7 @@ import {
 } from './contract/depsit';
 import { deployBaseContract, initBaseContractFactory } from './contract/base';
 import { checkCoreConfig, saveCoreContractJson } from './coreJson';
-import { saveTBridgeJson } from './tbridgeJson';
+import { dumpChainTBridgeConfig, saveTBridgeJson } from './tbridgeJson';
 import { dumpChainRollerConfig, saveRollupJson } from './rollupJson';
 
 let ethers: any;
@@ -49,17 +49,18 @@ async function deployStep2(taskArgs: any) {
     process.exit(-1);
   }
 
-  const bridgeProxyConfig = await getOrDeployTBridgeProxy(
+  const bridgeProxyConfig = await getOrDeployBridgeProxy(
     c,
     c.mystikoNetwork,
     c.bridgeCfg,
     c.proxyCfg,
     c.operatorCfg,
     c.srcChainCfg.network,
-    c.bOverride,
+    c.dstChainCfg?.network,
+    c.override,
   );
 
-  await doTBridgeProxyConfigure(c, c.bridgeCfg, c.proxyCfg, c.operatorCfg);
+  await doBridgeProxyConfigure(c, c.bridgeCfg, bridgeProxyConfig, c.operatorCfg);
 
   const poolCfg = await getOrDeployCommitmentPool(
     c,
@@ -69,7 +70,7 @@ async function deployStep2(taskArgs: any) {
     c.srcTokenCfg,
     c.srcPoolCfg,
     c.operatorCfg,
-    c.bOverride,
+    c.override,
   );
 
   await doCommitmentPoolConfigure(c, c.mystikoNetwork, poolCfg, c.srcChainCfg, c.srcTokenCfg, c.operatorCfg);
@@ -83,7 +84,7 @@ async function deployStep2(taskArgs: any) {
     c.dstTokenCfg,
     c.pairSrcDepositCfg,
     poolCfg.address,
-    c.bOverride,
+    c.override,
   );
 
   await doDepositContractConfigure(
@@ -99,16 +100,7 @@ async function deployStep2(taskArgs: any) {
     bridgeProxyConfig ? bridgeProxyConfig.address : '',
   );
 
-  if (c.bridgeCfg.name === BridgeLoop) {
-    await addEnqueueWhitelist(c, c.srcTokenCfg.erc20, poolCfg, depositCfg.address);
-  } else {
-    await addEnqueueWhitelist(
-      c,
-      c.srcTokenCfg.erc20,
-      poolCfg,
-      bridgeProxyConfig ? bridgeProxyConfig.address : '',
-    );
-  }
+  await addEnqueueWhitelist(c, c.srcTokenCfg.erc20, poolCfg, depositCfg.address);
 
   if (c.bridgeCfg.name === BridgeTBridge) {
     if (bridgeProxyConfig === undefined) {
@@ -129,9 +121,9 @@ async function deployStep3(taskArgs: any) {
   }
 
   // transfer token to contract
-  if (c.srcTokenCfg.erc20 && c.bridgeCfg.name !== BridgeLoop && c.mystikoNetwork === MystikoTestnet) {
+  if (c.bridgeCfg.name !== BridgeLoop && c.mystikoNetwork === MystikoTestnet) {
     // @ts-ignore
-    await transferTokneToContract(c, c.srcTokenCfg.address, c.srcPoolCfg);
+    await transferOnDeploy(ethers, c, c.srcTokenCfg, c.srcPoolCfg);
   }
 
   if (c.bridgeCfg.name !== BridgeLoop) {
@@ -148,6 +140,10 @@ async function deployStep3(taskArgs: any) {
   dumpConfig(c);
 }
 
+async function testToken(taskArgs: any) {
+  await deployChainTestToken(taskArgs.token);
+}
+
 function dump(taskArgs: any) {
   const c = loadConfig(taskArgs);
   dumpConfig(c);
@@ -155,8 +151,12 @@ function dump(taskArgs: any) {
 
 function dumpRollerConfig(taskArgs: any) {
   const srcNetwork = taskArgs.src;
-  console.log('src ', srcNetwork);
   dumpChainRollerConfig(srcNetwork);
+}
+
+function dumpTBridgeConfig(taskArgs: any) {
+  const srcNetwork = taskArgs.src;
+  dumpChainTBridgeConfig(srcNetwork);
 }
 
 function dumpAllRollerConfig() {
@@ -167,6 +167,28 @@ function dumpAllRollerConfig() {
   dumpChainRollerConfig('fantomtestnet');
   dumpChainRollerConfig('avalanchetestnet');
   dumpChainRollerConfig('auroratestnet');
+  dumpChainRollerConfig('moonbase');
+}
+
+function dumpAllTBridgeConfig() {
+  dumpChainTBridgeConfig('bsctestnet');
+  dumpChainTBridgeConfig('ropsten');
+  dumpChainTBridgeConfig('goerli');
+  dumpChainTBridgeConfig('polygontestnet');
+  dumpChainTBridgeConfig('fantomtestnet');
+  dumpChainTBridgeConfig('avalanchetestnet');
+  dumpChainTBridgeConfig('auroratestnet');
+  dumpChainTBridgeConfig('moonbase');
+}
+
+function dumpChain(taskArgs: any) {
+  dumpRollerConfig(taskArgs);
+  dumpTBridgeConfig(taskArgs);
+}
+
+function dumpAllChain() {
+  dumpAllRollerConfig();
+  dumpAllTBridgeConfig();
 }
 
 async function check(taskArgs: any) {
@@ -189,12 +211,14 @@ export async function deploy(taskArgs: any, hre: any) {
     await deployStep2(taskArgs);
   } else if (step === 'step3') {
     await deployStep3(taskArgs);
+  } else if (step === 'testToken') {
+    await testToken(taskArgs);
   } else if (step === 'dump') {
     dump(taskArgs);
-  } else if (step === 'dumpRoller') {
-    dumpRollerConfig(taskArgs);
-  } else if (step === 'dumpAllRoller') {
-    dumpAllRollerConfig();
+  } else if (step === 'dumpChain') {
+    dumpChain(taskArgs);
+  } else if (step === 'dumpAllChain') {
+    dumpAllChain();
   } else if (step === 'check') {
     await check(taskArgs);
   } else {

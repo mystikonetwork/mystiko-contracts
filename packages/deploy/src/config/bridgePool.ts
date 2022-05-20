@@ -1,3 +1,4 @@
+import { check } from '@mystikonetwork/utils';
 import { BaseConfig } from './base';
 
 export interface RawPoolDeployConfig {
@@ -5,29 +6,45 @@ export interface RawPoolDeployConfig {
   assetSymbol: string;
   address?: string;
   syncStart?: number;
-  isMinRollupFeeSet?: boolean;
-  isRollup1VerifierSet?: boolean;
-  isRollup4VerifierSet?: boolean;
-  isRollup16VerifierSet?: boolean;
-  isTransact1x0VerifierSet?: boolean;
-  isTransact1x1VerifierSet?: boolean;
-  isTransact1x2VerifierSet?: boolean;
-  isTransact2x0VerifierSet?: boolean;
-  isTransact2x1VerifierSet?: boolean;
-  isTransact2x2VerifierSet?: boolean;
-  isRollupWhitelistSet?: boolean;
-  isEnqueueWhitelistSet?: boolean;
-  isSanctionCheckSet?: boolean;
-  isTokenTransferSet?: boolean;
+  minRollupFee?: string;
+  rollup1Verifier?: string;
+  rollup4Verifier?: string;
+  rollup16Verifier?: string;
+  transact1x0Verifier?: string;
+  transact1x1Verifier?: string;
+  transact1x2Verifier?: string;
+  transact2x0Verifier?: string;
+  transact2x1Verifier?: string;
+  transact2x2Verifier?: string;
+  sanctionCheckDisable?: boolean;
+  tokenTransfer?: string;
+  enqueueWhitelist?: string[];
+  rollupWhitelist?: string[];
 }
 
 export class PoolDeployConfig extends BaseConfig {
+  private enqueueWhitelistByAddress: { [key: string]: boolean };
+
+  private rollupWhitelistByAddress: { [key: string]: boolean };
+
   constructor(rawConfig: any) {
     super(rawConfig);
     BaseConfig.checkString(this.config, 'network');
     BaseConfig.checkString(this.config, 'assetSymbol');
     BaseConfig.checkNumber(this.config, 'syncStart', false);
     BaseConfig.checkEthAddress(this.config, 'address', false);
+
+    this.enqueueWhitelistByAddress = {};
+    this.asRawContractDeployConfig().enqueueWhitelist?.forEach((enqueueAddress) => {
+      check(this.enqueueWhitelistByAddress[enqueueAddress] === undefined, 'enqueue address duplicate');
+      this.enqueueWhitelistByAddress[enqueueAddress] = true;
+    });
+
+    this.rollupWhitelistByAddress = {};
+    this.asRawContractDeployConfig().rollupWhitelist?.forEach((rollupAddress) => {
+      check(this.rollupWhitelistByAddress[rollupAddress] === undefined, 'rollup address duplicate');
+      this.rollupWhitelistByAddress[rollupAddress] = true;
+    });
   }
 
   public get network(): string {
@@ -62,133 +79,200 @@ export class PoolDeployConfig extends BaseConfig {
     this.asRawContractDeployConfig().syncStart = start;
   }
 
-  public get isMinRollupFeeSet(): boolean {
-    return this.asRawContractDeployConfig().isMinRollupFeeSet || false;
+  public isMinRollupFeeChange(fee: string): boolean {
+    if (this.asRawContractDeployConfig().minRollupFee !== fee) {
+      return true;
+    }
+    return false;
   }
 
-  public set isMinRollupFeeSet(set: boolean) {
-    this.asRawContractDeployConfig().isMinRollupFeeSet = set;
+  public updateMinRollupFee(fee: string) {
+    this.asRawContractDeployConfig().minRollupFee = fee;
   }
 
-  public get isRollup1VerifierSet(): boolean {
-    return this.asRawContractDeployConfig().isRollup1VerifierSet || false;
+  public isRollup1VerifierChange(address: string): boolean {
+    if (this.asRawContractDeployConfig().rollup1Verifier !== address) {
+      return true;
+    }
+    return false;
   }
 
-  public set isRollup1VerifierSet(set: boolean) {
-    this.asRawContractDeployConfig().isRollup1VerifierSet = set;
+  public updateRollup1Verifier(address: string) {
+    this.asRawContractDeployConfig().rollup1Verifier = address;
   }
 
-  public get isRollup4VerifierSet(): boolean {
-    return this.asRawContractDeployConfig().isRollup4VerifierSet || false;
+  public isRollup4VerifierChange(address: string): boolean {
+    if (this.asRawContractDeployConfig().rollup4Verifier !== address) {
+      return true;
+    }
+    return false;
   }
 
-  public set isRollup4VerifierSet(set: boolean) {
-    this.asRawContractDeployConfig().isRollup4VerifierSet = set;
+  public updateRollup4Verifier(address: string) {
+    this.asRawContractDeployConfig().rollup4Verifier = address;
   }
 
-  public get isRollup16VerifierSet(): boolean {
-    return this.asRawContractDeployConfig().isRollup16VerifierSet || false;
+  public isRollup16VerifierChange(address: string): boolean {
+    if (this.asRawContractDeployConfig().rollup16Verifier !== address) {
+      return true;
+    }
+    return false;
   }
 
-  public set isRollup16VerifierSet(set: boolean) {
-    this.asRawContractDeployConfig().isRollup16VerifierSet = set;
+  public updateRollup16Verifier(address: string) {
+    this.asRawContractDeployConfig().rollup16Verifier = address;
   }
 
-  public get isTransact1x0VerifierSet(): boolean {
-    return this.asRawContractDeployConfig().isTransact1x0VerifierSet || false;
+  public isTransact1x0VerifierChange(address: string): boolean {
+    if (this.asRawContractDeployConfig().transact1x0Verifier !== address) {
+      return true;
+    }
+    return false;
   }
 
-  public set isTransact1x0VerifierSet(set: boolean) {
-    this.asRawContractDeployConfig().isTransact1x0VerifierSet = set;
+  public updateTransact1x0Verifier(address: string) {
+    this.asRawContractDeployConfig().transact1x0Verifier = address;
   }
 
-  public get isTransact1x1VerifierSet(): boolean {
-    return this.asRawContractDeployConfig().isTransact1x1VerifierSet || false;
+  public isTransact1x1VerifierChange(address: string): boolean {
+    if (this.asRawContractDeployConfig().transact1x1Verifier !== address) {
+      return true;
+    }
+    return false;
   }
 
-  public set isTransact1x1VerifierSet(set: boolean) {
-    this.asRawContractDeployConfig().isTransact1x1VerifierSet = set;
+  public updateTransact1x1Verifier(address: string) {
+    this.asRawContractDeployConfig().transact1x1Verifier = address;
   }
 
-  public get isTransact1x2VerifierSet(): boolean {
-    return this.asRawContractDeployConfig().isTransact1x2VerifierSet || false;
+  public isTransact1x2VerifierChange(address: string): boolean {
+    if (this.asRawContractDeployConfig().transact1x2Verifier !== address) {
+      return true;
+    }
+    return false;
   }
 
-  public set isTransact1x2VerifierSet(set: boolean) {
-    this.asRawContractDeployConfig().isTransact1x2VerifierSet = set;
+  public updateTransact1x2Verifier(address: string) {
+    this.asRawContractDeployConfig().transact1x2Verifier = address;
   }
 
-  public get isTransact2x0VerifierSet(): boolean {
-    return this.asRawContractDeployConfig().isTransact2x0VerifierSet || false;
+  public isTransact2x0VerifierChange(address: string): boolean {
+    if (this.asRawContractDeployConfig().transact2x0Verifier !== address) {
+      return true;
+    }
+    return false;
   }
 
-  public set isTransact2x0VerifierSet(set: boolean) {
-    this.asRawContractDeployConfig().isTransact2x0VerifierSet = set;
+  public updateTransact2x0Verifier(address: string) {
+    this.asRawContractDeployConfig().transact2x0Verifier = address;
   }
 
-  public get isTransact2x1VerifierSet(): boolean {
-    return this.asRawContractDeployConfig().isTransact2x1VerifierSet || false;
+  public isTransact2x1VerifierChange(address: string): boolean {
+    if (this.asRawContractDeployConfig().transact2x1Verifier !== address) {
+      return true;
+    }
+    return false;
   }
 
-  public set isTransact2x1VerifierSet(set: boolean) {
-    this.asRawContractDeployConfig().isTransact2x1VerifierSet = set;
+  public updateTransact2x1Verifier(address: string) {
+    this.asRawContractDeployConfig().transact2x1Verifier = address;
   }
 
-  public get isTransact2x2VerifierSet(): boolean {
-    return this.asRawContractDeployConfig().isTransact2x2VerifierSet || false;
+  public isTransact2x2VerifierChange(address: string): boolean {
+    if (this.asRawContractDeployConfig().transact2x2Verifier !== address) {
+      return true;
+    }
+    return false;
   }
 
-  public set isTransact2x2VerifierSet(set: boolean) {
-    this.asRawContractDeployConfig().isTransact2x2VerifierSet = set;
+  public updateTransact2x2Verifier(address: string) {
+    this.asRawContractDeployConfig().transact2x2Verifier = address;
   }
 
-  public get isRollupWhitelistSet(): boolean {
-    return this.asRawContractDeployConfig().isRollupWhitelistSet || false;
+  public isSanctionCheckDisableChange(disable: boolean): boolean {
+    if (this.asRawContractDeployConfig().sanctionCheckDisable !== disable) {
+      return true;
+    }
+    return false;
   }
 
-  public set isRollupWhitelistSet(set: boolean) {
-    this.asRawContractDeployConfig().isRollupWhitelistSet = set;
+  public updateSanctionDisableCheck(disable: boolean) {
+    this.asRawContractDeployConfig().sanctionCheckDisable = disable;
   }
 
-  public get isEnqueueWhitelistSet(): boolean {
-    return this.asRawContractDeployConfig().isEnqueueWhitelistSet || false;
+  public isTokenTransfer(): boolean {
+    if (
+      this.asRawContractDeployConfig().tokenTransfer === undefined ||
+      this.asRawContractDeployConfig().tokenTransfer === ''
+    ) {
+      return false;
+    }
+    return true;
   }
 
-  public set isEnqueueWhitelistSet(set: boolean) {
-    this.asRawContractDeployConfig().isEnqueueWhitelistSet = set;
+  public get tokenTransfer(): string | undefined {
+    return this.asRawContractDeployConfig().tokenTransfer;
   }
 
-  public get isSanctionCheckSet(): boolean {
-    return this.asRawContractDeployConfig().isSanctionCheckSet || false;
+  public updateTokenTransfer(transfer: string) {
+    this.asRawContractDeployConfig().tokenTransfer = transfer;
   }
 
-  public set isSanctionCheckSet(set: boolean) {
-    this.asRawContractDeployConfig().isSanctionCheckSet = set;
+  public isInRollupWhitelist(address: string): boolean {
+    return this.rollupWhitelistByAddress[address];
   }
 
-  public get isTokenTransferSet(): boolean {
-    return this.asRawContractDeployConfig().isTokenTransferSet || false;
+  public addRollupToWhitelist(address: string) {
+    if (this.isInRollupWhitelist(address)) {
+      return;
+    }
+
+    const raw = this.asRawContractDeployConfig();
+    if (raw.rollupWhitelist === undefined) {
+      raw.rollupWhitelist = [];
+    }
+
+    raw.rollupWhitelist.push(address);
+    this.rollupWhitelistByAddress[address] = true;
   }
 
-  public set isTokenTransferSet(set: boolean) {
-    this.asRawContractDeployConfig().isTokenTransferSet = set;
+  public isInEnqueueWhitelist(address: string): boolean {
+    return this.enqueueWhitelistByAddress[address];
+  }
+
+  public AddEnqueueToWhitelist(address: string) {
+    if (this.isInEnqueueWhitelist(address)) {
+      return;
+    }
+
+    const raw = this.asRawContractDeployConfig();
+    if (raw.enqueueWhitelist === undefined) {
+      raw.enqueueWhitelist = [];
+    }
+
+    raw.enqueueWhitelist.push(address);
+    this.enqueueWhitelistByAddress[address] = true;
   }
 
   public reset() {
-    this.isMinRollupFeeSet = false;
-    this.isRollup1VerifierSet = false;
-    this.isRollup4VerifierSet = false;
-    this.isRollup16VerifierSet = false;
-    this.isTransact1x0VerifierSet = false;
-    this.isTransact1x1VerifierSet = false;
-    this.isTransact1x2VerifierSet = false;
-    this.isTransact2x0VerifierSet = false;
-    this.isTransact2x1VerifierSet = false;
-    this.isTransact2x2VerifierSet = false;
-    this.isRollupWhitelistSet = false;
-    this.isEnqueueWhitelistSet = false;
-    this.isSanctionCheckSet = false;
-    this.isTokenTransferSet = false;
+    this.asRawContractDeployConfig().address = undefined;
+    this.asRawContractDeployConfig().syncStart = undefined;
+    this.asRawContractDeployConfig().minRollupFee = undefined;
+    this.asRawContractDeployConfig().rollup1Verifier = undefined;
+    this.asRawContractDeployConfig().rollup4Verifier = undefined;
+    this.asRawContractDeployConfig().rollup16Verifier = undefined;
+    this.asRawContractDeployConfig().transact1x0Verifier = undefined;
+    this.asRawContractDeployConfig().transact1x1Verifier = undefined;
+    this.asRawContractDeployConfig().transact1x2Verifier = undefined;
+    this.asRawContractDeployConfig().transact2x0Verifier = undefined;
+    this.asRawContractDeployConfig().transact2x1Verifier = undefined;
+    this.asRawContractDeployConfig().transact2x2Verifier = undefined;
+    this.asRawContractDeployConfig().sanctionCheckDisable = undefined;
+    this.asRawContractDeployConfig().tokenTransfer = undefined;
+    this.asRawContractDeployConfig().rollupWhitelist = undefined;
+    this.rollupWhitelistByAddress = {};
+    this.asRawContractDeployConfig().enqueueWhitelist = undefined;
+    this.enqueueWhitelistByAddress = {};
   }
 
   private asRawContractDeployConfig(): RawPoolDeployConfig {

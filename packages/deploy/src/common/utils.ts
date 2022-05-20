@@ -44,14 +44,6 @@ export function writeJsonFile(fileName: string, data: string) {
   }
 }
 
-export function toDecimals(amount: string, decimals: number) {
-  let padDecimals = '';
-  for (let i = 0; i < decimals; i += 1) {
-    padDecimals += '0';
-  }
-  return amount + padDecimals;
-}
-
 export function getExternalArtifact(contract: string): Promise<Artifact> {
   const artifactsPath: string = '../contracts/artifactsExternal';
   const artifacts = new Artifacts(artifactsPath);
