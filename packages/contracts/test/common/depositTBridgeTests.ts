@@ -366,6 +366,15 @@ export function testTBridgeDeposit(
       }
     });
 
+    it('should approve asset successfully', async () => {
+      if (!isMainAsset) {
+        const approveAmount = toBN(minTotalAmount).muln(commitments.length).toString();
+        await testTokenContract.approve(mystikoContract.address, approveAmount, {
+          from: accounts[0].address,
+        });
+      }
+    });
+
     it('should revert with duplicate commitment', async () => {
       const depositTx = await mystikoContract.deposit(
         [
