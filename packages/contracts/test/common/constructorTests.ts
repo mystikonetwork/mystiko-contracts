@@ -65,6 +65,8 @@ export function testBridgeConstructor(
     it('should initialize bridge type correctly', async () => {
       if (contractName === 'MystikoV2TBridgeMain' || contractName === 'MystikoV2TBridgeERC20') {
         expect(await mystikoContract.bridgeType()).to.equal('tbridge');
+      } else if (contractName === 'MystikoV2CelerMain' || contractName === 'MystikoV2CelerERC20') {
+        expect(await mystikoContract.bridgeType()).to.equal('celer');
       }
     });
   });

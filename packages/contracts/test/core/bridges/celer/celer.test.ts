@@ -3,21 +3,21 @@ import { ZokratesNodeProverFactory } from '@mystikonetwork/zkp-node';
 import { waffle } from 'hardhat';
 import { toDecimals } from '@mystikonetwork/utils';
 import {
-  MystikoTBridgeProxy,
-  MystikoV2TBridgeERC20,
-  MystikoV2TBridgeMain,
+  MystikoV2CelerERC20,
+  MystikoV2CelerMain,
   TestToken,
   CommitmentPoolMain,
   DummySanctionsList,
+  DummyCelerMessageBus,
   CommitmentPoolERC20,
 } from '@mystikonetwork/contracts-abi';
 import { MystikoProtocolV2, ProtocolFactoryV2 } from '@mystikonetwork/protocol';
 import {
   deployDependContracts,
   loadFixture,
-  deployTBridgeContracts,
   deployCommitmentPoolContracts,
-  deployTbridgeProxyContracts,
+  deployCelerContracts,
+  deployDummyCelerContracts,
 } from '../../../util/common';
 import { testBridgeConstructor, testBridgeAdminOperations, constructCommitment } from '../../../common';
 
@@ -29,8 +29,7 @@ import {
   MinExecutorFee,
   MinAmount,
 } from '../../../util/constants';
-import { testTBridgeDeposit } from '../../../common/depositTBridgeTests';
-import { testTBridgeProxyAdminOperations } from '../../../common/adminOperationTests';
+import { testCelerDeposit } from '../../../common/depositCelerTests';
 
 describe('Test Mystiko tbridge', () => {
   async function fixture(accounts: Wallet[]) {
@@ -49,7 +48,7 @@ describe('Test Mystiko tbridge', () => {
       sanctionList,
     } = await deployDependContracts(accounts);
 
-    const tbridge = await deployTbridgeProxyContracts(accounts);
+    const dummyCeler = await deployDummyCelerContracts(accounts);
 
     const poolLocal = await deployCommitmentPoolContracts(
       accounts,
@@ -64,23 +63,23 @@ describe('Test Mystiko tbridge', () => {
       {},
     );
 
-    const local = await deployTBridgeContracts(
+    const local = await deployCelerContracts(
       accounts,
       hasher3.address,
       testToken.address,
       sanctionList.address,
-      tbridge,
+      dummyCeler,
       poolLocal.poolMain,
       poolLocal.poolERC20,
       {},
     );
 
-    const remote = await deployTBridgeContracts(
+    const remote = await deployCelerContracts(
       accounts,
       hasher3.address,
       testToken.address,
       sanctionList.address,
-      tbridge,
+      dummyCeler,
       poolRemote.poolMain,
       poolRemote.poolERC20,
       {},
@@ -102,24 +101,24 @@ describe('Test Mystiko tbridge', () => {
       poolRemote,
       local,
       remote,
-      tbridge,
       sanctionList,
+      dummyCeler,
     };
   }
 
   let accounts: Wallet[];
   let testToken: TestToken;
   let sanctionList: DummySanctionsList;
-  let tbridgeProxy: MystikoTBridgeProxy;
   let localPoolMain: CommitmentPoolMain;
   let remotePoolMain: CommitmentPoolMain;
   let localPoolERC20: CommitmentPoolERC20;
   let remotePoolERC20: CommitmentPoolERC20;
-  let localERC20: MystikoV2TBridgeERC20;
-  let localMain: MystikoV2TBridgeMain;
-  let remoteERC20: MystikoV2TBridgeERC20;
-  let remoteMain: MystikoV2TBridgeMain;
+  let localERC20: MystikoV2CelerERC20;
+  let localMain: MystikoV2CelerMain;
+  let remoteERC20: MystikoV2CelerERC20;
+  let remoteMain: MystikoV2CelerMain;
   let protocol: MystikoProtocolV2;
+  let dummyCeler: DummyCelerMessageBus;
 
   beforeEach(async () => {
     accounts = waffle.provider.getWallets();
@@ -137,13 +136,13 @@ describe('Test Mystiko tbridge', () => {
     remoteMain = r.remote.coreMain;
     remoteERC20 = r.remote.coreERC20;
     sanctionList = r.sanctionList;
-    tbridgeProxy = r.tbridge;
+    dummyCeler = r.dummyCeler;
   });
 
   it('test constructor', async () => {
     await localMain.setPeerContract(DestinationChainID, remoteMain.address);
     testBridgeConstructor(
-      'MystikoV2TBridgeMain',
+      'MystikoV2CelerMain',
       localMain,
       MinAmount,
       MinBridgeFee,
@@ -153,7 +152,7 @@ describe('Test Mystiko tbridge', () => {
 
     await localERC20.setPeerContract(DestinationChainID, remoteERC20.address);
     testBridgeConstructor(
-      'MystikoV2TBridgeERC20',
+      'MystikoV2CelerERC20',
       localERC20,
       MinAmount,
       MinBridgeFee,
@@ -163,24 +162,23 @@ describe('Test Mystiko tbridge', () => {
   });
 
   it('test admin operation', () => {
-    testBridgeAdminOperations('MystikoV2TBridgeMain', localMain, accounts);
-    testBridgeAdminOperations('MystikoV2TBridgeERC20', localERC20, accounts);
-    testTBridgeProxyAdminOperations('MystikoTBridgeProxy', tbridgeProxy, accounts);
+    testBridgeAdminOperations('MystikoV2CelerMain', localMain, accounts);
+    testBridgeAdminOperations('MystikoV2CelerERC20', localERC20, accounts);
   });
 
   it('test bridge main to main deposit', async () => {
     const depositAmount = toDecimals(10);
     const cmInfo = await constructCommitment(protocol, 21, depositAmount.toString());
 
-    await testTBridgeDeposit(
-      'MystikoV2TBridgeMain',
+    await testCelerDeposit(
+      'MystikoV2CelerMain',
       protocol,
       localMain,
       localPoolMain,
       remoteMain,
       remotePoolMain,
       sanctionList,
-      tbridgeProxy,
+      dummyCeler,
       testToken,
       accounts,
       depositAmount.toString(),
@@ -189,7 +187,7 @@ describe('Test Mystiko tbridge', () => {
       cmInfo,
     );
   });
-  //
+
   // it('test bridge main to erc20 deposit', async () => {
   //   const depositAmount = toDecimals(10);
   //   const cmInfo = await constructCommitment(protocol, 21, depositAmount.toString());
@@ -232,15 +230,15 @@ describe('Test Mystiko tbridge', () => {
     const depositAmount = toDecimals(10);
     const cmInfo = await constructCommitment(protocol, 21, depositAmount.toString());
 
-    await testTBridgeDeposit(
-      'MystikoV2TBridgeERC20',
+    await testCelerDeposit(
+      'MystikoV2CelerERC20',
       protocol,
       localERC20,
       localPoolERC20,
       remoteERC20,
       remotePoolERC20,
       sanctionList,
-      tbridgeProxy,
+      dummyCeler,
       testToken,
       accounts,
       depositAmount.toString(),
