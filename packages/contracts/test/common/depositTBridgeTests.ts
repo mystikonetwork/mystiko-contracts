@@ -13,9 +13,10 @@ import {
   DestinationChainID,
   SourceChainID,
   MinAmount,
+  DefaultTokenAmount,
 } from '../util/constants';
 
-export function testBridgeDeposit(
+export function testTBridgeDeposit(
   contractName: string,
   protocol: MystikoProtocolV2,
   mystikoContract: any,
@@ -62,7 +63,7 @@ export function testBridgeDeposit(
           value: DefaultPoolAmount,
         });
       } else {
-        await testTokenContract.transfer(peerCommitmentPool.address, DefaultPoolAmount);
+        await testTokenContract.transfer(peerCommitmentPool.address, DefaultTokenAmount);
       }
 
       await bridgeContract.changeOperator(bridgeAccount.address);
@@ -362,6 +363,15 @@ export function testBridgeDeposit(
         expect((await testTokenContract.balanceOf(commitmentPool.address)).toString()).to.equal(
           expectBalance,
         );
+      }
+    });
+
+    it('should approve asset successfully', async () => {
+      if (!isMainAsset) {
+        const approveAmount = toBN(minTotalAmount).muln(commitments.length).toString();
+        await testTokenContract.approve(mystikoContract.address, approveAmount, {
+          from: accounts[0].address,
+        });
       }
     });
 
