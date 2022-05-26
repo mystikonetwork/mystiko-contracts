@@ -12,6 +12,7 @@ export const BridgeExecutorIndex = 6;
 export const RollupAccountIndex1 = 7;
 export const RollupAccountIndex2 = 8;
 
+export const LzChainID = 2001;
 export const SourceChainID = 1001;
 export const DestinationChainID = 1002;
 

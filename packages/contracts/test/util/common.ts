@@ -47,6 +47,10 @@ import {
   MystikoV2CelerMain__factory,
   MystikoV2CelerERC20__factory,
   DummyCelerMessageBus__factory,
+  DummyLZEndpoint__factory,
+  MystikoV2LayerZeroMain__factory,
+  MystikoV2LayerZeroERC20__factory,
+  DummyLZEndpoint,
 } from '@mystikonetwork/contracts-abi';
 import {
   MerkleTreeHeight,
@@ -58,6 +62,7 @@ import {
   DefaultTokenAmount,
   MinAmount,
   BridgeAccountIndex,
+  LzChainID,
 } from './constants';
 
 // Workaround for https://github.com/nomiclabs/hardhat/issues/849
@@ -264,13 +269,54 @@ export async function deployCelerContracts(
   return { coreMain, coreERC20 };
 }
 
-export async function deployDummyCelerContracts(accounts: Wallet[]): Promise<DummyCelerMessageBus> {
-  const dummyCelerFactory = (await ethers.getContractFactory(
-    'DummyCelerMessageBus',
-  )) as DummyCelerMessageBus__factory;
-  const dummyCeler = await dummyCelerFactory.connect(accounts[0]).deploy();
-  await dummyCeler.deployed();
-  return dummyCeler;
+export async function deployLayerZeroContracts(
+  accounts: Wallet[],
+  hasher3Address: string,
+  tokenAddress: string,
+  sanctionListAddress: string,
+  dummyLZEndpoint: DummyLZEndpoint,
+  poolMain: CommitmentPoolMain,
+  poolERC20: CommitmentPoolERC20,
+  {
+    minAmount = MinAmount,
+    minBridgeFee = MinBridgeFee,
+    minExecutorFee = MinExecutorFee,
+    minRollupFee = MinRollupFee,
+  },
+): Promise<CoreBridgeDeploymentInfo> {
+  const lzMainFactory = (await ethers.getContractFactory(
+    'MystikoV2LayerZeroMain',
+  )) as MystikoV2LayerZeroMain__factory;
+
+  const coreMain = await lzMainFactory.connect(accounts[0]).deploy(hasher3Address);
+  await coreMain.deployed();
+  await coreMain.setAssociatedCommitmentPool(poolMain.address);
+  await coreMain.setMinAmount(minAmount);
+  await coreMain.setMinBridgeFee(minBridgeFee);
+  await coreMain.setMinExecutorFee(minExecutorFee);
+  await coreMain.setPeerMinExecutorFee(minExecutorFee);
+  await coreMain.setPeerMinRollupFee(minRollupFee);
+  await coreMain.updateSanctionContractAddress(sanctionListAddress);
+  await coreMain.setEndpoint(LzChainID, dummyLZEndpoint.address);
+  await poolMain.addEnqueueWhitelist(coreMain.address);
+
+  const lzERC20Factory = (await ethers.getContractFactory(
+    'MystikoV2LayerZeroERC20',
+  )) as MystikoV2LayerZeroERC20__factory;
+
+  const coreERC20 = await lzERC20Factory.connect(accounts[0]).deploy(hasher3Address, tokenAddress);
+  await coreERC20.deployed();
+  await coreERC20.setAssociatedCommitmentPool(poolERC20.address);
+  await coreERC20.setMinAmount(minAmount);
+  await coreERC20.setMinBridgeFee(minBridgeFee);
+  await coreERC20.setMinExecutorFee(minExecutorFee);
+  await coreERC20.setPeerMinExecutorFee(minExecutorFee);
+  await coreERC20.setPeerMinRollupFee(minRollupFee);
+  await coreERC20.updateSanctionContractAddress(sanctionListAddress);
+  await coreERC20.setEndpoint(LzChainID, dummyLZEndpoint.address);
+  await poolERC20.addEnqueueWhitelist(coreERC20.address);
+
+  return { coreMain, coreERC20 };
 }
 
 export async function deployTbridgeProxyContracts(accounts: Wallet[]): Promise<MystikoTBridgeProxy> {
@@ -281,6 +327,22 @@ export async function deployTbridgeProxyContracts(accounts: Wallet[]): Promise<M
   await tbridge.deployed();
   await tbridge.addExecutorWhitelist(accounts[BridgeAccountIndex].address);
   return tbridge;
+}
+
+export async function deployDummyCelerContracts(accounts: Wallet[]): Promise<DummyCelerMessageBus> {
+  const dummyCelerFactory = (await ethers.getContractFactory(
+    'DummyCelerMessageBus',
+  )) as DummyCelerMessageBus__factory;
+  const dummyCeler = await dummyCelerFactory.connect(accounts[0]).deploy();
+  await dummyCeler.deployed();
+  return dummyCeler;
+}
+
+export async function deployDummyLayerZeroContracts(accounts: Wallet[]): Promise<DummyLZEndpoint> {
+  const dummyCelerFactory = (await ethers.getContractFactory('DummyLZEndpoint')) as DummyLZEndpoint__factory;
+  const dummyLZ = await dummyCelerFactory.connect(accounts[0]).deploy(LzChainID);
+  await dummyLZ.deployed();
+  return dummyLZ;
 }
 
 export async function deployDependContracts(accounts: Wallet[]): Promise<DependDeploymentInfo> {

@@ -1,7 +1,14 @@
 import { MystikoTBridgeProxy__factory } from '@mystikonetwork/contracts-abi';
 import { BridgeConfig } from '../config/bridge';
 import { OperatorConfig } from '../config/operator';
-import { BridgeLoop, BridgeTBridge, LOGRED, MystikoDevelopment } from '../common/constant';
+import {
+  BridgeCeler,
+  BridgeLayerZero,
+  BridgeLoop,
+  BridgeTBridge,
+  LOGRED,
+  MystikoDevelopment,
+} from '../common/constant';
 import { BridgeProxyConfig } from '../config/bridgeProxy';
 import { saveConfig } from '../config/config';
 
@@ -84,13 +91,18 @@ export async function getOrDeployBridgeProxy(
     return undefined;
   }
 
-  if (bridgeCfg.name !== BridgeTBridge) {
+  if (bridgeCfg.name === BridgeCeler || bridgeCfg.name === BridgeLayerZero) {
     if (
       inBridgeProxyCfg === undefined ||
       inBridgeProxyCfg.address === undefined ||
       inBridgeProxyCfg.address === ''
     ) {
       console.error(LOGRED, 'bridge proxy address not configure');
+      process.exit(-1);
+    }
+
+    if (bridgeCfg.name === BridgeLayerZero && inBridgeProxyCfg.mapChainId === undefined) {
+      console.error(LOGRED, 'bridge proxy map chain id not configure');
       process.exit(-1);
     }
 

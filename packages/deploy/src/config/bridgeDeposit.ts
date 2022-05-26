@@ -13,6 +13,7 @@ export interface RawDepositDeployConfig {
   commitmentPool?: string;
   bridgeProxy?: string;
   peerContract?: string;
+  trustedRemote?: string;
   sanctionCheckDisable?: boolean;
 }
 
@@ -143,6 +144,17 @@ export class DepositDeployConfig extends BaseConfig {
 
   public updatePeerContract(address: string) {
     this.asRawContractDeployConfig().peerContract = address;
+  }
+
+  public isTrustedRemoteChange(address: string): boolean {
+    if (this.asRawContractDeployConfig().trustedRemote !== address) {
+      return true;
+    }
+    return false;
+  }
+
+  public updateTrustedRemote(address: string) {
+    this.asRawContractDeployConfig().trustedRemote = address;
   }
 
   public isSanctionCheckDisableChange(check: boolean): boolean {
