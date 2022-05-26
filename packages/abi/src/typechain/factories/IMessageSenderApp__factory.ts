@@ -30,39 +30,6 @@ const _abi = [
     stateMutability: 'payable',
     type: 'function',
   },
-  {
-    inputs: [
-      {
-        internalType: 'address',
-        name: '_receiver',
-        type: 'address',
-      },
-      {
-        internalType: 'uint256',
-        name: '_dstChainId',
-        type: 'uint256',
-      },
-      {
-        internalType: 'address',
-        name: '_srcBridge',
-        type: 'address',
-      },
-      {
-        internalType: 'bytes32',
-        name: '_srcTransferId',
-        type: 'bytes32',
-      },
-      {
-        internalType: 'bytes',
-        name: '_message',
-        type: 'bytes',
-      },
-    ],
-    name: 'sendMessageWithTransfer',
-    outputs: [],
-    stateMutability: 'payable',
-    type: 'function',
-  },
 ];
 
 export class IMessageSenderApp__factory {

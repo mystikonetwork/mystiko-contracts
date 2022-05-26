@@ -2,6 +2,7 @@ module.exports = {
   skipFiles: [
     'mocks/DummySanctions.sol',
     'mocks/token/TestToken.sol',
+    'mocks/proxy/DummyCelerMessageBus.sol',
     'libs/common/ZeroCopySink.sol',
     'libs/common/ZeroCopySource.sol',
     'libs/utils/Utils.sol',

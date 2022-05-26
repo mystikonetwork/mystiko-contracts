@@ -41,6 +41,7 @@ export type { Transaction2x0Verifier } from './Transaction2x0Verifier';
 export type { Transaction2x1Verifier } from './Transaction2x1Verifier';
 export type { Transaction2x2Verifier } from './Transaction2x2Verifier';
 export type { DummySanctionsList } from './DummySanctionsList';
+export type { DummyCelerMessageBus } from './DummyCelerMessageBus';
 export type { TestToken } from './TestToken';
 export type { Hasher2 } from './Hasher2';
 export type { Hasher3 } from './Hasher3';
@@ -85,6 +86,7 @@ export { Transaction2x0Verifier__factory } from './factories/Transaction2x0Verif
 export { Transaction2x1Verifier__factory } from './factories/Transaction2x1Verifier__factory';
 export { Transaction2x2Verifier__factory } from './factories/Transaction2x2Verifier__factory';
 export { DummySanctionsList__factory } from './factories/DummySanctionsList__factory';
+export { DummyCelerMessageBus__factory } from './factories/DummyCelerMessageBus__factory';
 export { TestToken__factory } from './factories/TestToken__factory';
 export { Hasher2__factory } from './factories/Hasher2__factory';
 export { Hasher3__factory } from './factories/Hasher3__factory';

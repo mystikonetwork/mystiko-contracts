@@ -43,6 +43,10 @@ import {
   DummySanctionsList,
   DummySanctionsList__factory,
   MystikoV2TBridgeERC20__factory,
+  DummyCelerMessageBus,
+  MystikoV2CelerMain__factory,
+  MystikoV2CelerERC20__factory,
+  DummyCelerMessageBus__factory,
 } from '@mystikonetwork/contracts-abi';
 import {
   MerkleTreeHeight,
@@ -89,7 +93,6 @@ interface DependDeploymentInfo {
   rollup1: Rollup1Verifier;
   rollup4: Rollup4Verifier;
   rollup16: Rollup16Verifier;
-  tbridge: MystikoTBridgeProxy;
   sanctionList: DummySanctionsList;
 }
 
@@ -211,6 +214,75 @@ export async function deployTBridgeContracts(
   return { coreMain, coreERC20 };
 }
 
+export async function deployCelerContracts(
+  accounts: Wallet[],
+  hasher3Address: string,
+  tokenAddress: string,
+  sanctionListAddress: string,
+  dummyCeler: DummyCelerMessageBus,
+  poolMain: CommitmentPoolMain,
+  poolERC20: CommitmentPoolERC20,
+  {
+    minAmount = MinAmount,
+    minBridgeFee = MinBridgeFee,
+    minExecutorFee = MinExecutorFee,
+    minRollupFee = MinRollupFee,
+  },
+): Promise<CoreBridgeDeploymentInfo> {
+  const celerMainFactory = (await ethers.getContractFactory(
+    'MystikoV2CelerMain',
+  )) as MystikoV2CelerMain__factory;
+
+  const coreMain = await celerMainFactory.connect(accounts[0]).deploy(hasher3Address);
+  await coreMain.deployed();
+  await coreMain.setAssociatedCommitmentPool(poolMain.address);
+  await coreMain.setBridgeProxyAddress(dummyCeler.address);
+  await coreMain.setMinAmount(minAmount);
+  await coreMain.setMinBridgeFee(minBridgeFee);
+  await coreMain.setMinExecutorFee(minExecutorFee);
+  await coreMain.setPeerMinExecutorFee(minExecutorFee);
+  await coreMain.setPeerMinRollupFee(minRollupFee);
+  await coreMain.updateSanctionContractAddress(sanctionListAddress);
+  await poolMain.addEnqueueWhitelist(coreMain.address);
+
+  const celerERC20Factory = (await ethers.getContractFactory(
+    'MystikoV2CelerERC20',
+  )) as MystikoV2CelerERC20__factory;
+
+  const coreERC20 = await celerERC20Factory.connect(accounts[0]).deploy(hasher3Address, tokenAddress);
+  await coreERC20.deployed();
+  await coreERC20.setAssociatedCommitmentPool(poolERC20.address);
+  await coreERC20.setBridgeProxyAddress(dummyCeler.address);
+  await coreERC20.setMinAmount(minAmount);
+  await coreERC20.setMinBridgeFee(minBridgeFee);
+  await coreERC20.setMinExecutorFee(minExecutorFee);
+  await coreERC20.setPeerMinExecutorFee(minExecutorFee);
+  await coreERC20.setPeerMinRollupFee(minRollupFee);
+  await coreERC20.updateSanctionContractAddress(sanctionListAddress);
+  await poolERC20.addEnqueueWhitelist(coreERC20.address);
+
+  return { coreMain, coreERC20 };
+}
+
+export async function deployDummyCelerContracts(accounts: Wallet[]): Promise<DummyCelerMessageBus> {
+  const dummyCelerFactory = (await ethers.getContractFactory(
+    'DummyCelerMessageBus',
+  )) as DummyCelerMessageBus__factory;
+  const dummyCeler = await dummyCelerFactory.connect(accounts[0]).deploy();
+  await dummyCeler.deployed();
+  return dummyCeler;
+}
+
+export async function deployTbridgeProxyContracts(accounts: Wallet[]): Promise<MystikoTBridgeProxy> {
+  const proxyFactory = (await ethers.getContractFactory(
+    'MystikoTBridgeProxy',
+  )) as MystikoTBridgeProxy__factory;
+  const tbridge = await proxyFactory.connect(accounts[0]).deploy();
+  await tbridge.deployed();
+  await tbridge.addExecutorWhitelist(accounts[BridgeAccountIndex].address);
+  return tbridge;
+}
+
 export async function deployDependContracts(accounts: Wallet[]): Promise<DependDeploymentInfo> {
   const testTokenFactory = (await ethers.getContractFactory('TestToken')) as TestToken__factory;
   const testToken = await testTokenFactory.connect(accounts[0]).deploy('Mystiko Test Token', 'MTT', 18);
@@ -273,13 +345,6 @@ export async function deployDependContracts(accounts: Wallet[]): Promise<DependD
   const rollup16 = await rollup16Factory.connect(accounts[0]).deploy();
   await rollup16.deployed();
 
-  const proxyFactory = (await ethers.getContractFactory(
-    'MystikoTBridgeProxy',
-  )) as MystikoTBridgeProxy__factory;
-  const tbridge = await proxyFactory.connect(accounts[0]).deploy();
-  await tbridge.deployed();
-  await tbridge.addExecutorWhitelist(accounts[BridgeAccountIndex].address);
-
   const sanctionListFactory = (await ethers.getContractFactory(
     'DummySanctionsList',
   )) as DummySanctionsList__factory;
@@ -298,7 +363,6 @@ export async function deployDependContracts(accounts: Wallet[]): Promise<DependD
     rollup1,
     rollup4,
     rollup16,
-    tbridge,
     sanctionList,
   };
 }

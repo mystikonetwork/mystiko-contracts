@@ -21,17 +21,11 @@ export interface IMessageSenderAppInterface extends utils.Interface {
   contractName: 'IMessageSenderApp';
   functions: {
     'sendMessage(address,uint256,bytes)': FunctionFragment;
-    'sendMessageWithTransfer(address,uint256,address,bytes32,bytes)': FunctionFragment;
   };
 
   encodeFunctionData(functionFragment: 'sendMessage', values: [string, BigNumberish, BytesLike]): string;
-  encodeFunctionData(
-    functionFragment: 'sendMessageWithTransfer',
-    values: [string, BigNumberish, string, BytesLike, BytesLike],
-  ): string;
 
   decodeFunctionResult(functionFragment: 'sendMessage', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'sendMessageWithTransfer', data: BytesLike): Result;
 
   events: {};
 }
@@ -66,15 +60,6 @@ export interface IMessageSenderApp extends BaseContract {
       _message: BytesLike,
       overrides?: PayableOverrides & { from?: string | Promise<string> },
     ): Promise<ContractTransaction>;
-
-    sendMessageWithTransfer(
-      _receiver: string,
-      _dstChainId: BigNumberish,
-      _srcBridge: string,
-      _srcTransferId: BytesLike,
-      _message: BytesLike,
-      overrides?: PayableOverrides & { from?: string | Promise<string> },
-    ): Promise<ContractTransaction>;
   };
 
   sendMessage(
@@ -84,28 +69,10 @@ export interface IMessageSenderApp extends BaseContract {
     overrides?: PayableOverrides & { from?: string | Promise<string> },
   ): Promise<ContractTransaction>;
 
-  sendMessageWithTransfer(
-    _receiver: string,
-    _dstChainId: BigNumberish,
-    _srcBridge: string,
-    _srcTransferId: BytesLike,
-    _message: BytesLike,
-    overrides?: PayableOverrides & { from?: string | Promise<string> },
-  ): Promise<ContractTransaction>;
-
   callStatic: {
     sendMessage(
       _receiver: string,
       _dstChainId: BigNumberish,
-      _message: BytesLike,
-      overrides?: CallOverrides,
-    ): Promise<void>;
-
-    sendMessageWithTransfer(
-      _receiver: string,
-      _dstChainId: BigNumberish,
-      _srcBridge: string,
-      _srcTransferId: BytesLike,
       _message: BytesLike,
       overrides?: CallOverrides,
     ): Promise<void>;
@@ -120,30 +87,12 @@ export interface IMessageSenderApp extends BaseContract {
       _message: BytesLike,
       overrides?: PayableOverrides & { from?: string | Promise<string> },
     ): Promise<BigNumber>;
-
-    sendMessageWithTransfer(
-      _receiver: string,
-      _dstChainId: BigNumberish,
-      _srcBridge: string,
-      _srcTransferId: BytesLike,
-      _message: BytesLike,
-      overrides?: PayableOverrides & { from?: string | Promise<string> },
-    ): Promise<BigNumber>;
   };
 
   populateTransaction: {
     sendMessage(
       _receiver: string,
       _dstChainId: BigNumberish,
-      _message: BytesLike,
-      overrides?: PayableOverrides & { from?: string | Promise<string> },
-    ): Promise<PopulatedTransaction>;
-
-    sendMessageWithTransfer(
-      _receiver: string,
-      _dstChainId: BigNumberish,
-      _srcBridge: string,
-      _srcTransferId: BytesLike,
       _message: BytesLike,
       overrides?: PayableOverrides & { from?: string | Promise<string> },
     ): Promise<PopulatedTransaction>;

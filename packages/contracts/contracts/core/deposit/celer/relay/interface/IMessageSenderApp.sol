@@ -35,11 +35,11 @@ interface IMessageSenderApp {
    * @param _dstChainId The destination chain ID.
    * @param _message Arbitrary message bytes to be decoded by the destination app contract.
    */
-  function sendMessageWithTransfer(
-    address _receiver,
-    uint256 _dstChainId,
-    address _srcBridge,
-    bytes32 _srcTransferId,
-    bytes calldata _message
-  ) external payable;
+  //  function sendMessageWithTransfer(
+  //    address _receiver,
+  //    uint256 _dstChainId,
+  //    address _srcBridge,
+  //    bytes32 _srcTransferId,
+  //    bytes calldata _message
+  //  ) external payable;
 }
