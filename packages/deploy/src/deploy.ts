@@ -139,7 +139,7 @@ async function deployStep3(taskArgs: any) {
   }
 
   if (c.bridgeCfg.name === BridgeLayerZero) {
-    const proxy = c.bridgeCfg.getBridgeProxyConfig(c.srcChainCfg.network, '');
+    const proxy = c.bridgeCfg.getBridgeProxyConfig(c.dstChainCfg.network, '');
     if (proxy === undefined || proxy.mapChainId === undefined) {
       console.error(LOGRED, 'proxy or proxy map chain id not configure');
       process.exit(-1);

@@ -148,24 +148,6 @@ export function testTBridgeDeposit(
       ).to.be.revertedWith('bridge fee too few');
     });
 
-    it('should revert when executor fee is too few', async () => {
-      await expect(
-        mystikoContract.deposit(
-          [
-            depositAmount,
-            commitments[0].commitmentHash.toString(),
-            commitments[0].k.toString(),
-            commitments[0].randomS.toString(),
-            toHex(commitments[0].encryptedNote),
-            minBridgeFee,
-            '0',
-            minRollupFee,
-          ],
-          { from: accounts[0].address, value: minTotalValue },
-        ),
-      ).to.be.revertedWith('executor fee too few');
-    });
-
     it('should revert when rollup fee is too few', async () => {
       await expect(
         mystikoContract.deposit(

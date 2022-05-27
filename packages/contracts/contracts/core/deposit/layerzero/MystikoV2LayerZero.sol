@@ -27,6 +27,6 @@ abstract contract MystikoV2LayerZero is MystikoV2Bridge, NonblockingLzApp {
   }
 
   function bridgeType() public pure override returns (string memory) {
-    return "layerzero";
+    return "layerZero";
   }
 }
