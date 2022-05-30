@@ -103,7 +103,7 @@ export async function transferOnDeploy(
 }
 
 export async function deployChainTestToken(assetSymbol: string) {
-  const tokenDecimals = 6;
+  const tokenDecimals = 18;
   console.log(assetSymbol);
   const testToken = await TestToken.deploy(assetSymbol, assetSymbol, tokenDecimals);
   await testToken.deployed();

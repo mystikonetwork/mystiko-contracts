@@ -1,4 +1,11 @@
-import { BridgeLayerZero, BridgeLoop, BridgeTBridge, LOGRED, MystikoTestnet } from './common/constant';
+import {
+  BridgeCeler,
+  BridgeLayerZero,
+  BridgeLoop,
+  BridgeTBridge,
+  LOGRED,
+  MystikoTestnet,
+} from './common/constant';
 import { loadConfig } from './config/config';
 import {
   addEnqueueWhitelist,
@@ -21,9 +28,10 @@ import {
   setTrustedRemote,
 } from './contract/depsit';
 import { deployBaseContract, initBaseContractFactory } from './contract/base';
-import { checkCoreConfig, saveCoreContractJson } from './coreJson';
-import { dumpChainTBridgeConfig, saveTBridgeJson } from './tbridgeJson';
-import { dumpChainRollerConfig, saveRollupJson } from './rollupJson';
+import { checkCoreConfig, saveCoreContractJson } from './dump/coreJson';
+import { dumpChainTBridgeConfig, saveTBridgeJson } from './dump/tbridgeJson';
+import { dumpChainRollerConfig, saveRollupJson } from './dump/rollupJson';
+import { saveCelerToml } from './dump/celerToml';
 
 let ethers: any;
 
@@ -38,6 +46,9 @@ function dumpConfig(c: any) {
   saveRollupJson(c);
   if (c.bridgeCfg.name === BridgeTBridge) {
     saveTBridgeJson(c);
+  }
+  if (c.bridgeCfg.name === BridgeCeler) {
+    saveCelerToml(c);
   }
 }
 
@@ -191,7 +202,6 @@ function dumpAllRollerConfig() {
 function dumpAllTBridgeConfig() {
   dumpChainTBridgeConfig('bsctestnet');
   dumpChainTBridgeConfig('ropsten');
-  dumpChainTBridgeConfig('goerli');
   dumpChainTBridgeConfig('polygontestnet');
   dumpChainTBridgeConfig('fantomtestnet');
   dumpChainTBridgeConfig('avalanchetestnet');
