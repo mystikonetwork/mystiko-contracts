@@ -17,10 +17,10 @@ import {
   deployDummyLayerZeroContracts,
   deployLayerZeroContracts,
 } from '../../../util/common';
-import { constructCommitment } from '../../../common';
+import { constructCommitment, testBridgeConstructor } from '../../../common';
 
 // @ts-ignore
-import { SourceChainID, LzChainID } from '../../../util/constants';
+import { SourceChainID, LzChainID, MinAmount, MinBridgeFee, MinRollupFee } from '../../../util/constants';
 import { testLayerZeroDeposit } from '../../../common/depositLayerZeroTests';
 
 describe('Test Mystiko layer zero', () => {
@@ -63,7 +63,7 @@ describe('Test Mystiko layer zero', () => {
       dummyLZEndpoint,
       poolLocal.poolMain,
       poolLocal.poolERC20,
-      {},
+      { minExecutorFee: '0' },
     );
 
     const remote = await deployLayerZeroContracts(
@@ -74,7 +74,7 @@ describe('Test Mystiko layer zero', () => {
       dummyLZEndpoint,
       poolRemote.poolMain,
       poolRemote.poolERC20,
-      {},
+      { minExecutorFee: '0' },
     );
 
     return {
@@ -121,6 +121,10 @@ describe('Test Mystiko layer zero', () => {
     remoteMain = r.remote.coreMain;
     sanctionList = r.sanctionList;
     dummyLZEndpoint = r.dummyLZEndpoint;
+  });
+
+  it('test constructor', () => {
+    testBridgeConstructor('MystikoV2LayerZeroMain', localMain, MinAmount, MinBridgeFee, '0', MinRollupFee);
   });
 
   it('test bridge main to main deposit', async () => {
