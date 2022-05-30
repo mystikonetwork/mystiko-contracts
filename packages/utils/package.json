@@ -1,6 +1,6 @@
 {
   "name": "@mystikonetwork/contracts-utils",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Core contract utilities of Mystiko.Network",
   "main": "build/cjs/index.js",
   "module": "build/esm/index.js",
@@ -53,7 +53,7 @@
     "typescript": "^4.5.5"
   },
   "dependencies": {
-    "@mystikonetwork/utils": "^0.1.0",
+    "@mystikonetwork/utils": "^0.1.1",
     "bn.js": "^5.2.0"
   }
 }

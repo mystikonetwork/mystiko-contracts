@@ -1,6 +1,7 @@
 import { TestToken } from '@mystikonetwork/contracts-abi';
+import { MerkleTree } from '@mystikonetwork/merkle';
 import { CommitmentOutput, MystikoProtocolV2 } from '@mystikonetwork/protocol';
-import { toBN, MerkleTree } from '@mystikonetwork/utils';
+import { toBN } from '@mystikonetwork/utils';
 import { expect } from 'chai';
 import { waffle } from 'hardhat';
 import { Wallet } from '@ethersproject/wallet';

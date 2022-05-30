@@ -1,6 +1,7 @@
 import { DummySanctionsList, TestToken } from '@mystikonetwork/contracts-abi';
+import { MerkleTree } from '@mystikonetwork/merkle';
 import { CommitmentOutput, MystikoProtocolV2 } from '@mystikonetwork/protocol';
-import { MerkleTree, toBN, toBuff, toHex, toHexNoPrefix } from '@mystikonetwork/utils';
+import { toBN, toBuff, toHex, toHexNoPrefix } from '@mystikonetwork/utils';
 import { ZKProof } from '@mystikonetwork/zkp';
 import BN from 'bn.js';
 import { expect } from 'chai';
