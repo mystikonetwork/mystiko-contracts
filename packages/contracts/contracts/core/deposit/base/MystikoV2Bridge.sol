@@ -68,12 +68,10 @@ abstract contract MystikoV2Bridge is IMystikoBridge, AssetPool, CrossChainDataSe
   }
 
   function setMinExecutorFee(uint256 _minExecutorFee) external onlyOperator {
-    require(_minExecutorFee > 0, "invalid minimal executor fee");
     minExecutorFee = _minExecutorFee;
   }
 
   function setPeerMinExecutorFee(uint256 _peerMinExecutorFee) external onlyOperator {
-    require(_peerMinExecutorFee > 0, "invalid peer minimal executor fee");
     peerMinExecutorFee = _peerMinExecutorFee;
   }
 
@@ -144,7 +142,6 @@ abstract contract MystikoV2Bridge is IMystikoBridge, AssetPool, CrossChainDataSe
     require(_fromContract == peerContract, "from proxy address not matched");
     require(_fromChainId == peerChainId, "from chain id not matched");
     require(_request.amount > 0, "amount should be greater than 0");
-    require(_request.executorFee >= minExecutorFee, "executor fee too few");
     require(ICommitmentPool(associatedCommitmentPool).enqueue(_request, _executor), "call enqueue error");
   }
 

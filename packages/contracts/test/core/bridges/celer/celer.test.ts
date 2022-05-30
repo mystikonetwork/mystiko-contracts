@@ -31,7 +31,7 @@ import {
 } from '../../../util/constants';
 import { testCelerDeposit } from '../../../common/depositCelerTests';
 
-describe('Test Mystiko tbridge', () => {
+describe('Test Mystiko celer', () => {
   async function fixture(accounts: Wallet[]) {
     const {
       testToken,

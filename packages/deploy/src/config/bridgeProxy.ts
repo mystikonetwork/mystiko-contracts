@@ -3,6 +3,7 @@ import { BaseConfig } from './base';
 
 export interface RawBridgeProxyConfig {
   network: string;
+  mapChainId?: number;
   remoteNetwork: string;
   address: string;
   executorWhitelist?: string[];
@@ -17,6 +18,7 @@ export class BridgeProxyConfig extends BaseConfig {
   constructor(rawConfig: any) {
     super(rawConfig);
     BaseConfig.checkString(this.config, 'network');
+    BaseConfig.checkNumber(this.config, 'mapChainId', false);
     BaseConfig.checkString(this.config, 'remoteNetwork', false);
     BaseConfig.checkEthAddress(this.config, 'address', false);
 
@@ -39,6 +41,10 @@ export class BridgeProxyConfig extends BaseConfig {
 
   public get remoteNetwork(): string {
     return this.asRawBridgeProxyConfig().remoteNetwork;
+  }
+
+  public get mapChainId(): number | undefined {
+    return this.asRawBridgeProxyConfig().mapChainId;
   }
 
   public get address(): string {

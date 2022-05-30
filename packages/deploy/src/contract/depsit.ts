@@ -5,13 +5,23 @@ import {
   MystikoV2CelerMain__factory,
   MystikoV2TBridgeERC20__factory,
   MystikoV2TBridgeMain__factory,
+  MystikoV2LayerZeroERC20__factory,
+  MystikoV2LayerZeroMain__factory,
 } from '@mystikonetwork/contracts-abi';
 import { BridgeConfig } from '../config/bridge';
 import { ChainConfig } from '../config/chain';
 import { ChainTokenConfig } from '../config/chainToken';
-import { BridgeCeler, BridgeLoop, BridgeTBridge, LOGRED, MystikoTestnet } from '../common/constant';
+import {
+  BridgeCeler,
+  BridgeLayerZero,
+  BridgeLoop,
+  BridgeTBridge,
+  LOGRED,
+  MystikoTestnet,
+} from '../common/constant';
 import { DepositDeployConfig } from '../config/bridgeDeposit';
 import { saveConfig } from '../config/config';
+import { BridgeProxyConfig } from '../config/bridgeProxy';
 
 let MystikoV2LoopERC20: MystikoV2LoopERC20__factory;
 let MystikoV2LoopMain: MystikoV2LoopMain__factory;
@@ -19,6 +29,8 @@ let MystikoV2TBridgeERC20: MystikoV2TBridgeERC20__factory;
 let MystikoV2TBridgeMain: MystikoV2TBridgeMain__factory;
 let MystikoV2CelerERC20: MystikoV2CelerERC20__factory;
 let MystikoV2CelerMain: MystikoV2CelerMain__factory;
+let MystikoV2LayerZeroERC20: MystikoV2LayerZeroERC20__factory;
+let MystikoV2LayerZeroMain: MystikoV2LayerZeroMain__factory;
 
 let ethers: any;
 
@@ -31,6 +43,8 @@ export async function initDepositContractFactory(eth: any) {
   MystikoV2TBridgeMain = await ethers.getContractFactory('MystikoV2TBridgeMain');
   MystikoV2CelerERC20 = await ethers.getContractFactory('MystikoV2CelerERC20');
   MystikoV2CelerMain = await ethers.getContractFactory('MystikoV2CelerMain');
+  MystikoV2LayerZeroERC20 = await ethers.getContractFactory('MystikoV2LayerZeroERC20');
+  MystikoV2LayerZeroMain = await ethers.getContractFactory('MystikoV2LayerZeroMain');
 }
 
 export function getMystikoDeployContract(bridge: string, bErc20: boolean) {
@@ -52,6 +66,12 @@ export function getMystikoDeployContract(bridge: string, bErc20: boolean) {
       coreContract = MystikoV2CelerERC20;
     } else {
       coreContract = MystikoV2CelerMain;
+    }
+  } else if (bridge === BridgeLayerZero) {
+    if (bErc20) {
+      coreContract = MystikoV2LayerZeroERC20;
+    } else {
+      coreContract = MystikoV2LayerZeroMain;
     }
   } else {
     console.error(LOGRED, 'bridge not support');
@@ -115,6 +135,7 @@ export async function deployDepositContract(
 
   console.log('deploy Mystiko deposit contract');
   let coreContract: any;
+
   if (srcChainTokenCfg.erc20) {
     // @ts-ignore
     coreContract = await DepositContractFactory.deploy(srcChainCfg.hasher3Address, srcChainTokenCfg.address);
@@ -135,6 +156,38 @@ export async function deployDepositContract(
 }
 
 export async function setBridgeProxyAddress(
+  c: any,
+  bridgeName: string,
+  erc20: boolean,
+  inDepositCfg: DepositDeployConfig,
+  bridgeProxy: BridgeProxyConfig,
+) {
+  if (!inDepositCfg.isBridgeProxyChange(bridgeProxy.address)) {
+    return;
+  }
+
+  const depositCfg = inDepositCfg;
+  console.log('set bridge proxy address');
+  const DepositContractFactoruy = getMystikoDeployContract(bridgeName, erc20);
+  const coreContract = await DepositContractFactoruy.attach(depositCfg.address);
+
+  try {
+    if (bridgeName === BridgeTBridge || bridgeName === BridgeCeler) {
+      const rsp = await coreContract.setBridgeProxyAddress(bridgeProxy.address);
+      console.log('rsp hash ', rsp.hash);
+    } else if (bridgeName === BridgeLayerZero) {
+      const rsp = await coreContract.setEndpoint(bridgeProxy.mapChainId, bridgeProxy.address);
+      console.log('rsp hash ', rsp.hash);
+    }
+    depositCfg.updateBridgeProxy(bridgeProxy.address);
+    saveConfig(c.mystikoNetwork, c.cfg);
+  } catch (err: any) {
+    console.error(LOGRED, err);
+    process.exit(1);
+  }
+}
+
+export async function setLzEndpoint(
   c: any,
   bridgeName: string,
   erc20: boolean,
@@ -335,12 +388,17 @@ export async function doDepositContractConfigure(
   dstChainTokenCfg: ChainTokenConfig,
   pairSrcDepositContractCfg: DepositDeployConfig,
   commitmentPoolAddress: string,
-  bridgeProxyAddress: string,
+  bridgeProxy?: BridgeProxyConfig,
 ) {
   console.log('do deposit contract configure');
 
   if (bridgeCfg.name !== BridgeLoop) {
-    await setBridgeProxyAddress(c, bridgeCfg.name, srcChainTokenCfg.erc20, depositCfg, bridgeProxyAddress);
+    if (bridgeProxy === undefined) {
+      console.log(' bridge proxy not configure');
+      process.exit(-1);
+    }
+
+    await setBridgeProxyAddress(c, bridgeCfg.name, srcChainTokenCfg.erc20, depositCfg, bridgeProxy);
 
     const bridgeFee = bridgeCfg.getMinBridgeFee(srcChainCfg.network);
     if (bridgeFee === undefined) {
@@ -406,6 +464,33 @@ export async function setPeerContract(
     const rsp = await coreContract.setPeerContract(peerChainId, peerContractAddress);
     console.log('rsp hash ', rsp.hash);
     depositConfig.updatePeerContract(peerContractAddress);
+    saveConfig(c.mystikoNetwork, c.cfg);
+  } catch (err: any) {
+    console.error(LOGRED, err);
+    process.exit(1);
+  }
+}
+
+export async function setTrustedRemote(
+  c: any,
+  bridgeName: string,
+  erc20: boolean,
+  inDepositConfig: DepositDeployConfig,
+  peerLayerZeroChainId: number,
+  peerContractAddress: string,
+) {
+  if (!inDepositConfig.isTrustedRemoteChange(peerContractAddress)) {
+    return;
+  }
+  const depositConfig = inDepositConfig;
+  console.log('set trusted remote');
+  const DepositContractFactoruy = getMystikoDeployContract(bridgeName, erc20);
+  const coreContract = await DepositContractFactoruy.attach(depositConfig.address);
+
+  try {
+    const rsp = await coreContract.setTrustedRemote(peerLayerZeroChainId, peerContractAddress);
+    console.log('rsp hash ', rsp.hash);
+    depositConfig.updateTrustedRemote(peerContractAddress);
     saveConfig(c.mystikoNetwork, c.cfg);
   } catch (err: any) {
     console.error(LOGRED, err);

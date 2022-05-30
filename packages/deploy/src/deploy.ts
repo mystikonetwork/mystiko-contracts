@@ -1,4 +1,11 @@
-import { BridgeLoop, BridgeTBridge, LOGRED, MystikoTestnet } from './common/constant';
+import {
+  BridgeCeler,
+  BridgeLayerZero,
+  BridgeLoop,
+  BridgeTBridge,
+  LOGRED,
+  MystikoTestnet,
+} from './common/constant';
 import { loadConfig } from './config/config';
 import {
   addEnqueueWhitelist,
@@ -18,11 +25,13 @@ import {
   doDepositContractConfigure,
   initDepositContractFactory,
   setPeerContract,
+  setTrustedRemote,
 } from './contract/depsit';
 import { deployBaseContract, initBaseContractFactory } from './contract/base';
-import { checkCoreConfig, saveCoreContractJson } from './coreJson';
-import { dumpChainTBridgeConfig, saveTBridgeJson } from './tbridgeJson';
-import { dumpChainRollerConfig, saveRollupJson } from './rollupJson';
+import { checkCoreConfig, saveCoreContractJson } from './dump/coreJson';
+import { dumpChainTBridgeConfig, saveTBridgeJson } from './dump/tbridgeJson';
+import { dumpChainRollerConfig, saveRollupJson } from './dump/rollupJson';
+import { saveCelerToml } from './dump/celerToml';
 
 let ethers: any;
 
@@ -37,6 +46,9 @@ function dumpConfig(c: any) {
   saveRollupJson(c);
   if (c.bridgeCfg.name === BridgeTBridge) {
     saveTBridgeJson(c);
+  }
+  if (c.bridgeCfg.name === BridgeCeler) {
+    saveCelerToml(c);
   }
 }
 
@@ -97,7 +109,7 @@ async function deployStep2(taskArgs: any) {
     c.dstTokenCfg,
     c.pairSrcDepositCfg,
     poolCfg.address,
-    bridgeProxyConfig ? bridgeProxyConfig.address : '',
+    bridgeProxyConfig,
   );
 
   await addEnqueueWhitelist(c, c.srcTokenCfg.erc20, poolCfg, depositCfg.address);
@@ -133,6 +145,23 @@ async function deployStep3(taskArgs: any) {
       c.srcTokenCfg.erc20,
       c.pairSrcDepositCfg,
       c.dstChainCfg.chainId,
+      c.pairDstDepositCfg.address,
+    );
+  }
+
+  if (c.bridgeCfg.name === BridgeLayerZero) {
+    const proxy = c.bridgeCfg.getBridgeProxyConfig(c.dstChainCfg.network, '');
+    if (proxy === undefined || proxy.mapChainId === undefined) {
+      console.error(LOGRED, 'proxy or proxy map chain id not configure');
+      process.exit(-1);
+    }
+
+    await setTrustedRemote(
+      c,
+      c.bridgeCfg.name,
+      c.srcTokenCfg.erc20,
+      c.pairSrcDepositCfg,
+      proxy.mapChainId,
       c.pairDstDepositCfg.address,
     );
   }
@@ -173,7 +202,6 @@ function dumpAllRollerConfig() {
 function dumpAllTBridgeConfig() {
   dumpChainTBridgeConfig('bsctestnet');
   dumpChainTBridgeConfig('ropsten');
-  dumpChainTBridgeConfig('goerli');
   dumpChainTBridgeConfig('polygontestnet');
   dumpChainTBridgeConfig('fantomtestnet');
   dumpChainTBridgeConfig('avalanchetestnet');

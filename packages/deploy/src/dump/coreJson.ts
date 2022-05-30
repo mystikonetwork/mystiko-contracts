@@ -1,6 +1,6 @@
 import { MystikoConfig } from '@mystikonetwork/config';
-import { LOGRED, MystikoTestnet, MystikoMainnet, MystikoDevelopment, BridgeLoop } from './common/constant';
-import { readJsonFile, writeJsonFile } from './common/utils';
+import { LOGRED, MystikoTestnet, MystikoMainnet, MystikoDevelopment, BridgeLoop } from '../common/constant';
+import { readJsonFile, writeJsonFile } from '../common/utils';
 
 function getCoreConfigFileName(mystikoNetwork: string) {
   let fileNameWithPath = '';
@@ -108,7 +108,17 @@ function addPoolContractConfig(
   const chainConfig = getChainConfig(coreConfig, chainId);
 
   for (let j = 0; j < chainConfig.poolContracts.length; j += 1) {
-    if (chainConfig.poolContracts[j].address === address) {
+    const poolContract = chainConfig.poolContracts[j];
+    if (poolContract.address === address) {
+      poolContract.startBlock = startBlock;
+      if (isERC20) {
+        poolContract.assetAddress = assetAddress;
+      }
+      poolContract.minRollupFee = minRollupFee;
+      if (circuits.length > 0) {
+        poolContract.circuits = circuits;
+      }
+
       return coreConfig;
     }
   }
@@ -168,7 +178,22 @@ function addNewDepositContractConfig(
   const chainConfig = getChainConfig(coreConfig, chainId);
 
   for (let j = 0; j < chainConfig.depositContracts.length; j += 1) {
-    if (chainConfig.depositContracts[j].address === address) {
+    const depositContract = chainConfig.depositContracts[j];
+    if (depositContract.address === address) {
+      depositContract.startBlock = startBlock;
+      depositContract.poolAddress = poolAddress;
+
+      if (bridgeType !== BridgeLoop) {
+        depositContract.peerChainId = peerChainId;
+        depositContract.peerContractAddress = peerContractAddress;
+      }
+      depositContract.minAmount = minAmount;
+
+      if (bridgeType !== BridgeLoop) {
+        depositContract.minBridgeFee = minBridgeFee;
+        depositContract.minExecutorFee = minExecutorFee;
+      }
+
       return coreConfig;
     }
   }

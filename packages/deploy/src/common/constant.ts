@@ -10,3 +10,4 @@ export const MystikoMainnet = 'mainnet';
 export const BridgeLoop = 'loop';
 export const BridgeTBridge = 'tbridge';
 export const BridgeCeler = 'celer';
+export const BridgeLayerZero = 'layerZero';

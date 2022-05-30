@@ -1,6 +1,6 @@
 import { deepCopy } from '@mystikonetwork/utils';
-import { getMystikoNetwork, readJsonFile, writeJsonFile } from './common/utils';
-import { LOGRED, MystikoTestnet, MystikoDevelopment, MystikoMainnet } from './common/constant';
+import { getMystikoNetwork, readJsonFile, writeJsonFile } from '../common/utils';
+import { LOGRED, MystikoTestnet, MystikoDevelopment, MystikoMainnet } from '../common/constant';
 
 const ConfigFilePath = './src/json/rollup/';
 
