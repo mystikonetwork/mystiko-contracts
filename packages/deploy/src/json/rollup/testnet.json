@@ -4,11 +4,8 @@
       "network": "bsctestnet",
       "privateKey": "",
       "providers": [
-        "https://data-seed-prebsc-1-s1.binance.org:8545",
-        "https://data-seed-prebsc-1-s3.binance.org:8545",
-        "https://data-seed-prebsc-2-s3.binance.org:8545",
-        "https://data-seed-prebsc-1-s2.binance.org:8545",
-        "https://data-seed-prebsc-2-s2.binance.org:8545"
+        "https://nd-302-890-317.p2pify.com/430c98aabb1fe49ec6517602e1e40f01",
+        "https://speedy-nodes-nyc.moralis.io/d90e3898aa487ee11a6957b9/bsc/testnet"
       ],
       "gasPriceGweiStatic": "0",
       "maxGasPriceGweiDynamic": "200",
@@ -40,9 +37,9 @@
       "network": "polygontestnet",
       "privateKey": "",
       "providers": [
-        "https://matic.getblock.io/testnet/?api_key=71722c7c-f748-4ea3-bacd-6edc2900c4f0",
-        "https://rpc-mumbai.matic.today",
-        "https://matic-mumbai.chainstacklabs.com"
+        "https://nd-448-055-606.p2pify.com/235d7c0709c9a00b39395cd0bfbf4948",
+        "https://polygon-mumbai.g.alchemy.com/v2/JhuCQTtuNFg365zQ0WLKtrAf9AbfreOS",
+        "https://rpc-mumbai.matic.today"
       ],
       "gasPriceGweiStatic": "0",
       "maxGasPriceGweiDynamic": "200",
@@ -52,6 +49,7 @@
       "network": "avalanchetestnet",
       "privateKey": "",
       "providers": [
+        "https://nd-238-781-681.p2pify.com/796ca43c7ddc3121534c97e104d7a369/ext/bc/C/rpc",
         "https://avax.getblock.io/testnet/ext/bc/C/rpc?api_key=71722c7c-f748-4ea3-bacd-6edc2900c4f0"
       ],
       "gasPriceGweiStatic": "0",
@@ -62,7 +60,6 @@
       "network": "fantomtestnet",
       "privateKey": "",
       "providers": [
-        "https://apis.ankr.com/80d2a69a16ac47d6b6a29e0b1dac8b2d/4489eb2f81889dbdadb35a7136a70f34/fantom/full/test",
         "https://nd-214-128-719.p2pify.com/601ca0e7925b0eabdc7bbd7e220604af",
         "https://rpc.testnet.fantom.network"
       ],
@@ -532,6 +529,222 @@
       "address": "0xe6bbDD85c352aBAb56CFbb54AF796DFe68F34444",
       "isRollupEnable": true,
       "syncStart": 12279093
+    },
+    {
+      "network": "bsctestnet",
+      "assetSymbol": "MTT",
+      "bridgeType": "celer",
+      "address": "0x2364ad88F0ee5A30168d2354fd5CDea1c00Aa9eE",
+      "isRollupEnable": true,
+      "syncStart": 19733219
+    },
+    {
+      "network": "goerli",
+      "assetSymbol": "MTT",
+      "bridgeType": "celer",
+      "address": "0x5Ee8D337e85CFC743B1e9E197e1A9CfF9936f543",
+      "isRollupEnable": true,
+      "syncStart": 6970130
+    },
+    {
+      "network": "bsctestnet",
+      "assetSymbol": "MTT",
+      "bridgeType": "layerZero",
+      "address": "0x5D34132695e3E218ffEF0127f1Be54d57F286243",
+      "isRollupEnable": true,
+      "syncStart": 19617761
+    },
+    {
+      "network": "avalanchetestnet",
+      "assetSymbol": "MTT",
+      "bridgeType": "layerZero",
+      "address": "0x12835920F2AacCA8f76c6f1201aae867d561dce6",
+      "isRollupEnable": true,
+      "syncStart": 10084071
+    },
+    {
+      "network": "goerli",
+      "assetSymbol": "ETH",
+      "bridgeType": "celer",
+      "address": "0x6b9265c7256ebe4e649D93aBA8242122776CBC3f",
+      "isRollupEnable": true,
+      "syncStart": 6956693
+    },
+    {
+      "network": "goerli",
+      "assetSymbol": "mUSD",
+      "bridgeType": "celer",
+      "address": "0xdC1661c76531c1B7df4B69deB4ee7f2afCe2BdC5",
+      "isRollupEnable": true,
+      "syncStart": 6956703
+    },
+    {
+      "network": "goerli",
+      "assetSymbol": "mBNB",
+      "bridgeType": "celer",
+      "address": "0x2D59446950bB64503ec21e89e6CFaC17eAAB4b5c",
+      "isRollupEnable": true,
+      "syncStart": 6956713
+    },
+    {
+      "network": "goerli",
+      "assetSymbol": "MATIC",
+      "bridgeType": "celer",
+      "address": "0xbB4FA0D129682DaAC4F3235A33810be56C4ca45a",
+      "isRollupEnable": true,
+      "syncStart": 6956916
+    },
+    {
+      "network": "bsctestnet",
+      "assetSymbol": "mETH",
+      "bridgeType": "celer",
+      "address": "0x4c67cc65b9011D7355Cae4e68978a613197Ae13c",
+      "isRollupEnable": true,
+      "syncStart": 19667396
+    },
+    {
+      "network": "bsctestnet",
+      "assetSymbol": "mUSD",
+      "bridgeType": "celer",
+      "address": "0xE8f8F5A905aD7D290221bD3da176F5c231585599",
+      "isRollupEnable": true,
+      "syncStart": 19667423
+    },
+    {
+      "network": "bsctestnet",
+      "assetSymbol": "BNB",
+      "bridgeType": "celer",
+      "address": "0x17Bb70F9cf670743Bc5AE91358239Fc0B5d39A3b",
+      "isRollupEnable": true,
+      "syncStart": 19667446
+    },
+    {
+      "network": "polygontestnet",
+      "assetSymbol": "mETH",
+      "bridgeType": "celer",
+      "address": "0x12a7c84890782097E47cbddE2daAB58C11C1d585",
+      "isRollupEnable": true,
+      "syncStart": 26485285
+    },
+    {
+      "network": "polygontestnet",
+      "assetSymbol": "MTT",
+      "bridgeType": "celer",
+      "address": "0xCA5A6BeE4fBC693b11A1Ade12432F9045cE11fe5",
+      "isRollupEnable": true,
+      "syncStart": 26485293
+    },
+    {
+      "network": "polygontestnet",
+      "assetSymbol": "mUSD",
+      "bridgeType": "celer",
+      "address": "0xEf78E6c700e73b5d4d2EBEC517DcfE9327C27efd",
+      "isRollupEnable": true,
+      "syncStart": 26485301
+    },
+    {
+      "network": "polygontestnet",
+      "assetSymbol": "MATIC",
+      "bridgeType": "celer",
+      "address": "0x39dc3F5B7d687Da2C6DfA338E41c59147199A1Dc",
+      "isRollupEnable": true,
+      "syncStart": 26485309
+    },
+    {
+      "network": "avalanchetestnet",
+      "assetSymbol": "mETH",
+      "bridgeType": "celer",
+      "address": "0xec0Aef5aDdBE6f3253e0a2dAd2E45a98F66bB0D5",
+      "isRollupEnable": true,
+      "syncStart": 10140375
+    },
+    {
+      "network": "avalanchetestnet",
+      "assetSymbol": "MTT",
+      "bridgeType": "celer",
+      "address": "0x288c9499e20a1B98e4e5F4c7c287754105596aba",
+      "isRollupEnable": true,
+      "syncStart": 10141347
+    },
+    {
+      "network": "fantomtestnet",
+      "assetSymbol": "mETH",
+      "bridgeType": "celer",
+      "address": "0x998EdfF44c167ee7eeecbcC784667b406C9c8a15",
+      "isRollupEnable": true,
+      "syncStart": 9154131
+    },
+    {
+      "network": "fantomtestnet",
+      "assetSymbol": "MTT",
+      "bridgeType": "celer",
+      "address": "0x2DdAA08DEd2C96A4d51158CBb8Bd518805408153",
+      "isRollupEnable": true,
+      "syncStart": 9154160
+    },
+    {
+      "network": "fantomtestnet",
+      "assetSymbol": "mUSD",
+      "bridgeType": "celer",
+      "address": "0x2C34599c5A34ce38b361a664275cc5f7Ef85512e",
+      "isRollupEnable": true,
+      "syncStart": 9154190
+    },
+    {
+      "network": "goerli",
+      "assetSymbol": "mFTM",
+      "bridgeType": "celer",
+      "address": "0xbD208957D341845a20409ca226021687C670FcaA",
+      "isRollupEnable": true,
+      "syncStart": 6968020
+    },
+    {
+      "network": "fantomtestnet",
+      "assetSymbol": "FTM",
+      "bridgeType": "celer",
+      "address": "0x29FCAd27F74C5C380A011Aff468d3Bf3259f76cE",
+      "isRollupEnable": true,
+      "syncStart": 9154219
+    },
+    {
+      "network": "avalanchetestnet",
+      "assetSymbol": "mUSD",
+      "bridgeType": "celer",
+      "address": "0x9656a32daFFc6A2b0Da3edC533523B221A704050",
+      "isRollupEnable": true,
+      "syncStart": 10141923
+    },
+    {
+      "network": "avalanchetestnet",
+      "assetSymbol": "AVAX",
+      "bridgeType": "celer",
+      "address": "0xD708f39419C9B13b9e465C9556ffA5d10558b723",
+      "isRollupEnable": true,
+      "syncStart": 10141802
+    },
+    {
+      "network": "goerli",
+      "assetSymbol": "mAVAX",
+      "bridgeType": "celer",
+      "address": "0x497045dA17fdDB7c132193353b8c1d42BB93c8B5",
+      "isRollupEnable": true,
+      "syncStart": 6968008
+    },
+    {
+      "network": "bsctestnet",
+      "assetSymbol": "mUSD",
+      "bridgeType": "layerZero",
+      "address": "0xed482dD478066d3f10ED1FF20A0C17C4598EEb24",
+      "isRollupEnable": true,
+      "syncStart": 19731154
+    },
+    {
+      "network": "avalanchetestnet",
+      "assetSymbol": "mUSD",
+      "bridgeType": "layerZero",
+      "address": "0x1f4B1E892e8f4d5B072AA4394849678128599421",
+      "isRollupEnable": true,
+      "syncStart": 10193291
     }
   ],
   "monitor": {

@@ -4,11 +4,8 @@
       "network": "bsctestnet",
       "privateKey": "",
       "providers": [
-        "https://data-seed-prebsc-1-s1.binance.org:8545",
-        "https://data-seed-prebsc-1-s3.binance.org:8545",
-        "https://data-seed-prebsc-2-s3.binance.org:8545",
-        "https://data-seed-prebsc-1-s2.binance.org:8545",
-        "https://data-seed-prebsc-2-s2.binance.org:8545"
+        "https://nd-302-890-317.p2pify.com/430c98aabb1fe49ec6517602e1e40f01",
+        "https://speedy-nodes-nyc.moralis.io/d90e3898aa487ee11a6957b9/bsc/testnet"
       ],
       "gasPriceGweiStatic": "0",
       "maxGasPriceGweiDynamic": "200",
@@ -40,9 +37,9 @@
       "network": "polygontestnet",
       "privateKey": "",
       "providers": [
-        "https://matic.getblock.io/testnet/?api_key=71722c7c-f748-4ea3-bacd-6edc2900c4f0",
-        "https://rpc-mumbai.matic.today",
-        "https://matic-mumbai.chainstacklabs.com"
+        "https://nd-448-055-606.p2pify.com/235d7c0709c9a00b39395cd0bfbf4948",
+        "https://polygon-mumbai.g.alchemy.com/v2/JhuCQTtuNFg365zQ0WLKtrAf9AbfreOS",
+        "https://rpc-mumbai.matic.today"
       ],
       "gasPriceGweiStatic": "0",
       "maxGasPriceGweiDynamic": "200",
@@ -52,7 +49,7 @@
       "network": "avalanchetestnet",
       "privateKey": "",
       "providers": [
-        "https://api.avax-test.network/ext/bc/C/rpc",
+        "https://nd-238-781-681.p2pify.com/796ca43c7ddc3121534c97e104d7a369/ext/bc/C/rpc",
         "https://avax.getblock.io/testnet/ext/bc/C/rpc?api_key=71722c7c-f748-4ea3-bacd-6edc2900c4f0"
       ],
       "gasPriceGweiStatic": "0",
