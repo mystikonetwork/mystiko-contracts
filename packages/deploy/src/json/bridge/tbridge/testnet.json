@@ -60,7 +60,6 @@
       "network": "fantomtestnet",
       "privateKey": "",
       "providers": [
-        "https://apis.ankr.com/80d2a69a16ac47d6b6a29e0b1dac8b2d/4489eb2f81889dbdadb35a7136a70f34/fantom/full/test",
         "https://nd-214-128-719.p2pify.com/601ca0e7925b0eabdc7bbd7e220604af",
         "https://rpc.testnet.fantom.network"
       ],

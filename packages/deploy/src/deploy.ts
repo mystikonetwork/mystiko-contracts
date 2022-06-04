@@ -1,4 +1,5 @@
 import {
+  BridgeAxelar,
   BridgeCeler,
   BridgeLayerZero,
   BridgeLoop,
@@ -139,10 +140,15 @@ async function deployStep3(taskArgs: any) {
   }
 
   if (c.bridgeCfg.name !== BridgeLoop) {
-    const proxy = c.bridgeCfg.getBridgeProxyConfig(c.dstChainCfg.network, '');
-    if (proxy === undefined) {
-      console.error(LOGRED, 'proxy or proxy map chain id not configure');
-      process.exit(-1);
+    let mapChainName = '';
+    if (c.bridgeCfg.name === BridgeAxelar) {
+      const proxy = c.bridgeCfg.getBridgeProxyConfig(c.dstChainCfg.network, '');
+      if (proxy === undefined) {
+        console.error(LOGRED, 'proxy not configure');
+        process.exit(-1);
+      }
+
+      mapChainName = proxy.mapChainName ? proxy.mapChainName : '';
     }
 
     await setPeerContract(
@@ -151,7 +157,7 @@ async function deployStep3(taskArgs: any) {
       c.srcTokenCfg.erc20,
       c.pairSrcDepositCfg,
       c.dstChainCfg.chainId,
-      proxy.mapChainName ? proxy.mapChainName : '',
+      mapChainName,
       c.pairDstDepositCfg.address,
     );
   }
