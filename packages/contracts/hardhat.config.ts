@@ -28,9 +28,9 @@ const config: HardhatUserConfig = {
         enabled: true,
         runs: 800,
         details: {
-          yul: true
-        }
-      }
+          yul: true,
+        },
+      },
     },
   },
   contractSizer: {
@@ -40,8 +40,8 @@ const config: HardhatUserConfig = {
   },
   gasReporter: {
     enabled: process.env.REPORT_GAS === 'true' ? true : false,
-    gasPrice:1,
-    showTimeSpent:true,
+    gasPrice: 1,
+    showTimeSpent: true,
     noColors: true,
     outputFile: 'reports/gas/summary.txt',
   },
