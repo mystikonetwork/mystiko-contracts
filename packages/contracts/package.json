@@ -1,6 +1,6 @@
 {
   "name": "@mystikonetwork/contracts",
-  "version": "0.1.2",
+  "version": "0.1.3--no-push",
   "description": "Core smart contracts of Mystiko.Network",
   "main": "index.js",
   "repository": {
@@ -38,7 +38,7 @@
     "@ethersproject/units": "^5.5.3",
     "@ethersproject/wallet": "^5.5.3",
     "@mystikonetwork/config": "^0.1.8",
-    "@mystikonetwork/contracts-abi": "^0.1.2",
+    "@mystikonetwork/contracts-abi": "^0.1.3--no-push",
     "@mystikonetwork/merkle": "^0.1.3",
     "@mystikonetwork/protocol": "^0.1.3",
     "@mystikonetwork/utils": "^0.1.1",
