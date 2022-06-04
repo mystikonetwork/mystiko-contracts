@@ -315,6 +315,19 @@
           "minAmount": "100000",
           "minBridgeFee": "1000",
           "minExecutorFee": "5000"
+        },
+        {
+          "version": 2,
+          "name": "MystikoV2AxelarERC20",
+          "address": "0x8BFd92DDb7F312A051b93e1bB0515D846F20B219",
+          "startBlock": 12328290,
+          "bridgeType": "axelar",
+          "poolAddress": "0xdC956C899A8448002618750248B6367dBfbeD442",
+          "peerChainId": 4002,
+          "peerContractAddress": "0x92091130D7fd37AECeF544025cBEA0fc6A694538",
+          "minAmount": "100000000000000000",
+          "minBridgeFee": "20000000000000000",
+          "minExecutorFee": "0"
         }
       ],
       "poolContracts": [
@@ -402,6 +415,14 @@
           "address": "0xe6bbDD85c352aBAb56CFbb54AF796DFe68F34444",
           "startBlock": 12279093,
           "assetAddress": "0xDC9fcE0f9BDaAC56ec6ebAf3466f6794620F4E6b",
+          "minRollupFee": "10000000000000000"
+        },
+        {
+          "version": 2,
+          "name": "CommitmentPool",
+          "address": "0xdC956C899A8448002618750248B6367dBfbeD442",
+          "startBlock": 12328288,
+          "assetAddress": "0x39e68dd41AF6Fd870f27a6B77cBcfFA64626b0f3",
           "minRollupFee": "10000000000000000"
         }
       ],
@@ -557,7 +578,7 @@
           "peerChainId": 97,
           "peerContractAddress": "0x6AE6F7376D7F48db5aA9718B476C940884c2BCc3",
           "minAmount": "100000000000000000",
-          "minBridgeFee": "1000",
+          "minBridgeFee": "2000000000000000",
           "minExecutorFee": "5000000000000000"
         },
         {
@@ -570,7 +591,7 @@
           "peerChainId": 97,
           "peerContractAddress": "0x6061e955f1C5a5F2D28d55a18BE976C75716E41B",
           "minAmount": "100000000000000000",
-          "minBridgeFee": "1000",
+          "minBridgeFee": "2000000000000000",
           "minExecutorFee": "5000000000000000"
         },
         {
@@ -583,7 +604,7 @@
           "peerChainId": 97,
           "peerContractAddress": "0xb44C05A1a4C27a468a5270373d6C722e159D3d60",
           "minAmount": "100000",
-          "minBridgeFee": "1000",
+          "minBridgeFee": "2000000000000000",
           "minExecutorFee": "5000"
         },
         {
@@ -596,7 +617,7 @@
           "peerChainId": 97,
           "peerContractAddress": "0x47401e26c09f1e694c430eaE9e4416db26Fe0928",
           "minAmount": "100000000000000000",
-          "minBridgeFee": "1000",
+          "minBridgeFee": "2000000000000000",
           "minExecutorFee": "5000000000000000"
         },
         {
@@ -609,7 +630,7 @@
           "peerChainId": 80001,
           "peerContractAddress": "0xB4eFd2B8259E83ebDc83B74b5980b1348f7AbC84",
           "minAmount": "100000000000000000",
-          "minBridgeFee": "1000",
+          "minBridgeFee": "2000000000000000",
           "minExecutorFee": "5000000000000000"
         },
         {
@@ -622,7 +643,7 @@
           "peerChainId": 80001,
           "peerContractAddress": "0x1c87B2b3398eaC6FCdF2C3bFC1BEd7Ab774477BC",
           "minAmount": "100000000000000000",
-          "minBridgeFee": "1000",
+          "minBridgeFee": "2000000000000000",
           "minExecutorFee": "5000000000000000"
         },
         {
@@ -635,7 +656,7 @@
           "peerChainId": 80001,
           "peerContractAddress": "0xA8c5c20Da4fB1B9227842A77a725D181fA68DB5f",
           "minAmount": "100000",
-          "minBridgeFee": "1000",
+          "minBridgeFee": "2000000000000000",
           "minExecutorFee": "5000"
         },
         {
@@ -648,7 +669,7 @@
           "peerChainId": 80001,
           "peerContractAddress": "0xC2DFb7b74c9333Df0513E1D5ab987132A1f787F6",
           "minAmount": "100000000000000000",
-          "minBridgeFee": "1000",
+          "minBridgeFee": "2000000000000000",
           "minExecutorFee": "5000000000000000"
         },
         {
@@ -661,7 +682,7 @@
           "peerChainId": 43113,
           "peerContractAddress": "0xFB09ef54E45eB1fffdcbfd1E219C469b8bD10A69",
           "minAmount": "100000000000000000",
-          "minBridgeFee": "1000",
+          "minBridgeFee": "2000000000000000",
           "minExecutorFee": "5000000000000000"
         },
         {
@@ -674,7 +695,7 @@
           "peerChainId": 43113,
           "peerContractAddress": "0x3A6785812d0ed4848B732B7fc2EF9915c567e236",
           "minAmount": "100000000000000000",
-          "minBridgeFee": "1000",
+          "minBridgeFee": "2000000000000000",
           "minExecutorFee": "5000000000000000"
         },
         {
@@ -687,7 +708,7 @@
           "peerChainId": 43113,
           "peerContractAddress": "0xe0F6a1E65355683F844a762441D09C61B72a43bc",
           "minAmount": "100000",
-          "minBridgeFee": "1000",
+          "minBridgeFee": "2000000000000000",
           "minExecutorFee": "5000"
         },
         {
@@ -700,7 +721,7 @@
           "peerChainId": 43113,
           "peerContractAddress": "0xDAaAd42C95EED8d84a8496C0Fed93dEa0CDB7cF7",
           "minAmount": "100000000000000000",
-          "minBridgeFee": "1000",
+          "minBridgeFee": "2000000000000000",
           "minExecutorFee": "5000000000000000"
         },
         {
@@ -713,7 +734,7 @@
           "peerChainId": 4002,
           "peerContractAddress": "0xBb4EE88D77a0AaD4f3226491F6119228910b5DB2",
           "minAmount": "100000000000000000",
-          "minBridgeFee": "1000",
+          "minBridgeFee": "2000000000000000",
           "minExecutorFee": "5000000000000000"
         },
         {
@@ -726,7 +747,7 @@
           "peerChainId": 4002,
           "peerContractAddress": "0x333c3919C48123415154eDc74058E6Ce89cE822f",
           "minAmount": "100000000000000000",
-          "minBridgeFee": "1000",
+          "minBridgeFee": "2000000000000000",
           "minExecutorFee": "5000000000000000"
         },
         {
@@ -739,7 +760,7 @@
           "peerChainId": 4002,
           "peerContractAddress": "0x74fab3Ac9DfB07b96115726B20e69B8b1D3a0aC9",
           "minAmount": "100000",
-          "minBridgeFee": "1000",
+          "minBridgeFee": "2000000000000000",
           "minExecutorFee": "5000"
         },
         {
@@ -752,7 +773,7 @@
           "peerChainId": 4002,
           "peerContractAddress": "0xD2b0ae864f65912DD96ffAa0114aad2dD3fF5007",
           "minAmount": "100000000000000000",
-          "minBridgeFee": "1000",
+          "minBridgeFee": "2000000000000000",
           "minExecutorFee": "5000000000000000"
         }
       ],
@@ -1029,7 +1050,7 @@
           "peerChainId": 5,
           "peerContractAddress": "0xCD69f6a0762ab916434b9493e4893D05349f15A6",
           "minAmount": "100000000000000000",
-          "minBridgeFee": "1000",
+          "minBridgeFee": "2000000000000000",
           "minExecutorFee": "5000000000000000"
         },
         {
@@ -1042,7 +1063,7 @@
           "peerChainId": 5,
           "peerContractAddress": "0x9656a32daFFc6A2b0Da3edC533523B221A704050",
           "minAmount": "100000000000000000",
-          "minBridgeFee": "1000",
+          "minBridgeFee": "2000000000000000",
           "minExecutorFee": "5000000000000000"
         },
         {
@@ -1055,7 +1076,7 @@
           "peerChainId": 5,
           "peerContractAddress": "0xa44eee524532DB48fAdC3247D73a69d89A0D8E70",
           "minAmount": "100000",
-          "minBridgeFee": "1000",
+          "minBridgeFee": "2000000000000000",
           "minExecutorFee": "5000"
         },
         {
@@ -1068,34 +1089,34 @@
           "peerChainId": 5,
           "peerContractAddress": "0xCc8C0870a9AfA9D64Fe73a4158e205e6Bf9BEcfc",
           "minAmount": "100000000000000000",
-          "minBridgeFee": "1000",
+          "minBridgeFee": "2000000000000000",
           "minExecutorFee": "5000000000000000"
         },
         {
           "version": 2,
           "name": "MystikoV2LayerZeroERC20",
-          "address": "0xB907689C4984e37D37FA32213200Eafb97afC788",
-          "startBlock": 19617774,
+          "address": "0xE7aaa17BE61C69D7c706B60E05CA8FefaC3Ca2c8",
+          "startBlock": 19833428,
           "bridgeType": "layerZero",
-          "poolAddress": "0x5D34132695e3E218ffEF0127f1Be54d57F286243",
+          "poolAddress": "0x4aca973937D7a465e3E8F0870e59c9Cbb440899E",
           "peerChainId": 43113,
-          "peerContractAddress": "0x272f08e00BC0ef6Da5598c0Fb17Fc62Ad291b723",
+          "peerContractAddress": "0x4726B9A8156f56CF6204aFb3338D58Bbd608ab1C",
           "minAmount": "100000000000000000",
           "minBridgeFee": "20000000000000000",
-          "minExecutorFee": "5000000000000000"
+          "minExecutorFee": "0"
         },
         {
           "version": 2,
           "name": "MystikoV2LayerZeroERC20",
-          "address": "0xb760336e7606348E8aeaa7aC9e3b57Bf4eeC86a3",
-          "startBlock": 19731165,
+          "address": "0x7712267315fbF1841Dfc4B526D2dB156920F7Cd2",
+          "startBlock": 19833453,
           "bridgeType": "layerZero",
-          "poolAddress": "0xed482dD478066d3f10ED1FF20A0C17C4598EEb24",
+          "poolAddress": "0x06006b4a7f1994C9956A9748196467f8DbBbf504",
           "peerChainId": 43113,
-          "peerContractAddress": "0x207216aEfd5f4c85fAdd0aa8c4311C7993DfA85b",
+          "peerContractAddress": "0xdF2476CE3be4C1Ca1d75CF6edE678EB033A02b0E",
           "minAmount": "100000",
           "minBridgeFee": "20000000000000000",
-          "minExecutorFee": "5000"
+          "minExecutorFee": "0"
         }
       ],
       "poolContracts": [
@@ -1187,16 +1208,16 @@
         {
           "version": 2,
           "name": "CommitmentPool",
-          "address": "0x5D34132695e3E218ffEF0127f1Be54d57F286243",
-          "startBlock": 19617761,
+          "address": "0x4aca973937D7a465e3E8F0870e59c9Cbb440899E",
+          "startBlock": 19833418,
           "assetAddress": "0x05d3586c0764353A6f1cb91Da0ab6C1311daa8E0",
           "minRollupFee": "10000000000000000"
         },
         {
           "version": 2,
           "name": "CommitmentPool",
-          "address": "0xed482dD478066d3f10ED1FF20A0C17C4598EEb24",
-          "startBlock": 19731154,
+          "address": "0x06006b4a7f1994C9956A9748196467f8DbBbf504",
+          "startBlock": 19833443,
           "assetAddress": "0x6BCdf8B9aD00F2f6a1EA1F537d27DdF92eF99f88",
           "minRollupFee": "10000"
         }
@@ -1357,7 +1378,7 @@
           "peerChainId": 5,
           "peerContractAddress": "0xC6F35224C835997286945fc4649E8684465FEa12",
           "minAmount": "100000000000000000",
-          "minBridgeFee": "1000",
+          "minBridgeFee": "2000000000000000",
           "minExecutorFee": "5000000000000000"
         },
         {
@@ -1370,7 +1391,7 @@
           "peerChainId": 5,
           "peerContractAddress": "0x1740aD3dB80c0dcE6D064d8C39c080B351409113",
           "minAmount": "100000000000000000",
-          "minBridgeFee": "1000",
+          "minBridgeFee": "2000000000000000",
           "minExecutorFee": "5000000000000000"
         },
         {
@@ -1383,7 +1404,7 @@
           "peerChainId": 5,
           "peerContractAddress": "0x3d34b19e54aE7569Af816157e07FcB5D95545673",
           "minAmount": "100000",
-          "minBridgeFee": "1000",
+          "minBridgeFee": "2000000000000000",
           "minExecutorFee": "5000"
         },
         {
@@ -1396,8 +1417,21 @@
           "peerChainId": 5,
           "peerContractAddress": "0x20c4858832661EA100F1cf4A9DEc1ccbCEF5b5d5",
           "minAmount": "100000000000000000",
-          "minBridgeFee": "1000",
+          "minBridgeFee": "2000000000000000",
           "minExecutorFee": "5000000000000000"
+        },
+        {
+          "version": 2,
+          "name": "MystikoV2AxelarERC20",
+          "address": "0x648084f11D68F85eF18064EE7ef36D5945b8553a",
+          "startBlock": 26590770,
+          "bridgeType": "axelar",
+          "poolAddress": "0xD89C76BD7E262f268488e4e4792e9bCA58332047",
+          "peerChainId": 43113,
+          "peerContractAddress": "0x8a61aAb3832F3840200b19c2c0F0B5fEC6B3c32e",
+          "minAmount": "100000000000000000",
+          "minBridgeFee": "20000000000000000",
+          "minExecutorFee": "0"
         }
       ],
       "poolContracts": [
@@ -1484,6 +1518,14 @@
           "name": "CommitmentPool",
           "address": "0x39dc3F5B7d687Da2C6DfA338E41c59147199A1Dc",
           "startBlock": 26485309,
+          "minRollupFee": "10000000000000000"
+        },
+        {
+          "version": 2,
+          "name": "CommitmentPool",
+          "address": "0xD89C76BD7E262f268488e4e4792e9bCA58332047",
+          "startBlock": 26590762,
+          "assetAddress": "0xc905017B7218Cab43B60f4aBA2F3189f7F00E5CB",
           "minRollupFee": "10000000000000000"
         }
       ],
@@ -1643,7 +1685,7 @@
           "peerChainId": 5,
           "peerContractAddress": "0xB1F9C0c751f2C980b87766ECC6e09E6Cb699F779",
           "minAmount": "100000000000000000",
-          "minBridgeFee": "1000",
+          "minBridgeFee": "2000000000000000",
           "minExecutorFee": "5000000000000000"
         },
         {
@@ -1656,7 +1698,7 @@
           "peerChainId": 5,
           "peerContractAddress": "0xa92184D41E71287eC45DEE0BF243Cd4ab0f2d316",
           "minAmount": "100000000000000000",
-          "minBridgeFee": "1000",
+          "minBridgeFee": "2000000000000000",
           "minExecutorFee": "5000000000000000"
         },
         {
@@ -1669,7 +1711,7 @@
           "peerChainId": 5,
           "peerContractAddress": "0xd24De5d3E864677c4508Cb29F83E04c4C3427EA1",
           "minAmount": "100000",
-          "minBridgeFee": "1000",
+          "minBridgeFee": "2000000000000000",
           "minExecutorFee": "5000"
         },
         {
@@ -1682,34 +1724,60 @@
           "peerChainId": 5,
           "peerContractAddress": "0xAA54DF17b7e20b64D8c12853a26E38f5a55A35D8",
           "minAmount": "100000000000000000",
-          "minBridgeFee": "1000",
+          "minBridgeFee": "2000000000000000",
           "minExecutorFee": "5000000000000000"
         },
         {
           "version": 2,
           "name": "MystikoV2LayerZeroERC20",
-          "address": "0x272f08e00BC0ef6Da5598c0Fb17Fc62Ad291b723",
-          "startBlock": 10084201,
+          "address": "0xdF2476CE3be4C1Ca1d75CF6edE678EB033A02b0E",
+          "startBlock": 10304722,
           "bridgeType": "layerZero",
-          "poolAddress": "0x12835920F2AacCA8f76c6f1201aae867d561dce6",
+          "poolAddress": "0xCb77aCfDE75feA2177DbE0BcA5FA7237B1C06926",
           "peerChainId": 97,
-          "peerContractAddress": "0xB907689C4984e37D37FA32213200Eafb97afC788",
-          "minAmount": "100000000000000000",
-          "minBridgeFee": "300000000000000000",
-          "minExecutorFee": "5000000000000000"
-        },
-        {
-          "version": 2,
-          "name": "MystikoV2LayerZeroERC20",
-          "address": "0x207216aEfd5f4c85fAdd0aa8c4311C7993DfA85b",
-          "startBlock": 10193326,
-          "bridgeType": "layerZero",
-          "poolAddress": "0x1f4B1E892e8f4d5B072AA4394849678128599421",
-          "peerChainId": 97,
-          "peerContractAddress": "0xb760336e7606348E8aeaa7aC9e3b57Bf4eeC86a3",
+          "peerContractAddress": "0x7712267315fbF1841Dfc4B526D2dB156920F7Cd2",
           "minAmount": "100000",
           "minBridgeFee": "300000000000000000",
-          "minExecutorFee": "5000"
+          "minExecutorFee": "0"
+        },
+        {
+          "version": 2,
+          "name": "MystikoV2LayerZeroERC20",
+          "address": "0x4726B9A8156f56CF6204aFb3338D58Bbd608ab1C",
+          "startBlock": 10304645,
+          "bridgeType": "layerZero",
+          "poolAddress": "0x91e926284aA833550Bf65C61A30D5cf3E89Deb3f",
+          "peerChainId": 97,
+          "peerContractAddress": "0xE7aaa17BE61C69D7c706B60E05CA8FefaC3Ca2c8",
+          "minAmount": "100000000000000000",
+          "minBridgeFee": "300000000000000000",
+          "minExecutorFee": "0"
+        },
+        {
+          "version": 2,
+          "name": "MystikoV2AxelarERC20",
+          "address": "0x059BC35cB89421f53bB8163d151E8879075edc05",
+          "startBlock": 10370798,
+          "bridgeType": "axelar",
+          "poolAddress": "0xD78Aa9202B2746B8f0211fD89eD101210a114025",
+          "peerChainId": 4002,
+          "peerContractAddress": "0xB1F9C0c751f2C980b87766ECC6e09E6Cb699F779",
+          "minAmount": "100000000000000000",
+          "minBridgeFee": "20000000000000000",
+          "minExecutorFee": "0"
+        },
+        {
+          "version": 2,
+          "name": "MystikoV2AxelarERC20",
+          "address": "0x8a61aAb3832F3840200b19c2c0F0B5fEC6B3c32e",
+          "startBlock": 10370940,
+          "bridgeType": "axelar",
+          "poolAddress": "0xD78Aa9202B2746B8f0211fD89eD101210a114025",
+          "peerChainId": 80001,
+          "peerContractAddress": "0x648084f11D68F85eF18064EE7ef36D5945b8553a",
+          "minAmount": "100000000000000000",
+          "minBridgeFee": "20000000000000000",
+          "minExecutorFee": "0"
         }
       ],
       "poolContracts": [
@@ -1801,18 +1869,26 @@
         {
           "version": 2,
           "name": "CommitmentPool",
-          "address": "0x12835920F2AacCA8f76c6f1201aae867d561dce6",
-          "startBlock": 10084071,
+          "address": "0xCb77aCfDE75feA2177DbE0BcA5FA7237B1C06926",
+          "startBlock": 10304688,
+          "assetAddress": "0xD386e6bE9C093ebA4cB064C79eFf44A7AbBAd149",
+          "minRollupFee": "10000"
+        },
+        {
+          "version": 2,
+          "name": "CommitmentPool",
+          "address": "0x91e926284aA833550Bf65C61A30D5cf3E89Deb3f",
+          "startBlock": 10304611,
           "assetAddress": "0xc905017B7218Cab43B60f4aBA2F3189f7F00E5CB",
           "minRollupFee": "10000000000000000"
         },
         {
           "version": 2,
           "name": "CommitmentPool",
-          "address": "0x1f4B1E892e8f4d5B072AA4394849678128599421",
-          "startBlock": 10193291,
-          "assetAddress": "0xD386e6bE9C093ebA4cB064C79eFf44A7AbBAd149",
-          "minRollupFee": "10000"
+          "address": "0xD78Aa9202B2746B8f0211fD89eD101210a114025",
+          "startBlock": 10370748,
+          "assetAddress": "0xc905017B7218Cab43B60f4aBA2F3189f7F00E5CB",
+          "minRollupFee": "10000000000000000"
         }
       ],
       "assets": [
@@ -1968,7 +2044,7 @@
           "peerChainId": 5,
           "peerContractAddress": "0x648084f11D68F85eF18064EE7ef36D5945b8553a",
           "minAmount": "100000000000000000",
-          "minBridgeFee": "1000",
+          "minBridgeFee": "2000000000000000",
           "minExecutorFee": "5000000000000000"
         },
         {
@@ -1981,7 +2057,7 @@
           "peerChainId": 5,
           "peerContractAddress": "0xcF2791383f56800bFca739C6D1f55adCE950C12A",
           "minAmount": "100000000000000000",
-          "minBridgeFee": "1000",
+          "minBridgeFee": "2000000000000000",
           "minExecutorFee": "5000000000000000"
         },
         {
@@ -1994,7 +2070,7 @@
           "peerChainId": 5,
           "peerContractAddress": "0xA1bd1d58694280c094718b109e174f4cc306f27F",
           "minAmount": "100000",
-          "minBridgeFee": "1000",
+          "minBridgeFee": "2000000000000000",
           "minExecutorFee": "5000"
         },
         {
@@ -2007,8 +2083,34 @@
           "peerChainId": 5,
           "peerContractAddress": "0x0900529b17F5233aB28900333E6e0E0cA7535120",
           "minAmount": "100000000000000000",
-          "minBridgeFee": "1000",
+          "minBridgeFee": "2000000000000000",
           "minExecutorFee": "5000000000000000"
+        },
+        {
+          "version": 2,
+          "name": "MystikoV2AxelarERC20",
+          "address": "0xB1F9C0c751f2C980b87766ECC6e09E6Cb699F779",
+          "startBlock": 9210182,
+          "bridgeType": "axelar",
+          "poolAddress": "0x695cc1cCcB01289C99239d030f84399Af06a21D9",
+          "peerChainId": 43113,
+          "peerContractAddress": "0x059BC35cB89421f53bB8163d151E8879075edc05",
+          "minAmount": "100000000000000000",
+          "minBridgeFee": "20000000000000000",
+          "minExecutorFee": "0"
+        },
+        {
+          "version": 2,
+          "name": "MystikoV2AxelarERC20",
+          "address": "0x92091130D7fd37AECeF544025cBEA0fc6A694538",
+          "startBlock": 9210193,
+          "bridgeType": "axelar",
+          "poolAddress": "0x695cc1cCcB01289C99239d030f84399Af06a21D9",
+          "peerChainId": 3,
+          "peerContractAddress": "0x8BFd92DDb7F312A051b93e1bB0515D846F20B219",
+          "minAmount": "100000000000000000",
+          "minBridgeFee": "20000000000000000",
+          "minExecutorFee": "0"
         }
       ],
       "poolContracts": [
@@ -2095,6 +2197,14 @@
           "name": "CommitmentPool",
           "address": "0x29FCAd27F74C5C380A011Aff468d3Bf3259f76cE",
           "startBlock": 9154219,
+          "minRollupFee": "10000000000000000"
+        },
+        {
+          "version": 2,
+          "name": "CommitmentPool",
+          "address": "0x695cc1cCcB01289C99239d030f84399Af06a21D9",
+          "startBlock": 9210169,
+          "assetAddress": "0x80B46C896E26C1cB7DCdD23019d9e7cca6854864",
           "minRollupFee": "10000000000000000"
         }
       ],
@@ -2362,6 +2472,10 @@
     {
       "name": "Layer Zero",
       "type": "layerZero"
+    },
+    {
+      "name": "Axelar Network",
+      "type": "axelar"
     }
   ],
   "circuits": [

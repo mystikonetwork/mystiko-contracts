@@ -231,6 +231,19 @@ const _abi = [
     type: 'function',
   },
   {
+    inputs: [],
+    name: 'getAssociatedCommitmentPool',
+    outputs: [
+      {
+        internalType: 'address',
+        name: '',
+        type: 'address',
+      },
+    ],
+    stateMutability: 'view',
+    type: 'function',
+  },
+  {
     inputs: [
       {
         internalType: 'uint16',
@@ -652,6 +665,11 @@ const _abi = [
         internalType: 'uint64',
         name: '_peerChainId',
         type: 'uint64',
+      },
+      {
+        internalType: 'string',
+        name: '_peerChainName',
+        type: 'string',
       },
       {
         internalType: 'address',

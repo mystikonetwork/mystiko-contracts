@@ -133,7 +133,7 @@ describe('Test Mystiko layer zero', () => {
     // layer zero test with same chain id
     await localMain.setTrustedRemote(LzChainID, remoteMain.address);
     await remoteMain.setTrustedRemote(LzChainID, localMain.address);
-    await localMain.setPeerContract(SourceChainID, remoteMain.address);
+    await localMain.setPeerContract(SourceChainID, '', remoteMain.address);
     await dummyLZEndpoint.setDestLzEndpoint(localMain.address, dummyLZEndpoint.address);
     await dummyLZEndpoint.setDestLzEndpoint(remoteMain.address, dummyLZEndpoint.address);
 

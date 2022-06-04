@@ -27,7 +27,10 @@ const config: HardhatUserConfig = {
       optimizer: {
         enabled: true,
         runs: 800,
-      },
+        details: {
+          yul: true
+        }
+      }
     },
   },
   contractSizer: {
@@ -36,9 +39,11 @@ const config: HardhatUserConfig = {
     disambiguatePaths: false,
   },
   gasReporter: {
-    enabled: process.env.REPORT_GAS === 'true',
+    enabled: process.env.REPORT_GAS === 'true' ? true : false,
+    gasPrice:1,
+    showTimeSpent:true,
     noColors: true,
-    outputFile: 'reports/gas_usage/summary.txt',
+    outputFile: 'reports/gas/summary.txt',
   },
   mocha: {
     timeout: 600000,

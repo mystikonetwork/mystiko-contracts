@@ -4,8 +4,10 @@ import { BaseConfig } from './base';
 export interface RawBridgeProxyConfig {
   network: string;
   mapChainId?: number;
+  mapChainName?: string;
   remoteNetwork: string;
   address: string;
+  gasReceiver?: string;
   executorWhitelist?: string[];
   registerWhitelist?: string[];
 }
@@ -19,8 +21,10 @@ export class BridgeProxyConfig extends BaseConfig {
     super(rawConfig);
     BaseConfig.checkString(this.config, 'network');
     BaseConfig.checkNumber(this.config, 'mapChainId', false);
+    BaseConfig.checkString(this.config, 'mapChainName', false);
     BaseConfig.checkString(this.config, 'remoteNetwork', false);
     BaseConfig.checkEthAddress(this.config, 'address', false);
+    BaseConfig.checkEthAddress(this.config, 'gasReceiver', false);
 
     this.executorWhitelistByAddress = {};
     this.asRawBridgeProxyConfig().executorWhitelist?.forEach((executor) => {
@@ -47,12 +51,20 @@ export class BridgeProxyConfig extends BaseConfig {
     return this.asRawBridgeProxyConfig().mapChainId;
   }
 
+  public get mapChainName(): string | undefined {
+    return this.asRawBridgeProxyConfig().mapChainName;
+  }
+
   public get address(): string {
     return this.asRawBridgeProxyConfig().address;
   }
 
   public set address(addr: string) {
     this.asRawBridgeProxyConfig().address = addr;
+  }
+
+  public get gasReceiver(): string | undefined {
+    return this.asRawBridgeProxyConfig().gasReceiver;
   }
 
   public isInExecutorWhitelist(address: string): boolean {

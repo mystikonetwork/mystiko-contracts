@@ -7,11 +7,14 @@ import {
   MystikoV2TBridgeMain__factory,
   MystikoV2LayerZeroERC20__factory,
   MystikoV2LayerZeroMain__factory,
+  MystikoV2AxelarERC20__factory,
+  MystikoV2AxelarMain__factory,
 } from '@mystikonetwork/contracts-abi';
 import { BridgeConfig } from '../config/bridge';
 import { ChainConfig } from '../config/chain';
 import { ChainTokenConfig } from '../config/chainToken';
 import {
+  BridgeAxelar,
   BridgeCeler,
   BridgeLayerZero,
   BridgeLoop,
@@ -31,6 +34,8 @@ let MystikoV2CelerERC20: MystikoV2CelerERC20__factory;
 let MystikoV2CelerMain: MystikoV2CelerMain__factory;
 let MystikoV2LayerZeroERC20: MystikoV2LayerZeroERC20__factory;
 let MystikoV2LayerZeroMain: MystikoV2LayerZeroMain__factory;
+let MystikoV2AxelarERC20: MystikoV2AxelarERC20__factory;
+let MystikoV2AxelarMain: MystikoV2AxelarMain__factory;
 
 let ethers: any;
 
@@ -45,6 +50,8 @@ export async function initDepositContractFactory(eth: any) {
   MystikoV2CelerMain = await ethers.getContractFactory('MystikoV2CelerMain');
   MystikoV2LayerZeroERC20 = await ethers.getContractFactory('MystikoV2LayerZeroERC20');
   MystikoV2LayerZeroMain = await ethers.getContractFactory('MystikoV2LayerZeroMain');
+  MystikoV2AxelarERC20 = await ethers.getContractFactory('MystikoV2AxelarERC20');
+  MystikoV2AxelarMain = await ethers.getContractFactory('MystikoV2AxelarMain');
 }
 
 export function getMystikoDeployContract(bridge: string, bErc20: boolean) {
@@ -72,6 +79,12 @@ export function getMystikoDeployContract(bridge: string, bErc20: boolean) {
       coreContract = MystikoV2LayerZeroERC20;
     } else {
       coreContract = MystikoV2LayerZeroMain;
+    }
+  } else if (bridge === BridgeAxelar) {
+    if (bErc20) {
+      coreContract = MystikoV2AxelarERC20;
+    } else {
+      coreContract = MystikoV2AxelarMain;
     }
   } else {
     console.error(LOGRED, 'bridge not support');
@@ -130,10 +143,10 @@ export async function deployDepositContract(
 
   const DepositContractFactory = getMystikoDeployContract(bridgeCfg.name, srcChainTokenCfg.erc20);
   if (DepositContractFactory === undefined) {
+    console.log('depositContract factory not exist');
     process.exit(-1);
   }
 
-  console.log('deploy Mystiko deposit contract');
   let coreContract: any;
 
   if (srcChainTokenCfg.erc20) {
@@ -175,6 +188,12 @@ export async function setBridgeProxyAddress(
     if (bridgeName === BridgeTBridge || bridgeName === BridgeCeler) {
       const rsp = await coreContract.setBridgeProxyAddress(bridgeProxy.address);
       console.log('rsp hash ', rsp.hash);
+    } else if (bridgeName === BridgeAxelar) {
+      const rsp = await coreContract.setBridgeProxyAddress(bridgeProxy.address);
+      console.log('rsp hash ', rsp.hash);
+      console.log('set axelar gas receiver address');
+      const rsp2 = await coreContract.setAxelarGasReceiver(bridgeProxy.gasReceiver);
+      console.log('rsp hash ', rsp2.hash);
     } else if (bridgeName === BridgeLayerZero) {
       const rsp = await coreContract.setEndpoint(bridgeProxy.mapChainId, bridgeProxy.address);
       console.log('rsp hash ', rsp.hash);
@@ -246,14 +265,20 @@ export async function setMinExecutorFee(
   bridgeName: string,
   erc20: boolean,
   inDepositCfg: DepositDeployConfig,
-  fee: string,
+  inFee: string,
 ) {
+  let fee = inFee;
+  if (bridgeName === BridgeLayerZero || bridgeName === BridgeAxelar) {
+    fee = '0';
+  }
+
   if (!inDepositCfg.isMinExecutorFeeChange(fee)) {
     return;
   }
+
   const depositCfg = inDepositCfg;
 
-  console.log('set min executor fee');
+  console.log('set min executor fee ', fee);
   const DepositContractFactoruy = getMystikoDeployContract(bridgeName, erc20);
   const coreContract = await DepositContractFactoruy.attach(depositCfg.address);
 
@@ -273,14 +298,20 @@ export async function setPeerMinExecutorFee(
   bridgeName: string,
   erc20: boolean,
   inDepositCfg: DepositDeployConfig,
-  fee: string,
+  inFee: string,
 ) {
+  let fee = inFee;
+  if (bridgeName === BridgeLayerZero || bridgeName === BridgeAxelar) {
+    fee = '0';
+  }
+
   if (!inDepositCfg.isPeerMinExecutorFeeChange(fee)) {
     return;
   }
+
   const depositCfg = inDepositCfg;
 
-  console.log('set peer min executor fee');
+  console.log('set peer min executor fee ', fee);
   const DepositContractFactoruy = getMystikoDeployContract(bridgeName, erc20);
   const coreContract = await DepositContractFactoruy.attach(depositCfg.address);
 
@@ -450,6 +481,7 @@ export async function setPeerContract(
   erc20: boolean,
   inDepositConfig: DepositDeployConfig,
   peerChainId: number,
+  peerChainMapName: string,
   peerContractAddress: string,
 ) {
   if (!inDepositConfig.isPeerContractChange(peerContractAddress)) {
@@ -461,8 +493,9 @@ export async function setPeerContract(
   const coreContract = await DepositContractFactoruy.attach(depositConfig.address);
 
   try {
-    const rsp = await coreContract.setPeerContract(peerChainId, peerContractAddress);
+    const rsp = await coreContract.setPeerContract(peerChainId, peerChainMapName, peerContractAddress);
     console.log('rsp hash ', rsp.hash);
+
     depositConfig.updatePeerContract(peerContractAddress);
     saveConfig(c.mystikoNetwork, c.cfg);
   } catch (err: any) {

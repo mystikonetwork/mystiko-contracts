@@ -139,12 +139,19 @@ async function deployStep3(taskArgs: any) {
   }
 
   if (c.bridgeCfg.name !== BridgeLoop) {
+    const proxy = c.bridgeCfg.getBridgeProxyConfig(c.dstChainCfg.network, '');
+    if (proxy === undefined) {
+      console.error(LOGRED, 'proxy or proxy map chain id not configure');
+      process.exit(-1);
+    }
+
     await setPeerContract(
       c,
       c.bridgeCfg.name,
       c.srcTokenCfg.erc20,
       c.pairSrcDepositCfg,
       c.dstChainCfg.chainId,
+      proxy.mapChainName ? proxy.mapChainName : '',
       c.pairDstDepositCfg.address,
     );
   }

@@ -67,8 +67,8 @@ export function testTBridgeDeposit(
       }
 
       await bridgeContract.changeOperator(bridgeAccount.address);
-      await mystikoContract.setPeerContract(DestinationChainID, peerMystikoContract.address);
-      await peerMystikoContract.setPeerContract(SourceChainID, mystikoContract.address);
+      await mystikoContract.setPeerContract(DestinationChainID, '', peerMystikoContract.address);
+      await peerMystikoContract.setPeerContract(SourceChainID, '', mystikoContract.address);
     });
 
     it('should revert when deposit is disabled', async () => {

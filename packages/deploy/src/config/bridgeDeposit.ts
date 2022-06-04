@@ -58,6 +58,10 @@ export class DepositDeployConfig extends BaseConfig {
     this.asRawContractDeployConfig().syncStart = start;
   }
 
+  public get minAmount(): string | undefined {
+    return this.asRawContractDeployConfig().minAmount;
+  }
+
   public isMinAmountChange(fee: string): boolean {
     if (this.asRawContractDeployConfig().minAmount !== fee) {
       return true;
@@ -80,6 +84,10 @@ export class DepositDeployConfig extends BaseConfig {
     this.asRawContractDeployConfig().minBridgeFee = fee;
   }
 
+  public get minExecutorFee(): string | undefined {
+    return this.asRawContractDeployConfig().minExecutorFee;
+  }
+
   public isMinExecutorFeeChange(fee: string): boolean {
     if (this.asRawContractDeployConfig().minExecutorFee !== fee) {
       return true;
@@ -96,6 +104,10 @@ export class DepositDeployConfig extends BaseConfig {
       return true;
     }
     return false;
+  }
+
+  public get peerMinExecutorFee(): string | undefined {
+    return this.asRawContractDeployConfig().peerMinExecutorFee;
   }
 
   public updatePeerMinExecutorFee(fee: string) {

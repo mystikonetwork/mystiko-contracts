@@ -4,7 +4,6 @@ pragma solidity ^0.8.0;
 import "./relay/lzApp/NonblockingLzApp.sol";
 import "../base/CrossChainDataSerializable.sol";
 import "../base/MystikoV2Bridge.sol";
-import "../base/MystikoV2Bridge.sol";
 import "../../../libs/utils/Utils.sol";
 
 abstract contract MystikoV2LayerZero is MystikoV2Bridge, NonblockingLzApp {
@@ -22,7 +21,7 @@ abstract contract MystikoV2LayerZero is MystikoV2Bridge, NonblockingLzApp {
     bytes memory _payload
   ) internal override {
     ICommitmentPool.CommitmentRequest memory cmRequest = deserializeTxData(_payload);
-    // todo bytesToAddress(_srcAddress)
+    // todo check _srcChainId and _srcAddress
     bridgeCommitment(peerChainId, peerContract, tx.origin, cmRequest);
   }
 

@@ -140,7 +140,7 @@ describe('Test Mystiko celer', () => {
   });
 
   it('test constructor', async () => {
-    await localMain.setPeerContract(DestinationChainID, remoteMain.address);
+    await localMain.setPeerContract(DestinationChainID, '', remoteMain.address);
     testBridgeConstructor(
       'MystikoV2CelerMain',
       localMain,
@@ -150,7 +150,7 @@ describe('Test Mystiko celer', () => {
       MinRollupFee,
     );
 
-    await localERC20.setPeerContract(DestinationChainID, remoteERC20.address);
+    await localERC20.setPeerContract(DestinationChainID, '', remoteERC20.address);
     testBridgeConstructor(
       'MystikoV2CelerERC20',
       localERC20,

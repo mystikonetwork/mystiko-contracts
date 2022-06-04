@@ -116,6 +116,19 @@ const _abi = [
   },
   {
     inputs: [],
+    name: 'getAssociatedCommitmentPool',
+    outputs: [
+      {
+        internalType: 'address',
+        name: '',
+        type: 'address',
+      },
+    ],
+    stateMutability: 'view',
+    type: 'function',
+  },
+  {
+    inputs: [],
     name: 'getMinAmount',
     outputs: [
       {
@@ -289,6 +302,11 @@ const _abi = [
         internalType: 'uint64',
         name: '_peerChainId',
         type: 'uint64',
+      },
+      {
+        internalType: 'string',
+        name: '_peerChainName',
+        type: 'string',
       },
       {
         internalType: 'address',
