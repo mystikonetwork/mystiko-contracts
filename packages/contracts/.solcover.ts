@@ -4,6 +4,8 @@ module.exports = {
     'mocks/token/TestToken.sol',
     'mocks/proxy/DummyCelerMessageBus.sol',
     'mocks/proxy/DummyLZEndpoint.sol',
+    'mocks/proxy/DummyAxelarGateway.sol',
+    'mocks/proxy/DummyAxelarGasService.sol',
     'core/deposit/layerzero/relay/lzApp/LzApp.sol',
     'core/deposit/layerzero/relay/lzApp/NonblockingLzApp.sol',
     'libs/common/ZeroCopySink.sol',

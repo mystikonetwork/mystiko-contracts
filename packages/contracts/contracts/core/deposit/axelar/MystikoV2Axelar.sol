@@ -2,7 +2,7 @@
 pragma solidity ^0.8.0;
 
 import "./relay/IAxelarExecutable.sol";
-import "./relay/AxelarGasService.sol";
+import "./relay/IAxelarGasService.sol";
 import "./relay/IAxelarGateway.sol";
 import "../base/CrossChainDataSerializable.sol";
 import "../base/MystikoV2Bridge.sol";
@@ -11,12 +11,12 @@ import "../../../libs/utils/Utils.sol";
 abstract contract MystikoV2Axelar is MystikoV2Bridge, IAxelarExecutable {
   event CallContractMessage(string peerChainName, string destinationAddress);
 
-  AxelarGasService gasReceiver;
+  IAxelarGasService gasReceiver;
 
   constructor(address _hasher3) MystikoV2Bridge(_hasher3) IAxelarExecutable() {}
 
   function setAxelarGasReceiver(address _gasReceiver) external onlyOperator {
-    gasReceiver = AxelarGasService(_gasReceiver);
+    gasReceiver = IAxelarGasService(_gasReceiver);
   }
 
   function _processDeposit(uint256 _bridgeFee, bytes memory _requestBytes) internal override {

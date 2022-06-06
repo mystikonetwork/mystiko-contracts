@@ -168,7 +168,7 @@ describe('Test Mystiko celer', () => {
 
   it('test bridge main to main deposit', async () => {
     const depositAmount = toDecimals(10);
-    const cmInfo = await constructCommitment(protocol, 21, depositAmount.toString());
+    const cmInfo = await constructCommitment(protocol, 1, depositAmount.toString());
 
     await testCelerDeposit(
       'MystikoV2CelerMain',

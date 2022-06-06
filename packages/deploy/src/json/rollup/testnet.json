@@ -750,9 +750,9 @@
       "network": "avalanchetestnet",
       "assetSymbol": "MTT",
       "bridgeType": "axelar",
-      "address": "0xD78Aa9202B2746B8f0211fD89eD101210a114025",
+      "address": "0x90fE901E393baC044e655817ca4782C04E39EA0C",
       "isRollupEnable": true,
-      "syncStart": 10370748
+      "syncStart": 10430707
     },
     {
       "network": "fantomtestnet",
@@ -774,9 +774,9 @@
       "network": "ropsten",
       "assetSymbol": "MTT",
       "bridgeType": "axelar",
-      "address": "0xdC956C899A8448002618750248B6367dBfbeD442",
+      "address": "0x9fcC9D3d5E8d60285F72F37c0FC46Ae548D8cDba",
       "isRollupEnable": true,
-      "syncStart": 12328288
+      "syncStart": 12333196
     }
   ],
   "monitor": {

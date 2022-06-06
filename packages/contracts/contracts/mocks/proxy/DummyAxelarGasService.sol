@@ -2,12 +2,12 @@
 
 pragma solidity ^0.8.0;
 
-import {IAxelarGasService} from "./IAxelarGasService.sol";
+import "../../core/deposit/axelar/relay/IAxelarGasService.sol";
 //import { IERC20 } from './IERC20.sol';
 import {IERC20} from "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 
 // This should be owned by the microservice that is paying for gas.
-contract AxelarGasService is IAxelarGasService {
+contract DummyAxelarGasService is IAxelarGasService {
   // This is called on the source chain before calling the gateway to execute a remote contract.
   function payGasForContractCall(
     address sender,

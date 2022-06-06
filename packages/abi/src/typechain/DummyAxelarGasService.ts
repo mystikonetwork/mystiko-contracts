@@ -18,8 +18,8 @@ import { FunctionFragment, Result, EventFragment } from '@ethersproject/abi';
 import { Listener, Provider } from '@ethersproject/providers';
 import { TypedEventFilter, TypedEvent, TypedListener, OnEvent } from './common';
 
-export interface AxelarGasServiceInterface extends utils.Interface {
-  contractName: 'AxelarGasService';
+export interface DummyAxelarGasServiceInterface extends utils.Interface {
+  contractName: 'DummyAxelarGasService';
   functions: {
     'collectFees(address,address[])': FunctionFragment;
     'contractId()': FunctionFragment;
@@ -135,13 +135,13 @@ export type NativeGasPaidForContractCallWithTokenEvent = TypedEvent<
 export type NativeGasPaidForContractCallWithTokenEventFilter =
   TypedEventFilter<NativeGasPaidForContractCallWithTokenEvent>;
 
-export interface AxelarGasService extends BaseContract {
-  contractName: 'AxelarGasService';
+export interface DummyAxelarGasService extends BaseContract {
+  contractName: 'DummyAxelarGasService';
   connect(signerOrProvider: Signer | Provider | string): this;
   attach(addressOrName: string): this;
   deployed(): Promise<this>;
 
-  interface: AxelarGasServiceInterface;
+  interface: DummyAxelarGasServiceInterface;
 
   queryFilter<TEvent extends TypedEvent>(
     event: TypedEventFilter<TEvent>,

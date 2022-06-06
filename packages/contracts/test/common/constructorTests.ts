@@ -69,6 +69,8 @@ export function testBridgeConstructor(
         expect(await mystikoContract.bridgeType()).to.equal('celer');
       } else if (contractName === 'MystikoV2LayerZeroMain' || contractName === 'MystikoV2LayerZeroERC20') {
         expect(await mystikoContract.bridgeType()).to.equal('layerZero');
+      } else if (contractName === 'MystikoV2AxelarMain' || contractName === 'MystikoV2AxelarERC20') {
+        expect(await mystikoContract.bridgeType()).to.equal('axelar');
       }
     });
   });

@@ -6,30 +6,26 @@ import {
   TestToken,
   CommitmentPoolMain,
   DummySanctionsList,
-  DummyLZEndpoint,
   MystikoV2LayerZeroMain,
+  DummyAxelarGateway,
+  DummyAxelarGasService,
 } from '@mystikonetwork/contracts-abi';
 import { MystikoProtocolV2, ProtocolFactoryV2 } from '@mystikonetwork/protocol';
 import {
   deployDependContracts,
   loadFixture,
   deployCommitmentPoolContracts,
-  deployDummyLayerZeroContracts,
-  deployLayerZeroContracts,
+  deployDummyAxelarGateway,
+  deployAxelarContracts,
+  deployDummyAxelarGasService,
 } from '../../../util/common';
 import { constructCommitment, testBridgeConstructor } from '../../../common';
 
 // @ts-ignore
-import {
-  LzChainID,
-  MinAmount,
-  MinBridgeFee,
-  MinRollupFee,
-  DestinationChainID,
-} from '../../../util/constants';
-import { testLayerZeroDeposit } from '../../../common/depositLayerZeroTests';
+import { MinAmount, MinBridgeFee, MinRollupFee } from '../../../util/constants';
+import { testAxelarDeposit } from '../../../common/depositAxelarTests';
 
-describe('Test Mystiko layer zero', () => {
+describe('Test Mystiko axelar', () => {
   async function fixture(accounts: Wallet[]) {
     const {
       testToken,
@@ -46,7 +42,8 @@ describe('Test Mystiko layer zero', () => {
       sanctionList,
     } = await deployDependContracts(accounts);
 
-    const dummyLZEndpoint = await deployDummyLayerZeroContracts(accounts);
+    const dummyAxelarGateway = await deployDummyAxelarGateway(accounts);
+    const dummyAxelarGasService = await deployDummyAxelarGasService(accounts);
 
     const poolLocal = await deployCommitmentPoolContracts(
       accounts,
@@ -61,23 +58,25 @@ describe('Test Mystiko layer zero', () => {
       {},
     );
 
-    const local = await deployLayerZeroContracts(
+    const local = await deployAxelarContracts(
       accounts,
       hasher3.address,
       testToken.address,
       sanctionList.address,
-      dummyLZEndpoint,
+      dummyAxelarGateway,
+      dummyAxelarGasService,
       poolLocal.poolMain,
       poolLocal.poolERC20,
       { minExecutorFee: '0' },
     );
 
-    const remote = await deployLayerZeroContracts(
+    const remote = await deployAxelarContracts(
       accounts,
       hasher3.address,
       testToken.address,
       sanctionList.address,
-      dummyLZEndpoint,
+      dummyAxelarGateway,
+      dummyAxelarGasService,
       poolRemote.poolMain,
       poolRemote.poolERC20,
       { minExecutorFee: '0' },
@@ -100,7 +99,8 @@ describe('Test Mystiko layer zero', () => {
       local,
       remote,
       sanctionList,
-      dummyLZEndpoint,
+      dummyAxelarGateway,
+      dummyAxelarGasService,
     };
   }
 
@@ -112,7 +112,8 @@ describe('Test Mystiko layer zero', () => {
   let localMain: MystikoV2LayerZeroMain;
   let remoteMain: MystikoV2LayerZeroMain;
   let protocol: MystikoProtocolV2;
-  let dummyLZEndpoint: DummyLZEndpoint;
+  let dummyAxelarGateway: DummyAxelarGateway;
+  let dummyAxelarGasService: DummyAxelarGasService;
 
   beforeEach(async () => {
     accounts = waffle.provider.getWallets();
@@ -126,32 +127,28 @@ describe('Test Mystiko layer zero', () => {
     localMain = r.local.coreMain;
     remoteMain = r.remote.coreMain;
     sanctionList = r.sanctionList;
-    dummyLZEndpoint = r.dummyLZEndpoint;
+    dummyAxelarGateway = r.dummyAxelarGateway;
+    dummyAxelarGasService = r.dummyAxelarGasService;
   });
 
   it('test constructor', () => {
-    testBridgeConstructor('MystikoV2LayerZeroMain', localMain, MinAmount, MinBridgeFee, '0', MinRollupFee);
+    testBridgeConstructor('MystikoV2AxelarMain', localMain, MinAmount, MinBridgeFee, '0', MinRollupFee);
   });
 
   it('test bridge main to main deposit', async () => {
     const depositAmount = toDecimals(10);
     const cmInfo = await constructCommitment(protocol, 1, depositAmount.toString());
 
-    // layer zero test with same chain id
-    await localMain.setTrustedRemote(LzChainID, remoteMain.address);
-    await remoteMain.setTrustedRemote(LzChainID, localMain.address);
-    await localMain.setPeerContract(DestinationChainID, '', remoteMain.address);
-    await dummyLZEndpoint.setDestLzEndpoint(localMain.address, dummyLZEndpoint.address);
-    await dummyLZEndpoint.setDestLzEndpoint(remoteMain.address, dummyLZEndpoint.address);
-
-    await testLayerZeroDeposit(
-      'MystikoV2LayerZeroMain',
+    await testAxelarDeposit(
+      'MystikoV2AxelarMain',
       protocol,
       localMain,
+      remoteMain,
       localPoolMain,
       remotePoolMain,
       sanctionList,
-      dummyLZEndpoint,
+      dummyAxelarGateway,
+      dummyAxelarGasService,
       testToken,
       accounts,
       depositAmount.toString(),
