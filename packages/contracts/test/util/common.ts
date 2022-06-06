@@ -51,6 +51,12 @@ import {
   MystikoV2LayerZeroMain__factory,
   MystikoV2LayerZeroERC20__factory,
   DummyLZEndpoint,
+  DummyAxelarGateway,
+  DummyAxelarGateway__factory,
+  MystikoV2AxelarMain__factory,
+  MystikoV2AxelarERC20__factory,
+  DummyAxelarGasService,
+  DummyAxelarGasService__factory,
 } from '@mystikonetwork/contracts-abi';
 import {
   MerkleTreeHeight,
@@ -319,6 +325,59 @@ export async function deployLayerZeroContracts(
   return { coreMain, coreERC20 };
 }
 
+export async function deployAxelarContracts(
+  accounts: Wallet[],
+  hasher3Address: string,
+  tokenAddress: string,
+  sanctionListAddress: string,
+  dummyAxelarGateway: DummyAxelarGateway,
+  dummyAxelarGasService: DummyAxelarGasService,
+  poolMain: CommitmentPoolMain,
+  poolERC20: CommitmentPoolERC20,
+  {
+    minAmount = MinAmount,
+    minBridgeFee = MinBridgeFee,
+    minExecutorFee = MinExecutorFee,
+    minRollupFee = MinRollupFee,
+  },
+): Promise<CoreBridgeDeploymentInfo> {
+  const lzMainFactory = (await ethers.getContractFactory(
+    'MystikoV2AxelarMain',
+  )) as MystikoV2AxelarMain__factory;
+
+  const coreMain = await lzMainFactory.connect(accounts[0]).deploy(hasher3Address);
+  await coreMain.deployed();
+  await coreMain.setAssociatedCommitmentPool(poolMain.address);
+  await coreMain.setMinAmount(minAmount);
+  await coreMain.setMinBridgeFee(minBridgeFee);
+  await coreMain.setMinExecutorFee(minExecutorFee);
+  await coreMain.setPeerMinExecutorFee(minExecutorFee);
+  await coreMain.setPeerMinRollupFee(minRollupFee);
+  await coreMain.updateSanctionContractAddress(sanctionListAddress);
+  await coreMain.setBridgeProxyAddress(dummyAxelarGateway.address);
+  await coreMain.setAxelarGasReceiver(dummyAxelarGasService.address);
+  await poolMain.addEnqueueWhitelist(coreMain.address);
+
+  const lzERC20Factory = (await ethers.getContractFactory(
+    'MystikoV2AxelarERC20',
+  )) as MystikoV2AxelarERC20__factory;
+
+  const coreERC20 = await lzERC20Factory.connect(accounts[0]).deploy(hasher3Address, tokenAddress);
+  await coreERC20.deployed();
+  await coreERC20.setAssociatedCommitmentPool(poolERC20.address);
+  await coreERC20.setMinAmount(minAmount);
+  await coreERC20.setMinBridgeFee(minBridgeFee);
+  await coreERC20.setMinExecutorFee(minExecutorFee);
+  await coreERC20.setPeerMinExecutorFee(minExecutorFee);
+  await coreERC20.setPeerMinRollupFee(minRollupFee);
+  await coreERC20.updateSanctionContractAddress(sanctionListAddress);
+  await coreERC20.setBridgeProxyAddress(dummyAxelarGateway.address);
+  await coreERC20.setAxelarGasReceiver(dummyAxelarGasService.address);
+  await poolERC20.addEnqueueWhitelist(coreERC20.address);
+
+  return { coreMain, coreERC20 };
+}
+
 export async function deployTbridgeProxyContracts(accounts: Wallet[]): Promise<MystikoTBridgeProxy> {
   const proxyFactory = (await ethers.getContractFactory(
     'MystikoTBridgeProxy',
@@ -339,10 +398,30 @@ export async function deployDummyCelerContracts(accounts: Wallet[]): Promise<Dum
 }
 
 export async function deployDummyLayerZeroContracts(accounts: Wallet[]): Promise<DummyLZEndpoint> {
-  const dummyCelerFactory = (await ethers.getContractFactory('DummyLZEndpoint')) as DummyLZEndpoint__factory;
-  const dummyLZ = await dummyCelerFactory.connect(accounts[0]).deploy(LzChainID);
+  const dummyLayerZeroFactory = (await ethers.getContractFactory(
+    'DummyLZEndpoint',
+  )) as DummyLZEndpoint__factory;
+  const dummyLZ = await dummyLayerZeroFactory.connect(accounts[0]).deploy(LzChainID);
   await dummyLZ.deployed();
   return dummyLZ;
+}
+
+export async function deployDummyAxelarGateway(accounts: Wallet[]): Promise<DummyAxelarGateway> {
+  const dummyAxelarFactory = (await ethers.getContractFactory(
+    'DummyAxelarGateway',
+  )) as DummyAxelarGateway__factory;
+  const dummyAxelar = await dummyAxelarFactory.connect(accounts[0]).deploy();
+  await dummyAxelar.deployed();
+  return dummyAxelar;
+}
+
+export async function deployDummyAxelarGasService(accounts: Wallet[]): Promise<DummyAxelarGasService> {
+  const dummyAxelarFactory = (await ethers.getContractFactory(
+    'DummyAxelarGasService',
+  )) as DummyAxelarGasService__factory;
+  const dummyAxelar = await dummyAxelarFactory.connect(accounts[0]).deploy();
+  await dummyAxelar.deployed();
+  return dummyAxelar;
 }
 
 export async function deployDependContracts(accounts: Wallet[]): Promise<DependDeploymentInfo> {

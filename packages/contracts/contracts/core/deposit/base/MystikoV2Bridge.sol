@@ -18,6 +18,7 @@ abstract contract MystikoV2Bridge is IMystikoBridge, AssetPool, CrossChainDataSe
 
   address associatedCommitmentPool;
   uint64 peerChainId;
+  string peerChainName;
   address peerContract;
 
   //bridge proxy address
@@ -84,8 +85,13 @@ abstract contract MystikoV2Bridge is IMystikoBridge, AssetPool, CrossChainDataSe
     associatedCommitmentPool = _commitmentPoolAddress;
   }
 
-  function setPeerContract(uint64 _peerChainId, address _peerContract) external onlyOperator {
+  function setPeerContract(
+    uint64 _peerChainId,
+    string memory _peerChainName,
+    address _peerContract
+  ) external onlyOperator {
     peerChainId = _peerChainId;
+    peerChainName = _peerChainName;
     peerContract = _peerContract;
   }
 
@@ -181,6 +187,10 @@ abstract contract MystikoV2Bridge is IMystikoBridge, AssetPool, CrossChainDataSe
 
   function getPeerMinRollupFee() public view returns (uint256) {
     return peerMinRollupFee;
+  }
+
+  function getAssociatedCommitmentPool() public view returns (address) {
+    return associatedCommitmentPool;
   }
 
   function isDepositsDisabled() public view returns (bool) {

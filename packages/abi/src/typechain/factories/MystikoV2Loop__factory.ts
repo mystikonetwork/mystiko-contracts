@@ -93,6 +93,19 @@ const _abi = [
   },
   {
     inputs: [],
+    name: 'getAssociatedCommitmentPool',
+    outputs: [
+      {
+        internalType: 'address',
+        name: '',
+        type: 'address',
+      },
+    ],
+    stateMutability: 'view',
+    type: 'function',
+  },
+  {
+    inputs: [],
     name: 'getMinAmount',
     outputs: [
       {

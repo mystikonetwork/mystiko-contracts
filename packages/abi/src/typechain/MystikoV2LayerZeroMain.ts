@@ -60,6 +60,7 @@ export interface MystikoV2LayerZeroMainInterface extends utils.Interface {
     'deposit((uint256,uint256,uint256,uint128,bytes,uint256,uint256,uint256))': FunctionFragment;
     'failedMessages(uint16,bytes,uint64)': FunctionFragment;
     'forceResumeReceive(uint16,bytes)': FunctionFragment;
+    'getAssociatedCommitmentPool()': FunctionFragment;
     'getConfig(uint16,uint16,address,uint256)': FunctionFragment;
     'getMinAmount()': FunctionFragment;
     'getMinBridgeFee()': FunctionFragment;
@@ -85,7 +86,7 @@ export interface MystikoV2LayerZeroMainInterface extends utils.Interface {
     'setMinAmount(uint256)': FunctionFragment;
     'setMinBridgeFee(uint256)': FunctionFragment;
     'setMinExecutorFee(uint256)': FunctionFragment;
-    'setPeerContract(uint64,address)': FunctionFragment;
+    'setPeerContract(uint64,string,address)': FunctionFragment;
     'setPeerMinExecutorFee(uint256)': FunctionFragment;
     'setPeerMinRollupFee(uint256)': FunctionFragment;
     'setReceiveVersion(uint16)': FunctionFragment;
@@ -107,6 +108,7 @@ export interface MystikoV2LayerZeroMainInterface extends utils.Interface {
     values: [BigNumberish, BytesLike, BigNumberish],
   ): string;
   encodeFunctionData(functionFragment: 'forceResumeReceive', values: [BigNumberish, BytesLike]): string;
+  encodeFunctionData(functionFragment: 'getAssociatedCommitmentPool', values?: undefined): string;
   encodeFunctionData(
     functionFragment: 'getConfig',
     values: [BigNumberish, BigNumberish, string, BigNumberish],
@@ -147,7 +149,7 @@ export interface MystikoV2LayerZeroMainInterface extends utils.Interface {
   encodeFunctionData(functionFragment: 'setMinAmount', values: [BigNumberish]): string;
   encodeFunctionData(functionFragment: 'setMinBridgeFee', values: [BigNumberish]): string;
   encodeFunctionData(functionFragment: 'setMinExecutorFee', values: [BigNumberish]): string;
-  encodeFunctionData(functionFragment: 'setPeerContract', values: [BigNumberish, string]): string;
+  encodeFunctionData(functionFragment: 'setPeerContract', values: [BigNumberish, string, string]): string;
   encodeFunctionData(functionFragment: 'setPeerMinExecutorFee', values: [BigNumberish]): string;
   encodeFunctionData(functionFragment: 'setPeerMinRollupFee', values: [BigNumberish]): string;
   encodeFunctionData(functionFragment: 'setReceiveVersion', values: [BigNumberish]): string;
@@ -165,6 +167,7 @@ export interface MystikoV2LayerZeroMainInterface extends utils.Interface {
   decodeFunctionResult(functionFragment: 'deposit', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'failedMessages', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'forceResumeReceive', data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'getAssociatedCommitmentPool', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'getConfig', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'getMinAmount', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'getMinBridgeFee', data: BytesLike): Result;
@@ -296,6 +299,8 @@ export interface MystikoV2LayerZeroMain extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<ContractTransaction>;
 
+    getAssociatedCommitmentPool(overrides?: CallOverrides): Promise<[string]>;
+
     getConfig(
       _version: BigNumberish,
       _chainId: BigNumberish,
@@ -403,6 +408,7 @@ export interface MystikoV2LayerZeroMain extends BaseContract {
 
     setPeerContract(
       _peerChainId: BigNumberish,
+      _peerChainName: string,
       _peerContract: string,
       overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<ContractTransaction>;
@@ -482,6 +488,8 @@ export interface MystikoV2LayerZeroMain extends BaseContract {
     _srcAddress: BytesLike,
     overrides?: Overrides & { from?: string | Promise<string> },
   ): Promise<ContractTransaction>;
+
+  getAssociatedCommitmentPool(overrides?: CallOverrides): Promise<string>;
 
   getConfig(
     _version: BigNumberish,
@@ -590,6 +598,7 @@ export interface MystikoV2LayerZeroMain extends BaseContract {
 
   setPeerContract(
     _peerChainId: BigNumberish,
+    _peerChainName: string,
     _peerContract: string,
     overrides?: Overrides & { from?: string | Promise<string> },
   ): Promise<ContractTransaction>;
@@ -663,6 +672,8 @@ export interface MystikoV2LayerZeroMain extends BaseContract {
       _srcAddress: BytesLike,
       overrides?: CallOverrides,
     ): Promise<void>;
+
+    getAssociatedCommitmentPool(overrides?: CallOverrides): Promise<string>;
 
     getConfig(
       _version: BigNumberish,
@@ -750,6 +761,7 @@ export interface MystikoV2LayerZeroMain extends BaseContract {
 
     setPeerContract(
       _peerChainId: BigNumberish,
+      _peerChainName: string,
       _peerContract: string,
       overrides?: CallOverrides,
     ): Promise<void>;
@@ -836,6 +848,8 @@ export interface MystikoV2LayerZeroMain extends BaseContract {
       _srcAddress: BytesLike,
       overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<BigNumber>;
+
+    getAssociatedCommitmentPool(overrides?: CallOverrides): Promise<BigNumber>;
 
     getConfig(
       _version: BigNumberish,
@@ -942,6 +956,7 @@ export interface MystikoV2LayerZeroMain extends BaseContract {
 
     setPeerContract(
       _peerChainId: BigNumberish,
+      _peerChainName: string,
       _peerContract: string,
       overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<BigNumber>;
@@ -1022,6 +1037,8 @@ export interface MystikoV2LayerZeroMain extends BaseContract {
       _srcAddress: BytesLike,
       overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<PopulatedTransaction>;
+
+    getAssociatedCommitmentPool(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     getConfig(
       _version: BigNumberish,
@@ -1130,6 +1147,7 @@ export interface MystikoV2LayerZeroMain extends BaseContract {
 
     setPeerContract(
       _peerChainId: BigNumberish,
+      _peerChainName: string,
       _peerContract: string,
       overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<PopulatedTransaction>;

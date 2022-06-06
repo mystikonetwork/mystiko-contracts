@@ -48,6 +48,7 @@ export interface MystikoV2LoopERC20Interface extends utils.Interface {
     'bridgeType()': FunctionFragment;
     'changeOperator(address)': FunctionFragment;
     'deposit((uint256,uint256,uint256,uint128,bytes,uint256))': FunctionFragment;
+    'getAssociatedCommitmentPool()': FunctionFragment;
     'getMinAmount()': FunctionFragment;
     'getSanctionsContract()': FunctionFragment;
     'isDepositsDisabled()': FunctionFragment;
@@ -66,6 +67,7 @@ export interface MystikoV2LoopERC20Interface extends utils.Interface {
   encodeFunctionData(functionFragment: 'bridgeType', values?: undefined): string;
   encodeFunctionData(functionFragment: 'changeOperator', values: [string]): string;
   encodeFunctionData(functionFragment: 'deposit', values: [IMystikoLoop.DepositRequestStruct]): string;
+  encodeFunctionData(functionFragment: 'getAssociatedCommitmentPool', values?: undefined): string;
   encodeFunctionData(functionFragment: 'getMinAmount', values?: undefined): string;
   encodeFunctionData(functionFragment: 'getSanctionsContract', values?: undefined): string;
   encodeFunctionData(functionFragment: 'isDepositsDisabled', values?: undefined): string;
@@ -83,6 +85,7 @@ export interface MystikoV2LoopERC20Interface extends utils.Interface {
   decodeFunctionResult(functionFragment: 'bridgeType', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'changeOperator', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'deposit', data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'getAssociatedCommitmentPool', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'getMinAmount', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'getSanctionsContract', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'isDepositsDisabled', data: BytesLike): Result;
@@ -140,6 +143,8 @@ export interface MystikoV2LoopERC20 extends BaseContract {
       overrides?: PayableOverrides & { from?: string | Promise<string> },
     ): Promise<ContractTransaction>;
 
+    getAssociatedCommitmentPool(overrides?: CallOverrides): Promise<[string]>;
+
     getMinAmount(overrides?: CallOverrides): Promise<[BigNumber]>;
 
     getSanctionsContract(overrides?: CallOverrides): Promise<[string]>;
@@ -194,6 +199,8 @@ export interface MystikoV2LoopERC20 extends BaseContract {
     overrides?: PayableOverrides & { from?: string | Promise<string> },
   ): Promise<ContractTransaction>;
 
+  getAssociatedCommitmentPool(overrides?: CallOverrides): Promise<string>;
+
   getMinAmount(overrides?: CallOverrides): Promise<BigNumber>;
 
   getSanctionsContract(overrides?: CallOverrides): Promise<string>;
@@ -242,6 +249,8 @@ export interface MystikoV2LoopERC20 extends BaseContract {
 
     deposit(_request: IMystikoLoop.DepositRequestStruct, overrides?: CallOverrides): Promise<void>;
 
+    getAssociatedCommitmentPool(overrides?: CallOverrides): Promise<string>;
+
     getMinAmount(overrides?: CallOverrides): Promise<BigNumber>;
 
     getSanctionsContract(overrides?: CallOverrides): Promise<string>;
@@ -283,6 +292,8 @@ export interface MystikoV2LoopERC20 extends BaseContract {
       _request: IMystikoLoop.DepositRequestStruct,
       overrides?: PayableOverrides & { from?: string | Promise<string> },
     ): Promise<BigNumber>;
+
+    getAssociatedCommitmentPool(overrides?: CallOverrides): Promise<BigNumber>;
 
     getMinAmount(overrides?: CallOverrides): Promise<BigNumber>;
 
@@ -338,6 +349,8 @@ export interface MystikoV2LoopERC20 extends BaseContract {
       _request: IMystikoLoop.DepositRequestStruct,
       overrides?: PayableOverrides & { from?: string | Promise<string> },
     ): Promise<PopulatedTransaction>;
+
+    getAssociatedCommitmentPool(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     getMinAmount(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 

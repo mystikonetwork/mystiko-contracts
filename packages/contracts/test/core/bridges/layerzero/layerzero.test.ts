@@ -20,7 +20,13 @@ import {
 import { constructCommitment, testBridgeConstructor } from '../../../common';
 
 // @ts-ignore
-import { SourceChainID, LzChainID, MinAmount, MinBridgeFee, MinRollupFee } from '../../../util/constants';
+import {
+  LzChainID,
+  MinAmount,
+  MinBridgeFee,
+  MinRollupFee,
+  DestinationChainID,
+} from '../../../util/constants';
 import { testLayerZeroDeposit } from '../../../common/depositLayerZeroTests';
 
 describe('Test Mystiko layer zero', () => {
@@ -130,10 +136,11 @@ describe('Test Mystiko layer zero', () => {
   it('test bridge main to main deposit', async () => {
     const depositAmount = toDecimals(10);
     const cmInfo = await constructCommitment(protocol, 1, depositAmount.toString());
+
     // layer zero test with same chain id
     await localMain.setTrustedRemote(LzChainID, remoteMain.address);
     await remoteMain.setTrustedRemote(LzChainID, localMain.address);
-    await localMain.setPeerContract(SourceChainID, remoteMain.address);
+    await localMain.setPeerContract(DestinationChainID, '', remoteMain.address);
     await dummyLZEndpoint.setDestLzEndpoint(localMain.address, dummyLZEndpoint.address);
     await dummyLZEndpoint.setDestLzEndpoint(remoteMain.address, dummyLZEndpoint.address);
 

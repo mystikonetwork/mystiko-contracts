@@ -35,7 +35,7 @@ export class BridgeDepositPairConfig extends BaseConfig {
       m1.set(depositCfg.assetSymbol, depositCfg);
       this.depositByNetworkAndToken.set(depositCfg.network, m1);
     } else {
-      check(m1.get(depositCfg.assetSymbol) === undefined, 'pair configure error');
+      check(m1.get(depositCfg.assetSymbol) === undefined, 'pair configure duplicate');
       m1.set(depositCfg.assetSymbol, depositCfg);
     }
   }

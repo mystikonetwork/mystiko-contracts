@@ -11,3 +11,4 @@ export const BridgeLoop = 'loop';
 export const BridgeTBridge = 'tbridge';
 export const BridgeCeler = 'celer';
 export const BridgeLayerZero = 'layerZero';
+export const BridgeAxelar = 'axelar';

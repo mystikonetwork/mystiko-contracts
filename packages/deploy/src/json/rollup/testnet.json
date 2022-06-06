@@ -550,17 +550,17 @@
       "network": "bsctestnet",
       "assetSymbol": "MTT",
       "bridgeType": "layerZero",
-      "address": "0x5D34132695e3E218ffEF0127f1Be54d57F286243",
+      "address": "0x4aca973937D7a465e3E8F0870e59c9Cbb440899E",
       "isRollupEnable": true,
-      "syncStart": 19617761
+      "syncStart": 19833418
     },
     {
       "network": "avalanchetestnet",
       "assetSymbol": "MTT",
       "bridgeType": "layerZero",
-      "address": "0x12835920F2AacCA8f76c6f1201aae867d561dce6",
+      "address": "0x91e926284aA833550Bf65C61A30D5cf3E89Deb3f",
       "isRollupEnable": true,
-      "syncStart": 10084071
+      "syncStart": 10304611
     },
     {
       "network": "goerli",
@@ -734,17 +734,49 @@
       "network": "bsctestnet",
       "assetSymbol": "mUSD",
       "bridgeType": "layerZero",
-      "address": "0xed482dD478066d3f10ED1FF20A0C17C4598EEb24",
+      "address": "0x06006b4a7f1994C9956A9748196467f8DbBbf504",
       "isRollupEnable": true,
-      "syncStart": 19731154
+      "syncStart": 19833443
     },
     {
       "network": "avalanchetestnet",
       "assetSymbol": "mUSD",
       "bridgeType": "layerZero",
-      "address": "0x1f4B1E892e8f4d5B072AA4394849678128599421",
+      "address": "0xCb77aCfDE75feA2177DbE0BcA5FA7237B1C06926",
       "isRollupEnable": true,
-      "syncStart": 10193291
+      "syncStart": 10304688
+    },
+    {
+      "network": "avalanchetestnet",
+      "assetSymbol": "MTT",
+      "bridgeType": "axelar",
+      "address": "0x90fE901E393baC044e655817ca4782C04E39EA0C",
+      "isRollupEnable": true,
+      "syncStart": 10430707
+    },
+    {
+      "network": "fantomtestnet",
+      "assetSymbol": "MTT",
+      "bridgeType": "axelar",
+      "address": "0x695cc1cCcB01289C99239d030f84399Af06a21D9",
+      "isRollupEnable": true,
+      "syncStart": 9210169
+    },
+    {
+      "network": "polygontestnet",
+      "assetSymbol": "MTT",
+      "bridgeType": "axelar",
+      "address": "0xD89C76BD7E262f268488e4e4792e9bCA58332047",
+      "isRollupEnable": true,
+      "syncStart": 26590762
+    },
+    {
+      "network": "ropsten",
+      "assetSymbol": "MTT",
+      "bridgeType": "axelar",
+      "address": "0x9fcC9D3d5E8d60285F72F37c0FC46Ae548D8cDba",
+      "isRollupEnable": true,
+      "syncStart": 12333196
     }
   ],
   "monitor": {

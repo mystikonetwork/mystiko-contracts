@@ -109,6 +109,10 @@ abstract contract MystikoV2Loop is IMystikoLoop, AssetPool, Sanctions {
     return minAmount;
   }
 
+  function getAssociatedCommitmentPool() public view returns (address) {
+    return associatedCommitmentPool;
+  }
+
   function isDepositsDisabled() public view returns (bool) {
     return depositsDisabled;
   }

@@ -1,6 +1,6 @@
 {
   "name": "@mystikonetwork/contracts-deploy",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "Core contracts deploy of Mystiko.Network",
   "main": "build/cjs/index.js",
   "module": "build/esm/index.js",
@@ -61,7 +61,7 @@
   "dependencies": {
     "@iarna/toml": "^2.2.5",
     "@mystikonetwork/config": "^0.1.8",
-    "@mystikonetwork/contracts-abi": "^0.1.2",
+    "@mystikonetwork/contracts-abi": "^0.1.3",
     "@mystikonetwork/utils": "^0.1.1",
     "ethers": "^5.5.3",
     "hardhat": "^2.9.0",

@@ -70,8 +70,8 @@ export function testCelerDeposit(
         DestinationChainID,
         peerMystikoContract.address,
       );
-      await mystikoContract.setPeerContract(DestinationChainID, peerMystikoContract.address);
-      await peerMystikoContract.setPeerContract(SourceChainID, mystikoContract.address);
+      await mystikoContract.setPeerContract(DestinationChainID, '', peerMystikoContract.address);
+      await peerMystikoContract.setPeerContract(SourceChainID, '', mystikoContract.address);
     });
 
     it('should revert when deposit is disabled', async () => {

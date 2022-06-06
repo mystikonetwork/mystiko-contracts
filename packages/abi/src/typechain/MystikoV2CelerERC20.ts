@@ -62,6 +62,7 @@ export interface MystikoV2CelerERC20Interface extends utils.Interface {
     'changeOperator(address)': FunctionFragment;
     'deposit((uint256,uint256,uint256,uint128,bytes,uint256,uint256,uint256))': FunctionFragment;
     'executeMessage(address,uint64,bytes,address)': FunctionFragment;
+    'getAssociatedCommitmentPool()': FunctionFragment;
     'getMinAmount()': FunctionFragment;
     'getMinBridgeFee()': FunctionFragment;
     'getMinExecutorFee()': FunctionFragment;
@@ -75,7 +76,7 @@ export interface MystikoV2CelerERC20Interface extends utils.Interface {
     'setMinAmount(uint256)': FunctionFragment;
     'setMinBridgeFee(uint256)': FunctionFragment;
     'setMinExecutorFee(uint256)': FunctionFragment;
-    'setPeerContract(uint64,address)': FunctionFragment;
+    'setPeerContract(uint64,string,address)': FunctionFragment;
     'setPeerMinExecutorFee(uint256)': FunctionFragment;
     'setPeerMinRollupFee(uint256)': FunctionFragment;
     'toggleDeposits(bool)': FunctionFragment;
@@ -94,6 +95,7 @@ export interface MystikoV2CelerERC20Interface extends utils.Interface {
     functionFragment: 'executeMessage',
     values: [string, BigNumberish, BytesLike, string],
   ): string;
+  encodeFunctionData(functionFragment: 'getAssociatedCommitmentPool', values?: undefined): string;
   encodeFunctionData(functionFragment: 'getMinAmount', values?: undefined): string;
   encodeFunctionData(functionFragment: 'getMinBridgeFee', values?: undefined): string;
   encodeFunctionData(functionFragment: 'getMinExecutorFee', values?: undefined): string;
@@ -107,7 +109,7 @@ export interface MystikoV2CelerERC20Interface extends utils.Interface {
   encodeFunctionData(functionFragment: 'setMinAmount', values: [BigNumberish]): string;
   encodeFunctionData(functionFragment: 'setMinBridgeFee', values: [BigNumberish]): string;
   encodeFunctionData(functionFragment: 'setMinExecutorFee', values: [BigNumberish]): string;
-  encodeFunctionData(functionFragment: 'setPeerContract', values: [BigNumberish, string]): string;
+  encodeFunctionData(functionFragment: 'setPeerContract', values: [BigNumberish, string, string]): string;
   encodeFunctionData(functionFragment: 'setPeerMinExecutorFee', values: [BigNumberish]): string;
   encodeFunctionData(functionFragment: 'setPeerMinRollupFee', values: [BigNumberish]): string;
   encodeFunctionData(functionFragment: 'toggleDeposits', values: [boolean]): string;
@@ -122,6 +124,7 @@ export interface MystikoV2CelerERC20Interface extends utils.Interface {
   decodeFunctionResult(functionFragment: 'changeOperator', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'deposit', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'executeMessage', data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'getAssociatedCommitmentPool', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'getMinAmount', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'getMinBridgeFee', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'getMinExecutorFee', data: BytesLike): Result;
@@ -205,6 +208,8 @@ export interface MystikoV2CelerERC20 extends BaseContract {
       overrides?: PayableOverrides & { from?: string | Promise<string> },
     ): Promise<ContractTransaction>;
 
+    getAssociatedCommitmentPool(overrides?: CallOverrides): Promise<[string]>;
+
     getMinAmount(overrides?: CallOverrides): Promise<[BigNumber]>;
 
     getMinBridgeFee(overrides?: CallOverrides): Promise<[BigNumber]>;
@@ -248,6 +253,7 @@ export interface MystikoV2CelerERC20 extends BaseContract {
 
     setPeerContract(
       _peerChainId: BigNumberish,
+      _peerChainName: string,
       _peerContract: string,
       overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<ContractTransaction>;
@@ -306,6 +312,8 @@ export interface MystikoV2CelerERC20 extends BaseContract {
     overrides?: PayableOverrides & { from?: string | Promise<string> },
   ): Promise<ContractTransaction>;
 
+  getAssociatedCommitmentPool(overrides?: CallOverrides): Promise<string>;
+
   getMinAmount(overrides?: CallOverrides): Promise<BigNumber>;
 
   getMinBridgeFee(overrides?: CallOverrides): Promise<BigNumber>;
@@ -349,6 +357,7 @@ export interface MystikoV2CelerERC20 extends BaseContract {
 
   setPeerContract(
     _peerChainId: BigNumberish,
+    _peerChainName: string,
     _peerContract: string,
     overrides?: Overrides & { from?: string | Promise<string> },
   ): Promise<ContractTransaction>;
@@ -401,6 +410,8 @@ export interface MystikoV2CelerERC20 extends BaseContract {
       overrides?: CallOverrides,
     ): Promise<boolean>;
 
+    getAssociatedCommitmentPool(overrides?: CallOverrides): Promise<string>;
+
     getMinAmount(overrides?: CallOverrides): Promise<BigNumber>;
 
     getMinBridgeFee(overrides?: CallOverrides): Promise<BigNumber>;
@@ -429,6 +440,7 @@ export interface MystikoV2CelerERC20 extends BaseContract {
 
     setPeerContract(
       _peerChainId: BigNumberish,
+      _peerChainName: string,
       _peerContract: string,
       overrides?: CallOverrides,
     ): Promise<void>;
@@ -478,6 +490,8 @@ export interface MystikoV2CelerERC20 extends BaseContract {
       overrides?: PayableOverrides & { from?: string | Promise<string> },
     ): Promise<BigNumber>;
 
+    getAssociatedCommitmentPool(overrides?: CallOverrides): Promise<BigNumber>;
+
     getMinAmount(overrides?: CallOverrides): Promise<BigNumber>;
 
     getMinBridgeFee(overrides?: CallOverrides): Promise<BigNumber>;
@@ -521,6 +535,7 @@ export interface MystikoV2CelerERC20 extends BaseContract {
 
     setPeerContract(
       _peerChainId: BigNumberish,
+      _peerChainName: string,
       _peerContract: string,
       overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<BigNumber>;
@@ -580,6 +595,8 @@ export interface MystikoV2CelerERC20 extends BaseContract {
       overrides?: PayableOverrides & { from?: string | Promise<string> },
     ): Promise<PopulatedTransaction>;
 
+    getAssociatedCommitmentPool(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+
     getMinAmount(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     getMinBridgeFee(overrides?: CallOverrides): Promise<PopulatedTransaction>;
@@ -623,6 +640,7 @@ export interface MystikoV2CelerERC20 extends BaseContract {
 
     setPeerContract(
       _peerChainId: BigNumberish,
+      _peerChainName: string,
       _peerContract: string,
       overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<PopulatedTransaction>;

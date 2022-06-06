@@ -255,7 +255,7 @@ export function saveCoreContractJson(c: any) {
     c.srcPoolCfg.syncStart,
     c.srcTokenCfg.erc20,
     c.srcTokenCfg.address,
-    c.srcTokenCfg.minRollupFee,
+    c.srcPoolCfg.minRollupFee,
     c.cfg.circuits,
   );
 
@@ -271,9 +271,9 @@ export function saveCoreContractJson(c: any) {
     c.srcPoolCfg.address,
     c.dstChainCfg.chainId,
     c.pairDstDepositCfg.address,
-    c.srcTokenCfg.minAmount,
+    c.pairSrcDepositCfg.minAmount,
     c.bridgeCfg.getMinBridgeFee(c.srcChainCfg.network),
-    c.srcTokenCfg.minExecutorFee,
+    c.pairSrcDepositCfg.minExecutorFee,
   );
 
   saveCoreConfig(c.mystikoNetwork, coreCfg);

@@ -79,6 +79,10 @@ export class PoolDeployConfig extends BaseConfig {
     this.asRawContractDeployConfig().syncStart = start;
   }
 
+  public get minRollupFee(): string | undefined {
+    return this.asRawContractDeployConfig().minRollupFee;
+  }
+
   public isMinRollupFeeChange(fee: string): boolean {
     if (this.asRawContractDeployConfig().minRollupFee !== fee) {
       return true;

@@ -2,6 +2,7 @@ import { MystikoTBridgeProxy__factory } from '@mystikonetwork/contracts-abi';
 import { BridgeConfig } from '../config/bridge';
 import { OperatorConfig } from '../config/operator';
 import {
+  BridgeAxelar,
   BridgeCeler,
   BridgeLayerZero,
   BridgeLoop,
@@ -91,7 +92,11 @@ export async function getOrDeployBridgeProxy(
     return undefined;
   }
 
-  if (bridgeCfg.name === BridgeCeler || bridgeCfg.name === BridgeLayerZero) {
+  if (
+    bridgeCfg.name === BridgeCeler ||
+    bridgeCfg.name === BridgeLayerZero ||
+    bridgeCfg.name === BridgeAxelar
+  ) {
     if (
       inBridgeProxyCfg === undefined ||
       inBridgeProxyCfg.address === undefined ||
@@ -103,6 +108,14 @@ export async function getOrDeployBridgeProxy(
 
     if (bridgeCfg.name === BridgeLayerZero && inBridgeProxyCfg.mapChainId === undefined) {
       console.error(LOGRED, 'bridge proxy map chain id not configure');
+      process.exit(-1);
+    }
+
+    if (
+      bridgeCfg.name === BridgeAxelar &&
+      (inBridgeProxyCfg?.gasReceiver === undefined || inBridgeProxyCfg?.mapChainName === undefined)
+    ) {
+      console.error(LOGRED, 'bridge proxy map gas receiver or map chain name not configure');
       process.exit(-1);
     }
 
