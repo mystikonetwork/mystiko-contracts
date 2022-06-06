@@ -8,6 +8,7 @@ module.exports = {
     'mocks/proxy/DummyAxelarGasService.sol',
     'core/deposit/layerzero/relay/lzApp/LzApp.sol',
     'core/deposit/layerzero/relay/lzApp/NonblockingLzApp.sol',
+    'core/deposit/axelar/relay/IAxelarExecutable.sol',
     'libs/common/ZeroCopySink.sol',
     'libs/common/ZeroCopySource.sol',
     'libs/utils/Utils.sol',
