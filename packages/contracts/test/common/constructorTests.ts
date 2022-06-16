@@ -11,10 +11,10 @@ export function testLoopConstructor(contractName: string, mystikoContract: any, 
       expect(await mystikoContract.isDepositsDisabled()).to.equal(false);
     });
     it('should initialize sanction check disabled correctly', async () => {
-      expect(await mystikoContract.isSanctionCheckDisabled()).to.equal(false);
+      expect(await mystikoContract.sanctionsCheckDisabled()).to.equal(false);
     });
     it('should initialize sanction address correctly', async () => {
-      expect(await mystikoContract.getSanctionsContract()).to.not.equal('');
+      expect(await mystikoContract.sanctionsList()).to.not.equal('');
     });
     it('should initialize bridge type correctly', async () => {
       expect(await mystikoContract.bridgeType()).to.equal('loop');
