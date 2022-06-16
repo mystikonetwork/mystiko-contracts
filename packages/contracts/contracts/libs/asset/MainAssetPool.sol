@@ -30,7 +30,7 @@ abstract contract MainAssetPool is AssetPool {
     require(success, "withdraw failed");
   }
 
-  function assetType() public pure override returns (string memory) {
-    return "main";
+  function assetType() public pure override returns (AssetType) {
+    return AssetType.Main;
   }
 }

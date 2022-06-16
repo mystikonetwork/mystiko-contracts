@@ -71,6 +71,82 @@ const _abi = [
     type: 'event',
   },
   {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: false,
+        internalType: 'bool',
+        name: 'state',
+        type: 'bool',
+      },
+    ],
+    name: 'RollupWhitelistDisabled',
+    type: 'event',
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: false,
+        internalType: 'bool',
+        name: 'state',
+        type: 'bool',
+      },
+    ],
+    name: 'SanctionsCheckDisabled',
+    type: 'event',
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: false,
+        internalType: 'contract ISanctionsList',
+        name: 'sanctions',
+        type: 'address',
+      },
+    ],
+    name: 'SanctionsList',
+    type: 'event',
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: false,
+        internalType: 'bool',
+        name: 'state',
+        type: 'bool',
+      },
+    ],
+    name: 'VerifierUpdateDisabled',
+    type: 'event',
+  },
+  {
+    inputs: [
+      {
+        internalType: 'uint256',
+        name: '_fullPath',
+        type: 'uint256',
+      },
+      {
+        internalType: 'uint32',
+        name: '_rollupSize',
+        type: 'uint32',
+      },
+    ],
+    name: '_pathIndices',
+    outputs: [
+      {
+        internalType: 'uint256',
+        name: '',
+        type: 'uint256',
+      },
+    ],
+    stateMutability: 'pure',
+    type: 'function',
+  },
+  {
     inputs: [
       {
         internalType: 'address',
@@ -101,9 +177,9 @@ const _abi = [
     name: 'assetType',
     outputs: [
       {
-        internalType: 'string',
+        internalType: 'enum AssetPool.AssetType',
         name: '',
-        type: 'string',
+        type: 'uint8',
       },
     ],
     stateMutability: 'view',
@@ -161,7 +237,7 @@ const _abi = [
         type: 'uint32',
       },
       {
-        internalType: 'address',
+        internalType: 'contract IVerifier',
         name: '_rollupVerifier',
         type: 'address',
       },
@@ -184,7 +260,7 @@ const _abi = [
         type: 'uint32',
       },
       {
-        internalType: 'address',
+        internalType: 'contract IVerifier',
         name: '_transactVerifier',
         type: 'address',
       },
@@ -235,13 +311,7 @@ const _abi = [
       },
     ],
     name: 'enqueue',
-    outputs: [
-      {
-        internalType: 'bool',
-        name: '',
-        type: 'bool',
-      },
-    ],
+    outputs: [],
     stateMutability: 'nonpayable',
     type: 'function',
   },
@@ -279,19 +349,6 @@ const _abi = [
         internalType: 'uint32',
         name: '',
         type: 'uint32',
-      },
-    ],
-    stateMutability: 'view',
-    type: 'function',
-  },
-  {
-    inputs: [],
-    name: 'getSanctionsContract',
-    outputs: [
-      {
-        internalType: 'address',
-        name: '',
-        type: 'address',
       },
     ],
     stateMutability: 'view',
@@ -351,19 +408,6 @@ const _abi = [
   {
     inputs: [],
     name: 'isRollupWhitelistDisabled',
-    outputs: [
-      {
-        internalType: 'bool',
-        name: '',
-        type: 'bool',
-      },
-    ],
-    stateMutability: 'view',
-    type: 'function',
-  },
-  {
-    inputs: [],
-    name: 'isSanctionCheckDisabled',
     outputs: [
       {
         internalType: 'bool',
@@ -521,6 +565,32 @@ const _abi = [
     type: 'function',
   },
   {
+    inputs: [],
+    name: 'sanctionsCheckDisabled',
+    outputs: [
+      {
+        internalType: 'bool',
+        name: '',
+        type: 'bool',
+      },
+    ],
+    stateMutability: 'view',
+    type: 'function',
+  },
+  {
+    inputs: [],
+    name: 'sanctionsList',
+    outputs: [
+      {
+        internalType: 'contract ISanctionsList',
+        name: '',
+        type: 'address',
+      },
+    ],
+    stateMutability: 'view',
+    type: 'function',
+  },
+  {
     inputs: [
       {
         internalType: 'uint256',
@@ -541,20 +611,7 @@ const _abi = [
         type: 'bool',
       },
     ],
-    name: 'toggleRollupWhitelist',
-    outputs: [],
-    stateMutability: 'nonpayable',
-    type: 'function',
-  },
-  {
-    inputs: [
-      {
-        internalType: 'bool',
-        name: '_check',
-        type: 'bool',
-      },
-    ],
-    name: 'toggleSanctionCheck',
+    name: 'setRollupWhitelistDisabled',
     outputs: [],
     stateMutability: 'nonpayable',
     type: 'function',
@@ -567,7 +624,20 @@ const _abi = [
         type: 'bool',
       },
     ],
-    name: 'toggleVerifierUpdate',
+    name: 'setSanctionCheckDisabled',
+    outputs: [],
+    stateMutability: 'nonpayable',
+    type: 'function',
+  },
+  {
+    inputs: [
+      {
+        internalType: 'bool',
+        name: '_state',
+        type: 'bool',
+      },
+    ],
+    name: 'setVerifierUpdateDisabled',
     outputs: [],
     stateMutability: 'nonpayable',
     type: 'function',
@@ -702,13 +772,13 @@ const _abi = [
     ],
     name: 'transact',
     outputs: [],
-    stateMutability: 'payable',
+    stateMutability: 'nonpayable',
     type: 'function',
   },
   {
     inputs: [
       {
-        internalType: 'address',
+        internalType: 'contract ISanctionsList',
         name: '_sanction',
         type: 'address',
       },

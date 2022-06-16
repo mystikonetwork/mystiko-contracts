@@ -3,7 +3,10 @@ pragma solidity ^0.8.0;
 
 import "./MystikoV2LayerZero.sol";
 import "../../../libs/asset/MainAssetPool.sol";
+import "../../../interface/IHasher3.sol";
 
 contract MystikoV2LayerZeroMain is MystikoV2LayerZero, MainAssetPool {
-  constructor(address _hasher3) MystikoV2LayerZero(_hasher3) {}
+  constructor(IHasher3 _hasher3) MystikoV2LayerZero(_hasher3) {
+    // implemented in MystikoV2LayerZero
+  }
 }

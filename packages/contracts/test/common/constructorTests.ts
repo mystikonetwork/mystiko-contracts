@@ -22,14 +22,14 @@ export function testLoopConstructor(contractName: string, mystikoContract: any, 
 
     if (contractName === 'MystikoV2LoopERC20') {
       it('should initialize erc20 token correctly', async () => {
-        expect(await mystikoContract.assetType()).to.equal('erc20');
+        expect(await mystikoContract.assetType()).to.equal(0);
         expect(await mystikoContract.assetName()).to.equal('Mystiko Test Token');
         expect(await mystikoContract.assetSymbol()).to.equal('MTT');
         expect(await mystikoContract.assetDecimals()).to.equal(18);
       });
     } else {
       it('should initialize main token correctly', async () => {
-        expect(await mystikoContract.assetType()).to.equal('main');
+        expect(await mystikoContract.assetType()).to.equal(1);
       });
     }
   });

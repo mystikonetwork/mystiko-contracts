@@ -51,13 +51,13 @@ export interface MainAssetPool extends BaseContract {
   removeListener: OnEvent<this>;
 
   functions: {
-    assetType(overrides?: CallOverrides): Promise<[string]>;
+    assetType(overrides?: CallOverrides): Promise<[number]>;
   };
 
-  assetType(overrides?: CallOverrides): Promise<string>;
+  assetType(overrides?: CallOverrides): Promise<number>;
 
   callStatic: {
-    assetType(overrides?: CallOverrides): Promise<string>;
+    assetType(overrides?: CallOverrides): Promise<number>;
   };
 
   filters: {};

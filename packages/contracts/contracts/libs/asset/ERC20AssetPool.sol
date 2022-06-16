@@ -2,15 +2,15 @@
 pragma solidity ^0.8.0;
 
 import "./AssetPool.sol";
-import "./IERC20Metadata.sol";
+import "../../interface/IERC20Metadata.sol";
 import "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol";
 
 abstract contract ERC20AssetPool is AssetPool {
   using SafeERC20 for IERC20Metadata;
-  IERC20Metadata asset;
+  IERC20Metadata private asset;
 
-  constructor(address _assetAddress) {
-    asset = IERC20Metadata(_assetAddress);
+  constructor(IERC20Metadata _assetAddress) {
+    asset = _assetAddress;
   }
 
   function _processDepositTransfer(
@@ -34,8 +34,8 @@ abstract contract ERC20AssetPool is AssetPool {
     asset.safeTransfer(recipient, amount);
   }
 
-  function assetType() public pure override returns (string memory) {
-    return "erc20";
+  function assetType() public pure override returns (AssetType) {
+    return AssetType.ERC20;
   }
 
   function assetName() public view returns (string memory) {

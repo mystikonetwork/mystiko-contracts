@@ -10,25 +10,39 @@ import {
   Signer,
   utils,
 } from 'ethers';
-import { FunctionFragment, Result } from '@ethersproject/abi';
+import { FunctionFragment, Result, EventFragment } from '@ethersproject/abi';
 import { Listener, Provider } from '@ethersproject/providers';
 import { TypedEventFilter, TypedEvent, TypedListener, OnEvent } from './common';
 
 export interface SanctionsInterface extends utils.Interface {
   contractName: 'Sanctions';
   functions: {
-    'getSanctionsContract()': FunctionFragment;
-    'isSanctionCheckDisabled()': FunctionFragment;
+    'sanctionsCheckDisabled()': FunctionFragment;
+    'sanctionsList()': FunctionFragment;
   };
 
-  encodeFunctionData(functionFragment: 'getSanctionsContract', values?: undefined): string;
-  encodeFunctionData(functionFragment: 'isSanctionCheckDisabled', values?: undefined): string;
+  encodeFunctionData(functionFragment: 'sanctionsCheckDisabled', values?: undefined): string;
+  encodeFunctionData(functionFragment: 'sanctionsList', values?: undefined): string;
 
-  decodeFunctionResult(functionFragment: 'getSanctionsContract', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'isSanctionCheckDisabled', data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'sanctionsCheckDisabled', data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'sanctionsList', data: BytesLike): Result;
 
-  events: {};
+  events: {
+    'SanctionsCheckDisabled(bool)': EventFragment;
+    'SanctionsList(address)': EventFragment;
+  };
+
+  getEvent(nameOrSignatureOrTopic: 'SanctionsCheckDisabled'): EventFragment;
+  getEvent(nameOrSignatureOrTopic: 'SanctionsList'): EventFragment;
 }
+
+export type SanctionsCheckDisabledEvent = TypedEvent<[boolean], { state: boolean }>;
+
+export type SanctionsCheckDisabledEventFilter = TypedEventFilter<SanctionsCheckDisabledEvent>;
+
+export type SanctionsListEvent = TypedEvent<[string], { sanctions: string }>;
+
+export type SanctionsListEventFilter = TypedEventFilter<SanctionsListEvent>;
 
 export interface Sanctions extends BaseContract {
   contractName: 'Sanctions';
@@ -54,32 +68,38 @@ export interface Sanctions extends BaseContract {
   removeListener: OnEvent<this>;
 
   functions: {
-    getSanctionsContract(overrides?: CallOverrides): Promise<[string]>;
+    sanctionsCheckDisabled(overrides?: CallOverrides): Promise<[boolean]>;
 
-    isSanctionCheckDisabled(overrides?: CallOverrides): Promise<[boolean]>;
+    sanctionsList(overrides?: CallOverrides): Promise<[string]>;
   };
 
-  getSanctionsContract(overrides?: CallOverrides): Promise<string>;
+  sanctionsCheckDisabled(overrides?: CallOverrides): Promise<boolean>;
 
-  isSanctionCheckDisabled(overrides?: CallOverrides): Promise<boolean>;
+  sanctionsList(overrides?: CallOverrides): Promise<string>;
 
   callStatic: {
-    getSanctionsContract(overrides?: CallOverrides): Promise<string>;
+    sanctionsCheckDisabled(overrides?: CallOverrides): Promise<boolean>;
 
-    isSanctionCheckDisabled(overrides?: CallOverrides): Promise<boolean>;
+    sanctionsList(overrides?: CallOverrides): Promise<string>;
   };
 
-  filters: {};
+  filters: {
+    'SanctionsCheckDisabled(bool)'(state?: null): SanctionsCheckDisabledEventFilter;
+    SanctionsCheckDisabled(state?: null): SanctionsCheckDisabledEventFilter;
+
+    'SanctionsList(address)'(sanctions?: null): SanctionsListEventFilter;
+    SanctionsList(sanctions?: null): SanctionsListEventFilter;
+  };
 
   estimateGas: {
-    getSanctionsContract(overrides?: CallOverrides): Promise<BigNumber>;
+    sanctionsCheckDisabled(overrides?: CallOverrides): Promise<BigNumber>;
 
-    isSanctionCheckDisabled(overrides?: CallOverrides): Promise<BigNumber>;
+    sanctionsList(overrides?: CallOverrides): Promise<BigNumber>;
   };
 
   populateTransaction: {
-    getSanctionsContract(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+    sanctionsCheckDisabled(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
-    isSanctionCheckDisabled(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+    sanctionsList(overrides?: CallOverrides): Promise<PopulatedTransaction>;
   };
 }

@@ -5,9 +5,12 @@ import "./relay/interface/IMessageSenderApp.sol";
 import "./relay/interface/IMessageReceiverApp.sol";
 import "../base/CrossChainDataSerializable.sol";
 import "../base/MystikoV2Bridge.sol";
+import "../../../interface/IHasher3.sol";
 
 abstract contract MystikoV2Celer is MystikoV2Bridge, IMessageReceiverApp {
-  constructor(address _hasher3) MystikoV2Bridge(_hasher3) {}
+  constructor(IHasher3 _hasher3) MystikoV2Bridge(_hasher3) {
+    // implemented in MystikoV2Bridge
+  }
 
   function _processDeposit(uint256 _bridgeFee, bytes memory _requestBytes) internal override {
     IMessageSenderApp(bridgeProxyAddress).sendMessage{value: _bridgeFee}(

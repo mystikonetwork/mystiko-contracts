@@ -9,7 +9,6 @@ import {
   CallOverrides,
   ContractTransaction,
   Overrides,
-  PayableOverrides,
   PopulatedTransaction,
   Signer,
   utils,
@@ -191,7 +190,7 @@ export interface ICommitmentPool extends BaseContract {
     transact(
       _request: ICommitmentPool.TransactRequestStruct,
       _signature: BytesLike,
-      overrides?: PayableOverrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<ContractTransaction>;
   };
 
@@ -209,7 +208,7 @@ export interface ICommitmentPool extends BaseContract {
   transact(
     _request: ICommitmentPool.TransactRequestStruct,
     _signature: BytesLike,
-    overrides?: PayableOverrides & { from?: string | Promise<string> },
+    overrides?: Overrides & { from?: string | Promise<string> },
   ): Promise<ContractTransaction>;
 
   callStatic: {
@@ -217,7 +216,7 @@ export interface ICommitmentPool extends BaseContract {
       _request: ICommitmentPool.CommitmentRequestStruct,
       _executor: string,
       overrides?: CallOverrides,
-    ): Promise<boolean>;
+    ): Promise<void>;
 
     rollup(_request: ICommitmentPool.RollupRequestStruct, overrides?: CallOverrides): Promise<void>;
 
@@ -245,7 +244,7 @@ export interface ICommitmentPool extends BaseContract {
     transact(
       _request: ICommitmentPool.TransactRequestStruct,
       _signature: BytesLike,
-      overrides?: PayableOverrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<BigNumber>;
   };
 
@@ -264,7 +263,7 @@ export interface ICommitmentPool extends BaseContract {
     transact(
       _request: ICommitmentPool.TransactRequestStruct,
       _signature: BytesLike,
-      overrides?: PayableOverrides & { from?: string | Promise<string> },
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<PopulatedTransaction>;
   };
 }

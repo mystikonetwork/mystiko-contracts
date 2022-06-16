@@ -8,13 +8,39 @@ import type { Sanctions, SanctionsInterface } from '../Sanctions';
 
 const _abi = [
   {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: false,
+        internalType: 'bool',
+        name: 'state',
+        type: 'bool',
+      },
+    ],
+    name: 'SanctionsCheckDisabled',
+    type: 'event',
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: false,
+        internalType: 'contract ISanctionsList',
+        name: 'sanctions',
+        type: 'address',
+      },
+    ],
+    name: 'SanctionsList',
+    type: 'event',
+  },
+  {
     inputs: [],
-    name: 'getSanctionsContract',
+    name: 'sanctionsCheckDisabled',
     outputs: [
       {
-        internalType: 'address',
+        internalType: 'bool',
         name: '',
-        type: 'address',
+        type: 'bool',
       },
     ],
     stateMutability: 'view',
@@ -22,12 +48,12 @@ const _abi = [
   },
   {
     inputs: [],
-    name: 'isSanctionCheckDisabled',
+    name: 'sanctionsList',
     outputs: [
       {
-        internalType: 'bool',
+        internalType: 'contract ISanctionsList',
         name: '',
-        type: 'bool',
+        type: 'address',
       },
     ],
     stateMutability: 'view',

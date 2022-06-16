@@ -68,7 +68,7 @@ export function testLayerZeroDeposit(
 
     it('should deposit successfully', async () => {
       await sanctionList.addToSanctionsList(bridgeAccount.address);
-      await mystikoContract.toggleSanctionCheck(true);
+      await mystikoContract.setSanctionCheckDisabled(true);
 
       for (let i = 0; i < numOfCommitments; i += 1) {
         const balanceBefore = isDstMainAsset

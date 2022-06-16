@@ -2,16 +2,16 @@
 pragma solidity ^0.8.0;
 
 import "../../../libs/asset/AssetPool.sol";
+import "../../../libs/common/DataTypes.sol";
 import "../../../interface/IMystikoLoop.sol";
 import "../../../interface/IHasher3.sol";
 import "../../../interface/ICommitmentPool.sol";
+import "../../../interface/ISanctionsList.sol";
 import "../../rule/Sanctions.sol";
 import "@openzeppelin/contracts/security/ReentrancyGuard.sol";
 import "@openzeppelin/contracts/utils/cryptography/ECDSA.sol";
 
 abstract contract MystikoV2Loop is IMystikoLoop, AssetPool, Sanctions {
-  uint256 constant FIELD_SIZE = 21888242871839275222246405745257275088548364400416034343698204186575808495617;
-
   // Hasher related.
   IHasher3 hasher3;
 
@@ -29,9 +29,9 @@ abstract contract MystikoV2Loop is IMystikoLoop, AssetPool, Sanctions {
     _;
   }
 
-  constructor(address _hasher3) {
+  constructor(IHasher3 _hasher3) {
     operator = msg.sender;
-    hasher3 = IHasher3(_hasher3);
+    hasher3 = _hasher3;
   }
 
   function setAssociatedCommitmentPool(address _commitmentPoolAddress) external onlyOperator {
@@ -47,8 +47,8 @@ abstract contract MystikoV2Loop is IMystikoLoop, AssetPool, Sanctions {
     uint256 _amount,
     uint128 _randomS
   ) internal view returns (uint256) {
-    require(_hashK < FIELD_SIZE, "hashK should be less than FIELD_SIZE");
-    require(_amount < FIELD_SIZE, "randomS should be less than FIELD_SIZE");
+    require(_hashK < DataTypes.FIELD_SIZE, "hashK should be less than FIELD_SIZE");
+    require(_randomS < DataTypes.FIELD_SIZE, "randomS should be less than FIELD_SIZE");
     return hasher3.poseidon([_hashK, _amount, uint256(_randomS)]);
   }
 
@@ -82,10 +82,10 @@ abstract contract MystikoV2Loop is IMystikoLoop, AssetPool, Sanctions {
     });
 
     // todo 1 check commitment in queue
-    require(ICommitmentPool(associatedCommitmentPool).enqueue(cmRequest, address(0)), "call enqueue error");
+    ICommitmentPool(associatedCommitmentPool).enqueue(cmRequest, address(0));
   }
 
-  function toggleDeposits(bool _state) external onlyOperator {
+  function setDepositsDisabled(bool _state) external onlyOperator {
     depositsDisabled = _state;
   }
 
@@ -93,12 +93,14 @@ abstract contract MystikoV2Loop is IMystikoLoop, AssetPool, Sanctions {
     operator = _newOperator;
   }
 
-  function toggleSanctionCheck(bool _check) external onlyOperator {
-    sanctionCheckDisabled = _check;
+  function setSanctionCheckDisabled(bool _state) external onlyOperator {
+    sanctionsCheckDisabled = _state;
+    emit SanctionsCheckDisabled(_state);
   }
 
-  function updateSanctionContractAddress(address _sanction) external onlyOperator {
-    sanctionsContract = _sanction;
+  function updateSanctionContractAddress(ISanctionsList _sanction) external onlyOperator {
+    sanctionsList = _sanction;
+    emit SanctionsList(_sanction);
   }
 
   function bridgeType() public pure returns (string memory) {

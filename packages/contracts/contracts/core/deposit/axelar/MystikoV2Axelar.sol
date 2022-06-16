@@ -7,13 +7,16 @@ import "./relay/IAxelarGateway.sol";
 import "../base/CrossChainDataSerializable.sol";
 import "../base/MystikoV2Bridge.sol";
 import "../../../libs/utils/Utils.sol";
+import "../../../interface/IHasher3.sol";
 
 abstract contract MystikoV2Axelar is MystikoV2Bridge, IAxelarExecutable {
   event CallContractMessage(string peerChainName, string destinationAddress);
 
   IAxelarGasService gasReceiver;
 
-  constructor(address _hasher3) MystikoV2Bridge(_hasher3) IAxelarExecutable() {}
+  constructor(IHasher3 _hasher3) MystikoV2Bridge(_hasher3) IAxelarExecutable() {
+    // implemented in MystikoV2Bridge
+  }
 
   function setAxelarGasReceiver(address _gasReceiver) external onlyOperator {
     gasReceiver = IAxelarGasService(_gasReceiver);
