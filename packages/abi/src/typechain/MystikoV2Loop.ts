@@ -54,7 +54,7 @@ export interface MystikoV2LoopInterface extends utils.Interface {
     'setDepositsDisabled(bool)': FunctionFragment;
     'setMinAmount(uint256)': FunctionFragment;
     'setSanctionCheckDisabled(bool)': FunctionFragment;
-    'updateSanctionContractAddress(address)': FunctionFragment;
+    'updateSanctionsListAddress(address)': FunctionFragment;
   };
 
   encodeFunctionData(functionFragment: 'assetType', values?: undefined): string;
@@ -70,7 +70,7 @@ export interface MystikoV2LoopInterface extends utils.Interface {
   encodeFunctionData(functionFragment: 'setDepositsDisabled', values: [boolean]): string;
   encodeFunctionData(functionFragment: 'setMinAmount', values: [BigNumberish]): string;
   encodeFunctionData(functionFragment: 'setSanctionCheckDisabled', values: [boolean]): string;
-  encodeFunctionData(functionFragment: 'updateSanctionContractAddress', values: [string]): string;
+  encodeFunctionData(functionFragment: 'updateSanctionsListAddress', values: [string]): string;
 
   decodeFunctionResult(functionFragment: 'assetType', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'bridgeType', data: BytesLike): Result;
@@ -85,7 +85,7 @@ export interface MystikoV2LoopInterface extends utils.Interface {
   decodeFunctionResult(functionFragment: 'setDepositsDisabled', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'setMinAmount', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'setSanctionCheckDisabled', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'updateSanctionContractAddress', data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'updateSanctionsListAddress', data: BytesLike): Result;
 
   events: {
     'DepositsDisabled(bool)': EventFragment;
@@ -190,7 +190,7 @@ export interface MystikoV2Loop extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<ContractTransaction>;
 
-    updateSanctionContractAddress(
+    updateSanctionsListAddress(
       _sanction: string,
       overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<ContractTransaction>;
@@ -240,7 +240,7 @@ export interface MystikoV2Loop extends BaseContract {
     overrides?: Overrides & { from?: string | Promise<string> },
   ): Promise<ContractTransaction>;
 
-  updateSanctionContractAddress(
+  updateSanctionsListAddress(
     _sanction: string,
     overrides?: Overrides & { from?: string | Promise<string> },
   ): Promise<ContractTransaction>;
@@ -272,7 +272,7 @@ export interface MystikoV2Loop extends BaseContract {
 
     setSanctionCheckDisabled(_state: boolean, overrides?: CallOverrides): Promise<void>;
 
-    updateSanctionContractAddress(_sanction: string, overrides?: CallOverrides): Promise<void>;
+    updateSanctionsListAddress(_sanction: string, overrides?: CallOverrides): Promise<void>;
   };
 
   filters: {
@@ -337,7 +337,7 @@ export interface MystikoV2Loop extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<BigNumber>;
 
-    updateSanctionContractAddress(
+    updateSanctionsListAddress(
       _sanction: string,
       overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<BigNumber>;
@@ -388,7 +388,7 @@ export interface MystikoV2Loop extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<PopulatedTransaction>;
 
-    updateSanctionContractAddress(
+    updateSanctionsListAddress(
       _sanction: string,
       overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<PopulatedTransaction>;

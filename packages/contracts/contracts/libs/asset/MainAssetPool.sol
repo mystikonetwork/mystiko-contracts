@@ -25,7 +25,6 @@ abstract contract MainAssetPool is AssetPool {
   }
 
   function _processWithdrawTransfer(address recipient, uint256 amount) internal override {
-    require(msg.value == 0, "no mainnet token allowed");
     (bool success, ) = recipient.call{value: amount}("");
     require(success, "withdraw failed");
   }

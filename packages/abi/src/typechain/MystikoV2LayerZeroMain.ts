@@ -96,7 +96,7 @@ export interface MystikoV2LayerZeroMainInterface extends utils.Interface {
     'setTrustedRemote(uint16,bytes)': FunctionFragment;
     'transferOwnership(address)': FunctionFragment;
     'trustedRemoteLookup(uint16)': FunctionFragment;
-    'updateSanctionContractAddress(address)': FunctionFragment;
+    'updateSanctionsListAddress(address)': FunctionFragment;
   };
 
   encodeFunctionData(functionFragment: 'assetType', values?: undefined): string;
@@ -159,7 +159,7 @@ export interface MystikoV2LayerZeroMainInterface extends utils.Interface {
   encodeFunctionData(functionFragment: 'setTrustedRemote', values: [BigNumberish, BytesLike]): string;
   encodeFunctionData(functionFragment: 'transferOwnership', values: [string]): string;
   encodeFunctionData(functionFragment: 'trustedRemoteLookup', values: [BigNumberish]): string;
-  encodeFunctionData(functionFragment: 'updateSanctionContractAddress', values: [string]): string;
+  encodeFunctionData(functionFragment: 'updateSanctionsListAddress', values: [string]): string;
 
   decodeFunctionResult(functionFragment: 'assetType', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'bridgeType', data: BytesLike): Result;
@@ -203,7 +203,7 @@ export interface MystikoV2LayerZeroMainInterface extends utils.Interface {
   decodeFunctionResult(functionFragment: 'setTrustedRemote', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'transferOwnership', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'trustedRemoteLookup', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'updateSanctionContractAddress', data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'updateSanctionsListAddress', data: BytesLike): Result;
 
   events: {
     'CommitmentCrossChain(uint256)': EventFragment;
@@ -468,7 +468,7 @@ export interface MystikoV2LayerZeroMain extends BaseContract {
 
     trustedRemoteLookup(arg0: BigNumberish, overrides?: CallOverrides): Promise<[string]>;
 
-    updateSanctionContractAddress(
+    updateSanctionsListAddress(
       _sanction: string,
       overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<ContractTransaction>;
@@ -658,7 +658,7 @@ export interface MystikoV2LayerZeroMain extends BaseContract {
 
   trustedRemoteLookup(arg0: BigNumberish, overrides?: CallOverrides): Promise<string>;
 
-  updateSanctionContractAddress(
+  updateSanctionsListAddress(
     _sanction: string,
     overrides?: Overrides & { from?: string | Promise<string> },
   ): Promise<ContractTransaction>;
@@ -800,7 +800,7 @@ export interface MystikoV2LayerZeroMain extends BaseContract {
 
     trustedRemoteLookup(arg0: BigNumberish, overrides?: CallOverrides): Promise<string>;
 
-    updateSanctionContractAddress(_sanction: string, overrides?: CallOverrides): Promise<void>;
+    updateSanctionsListAddress(_sanction: string, overrides?: CallOverrides): Promise<void>;
   };
 
   filters: {
@@ -1022,7 +1022,7 @@ export interface MystikoV2LayerZeroMain extends BaseContract {
 
     trustedRemoteLookup(arg0: BigNumberish, overrides?: CallOverrides): Promise<BigNumber>;
 
-    updateSanctionContractAddress(
+    updateSanctionsListAddress(
       _sanction: string,
       overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<BigNumber>;
@@ -1213,7 +1213,7 @@ export interface MystikoV2LayerZeroMain extends BaseContract {
 
     trustedRemoteLookup(arg0: BigNumberish, overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
-    updateSanctionContractAddress(
+    updateSanctionsListAddress(
       _sanction: string,
       overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<PopulatedTransaction>;
