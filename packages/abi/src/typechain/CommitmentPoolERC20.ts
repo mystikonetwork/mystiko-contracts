@@ -145,7 +145,6 @@ export interface CommitmentPoolERC20Interface extends utils.Interface {
     'enqueue((uint256,uint256,uint256,uint256,bytes),address)': FunctionFragment;
     'getCommitmentIncludedCount()': FunctionFragment;
     'getMinRollupFee()': FunctionFragment;
-    'getRootHistoryLength()': FunctionFragment;
     'getTreeCapacity()': FunctionFragment;
     'isHistoricCommitment(uint256)': FunctionFragment;
     'isKnownRoot(uint256)': FunctionFragment;
@@ -189,7 +188,6 @@ export interface CommitmentPoolERC20Interface extends utils.Interface {
   ): string;
   encodeFunctionData(functionFragment: 'getCommitmentIncludedCount', values?: undefined): string;
   encodeFunctionData(functionFragment: 'getMinRollupFee', values?: undefined): string;
-  encodeFunctionData(functionFragment: 'getRootHistoryLength', values?: undefined): string;
   encodeFunctionData(functionFragment: 'getTreeCapacity', values?: undefined): string;
   encodeFunctionData(functionFragment: 'isHistoricCommitment', values: [BigNumberish]): string;
   encodeFunctionData(functionFragment: 'isKnownRoot', values: [BigNumberish]): string;
@@ -226,7 +224,6 @@ export interface CommitmentPoolERC20Interface extends utils.Interface {
   decodeFunctionResult(functionFragment: 'enqueue', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'getCommitmentIncludedCount', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'getMinRollupFee', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'getRootHistoryLength', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'getTreeCapacity', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'isHistoricCommitment', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'isKnownRoot', data: BytesLike): Result;
@@ -390,8 +387,6 @@ export interface CommitmentPoolERC20 extends BaseContract {
 
     getMinRollupFee(overrides?: CallOverrides): Promise<[BigNumber]>;
 
-    getRootHistoryLength(overrides?: CallOverrides): Promise<[number]>;
-
     getTreeCapacity(overrides?: CallOverrides): Promise<[BigNumber]>;
 
     isHistoricCommitment(_commitment: BigNumberish, overrides?: CallOverrides): Promise<[boolean]>;
@@ -518,8 +513,6 @@ export interface CommitmentPoolERC20 extends BaseContract {
 
   getMinRollupFee(overrides?: CallOverrides): Promise<BigNumber>;
 
-  getRootHistoryLength(overrides?: CallOverrides): Promise<number>;
-
   getTreeCapacity(overrides?: CallOverrides): Promise<BigNumber>;
 
   isHistoricCommitment(_commitment: BigNumberish, overrides?: CallOverrides): Promise<boolean>;
@@ -633,8 +626,6 @@ export interface CommitmentPoolERC20 extends BaseContract {
     getCommitmentIncludedCount(overrides?: CallOverrides): Promise<BigNumber>;
 
     getMinRollupFee(overrides?: CallOverrides): Promise<BigNumber>;
-
-    getRootHistoryLength(overrides?: CallOverrides): Promise<number>;
 
     getTreeCapacity(overrides?: CallOverrides): Promise<BigNumber>;
 
@@ -778,8 +769,6 @@ export interface CommitmentPoolERC20 extends BaseContract {
 
     getMinRollupFee(overrides?: CallOverrides): Promise<BigNumber>;
 
-    getRootHistoryLength(overrides?: CallOverrides): Promise<BigNumber>;
-
     getTreeCapacity(overrides?: CallOverrides): Promise<BigNumber>;
 
     isHistoricCommitment(_commitment: BigNumberish, overrides?: CallOverrides): Promise<BigNumber>;
@@ -906,8 +895,6 @@ export interface CommitmentPoolERC20 extends BaseContract {
     getCommitmentIncludedCount(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     getMinRollupFee(overrides?: CallOverrides): Promise<PopulatedTransaction>;
-
-    getRootHistoryLength(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     getTreeCapacity(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 

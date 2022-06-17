@@ -343,19 +343,6 @@ const _abi = [
   },
   {
     inputs: [],
-    name: 'getRootHistoryLength',
-    outputs: [
-      {
-        internalType: 'uint32',
-        name: '',
-        type: 'uint32',
-      },
-    ],
-    stateMutability: 'view',
-    type: 'function',
-  },
-  {
-    inputs: [],
     name: 'getTreeCapacity',
     outputs: [
       {

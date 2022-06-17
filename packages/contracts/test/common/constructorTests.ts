@@ -1,6 +1,6 @@
 import { expect } from 'chai';
 // import { MerkleTree } from '@mystikonetwork/utils';
-import { MerkleTreeHeight, MinRollupFee, RootHistoryLength } from '../util/constants';
+import { MerkleTreeHeight, MinRollupFee } from '../util/constants';
 
 export function testLoopConstructor(contractName: string, mystikoContract: any, minAmount: string) {
   describe(`Test ${contractName} constructor`, () => {
@@ -79,7 +79,7 @@ export function testBridgeConstructor(
 export function testCommitmentPoolConstructor(
   contractName: string,
   mystikoContract: any,
-  { treeHeight = MerkleTreeHeight, rootHistoryLength = RootHistoryLength, minRollupFee = MinRollupFee },
+  { treeHeight = MerkleTreeHeight, minRollupFee = MinRollupFee },
 ) {
   describe(`Test ${contractName} constructor`, () => {
     it('should initialize minRollupFee correctly', async () => {
@@ -93,7 +93,6 @@ export function testCommitmentPoolConstructor(
       // const zeros = MerkleTree.calcZeros(defaultZero, treeHeight);
       expect((await mystikoContract.getTreeCapacity()).toNumber()).to.equal(2 ** treeHeight);
       // expect((await mystikoContract.rootHistory(0)).toString()).to.equal(zeros[treeHeight].toString());
-      expect(await mystikoContract.getRootHistoryLength()).to.equal(rootHistoryLength);
     });
     it('should initialize admin related resources correctly', async () => {
       expect(await mystikoContract.isVerifierUpdateDisabled()).to.equal(false);

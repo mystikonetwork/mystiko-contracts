@@ -38,10 +38,8 @@ abstract contract CommitmentPool is ICommitmentPool, AssetPool, ReentrancyGuard,
 
   // merkle tree roots;
   uint256 private immutable treeCapacity;
-  mapping(uint32 => uint256) private rootHistory;
+  mapping(uint256 => bool) private rootHistory;
   uint256 private currentRoot;
-  uint32 private currentRootIndex = 0;
-  uint32 private immutable rootHistoryLength;
 
   // Admin related.
   address private operator;
@@ -80,14 +78,12 @@ abstract contract CommitmentPool is ICommitmentPool, AssetPool, ReentrancyGuard,
   event VerifierUpdateDisabled(bool state);
   event RollupWhitelistDisabled(bool state);
 
-  constructor(uint8 _treeHeight, uint32 _rootHistoryLength) {
-    require(_rootHistoryLength > 0, "_rootHistoryLength should be greater than 0");
+  constructor(uint8 _treeHeight) {
     require(_treeHeight > 0, "_treeHeight should be greater than 0");
     operator = msg.sender;
-    rootHistoryLength = _rootHistoryLength;
     treeCapacity = 1 << _treeHeight;
     currentRoot = _zeros(_treeHeight);
-    rootHistory[currentRootIndex] = currentRoot;
+    rootHistory[currentRoot] = true;
   }
 
   /* @notice              Check commitment request parameter and insert commitment into commitment queue
@@ -118,7 +114,7 @@ abstract contract CommitmentPool is ICommitmentPool, AssetPool, ReentrancyGuard,
    */
   function rollup(RollupRequest memory _request) external override onlyRollupWhitelisted {
     require(_request.newRoot < DataTypes.FIELD_SIZE, "newRoot should be less than FIELD_SIZE");
-    require(!isKnownRoot(_request.newRoot), "newRoot is duplicated");
+    require(!rootHistory[_request.newRoot], "newRoot is duplicated");
     require(
       _request.rollupSize > 0 &&
         _request.rollupSize <= commitmentQueueSize &&
@@ -151,8 +147,7 @@ abstract contract CommitmentPool is ICommitmentPool, AssetPool, ReentrancyGuard,
     require(verified, "invalid proof");
     commitmentIncludedCount += _request.rollupSize;
     currentRoot = _request.newRoot;
-    currentRootIndex = (currentRootIndex + 1) % rootHistoryLength;
-    rootHistory[currentRootIndex] = _request.newRoot;
+    rootHistory[_request.newRoot] = true;
     _processRollupFeeTransfer(totalRollupFee);
   }
 
@@ -181,7 +176,7 @@ abstract contract CommitmentPool is ICommitmentPool, AssetPool, ReentrancyGuard,
     uint256[] memory inputs = new uint256[](4 + 2 * numInputs + 2 * numOutputs);
 
     // check whether valid root.
-    require(isKnownRoot(_request.rootHash), "invalid root");
+    require(rootHistory[_request.rootHash], "invalid root");
     inputs[0] = _request.rootHash;
 
     // check serial numbers.
@@ -322,31 +317,11 @@ abstract contract CommitmentPool is ICommitmentPool, AssetPool, ReentrancyGuard,
   }
 
   function isKnownRoot(uint256 root) public view returns (bool) {
-    for (uint32 index = currentRootIndex; index > 0; index--) {
-      if (root == rootHistory[index]) {
-        return true;
-      }
-    }
-
-    if (root == rootHistory[0]) {
-      return true;
-    }
-
-    for (uint32 index = rootHistoryLength - 1; index > currentRootIndex; index--) {
-      if (root == rootHistory[index]) {
-        return true;
-      }
-    }
-
-    return false;
+    return rootHistory[root];
   }
 
   function getTreeCapacity() public view returns (uint256) {
     return treeCapacity;
-  }
-
-  function getRootHistoryLength() public view returns (uint32) {
-    return rootHistoryLength;
   }
 
   function isVerifierUpdateDisabled() public view returns (bool) {

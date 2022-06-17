@@ -60,7 +60,6 @@ import {
 } from '@mystikonetwork/contracts-abi';
 import {
   MerkleTreeHeight,
-  RootHistoryLength,
   MinBridgeFee,
   MinExecutorFee,
   MinRollupFee,
@@ -118,12 +117,12 @@ export async function deployCommitmentPoolContracts(
   accounts: Wallet[],
   tokenAddress: string,
   sanctionListAddress: string,
-  { treeHeight = MerkleTreeHeight, rootHistoryLength = RootHistoryLength, minRollupFee = MinRollupFee },
+  { treeHeight = MerkleTreeHeight, minRollupFee = MinRollupFee },
 ): Promise<CommitmentPoolDeploymentInfo> {
   const poolMainFactory = (await ethers.getContractFactory(
     'CommitmentPoolMain',
   )) as CommitmentPoolMain__factory;
-  const poolMain = await poolMainFactory.connect(accounts[0]).deploy(treeHeight, rootHistoryLength);
+  const poolMain = await poolMainFactory.connect(accounts[0]).deploy(treeHeight);
   await poolMain.deployed();
   await poolMain.setMinRollupFee(minRollupFee.toString());
   await poolMain.updateSanctionContractAddress(sanctionListAddress);
@@ -131,9 +130,7 @@ export async function deployCommitmentPoolContracts(
   const poolERC20Factory = (await ethers.getContractFactory(
     'CommitmentPoolERC20',
   )) as CommitmentPoolERC20__factory;
-  const poolERC20 = await poolERC20Factory
-    .connect(accounts[0])
-    .deploy(treeHeight, rootHistoryLength, tokenAddress);
+  const poolERC20 = await poolERC20Factory.connect(accounts[0]).deploy(treeHeight, tokenAddress);
   await poolERC20.deployed();
   await poolERC20.setMinRollupFee(minRollupFee.toString());
   await poolERC20.updateSanctionContractAddress(sanctionListAddress);
