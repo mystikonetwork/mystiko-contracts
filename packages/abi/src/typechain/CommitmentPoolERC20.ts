@@ -161,7 +161,7 @@ export interface CommitmentPoolERC20Interface extends utils.Interface {
     'setSanctionCheckDisabled(bool)': FunctionFragment;
     'setVerifierUpdateDisabled(bool)': FunctionFragment;
     'transact((((uint256,uint256),(uint256[2],uint256[2]),(uint256,uint256)),uint256,uint256[],uint256[],bytes32,uint256,uint256,uint256[],uint256[],address,address,bytes[]),bytes)': FunctionFragment;
-    'updateSanctionContractAddress(address)': FunctionFragment;
+    'updateSanctionsListAddress(address)': FunctionFragment;
   };
 
   encodeFunctionData(functionFragment: '_pathIndices', values: [BigNumberish, BigNumberish]): string;
@@ -207,7 +207,7 @@ export interface CommitmentPoolERC20Interface extends utils.Interface {
     functionFragment: 'transact',
     values: [ICommitmentPool.TransactRequestStruct, BytesLike],
   ): string;
-  encodeFunctionData(functionFragment: 'updateSanctionContractAddress', values: [string]): string;
+  encodeFunctionData(functionFragment: 'updateSanctionsListAddress', values: [string]): string;
 
   decodeFunctionResult(functionFragment: '_pathIndices', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'addEnqueueWhitelist', data: BytesLike): Result;
@@ -240,7 +240,7 @@ export interface CommitmentPoolERC20Interface extends utils.Interface {
   decodeFunctionResult(functionFragment: 'setSanctionCheckDisabled', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'setVerifierUpdateDisabled', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'transact', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'updateSanctionContractAddress', data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'updateSanctionsListAddress', data: BytesLike): Result;
 
   events: {
     'CommitmentIncluded(uint256)': EventFragment;
@@ -444,7 +444,7 @@ export interface CommitmentPoolERC20 extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<ContractTransaction>;
 
-    updateSanctionContractAddress(
+    updateSanctionsListAddress(
       _sanction: string,
       overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<ContractTransaction>;
@@ -570,7 +570,7 @@ export interface CommitmentPoolERC20 extends BaseContract {
     overrides?: Overrides & { from?: string | Promise<string> },
   ): Promise<ContractTransaction>;
 
-  updateSanctionContractAddress(
+  updateSanctionsListAddress(
     _sanction: string,
     overrides?: Overrides & { from?: string | Promise<string> },
   ): Promise<ContractTransaction>;
@@ -663,7 +663,7 @@ export interface CommitmentPoolERC20 extends BaseContract {
       overrides?: CallOverrides,
     ): Promise<void>;
 
-    updateSanctionContractAddress(_sanction: string, overrides?: CallOverrides): Promise<void>;
+    updateSanctionsListAddress(_sanction: string, overrides?: CallOverrides): Promise<void>;
   };
 
   filters: {
@@ -826,7 +826,7 @@ export interface CommitmentPoolERC20 extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<BigNumber>;
 
-    updateSanctionContractAddress(
+    updateSanctionsListAddress(
       _sanction: string,
       overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<BigNumber>;
@@ -956,7 +956,7 @@ export interface CommitmentPoolERC20 extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<PopulatedTransaction>;
 
-    updateSanctionContractAddress(
+    updateSanctionsListAddress(
       _sanction: string,
       overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<PopulatedTransaction>;

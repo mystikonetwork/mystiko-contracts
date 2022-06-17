@@ -521,7 +521,7 @@ const _abi = [
         type: 'address',
       },
     ],
-    name: 'updateSanctionContractAddress',
+    name: 'updateSanctionsListAddress',
     outputs: [],
     stateMutability: 'nonpayable',
     type: 'function',

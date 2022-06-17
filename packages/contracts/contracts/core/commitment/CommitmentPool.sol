@@ -301,7 +301,7 @@ abstract contract CommitmentPool is ICommitmentPool, AssetPool, ReentrancyGuard,
     emit SanctionsCheckDisabled(_state);
   }
 
-  function updateSanctionContractAddress(ISanctionsList _sanction) external onlyOperator {
+  function updateSanctionsListAddress(ISanctionsList _sanction) external onlyOperator {
     sanctionsList = _sanction;
     emit SanctionsList(_sanction);
   }
