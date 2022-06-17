@@ -137,7 +137,6 @@ abstract contract CommitmentPool is ICommitmentPool, AssetPool, ReentrancyGuard,
     }
     commitmentQueueSize -= _request.rollupSize;
     uint256 expectedLeafHash = uint256(keccak256(abi.encodePacked(leaves))) % DataTypes.FIELD_SIZE;
-    require(_request.leafHash == expectedLeafHash, "invalid leafHash");
     uint256[] memory inputs = new uint256[](4);
     inputs[0] = currentRoot;
     inputs[1] = _request.newRoot;
@@ -249,27 +248,26 @@ abstract contract CommitmentPool is ICommitmentPool, AssetPool, ReentrancyGuard,
   ) external onlyOperator {
     require(!verifierUpdateDisabled, "verifier updates have been disabled.");
     require(_numInputs > 0, "numInputs should > 0");
-    require(_numOutputs >= 0, "numOutputs should >= 0");
     transactVerifiers[_numInputs][_numOutputs] = WrappedVerifier(_transactVerifier, true);
   }
 
   function disableTransactVerifier(uint32 _numInputs, uint32 _numOutputs) external onlyOperator {
     require(!verifierUpdateDisabled, "verifier updates have been disabled.");
     require(_numInputs > 0, "numInputs should > 0");
-    require(_numOutputs >= 0, "numOutputs should >= 0");
     transactVerifiers[_numInputs][_numOutputs].enabled = false;
   }
 
   function enableRollupVerifier(uint32 _rollupSize, IVerifier _rollupVerifier) external onlyOperator {
     require(!verifierUpdateDisabled, "verifier updates have been disabled.");
-    require(_rollupSize == 1 || _rollupSize == 4 || _rollupSize == 16, "invalid rollupSize");
-    //    require(_rollupSize & (_rollupSize - 1) == 0, "rollup size not power of 2");
+    require(_rollupSize > 0 && _rollupSize < 256, "invalid rollupSize");
+    require(_rollupSize & (_rollupSize - 1) == 0, "rollup size not power of 2");
     rollupVerifiers[_rollupSize] = WrappedVerifier(_rollupVerifier, true);
   }
 
   function disableRollupVerifier(uint32 _rollupSize) external onlyOperator {
     require(!verifierUpdateDisabled, "verifier updates have been disabled.");
-    require(_rollupSize > 0, "invalid rollupSize");
+    require(_rollupSize > 0 && _rollupSize < 256, "invalid rollupSize");
+    require(_rollupSize & (_rollupSize - 1) == 0, "rollup size not power of 2");
     rollupVerifiers[_rollupSize].enabled = false;
   }
 
@@ -424,11 +422,19 @@ abstract contract CommitmentPool is ICommitmentPool, AssetPool, ReentrancyGuard,
   }
 
   function _pathIndices(uint256 _fullPath, uint32 _rollupSize) public pure returns (uint256) {
-    if (_rollupSize == 16) {
+    if (_rollupSize >= 0x10) {
+      _rollupSize >>= 4;
       _fullPath >>= 4;
-    } else if (_rollupSize == 4) {
+    }
+    if (_rollupSize >= 0x4) {
+      _rollupSize >>= 2;
       _fullPath >>= 2;
     }
+    if (_rollupSize >= 0x2) {
+      /* _rollupSize >>= 1; */
+      _fullPath >>= 1;
+    }
+
     return _fullPath;
   }
 
