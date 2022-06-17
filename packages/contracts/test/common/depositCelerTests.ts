@@ -130,7 +130,7 @@ export function testCelerDeposit(
           ],
           { from: accounts[0].address, value: amount },
         ),
-      ).to.be.revertedWith('amount too few');
+      ).to.be.revertedWith('amount too small');
     });
 
     it('should revert when bridge fee is too few', async () => {

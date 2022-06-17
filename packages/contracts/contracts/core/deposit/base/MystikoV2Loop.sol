@@ -13,16 +13,16 @@ import "@openzeppelin/contracts/utils/cryptography/ECDSA.sol";
 
 abstract contract MystikoV2Loop is IMystikoLoop, AssetPool, Sanctions {
   // Hasher related.
-  IHasher3 hasher3;
+  IHasher3 private hasher3;
 
-  address associatedCommitmentPool;
-  uint256 minAmount;
+  address private associatedCommitmentPool;
+  uint256 private minAmount;
 
   // Admin related.
-  address operator;
+  address private operator;
 
   // Some switches.
-  bool depositsDisabled;
+  bool private depositsDisabled;
 
   modifier onlyOperator() {
     require(msg.sender == operator, "only operator.");
@@ -34,12 +34,17 @@ abstract contract MystikoV2Loop is IMystikoLoop, AssetPool, Sanctions {
     hasher3 = _hasher3;
   }
 
+  event MinAmount(uint256 minAmount);
+  event DepositsDisabled(bool state);
+  event OperatorChanged(address operator);
+
   function setAssociatedCommitmentPool(address _commitmentPoolAddress) external onlyOperator {
     associatedCommitmentPool = _commitmentPoolAddress;
   }
 
   function setMinAmount(uint256 _minAmount) external onlyOperator {
     minAmount = _minAmount;
+    emit MinAmount(_minAmount);
   }
 
   function _commitmentHash(
@@ -49,7 +54,7 @@ abstract contract MystikoV2Loop is IMystikoLoop, AssetPool, Sanctions {
   ) internal view returns (uint256) {
     require(_hashK < DataTypes.FIELD_SIZE, "hashK should be less than FIELD_SIZE");
     require(_randomS < DataTypes.FIELD_SIZE, "randomS should be less than FIELD_SIZE");
-    return hasher3.poseidon([_hashK, _amount, uint256(_randomS)]);
+    return hasher3.poseidon([_hashK, _amount, _randomS]);
   }
 
   /* @notice              Check deposit request parameter and process deposit
@@ -57,7 +62,7 @@ abstract contract MystikoV2Loop is IMystikoLoop, AssetPool, Sanctions {
    */
   function deposit(DepositRequest memory _request) external payable override {
     require(!depositsDisabled, "deposits are disabled");
-    require(_request.amount >= minAmount, "amount too few");
+    require(_request.amount >= minAmount, "amount too small");
     uint256 calculatedCommitment = _commitmentHash(_request.hashK, _request.amount, _request.randomS);
     require(_request.commitment == calculatedCommitment, "commitment hash incorrect");
     require(!isSanctioned(msg.sender), "sanctioned address");
@@ -87,10 +92,12 @@ abstract contract MystikoV2Loop is IMystikoLoop, AssetPool, Sanctions {
 
   function setDepositsDisabled(bool _state) external onlyOperator {
     depositsDisabled = _state;
+    emit DepositsDisabled(_state);
   }
 
   function changeOperator(address _newOperator) external onlyOperator {
     operator = _newOperator;
+    emit OperatorChanged(_newOperator);
   }
 
   function setSanctionCheckDisabled(bool _state) external onlyOperator {

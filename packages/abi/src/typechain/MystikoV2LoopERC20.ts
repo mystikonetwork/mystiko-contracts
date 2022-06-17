@@ -97,13 +97,31 @@ export interface MystikoV2LoopERC20Interface extends utils.Interface {
   decodeFunctionResult(functionFragment: 'updateSanctionContractAddress', data: BytesLike): Result;
 
   events: {
+    'DepositsDisabled(bool)': EventFragment;
+    'MinAmount(uint256)': EventFragment;
+    'OperatorChanged(address)': EventFragment;
     'SanctionsCheckDisabled(bool)': EventFragment;
     'SanctionsList(address)': EventFragment;
   };
 
+  getEvent(nameOrSignatureOrTopic: 'DepositsDisabled'): EventFragment;
+  getEvent(nameOrSignatureOrTopic: 'MinAmount'): EventFragment;
+  getEvent(nameOrSignatureOrTopic: 'OperatorChanged'): EventFragment;
   getEvent(nameOrSignatureOrTopic: 'SanctionsCheckDisabled'): EventFragment;
   getEvent(nameOrSignatureOrTopic: 'SanctionsList'): EventFragment;
 }
+
+export type DepositsDisabledEvent = TypedEvent<[boolean], { state: boolean }>;
+
+export type DepositsDisabledEventFilter = TypedEventFilter<DepositsDisabledEvent>;
+
+export type MinAmountEvent = TypedEvent<[BigNumber], { minAmount: BigNumber }>;
+
+export type MinAmountEventFilter = TypedEventFilter<MinAmountEvent>;
+
+export type OperatorChangedEvent = TypedEvent<[string], { operator: string }>;
+
+export type OperatorChangedEventFilter = TypedEventFilter<OperatorChangedEvent>;
 
 export type SanctionsCheckDisabledEvent = TypedEvent<[boolean], { state: boolean }>;
 
@@ -285,6 +303,15 @@ export interface MystikoV2LoopERC20 extends BaseContract {
   };
 
   filters: {
+    'DepositsDisabled(bool)'(state?: null): DepositsDisabledEventFilter;
+    DepositsDisabled(state?: null): DepositsDisabledEventFilter;
+
+    'MinAmount(uint256)'(minAmount?: null): MinAmountEventFilter;
+    MinAmount(minAmount?: null): MinAmountEventFilter;
+
+    'OperatorChanged(address)'(operator?: null): OperatorChangedEventFilter;
+    OperatorChanged(operator?: null): OperatorChangedEventFilter;
+
     'SanctionsCheckDisabled(bool)'(state?: null): SanctionsCheckDisabledEventFilter;
     SanctionsCheckDisabled(state?: null): SanctionsCheckDisabledEventFilter;
 

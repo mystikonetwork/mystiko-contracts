@@ -17,6 +17,45 @@ const _abi = [
         type: 'bool',
       },
     ],
+    name: 'DepositsDisabled',
+    type: 'event',
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: false,
+        internalType: 'uint256',
+        name: 'minAmount',
+        type: 'uint256',
+      },
+    ],
+    name: 'MinAmount',
+    type: 'event',
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: false,
+        internalType: 'address',
+        name: 'operator',
+        type: 'address',
+      },
+    ],
+    name: 'OperatorChanged',
+    type: 'event',
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: false,
+        internalType: 'bool',
+        name: 'state',
+        type: 'bool',
+      },
+    ],
     name: 'SanctionsCheckDisabled',
     type: 'event',
   },

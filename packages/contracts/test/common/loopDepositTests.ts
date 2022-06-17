@@ -81,7 +81,7 @@ export function testLoopDeposit(
           ],
           { from: accounts[0].address, value: isMainAsset ? amount : '0' },
         ),
-      ).to.be.revertedWith('amount too few');
+      ).to.be.revertedWith('amount too small');
     });
 
     it('should revert when commitmentHash is incorrect', async () => {

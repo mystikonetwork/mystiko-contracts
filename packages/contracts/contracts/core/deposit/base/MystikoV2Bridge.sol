@@ -107,7 +107,7 @@ abstract contract MystikoV2Bridge is IMystikoBridge, AssetPool, CrossChainDataSe
 
   function deposit(DepositRequest memory _request) external payable override {
     require(!depositsDisabled, "deposits are disabled");
-    require(_request.amount >= minAmount, "amount too few");
+    require(_request.amount >= minAmount, "amount too small");
     require(_request.bridgeFee >= minBridgeFee, "bridge fee too few");
     require(_request.executorFee >= peerMinExecutorFee, "executor fee too few");
     require(_request.rollupFee >= peerMinRollupFee, "rollup fee too few");
