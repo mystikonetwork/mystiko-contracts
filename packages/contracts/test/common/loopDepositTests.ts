@@ -84,22 +84,6 @@ export function testLoopDeposit(
       ).to.be.revertedWith('amount too small');
     });
 
-    it('should revert when commitmentHash is incorrect', async () => {
-      await expect(
-        mystikoContract.deposit(
-          [
-            depositAmount,
-            commitments[0].commitmentHash.toString(),
-            protocol.randomBigInt().toString(),
-            commitments[0].randomS.toString(),
-            toHex(commitments[0].encryptedNote),
-            minRollupFee,
-          ],
-          { from: accounts[0].address, value: isMainAsset ? minTotalAmount : '0' },
-        ),
-      ).to.be.revertedWith('commitment hash incorrect');
-    });
-
     it('should approve asset successfully', async () => {
       if (!isMainAsset) {
         const approveAmount = toBN(minTotalAmount).muln(commitments.length).toString();

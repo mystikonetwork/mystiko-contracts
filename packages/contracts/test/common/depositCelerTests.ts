@@ -169,24 +169,6 @@ export function testCelerDeposit(
       ).to.be.revertedWith('rollup fee too few');
     });
 
-    it('should revert when commitmentHash is incorrect', async () => {
-      await expect(
-        mystikoContract.deposit(
-          [
-            depositAmount,
-            commitments[0].commitmentHash.toString(),
-            protocol.randomBigInt().toString(),
-            commitments[0].randomS.toString(),
-            toHex(commitments[0].encryptedNote),
-            minBridgeFee,
-            minExecutorFee,
-            minRollupFee,
-          ],
-          { from: accounts[0].address, value: minTotalValue },
-        ),
-      ).to.be.revertedWith('commitment hash incorrect');
-    });
-
     it('should approve asset successfully', async () => {
       if (!isMainAsset) {
         const approveAmount = toBN(minTotalAmount).muln(commitments.length).toString();
