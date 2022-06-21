@@ -64,9 +64,10 @@ abstract contract MystikoV2Loop is IMystikoLoop, AssetPool, Sanctions {
     require(!depositsDisabled, "deposits are disabled");
     require(_request.amount >= minAmount, "amount too small");
     uint256 calculatedCommitment = _commitmentHash(_request.hashK, _request.amount, _request.randomS);
+    require(_request.commitment == calculatedCommitment, "commitment hash incorrect");
     require(!isSanctioned(msg.sender), "sanctioned address");
 
-    _processDeposit(_request.amount, calculatedCommitment, _request.rollupFee, _request.encryptedNote);
+    _processDeposit(_request.amount, _request.commitment, _request.rollupFee, _request.encryptedNote);
   }
 
   function _processDeposit(
