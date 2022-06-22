@@ -116,13 +116,6 @@ abstract contract MystikoV2Bridge is IMystikoBridge, AssetPool, CrossChainDataSe
     require(!isSanctioned(msg.sender), "sanctioned address");
 
     // todo check commitment ?
-
-    _processDepositTransfer(
-      associatedCommitmentPool,
-      _request.amount + _request.executorFee + _request.rollupFee,
-      _request.bridgeFee
-    );
-
     ICommitmentPool.CommitmentRequest memory cmRequest = ICommitmentPool.CommitmentRequest({
       amount: _request.amount,
       commitment: _request.commitment,
@@ -132,8 +125,12 @@ abstract contract MystikoV2Bridge is IMystikoBridge, AssetPool, CrossChainDataSe
     });
 
     bytes memory cmRequestBytes = serializeTxData(cmRequest);
-
     _processDeposit(_request.bridgeFee, cmRequestBytes);
+    _processDepositTransfer(
+      associatedCommitmentPool,
+      _request.amount + _request.executorFee + _request.rollupFee,
+      _request.bridgeFee
+    );
     emit CommitmentCrossChain(_request.commitment);
   }
 

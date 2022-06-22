@@ -10,6 +10,7 @@ import "../../interface/ISanctionsList.sol";
 import "../rule/Sanctions.sol";
 import "@openzeppelin/contracts/security/ReentrancyGuard.sol";
 import "@openzeppelin/contracts/utils/cryptography/ECDSA.sol";
+import "@openzeppelin/contracts/utils/math/SafeCast.sol";
 
 abstract contract CommitmentPool is ICommitmentPool, AssetPool, ReentrancyGuard, Sanctions {
   struct CommitmentLeaf {
@@ -137,6 +138,7 @@ abstract contract CommitmentPool is ICommitmentPool, AssetPool, ReentrancyGuard,
     }
     commitmentQueueSize -= _request.rollupSize;
     uint256 expectedLeafHash = uint256(keccak256(abi.encodePacked(leaves))) % DataTypes.FIELD_SIZE;
+    require(_request.leafHash == expectedLeafHash, "invalid leafHash");
     uint256[] memory inputs = new uint256[](4);
     inputs[0] = currentRoot;
     inputs[1] = _request.newRoot;
@@ -155,8 +157,8 @@ abstract contract CommitmentPool is ICommitmentPool, AssetPool, ReentrancyGuard,
    *  @param _signature   The signature of the transact request by proffer
    */
   function transact(TransactRequest memory _request, bytes memory _signature) external override nonReentrant {
-    uint32 numInputs = uint32(_request.serialNumbers.length);
-    uint32 numOutputs = uint32(_request.outCommitments.length);
+    uint32 numInputs = SafeCast.toUint32(_request.serialNumbers.length);
+    uint32 numOutputs = SafeCast.toUint32(_request.outCommitments.length);
 
     // check input and output lengths.
     require(transactVerifiers[numInputs][numOutputs].enabled, "invalid i/o length");
@@ -172,7 +174,9 @@ abstract contract CommitmentPool is ICommitmentPool, AssetPool, ReentrancyGuard,
     require(_request.sigPk == bytes32(uint256(uint160(recoveredSigPk))), "invalid signature");
 
     // initialize inputs array for verifying proof.
-    uint256[] memory inputs = new uint256[](4 + 2 * numInputs + 2 * numOutputs);
+    uint256 totalInput = 2 * numInputs;
+    uint256 allInput = 2 * numInputs + 4;
+    uint256[] memory inputs = new uint256[](allInput + 2 * numOutputs);
 
     // check whether valid root.
     require(rootHistory[_request.rootHash], "invalid root");
@@ -183,20 +187,27 @@ abstract contract CommitmentPool is ICommitmentPool, AssetPool, ReentrancyGuard,
     for (uint256 i = 0; i < numInputs; i++) {
       uint256 sn = _request.serialNumbers[i];
       require(!spentSerialNumbers[sn], "the note has been spent");
+      require(sn < DataTypes.FIELD_SIZE, "the note invalid");
+      require(_request.sigHashes[i] < DataTypes.FIELD_SIZE, "sig hash invalid");
       inputs[i + 1] = sn;
       inputs[i + offsetSigHash] = _request.sigHashes[i];
     }
-    inputs[2 * numInputs + 1] = uint256(_request.sigPk);
-    inputs[2 * numInputs + 2] = _request.publicAmount;
-    inputs[2 * numInputs + 3] = _request.relayerFeeAmount;
+
+    require(uint256(_request.sigPk) < DataTypes.FIELD_SIZE, "invalid sig pk");
+    require(_request.publicAmount < DataTypes.FIELD_SIZE, "invalid amount");
+    require(_request.relayerFeeAmount < DataTypes.FIELD_SIZE, "invalid relayer fee amount");
+    inputs[totalInput + 1] = uint256(_request.sigPk);
+    inputs[totalInput + 2] = _request.publicAmount;
+    inputs[totalInput + 3] = _request.relayerFeeAmount;
 
     // check rollup fees and output commitments.
-    uint256 offsetCommitment = 2 * numInputs + 4;
-    uint256 offsetRollupFee = offsetCommitment + numOutputs;
+    uint256 offsetRollupFee = allInput + numOutputs;
     for (uint256 i = 0; i < numOutputs; i++) {
       require(!historicCommitments[_request.outCommitments[i]], "duplicate commitment");
+      require(_request.outCommitments[i] < DataTypes.FIELD_SIZE, "invalid out commitment");
       require(_request.outRollupFees[i] >= minRollupFee, "rollup fee too low");
-      inputs[i + offsetCommitment] = _request.outCommitments[i];
+      require(_request.outRollupFees[i] < DataTypes.FIELD_SIZE, "invalid out rollup fee");
+      inputs[i + allInput] = _request.outCommitments[i];
       inputs[i + offsetRollupFee] = _request.outRollupFees[i];
     }
 

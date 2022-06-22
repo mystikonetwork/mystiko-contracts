@@ -127,6 +127,19 @@ export function testRollup(
       ).to.be.revertedWith('invalid rollupSize');
     });
 
+    it('should revert wrong leaf hash', () => {
+      expect(
+        commitmentPoolContract
+          .connect(rollupAccount)
+          .rollup([
+            [proof.proofA, proof.proofB, proof.proofC],
+            `${rollupSize}`,
+            proof.newRoot,
+            protocol.randomBigInt().toString(),
+          ]),
+      ).to.be.revertedWith('invalid leafHash');
+    });
+
     it('should revert wrong proof', () => {
       expect(
         commitmentPoolContract

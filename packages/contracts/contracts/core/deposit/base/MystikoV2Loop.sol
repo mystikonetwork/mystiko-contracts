@@ -76,8 +76,6 @@ abstract contract MystikoV2Loop is IMystikoLoop, AssetPool, Sanctions {
     uint256 _rollupFee,
     bytes memory _encryptedNote
   ) internal {
-    _processDepositTransfer(associatedCommitmentPool, _amount + _rollupFee, 0);
-
     ICommitmentPool.CommitmentRequest memory cmRequest = ICommitmentPool.CommitmentRequest({
       amount: _amount,
       commitment: _commitment,
@@ -88,6 +86,7 @@ abstract contract MystikoV2Loop is IMystikoLoop, AssetPool, Sanctions {
 
     // todo 1 check commitment in queue
     ICommitmentPool(associatedCommitmentPool).enqueue(cmRequest, address(0));
+    _processDepositTransfer(associatedCommitmentPool, _amount + _rollupFee, 0);
   }
 
   function setDepositsDisabled(bool _state) external onlyOperator {
