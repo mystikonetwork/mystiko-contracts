@@ -8,6 +8,39 @@ import type { MystikoV2Celer, MystikoV2CelerInterface } from '../MystikoV2Celer'
 
 const _abi = [
   {
+    inputs: [
+      {
+        internalType: 'string',
+        name: 'message',
+        type: 'string',
+      },
+    ],
+    name: 'Invalid',
+    type: 'error',
+  },
+  {
+    inputs: [
+      {
+        internalType: 'string',
+        name: 'message',
+        type: 'string',
+      },
+    ],
+    name: 'Unauthorized',
+    type: 'error',
+  },
+  {
+    inputs: [
+      {
+        internalType: 'string',
+        name: 'message',
+        type: 'string',
+      },
+    ],
+    name: 'Unexpected',
+    type: 'error',
+  },
+  {
     anonymous: false,
     inputs: [
       {

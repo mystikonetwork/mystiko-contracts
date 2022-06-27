@@ -8,8 +8,41 @@ import type { MystikoV2Axelar, MystikoV2AxelarInterface } from '../MystikoV2Axel
 
 const _abi = [
   {
+    inputs: [
+      {
+        internalType: 'string',
+        name: 'message',
+        type: 'string',
+      },
+    ],
+    name: 'Invalid',
+    type: 'error',
+  },
+  {
     inputs: [],
     name: 'NotApprovedByGateway',
+    type: 'error',
+  },
+  {
+    inputs: [
+      {
+        internalType: 'string',
+        name: 'message',
+        type: 'string',
+      },
+    ],
+    name: 'Unauthorized',
+    type: 'error',
+  },
+  {
+    inputs: [
+      {
+        internalType: 'string',
+        name: 'message',
+        type: 'string',
+      },
+    ],
+    name: 'Unexpected',
     type: 'error',
   },
   {

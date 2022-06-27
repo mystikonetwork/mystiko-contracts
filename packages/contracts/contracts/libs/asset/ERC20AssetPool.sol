@@ -1,8 +1,9 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.0;
+pragma solidity ^0.8.4;
 
 import "./AssetPool.sol";
 import "../../interface/IERC20Metadata.sol";
+import "../../libs/common/CustomErrors.sol";
 import "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol";
 
 abstract contract ERC20AssetPool is AssetPool {
@@ -18,7 +19,8 @@ abstract contract ERC20AssetPool is AssetPool {
     uint256 amount,
     uint256 bridgeFee
   ) internal virtual override {
-    require(msg.value == bridgeFee, "bridge fee mismatch");
+    if (msg.value != bridgeFee)
+      revert CustomErrors.Unexpected("bridge fee mismatch");
     asset.safeTransferFrom(msg.sender, commitmentPool, amount);
   }
 

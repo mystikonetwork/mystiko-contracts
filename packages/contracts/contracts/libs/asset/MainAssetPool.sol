@@ -1,7 +1,8 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.0;
+pragma solidity ^0.8.4;
 
 import "./AssetPool.sol";
+import "../../libs/common/CustomErrors.sol";
 
 abstract contract MainAssetPool is AssetPool {
   function _processDepositTransfer(
@@ -9,24 +10,29 @@ abstract contract MainAssetPool is AssetPool {
     uint256 amount,
     uint256 bridgeFee
   ) internal virtual override {
-    require(msg.value == amount + bridgeFee, "insufficient token");
+    if (msg.value != amount + bridgeFee)
+      revert CustomErrors.InsufficientBalance("insufficient token");
     (bool success, ) = commitmentPool.call{value: amount}("");
-    require(success, "amount transfer failed");
+    if (!success)
+      revert CustomErrors.Failed("amount transfer failed");
   }
 
   function _processExecutorFeeTransfer(address executor, uint256 amount) internal override {
     (bool success, ) = executor.call{value: amount}("");
-    require(success, "executor fee transfer failed");
+    if (!success)
+      revert CustomErrors.Failed("executor fee transfer failed");
   }
 
   function _processRollupFeeTransfer(uint256 amount) internal override {
     (bool success, ) = msg.sender.call{value: amount}("");
-    require(success, "rollup fee transfer failed");
+    if (!success)
+      revert CustomErrors.Failed("rollup fee transfer failed");
   }
 
   function _processWithdrawTransfer(address recipient, uint256 amount) internal override {
     (bool success, ) = recipient.call{value: amount}("");
-    require(success, "withdraw failed");
+    if (!success)
+      revert CustomErrors.Failed("withdraw failed");
   }
 
   function assetType() public pure override returns (AssetType) {
