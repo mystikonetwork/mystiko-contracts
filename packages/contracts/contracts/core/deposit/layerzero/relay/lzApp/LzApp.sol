@@ -1,11 +1,12 @@
 // SPDX-License-Identifier: MIT
 
-pragma solidity ^0.8.0;
+pragma solidity ^0.8.4;
 
 import "@openzeppelin/contracts/access/Ownable.sol";
 import "../interface/ILayerZeroReceiver.sol";
 import "../interface/ILayerZeroUserApplicationConfig.sol";
 import "../interface/ILayerZeroEndpoint.sol";
+import "../../../../../libs/common/CustomErrors.sol";
 
 /*
  * a generic LzReceiver implementation
@@ -27,14 +28,13 @@ abstract contract LzApp is Ownable, ILayerZeroReceiver, ILayerZeroUserApplicatio
     bytes memory _payload
   ) public virtual override {
     // lzReceive must be called by the endpoint for security
-    require(_msgSender() == address(lzEndpoint), "LzApp: invalid endpoint caller");
+    if (_msgSender() != address(lzEndpoint))
+      revert CustomErrors.Invalid("LzApp: invalid endpoint caller");
 
     bytes memory trustedRemote = trustedRemoteLookup[_srcChainId];
     // if will still block the message pathway from (srcChainId, srcAddress). should not receive message from untrusted remote.
-    require(
-      _srcAddress.length == trustedRemote.length && keccak256(_srcAddress) == keccak256(trustedRemote),
-      "LzApp: invalid source sending contract"
-    );
+    if (_srcAddress.length != trustedRemote.length || keccak256(_srcAddress) != keccak256(trustedRemote))
+      revert CustomErrors.Invalid("LzApp: invalid source sending contract");
 
     _blockingLzReceive(_srcChainId, _srcAddress, _nonce, _payload);
   }
@@ -56,7 +56,8 @@ abstract contract LzApp is Ownable, ILayerZeroReceiver, ILayerZeroUserApplicatio
     uint256 _bridgeFee
   ) internal virtual {
     bytes memory trustedRemote = trustedRemoteLookup[_dstChainId];
-    require(trustedRemote.length != 0, "LzApp: destination chain is not a trusted source");
+    if (trustedRemote.length == 0)
+      revert CustomErrors.Unexpected("LzApp: destination chain is not a trusted source");
     lzEndpoint.send{value: _bridgeFee}(
       _dstChainId,
       trustedRemote,

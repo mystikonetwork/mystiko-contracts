@@ -1,9 +1,10 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.0;
+pragma solidity ^0.8.4;
 
 import "./interface/ICrossChainProxy.sol";
 import "../../base/CrossChainDataSerializable.sol";
 import "../MystikoV2TBridge.sol";
+import "../../../../libs/common/CustomErrors.sol";
 
 contract MystikoTBridgeProxy is ICrossChainProxy {
   address operator;
@@ -15,17 +16,20 @@ contract MystikoTBridgeProxy is ICrossChainProxy {
   }
 
   modifier onlyOperator() {
-    require(msg.sender == operator, "only operator.");
+    if (msg.sender != operator)
+      revert CustomErrors.Unauthorized("only operator.");
     _;
   }
 
   modifier onlyExecutorWhitelisted() {
-    require(executorWhitelist[msg.sender], "only whitelisted executor.");
+    if (!executorWhitelist[msg.sender])
+      revert CustomErrors.Unauthorized("only whitelisted executor.");
     _;
   }
 
   modifier onlyRegisterWhitelisted() {
-    require(registerWhitelist[msg.sender], "only register.");
+    if (!registerWhitelist[msg.sender])
+      revert CustomErrors.Unauthorized("only register.");
     _;
   }
 
@@ -44,10 +48,8 @@ contract MystikoTBridgeProxy is ICrossChainProxy {
     address _executor,
     bytes calldata _message
   ) external onlyExecutorWhitelisted returns (bool) {
-    require(
-      MystikoV2TBridge(_toContract).crossChainSyncTx(_fromChainId, _fromContract, _message, _executor),
-      "call crossChainSyncTx error"
-    );
+    if (!MystikoV2TBridge(_toContract).crossChainSyncTx(_fromChainId, _fromContract, _message, _executor))
+      revert CustomErrors.Unexpected("call crossChainSyncTx error");
     return true;
   }
 
@@ -73,6 +75,7 @@ contract MystikoTBridgeProxy is ICrossChainProxy {
 
   function withdraw(address _recipient) external payable onlyOperator {
     (bool success, ) = _recipient.call{value: address(this).balance}("");
-    require(success, "withdraw failed");
+    if (!success)
+      revert CustomErrors.Failed("withdraw failed");
   }
 }
