@@ -5,9 +5,12 @@ import "./relay/lzApp/NonblockingLzApp.sol";
 import "../base/CrossChainDataSerializable.sol";
 import "../base/MystikoV2Bridge.sol";
 import "../../../libs/utils/Utils.sol";
+import "../../../interface/IHasher3.sol";
 
 abstract contract MystikoV2LayerZero is MystikoV2Bridge, NonblockingLzApp {
-  constructor(address _hasher3) MystikoV2Bridge(_hasher3) NonblockingLzApp() {}
+  constructor(IHasher3 _hasher3) MystikoV2Bridge(_hasher3) NonblockingLzApp() {
+    // implemented in MystikoV2Bridge
+  }
 
   function _processDeposit(uint256 _bridgeFee, bytes memory _requestBytes) internal override {
     _lzSend(peerLayerZeroChainId, _requestBytes, payable(msg.sender), address(0x0), bytes(""), _bridgeFee);

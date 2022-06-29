@@ -4,7 +4,7 @@
 
 import { Contract, Signer, utils } from 'ethers';
 import { Provider } from '@ethersproject/providers';
-import type { SanctionsList, SanctionsListInterface } from '../SanctionsList';
+import type { ISanctionsList, ISanctionsListInterface } from '../ISanctionsList';
 
 const _abi = [
   {
@@ -28,12 +28,12 @@ const _abi = [
   },
 ];
 
-export class SanctionsList__factory {
+export class ISanctionsList__factory {
   static readonly abi = _abi;
-  static createInterface(): SanctionsListInterface {
-    return new utils.Interface(_abi) as SanctionsListInterface;
+  static createInterface(): ISanctionsListInterface {
+    return new utils.Interface(_abi) as ISanctionsListInterface;
   }
-  static connect(address: string, signerOrProvider: Signer | Provider): SanctionsList {
-    return new Contract(address, _abi, signerOrProvider) as SanctionsList;
+  static connect(address: string, signerOrProvider: Signer | Provider): ISanctionsList {
+    return new Contract(address, _abi, signerOrProvider) as ISanctionsList;
   }
 }

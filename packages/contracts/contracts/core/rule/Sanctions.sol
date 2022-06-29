@@ -1,28 +1,20 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
-interface SanctionsList {
-  function isSanctioned(address addr) external view returns (bool);
-}
+import "../../interface/ISanctionsList.sol";
 
 abstract contract Sanctions {
-  address sanctionsContract = 0x40C57923924B5c5c5455c48D93317139ADDaC8fb;
-  bool sanctionCheckDisabled = false;
+  ISanctionsList public sanctionsList = ISanctionsList(0x40C57923924B5c5c5455c48D93317139ADDaC8fb);
+  bool public sanctionsCheckDisabled = false;
 
-  function isSanctionCheckDisabled() public view returns (bool) {
-    return sanctionCheckDisabled;
-  }
-
-  function getSanctionsContract() public view returns (address) {
-    return sanctionsContract;
-  }
+  event SanctionsCheckDisabled(bool state);
+  event SanctionsList(ISanctionsList sanctions);
 
   function isSanctioned(address _addr) internal returns (bool) {
-    if (sanctionCheckDisabled) {
+    if (sanctionsCheckDisabled) {
       return false;
     }
 
-    SanctionsList sanctionsList = SanctionsList(sanctionsContract);
     return sanctionsList.isSanctioned(_addr);
   }
 }

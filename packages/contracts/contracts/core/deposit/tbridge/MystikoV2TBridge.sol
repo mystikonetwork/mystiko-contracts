@@ -4,9 +4,12 @@ pragma solidity ^0.8.0;
 import "../base/MystikoV2Bridge.sol";
 import "./relay/interface/ICrossChainProxy.sol";
 import "../../../interface/ICommitmentPool.sol";
+import "../../../interface/IHasher3.sol";
 
 abstract contract MystikoV2TBridge is MystikoV2Bridge {
-  constructor(address _hasher3) MystikoV2Bridge(_hasher3) {}
+  constructor(IHasher3 _hasher3) MystikoV2Bridge(_hasher3) {
+    // implemented in MystikoV2Bridge
+  }
 
   function _processDeposit(uint256 _bridgeFee, bytes memory _requestBytes) internal override {
     ICrossChainProxy(bridgeProxyAddress).sendMessage{value: _bridgeFee}(

@@ -51,9 +51,9 @@ const _abi = [
     name: 'assetType',
     outputs: [
       {
-        internalType: 'string',
+        internalType: 'enum AssetPool.AssetType',
         name: '',
-        type: 'string',
+        type: 'uint8',
       },
     ],
     stateMutability: 'pure',

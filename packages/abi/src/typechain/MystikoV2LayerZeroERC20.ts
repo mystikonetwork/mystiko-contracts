@@ -70,9 +70,7 @@ export interface MystikoV2LayerZeroERC20Interface extends utils.Interface {
     'getMinExecutorFee()': FunctionFragment;
     'getPeerMinExecutorFee()': FunctionFragment;
     'getPeerMinRollupFee()': FunctionFragment;
-    'getSanctionsContract()': FunctionFragment;
     'isDepositsDisabled()': FunctionFragment;
-    'isSanctionCheckDisabled()': FunctionFragment;
     'isTrustedRemote(uint16,bytes)': FunctionFragment;
     'localLayerZeroChainId()': FunctionFragment;
     'lzEndpoint()': FunctionFragment;
@@ -82,9 +80,12 @@ export interface MystikoV2LayerZeroERC20Interface extends utils.Interface {
     'peerLayerZeroChainId()': FunctionFragment;
     'renounceOwnership()': FunctionFragment;
     'retryMessage(uint16,bytes,uint64,bytes)': FunctionFragment;
+    'sanctionsCheckDisabled()': FunctionFragment;
+    'sanctionsList()': FunctionFragment;
     'setAssociatedCommitmentPool(address)': FunctionFragment;
     'setBridgeProxyAddress(address)': FunctionFragment;
     'setConfig(uint16,uint16,uint256,bytes)': FunctionFragment;
+    'setDepositsDisabled(bool)': FunctionFragment;
     'setEndpoint(uint16,address)': FunctionFragment;
     'setMinAmount(uint256)': FunctionFragment;
     'setMinBridgeFee(uint256)': FunctionFragment;
@@ -93,13 +94,12 @@ export interface MystikoV2LayerZeroERC20Interface extends utils.Interface {
     'setPeerMinExecutorFee(uint256)': FunctionFragment;
     'setPeerMinRollupFee(uint256)': FunctionFragment;
     'setReceiveVersion(uint16)': FunctionFragment;
+    'setSanctionCheckDisabled(bool)': FunctionFragment;
     'setSendVersion(uint16)': FunctionFragment;
     'setTrustedRemote(uint16,bytes)': FunctionFragment;
-    'toggleDeposits(bool)': FunctionFragment;
-    'toggleSanctionCheck(bool)': FunctionFragment;
     'transferOwnership(address)': FunctionFragment;
     'trustedRemoteLookup(uint16)': FunctionFragment;
-    'updateSanctionContractAddress(address)': FunctionFragment;
+    'updateSanctionsListAddress(address)': FunctionFragment;
   };
 
   encodeFunctionData(functionFragment: 'assetDecimals', values?: undefined): string;
@@ -124,9 +124,7 @@ export interface MystikoV2LayerZeroERC20Interface extends utils.Interface {
   encodeFunctionData(functionFragment: 'getMinExecutorFee', values?: undefined): string;
   encodeFunctionData(functionFragment: 'getPeerMinExecutorFee', values?: undefined): string;
   encodeFunctionData(functionFragment: 'getPeerMinRollupFee', values?: undefined): string;
-  encodeFunctionData(functionFragment: 'getSanctionsContract', values?: undefined): string;
   encodeFunctionData(functionFragment: 'isDepositsDisabled', values?: undefined): string;
-  encodeFunctionData(functionFragment: 'isSanctionCheckDisabled', values?: undefined): string;
   encodeFunctionData(functionFragment: 'isTrustedRemote', values: [BigNumberish, BytesLike]): string;
   encodeFunctionData(functionFragment: 'localLayerZeroChainId', values?: undefined): string;
   encodeFunctionData(functionFragment: 'lzEndpoint', values?: undefined): string;
@@ -145,12 +143,15 @@ export interface MystikoV2LayerZeroERC20Interface extends utils.Interface {
     functionFragment: 'retryMessage',
     values: [BigNumberish, BytesLike, BigNumberish, BytesLike],
   ): string;
+  encodeFunctionData(functionFragment: 'sanctionsCheckDisabled', values?: undefined): string;
+  encodeFunctionData(functionFragment: 'sanctionsList', values?: undefined): string;
   encodeFunctionData(functionFragment: 'setAssociatedCommitmentPool', values: [string]): string;
   encodeFunctionData(functionFragment: 'setBridgeProxyAddress', values: [string]): string;
   encodeFunctionData(
     functionFragment: 'setConfig',
     values: [BigNumberish, BigNumberish, BigNumberish, BytesLike],
   ): string;
+  encodeFunctionData(functionFragment: 'setDepositsDisabled', values: [boolean]): string;
   encodeFunctionData(functionFragment: 'setEndpoint', values: [BigNumberish, string]): string;
   encodeFunctionData(functionFragment: 'setMinAmount', values: [BigNumberish]): string;
   encodeFunctionData(functionFragment: 'setMinBridgeFee', values: [BigNumberish]): string;
@@ -159,13 +160,12 @@ export interface MystikoV2LayerZeroERC20Interface extends utils.Interface {
   encodeFunctionData(functionFragment: 'setPeerMinExecutorFee', values: [BigNumberish]): string;
   encodeFunctionData(functionFragment: 'setPeerMinRollupFee', values: [BigNumberish]): string;
   encodeFunctionData(functionFragment: 'setReceiveVersion', values: [BigNumberish]): string;
+  encodeFunctionData(functionFragment: 'setSanctionCheckDisabled', values: [boolean]): string;
   encodeFunctionData(functionFragment: 'setSendVersion', values: [BigNumberish]): string;
   encodeFunctionData(functionFragment: 'setTrustedRemote', values: [BigNumberish, BytesLike]): string;
-  encodeFunctionData(functionFragment: 'toggleDeposits', values: [boolean]): string;
-  encodeFunctionData(functionFragment: 'toggleSanctionCheck', values: [boolean]): string;
   encodeFunctionData(functionFragment: 'transferOwnership', values: [string]): string;
   encodeFunctionData(functionFragment: 'trustedRemoteLookup', values: [BigNumberish]): string;
-  encodeFunctionData(functionFragment: 'updateSanctionContractAddress', values: [string]): string;
+  encodeFunctionData(functionFragment: 'updateSanctionsListAddress', values: [string]): string;
 
   decodeFunctionResult(functionFragment: 'assetDecimals', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'assetName', data: BytesLike): Result;
@@ -183,9 +183,7 @@ export interface MystikoV2LayerZeroERC20Interface extends utils.Interface {
   decodeFunctionResult(functionFragment: 'getMinExecutorFee', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'getPeerMinExecutorFee', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'getPeerMinRollupFee', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'getSanctionsContract', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'isDepositsDisabled', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'isSanctionCheckDisabled', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'isTrustedRemote', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'localLayerZeroChainId', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'lzEndpoint', data: BytesLike): Result;
@@ -195,9 +193,12 @@ export interface MystikoV2LayerZeroERC20Interface extends utils.Interface {
   decodeFunctionResult(functionFragment: 'peerLayerZeroChainId', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'renounceOwnership', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'retryMessage', data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'sanctionsCheckDisabled', data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'sanctionsList', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'setAssociatedCommitmentPool', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'setBridgeProxyAddress', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'setConfig', data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'setDepositsDisabled', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'setEndpoint', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'setMinAmount', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'setMinBridgeFee', data: BytesLike): Result;
@@ -206,24 +207,27 @@ export interface MystikoV2LayerZeroERC20Interface extends utils.Interface {
   decodeFunctionResult(functionFragment: 'setPeerMinExecutorFee', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'setPeerMinRollupFee', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'setReceiveVersion', data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'setSanctionCheckDisabled', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'setSendVersion', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'setTrustedRemote', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'toggleDeposits', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'toggleSanctionCheck', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'transferOwnership', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'trustedRemoteLookup', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'updateSanctionContractAddress', data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'updateSanctionsListAddress', data: BytesLike): Result;
 
   events: {
     'CommitmentCrossChain(uint256)': EventFragment;
     'MessageFailed(uint16,bytes,uint64,bytes)': EventFragment;
     'OwnershipTransferred(address,address)': EventFragment;
+    'SanctionsCheckDisabled(bool)': EventFragment;
+    'SanctionsList(address)': EventFragment;
     'SetTrustedRemote(uint16,bytes)': EventFragment;
   };
 
   getEvent(nameOrSignatureOrTopic: 'CommitmentCrossChain'): EventFragment;
   getEvent(nameOrSignatureOrTopic: 'MessageFailed'): EventFragment;
   getEvent(nameOrSignatureOrTopic: 'OwnershipTransferred'): EventFragment;
+  getEvent(nameOrSignatureOrTopic: 'SanctionsCheckDisabled'): EventFragment;
+  getEvent(nameOrSignatureOrTopic: 'SanctionsList'): EventFragment;
   getEvent(nameOrSignatureOrTopic: 'SetTrustedRemote'): EventFragment;
 }
 
@@ -249,6 +253,14 @@ export type OwnershipTransferredEvent = TypedEvent<
 >;
 
 export type OwnershipTransferredEventFilter = TypedEventFilter<OwnershipTransferredEvent>;
+
+export type SanctionsCheckDisabledEvent = TypedEvent<[boolean], { state: boolean }>;
+
+export type SanctionsCheckDisabledEventFilter = TypedEventFilter<SanctionsCheckDisabledEvent>;
+
+export type SanctionsListEvent = TypedEvent<[string], { sanctions: string }>;
+
+export type SanctionsListEventFilter = TypedEventFilter<SanctionsListEvent>;
 
 export type SetTrustedRemoteEvent = TypedEvent<
   [number, string],
@@ -287,7 +299,7 @@ export interface MystikoV2LayerZeroERC20 extends BaseContract {
 
     assetSymbol(overrides?: CallOverrides): Promise<[string]>;
 
-    assetType(overrides?: CallOverrides): Promise<[string]>;
+    assetType(overrides?: CallOverrides): Promise<[number]>;
 
     bridgeType(overrides?: CallOverrides): Promise<[string]>;
 
@@ -334,11 +346,7 @@ export interface MystikoV2LayerZeroERC20 extends BaseContract {
 
     getPeerMinRollupFee(overrides?: CallOverrides): Promise<[BigNumber]>;
 
-    getSanctionsContract(overrides?: CallOverrides): Promise<[string]>;
-
     isDepositsDisabled(overrides?: CallOverrides): Promise<[boolean]>;
-
-    isSanctionCheckDisabled(overrides?: CallOverrides): Promise<[boolean]>;
 
     isTrustedRemote(
       _srcChainId: BigNumberish,
@@ -382,6 +390,10 @@ export interface MystikoV2LayerZeroERC20 extends BaseContract {
       overrides?: PayableOverrides & { from?: string | Promise<string> },
     ): Promise<ContractTransaction>;
 
+    sanctionsCheckDisabled(overrides?: CallOverrides): Promise<[boolean]>;
+
+    sanctionsList(overrides?: CallOverrides): Promise<[string]>;
+
     setAssociatedCommitmentPool(
       _commitmentPoolAddress: string,
       overrides?: Overrides & { from?: string | Promise<string> },
@@ -397,6 +409,11 @@ export interface MystikoV2LayerZeroERC20 extends BaseContract {
       _chainId: BigNumberish,
       _configType: BigNumberish,
       _config: BytesLike,
+      overrides?: Overrides & { from?: string | Promise<string> },
+    ): Promise<ContractTransaction>;
+
+    setDepositsDisabled(
+      _state: boolean,
       overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<ContractTransaction>;
 
@@ -443,6 +460,11 @@ export interface MystikoV2LayerZeroERC20 extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<ContractTransaction>;
 
+    setSanctionCheckDisabled(
+      _state: boolean,
+      overrides?: Overrides & { from?: string | Promise<string> },
+    ): Promise<ContractTransaction>;
+
     setSendVersion(
       _version: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> },
@@ -454,16 +476,6 @@ export interface MystikoV2LayerZeroERC20 extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<ContractTransaction>;
 
-    toggleDeposits(
-      _state: boolean,
-      overrides?: Overrides & { from?: string | Promise<string> },
-    ): Promise<ContractTransaction>;
-
-    toggleSanctionCheck(
-      _check: boolean,
-      overrides?: Overrides & { from?: string | Promise<string> },
-    ): Promise<ContractTransaction>;
-
     transferOwnership(
       newOwner: string,
       overrides?: Overrides & { from?: string | Promise<string> },
@@ -471,7 +483,7 @@ export interface MystikoV2LayerZeroERC20 extends BaseContract {
 
     trustedRemoteLookup(arg0: BigNumberish, overrides?: CallOverrides): Promise<[string]>;
 
-    updateSanctionContractAddress(
+    updateSanctionsListAddress(
       _sanction: string,
       overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<ContractTransaction>;
@@ -483,7 +495,7 @@ export interface MystikoV2LayerZeroERC20 extends BaseContract {
 
   assetSymbol(overrides?: CallOverrides): Promise<string>;
 
-  assetType(overrides?: CallOverrides): Promise<string>;
+  assetType(overrides?: CallOverrides): Promise<number>;
 
   bridgeType(overrides?: CallOverrides): Promise<string>;
 
@@ -530,11 +542,7 @@ export interface MystikoV2LayerZeroERC20 extends BaseContract {
 
   getPeerMinRollupFee(overrides?: CallOverrides): Promise<BigNumber>;
 
-  getSanctionsContract(overrides?: CallOverrides): Promise<string>;
-
   isDepositsDisabled(overrides?: CallOverrides): Promise<boolean>;
-
-  isSanctionCheckDisabled(overrides?: CallOverrides): Promise<boolean>;
 
   isTrustedRemote(
     _srcChainId: BigNumberish,
@@ -578,6 +586,10 @@ export interface MystikoV2LayerZeroERC20 extends BaseContract {
     overrides?: PayableOverrides & { from?: string | Promise<string> },
   ): Promise<ContractTransaction>;
 
+  sanctionsCheckDisabled(overrides?: CallOverrides): Promise<boolean>;
+
+  sanctionsList(overrides?: CallOverrides): Promise<string>;
+
   setAssociatedCommitmentPool(
     _commitmentPoolAddress: string,
     overrides?: Overrides & { from?: string | Promise<string> },
@@ -593,6 +605,11 @@ export interface MystikoV2LayerZeroERC20 extends BaseContract {
     _chainId: BigNumberish,
     _configType: BigNumberish,
     _config: BytesLike,
+    overrides?: Overrides & { from?: string | Promise<string> },
+  ): Promise<ContractTransaction>;
+
+  setDepositsDisabled(
+    _state: boolean,
     overrides?: Overrides & { from?: string | Promise<string> },
   ): Promise<ContractTransaction>;
 
@@ -639,6 +656,11 @@ export interface MystikoV2LayerZeroERC20 extends BaseContract {
     overrides?: Overrides & { from?: string | Promise<string> },
   ): Promise<ContractTransaction>;
 
+  setSanctionCheckDisabled(
+    _state: boolean,
+    overrides?: Overrides & { from?: string | Promise<string> },
+  ): Promise<ContractTransaction>;
+
   setSendVersion(
     _version: BigNumberish,
     overrides?: Overrides & { from?: string | Promise<string> },
@@ -650,16 +672,6 @@ export interface MystikoV2LayerZeroERC20 extends BaseContract {
     overrides?: Overrides & { from?: string | Promise<string> },
   ): Promise<ContractTransaction>;
 
-  toggleDeposits(
-    _state: boolean,
-    overrides?: Overrides & { from?: string | Promise<string> },
-  ): Promise<ContractTransaction>;
-
-  toggleSanctionCheck(
-    _check: boolean,
-    overrides?: Overrides & { from?: string | Promise<string> },
-  ): Promise<ContractTransaction>;
-
   transferOwnership(
     newOwner: string,
     overrides?: Overrides & { from?: string | Promise<string> },
@@ -667,7 +679,7 @@ export interface MystikoV2LayerZeroERC20 extends BaseContract {
 
   trustedRemoteLookup(arg0: BigNumberish, overrides?: CallOverrides): Promise<string>;
 
-  updateSanctionContractAddress(
+  updateSanctionsListAddress(
     _sanction: string,
     overrides?: Overrides & { from?: string | Promise<string> },
   ): Promise<ContractTransaction>;
@@ -679,7 +691,7 @@ export interface MystikoV2LayerZeroERC20 extends BaseContract {
 
     assetSymbol(overrides?: CallOverrides): Promise<string>;
 
-    assetType(overrides?: CallOverrides): Promise<string>;
+    assetType(overrides?: CallOverrides): Promise<number>;
 
     bridgeType(overrides?: CallOverrides): Promise<string>;
 
@@ -720,11 +732,7 @@ export interface MystikoV2LayerZeroERC20 extends BaseContract {
 
     getPeerMinRollupFee(overrides?: CallOverrides): Promise<BigNumber>;
 
-    getSanctionsContract(overrides?: CallOverrides): Promise<string>;
-
     isDepositsDisabled(overrides?: CallOverrides): Promise<boolean>;
-
-    isSanctionCheckDisabled(overrides?: CallOverrides): Promise<boolean>;
 
     isTrustedRemote(
       _srcChainId: BigNumberish,
@@ -766,6 +774,10 @@ export interface MystikoV2LayerZeroERC20 extends BaseContract {
       overrides?: CallOverrides,
     ): Promise<void>;
 
+    sanctionsCheckDisabled(overrides?: CallOverrides): Promise<boolean>;
+
+    sanctionsList(overrides?: CallOverrides): Promise<string>;
+
     setAssociatedCommitmentPool(_commitmentPoolAddress: string, overrides?: CallOverrides): Promise<void>;
 
     setBridgeProxyAddress(_bridgeProxyAddress: string, overrides?: CallOverrides): Promise<void>;
@@ -777,6 +789,8 @@ export interface MystikoV2LayerZeroERC20 extends BaseContract {
       _config: BytesLike,
       overrides?: CallOverrides,
     ): Promise<void>;
+
+    setDepositsDisabled(_state: boolean, overrides?: CallOverrides): Promise<void>;
 
     setEndpoint(_lzChainId: BigNumberish, _lzEndpoint: string, overrides?: CallOverrides): Promise<void>;
 
@@ -799,6 +813,8 @@ export interface MystikoV2LayerZeroERC20 extends BaseContract {
 
     setReceiveVersion(_version: BigNumberish, overrides?: CallOverrides): Promise<void>;
 
+    setSanctionCheckDisabled(_state: boolean, overrides?: CallOverrides): Promise<void>;
+
     setSendVersion(_version: BigNumberish, overrides?: CallOverrides): Promise<void>;
 
     setTrustedRemote(
@@ -807,15 +823,11 @@ export interface MystikoV2LayerZeroERC20 extends BaseContract {
       overrides?: CallOverrides,
     ): Promise<void>;
 
-    toggleDeposits(_state: boolean, overrides?: CallOverrides): Promise<void>;
-
-    toggleSanctionCheck(_check: boolean, overrides?: CallOverrides): Promise<void>;
-
     transferOwnership(newOwner: string, overrides?: CallOverrides): Promise<void>;
 
     trustedRemoteLookup(arg0: BigNumberish, overrides?: CallOverrides): Promise<string>;
 
-    updateSanctionContractAddress(_sanction: string, overrides?: CallOverrides): Promise<void>;
+    updateSanctionsListAddress(_sanction: string, overrides?: CallOverrides): Promise<void>;
   };
 
   filters: {
@@ -843,6 +855,12 @@ export interface MystikoV2LayerZeroERC20 extends BaseContract {
       previousOwner?: string | null,
       newOwner?: string | null,
     ): OwnershipTransferredEventFilter;
+
+    'SanctionsCheckDisabled(bool)'(state?: null): SanctionsCheckDisabledEventFilter;
+    SanctionsCheckDisabled(state?: null): SanctionsCheckDisabledEventFilter;
+
+    'SanctionsList(address)'(sanctions?: null): SanctionsListEventFilter;
+    SanctionsList(sanctions?: null): SanctionsListEventFilter;
 
     'SetTrustedRemote(uint16,bytes)'(_srcChainId?: null, _srcAddress?: null): SetTrustedRemoteEventFilter;
     SetTrustedRemote(_srcChainId?: null, _srcAddress?: null): SetTrustedRemoteEventFilter;
@@ -902,11 +920,7 @@ export interface MystikoV2LayerZeroERC20 extends BaseContract {
 
     getPeerMinRollupFee(overrides?: CallOverrides): Promise<BigNumber>;
 
-    getSanctionsContract(overrides?: CallOverrides): Promise<BigNumber>;
-
     isDepositsDisabled(overrides?: CallOverrides): Promise<BigNumber>;
-
-    isSanctionCheckDisabled(overrides?: CallOverrides): Promise<BigNumber>;
 
     isTrustedRemote(
       _srcChainId: BigNumberish,
@@ -948,6 +962,10 @@ export interface MystikoV2LayerZeroERC20 extends BaseContract {
       overrides?: PayableOverrides & { from?: string | Promise<string> },
     ): Promise<BigNumber>;
 
+    sanctionsCheckDisabled(overrides?: CallOverrides): Promise<BigNumber>;
+
+    sanctionsList(overrides?: CallOverrides): Promise<BigNumber>;
+
     setAssociatedCommitmentPool(
       _commitmentPoolAddress: string,
       overrides?: Overrides & { from?: string | Promise<string> },
@@ -963,6 +981,11 @@ export interface MystikoV2LayerZeroERC20 extends BaseContract {
       _chainId: BigNumberish,
       _configType: BigNumberish,
       _config: BytesLike,
+      overrides?: Overrides & { from?: string | Promise<string> },
+    ): Promise<BigNumber>;
+
+    setDepositsDisabled(
+      _state: boolean,
       overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<BigNumber>;
 
@@ -1009,6 +1032,11 @@ export interface MystikoV2LayerZeroERC20 extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<BigNumber>;
 
+    setSanctionCheckDisabled(
+      _state: boolean,
+      overrides?: Overrides & { from?: string | Promise<string> },
+    ): Promise<BigNumber>;
+
     setSendVersion(
       _version: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> },
@@ -1020,16 +1048,6 @@ export interface MystikoV2LayerZeroERC20 extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<BigNumber>;
 
-    toggleDeposits(
-      _state: boolean,
-      overrides?: Overrides & { from?: string | Promise<string> },
-    ): Promise<BigNumber>;
-
-    toggleSanctionCheck(
-      _check: boolean,
-      overrides?: Overrides & { from?: string | Promise<string> },
-    ): Promise<BigNumber>;
-
     transferOwnership(
       newOwner: string,
       overrides?: Overrides & { from?: string | Promise<string> },
@@ -1037,7 +1055,7 @@ export interface MystikoV2LayerZeroERC20 extends BaseContract {
 
     trustedRemoteLookup(arg0: BigNumberish, overrides?: CallOverrides): Promise<BigNumber>;
 
-    updateSanctionContractAddress(
+    updateSanctionsListAddress(
       _sanction: string,
       overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<BigNumber>;
@@ -1097,11 +1115,7 @@ export interface MystikoV2LayerZeroERC20 extends BaseContract {
 
     getPeerMinRollupFee(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
-    getSanctionsContract(overrides?: CallOverrides): Promise<PopulatedTransaction>;
-
     isDepositsDisabled(overrides?: CallOverrides): Promise<PopulatedTransaction>;
-
-    isSanctionCheckDisabled(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     isTrustedRemote(
       _srcChainId: BigNumberish,
@@ -1145,6 +1159,10 @@ export interface MystikoV2LayerZeroERC20 extends BaseContract {
       overrides?: PayableOverrides & { from?: string | Promise<string> },
     ): Promise<PopulatedTransaction>;
 
+    sanctionsCheckDisabled(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+
+    sanctionsList(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+
     setAssociatedCommitmentPool(
       _commitmentPoolAddress: string,
       overrides?: Overrides & { from?: string | Promise<string> },
@@ -1160,6 +1178,11 @@ export interface MystikoV2LayerZeroERC20 extends BaseContract {
       _chainId: BigNumberish,
       _configType: BigNumberish,
       _config: BytesLike,
+      overrides?: Overrides & { from?: string | Promise<string> },
+    ): Promise<PopulatedTransaction>;
+
+    setDepositsDisabled(
+      _state: boolean,
       overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<PopulatedTransaction>;
 
@@ -1206,6 +1229,11 @@ export interface MystikoV2LayerZeroERC20 extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<PopulatedTransaction>;
 
+    setSanctionCheckDisabled(
+      _state: boolean,
+      overrides?: Overrides & { from?: string | Promise<string> },
+    ): Promise<PopulatedTransaction>;
+
     setSendVersion(
       _version: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> },
@@ -1217,16 +1245,6 @@ export interface MystikoV2LayerZeroERC20 extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<PopulatedTransaction>;
 
-    toggleDeposits(
-      _state: boolean,
-      overrides?: Overrides & { from?: string | Promise<string> },
-    ): Promise<PopulatedTransaction>;
-
-    toggleSanctionCheck(
-      _check: boolean,
-      overrides?: Overrides & { from?: string | Promise<string> },
-    ): Promise<PopulatedTransaction>;
-
     transferOwnership(
       newOwner: string,
       overrides?: Overrides & { from?: string | Promise<string> },
@@ -1234,7 +1252,7 @@ export interface MystikoV2LayerZeroERC20 extends BaseContract {
 
     trustedRemoteLookup(arg0: BigNumberish, overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
-    updateSanctionContractAddress(
+    updateSanctionsListAddress(
       _sanction: string,
       overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<PopulatedTransaction>;

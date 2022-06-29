@@ -66,7 +66,7 @@ export interface ERC20AssetPool extends BaseContract {
 
     assetSymbol(overrides?: CallOverrides): Promise<[string]>;
 
-    assetType(overrides?: CallOverrides): Promise<[string]>;
+    assetType(overrides?: CallOverrides): Promise<[number]>;
   };
 
   assetDecimals(overrides?: CallOverrides): Promise<number>;
@@ -75,7 +75,7 @@ export interface ERC20AssetPool extends BaseContract {
 
   assetSymbol(overrides?: CallOverrides): Promise<string>;
 
-  assetType(overrides?: CallOverrides): Promise<string>;
+  assetType(overrides?: CallOverrides): Promise<number>;
 
   callStatic: {
     assetDecimals(overrides?: CallOverrides): Promise<number>;
@@ -84,7 +84,7 @@ export interface ERC20AssetPool extends BaseContract {
 
     assetSymbol(overrides?: CallOverrides): Promise<string>;
 
-    assetType(overrides?: CallOverrides): Promise<string>;
+    assetType(overrides?: CallOverrides): Promise<number>;
   };
 
   filters: {};

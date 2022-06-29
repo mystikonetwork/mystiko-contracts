@@ -3,7 +3,10 @@ pragma solidity ^0.8.0;
 
 import "./MystikoV2Axelar.sol";
 import "../../../libs/asset/MainAssetPool.sol";
+import "../../../interface/IHasher3.sol";
 
 contract MystikoV2AxelarMain is MystikoV2Axelar, MainAssetPool {
-  constructor(address _hasher3) MystikoV2Axelar(_hasher3) {}
+  constructor(IHasher3 _hasher3) MystikoV2Axelar(_hasher3) {
+    // implemented in MystikoV2Axelar
+  }
 }

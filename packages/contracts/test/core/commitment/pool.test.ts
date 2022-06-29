@@ -41,7 +41,7 @@ describe('Test Mystiko pool tree', () => {
   it('test pool tree', async () => {
     const accounts = waffle.provider.getWallets();
     const { testToken, sanctionList } = await deployDependContracts(accounts);
-    for (let i = 0; i < 34; i += 1) {
+    for (let i = 1; i < 33; i += 1) {
       await deployCommitmentPoolContracts(accounts, testToken.address, sanctionList.address, {
         treeHeight: i,
       });

@@ -14,8 +14,8 @@ import { FunctionFragment, Result } from '@ethersproject/abi';
 import { Listener, Provider } from '@ethersproject/providers';
 import { TypedEventFilter, TypedEvent, TypedListener, OnEvent } from './common';
 
-export interface SanctionsListInterface extends utils.Interface {
-  contractName: 'SanctionsList';
+export interface ISanctionsListInterface extends utils.Interface {
+  contractName: 'ISanctionsList';
   functions: {
     'isSanctioned(address)': FunctionFragment;
   };
@@ -27,13 +27,13 @@ export interface SanctionsListInterface extends utils.Interface {
   events: {};
 }
 
-export interface SanctionsList extends BaseContract {
-  contractName: 'SanctionsList';
+export interface ISanctionsList extends BaseContract {
+  contractName: 'ISanctionsList';
   connect(signerOrProvider: Signer | Provider | string): this;
   attach(addressOrName: string): this;
   deployed(): Promise<this>;
 
-  interface: SanctionsListInterface;
+  interface: ISanctionsListInterface;
 
   queryFilter<TEvent extends TypedEvent>(
     event: TypedEventFilter<TEvent>,

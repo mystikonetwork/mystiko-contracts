@@ -1,6 +1,6 @@
 import { expect } from 'chai';
 // import { MerkleTree } from '@mystikonetwork/utils';
-import { MerkleTreeHeight, MinRollupFee, RootHistoryLength } from '../util/constants';
+import { MerkleTreeHeight, MinRollupFee } from '../util/constants';
 
 export function testLoopConstructor(contractName: string, mystikoContract: any, minAmount: string) {
   describe(`Test ${contractName} constructor`, () => {
@@ -11,10 +11,10 @@ export function testLoopConstructor(contractName: string, mystikoContract: any, 
       expect(await mystikoContract.isDepositsDisabled()).to.equal(false);
     });
     it('should initialize sanction check disabled correctly', async () => {
-      expect(await mystikoContract.isSanctionCheckDisabled()).to.equal(false);
+      expect(await mystikoContract.sanctionsCheckDisabled()).to.equal(false);
     });
     it('should initialize sanction address correctly', async () => {
-      expect(await mystikoContract.getSanctionsContract()).to.not.equal('');
+      expect(await mystikoContract.sanctionsList()).to.not.equal('');
     });
     it('should initialize bridge type correctly', async () => {
       expect(await mystikoContract.bridgeType()).to.equal('loop');
@@ -22,14 +22,14 @@ export function testLoopConstructor(contractName: string, mystikoContract: any, 
 
     if (contractName === 'MystikoV2LoopERC20') {
       it('should initialize erc20 token correctly', async () => {
-        expect(await mystikoContract.assetType()).to.equal('erc20');
+        expect(await mystikoContract.assetType()).to.equal(0);
         expect(await mystikoContract.assetName()).to.equal('Mystiko Test Token');
         expect(await mystikoContract.assetSymbol()).to.equal('MTT');
         expect(await mystikoContract.assetDecimals()).to.equal(18);
       });
     } else {
       it('should initialize main token correctly', async () => {
-        expect(await mystikoContract.assetType()).to.equal('main');
+        expect(await mystikoContract.assetType()).to.equal(1);
       });
     }
   });
@@ -79,7 +79,7 @@ export function testBridgeConstructor(
 export function testCommitmentPoolConstructor(
   contractName: string,
   mystikoContract: any,
-  { treeHeight = MerkleTreeHeight, rootHistoryLength = RootHistoryLength, minRollupFee = MinRollupFee },
+  { treeHeight = MerkleTreeHeight, minRollupFee = MinRollupFee },
 ) {
   describe(`Test ${contractName} constructor`, () => {
     it('should initialize minRollupFee correctly', async () => {
@@ -93,7 +93,6 @@ export function testCommitmentPoolConstructor(
       // const zeros = MerkleTree.calcZeros(defaultZero, treeHeight);
       expect((await mystikoContract.getTreeCapacity()).toNumber()).to.equal(2 ** treeHeight);
       // expect((await mystikoContract.rootHistory(0)).toString()).to.equal(zeros[treeHeight].toString());
-      expect(await mystikoContract.getRootHistoryLength()).to.equal(rootHistoryLength);
     });
     it('should initialize admin related resources correctly', async () => {
       expect(await mystikoContract.isVerifierUpdateDisabled()).to.equal(false);

@@ -8,13 +8,78 @@ import type { MystikoV2Loop, MystikoV2LoopInterface } from '../MystikoV2Loop';
 
 const _abi = [
   {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: false,
+        internalType: 'bool',
+        name: 'state',
+        type: 'bool',
+      },
+    ],
+    name: 'DepositsDisabled',
+    type: 'event',
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: false,
+        internalType: 'uint256',
+        name: 'minAmount',
+        type: 'uint256',
+      },
+    ],
+    name: 'MinAmount',
+    type: 'event',
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: false,
+        internalType: 'address',
+        name: 'operator',
+        type: 'address',
+      },
+    ],
+    name: 'OperatorChanged',
+    type: 'event',
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: false,
+        internalType: 'bool',
+        name: 'state',
+        type: 'bool',
+      },
+    ],
+    name: 'SanctionsCheckDisabled',
+    type: 'event',
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: false,
+        internalType: 'contract ISanctionsList',
+        name: 'sanctions',
+        type: 'address',
+      },
+    ],
+    name: 'SanctionsList',
+    type: 'event',
+  },
+  {
     inputs: [],
     name: 'assetType',
     outputs: [
       {
-        internalType: 'string',
+        internalType: 'enum AssetPool.AssetType',
         name: '',
-        type: 'string',
+        type: 'uint8',
       },
     ],
     stateMutability: 'view',
@@ -119,19 +184,6 @@ const _abi = [
   },
   {
     inputs: [],
-    name: 'getSanctionsContract',
-    outputs: [
-      {
-        internalType: 'address',
-        name: '',
-        type: 'address',
-      },
-    ],
-    stateMutability: 'view',
-    type: 'function',
-  },
-  {
-    inputs: [],
     name: 'isDepositsDisabled',
     outputs: [
       {
@@ -145,12 +197,25 @@ const _abi = [
   },
   {
     inputs: [],
-    name: 'isSanctionCheckDisabled',
+    name: 'sanctionsCheckDisabled',
     outputs: [
       {
         internalType: 'bool',
         name: '',
         type: 'bool',
+      },
+    ],
+    stateMutability: 'view',
+    type: 'function',
+  },
+  {
+    inputs: [],
+    name: 'sanctionsList',
+    outputs: [
+      {
+        internalType: 'contract ISanctionsList',
+        name: '',
+        type: 'address',
       },
     ],
     stateMutability: 'view',
@@ -165,6 +230,19 @@ const _abi = [
       },
     ],
     name: 'setAssociatedCommitmentPool',
+    outputs: [],
+    stateMutability: 'nonpayable',
+    type: 'function',
+  },
+  {
+    inputs: [
+      {
+        internalType: 'bool',
+        name: '_state',
+        type: 'bool',
+      },
+    ],
+    name: 'setDepositsDisabled',
     outputs: [],
     stateMutability: 'nonpayable',
     type: 'function',
@@ -190,7 +268,7 @@ const _abi = [
         type: 'bool',
       },
     ],
-    name: 'toggleDeposits',
+    name: 'setSanctionCheckDisabled',
     outputs: [],
     stateMutability: 'nonpayable',
     type: 'function',
@@ -198,25 +276,12 @@ const _abi = [
   {
     inputs: [
       {
-        internalType: 'bool',
-        name: '_check',
-        type: 'bool',
-      },
-    ],
-    name: 'toggleSanctionCheck',
-    outputs: [],
-    stateMutability: 'nonpayable',
-    type: 'function',
-  },
-  {
-    inputs: [
-      {
-        internalType: 'address',
+        internalType: 'contract ISanctionsList',
         name: '_sanction',
         type: 'address',
       },
     ],
-    name: 'updateSanctionContractAddress',
+    name: 'updateSanctionsListAddress',
     outputs: [],
     stateMutability: 'nonpayable',
     type: 'function',

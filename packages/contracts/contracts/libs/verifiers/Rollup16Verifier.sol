@@ -4,10 +4,14 @@
 // Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
 // The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 // THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-// SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
 library Rollup16Pairing {
+  uint256 internal constant FIELD_MODULUS =
+    0x30644e72e131a029b85045b68181585d97816a916871ca8d3c208c16d87cfd47;
+  uint256 internal constant TWISTBX = 0x2b149d40ceb8aaae81be18991be06ac3b5b4c5e559dbefa33267e6dc24a138e5;
+  uint256 internal constant TWISTBY = 0x9713b03af0fed4cd2cafadeed8fdf4a74fa084e52d1852e4a2bd0685c315d2;
+
   struct G1Point {
     uint256 X;
     uint256 Y;
@@ -40,10 +44,8 @@ library Rollup16Pairing {
 
   /// @return the negation of p, i.e. p.addition(p.negate()) should be zero.
   function negate(G1Point memory p) internal pure returns (G1Point memory) {
-    // The prime q in the base field F_q for G1
-    uint256 q = 21888242871839275222246405745257275088696311157297823662689037894645226208583;
-    if (p.X == 0 && p.Y == 0) return G1Point(0, 0);
-    return G1Point(p.X, q - (p.Y % q));
+    if (p.Y == 0) return G1Point(p.X, 0);
+    return G1Point(p.X, FIELD_MODULUS - (p.Y % FIELD_MODULUS));
   }
 
   /// @return r the sum of two points of G1
@@ -174,6 +176,54 @@ library Rollup16Pairing {
     p2[3] = d2;
     return pairing(p1, p2);
   }
+
+  function submod(
+    uint256 a,
+    uint256 b,
+    uint256 n
+  ) internal pure returns (uint256) {
+    return addmod(a, n - b, n);
+  }
+
+  function _FQ2Mul(
+    uint256 xx,
+    uint256 xy,
+    uint256 yx,
+    uint256 yy
+  ) internal pure returns (uint256, uint256) {
+    return (
+      submod(mulmod(xx, yx, FIELD_MODULUS), mulmod(xy, yy, FIELD_MODULUS), FIELD_MODULUS),
+      addmod(mulmod(xx, yy, FIELD_MODULUS), mulmod(xy, yx, FIELD_MODULUS), FIELD_MODULUS)
+    );
+  }
+
+  function _FQ2Sub(
+    uint256 xx,
+    uint256 xy,
+    uint256 yx,
+    uint256 yy
+  ) internal pure returns (uint256 rx, uint256 ry) {
+    return (submod(xx, yx, FIELD_MODULUS), submod(xy, yy, FIELD_MODULUS));
+  }
+
+  function isOnCurve(G2Point memory p) internal pure returns (bool) {
+    uint256 yyx;
+    uint256 yyy;
+    uint256 xxxx;
+    uint256 xxxy;
+    (yyx, yyy) = _FQ2Mul(p.Y[0], p.Y[1], p.Y[0], p.Y[1]);
+    (xxxx, xxxy) = _FQ2Mul(p.X[0], p.X[1], p.X[0], p.X[1]);
+    (xxxx, xxxy) = _FQ2Mul(xxxx, xxxy, p.X[0], p.X[1]);
+    (yyx, yyy) = _FQ2Sub(yyx, yyy, xxxx, xxxy);
+    (yyx, yyy) = _FQ2Sub(yyx, yyy, TWISTBX, TWISTBY);
+    return yyx == 0 && yyy == 0;
+  }
+
+  function isOnCurve(G1Point memory p) internal pure returns (bool) {
+    return
+      mulmod(p.Y, p.Y, FIELD_MODULUS) - mulmod(mulmod(p.X, p.X, FIELD_MODULUS), p.X, FIELD_MODULUS) ==
+      3 % FIELD_MODULUS;
+  }
 }
 
 contract Rollup16Verifier {
@@ -253,6 +303,17 @@ contract Rollup16Verifier {
     uint256 snark_scalar_field = 21888242871839275222246405745257275088548364400416034343698204186575808495617;
     VerifyingKey memory vk = verifyingKey();
     require(input.length + 1 == vk.gamma_abc.length);
+    require(proof.a.X < snark_scalar_field);
+    require(proof.a.Y < snark_scalar_field);
+    require(proof.b.X[0] < snark_scalar_field);
+    require(proof.b.Y[0] < snark_scalar_field);
+    require(proof.b.X[1] < snark_scalar_field);
+    require(proof.b.Y[1] < snark_scalar_field);
+    require(proof.c.X < snark_scalar_field);
+    require(proof.c.Y < snark_scalar_field);
+    require(Rollup16Pairing.isOnCurve(proof.a));
+    require(Rollup16Pairing.isOnCurve(proof.b));
+    require(Rollup16Pairing.isOnCurve(proof.c));
     // Compute the linear combination vk_x
     Rollup16Pairing.G1Point memory vk_x = Rollup16Pairing.G1Point(0, 0);
     for (uint256 i = 0; i < input.length; i++) {
@@ -260,6 +321,7 @@ contract Rollup16Verifier {
       vk_x = Rollup16Pairing.addition(vk_x, Rollup16Pairing.scalar_mul(vk.gamma_abc[i + 1], input[i]));
     }
     vk_x = Rollup16Pairing.addition(vk_x, vk.gamma_abc[0]);
+    require(Rollup16Pairing.isOnCurve(vk_x));
     if (
       !Rollup16Pairing.pairingProd4(
         proof.a,

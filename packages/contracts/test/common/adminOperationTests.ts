@@ -6,13 +6,13 @@ export function testLoopAdminOperations(contractName: string, mystikoContract: a
     before(async () => {});
 
     it('should toggle isDepositDisabled correctly', async () => {
-      await expect(mystikoContract.connect(accounts[1]).toggleDeposits(true)).to.be.revertedWith(
+      await expect(mystikoContract.connect(accounts[1]).setDepositsDisabled(true)).to.be.revertedWith(
         'only operator.',
       );
 
-      await mystikoContract.toggleDeposits(true);
+      await mystikoContract.setDepositsDisabled(true);
       expect(await mystikoContract.isDepositsDisabled()).to.equal(true);
-      await mystikoContract.toggleDeposits(false);
+      await mystikoContract.setDepositsDisabled(false);
       expect(await mystikoContract.isDepositsDisabled()).to.equal(false);
     });
 
@@ -35,13 +35,13 @@ export function testBridgeAdminOperations(contractName: string, mystikoContract:
     before(async () => {});
 
     it('should toggle isDepositDisabled correctly', async () => {
-      await expect(mystikoContract.connect(accounts[1]).toggleDeposits(true)).to.be.revertedWith(
+      await expect(mystikoContract.connect(accounts[1]).setDepositsDisabled(true)).to.be.revertedWith(
         'only operator.',
       );
 
-      await mystikoContract.toggleDeposits(true);
+      await mystikoContract.setDepositsDisabled(true);
       expect(await mystikoContract.isDepositsDisabled()).to.equal(true);
-      await mystikoContract.toggleDeposits(false);
+      await mystikoContract.setDepositsDisabled(false);
       expect(await mystikoContract.isDepositsDisabled()).to.equal(false);
     });
 
@@ -68,24 +68,24 @@ export function testCommitmentPoolAdminOperations(
     before(async () => {});
 
     it('should toggle isRollupWhitelistDisabled correctly', async () => {
-      await expect(mystikoContract.connect(accounts[1]).toggleRollupWhitelist(true)).to.be.revertedWith(
+      await expect(mystikoContract.connect(accounts[1]).setRollupWhitelistDisabled(true)).to.be.revertedWith(
         'only operator.',
       );
 
-      await mystikoContract.toggleRollupWhitelist(true);
+      await mystikoContract.setRollupWhitelistDisabled(true);
       expect(await mystikoContract.isRollupWhitelistDisabled()).to.equal(true);
-      await mystikoContract.toggleRollupWhitelist(false);
+      await mystikoContract.setRollupWhitelistDisabled(false);
       expect(await mystikoContract.isRollupWhitelistDisabled()).to.equal(false);
     });
 
     it('should toggle isVerifierUpdateDisabled correctly', async () => {
-      await expect(mystikoContract.connect(accounts[1]).toggleVerifierUpdate(true)).to.be.revertedWith(
+      await expect(mystikoContract.connect(accounts[1]).setVerifierUpdateDisabled(true)).to.be.revertedWith(
         'only operator.',
       );
 
-      await mystikoContract.toggleVerifierUpdate(true);
+      await mystikoContract.setVerifierUpdateDisabled(true);
       expect(await mystikoContract.isVerifierUpdateDisabled()).to.equal(true);
-      await mystikoContract.toggleVerifierUpdate(false);
+      await mystikoContract.setVerifierUpdateDisabled(false);
       expect(await mystikoContract.isVerifierUpdateDisabled()).to.equal(false);
     });
 
@@ -106,11 +106,11 @@ export function testCommitmentPoolAdminOperations(
       // expect(verifier.verifier).to.equal('0xfbb61B8b98a59FbC4bD79C23212AddbEFaEB289f');
       // expect(verifier.enabled).to.equal(true);
 
-      await mystikoContract.toggleVerifierUpdate(true);
+      await mystikoContract.setVerifierUpdateDisabled(true);
       await expect(
         mystikoContract.enableTransactVerifier(1, 0, '0xfbb61B8b98a59FbC4bD79C23212AddbEFaEB289f'),
       ).to.be.revertedWith('verifier updates have been disabled.');
-      await mystikoContract.toggleVerifierUpdate(false);
+      await mystikoContract.setVerifierUpdateDisabled(false);
     });
 
     it('should disableTransactVerifier correctly', async () => {
@@ -128,11 +128,11 @@ export function testCommitmentPoolAdminOperations(
       // expect(verifier.verifier).to.equal('0xfbb61B8b98a59FbC4bD79C23212AddbEFaEB289f');
       // expect(verifier.enabled).to.equal(false);
 
-      await mystikoContract.toggleVerifierUpdate(true);
+      await mystikoContract.setVerifierUpdateDisabled(true);
       await expect(mystikoContract.disableTransactVerifier(1, 0)).to.be.revertedWith(
         'verifier updates have been disabled.',
       );
-      await mystikoContract.toggleVerifierUpdate(false);
+      await mystikoContract.setVerifierUpdateDisabled(false);
     });
 
     it('should enableRollupVerifier correctly', async () => {
@@ -152,11 +152,11 @@ export function testCommitmentPoolAdminOperations(
       // expect(verifier.verifier).to.equal('0xfbb61B8b98a59FbC4bD79C23212AddbEFaEB289f');
       // expect(verifier.enabled).to.equal(true);
 
-      await mystikoContract.toggleVerifierUpdate(true);
+      await mystikoContract.setVerifierUpdateDisabled(true);
       await expect(
         mystikoContract.enableRollupVerifier(4, '0xfbb61B8b98a59FbC4bD79C23212AddbEFaEB289f'),
       ).to.be.revertedWith('verifier updates have been disabled.');
-      await mystikoContract.toggleVerifierUpdate(false);
+      await mystikoContract.setVerifierUpdateDisabled(false);
     });
 
     it('should disableRollupVerifier correctly', async () => {
@@ -174,11 +174,11 @@ export function testCommitmentPoolAdminOperations(
       // expect(verifier.verifier).to.equal('0xfbb61B8b98a59FbC4bD79C23212AddbEFaEB289f');
       // expect(verifier.enabled).to.equal(false);
 
-      await mystikoContract.toggleVerifierUpdate(true);
+      await mystikoContract.setVerifierUpdateDisabled(true);
       await expect(mystikoContract.disableRollupVerifier(4)).to.be.revertedWith(
         'verifier updates have been disabled.',
       );
-      await mystikoContract.toggleVerifierUpdate(false);
+      await mystikoContract.setVerifierUpdateDisabled(false);
     });
 
     it('should addRollupWhitelist correctly', async () => {

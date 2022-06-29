@@ -60,7 +60,6 @@ import {
 } from '@mystikonetwork/contracts-abi';
 import {
   MerkleTreeHeight,
-  RootHistoryLength,
   MinBridgeFee,
   MinExecutorFee,
   MinRollupFee,
@@ -118,25 +117,23 @@ export async function deployCommitmentPoolContracts(
   accounts: Wallet[],
   tokenAddress: string,
   sanctionListAddress: string,
-  { treeHeight = MerkleTreeHeight, rootHistoryLength = RootHistoryLength, minRollupFee = MinRollupFee },
+  { treeHeight = MerkleTreeHeight, minRollupFee = MinRollupFee },
 ): Promise<CommitmentPoolDeploymentInfo> {
   const poolMainFactory = (await ethers.getContractFactory(
     'CommitmentPoolMain',
   )) as CommitmentPoolMain__factory;
-  const poolMain = await poolMainFactory.connect(accounts[0]).deploy(treeHeight, rootHistoryLength);
+  const poolMain = await poolMainFactory.connect(accounts[0]).deploy(treeHeight);
   await poolMain.deployed();
   await poolMain.setMinRollupFee(minRollupFee.toString());
-  await poolMain.updateSanctionContractAddress(sanctionListAddress);
+  await poolMain.updateSanctionsListAddress(sanctionListAddress);
 
   const poolERC20Factory = (await ethers.getContractFactory(
     'CommitmentPoolERC20',
   )) as CommitmentPoolERC20__factory;
-  const poolERC20 = await poolERC20Factory
-    .connect(accounts[0])
-    .deploy(treeHeight, rootHistoryLength, tokenAddress);
+  const poolERC20 = await poolERC20Factory.connect(accounts[0]).deploy(treeHeight, tokenAddress);
   await poolERC20.deployed();
   await poolERC20.setMinRollupFee(minRollupFee.toString());
-  await poolERC20.updateSanctionContractAddress(sanctionListAddress);
+  await poolERC20.updateSanctionsListAddress(sanctionListAddress);
 
   return { poolMain, poolERC20 };
 }
@@ -157,7 +154,7 @@ export async function deployLoopContracts(
   await coreMain.deployed();
   await coreMain.setMinAmount(minAmount);
   await coreMain.setAssociatedCommitmentPool(poolMain.address);
-  await coreMain.updateSanctionContractAddress(sanctionListAddress);
+  await coreMain.updateSanctionsListAddress(sanctionListAddress);
   await poolMain.addEnqueueWhitelist(coreMain.address);
 
   const loopERC20Factory = (await ethers.getContractFactory(
@@ -167,7 +164,7 @@ export async function deployLoopContracts(
   await coreERC20.deployed();
   await coreERC20.setMinAmount(minAmount);
   await coreERC20.setAssociatedCommitmentPool(poolERC20.address);
-  await coreERC20.updateSanctionContractAddress(sanctionListAddress);
+  await coreERC20.updateSanctionsListAddress(sanctionListAddress);
   await poolERC20.addEnqueueWhitelist(coreERC20.address);
 
   return { coreMain, coreERC20 };
@@ -201,7 +198,7 @@ export async function deployTBridgeContracts(
   await coreMain.setMinExecutorFee(minExecutorFee);
   await coreMain.setPeerMinExecutorFee(minExecutorFee);
   await coreMain.setPeerMinRollupFee(minRollupFee);
-  await coreMain.updateSanctionContractAddress(sanctionListAddress);
+  await coreMain.updateSanctionsListAddress(sanctionListAddress);
   await poolMain.addEnqueueWhitelist(coreMain.address);
   await tbridge.addRegisterWhitelist(coreMain.address);
 
@@ -218,7 +215,7 @@ export async function deployTBridgeContracts(
   await coreERC20.setMinExecutorFee(minExecutorFee);
   await coreERC20.setPeerMinExecutorFee(minExecutorFee);
   await coreERC20.setPeerMinRollupFee(minRollupFee);
-  await coreERC20.updateSanctionContractAddress(sanctionListAddress);
+  await coreERC20.updateSanctionsListAddress(sanctionListAddress);
   await poolERC20.addEnqueueWhitelist(coreERC20.address);
   await tbridge.addRegisterWhitelist(coreERC20.address);
 
@@ -253,7 +250,7 @@ export async function deployCelerContracts(
   await coreMain.setMinExecutorFee(minExecutorFee);
   await coreMain.setPeerMinExecutorFee(minExecutorFee);
   await coreMain.setPeerMinRollupFee(minRollupFee);
-  await coreMain.updateSanctionContractAddress(sanctionListAddress);
+  await coreMain.updateSanctionsListAddress(sanctionListAddress);
   await poolMain.addEnqueueWhitelist(coreMain.address);
 
   const celerERC20Factory = (await ethers.getContractFactory(
@@ -269,7 +266,7 @@ export async function deployCelerContracts(
   await coreERC20.setMinExecutorFee(minExecutorFee);
   await coreERC20.setPeerMinExecutorFee(minExecutorFee);
   await coreERC20.setPeerMinRollupFee(minRollupFee);
-  await coreERC20.updateSanctionContractAddress(sanctionListAddress);
+  await coreERC20.updateSanctionsListAddress(sanctionListAddress);
   await poolERC20.addEnqueueWhitelist(coreERC20.address);
 
   return { coreMain, coreERC20 };
@@ -302,7 +299,7 @@ export async function deployLayerZeroContracts(
   await coreMain.setMinExecutorFee(minExecutorFee);
   await coreMain.setPeerMinExecutorFee(minExecutorFee);
   await coreMain.setPeerMinRollupFee(minRollupFee);
-  await coreMain.updateSanctionContractAddress(sanctionListAddress);
+  await coreMain.updateSanctionsListAddress(sanctionListAddress);
   await coreMain.setEndpoint(LzChainID, dummyLZEndpoint.address);
   await poolMain.addEnqueueWhitelist(coreMain.address);
 
@@ -318,7 +315,7 @@ export async function deployLayerZeroContracts(
   await coreERC20.setMinExecutorFee(minExecutorFee);
   await coreERC20.setPeerMinExecutorFee(minExecutorFee);
   await coreERC20.setPeerMinRollupFee(minRollupFee);
-  await coreERC20.updateSanctionContractAddress(sanctionListAddress);
+  await coreERC20.updateSanctionsListAddress(sanctionListAddress);
   await coreERC20.setEndpoint(LzChainID, dummyLZEndpoint.address);
   await poolERC20.addEnqueueWhitelist(coreERC20.address);
 
@@ -353,7 +350,7 @@ export async function deployAxelarContracts(
   await coreMain.setMinExecutorFee(minExecutorFee);
   await coreMain.setPeerMinExecutorFee(minExecutorFee);
   await coreMain.setPeerMinRollupFee(minRollupFee);
-  await coreMain.updateSanctionContractAddress(sanctionListAddress);
+  await coreMain.updateSanctionsListAddress(sanctionListAddress);
   await coreMain.setBridgeProxyAddress(dummyAxelarGateway.address);
   await coreMain.setAxelarGasReceiver(dummyAxelarGasService.address);
   await poolMain.addEnqueueWhitelist(coreMain.address);
@@ -370,7 +367,7 @@ export async function deployAxelarContracts(
   await coreERC20.setMinExecutorFee(minExecutorFee);
   await coreERC20.setPeerMinExecutorFee(minExecutorFee);
   await coreERC20.setPeerMinRollupFee(minRollupFee);
-  await coreERC20.updateSanctionContractAddress(sanctionListAddress);
+  await coreERC20.updateSanctionsListAddress(sanctionListAddress);
   await coreERC20.setBridgeProxyAddress(dummyAxelarGateway.address);
   await coreERC20.setAxelarGasReceiver(dummyAxelarGasService.address);
   await poolERC20.addEnqueueWhitelist(coreERC20.address);

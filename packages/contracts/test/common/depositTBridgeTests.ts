@@ -72,7 +72,7 @@ export function testTBridgeDeposit(
     });
 
     it('should revert when deposit is disabled', async () => {
-      await mystikoContract.toggleDeposits(true);
+      await mystikoContract.setDepositsDisabled(true);
       await expect(
         mystikoContract.deposit(
           [
@@ -88,7 +88,7 @@ export function testTBridgeDeposit(
           { from: accounts[0].address, value: minTotalValue },
         ),
       ).to.be.revertedWith('deposits are disabled');
-      await mystikoContract.toggleDeposits(false);
+      await mystikoContract.setDepositsDisabled(false);
     });
 
     it('should revert when sender in sanction list', async () => {
@@ -127,7 +127,7 @@ export function testTBridgeDeposit(
           ],
           { from: accounts[0].address, value: amount },
         ),
-      ).to.be.revertedWith('amount too few');
+      ).to.be.revertedWith('amount too small');
     });
 
     it('should revert when bridge fee is too few', async () => {
@@ -195,7 +195,7 @@ export function testTBridgeDeposit(
 
     it('should deposit successfully', async () => {
       await sanctionList.addToSanctionsList(accounts[0].address);
-      await mystikoContract.toggleSanctionCheck(true);
+      await mystikoContract.setSanctionCheckDisabled(true);
 
       for (let i = 0; i < numOfCommitments; i += 1) {
         const depositTx = await mystikoContract.deposit(

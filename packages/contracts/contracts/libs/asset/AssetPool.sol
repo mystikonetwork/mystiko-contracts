@@ -2,6 +2,11 @@
 pragma solidity ^0.8.0;
 
 abstract contract AssetPool {
+  enum AssetType {
+    ERC20,
+    Main
+  }
+
   function _processDepositTransfer(
     address commitmentPool,
     uint256 amount,
@@ -14,5 +19,5 @@ abstract contract AssetPool {
 
   function _processWithdrawTransfer(address recipient, uint256 amount) internal virtual;
 
-  function assetType() public view virtual returns (string memory);
+  function assetType() public view virtual returns (AssetType);
 }

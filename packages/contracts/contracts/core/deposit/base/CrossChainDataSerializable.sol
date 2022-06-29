@@ -1,9 +1,9 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
-import "../../../libs/common/ZeroCopySink.sol";
-import "../../../libs/common/ZeroCopySource.sol";
 import "../../../libs/utils/Utils.sol";
+import "../../../libs/utils/ZeroCopySink.sol";
+import "../../../libs/utils/ZeroCopySource.sol";
 import "../../../interface/ICommitmentPool.sol";
 
 abstract contract CrossChainDataSerializable {

@@ -75,6 +75,32 @@ const _abi = [
     inputs: [
       {
         indexed: false,
+        internalType: 'bool',
+        name: 'state',
+        type: 'bool',
+      },
+    ],
+    name: 'SanctionsCheckDisabled',
+    type: 'event',
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: false,
+        internalType: 'contract ISanctionsList',
+        name: 'sanctions',
+        type: 'address',
+      },
+    ],
+    name: 'SanctionsList',
+    type: 'event',
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: false,
         internalType: 'uint16',
         name: '_srcChainId',
         type: 'uint16',
@@ -94,9 +120,9 @@ const _abi = [
     name: 'assetType',
     outputs: [
       {
-        internalType: 'string',
+        internalType: 'enum AssetPool.AssetType',
         name: '',
-        type: 'string',
+        type: 'uint8',
       },
     ],
     stateMutability: 'view',
@@ -344,33 +370,7 @@ const _abi = [
   },
   {
     inputs: [],
-    name: 'getSanctionsContract',
-    outputs: [
-      {
-        internalType: 'address',
-        name: '',
-        type: 'address',
-      },
-    ],
-    stateMutability: 'view',
-    type: 'function',
-  },
-  {
-    inputs: [],
     name: 'isDepositsDisabled',
-    outputs: [
-      {
-        internalType: 'bool',
-        name: '',
-        type: 'bool',
-      },
-    ],
-    stateMutability: 'view',
-    type: 'function',
-  },
-  {
-    inputs: [],
-    name: 'isSanctionCheckDisabled',
     outputs: [
       {
         internalType: 'bool',
@@ -549,6 +549,32 @@ const _abi = [
     type: 'function',
   },
   {
+    inputs: [],
+    name: 'sanctionsCheckDisabled',
+    outputs: [
+      {
+        internalType: 'bool',
+        name: '',
+        type: 'bool',
+      },
+    ],
+    stateMutability: 'view',
+    type: 'function',
+  },
+  {
+    inputs: [],
+    name: 'sanctionsList',
+    outputs: [
+      {
+        internalType: 'contract ISanctionsList',
+        name: '',
+        type: 'address',
+      },
+    ],
+    stateMutability: 'view',
+    type: 'function',
+  },
+  {
     inputs: [
       {
         internalType: 'address',
@@ -598,6 +624,19 @@ const _abi = [
       },
     ],
     name: 'setConfig',
+    outputs: [],
+    stateMutability: 'nonpayable',
+    type: 'function',
+  },
+  {
+    inputs: [
+      {
+        internalType: 'bool',
+        name: '_state',
+        type: 'bool',
+      },
+    ],
+    name: 'setDepositsDisabled',
     outputs: [],
     stateMutability: 'nonpayable',
     type: 'function',
@@ -724,6 +763,19 @@ const _abi = [
   {
     inputs: [
       {
+        internalType: 'bool',
+        name: '_state',
+        type: 'bool',
+      },
+    ],
+    name: 'setSanctionCheckDisabled',
+    outputs: [],
+    stateMutability: 'nonpayable',
+    type: 'function',
+  },
+  {
+    inputs: [
+      {
         internalType: 'uint16',
         name: '_version',
         type: 'uint16',
@@ -748,32 +800,6 @@ const _abi = [
       },
     ],
     name: 'setTrustedRemote',
-    outputs: [],
-    stateMutability: 'nonpayable',
-    type: 'function',
-  },
-  {
-    inputs: [
-      {
-        internalType: 'bool',
-        name: '_state',
-        type: 'bool',
-      },
-    ],
-    name: 'toggleDeposits',
-    outputs: [],
-    stateMutability: 'nonpayable',
-    type: 'function',
-  },
-  {
-    inputs: [
-      {
-        internalType: 'bool',
-        name: '_check',
-        type: 'bool',
-      },
-    ],
-    name: 'toggleSanctionCheck',
     outputs: [],
     stateMutability: 'nonpayable',
     type: 'function',
@@ -813,12 +839,12 @@ const _abi = [
   {
     inputs: [
       {
-        internalType: 'address',
+        internalType: 'contract ISanctionsList',
         name: '_sanction',
         type: 'address',
       },
     ],
-    name: 'updateSanctionContractAddress',
+    name: 'updateSanctionsListAddress',
     outputs: [],
     stateMutability: 'nonpayable',
     type: 'function',

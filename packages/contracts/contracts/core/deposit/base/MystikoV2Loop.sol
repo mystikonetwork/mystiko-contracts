@@ -2,37 +2,41 @@
 pragma solidity ^0.8.0;
 
 import "../../../libs/asset/AssetPool.sol";
+import "../../../libs/common/DataTypes.sol";
 import "../../../interface/IMystikoLoop.sol";
 import "../../../interface/IHasher3.sol";
 import "../../../interface/ICommitmentPool.sol";
+import "../../../interface/ISanctionsList.sol";
 import "../../rule/Sanctions.sol";
 import "@openzeppelin/contracts/security/ReentrancyGuard.sol";
 import "@openzeppelin/contracts/utils/cryptography/ECDSA.sol";
 
 abstract contract MystikoV2Loop is IMystikoLoop, AssetPool, Sanctions {
-  uint256 constant FIELD_SIZE = 21888242871839275222246405745257275088548364400416034343698204186575808495617;
-
   // Hasher related.
-  IHasher3 hasher3;
+  IHasher3 private hasher3;
 
-  address associatedCommitmentPool;
-  uint256 minAmount;
+  address private associatedCommitmentPool;
+  uint256 private minAmount;
 
   // Admin related.
-  address operator;
+  address private operator;
 
   // Some switches.
-  bool depositsDisabled;
+  bool private depositsDisabled;
 
   modifier onlyOperator() {
     require(msg.sender == operator, "only operator.");
     _;
   }
 
-  constructor(address _hasher3) {
+  constructor(IHasher3 _hasher3) {
     operator = msg.sender;
-    hasher3 = IHasher3(_hasher3);
+    hasher3 = _hasher3;
   }
+
+  event MinAmount(uint256 minAmount);
+  event DepositsDisabled(bool state);
+  event OperatorChanged(address operator);
 
   function setAssociatedCommitmentPool(address _commitmentPoolAddress) external onlyOperator {
     associatedCommitmentPool = _commitmentPoolAddress;
@@ -40,6 +44,7 @@ abstract contract MystikoV2Loop is IMystikoLoop, AssetPool, Sanctions {
 
   function setMinAmount(uint256 _minAmount) external onlyOperator {
     minAmount = _minAmount;
+    emit MinAmount(_minAmount);
   }
 
   function _commitmentHash(
@@ -47,9 +52,9 @@ abstract contract MystikoV2Loop is IMystikoLoop, AssetPool, Sanctions {
     uint256 _amount,
     uint128 _randomS
   ) internal view returns (uint256) {
-    require(_hashK < FIELD_SIZE, "hashK should be less than FIELD_SIZE");
-    require(_amount < FIELD_SIZE, "randomS should be less than FIELD_SIZE");
-    return hasher3.poseidon([_hashK, _amount, uint256(_randomS)]);
+    require(_hashK < DataTypes.FIELD_SIZE, "hashK should be less than FIELD_SIZE");
+    require(_randomS < DataTypes.FIELD_SIZE, "randomS should be less than FIELD_SIZE");
+    return hasher3.poseidon([_hashK, _amount, _randomS]);
   }
 
   /* @notice              Check deposit request parameter and process deposit
@@ -57,7 +62,7 @@ abstract contract MystikoV2Loop is IMystikoLoop, AssetPool, Sanctions {
    */
   function deposit(DepositRequest memory _request) external payable override {
     require(!depositsDisabled, "deposits are disabled");
-    require(_request.amount >= minAmount, "amount too few");
+    require(_request.amount >= minAmount, "amount too small");
     uint256 calculatedCommitment = _commitmentHash(_request.hashK, _request.amount, _request.randomS);
     require(_request.commitment == calculatedCommitment, "commitment hash incorrect");
     require(!isSanctioned(msg.sender), "sanctioned address");
@@ -71,8 +76,6 @@ abstract contract MystikoV2Loop is IMystikoLoop, AssetPool, Sanctions {
     uint256 _rollupFee,
     bytes memory _encryptedNote
   ) internal {
-    _processDepositTransfer(associatedCommitmentPool, _amount + _rollupFee, 0);
-
     ICommitmentPool.CommitmentRequest memory cmRequest = ICommitmentPool.CommitmentRequest({
       amount: _amount,
       commitment: _commitment,
@@ -82,23 +85,28 @@ abstract contract MystikoV2Loop is IMystikoLoop, AssetPool, Sanctions {
     });
 
     // todo 1 check commitment in queue
-    require(ICommitmentPool(associatedCommitmentPool).enqueue(cmRequest, address(0)), "call enqueue error");
+    ICommitmentPool(associatedCommitmentPool).enqueue(cmRequest, address(0));
+    _processDepositTransfer(associatedCommitmentPool, _amount + _rollupFee, 0);
   }
 
-  function toggleDeposits(bool _state) external onlyOperator {
+  function setDepositsDisabled(bool _state) external onlyOperator {
     depositsDisabled = _state;
+    emit DepositsDisabled(_state);
   }
 
   function changeOperator(address _newOperator) external onlyOperator {
     operator = _newOperator;
+    emit OperatorChanged(_newOperator);
   }
 
-  function toggleSanctionCheck(bool _check) external onlyOperator {
-    sanctionCheckDisabled = _check;
+  function setSanctionCheckDisabled(bool _state) external onlyOperator {
+    sanctionsCheckDisabled = _state;
+    emit SanctionsCheckDisabled(_state);
   }
 
-  function updateSanctionContractAddress(address _sanction) external onlyOperator {
-    sanctionsContract = _sanction;
+  function updateSanctionsListAddress(ISanctionsList _sanction) external onlyOperator {
+    sanctionsList = _sanction;
+    emit SanctionsList(_sanction);
   }
 
   function bridgeType() public pure returns (string memory) {
