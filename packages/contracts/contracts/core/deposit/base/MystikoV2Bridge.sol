@@ -1,8 +1,9 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.0;
+pragma solidity ^0.8.4;
 
 import "../../../libs/asset/AssetPool.sol";
 import "../../../libs/common/DataTypes.sol";
+import "../../../libs/common/CustomErrors.sol";
 import "../../../interface/IMystikoBridge.sol";
 import "../../../interface/IHasher3.sol";
 import "../../../interface/ICommitmentPool.sol";
@@ -40,12 +41,14 @@ abstract contract MystikoV2Bridge is IMystikoBridge, AssetPool, CrossChainDataSe
   bool depositsDisabled;
 
   modifier onlyOperator() {
-    require(msg.sender == operator, "only operator.");
+    if (msg.sender != operator)
+      revert CustomErrors.Unauthorized("only operator.");
     _;
   }
 
   modifier onlyBridgeProxy() {
-    require(msg.sender == bridgeProxyAddress, "msg sender is not bridge proxy");
+    if (msg.sender != bridgeProxyAddress)
+      revert CustomErrors.Unexpected("msg sender is not bridge proxy");
     _;
   }
 
@@ -77,7 +80,8 @@ abstract contract MystikoV2Bridge is IMystikoBridge, AssetPool, CrossChainDataSe
   }
 
   function setPeerMinRollupFee(uint256 _peerMinRollupFee) external onlyOperator {
-    require(_peerMinRollupFee > 0, "invalid peer minimal rollup fee");
+    if (_peerMinRollupFee <= 0)
+      revert CustomErrors.Invalid("invalid peer minimal rollup fee");
     peerMinRollupFee = _peerMinRollupFee;
   }
 
@@ -100,20 +104,29 @@ abstract contract MystikoV2Bridge is IMystikoBridge, AssetPool, CrossChainDataSe
     uint256 _amount,
     uint128 _randomS
   ) internal view returns (uint256) {
-    require(_hashK < DataTypes.FIELD_SIZE, "hashK should be less than FIELD_SIZE");
-    require(_randomS < DataTypes.FIELD_SIZE, "randomS should be less than FIELD_SIZE");
+    if (_hashK >= DataTypes.FIELD_SIZE)
+      revert CustomErrors.Unexpected("hashK should be less than FIELD_SIZE");
+    if (_randomS >= DataTypes.FIELD_SIZE)
+      revert CustomErrors.Unexpected("randomS should be less than FIELD_SIZE");
     return hasher3.poseidon([_hashK, _amount, uint256(_randomS)]);
   }
 
   function deposit(DepositRequest memory _request) external payable override {
-    require(!depositsDisabled, "deposits are disabled");
-    require(_request.amount >= minAmount, "amount too small");
-    require(_request.bridgeFee >= minBridgeFee, "bridge fee too few");
-    require(_request.executorFee >= peerMinExecutorFee, "executor fee too few");
-    require(_request.rollupFee >= peerMinRollupFee, "rollup fee too few");
+    if (depositsDisabled)
+      revert CustomErrors.Unexpected("deposits are disabled");
+    if (_request.amount < minAmount)
+      revert CustomErrors.Unexpected("amount too small");
+    if (_request.bridgeFee < minBridgeFee)
+      revert CustomErrors.Unexpected("bridge fee too few");
+    if (_request.executorFee < peerMinExecutorFee)
+      revert CustomErrors.Unexpected("executor fee too few");
+    if (_request.rollupFee < peerMinRollupFee)
+      revert CustomErrors.Unexpected("rollup fee too few");
     uint256 calculatedCommitment = _commitmentHash(_request.hashK, _request.amount, _request.randomS);
-    require(_request.commitment == calculatedCommitment, "commitment hash incorrect");
-    require(!isSanctioned(msg.sender), "sanctioned address");
+    if (_request.commitment != calculatedCommitment)
+      revert CustomErrors.Unexpected("commitment hash incorrect");
+    if (isSanctioned(msg.sender))
+      revert CustomErrors.Unexpected("sanctioned address");
 
     // todo check commitment ?
     ICommitmentPool.CommitmentRequest memory cmRequest = ICommitmentPool.CommitmentRequest({
@@ -142,9 +155,12 @@ abstract contract MystikoV2Bridge is IMystikoBridge, AssetPool, CrossChainDataSe
     address _executor,
     ICommitmentPool.CommitmentRequest memory _request
   ) internal {
-    require(_fromContract == peerContract, "from proxy address not matched");
-    require(_fromChainId == peerChainId, "from chain id not matched");
-    require(_request.amount > 0, "amount should be greater than 0");
+    if (_fromContract != peerContract)
+      revert CustomErrors.Unexpected("from proxy address not matched");
+    if (_fromChainId != peerChainId)
+      revert CustomErrors.Unexpected("from chain id not matched");
+    if (_request.amount <= 0)
+      revert CustomErrors.Unexpected("amount should be greater than 0");
     ICommitmentPool(associatedCommitmentPool).enqueue(_request, _executor);
   }
 

@@ -1,8 +1,9 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.0;
+pragma solidity ^0.8.4;
 
 import "../../../libs/asset/AssetPool.sol";
 import "../../../libs/common/DataTypes.sol";
+import "../../../libs/common/CustomErrors.sol";
 import "../../../interface/IMystikoLoop.sol";
 import "../../../interface/IHasher3.sol";
 import "../../../interface/ICommitmentPool.sol";
@@ -25,7 +26,8 @@ abstract contract MystikoV2Loop is IMystikoLoop, AssetPool, Sanctions {
   bool private depositsDisabled;
 
   modifier onlyOperator() {
-    require(msg.sender == operator, "only operator.");
+    if (msg.sender != operator)
+      revert CustomErrors.Unauthorized("only operator.");
     _;
   }
 
@@ -52,8 +54,10 @@ abstract contract MystikoV2Loop is IMystikoLoop, AssetPool, Sanctions {
     uint256 _amount,
     uint128 _randomS
   ) internal view returns (uint256) {
-    require(_hashK < DataTypes.FIELD_SIZE, "hashK should be less than FIELD_SIZE");
-    require(_randomS < DataTypes.FIELD_SIZE, "randomS should be less than FIELD_SIZE");
+    if (_hashK >= DataTypes.FIELD_SIZE)
+      revert CustomErrors.Unexpected("hashK should be less than FIELD_SIZE");
+    if (_randomS >= DataTypes.FIELD_SIZE)
+      revert CustomErrors.Unexpected("randomS should be less than FIELD_SIZE");
     return hasher3.poseidon([_hashK, _amount, _randomS]);
   }
 
@@ -61,11 +65,15 @@ abstract contract MystikoV2Loop is IMystikoLoop, AssetPool, Sanctions {
    *  @param _request     The transact request parameter
    */
   function deposit(DepositRequest memory _request) external payable override {
-    require(!depositsDisabled, "deposits are disabled");
-    require(_request.amount >= minAmount, "amount too small");
+    if (depositsDisabled)
+      revert CustomErrors.Unexpected("deposits are disabled");
+    if (_request.amount < minAmount)
+      revert CustomErrors.Unexpected("amount too small");
     uint256 calculatedCommitment = _commitmentHash(_request.hashK, _request.amount, _request.randomS);
-    require(_request.commitment == calculatedCommitment, "commitment hash incorrect");
-    require(!isSanctioned(msg.sender), "sanctioned address");
+    if (_request.commitment != calculatedCommitment)
+      revert CustomErrors.Unexpected("commitment hash incorrect");
+    if (isSanctioned(msg.sender))
+      revert CustomErrors.Unexpected("sanctioned address");
 
     _processDeposit(_request.amount, _request.commitment, _request.rollupFee, _request.encryptedNote);
   }

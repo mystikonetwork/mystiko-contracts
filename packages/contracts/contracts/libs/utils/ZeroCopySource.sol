@@ -1,5 +1,7 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.0;
+pragma solidity ^0.8.4;
+
+import "../../libs/common/CustomErrors.sol";
 
 /**
  * @dev Wrappers over decoding and deserialization operation from bytes into bassic types in Solidity for PolyNetwork cross chain utility.
@@ -22,7 +24,8 @@ library ZeroCopySource {
    *  @return              The the read boolean value and new offset
    */
   function NextBool(bytes memory buff, uint256 offset) internal pure returns (bool, uint256) {
-    require(offset + 1 <= buff.length && offset < offset + 1, "Offset exceeds limit");
+    if (offset + 1 > buff.length || offset >= offset + 1)
+      revert CustomErrors.Unexpected("Offset exceeds limit");
     // byte === bytes1
     bytes1 v;
     assembly {
@@ -45,7 +48,8 @@ library ZeroCopySource {
    *  @return              The read byte value and new offset
    */
   function NextByte(bytes memory buff, uint256 offset) internal pure returns (bytes1, uint256) {
-    require(offset + 1 <= buff.length && offset < offset + 1, "NextByte, Offset exceeds maximum");
+    if (offset + 1 > buff.length || offset >= offset + 1)
+      revert CustomErrors.Unexpected("NextByte, Offset exceeds maximum");
     bytes1 v;
     assembly {
       v := mload(add(add(buff, 0x20), offset))
@@ -59,7 +63,8 @@ library ZeroCopySource {
    *  @return              The read uint8 value and new offset
    */
   function NextUint8(bytes memory buff, uint256 offset) internal pure returns (uint8, uint256) {
-    require(offset + 1 <= buff.length && offset < offset + 1, "NextUint8, Offset exceeds maximum");
+    if (offset + 1 > buff.length || offset >= offset + 1)
+      revert CustomErrors.Unexpected("NextUint8, Offset exceeds maximum");
     uint8 v;
     assembly {
       let tmpbytes := mload(0x40)
@@ -77,7 +82,8 @@ library ZeroCopySource {
    *  @return              The read uint16 value and updated offset
    */
   function NextUint16(bytes memory buff, uint256 offset) internal pure returns (uint16, uint256) {
-    require(offset + 2 <= buff.length && offset < offset + 2, "NextUint16, offset exceeds maximum");
+    if (offset + 2 > buff.length || offset >= offset + 2)
+      revert CustomErrors.Unexpected("NextUint16, offset exceeds maximum");
 
     uint16 v;
     assembly {
@@ -97,7 +103,8 @@ library ZeroCopySource {
    *  @return              The read uint32 value and updated offset
    */
   function NextUint32(bytes memory buff, uint256 offset) internal pure returns (uint32, uint256) {
-    require(offset + 4 <= buff.length && offset < offset + 4, "NextUint32, offset exceeds maximum");
+    if (offset + 4 > buff.length || offset >= offset + 4)
+      revert CustomErrors.Unexpected("NextUint32, offset exceeds maximum");
     uint32 v;
     assembly {
       let tmpbytes := mload(0x40)
@@ -124,7 +131,8 @@ library ZeroCopySource {
    *  @return              The read uint64 value and updated offset
    */
   function NextUint64(bytes memory buff, uint256 offset) internal pure returns (uint64, uint256) {
-    require(offset + 8 <= buff.length && offset < offset + 8, "NextUint64, offset exceeds maximum");
+    if (offset + 8 > buff.length || offset >= offset + 8)
+      revert CustomErrors.Unexpected("NextUint64, offset exceeds maximum");
     uint64 v;
     assembly {
       let tmpbytes := mload(0x40)
@@ -152,7 +160,8 @@ library ZeroCopySource {
     *  @return              The read uint256 value and updated offset
     */
   function NextUint255(bytes memory buff, uint256 offset) internal pure returns (uint256, uint256) {
-    require(offset + 32 <= buff.length && offset < offset + 32, "NextUint255, offset exceeds maximum");
+    if (offset + 32 > buff.length || offset >= offset + 32)
+      revert CustomErrors.Unexpected("NextUint255, offset exceeds maximum");
     uint256 v;
     assembly {
       let tmpbytes := mload(0x40)
@@ -170,10 +179,8 @@ library ZeroCopySource {
       mstore(0x40, add(tmpbytes, byteLen))
       v := mload(tmpbytes)
     }
-    require(
-      v <= 0x7fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff,
-      "Value exceeds the range"
-    );
+    if (v > 0x7fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff)
+      revert CustomErrors.Unexpected("Value exceeds the range");
     return (v, offset + 32);
   }
 
@@ -186,7 +193,8 @@ library ZeroCopySource {
   function NextVarBytes(bytes memory buff, uint256 offset) internal pure returns (bytes memory, uint256) {
     uint256 len;
     (len, offset) = NextVarUint(buff, offset);
-    require(offset + len <= buff.length && offset < offset + len, "NextVarBytes, offset exceeds maximum");
+    if (offset + len > buff.length || offset >= offset + len)
+      revert CustomErrors.Unexpected("NextVarBytes, offset exceeds maximum");
     bytes memory tempBytes;
     assembly {
       switch iszero(len)
@@ -246,7 +254,8 @@ library ZeroCopySource {
    *  @return              The read bytes32 value and updated offset
    */
   function NextHash(bytes memory buff, uint256 offset) internal pure returns (bytes32, uint256) {
-    require(offset + 32 <= buff.length && offset < offset + 32, "NextHash, offset exceeds maximum");
+    if (offset + 32 > buff.length || offset >= offset + 32)
+      revert CustomErrors.Unexpected("NextHash, offset exceeds maximum");
     bytes32 v;
     assembly {
       v := mload(add(buff, add(offset, 0x20)))
@@ -260,7 +269,8 @@ library ZeroCopySource {
    *  @return              The read bytes20 value and updated offset
    */
   function NextBytes20(bytes memory buff, uint256 offset) internal pure returns (bytes20, uint256) {
-    require(offset + 20 <= buff.length && offset < offset + 20, "NextBytes20, offset exceeds maximum");
+    if (offset + 20 > buff.length || offset >= offset + 20)
+      revert CustomErrors.Unexpected("NextBytes20, offset exceeds maximum");
     bytes20 v;
     assembly {
       v := mload(add(buff, add(offset, 0x20)))
@@ -276,22 +286,26 @@ library ZeroCopySource {
     if (v == 0xFD) {
       // return NextUint16(buff, offset);
       (value, offset) = NextUint16(buff, offset);
-      require(value >= 0xFD && value <= 0xFFFF, "NextUint16, value outside range");
+      if (value < 0xFD || value > 0xFFFF)
+        revert CustomErrors.Unexpected("NextUint16, value outside range");
       return (value, offset);
     } else if (v == 0xFE) {
       // return NextUint32(buff, offset);
       (value, offset) = NextUint32(buff, offset);
-      require(value > 0xFFFF && value <= 0xFFFFFFFF, "NextVarUint, value outside range");
+      if (value < 0xFFFF || value > 0xFFFFFFFF)
+        revert CustomErrors.Unexpected("NextVarUint, value outside range");
       return (value, offset);
     } else if (v == 0xFF) {
       // return NextUint64(buff, offset);
       (value, offset) = NextUint64(buff, offset);
-      require(value > 0xFFFFFFFF, "NextVarUint, value outside range");
+      if (value <= 0xFFFFFFFF)
+        revert CustomErrors.Unexpected("NextVarUint, value outside range");
       return (value, offset);
     } else {
       // return (uint8(v), offset);
       value = uint8(v);
-      require(value < 0xFD, "NextVarUint, value outside range");
+      if (value >= 0xFD)
+        revert CustomErrors.Unexpected("NextVarUint, value outside range");
       return (value, offset);
     }
   }

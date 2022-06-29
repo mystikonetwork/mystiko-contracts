@@ -8,6 +8,17 @@ import type { LzApp, LzAppInterface } from '../LzApp';
 
 const _abi = [
   {
+    inputs: [
+      {
+        internalType: 'string',
+        name: 'message',
+        type: 'string',
+      },
+    ],
+    name: 'Invalid',
+    type: 'error',
+  },
+  {
     anonymous: false,
     inputs: [
       {

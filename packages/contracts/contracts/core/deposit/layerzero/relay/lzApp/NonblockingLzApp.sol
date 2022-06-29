@@ -3,6 +3,7 @@
 pragma solidity ^0.8.0;
 
 import "./LzApp.sol";
+import "../../../../../libs/common/CustomErrors.sol";
 
 /*
  * the default LayerZero messaging behaviour is blocking, i.e. any failed message will block the channel
@@ -42,7 +43,8 @@ abstract contract NonblockingLzApp is LzApp {
     bytes memory _payload
   ) public virtual {
     // only internal transaction
-    require(_msgSender() == address(this), "NonblockingLzApp: caller must be LzApp");
+    if (_msgSender() != address(this))
+      revert CustomErrors.Unexpected("NonblockingLzApp: caller must be LzApp");
     _nonblockingLzReceive(_srcChainId, _srcAddress, _nonce, _payload);
   }
 
@@ -62,8 +64,10 @@ abstract contract NonblockingLzApp is LzApp {
   ) public payable virtual {
     // assert there is message to retry
     bytes32 payloadHash = failedMessages[_srcChainId][_srcAddress][_nonce];
-    require(payloadHash != bytes32(0), "NonblockingLzApp: no stored message");
-    require(keccak256(_payload) == payloadHash, "NonblockingLzApp: invalid payload");
+    if (payloadHash == bytes32(0))
+      revert CustomErrors.Unexpected("NonblockingLzApp: no stored message");
+    if (keccak256(_payload) != payloadHash)
+      revert CustomErrors.Invalid("NonblockingLzApp: invalid payload");
     // clear the stored message
     failedMessages[_srcChainId][_srcAddress][_nonce] = bytes32(0);
     // execute the message. revert if it fails again

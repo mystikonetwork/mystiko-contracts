@@ -8,6 +8,28 @@ import type { NonblockingLzApp, NonblockingLzAppInterface } from '../Nonblocking
 
 const _abi = [
   {
+    inputs: [
+      {
+        internalType: 'string',
+        name: 'message',
+        type: 'string',
+      },
+    ],
+    name: 'Invalid',
+    type: 'error',
+  },
+  {
+    inputs: [
+      {
+        internalType: 'string',
+        name: 'message',
+        type: 'string',
+      },
+    ],
+    name: 'Unexpected',
+    type: 'error',
+  },
+  {
     anonymous: false,
     inputs: [
       {

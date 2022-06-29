@@ -1,5 +1,7 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.0;
+pragma solidity ^0.8.4;
+
+import "../../libs/common/CustomErrors.sol";
 
 library Utils {
   /* @notice      Convert the bytes array to bytes32 type, the bytes array length must be 32
@@ -7,7 +9,8 @@ library Utils {
    *  @return      bytes32
    */
   function bytesToBytes32(bytes memory _bs) internal pure returns (bytes32 value) {
-    require(_bs.length == 32, "bytes length is not 32.");
+    if (_bs.length != 32)
+      revert CustomErrors.Unexpected("bytes length is not 32.");
     assembly {
       // load 32 bytes from memory starting from position _bs + 0x20 since the first 0x20 bytes stores _bs length
       value := mload(add(_bs, 0x20))
@@ -19,15 +22,14 @@ library Utils {
    *  @return      uint256
    */
   function bytesToUint256(bytes memory _bs) internal pure returns (uint256 value) {
-    require(_bs.length == 32, "bytes length is not 32.");
+    if (_bs.length != 32)
+      revert CustomErrors.Unexpected("bytes length is not 32.");
     assembly {
       // load 32 bytes from memory starting from position _bs + 32
       value := mload(add(_bs, 0x20))
     }
-    require(
-      value <= 0x7fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff,
-      "Value exceeds the range"
-    );
+    if (value > 0x7fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff)
+      revert CustomErrors.Unexpected("Value exceeds the range");
   }
 
   /* @notice      Convert uint256 to bytes
@@ -35,10 +37,8 @@ library Utils {
    *  @return      bytes
    */
   function uint256ToBytes(uint256 _value) internal pure returns (bytes memory bs) {
-    require(
-      _value <= 0x7fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff,
-      "Value exceeds the range"
-    );
+    if (_value > 0x7fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff)
+      revert CustomErrors.Unexpected("Value exceeds the range");
     assembly {
       // Get a location of some free memory and store it in result as
       // Solidity does for memory variables.
@@ -57,7 +57,8 @@ library Utils {
    *  @return      Converted address from source bytes
    */
   function bytesToAddress(bytes memory _bs) internal pure returns (address addr) {
-    require(_bs.length == 20, "bytes length does not match address");
+    if (_bs.length != 20)
+      revert CustomErrors.Unexpected("bytes length does not match address");
     assembly {
       // for _bs, first word store _bs.length, second word store _bs.value
       // load 32 bytes from mem[_bs+20], convert it into Uint160, meaning we take last 20 bytes as addr (address).
@@ -192,7 +193,8 @@ library Utils {
     uint256 _start,
     uint256 _length
   ) internal pure returns (bytes memory) {
-    require(_bytes.length >= (_start + _length));
+    if (_bytes.length < (_start + _length))
+      revert CustomErrors.Err();
 
     bytes memory tempBytes;
 
@@ -277,7 +279,8 @@ library Utils {
    *  @return
    */
   function compressMCPubKey(bytes memory key) internal pure returns (bytes memory newkey) {
-    require(key.length >= 67, "key lenggh is too short");
+    if (key.length < 67)
+      revert CustomErrors.Unexpected("key lenggh is too short");
     newkey = slice(key, 0, 35);
     if (uint8(key[66]) % 2 == 0) {
       newkey[2] = bytes1(0x02);

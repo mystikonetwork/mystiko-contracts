@@ -1,5 +1,7 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.0;
+pragma solidity ^0.8.4;
+
+import "../../libs/common/CustomErrors.sol";
 
 /**
  * @dev Wrappers over encoding and serialization operation into bytes from bassic types in Solidity for PolyNetwork cross chain utility.
@@ -142,10 +144,8 @@ library ZeroCopySink {
    *  @return          Converted bytes array
    */
   function WriteUint255(uint256 v) internal pure returns (bytes memory) {
-    require(
-      v <= 0x7fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff,
-      "Value exceeds uint255 range"
-    );
+    if (v > 0x7fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff)
+      revert CustomErrors.Invalid("Value exceeds uint255 range");
     bytes memory buff;
 
     assembly {
