@@ -119,6 +119,14 @@ export function testRollup(
       );
     });
 
+    it('should revert not a whitelist roller', async () => {
+      await expect(
+        commitmentPoolContract
+          .connect(accounts[1])
+          .rollup([[proof.proofA, proof.proofB, proof.proofC], 1234, proof.newRoot, proof.leafHash]),
+      ).to.be.revertedWith('only whitelisted roller.');
+    });
+
     it('should revert unsupported rollup Size', () => {
       expect(
         commitmentPoolContract
