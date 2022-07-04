@@ -361,6 +361,23 @@ export function testTransactRevert(
       relayerBalance = await getBalance(relayerAddress, testToken);
     });
 
+    it('should revert invalid i/o length', async () => {
+      await sanctionList.addToSanctionsList(publicRecipientAddress);
+      const request = buildRequest(
+        numInputs + 1,
+        numOutputs,
+        proof,
+        publicRecipientAddress,
+        relayerAddress,
+        outEncryptedNotes,
+      );
+
+      await expect(commitmentPoolContract.transact(request, signature)).to.be.revertedWith(
+        'invalid i/o length',
+      );
+      await sanctionList.removeToSanctionsList(publicRecipientAddress);
+    });
+
     it('should revert when recipient in sanction list', async () => {
       await sanctionList.addToSanctionsList(publicRecipientAddress);
       const request = buildRequest(
