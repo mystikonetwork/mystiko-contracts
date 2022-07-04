@@ -127,6 +127,17 @@ export function testRollup(
       ).to.be.revertedWith('only whitelisted roller.');
     });
 
+    it('should revert newRoot more than FIELD_SIZE', () => {
+      const FIELD_SIZE = toBN(
+        '21888242871839275222246405745257275088548364400416034343698204186575808495617',
+      );
+      expect(
+        commitmentPoolContract
+          .connect(rollupAccount)
+          .rollup([[proof.proofA, proof.proofB, proof.proofC], 1234, FIELD_SIZE, proof.leafHash]),
+      ).to.be.revertedWith('newRoot should be less than FIELD_SIZE');
+    });
+
     it('should revert unsupported rollup Size', () => {
       expect(
         commitmentPoolContract
