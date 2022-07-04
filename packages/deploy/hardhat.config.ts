@@ -29,7 +29,7 @@ task('set', 'update contract configure')
   .addParam('bridge', 'loop、tbridge、celer', 'loop')
   .addParam('dst', 'ropsten、goerli、bsctestnet', 'bsctestnet')
   .addParam('token', 'ETH、BNB、MTT、mUSD', 'MTT')
-  .addParam('func', 'toggleSaction、tokenTransfer')
+  .addParam('func', 'sanctionCheckDisabled、tokenTransfer')
   .addParam('param', 'parameter', '')
   .setAction(async (taskArgs, hre) => {
     taskArgs.src = hre.network.name;

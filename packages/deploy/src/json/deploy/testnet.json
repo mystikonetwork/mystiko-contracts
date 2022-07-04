@@ -2665,19 +2665,19 @@
         },
         {
           "network": "avalanchetestnet",
-          "minimal": "20000000000000000"
+          "minimal": "30000000000000000"
         },
         {
           "network": "fantomtestnet",
-          "minimal": "20000000000000000"
+          "minimal": "30000000000000000"
         },
         {
           "network": "polygontestnet",
-          "minimal": "20000000000000000"
+          "minimal": "40000000000000000"
         },
         {
           "network": "moonbase",
-          "minimal": "20000000000000000"
+          "minimal": "30000000000000000"
         }
       ],
       "commitmentPools": [
@@ -2804,7 +2804,7 @@
               "address": "0x6e62d7dfc65e9531De4560a67B96E81bd59E596f",
               "syncStart": 9218681,
               "minAmount": "100000000000000000",
-              "minBridgeFee": "20000000000000000",
+              "minBridgeFee": "30000000000000000",
               "minExecutorFee": "0",
               "peerMinExecutorFee": "0",
               "peerMinRollupFee": "10000000000000000",
@@ -2822,7 +2822,7 @@
               "assetSymbol": "MTT",
               "address": "0xeD08B30622918DEB83d84D43d7709303fE23cc68",
               "syncStart": 10431072,
-              "minBridgeFee": "20000000000000000",
+              "minBridgeFee": "30000000000000000",
               "minExecutorFee": "0",
               "peerMinExecutorFee": "0",
               "peerMinRollupFee": "10000000000000000",
@@ -2838,7 +2838,7 @@
               "address": "0xa6dcf62E8d7308369B176382781dE9C8eE2265db",
               "syncStart": 9218724,
               "minAmount": "100000000000000000",
-              "minBridgeFee": "20000000000000000",
+              "minBridgeFee": "30000000000000000",
               "minExecutorFee": "0",
               "peerMinExecutorFee": "0",
               "peerMinRollupFee": "10000000000000000",
@@ -2857,7 +2857,7 @@
               "address": "0x7F4525Ab40895440927893E521094673174Bb82B",
               "syncStart": 10431131,
               "bridgeProxy": "0xC249632c2D40b9001FE907806902f63038B737Ab",
-              "minBridgeFee": "20000000000000000",
+              "minBridgeFee": "30000000000000000",
               "minExecutorFee": "0",
               "peerMinExecutorFee": "0",
               "peerMinRollupFee": "10000000000000000",
@@ -2872,7 +2872,7 @@
               "address": "0x497045dA17fdDB7c132193353b8c1d42BB93c8B5",
               "syncStart": 26624694,
               "minAmount": "100000000000000000",
-              "minBridgeFee": "20000000000000000",
+              "minBridgeFee": "40000000000000000",
               "minExecutorFee": "0",
               "peerMinExecutorFee": "0",
               "peerMinRollupFee": "10000000000000000",
@@ -4530,7 +4530,7 @@
     }
   ],
   "operator": {
-    "admin": "0xEc1c50a3EF4ED959934Ec482aA70cD7453F96F95",
+    "admin": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
     "executors": [
       "0x457584165DDc698feeB70A546e78B912E79fB94F",
       "0xEc1c50a3EF4ED959934Ec482aA70cD7453F96F95"

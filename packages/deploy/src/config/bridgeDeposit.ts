@@ -15,6 +15,7 @@ export interface RawDepositDeployConfig {
   peerContract?: string;
   trustedRemote?: string;
   sanctionCheckDisable?: boolean;
+  operator?: string;
 }
 
 export class DepositDeployConfig extends BaseConfig {
@@ -24,6 +25,7 @@ export class DepositDeployConfig extends BaseConfig {
     BaseConfig.checkString(this.config, 'assetSymbol');
     BaseConfig.checkNumber(this.config, 'syncStart', false);
     BaseConfig.checkEthAddress(this.config, 'address', false);
+    BaseConfig.checkEthAddress(this.config, 'operator', false);
   }
 
   public get network(): string {
@@ -178,6 +180,21 @@ export class DepositDeployConfig extends BaseConfig {
 
   public updateSanctionCheckDisable(check: boolean) {
     this.asRawContractDeployConfig().sanctionCheckDisable = check;
+  }
+
+  public get operator(): string | undefined {
+    return this.asRawContractDeployConfig().operator;
+  }
+
+  public updateOperator(addr: string) {
+    this.asRawContractDeployConfig().operator = addr;
+  }
+
+  public isOperatorChange(address: string): boolean {
+    if (this.asRawContractDeployConfig().operator !== address) {
+      return true;
+    }
+    return false;
   }
 
   public reset() {

@@ -796,7 +796,6 @@
   },
   "rollup": {
     "merkleTreeHeight": 20,
-    "rootHistoryLength": 30,
     "minRollupFee": 10000000000000000
   }
 }

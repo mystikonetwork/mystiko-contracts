@@ -8,6 +8,7 @@ export interface RawBridgeProxyConfig {
   remoteNetwork: string;
   address: string;
   gasReceiver?: string;
+  operator?: string;
   executorWhitelist?: string[];
   registerWhitelist?: string[];
 }
@@ -25,6 +26,7 @@ export class BridgeProxyConfig extends BaseConfig {
     BaseConfig.checkString(this.config, 'remoteNetwork', false);
     BaseConfig.checkEthAddress(this.config, 'address', false);
     BaseConfig.checkEthAddress(this.config, 'gasReceiver', false);
+    BaseConfig.checkEthAddress(this.config, 'operator', false);
 
     this.executorWhitelistByAddress = {};
     this.asRawBridgeProxyConfig().executorWhitelist?.forEach((executor) => {
@@ -65,6 +67,21 @@ export class BridgeProxyConfig extends BaseConfig {
 
   public get gasReceiver(): string | undefined {
     return this.asRawBridgeProxyConfig().gasReceiver;
+  }
+
+  public get operator(): string | undefined {
+    return this.asRawBridgeProxyConfig().operator;
+  }
+
+  public updateOperator(addr: string) {
+    this.asRawBridgeProxyConfig().operator = addr;
+  }
+
+  public isOperatorChange(address: string): boolean {
+    if (this.asRawBridgeProxyConfig().operator !== address) {
+      return true;
+    }
+    return false;
   }
 
   public isInExecutorWhitelist(address: string): boolean {

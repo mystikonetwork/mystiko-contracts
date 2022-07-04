@@ -100,7 +100,7 @@
     }
   ],
   "operator": {
-    "admin": "0xEc1c50a3EF4ED959934Ec482aA70cD7453F96F95",
+    "admin": "",
     "executors": [
       "0x457584165DDc698feeB70A546e78B912E79fB94F"
     ],

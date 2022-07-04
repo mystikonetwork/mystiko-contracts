@@ -86,6 +86,21 @@ example:
 ```yarn set --network ropsten --func tokenTransfer --bridge tbridge --dst bsctestnet --token ETH```
 
 
+
+### query
+#### query
+
+```
+ bridge              : tbridge、celer、poly、loop
+ dst                 : ropsten、bsctestnet ...
+ token               : ETH、MTT、mUSD、BNB...
+ func               : tokenTransfer...
+```
+example:
+
+```yarn query --network bsctestnet --bridge loop --dst bsctestnet --token BNB --func sanction  --param ''```
+
+
 ### Test the deployed contract
 We need to update the config file first and execute the following command
 ```bash

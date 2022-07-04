@@ -110,6 +110,7 @@ async function deployStep2(taskArgs: any) {
     c.dstTokenCfg,
     c.pairSrcDepositCfg,
     poolCfg.address,
+    c.operatorCfg,
     bridgeProxyConfig,
   );
 
