@@ -29,6 +29,7 @@ jobs:
       - run: lerna run build
       - run: lerna run lint
       - run: lerna run test
+      - run: cp ./depoly/.env.example ./deploy/.env
       - run: lerna run deploy
       - run: git diff --quiet || (echo "some generated files are not included in repo" && exit 1)
       - uses: codecov/codecov-action@v2
