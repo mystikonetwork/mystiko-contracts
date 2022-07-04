@@ -30,7 +30,7 @@ jobs:
       - run: lerna run lint
       - run: lerna run test
       - name: Copy env
-        working-directory: ./packages/depoly
+        working-directory: packages/depoly
         run: cp .env.example .env
       - run: lerna run deploy
       - run: git diff --quiet || (echo "some generated files are not included in repo" && exit 1)
