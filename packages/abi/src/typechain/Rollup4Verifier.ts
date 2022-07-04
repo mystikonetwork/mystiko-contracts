@@ -15,7 +15,7 @@ import { FunctionFragment, Result } from '@ethersproject/abi';
 import { Listener, Provider } from '@ethersproject/providers';
 import { TypedEventFilter, TypedEvent, TypedListener, OnEvent } from './common';
 
-export declare namespace Rollup4Pairing {
+export declare namespace Pairing {
   export type G1PointStruct = { X: BigNumberish; Y: BigNumberish };
 
   export type G1PointStructOutput = [BigNumber, BigNumber] & {
@@ -34,21 +34,21 @@ export declare namespace Rollup4Pairing {
   };
 }
 
-export declare namespace Rollup4Verifier {
+export declare namespace VerifierLib {
   export type ProofStruct = {
-    a: Rollup4Pairing.G1PointStruct;
-    b: Rollup4Pairing.G2PointStruct;
-    c: Rollup4Pairing.G1PointStruct;
+    a: Pairing.G1PointStruct;
+    b: Pairing.G2PointStruct;
+    c: Pairing.G1PointStruct;
   };
 
   export type ProofStructOutput = [
-    Rollup4Pairing.G1PointStructOutput,
-    Rollup4Pairing.G2PointStructOutput,
-    Rollup4Pairing.G1PointStructOutput,
+    Pairing.G1PointStructOutput,
+    Pairing.G2PointStructOutput,
+    Pairing.G1PointStructOutput,
   ] & {
-    a: Rollup4Pairing.G1PointStructOutput;
-    b: Rollup4Pairing.G2PointStructOutput;
-    c: Rollup4Pairing.G1PointStructOutput;
+    a: Pairing.G1PointStructOutput;
+    b: Pairing.G2PointStructOutput;
+    c: Pairing.G1PointStructOutput;
   };
 }
 
@@ -58,10 +58,7 @@ export interface Rollup4VerifierInterface extends utils.Interface {
     'verifyTx(((uint256,uint256),(uint256[2],uint256[2]),(uint256,uint256)),uint256[])': FunctionFragment;
   };
 
-  encodeFunctionData(
-    functionFragment: 'verifyTx',
-    values: [Rollup4Verifier.ProofStruct, BigNumberish[]],
-  ): string;
+  encodeFunctionData(functionFragment: 'verifyTx', values: [VerifierLib.ProofStruct, BigNumberish[]]): string;
 
   decodeFunctionResult(functionFragment: 'verifyTx', data: BytesLike): Result;
 
@@ -93,21 +90,21 @@ export interface Rollup4Verifier extends BaseContract {
 
   functions: {
     verifyTx(
-      proof: Rollup4Verifier.ProofStruct,
+      proof: VerifierLib.ProofStruct,
       input: BigNumberish[],
       overrides?: CallOverrides,
     ): Promise<[boolean] & { r: boolean }>;
   };
 
   verifyTx(
-    proof: Rollup4Verifier.ProofStruct,
+    proof: VerifierLib.ProofStruct,
     input: BigNumberish[],
     overrides?: CallOverrides,
   ): Promise<boolean>;
 
   callStatic: {
     verifyTx(
-      proof: Rollup4Verifier.ProofStruct,
+      proof: VerifierLib.ProofStruct,
       input: BigNumberish[],
       overrides?: CallOverrides,
     ): Promise<boolean>;
@@ -117,7 +114,7 @@ export interface Rollup4Verifier extends BaseContract {
 
   estimateGas: {
     verifyTx(
-      proof: Rollup4Verifier.ProofStruct,
+      proof: VerifierLib.ProofStruct,
       input: BigNumberish[],
       overrides?: CallOverrides,
     ): Promise<BigNumber>;
@@ -125,7 +122,7 @@ export interface Rollup4Verifier extends BaseContract {
 
   populateTransaction: {
     verifyTx(
-      proof: Rollup4Verifier.ProofStruct,
+      proof: VerifierLib.ProofStruct,
       input: BigNumberish[],
       overrides?: CallOverrides,
     ): Promise<PopulatedTransaction>;

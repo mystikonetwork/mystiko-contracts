@@ -12,6 +12,8 @@ module.exports = {
     'libs/utils/ZeroCopySink.sol',
     'libs/utils/ZeroCopySource.sol',
     'libs/utils/Utils.sol',
+    'libs/verifiers/Pairing.sol',
+    'libs/verifiers/VerifierLib.sol',
     'libs/verifiers/Rollup1Verifier.sol',
     'libs/verifiers/Rollup4Verifier.sol',
     'libs/verifiers/Rollup16Verifier.sol',
