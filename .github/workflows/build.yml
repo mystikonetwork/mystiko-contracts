@@ -31,9 +31,14 @@ jobs:
         working-directory: packages/deploy
         run: cp .env.example .env
       - run: lerna run deploy
-      - name: Delete env
+      - name: Delete env and deploy temp file
         working-directory: packages/deploy
-        run: rm .env
+        run: ｜
+          rm .env
+          git reset src/json/bridge/tbridge/development.json
+          git reset src/json/core/development.json
+          git reset src/json/deploy/development.json
+          git reset src/json/rollup/development.json
       - run: lerna run lint
       - run: lerna run test
       - run: git diff --quiet || (echo "some generated files are not included in repo" && exit 1)
