@@ -27,12 +27,12 @@ jobs:
       - run: npm install --global lerna
       - run: lerna bootstrap
       - run: lerna run build
-      - run: lerna run lint
-      - run: lerna run test
       - name: Copy env
         working-directory: packages/deploy
         run: cp .env.example .env
       - run: lerna run deploy
+      - run: lerna run lint
+      - run: lerna run test
       - run: git diff --quiet || (echo "some generated files are not included in repo" && exit 1)
       - uses: codecov/codecov-action@v2
         with:
