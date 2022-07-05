@@ -45,7 +45,7 @@ export function testLoopDeposit(
           ],
           { from: accounts[0].address, value: isMainAsset ? minTotalAmount : '0' },
         ),
-      ).to.be.revertedWith('deposits are disabled');
+      ).to.be.revertedWith('DepositsDisabled()');
       await mystikoContract.setDepositsDisabled(false);
     });
 
@@ -63,7 +63,7 @@ export function testLoopDeposit(
           ],
           { from: accounts[0].address, value: isMainAsset ? minTotalAmount : '0' },
         ),
-      ).to.be.revertedWith('sanctioned address');
+      ).to.be.revertedWith('SanctionedAddress()');
       await sanctionList.removeToSanctionsList(accounts[0].address);
     });
 
@@ -81,7 +81,7 @@ export function testLoopDeposit(
           ],
           { from: accounts[0].address, value: isMainAsset ? amount : '0' },
         ),
-      ).to.be.revertedWith('amount too small');
+      ).to.be.revertedWith('AmountTooSmall()');
     });
 
     it('should revert when commitmentHash is incorrect', async () => {
@@ -97,7 +97,7 @@ export function testLoopDeposit(
           ],
           { from: accounts[0].address, value: isMainAsset ? minTotalAmount : '0' },
         ),
-      ).to.be.revertedWith('commitment hash incorrect');
+      ).to.be.revertedWith('CommitmentHashIncorrect()');
     });
 
     it('should approve asset successfully', async () => {
@@ -122,7 +122,7 @@ export function testLoopDeposit(
           ],
           { from: accounts[0].address, value: isMainAsset ? depositAmount : '0' },
         ),
-      ).to.be.revertedWith('rollup fee too few');
+      ).to.be.revertedWith('RollupFeeToFew()');
     });
 
     it('should deposit successfully', async () => {
@@ -192,7 +192,7 @@ export function testLoopDeposit(
           ],
           { from: accounts[0].address, value: isMainAsset ? minTotalAmount : '0' },
         ),
-      ).to.be.revertedWith('the commitment has been submitted');
+      ).to.be.revertedWith('CommitmentHasBeenSubmitted()');
     });
 
     it('should have correct balance', async () => {

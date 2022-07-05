@@ -187,7 +187,7 @@ export function testRollup(
             proof.newRoot,
             proof.leafHash,
           ]),
-      ).to.be.revertedWith('newRoot is duplicated');
+      ).to.be.revertedWith('NewRootIsDuplicated()');
     });
   });
 }

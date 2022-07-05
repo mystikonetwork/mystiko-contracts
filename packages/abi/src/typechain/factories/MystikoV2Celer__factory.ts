@@ -8,6 +8,16 @@ import type { MystikoV2Celer, MystikoV2CelerInterface } from '../MystikoV2Celer'
 
 const _abi = [
   {
+    inputs: [],
+    name: 'OnlyOperator',
+    type: 'error',
+  },
+  {
+    inputs: [],
+    name: 'RollupFeeToFew',
+    type: 'error',
+  },
+  {
     anonymous: false,
     inputs: [
       {

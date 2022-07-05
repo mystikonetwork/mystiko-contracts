@@ -87,7 +87,7 @@ export function testTBridgeDeposit(
           ],
           { from: accounts[0].address, value: minTotalValue },
         ),
-      ).to.be.revertedWith('deposits are disabled');
+      ).to.be.revertedWith('DepositsDisabled()');
       await mystikoContract.setDepositsDisabled(false);
     });
 
@@ -107,7 +107,7 @@ export function testTBridgeDeposit(
           ],
           { from: accounts[0].address, value: minTotalValue },
         ),
-      ).to.be.revertedWith('sanctioned address');
+      ).to.be.revertedWith('SanctionedAddress()');
       await sanctionList.removeToSanctionsList(accounts[0].address);
     });
 
@@ -127,7 +127,7 @@ export function testTBridgeDeposit(
           ],
           { from: accounts[0].address, value: amount },
         ),
-      ).to.be.revertedWith('amount too small');
+      ).to.be.revertedWith('AmountTooSmall()');
     });
 
     it('should revert when bridge fee is too few', async () => {
@@ -145,7 +145,7 @@ export function testTBridgeDeposit(
           ],
           { from: accounts[0].address, value: minTotalValue },
         ),
-      ).to.be.revertedWith('bridge fee too few');
+      ).to.be.revertedWith('BridgeFeeTooFew()');
     });
 
     it('should revert when rollup fee is too few', async () => {
@@ -163,7 +163,7 @@ export function testTBridgeDeposit(
           ],
           { from: accounts[0].address, value: minTotalValue },
         ),
-      ).to.be.revertedWith('rollup fee too few');
+      ).to.be.revertedWith('RollupFeeToFew()');
     });
 
     it('should revert when commitmentHash is incorrect', async () => {
@@ -181,7 +181,7 @@ export function testTBridgeDeposit(
           ],
           { from: accounts[0].address, value: minTotalValue },
         ),
-      ).to.be.revertedWith('commitment hash incorrect');
+      ).to.be.revertedWith('CommitmentHashIncorrect()');
     });
 
     it('should approve asset successfully', async () => {
@@ -257,7 +257,7 @@ export function testTBridgeDeposit(
             bridgeAccount.address,
             bridgeMessages[0],
           ),
-      ).revertedWith('only whitelisted executor.');
+      ).revertedWith('OnlyWhitelistedExecutor()');
     });
 
     it('should bridge deposit transaction success', async () => {
@@ -395,7 +395,7 @@ export function testTBridgeDeposit(
             executorAccount.address,
             bridgeEvents[0].args.message,
           ),
-      ).to.be.revertedWith('the commitment has been submitted');
+      ).to.be.revertedWith('CommitmentHasBeenSubmitted()');
 
       const balanceAfter = isDstMainAsset
         ? await waffle.provider.getBalance(executorAccount.address)

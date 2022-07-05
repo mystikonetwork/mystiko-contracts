@@ -8,6 +8,11 @@ import type { MystikoV2Loop, MystikoV2LoopInterface } from '../MystikoV2Loop';
 
 const _abi = [
   {
+    inputs: [],
+    name: 'OnlyOperator',
+    type: 'error',
+  },
+  {
     anonymous: false,
     inputs: [
       {

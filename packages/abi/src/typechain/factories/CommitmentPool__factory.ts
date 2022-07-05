@@ -8,6 +8,88 @@ import type { CommitmentPool, CommitmentPoolInterface } from '../CommitmentPool'
 
 const _abi = [
   {
+    inputs: [],
+    name: 'CommitmentHasBeenSubmitted',
+    type: 'error',
+  },
+  {
+    inputs: [
+      {
+        internalType: 'string',
+        name: 'param',
+        type: 'string',
+      },
+    ],
+    name: 'Duplicated',
+    type: 'error',
+  },
+  {
+    inputs: [],
+    name: 'IndexOutOfBound',
+    type: 'error',
+  },
+  {
+    inputs: [
+      {
+        internalType: 'string',
+        name: 'param',
+        type: 'string',
+      },
+    ],
+    name: 'Invalid',
+    type: 'error',
+  },
+  {
+    inputs: [],
+    name: 'NewRootGreaterThanFieldSize',
+    type: 'error',
+  },
+  {
+    inputs: [],
+    name: 'NewRootIsDuplicated',
+    type: 'error',
+  },
+  {
+    inputs: [],
+    name: 'NoteHasBeenSpent',
+    type: 'error',
+  },
+  {
+    inputs: [],
+    name: 'OnlyOperator',
+    type: 'error',
+  },
+  {
+    inputs: [],
+    name: 'OnlyWhitelistedRoller',
+    type: 'error',
+  },
+  {
+    inputs: [],
+    name: 'OnlyWhitelistedSender',
+    type: 'error',
+  },
+  {
+    inputs: [],
+    name: 'RollupFeeToFew',
+    type: 'error',
+  },
+  {
+    inputs: [],
+    name: 'SanctionedAddress',
+    type: 'error',
+  },
+  {
+    inputs: [],
+    name: 'TreeHeightLessThanZero',
+    type: 'error',
+  },
+  {
+    inputs: [],
+    name: 'TreeIsFull',
+    type: 'error',
+  },
+  {
     anonymous: false,
     inputs: [
       {

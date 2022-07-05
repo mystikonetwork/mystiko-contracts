@@ -13,6 +13,16 @@ const _abi = [
     type: 'error',
   },
   {
+    inputs: [],
+    name: 'OnlyOperator',
+    type: 'error',
+  },
+  {
+    inputs: [],
+    name: 'RollupFeeToFew',
+    type: 'error',
+  },
+  {
     anonymous: false,
     inputs: [
       {

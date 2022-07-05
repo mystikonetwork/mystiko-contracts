@@ -8,6 +8,16 @@ import type { MystikoV2TBridge, MystikoV2TBridgeInterface } from '../MystikoV2TB
 
 const _abi = [
   {
+    inputs: [],
+    name: 'OnlyOperator',
+    type: 'error',
+  },
+  {
+    inputs: [],
+    name: 'RollupFeeToFew',
+    type: 'error',
+  },
+  {
     anonymous: false,
     inputs: [
       {

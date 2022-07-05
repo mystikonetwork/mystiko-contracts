@@ -8,6 +8,16 @@ import type { MystikoV2LayerZero, MystikoV2LayerZeroInterface } from '../Mystiko
 
 const _abi = [
   {
+    inputs: [],
+    name: 'OnlyOperator',
+    type: 'error',
+  },
+  {
+    inputs: [],
+    name: 'RollupFeeToFew',
+    type: 'error',
+  },
+  {
     anonymous: false,
     inputs: [
       {
