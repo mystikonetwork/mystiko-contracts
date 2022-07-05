@@ -19,6 +19,10 @@ jobs:
       - uses: actions/setup-node@v2
         with:
           node-version: 14
+      - name: Copy env
+          #        working-directory: packages/depoly
+          #        run: cp .env.example .env
+        run: pwd && ls
       - run: echo "@mystikonetwork:registry=https://npm.pkg.github.com" >> $HOME/.npmrc
       - run: echo "//npm.pkg.github.com/:_authToken=${{ secrets.PACKAGES_TOKEN }}" >> $HOME/.npmrc
       - run: curl -L https://github.com/mystikonetwork/ZoKrates/releases/download/v1.0.0/zokrates-v1.0.0-x86_64-unknown-linux-gnu.tar.gz -o zokrates.tar.gz
@@ -29,9 +33,6 @@ jobs:
       - run: lerna run build
       - run: lerna run lint
       - run: lerna run test
-      - name: Copy env
-        working-directory: packages/depoly
-        run: cp .env.example .env
       - run: lerna run deploy
       - run: git diff --quiet || (echo "some generated files are not included in repo" && exit 1)
       - uses: codecov/codecov-action@v2
