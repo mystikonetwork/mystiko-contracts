@@ -33,7 +33,7 @@ jobs:
       - run: lerna run deploy
       - name: Delete env and deploy temp file
         working-directory: packages/deploy
-        run: ｜
+        run: |
           rm .env
           git reset src/json/bridge/tbridge/development.json
           git reset src/json/core/development.json
