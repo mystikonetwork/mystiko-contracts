@@ -9,7 +9,37 @@ import type { MystikoV2Loop, MystikoV2LoopInterface } from '../MystikoV2Loop';
 const _abi = [
   {
     inputs: [],
+    name: 'AmountTooSmall',
+    type: 'error',
+  },
+  {
+    inputs: [],
+    name: 'CommitmentHashIncorrect',
+    type: 'error',
+  },
+  {
+    inputs: [],
+    name: 'DepositsDisabled',
+    type: 'error',
+  },
+  {
+    inputs: [],
+    name: 'HashKGreaterThanFieldSize',
+    type: 'error',
+  },
+  {
+    inputs: [],
     name: 'OnlyOperator',
+    type: 'error',
+  },
+  {
+    inputs: [],
+    name: 'RandomSGreaterThanFieldSize',
+    type: 'error',
+  },
+  {
+    inputs: [],
+    name: 'SanctionedAddress',
     type: 'error',
   },
   {

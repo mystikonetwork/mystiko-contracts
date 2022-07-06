@@ -9,6 +9,62 @@ import type { MystikoV2Axelar, MystikoV2AxelarInterface } from '../MystikoV2Axel
 const _abi = [
   {
     inputs: [],
+    name: 'AmountLessThanZero',
+    type: 'error',
+  },
+  {
+    inputs: [],
+    name: 'AmountTooSmall',
+    type: 'error',
+  },
+  {
+    inputs: [],
+    name: 'BridgeFeeTooFew',
+    type: 'error',
+  },
+  {
+    inputs: [],
+    name: 'CommitmentHashIncorrect',
+    type: 'error',
+  },
+  {
+    inputs: [],
+    name: 'DepositsDisabled',
+    type: 'error',
+  },
+  {
+    inputs: [],
+    name: 'ExecutorFeeTooFew',
+    type: 'error',
+  },
+  {
+    inputs: [],
+    name: 'FromChainIdNotMatched',
+    type: 'error',
+  },
+  {
+    inputs: [],
+    name: 'FromProxyAddressNotMatched',
+    type: 'error',
+  },
+  {
+    inputs: [],
+    name: 'HashKGreaterThanFieldSize',
+    type: 'error',
+  },
+  {
+    inputs: [
+      {
+        internalType: 'string',
+        name: 'param',
+        type: 'string',
+      },
+    ],
+    name: 'Invalid',
+    type: 'error',
+  },
+  {
+    inputs: [],
     name: 'NotApprovedByGateway',
     type: 'error',
   },
@@ -19,7 +75,17 @@ const _abi = [
   },
   {
     inputs: [],
+    name: 'RandomSGreaterThanFieldSize',
+    type: 'error',
+  },
+  {
+    inputs: [],
     name: 'RollupFeeToFew',
+    type: 'error',
+  },
+  {
+    inputs: [],
+    name: 'SanctionedAddress',
     type: 'error',
   },
   {

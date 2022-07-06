@@ -8,7 +8,47 @@ import type { CustomErrors, CustomErrorsInterface } from '../CustomErrors';
 const _abi = [
   {
     inputs: [],
+    name: 'AmountLessThanZero',
+    type: 'error',
+  },
+  {
+    inputs: [],
+    name: 'AmountTooSmall',
+    type: 'error',
+  },
+  {
+    inputs: [],
+    name: 'BridgeFeeTooFew',
+    type: 'error',
+  },
+  {
+    inputs: [],
+    name: 'CallCrossChainSyncTxError',
+    type: 'error',
+  },
+  {
+    inputs: [],
+    name: 'CallIsNotLzApp',
+    type: 'error',
+  },
+  {
+    inputs: [],
     name: 'CommitmentHasBeenSubmitted',
+    type: 'error',
+  },
+  {
+    inputs: [],
+    name: 'CommitmentHashIncorrect',
+    type: 'error',
+  },
+  {
+    inputs: [],
+    name: 'DepositsDisabled',
+    type: 'error',
+  },
+  {
+    inputs: [],
+    name: 'DestinationChainIsNotTrusted',
     type: 'error',
   },
   {
@@ -20,6 +60,26 @@ const _abi = [
       },
     ],
     name: 'Duplicated',
+    type: 'error',
+  },
+  {
+    inputs: [],
+    name: 'ExecutorFeeTooFew',
+    type: 'error',
+  },
+  {
+    inputs: [],
+    name: 'FromChainIdNotMatched',
+    type: 'error',
+  },
+  {
+    inputs: [],
+    name: 'FromProxyAddressNotMatched',
+    type: 'error',
+  },
+  {
+    inputs: [],
+    name: 'HashKGreaterThanFieldSize',
     type: 'error',
   },
   {
@@ -50,12 +110,32 @@ const _abi = [
   },
   {
     inputs: [],
+    name: 'NoStoredMessage',
+    type: 'error',
+  },
+  {
+    inputs: [],
     name: 'NoteHasBeenSpent',
     type: 'error',
   },
   {
     inputs: [],
+    name: 'NumInputsGreaterThanZero',
+    type: 'error',
+  },
+  {
+    inputs: [],
     name: 'OnlyOperator',
+    type: 'error',
+  },
+  {
+    inputs: [],
+    name: 'OnlyRegister',
+    type: 'error',
+  },
+  {
+    inputs: [],
+    name: 'OnlyWhitelistedExecutor',
     type: 'error',
   },
   {
@@ -70,7 +150,22 @@ const _abi = [
   },
   {
     inputs: [],
+    name: 'OutputNotesLessThanThree',
+    type: 'error',
+  },
+  {
+    inputs: [],
+    name: 'RandomSGreaterThanFieldSize',
+    type: 'error',
+  },
+  {
+    inputs: [],
     name: 'RollupFeeToFew',
+    type: 'error',
+  },
+  {
+    inputs: [],
+    name: 'RollupSizeNotPowerOfTwo',
     type: 'error',
   },
   {
@@ -80,7 +175,17 @@ const _abi = [
   },
   {
     inputs: [],
+    name: 'SenderIsNotBridgeProxy',
+    type: 'error',
+  },
+  {
+    inputs: [],
     name: 'TreeHeightLessThanZero',
+    type: 'error',
+  },
+  {
+    inputs: [],
+    name: 'TreeHeightOutOfBounds',
     type: 'error',
   },
   {
@@ -88,10 +193,20 @@ const _abi = [
     name: 'TreeIsFull',
     type: 'error',
   },
+  {
+    inputs: [],
+    name: 'VerifierUpdatesHasBeenDisabled',
+    type: 'error',
+  },
+  {
+    inputs: [],
+    name: 'WithdrawFailed',
+    type: 'error',
+  },
 ];
 
 const _bytecode =
-  '0x60566037600b82828239805160001a607314602a57634e487b7160e01b600052600060045260246000fd5b30600052607381538281f3fe73000000000000000000000000000000000000000030146080604052600080fdfea2646970667358221220df12c3982338f8707f01949e80405aa23fcff14782115772889f8a33afcd8f3a64736f6c63430008070033';
+  '0x60566037600b82828239805160001a607314602a57634e487b7160e01b600052600060045260246000fd5b30600052607381538281f3fe73000000000000000000000000000000000000000030146080604052600080fdfea2646970667358221220161d237450a92810b7dfb81df318562ba9a63eb9b2e3c46903e52ccb361bf62164736f6c63430008070033';
 
 type CustomErrorsConstructorParams = [signer?: Signer] | ConstructorParameters<typeof ContractFactory>;
 

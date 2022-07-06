@@ -56,6 +56,11 @@ const _abi = [
   },
   {
     inputs: [],
+    name: 'NumInputsGreaterThanZero',
+    type: 'error',
+  },
+  {
+    inputs: [],
     name: 'OnlyOperator',
     type: 'error',
   },
@@ -71,7 +76,17 @@ const _abi = [
   },
   {
     inputs: [],
+    name: 'OutputNotesLessThanThree',
+    type: 'error',
+  },
+  {
+    inputs: [],
     name: 'RollupFeeToFew',
+    type: 'error',
+  },
+  {
+    inputs: [],
+    name: 'RollupSizeNotPowerOfTwo',
     type: 'error',
   },
   {
@@ -86,7 +101,17 @@ const _abi = [
   },
   {
     inputs: [],
+    name: 'TreeHeightOutOfBounds',
+    type: 'error',
+  },
+  {
+    inputs: [],
     name: 'TreeIsFull',
+    type: 'error',
+  },
+  {
+    inputs: [],
+    name: 'VerifierUpdatesHasBeenDisabled',
     type: 'error',
   },
   {

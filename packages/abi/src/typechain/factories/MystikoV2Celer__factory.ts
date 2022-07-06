@@ -9,12 +9,83 @@ import type { MystikoV2Celer, MystikoV2CelerInterface } from '../MystikoV2Celer'
 const _abi = [
   {
     inputs: [],
+    name: 'AmountLessThanZero',
+    type: 'error',
+  },
+  {
+    inputs: [],
+    name: 'AmountTooSmall',
+    type: 'error',
+  },
+  {
+    inputs: [],
+    name: 'BridgeFeeTooFew',
+    type: 'error',
+  },
+  {
+    inputs: [],
+    name: 'CommitmentHashIncorrect',
+    type: 'error',
+  },
+  {
+    inputs: [],
+    name: 'DepositsDisabled',
+    type: 'error',
+  },
+  {
+    inputs: [],
+    name: 'ExecutorFeeTooFew',
+    type: 'error',
+  },
+  {
+    inputs: [],
+    name: 'FromChainIdNotMatched',
+    type: 'error',
+  },
+  {
+    inputs: [],
+    name: 'FromProxyAddressNotMatched',
+    type: 'error',
+  },
+  {
+    inputs: [],
+    name: 'HashKGreaterThanFieldSize',
+    type: 'error',
+  },
+  {
+    inputs: [
+      {
+        internalType: 'string',
+        name: 'param',
+        type: 'string',
+      },
+    ],
+    name: 'Invalid',
+    type: 'error',
+  },
+  {
+    inputs: [],
     name: 'OnlyOperator',
     type: 'error',
   },
   {
     inputs: [],
+    name: 'RandomSGreaterThanFieldSize',
+    type: 'error',
+  },
+  {
+    inputs: [],
     name: 'RollupFeeToFew',
+    type: 'error',
+  },
+  {
+    inputs: [],
+    name: 'SanctionedAddress',
+    type: 'error',
+  },
+  {
+    inputs: [],
+    name: 'SenderIsNotBridgeProxy',
     type: 'error',
   },
   {
