@@ -25,6 +25,7 @@ import {
 import { DepositDeployConfig } from '../config/bridgeDeposit';
 import { saveConfig } from '../config/config';
 import { BridgeProxyConfig } from '../config/bridgeProxy';
+import { OperatorConfig } from '../config/operator';
 
 let MystikoV2LoopERC20: MystikoV2LoopERC20__factory;
 let MystikoV2LoopMain: MystikoV2LoopMain__factory;
@@ -92,7 +93,7 @@ export function getMystikoDeployContract(bridge: string, bErc20: boolean) {
   return coreContract;
 }
 
-export async function toggleDepositSanctionCheck(
+export async function setDepositSanctionCheckDisabled(
   c: any,
   bridgeName: string,
   erc20: boolean,
@@ -104,12 +105,12 @@ export async function toggleDepositSanctionCheck(
   }
 
   const depositCfg = inDepositCfg;
-  console.log('toggle deposit sanction check disable ', check);
+  console.log('set deposit sanction check disable ', check);
   const DepositContractFactoruy = getMystikoDeployContract(bridgeName, erc20);
   const coreContract = await DepositContractFactoruy.attach(depositCfg.address);
 
   try {
-    const rsp = await coreContract.toggleSanctionCheck(check);
+    const rsp = await coreContract.setSanctionCheckDisabled(check);
     console.log('deposit rsp hash ', rsp.hash);
     depositCfg.updateSanctionCheckDisable(check);
     saveConfig(c.mystikoNetwork, c.cfg);
@@ -381,6 +382,34 @@ export async function setMinAmount(
   }
 }
 
+export async function changeOperator(
+  c: any,
+  bridgeName: string,
+  erc20: boolean,
+  inDepositCfg: DepositDeployConfig,
+  operator: string,
+) {
+  if (!inDepositCfg.isOperatorChange(operator)) {
+    return;
+  }
+
+  const depositCfg = inDepositCfg;
+
+  console.log('change operator');
+  const DepositContractFactoruy = getMystikoDeployContract(bridgeName, erc20);
+  const coreContract = await DepositContractFactoruy.attach(depositCfg.address);
+
+  try {
+    const rsp = await coreContract.changeOperator(operator);
+    console.log('rsp hash ', rsp.hash);
+    depositCfg.updateOperator(operator);
+    saveConfig(c.mystikoNetwork, c.cfg);
+  } catch (err: any) {
+    console.error(LOGRED, err);
+    process.exit(1);
+  }
+}
+
 export async function setAssociatedCommitmentPool(
   c: any,
   bridgeName: string,
@@ -419,6 +448,7 @@ export async function doDepositContractConfigure(
   dstChainTokenCfg: ChainTokenConfig,
   pairSrcDepositContractCfg: DepositDeployConfig,
   commitmentPoolAddress: string,
+  operatorCfg: OperatorConfig,
   bridgeProxy?: BridgeProxyConfig,
 ) {
   console.log('do deposit contract configure');
@@ -470,8 +500,12 @@ export async function doDepositContractConfigure(
     commitmentPoolAddress,
   );
 
+  if (operatorCfg.admin !== '') {
+    await changeOperator(c, bridgeCfg.name, srcChainTokenCfg.erc20, depositCfg, operatorCfg.admin);
+  }
+
   if (mystikoNetwork === MystikoTestnet) {
-    await toggleDepositSanctionCheck(c, bridgeCfg.name, srcChainTokenCfg.erc20, depositCfg, true);
+    await setDepositSanctionCheckDisabled(c, bridgeCfg.name, srcChainTokenCfg.erc20, depositCfg, true);
   }
 }
 

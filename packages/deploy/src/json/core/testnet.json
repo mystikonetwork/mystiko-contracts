@@ -1430,7 +1430,7 @@
           "peerChainId": 43113,
           "peerContractAddress": "0x7F4525Ab40895440927893E521094673174Bb82B",
           "minAmount": "100000000000000000",
-          "minBridgeFee": "20000000000000000",
+          "minBridgeFee": "40000000000000000",
           "minExecutorFee": "0"
         }
       ],
@@ -1763,7 +1763,7 @@
           "peerChainId": 4002,
           "peerContractAddress": "0xa6dcf62E8d7308369B176382781dE9C8eE2265db",
           "minAmount": "100000000000000000",
-          "minBridgeFee": "20000000000000000",
+          "minBridgeFee": "30000000000000000",
           "minExecutorFee": "0"
         },
         {
@@ -1776,7 +1776,7 @@
           "peerChainId": 80001,
           "peerContractAddress": "0x497045dA17fdDB7c132193353b8c1d42BB93c8B5",
           "minAmount": "100000000000000000",
-          "minBridgeFee": "20000000000000000",
+          "minBridgeFee": "30000000000000000",
           "minExecutorFee": "0"
         }
       ],
@@ -2096,7 +2096,7 @@
           "peerChainId": 3,
           "peerContractAddress": "0x9b966889865553E8005734a1249ab05d5F395b76",
           "minAmount": "100000000000000000",
-          "minBridgeFee": "20000000000000000",
+          "minBridgeFee": "30000000000000000",
           "minExecutorFee": "0"
         },
         {
@@ -2109,7 +2109,7 @@
           "peerChainId": 43113,
           "peerContractAddress": "0xeD08B30622918DEB83d84D43d7709303fE23cc68",
           "minAmount": "100000000000000000",
-          "minBridgeFee": "20000000000000000",
+          "minBridgeFee": "30000000000000000",
           "minExecutorFee": "0"
         }
       ],
@@ -2656,5 +2656,8 @@
         "https://mystiko-static.s3.ap-southeast-1.amazonaws.com/circuits/zokrates/development/6a500da/Rollup16.vkey.gz"
       ]
     }
-  ]
+  ],
+  "indexer": {
+    "url": "https://indexer.zksquare.mystiko.network"
+  }
 }

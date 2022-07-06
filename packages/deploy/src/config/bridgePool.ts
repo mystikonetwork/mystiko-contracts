@@ -18,6 +18,7 @@ export interface RawPoolDeployConfig {
   transact2x2Verifier?: string;
   sanctionCheckDisable?: boolean;
   tokenTransfer?: string;
+  operator?: string;
   enqueueWhitelist?: string[];
   rollupWhitelist?: string[];
 }
@@ -33,6 +34,7 @@ export class PoolDeployConfig extends BaseConfig {
     BaseConfig.checkString(this.config, 'assetSymbol');
     BaseConfig.checkNumber(this.config, 'syncStart', false);
     BaseConfig.checkEthAddress(this.config, 'address', false);
+    BaseConfig.checkEthAddress(this.config, 'operator', false);
 
     this.enqueueWhitelistByAddress = {};
     this.asRawContractDeployConfig().enqueueWhitelist?.forEach((enqueueAddress) => {
@@ -222,6 +224,21 @@ export class PoolDeployConfig extends BaseConfig {
     this.asRawContractDeployConfig().tokenTransfer = transfer;
   }
 
+  public get operator(): string | undefined {
+    return this.asRawContractDeployConfig().operator;
+  }
+
+  public updateOperator(addr: string) {
+    this.asRawContractDeployConfig().operator = addr;
+  }
+
+  public isOperatorChange(addr: string) {
+    if (this.asRawContractDeployConfig().operator === addr) {
+      return false;
+    }
+    return true;
+  }
+
   public isInRollupWhitelist(address: string): boolean {
     return this.rollupWhitelistByAddress[address];
   }
@@ -277,6 +294,7 @@ export class PoolDeployConfig extends BaseConfig {
     this.rollupWhitelistByAddress = {};
     this.asRawContractDeployConfig().enqueueWhitelist = undefined;
     this.enqueueWhitelistByAddress = {};
+    this.asRawContractDeployConfig().operator = undefined;
   }
 
   private asRawContractDeployConfig(): RawPoolDeployConfig {

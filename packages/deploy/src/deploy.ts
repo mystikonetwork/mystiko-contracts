@@ -5,9 +5,12 @@ import {
   BridgeLoop,
   BridgeTBridge,
   LOGRED,
+  MainNetworks,
   MystikoTestnet,
+  TestNetworks,
 } from './common/constant';
-import { loadConfig } from './config/config';
+import { getMystikoNetwork } from './common/utils';
+import { loadConfig, loadDeployConfig, saveConfig } from './config/config';
 import {
   addEnqueueWhitelist,
   doCommitmentPoolConfigure,
@@ -110,6 +113,7 @@ async function deployStep2(taskArgs: any) {
     c.dstTokenCfg,
     c.pairSrcDepositCfg,
     poolCfg.address,
+    c.operatorCfg,
     bridgeProxyConfig,
   );
 
@@ -202,24 +206,15 @@ function dumpTBridgeConfig(taskArgs: any) {
 }
 
 function dumpAllRollerConfig() {
-  dumpChainRollerConfig('bsctestnet');
-  dumpChainRollerConfig('ropsten');
-  dumpChainRollerConfig('goerli');
-  dumpChainRollerConfig('polygontestnet');
-  dumpChainRollerConfig('fantomtestnet');
-  dumpChainRollerConfig('avalanchetestnet');
-  dumpChainRollerConfig('auroratestnet');
-  dumpChainRollerConfig('moonbase');
+  TestNetworks.forEach((network) => {
+    dumpChainRollerConfig(network);
+  });
 }
 
 function dumpAllTBridgeConfig() {
-  dumpChainTBridgeConfig('bsctestnet');
-  dumpChainTBridgeConfig('ropsten');
-  dumpChainTBridgeConfig('polygontestnet');
-  dumpChainTBridgeConfig('fantomtestnet');
-  dumpChainTBridgeConfig('avalanchetestnet');
-  dumpChainTBridgeConfig('auroratestnet');
-  dumpChainTBridgeConfig('moonbase');
+  TestNetworks.forEach((network) => {
+    dumpChainTBridgeConfig(network);
+  });
 }
 
 function dumpChain(taskArgs: any) {
@@ -235,6 +230,60 @@ function dumpAllChain() {
 async function check(taskArgs: any) {
   const c = loadConfig(taskArgs);
   await checkCoreConfig(c.mystikoNetwork);
+}
+
+function resetAllDeployConfig(taskArgs: any) {
+  const srcNetwork = taskArgs.src;
+  const mystikoNetwork = getMystikoNetwork(srcNetwork);
+
+  const cfg = loadDeployConfig(mystikoNetwork);
+  if (mystikoNetwork === MystikoTestnet) {
+    TestNetworks.forEach((network) => {
+      const chain = cfg.getChain(network);
+      chain?.reset();
+    });
+    let bridge = cfg.getBridge(BridgeLoop);
+    bridge?.resetConfig();
+    bridge = cfg.getBridge(BridgeTBridge);
+    bridge?.resetConfig();
+
+    bridge = cfg.getBridge(BridgeCeler);
+    bridge?.resetConfig();
+    bridge = cfg.getBridge(BridgeLayerZero);
+    bridge?.resetConfig();
+    bridge = cfg.getBridge(BridgeAxelar);
+    bridge?.resetConfig();
+  } else {
+    MainNetworks.forEach((network) => {
+      const chain = cfg.getChain(network);
+      chain?.reset();
+    });
+
+    const bridge = cfg.getBridge(BridgeLoop);
+    bridge?.resetConfig();
+  }
+
+  saveConfig(mystikoNetwork, cfg);
+}
+
+function resetVerifier(taskArgs: any) {
+  const srcNetwork = taskArgs.src;
+  const mystikoNetwork = getMystikoNetwork(srcNetwork);
+
+  const cfg = loadDeployConfig(mystikoNetwork);
+  if (mystikoNetwork === MystikoTestnet) {
+    TestNetworks.forEach((network) => {
+      const chain = cfg.getChain(network);
+      chain?.reset();
+    });
+  } else {
+    MainNetworks.forEach((network) => {
+      const chain = cfg.getChain(network);
+      chain?.reset();
+    });
+  }
+
+  saveConfig(mystikoNetwork, cfg);
 }
 
 export async function deploy(taskArgs: any, hre: any) {
@@ -262,6 +311,10 @@ export async function deploy(taskArgs: any, hre: any) {
     dumpAllChain();
   } else if (step === 'check') {
     await check(taskArgs);
+  } else if (step === 'reset') {
+    resetAllDeployConfig(taskArgs);
+  } else if (step === 'resetVerifier') {
+    resetVerifier(taskArgs);
   } else {
     console.error(LOGRED, 'wrong step');
   }

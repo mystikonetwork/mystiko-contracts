@@ -7,7 +7,7 @@ export async function depositSanctionQuery(bridgeName: string, erc20: boolean, a
 
   try {
     console.log('deposit sanction disable', await depositContract.isSanctionCheckDisabled());
-    console.log('deposit sanction address ', await depositContract.sanctionsContract());
+    console.log('deposit sanction address ', await depositContract.getSanctionsContract());
   } catch (err: any) {
     console.error(LOGRED, err);
     process.exit(1);

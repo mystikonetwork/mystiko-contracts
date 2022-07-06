@@ -53,6 +53,27 @@ async function addExecutorWhitelist(c: any, inBridgeProxyCfg: BridgeProxyConfig,
   /* eslint-enable no-await-in-loop */
 }
 
+async function changeOperator(c: any, inBridgeProxyCfg: BridgeProxyConfig, operator: string) {
+  const bridgeProxyCfg = inBridgeProxyCfg;
+
+  if (!bridgeProxyCfg.isOperatorChange(operator)) {
+    return;
+  }
+
+  console.log('change tbridge operator');
+  const proxy = await MystikoTBridgeProxy.attach(bridgeProxyCfg.address);
+
+  try {
+    const rsp = await proxy.changeOperator(operator);
+    console.log('rsp hash ', rsp.hash);
+    bridgeProxyCfg.updateOperator(operator);
+    saveConfig(c.mystikoNetwork, c.cfg);
+  } catch (err: any) {
+    console.error(LOGRED, err);
+    process.exit(1);
+  }
+}
+
 export async function addRegisterWhitelist(
   c: any,
   inBridgeProxyConfig: BridgeProxyConfig,
@@ -126,6 +147,7 @@ export async function getOrDeployBridgeProxy(
   if (bridgeProxyCfg === undefined) {
     bridgeProxyCfg = bridgeCfg.addBridgeProxyConfig(chainNetwork, dstChainNetwork, '');
   }
+
   if (override === 'true' || bridgeProxyCfg.address === '' || mystikoNetwork === MystikoDevelopment) {
     bridgeProxyCfg.reset();
   }
@@ -154,5 +176,9 @@ export async function doBridgeProxyConfigure(
       process.exit(-1);
     }
     await addExecutorWhitelist(c, bridgeProxyCfg, operatorCfg.executors);
+
+    if (operatorCfg.admin !== '') {
+      await changeOperator(c, bridgeProxyCfg, operatorCfg.admin);
+    }
   }
 }

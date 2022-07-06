@@ -186,6 +186,22 @@ export class BridgeConfig extends BaseConfig {
     return this.pairByNetworkAndToken.get(srcNetwork)?.get(token)?.get(dstNetwork);
   }
 
+  public resetConfig() {
+    this.asRawBridgeConfig().wrappedCommitmentPools.forEach((pool) => {
+      pool.reset();
+    });
+
+    this.asRawBridgeConfig().wrappedPairs.forEach((pair) => {
+      pair.reset();
+    });
+  }
+
+  public resetProxyConfig() {
+    this.asRawBridgeConfig().wrappedProxys.forEach((proxy) => {
+      proxy.reset();
+    });
+  }
+
   private asRawBridgeConfig(): RawBridgeConfig {
     return this.config as RawBridgeConfig;
   }

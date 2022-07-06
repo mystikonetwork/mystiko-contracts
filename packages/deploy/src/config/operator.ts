@@ -11,7 +11,7 @@ export interface RawOperatorConfig {
 export class OperatorConfig extends BaseConfig {
   constructor(rawConfig: any) {
     super(rawConfig);
-    BaseConfig.checkEthAddress(this.config, 'admin');
+    BaseConfig.checkEthAddress(this.config, 'admin', false);
 
     this.asRawOperatorConfig().executors.forEach((executor) => {
       check(ethers.utils.isAddress(executor), `${executor} is invalid address`);
