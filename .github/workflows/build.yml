@@ -21,7 +21,7 @@ jobs:
           node-version: 14
       - run: echo "@mystikonetwork:registry=https://npm.pkg.github.com" >> $HOME/.npmrc
       - run: echo "//npm.pkg.github.com/:_authToken=${{ secrets.PACKAGES_TOKEN }}" >> $HOME/.npmrc
-      - run: curl -L https://github.com/mystikonetwork/ZoKrates/releases/download/v1.0.0/zokrates-v1.0.0-x86_64-unknown-linux-gnu.tar.gz -o zokrates.tar.gz
+      - run: curl -L https://github.com/mystikonetwork/ZoKrates/releases/download/v1.0.1/zokrates-v1.0.1-x86_64-unknown-linux-gnu.tar.gz -o zokrates.tar.gz
       - run: mkdir -p "$HOME/.zokrates/bin" && tar -xvvf zokrates.tar.gz -C "$HOME/.zokrates" && mv "$HOME/.zokrates/zokrates" "$HOME/.zokrates/bin" && chmod 755 "$HOME/.zokrates/bin/zokrates"
       - run: echo "$HOME/.zokrates/bin" >> $GITHUB_PATH
       - run: npm install --global lerna
