@@ -3,13 +3,7 @@ import { ChainConfig } from '../config/chain';
 import { ChainTokenConfig } from '../config/chainToken';
 import { OperatorConfig } from '../config/operator';
 import { PoolDeployConfig } from '../config/bridgePool';
-import {
-  LOGRED,
-  MerkleTreeHeight,
-  MystikoDevelopment,
-  MystikoTestnet,
-  RootHistoryLength,
-} from '../common/constant';
+import { LOGRED, MerkleTreeHeight, MystikoDevelopment, MystikoTestnet } from '../common/constant';
 import { BridgeConfig } from '../config/bridge';
 import { saveConfig } from '../config/config';
 
@@ -46,9 +40,9 @@ async function deployCommitmentPool(
 
   console.log('deploy Mystiko commitment pool contract');
   if (chainTokenCfg.erc20) {
-    pool = await PoolContractFactory.deploy(MerkleTreeHeight, RootHistoryLength, chainTokenCfg.address);
+    pool = await PoolContractFactory.deploy(MerkleTreeHeight, chainTokenCfg.address);
   } else {
-    pool = await PoolContractFactory.deploy(MerkleTreeHeight, RootHistoryLength);
+    pool = await PoolContractFactory.deploy(MerkleTreeHeight);
   }
   await pool.deployed();
 
@@ -90,6 +84,11 @@ async function setCommitmentPoolRollup1Verifier(
   inPoolCfg: PoolDeployConfig,
   chainCfg: ChainConfig,
 ) {
+  if (chainCfg.rollup1Address === undefined) {
+    console.error(LOGRED, 'rollup1 address not exist');
+    process.exit(1);
+  }
+
   if (!inPoolCfg.isRollup1VerifierChange(chainCfg.rollup1Address)) {
     return;
   }
@@ -116,6 +115,11 @@ async function setCommitmentPoolRollup4Verifier(
   inPoolCfg: PoolDeployConfig,
   chainCfg: ChainConfig,
 ) {
+  if (chainCfg.rollup4Address === undefined) {
+    console.error(LOGRED, 'rollup4 address not exist');
+    process.exit(1);
+  }
+
   if (!inPoolCfg.isRollup4VerifierChange(chainCfg.rollup4Address)) {
     return;
   }
@@ -142,6 +146,11 @@ async function setCommitmentPoolRollup16Verifier(
   inPoolCfg: PoolDeployConfig,
   chainCfg: ChainConfig,
 ) {
+  if (chainCfg.rollup16Address === undefined) {
+    console.error(LOGRED, 'rollup16 address not exist');
+    process.exit(1);
+  }
+
   if (!inPoolCfg.isRollup16VerifierChange(chainCfg.rollup16Address)) {
     return;
   }
@@ -168,6 +177,11 @@ async function setCommitmentPoolTransact1x0Verifier(
   inPoolCfg: PoolDeployConfig,
   chainCfg: ChainConfig,
 ) {
+  if (chainCfg.transaction1x0VerifierAddress === undefined) {
+    console.error(LOGRED, 'transaction1x0 verifier address not exist');
+    process.exit(1);
+  }
+
   if (!inPoolCfg.isTransact1x0VerifierChange(chainCfg.transaction1x0VerifierAddress)) {
     return;
   }
@@ -194,6 +208,11 @@ async function setCommitmentPoolTransact1x1Verifier(
   inPoolCfg: PoolDeployConfig,
   chainCfg: ChainConfig,
 ) {
+  if (chainCfg.transaction1x1VerifierAddress === undefined) {
+    console.error(LOGRED, 'transaction1x1 verifier address not exist');
+    process.exit(1);
+  }
+
   if (!inPoolCfg.isTransact1x1VerifierChange(chainCfg.transaction1x1VerifierAddress)) {
     return;
   }
@@ -220,6 +239,11 @@ async function setCommitmentPoolTransact1x2Verifier(
   inPoolCfg: PoolDeployConfig,
   chainCfg: ChainConfig,
 ) {
+  if (chainCfg.transaction1x2VerifierAddress === undefined) {
+    console.error(LOGRED, 'transaction1x2 verifier address not exist');
+    process.exit(1);
+  }
+
   if (!inPoolCfg.isTransact1x2VerifierChange(chainCfg.transaction1x2VerifierAddress)) {
     return;
   }
@@ -246,6 +270,11 @@ async function setCommitmentPoolTransact2x0Verifier(
   inPoolCfg: PoolDeployConfig,
   chainCfg: ChainConfig,
 ) {
+  if (chainCfg.transaction2x0VerifierAddress === undefined) {
+    console.error(LOGRED, 'transaction2x0 verifier address not exist');
+    process.exit(1);
+  }
+
   if (!inPoolCfg.isTransact2x0VerifierChange(chainCfg.transaction2x0VerifierAddress)) {
     return;
   }
@@ -272,6 +301,11 @@ async function setCommitmentPoolTransact2x1Verifier(
   inPoolCfg: PoolDeployConfig,
   chainCfg: ChainConfig,
 ) {
+  if (chainCfg.transaction2x1VerifierAddress === undefined) {
+    console.error(LOGRED, 'transaction2x1 verifier address not exist');
+    process.exit(1);
+  }
+
   if (!inPoolCfg.isTransact2x1VerifierChange(chainCfg.transaction2x1VerifierAddress)) {
     return;
   }
@@ -298,6 +332,11 @@ async function setCommitmentPoolTransact2x2Verifier(
   inPoolCfg: PoolDeployConfig,
   chainCfg: ChainConfig,
 ) {
+  if (chainCfg.transaction2x2VerifierAddress === undefined) {
+    console.error(LOGRED, 'transaction2x2 verifier address not exist');
+    process.exit(1);
+  }
+
   if (!inPoolCfg.isTransact2x2VerifierChange(chainCfg.transaction2x2VerifierAddress)) {
     return;
   }
@@ -334,7 +373,7 @@ export async function setCommitmentPoolVerifier(
   await setCommitmentPoolTransact2x2Verifier(c, erc20, poolCfg, chainCfg);
 }
 
-export async function togglePoolSanctionCheck(
+export async function setPoolSanctionCheckDisabled(
   c: any,
   erc20: boolean,
   inPoolCfg: PoolDeployConfig,
@@ -346,14 +385,35 @@ export async function togglePoolSanctionCheck(
 
   const poolCfg = inPoolCfg;
 
-  console.log('toggle pool sanction check disable ', check);
+  console.log('set pool sanction check disable ', check);
   const PoolContractFactory = getMystikoPoolContract(erc20);
   const poolContract = await PoolContractFactory.attach(poolCfg.address);
 
   try {
-    const rsp = await poolContract.toggleSanctionCheck(check);
+    const rsp = await poolContract.setSanctionCheckDisabled(check);
     console.log('pool rsp hash ', rsp.hash);
     poolCfg.updateSanctionDisableCheck(check);
+    saveConfig(c.mystikoNetwork, c.cfg);
+  } catch (err: any) {
+    console.error(LOGRED, err);
+    process.exit(1);
+  }
+}
+
+export async function changeOperator(c: any, erc20: boolean, inPoolCfg: PoolDeployConfig, operator: string) {
+  if (!inPoolCfg.isOperatorChange(operator)) {
+    return;
+  }
+
+  const poolCfg = inPoolCfg;
+  const PoolContractFactory = getMystikoPoolContract(erc20);
+  const pool = await PoolContractFactory.attach(poolCfg.address);
+  console.log('change operator');
+
+  try {
+    const rsp = await pool.changeOperator(operator);
+    console.log('rsp hash ', rsp.hash);
+    poolCfg.updateOperator(operator);
     saveConfig(c.mystikoNetwork, c.cfg);
   } catch (err: any) {
     console.error(LOGRED, err);
@@ -461,7 +521,12 @@ export async function doCommitmentPoolConfigure(
   await setCommitmentPoolRollupFee(c, chainTokenCfg.erc20, poolCfg, chainTokenCfg);
   await setCommitmentPoolVerifier(c, chainTokenCfg.erc20, poolCfg, chainCfg);
   await addRollupWhitelist(c, chainTokenCfg.erc20, poolCfg, operatorCfg.rollers);
+
+  if (operatorCfg.admin !== '') {
+    await changeOperator(c, chainTokenCfg.erc20, poolCfg, operatorCfg.admin);
+  }
+
   if (mystikoNetwork === MystikoTestnet) {
-    await togglePoolSanctionCheck(c, chainTokenCfg.erc20, poolCfg, true);
+    await setPoolSanctionCheckDisabled(c, chainTokenCfg.erc20, poolCfg, true);
   }
 }

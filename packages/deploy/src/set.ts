@@ -1,15 +1,15 @@
 import { initBaseContractFactory } from './contract/base';
 import { initTestTokenContractFactory, transferToContract } from './contract/token';
 import { initTBridgeContractFactory } from './contract/tbridge';
-import { initPoolContractFactory, togglePoolSanctionCheck } from './contract/commitment';
-import { initDepositContractFactory, toggleDepositSanctionCheck } from './contract/depsit';
+import { initPoolContractFactory, setPoolSanctionCheckDisabled } from './contract/commitment';
+import { initDepositContractFactory, setDepositSanctionCheckDisabled } from './contract/depsit';
 import { BridgeLoop, LOGRED, MystikoTestnet } from './common/constant';
 import { loadConfig } from './config/config';
 
 let ethers: any;
 
 // deploy mystiko contract and config contract
-async function toggleSaction(taskArgs: any) {
+async function sanctionCheckDisabled(taskArgs: any) {
   const c = loadConfig(taskArgs);
   const parameter = taskArgs.param;
 
@@ -26,8 +26,8 @@ async function toggleSaction(taskArgs: any) {
     process.exit(-1);
   }
 
-  await togglePoolSanctionCheck(c, c.srcTokenCfg.erc20, c.srcPoolCfg, checkDisable);
-  await toggleDepositSanctionCheck(
+  await setPoolSanctionCheckDisabled(c, c.srcTokenCfg.erc20, c.srcPoolCfg, checkDisable);
+  await setDepositSanctionCheckDisabled(
     c,
     c.bridgeCfg.name,
     c.srcTokenCfg.erc20,
@@ -55,8 +55,8 @@ export async function set(taskArgs: any, hre: any) {
   await initPoolContractFactory(ethers);
   await initDepositContractFactory(ethers);
 
-  if (taskArgs.func === 'toggleSaction') {
-    await toggleSaction(taskArgs);
+  if (taskArgs.func === 'sanctionCheckDisabled') {
+    await sanctionCheckDisabled(taskArgs);
   } else if (taskArgs.func === 'tokenTransfer') {
     await tokenTransfer(taskArgs);
   } else {

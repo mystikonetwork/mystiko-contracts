@@ -10,10 +10,71 @@
         "http://127.0.0.1:7545"
       ],
       "depositContracts": [
+        {
+          "version": 2,
+          "name": "MystikoV2LoopMain",
+          "address": "0xA51c1fc2f0D1a1b8494Ed1FE312d7C3a78Ed91C0",
+          "startBlock": 13,
+          "bridgeType": "loop",
+          "poolAddress": "0x5FbDB2315678afecb367f032d93F642f64180aa3",
+          "minAmount": "1000"
+        },
+        {
+          "version": 2,
+          "name": "MystikoV2TBridgeERC20",
+          "address": "0x9A676e781A523b5d0C0e43731313A708CB607508",
+          "startBlock": 15,
+          "bridgeType": "tbridge",
+          "poolAddress": "0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0",
+          "peerChainId": 9999999,
+          "peerContractAddress": "0x9A676e781A523b5d0C0e43731313A708CB607508",
+          "minAmount": "2000",
+          "minBridgeFee": "1000",
+          "minExecutorFee": "2000"
+        }
       ],
       "poolContracts": [
+        {
+          "version": 2,
+          "name": "CommitmentPool",
+          "address": "0x5FbDB2315678afecb367f032d93F642f64180aa3",
+          "startBlock": 1,
+          "minRollupFee": "1000"
+        },
+        {
+          "version": 2,
+          "name": "CommitmentPool",
+          "address": "0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0",
+          "startBlock": 3,
+          "assetAddress": "0xfc508d512957c1d13fe1fcd7c29b3423340510d3",
+          "minRollupFee": "2000"
+        }
       ],
       "assets": [
+        {
+          "assetType": "erc20",
+          "assetSymbol": "MTT",
+          "assetDecimals": 18,
+          "recommendedAmounts": [
+            "1000",
+            "2000",
+            "3000",
+            "4000"
+          ],
+          "assetAddress": "0xf900322b2d706b35f43b9f8d00dc4617292c2697"
+        },
+        {
+          "assetType": "erc20",
+          "assetSymbol": "mUSD",
+          "assetDecimals": 6,
+          "recommendedAmounts": [
+            "1000",
+            "2000",
+            "3000",
+            "4000"
+          ],
+          "assetAddress": "0xfc508d512957c1d13fe1fcd7c29b3423340510d3"
+        }
       ]
     }
   ]

@@ -68,6 +68,12 @@ export class BridgeDepositPairConfig extends BaseConfig {
     return depost;
   }
 
+  public reset() {
+    this.asRawBridgeTokenPairConfig().wrappedDeposits.forEach((deposit) => {
+      deposit.reset();
+    });
+  }
+
   private asRawBridgeTokenPairConfig(): RawBridgeDepositPairConfig {
     return this.config as RawBridgeDepositPairConfig;
   }

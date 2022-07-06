@@ -1,7 +1,17 @@
 export const LOGRED = '\x1b[31m';
-export const MainNetwork = ['bsc', 'ethereum', 'moonbeam'];
+export const MainNetworks = ['bsc', 'ethereum', 'moonbeam'];
+export const TestNetworks = [
+  'bsctestnet',
+  'ropsten',
+  'goerli',
+  'polygontestnet',
+  'fantomtestnet',
+  'avalanchetestnet',
+  'moonbase',
+  'auroratestnet',
+];
+
 export const MerkleTreeHeight = 20;
-export const RootHistoryLength = 30;
 
 export const MystikoDevelopment = 'development';
 export const MystikoTestnet = 'testnet';

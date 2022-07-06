@@ -42,6 +42,15 @@ export function saveConfig(mystikoNetwork: string, cfg: DeployConfig) {
   }
 }
 
+export function loadDeployConfig(mystikoNetwork: string) {
+  const cfg = load(mystikoNetwork);
+  if (cfg === undefined) {
+    console.error(LOGRED, 'cfg load empty');
+    process.exit(-1);
+  }
+  return cfg;
+}
+
 export function loadConfig(taskArgs: any) {
   const srcNetwork = taskArgs.src;
   const dstNetwork = taskArgs.dst;

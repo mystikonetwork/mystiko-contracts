@@ -8,6 +8,18 @@
   ],
   "bridge": {
     "pairs": [
+      {
+        "local": {
+          "network": "hardhat",
+          "chainId": 9999999,
+          "relayProxyAddress": "0x5FbDB2315678afecb367f032d93F642f64180aa3",
+          "bridgeEnalbe": true
+        },
+        "remote": {
+          "network": "hardhat",
+          "chainId": 9999999
+        }
+      }
     ]
   },
   "monitor": {

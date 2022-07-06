@@ -158,9 +158,21 @@ export function testRollup(
         ? await waffle.provider.getBalance(rollupAccount2.address)
         : await testTokenContract.balanceOf(rollupAccount2.address);
 
+      const gasLimit = await commitmentPoolContract
+        .connect(rollupAccount2)
+        .estimateGas.rollup([
+          [proof.proofA, proof.proofB, proof.proofC],
+          `${rollupSize}`,
+          proof.newRoot,
+          proof.leafHash,
+        ]);
+
       const rollupTx = await commitmentPoolContract
         .connect(rollupAccount2)
-        .rollup([[proof.proofA, proof.proofB, proof.proofC], `${rollupSize}`, proof.newRoot, proof.leafHash]);
+        .rollup(
+          [[proof.proofA, proof.proofB, proof.proofC], `${rollupSize}`, proof.newRoot, proof.leafHash],
+          { gasLimit: gasLimit.mul(120).div(100) },
+        );
 
       const txReceipt = await waffle.provider.getTransactionReceipt(rollupTx.hash);
       const totalGasFee = txReceipt.cumulativeGasUsed.mul(txReceipt.effectiveGasPrice);
