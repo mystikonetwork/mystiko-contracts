@@ -84,6 +84,23 @@ export function testLoopDeposit(
       ).to.be.revertedWith('AmountTooSmall()');
     });
 
+    it('should revert when hashK greater than field size', async () => {
+      const fieldSize = '21888242871839275222246405745257275088548364400416034343698204186575808495617';
+      await expect(
+        mystikoContract.deposit(
+          [
+            depositAmount,
+            commitments[0].commitmentHash.toString(),
+            fieldSize,
+            commitments[0].randomS.toString(),
+            toHex(commitments[0].encryptedNote),
+            minRollupFee,
+          ],
+          { from: accounts[0].address, value: isMainAsset ? minTotalAmount : '0' },
+        ),
+      ).to.be.revertedWith('HashKGreaterThanFieldSize()');
+    });
+
     it('should revert when commitmentHash is incorrect', async () => {
       await expect(
         mystikoContract.deposit(

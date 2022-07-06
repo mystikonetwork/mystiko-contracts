@@ -151,6 +151,24 @@ export function testCelerDeposit(
       ).to.be.revertedWith('BridgeFeeTooFew()');
     });
 
+    it('should revert when executor fee is too few', async () => {
+      await expect(
+        mystikoContract.deposit(
+          [
+            depositAmount,
+            commitments[0].commitmentHash.toString(),
+            commitments[0].k.toString(),
+            commitments[0].randomS.toString(),
+            toHex(commitments[0].encryptedNote),
+            minBridgeFee,
+            '0',
+            minRollupFee,
+          ],
+          { from: accounts[0].address, value: minTotalValue },
+        ),
+      ).to.be.revertedWith('ExecutorFeeTooFew()');
+    });
+
     it('should revert when rollup fee is too few', async () => {
       await expect(
         mystikoContract.deposit(
@@ -167,6 +185,25 @@ export function testCelerDeposit(
           { from: accounts[0].address, value: minTotalValue },
         ),
       ).to.be.revertedWith('RollupFeeToFew()');
+    });
+
+    it('should revert when hashK greater than field size', async () => {
+      const fieldSize = '21888242871839275222246405745257275088548364400416034343698204186575808495617';
+      await expect(
+        mystikoContract.deposit(
+          [
+            depositAmount,
+            commitments[0].commitmentHash.toString(),
+            fieldSize,
+            commitments[0].randomS.toString(),
+            toHex(commitments[0].encryptedNote),
+            minBridgeFee,
+            minExecutorFee,
+            minRollupFee,
+          ],
+          { from: accounts[0].address, value: minTotalValue },
+        ),
+      ).to.be.revertedWith('HashKGreaterThanFieldSize()');
     });
 
     it('should revert when commitmentHash is incorrect', async () => {

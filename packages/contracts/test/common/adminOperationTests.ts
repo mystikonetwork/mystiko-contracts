@@ -1,6 +1,5 @@
 import { expect } from 'chai';
 import { MystikoTBridgeProxy } from '@mystikonetwork/contracts-abi';
-import { address } from 'hardhat/internal/core/config/config-validation';
 
 export function testLoopAdminOperations(contractName: string, mystikoContract: any, accounts: any[]) {
   describe(`Test ${contractName} admin operations`, () => {

@@ -119,6 +119,15 @@ export function testRollup(
       );
     });
 
+    it('should revert when not in white list', async () => {
+      await commitmentPoolContract.setRollupWhitelistDisabled(false);
+      await expect(
+        commitmentPoolContract
+          .connect(accounts[0])
+          .rollup([[proof.proofA, proof.proofB, proof.proofC], 1234, proof.newRoot, proof.leafHash]),
+      ).to.be.revertedWith('OnlyWhitelistedRoller()');
+    });
+
     it('should revert unsupported rollup Size', () => {
       expect(
         commitmentPoolContract
