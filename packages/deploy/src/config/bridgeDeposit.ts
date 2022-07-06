@@ -209,6 +209,7 @@ export class DepositDeployConfig extends BaseConfig {
     this.asRawContractDeployConfig().bridgeProxy = undefined;
     this.asRawContractDeployConfig().peerContract = undefined;
     this.asRawContractDeployConfig().sanctionCheckDisable = undefined;
+    this.asRawContractDeployConfig().operator = undefined;
   }
 
   private asRawContractDeployConfig(): RawDepositDeployConfig {

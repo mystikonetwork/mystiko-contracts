@@ -84,6 +84,11 @@ async function setCommitmentPoolRollup1Verifier(
   inPoolCfg: PoolDeployConfig,
   chainCfg: ChainConfig,
 ) {
+  if (chainCfg.rollup1Address === undefined) {
+    console.error(LOGRED, 'rollup1 address not exist');
+    process.exit(1);
+  }
+
   if (!inPoolCfg.isRollup1VerifierChange(chainCfg.rollup1Address)) {
     return;
   }
@@ -110,6 +115,11 @@ async function setCommitmentPoolRollup4Verifier(
   inPoolCfg: PoolDeployConfig,
   chainCfg: ChainConfig,
 ) {
+  if (chainCfg.rollup4Address === undefined) {
+    console.error(LOGRED, 'rollup4 address not exist');
+    process.exit(1);
+  }
+
   if (!inPoolCfg.isRollup4VerifierChange(chainCfg.rollup4Address)) {
     return;
   }
@@ -136,6 +146,11 @@ async function setCommitmentPoolRollup16Verifier(
   inPoolCfg: PoolDeployConfig,
   chainCfg: ChainConfig,
 ) {
+  if (chainCfg.rollup16Address === undefined) {
+    console.error(LOGRED, 'rollup16 address not exist');
+    process.exit(1);
+  }
+
   if (!inPoolCfg.isRollup16VerifierChange(chainCfg.rollup16Address)) {
     return;
   }
@@ -162,6 +177,11 @@ async function setCommitmentPoolTransact1x0Verifier(
   inPoolCfg: PoolDeployConfig,
   chainCfg: ChainConfig,
 ) {
+  if (chainCfg.transaction1x0VerifierAddress === undefined) {
+    console.error(LOGRED, 'transaction1x0 verifier address not exist');
+    process.exit(1);
+  }
+
   if (!inPoolCfg.isTransact1x0VerifierChange(chainCfg.transaction1x0VerifierAddress)) {
     return;
   }
@@ -188,6 +208,11 @@ async function setCommitmentPoolTransact1x1Verifier(
   inPoolCfg: PoolDeployConfig,
   chainCfg: ChainConfig,
 ) {
+  if (chainCfg.transaction1x1VerifierAddress === undefined) {
+    console.error(LOGRED, 'transaction1x1 verifier address not exist');
+    process.exit(1);
+  }
+
   if (!inPoolCfg.isTransact1x1VerifierChange(chainCfg.transaction1x1VerifierAddress)) {
     return;
   }
@@ -214,6 +239,11 @@ async function setCommitmentPoolTransact1x2Verifier(
   inPoolCfg: PoolDeployConfig,
   chainCfg: ChainConfig,
 ) {
+  if (chainCfg.transaction1x2VerifierAddress === undefined) {
+    console.error(LOGRED, 'transaction1x2 verifier address not exist');
+    process.exit(1);
+  }
+
   if (!inPoolCfg.isTransact1x2VerifierChange(chainCfg.transaction1x2VerifierAddress)) {
     return;
   }
@@ -240,6 +270,11 @@ async function setCommitmentPoolTransact2x0Verifier(
   inPoolCfg: PoolDeployConfig,
   chainCfg: ChainConfig,
 ) {
+  if (chainCfg.transaction2x0VerifierAddress === undefined) {
+    console.error(LOGRED, 'transaction2x0 verifier address not exist');
+    process.exit(1);
+  }
+
   if (!inPoolCfg.isTransact2x0VerifierChange(chainCfg.transaction2x0VerifierAddress)) {
     return;
   }
@@ -266,6 +301,11 @@ async function setCommitmentPoolTransact2x1Verifier(
   inPoolCfg: PoolDeployConfig,
   chainCfg: ChainConfig,
 ) {
+  if (chainCfg.transaction2x1VerifierAddress === undefined) {
+    console.error(LOGRED, 'transaction2x1 verifier address not exist');
+    process.exit(1);
+  }
+
   if (!inPoolCfg.isTransact2x1VerifierChange(chainCfg.transaction2x1VerifierAddress)) {
     return;
   }
@@ -292,6 +332,11 @@ async function setCommitmentPoolTransact2x2Verifier(
   inPoolCfg: PoolDeployConfig,
   chainCfg: ChainConfig,
 ) {
+  if (chainCfg.transaction2x2VerifierAddress === undefined) {
+    console.error(LOGRED, 'transaction2x2 verifier address not exist');
+    process.exit(1);
+  }
+
   if (!inPoolCfg.isTransact2x2VerifierChange(chainCfg.transaction2x2VerifierAddress)) {
     return;
   }

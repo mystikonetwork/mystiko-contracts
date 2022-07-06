@@ -147,6 +147,7 @@ export async function getOrDeployBridgeProxy(
   if (bridgeProxyCfg === undefined) {
     bridgeProxyCfg = bridgeCfg.addBridgeProxyConfig(chainNetwork, dstChainNetwork, '');
   }
+
   if (override === 'true' || bridgeProxyCfg.address === '' || mystikoNetwork === MystikoDevelopment) {
     bridgeProxyCfg.reset();
   }

@@ -294,6 +294,7 @@ export class PoolDeployConfig extends BaseConfig {
     this.rollupWhitelistByAddress = {};
     this.asRawContractDeployConfig().enqueueWhitelist = undefined;
     this.enqueueWhitelistByAddress = {};
+    this.asRawContractDeployConfig().operator = undefined;
   }
 
   private asRawContractDeployConfig(): RawPoolDeployConfig {

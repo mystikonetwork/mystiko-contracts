@@ -13,7 +13,7 @@ import { query } from './src/query';
 dotenv.config();
 
 task('migrate', 'deploy contract')
-  .addParam('step', 'step1、step2、step3、check、dump、dumpRoller、testToken')
+  .addParam('step', 'step1、step2、step3、check、dump、dumpRoller、testToken、reset、resetVerifier')
   .addParam('bridge', 'loop、tbridge、celer', 'loop')
   .addParam('dst', 'ropsten、goerli、bsctestnet', 'bsctestnet')
   .addParam('token', 'ETH、BNB、MTT、mUSD', 'MTT')
