@@ -1,5 +1,6 @@
 import { expect } from 'chai';
 import { MystikoTBridgeProxy } from '@mystikonetwork/contracts-abi';
+import { address } from 'hardhat/internal/core/config/config-validation';
 
 export function testLoopAdminOperations(contractName: string, mystikoContract: any, accounts: any[]) {
   describe(`Test ${contractName} admin operations`, () => {
@@ -251,16 +252,22 @@ export function testTBridgeProxyAdminOperations(
   describe(`Test ${contractName} admin operations`, () => {
     before(async () => {});
 
+    it('should changeOperator correctly', async () => {
+      await expect(tbridgeProxy.connect(accounts[1]).changeOperator(accounts[1].address)).to.be.revertedWith(
+        'OnlyOperator()',
+      );
+    });
+
     // todo check executor/register/withdraw
-    it('should remove executor whitelist  correctly', async () => {
+    it('should remove executor whitelist correctly', async () => {
       await tbridgeProxy.removeExecutorWhitelist(accounts[1].address);
     });
 
-    it('should remove register whitelist  correctly', async () => {
+    it('should remove register whitelist correctly', async () => {
       await tbridgeProxy.removeRegisterWhitelist(accounts[1].address);
     });
 
-    it('should remove executor whitelist  correctly', async () => {
+    it('should remove executor whitelist correctly', async () => {
       await tbridgeProxy.withdraw(accounts[1].address);
     });
   });

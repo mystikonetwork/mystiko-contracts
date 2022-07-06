@@ -246,6 +246,14 @@ export function testTBridgeDeposit(
       }
     });
 
+    it('should revert sendMessage not register white list', async () => {
+      await expect(
+        bridgeContract
+          .connect(accounts[0])
+          .sendMessage(peerMystikoContract.address, SourceChainID, bridgeMessages[0]),
+      ).revertedWith('OnlyRegister()');
+    });
+
     it('should revert on in executor white list', async () => {
       await expect(
         bridgeContract
