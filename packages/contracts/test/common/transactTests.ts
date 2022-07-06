@@ -373,7 +373,7 @@ export function testTransactRevert(
       );
 
       await expect(commitmentPoolContract.transact(request, signature)).to.be.revertedWith(
-        'sanctioned address',
+        'SanctionedAddress()',
       );
       await sanctionList.removeToSanctionsList(publicRecipientAddress);
     });
