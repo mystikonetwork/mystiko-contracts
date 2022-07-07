@@ -20,6 +20,7 @@ import {
 } from '@mystikonetwork/contracts-abi';
 import { MystikoProtocolV2, ProtocolFactoryV2 } from '@mystikonetwork/protocol';
 import { toBN, toDecimals } from '@mystikonetwork/utils';
+import { expect } from 'chai';
 import {
   deployLoopContracts,
   deployDependContracts,
@@ -46,6 +47,14 @@ describe('Test Mystiko pool tree', () => {
         treeHeight: i,
       });
     }
+  });
+
+  it('should revert when treeHeight less than zero', async () => {
+    const accounts = waffle.provider.getWallets();
+    const { testToken, sanctionList } = await deployDependContracts(accounts);
+    await expect(
+      deployCommitmentPoolContracts(accounts, testToken.address, sanctionList.address, { treeHeight: 0 }),
+    ).revertedWith('TreeHeightLessThanZero()');
   });
 });
 

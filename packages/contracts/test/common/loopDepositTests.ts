@@ -126,6 +126,24 @@ export function testLoopDeposit(
       }
     });
 
+    it('should revert onlyEnqueueWhitelisted', async () => {
+      await commitmentPool.removeEnqueueWhitelist(mystikoContract.address);
+      await expect(
+        mystikoContract.deposit(
+          [
+            depositAmount,
+            commitments[0].commitmentHash.toString(),
+            commitments[0].k.toString(),
+            commitments[0].randomS.toString(),
+            toHex(commitments[0].encryptedNote),
+            minRollupFee,
+          ],
+          { from: accounts[0].address, value: isMainAsset ? depositAmount : '0' },
+        ),
+      ).to.be.revertedWith('OnlyWhitelistedSender()');
+      await commitmentPool.addEnqueueWhitelist(mystikoContract.address);
+    });
+
     it('should revert when rollup fee is too few', async () => {
       await expect(
         mystikoContract.deposit(
@@ -140,6 +158,22 @@ export function testLoopDeposit(
           { from: accounts[0].address, value: isMainAsset ? depositAmount : '0' },
         ),
       ).to.be.revertedWith('RollupFeeToFew()');
+    });
+
+    it('should revert when tree is full', async () => {
+      await expect(
+        mystikoContract.deposit(
+          [
+            depositAmount,
+            commitments[0].commitmentHash.toString(),
+            commitments[0].k.toString(),
+            commitments[0].randomS.toString(),
+            toHex(commitments[0].encryptedNote),
+            minRollupFee,
+          ],
+          { from: accounts[0].address, value: isMainAsset ? depositAmount : '0' },
+        ),
+      ).to.be.revertedWith('TreeIsFull()');
     });
 
     it('should deposit successfully', async () => {
