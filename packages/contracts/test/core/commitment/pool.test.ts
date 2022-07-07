@@ -56,6 +56,14 @@ describe('Test Mystiko pool tree', () => {
       deployCommitmentPoolContracts(accounts, testToken.address, sanctionList.address, { treeHeight: 0 }),
     ).revertedWith('TreeHeightLessThanZero()');
   });
+
+  it('should revert when treeHeight out of bounds', async () => {
+    const accounts = waffle.provider.getWallets();
+    const { testToken, sanctionList } = await deployDependContracts(accounts);
+    await expect(
+      deployCommitmentPoolContracts(accounts, testToken.address, sanctionList.address, { treeHeight: 33 }),
+    ).revertedWith('TreeHeightOutOfBounds()');
+  });
 });
 
 describe('Test Mystiko pool', () => {
