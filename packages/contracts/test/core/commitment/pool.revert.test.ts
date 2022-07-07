@@ -18,7 +18,7 @@ import {
 } from '../../util/common';
 import { constructCommitment } from '../../common';
 
-describe('Test Mystiko pool', () => {
+describe('Test Mystiko pool revert', () => {
   async function fixture(accounts: Wallet[]) {
     const {
       testToken,

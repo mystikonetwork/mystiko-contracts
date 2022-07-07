@@ -128,7 +128,15 @@ export function testRollup(
       ).to.be.revertedWith('OnlyWhitelistedRoller()');
     });
 
-    it('should revert unsupported rollup Size', () => {
+    it('should revert invalid rollup Size', () => {
+      expect(
+        commitmentPoolContract
+          .connect(rollupAccount)
+          .rollup([[proof.proofA, proof.proofB, proof.proofC], 0, proof.newRoot, proof.leafHash]),
+      ).to.be.revertedWith('Invalid("rollupSize")');
+    });
+
+    it('should revert invalid rollup Size', () => {
       expect(
         commitmentPoolContract
           .connect(rollupAccount)
@@ -136,22 +144,22 @@ export function testRollup(
       ).to.be.revertedWith('Invalid("rollupSize")');
     });
 
-    it('should revert unsupported rollup Size', async () => {
+    it('should revert invalid rollup Size', async () => {
       await commitmentPoolContract.disableRollupVerifier(8);
       expect(
         commitmentPoolContract
           .connect(rollupAccount)
           .rollup([[proof.proofA, proof.proofB, proof.proofC], 8, proof.newRoot, proof.leafHash]),
-      ).to.be.revertedWith('invalid rollupSize');
+      ).to.be.revertedWith('Invalid("rollupSize")');
     });
 
-    it('should revert unsupported rollup Size', async () => {
+    it('should revert invalid rollup Size', async () => {
       await commitmentPoolContract.enableRollupVerifier(8, rollupVerifierContract.address);
       expect(
         commitmentPoolContract
           .connect(rollupAccount)
           .rollup([[proof.proofA, proof.proofB, proof.proofC], 8, proof.newRoot, proof.leafHash]),
-      ).to.be.revertedWith('invalid rollupSize');
+      ).to.be.revertedWith('Invalid("rollupSize")');
     });
 
     it('should revert wrong leaf hash', () => {
