@@ -160,22 +160,6 @@ export function testLoopDeposit(
       ).to.be.revertedWith('RollupFeeToFew()');
     });
 
-    it('should revert when tree is full', async () => {
-      await expect(
-        mystikoContract.deposit(
-          [
-            depositAmount,
-            commitments[0].commitmentHash.toString(),
-            commitments[0].k.toString(),
-            commitments[0].randomS.toString(),
-            toHex(commitments[0].encryptedNote),
-            minRollupFee,
-          ],
-          { from: accounts[0].address, value: isMainAsset ? depositAmount : '0' },
-        ),
-      ).to.be.revertedWith('TreeIsFull()');
-    });
-
     it('should deposit successfully', async () => {
       await sanctionList.addToSanctionsList(accounts[0].address);
       await mystikoContract.setSanctionCheckDisabled(true);
