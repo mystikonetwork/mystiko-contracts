@@ -260,7 +260,6 @@ export function loopDepositRevert(
   let minRollupFee: string;
   const { commitments } = cmInfo;
   const numOfCommitments = commitments.length;
-  let expectBalance: string;
 
   describe(`${contractName} deposit operations`, () => {
     before(async () => {

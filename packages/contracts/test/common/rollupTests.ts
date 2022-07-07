@@ -136,16 +136,21 @@ export function testRollup(
       ).to.be.revertedWith('Invalid("rollupSize")');
     });
 
-    it('should revert unsupported rollup Size', () => {
+    it('should revert unsupported rollup Size', async () => {
+      await commitmentPoolContract.disableRollupVerifier(8);
       expect(
         commitmentPoolContract
           .connect(rollupAccount)
-          .rollup([
-            [proof.proofA, proof.proofB, proof.proofC],
-            `${rollupSize + 1}`,
-            proof.newRoot,
-            protocol.randomBigInt().toString(),
-          ]),
+          .rollup([[proof.proofA, proof.proofB, proof.proofC], 8, proof.newRoot, proof.leafHash]),
+      ).to.be.revertedWith('invalid rollupSize');
+    });
+
+    it('should revert unsupported rollup Size', async () => {
+      await commitmentPoolContract.enableRollupVerifier(8, rollupVerifierContract.address);
+      expect(
+        commitmentPoolContract
+          .connect(rollupAccount)
+          .rollup([[proof.proofA, proof.proofB, proof.proofC], 8, proof.newRoot, proof.leafHash]),
       ).to.be.revertedWith('invalid rollupSize');
     });
 
