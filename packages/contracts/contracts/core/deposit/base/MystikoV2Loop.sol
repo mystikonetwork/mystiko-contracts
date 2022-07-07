@@ -26,8 +26,7 @@ abstract contract MystikoV2Loop is IMystikoLoop, AssetPool, Sanctions {
   bool private depositsDisabled;
 
   modifier onlyOperator() {
-    if (msg.sender != operator)
-      revert CustomErrors.OnlyOperator();
+    if (msg.sender != operator) revert CustomErrors.OnlyOperator();
     _;
   }
 
@@ -54,10 +53,8 @@ abstract contract MystikoV2Loop is IMystikoLoop, AssetPool, Sanctions {
     uint256 _amount,
     uint128 _randomS
   ) internal view returns (uint256) {
-    if (_hashK >= DataTypes.FIELD_SIZE)
-      revert CustomErrors.HashKGreaterThanFieldSize();
-    if (_randomS >= DataTypes.FIELD_SIZE)
-      revert CustomErrors.RandomSGreaterThanFieldSize();
+    if (_hashK >= DataTypes.FIELD_SIZE) revert CustomErrors.HashKGreaterThanFieldSize();
+    if (_randomS >= DataTypes.FIELD_SIZE) revert CustomErrors.RandomSGreaterThanFieldSize();
     return hasher3.poseidon([_hashK, _amount, _randomS]);
   }
 
@@ -65,15 +62,11 @@ abstract contract MystikoV2Loop is IMystikoLoop, AssetPool, Sanctions {
    *  @param _request     The transact request parameter
    */
   function deposit(DepositRequest memory _request) external payable override {
-    if (depositsDisabled)
-      revert CustomErrors.DepositsDisabled();
-    if (_request.amount < minAmount)
-      revert CustomErrors.AmountTooSmall();
+    if (depositsDisabled) revert CustomErrors.DepositsDisabled();
+    if (_request.amount < minAmount) revert CustomErrors.AmountTooSmall();
     uint256 calculatedCommitment = _commitmentHash(_request.hashK, _request.amount, _request.randomS);
-    if (_request.commitment != calculatedCommitment)
-      revert CustomErrors.CommitmentHashIncorrect();
-    if (isSanctioned(msg.sender))
-      revert CustomErrors.SanctionedAddress();
+    if (_request.commitment != calculatedCommitment) revert CustomErrors.CommitmentHashIncorrect();
+    if (isSanctioned(msg.sender)) revert CustomErrors.SanctionedAddress();
 
     _processDeposit(_request.amount, _request.commitment, _request.rollupFee, _request.encryptedNote);
   }

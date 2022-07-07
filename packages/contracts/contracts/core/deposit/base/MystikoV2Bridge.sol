@@ -41,14 +41,12 @@ abstract contract MystikoV2Bridge is IMystikoBridge, AssetPool, CrossChainDataSe
   bool depositsDisabled;
 
   modifier onlyOperator() {
-    if (msg.sender != operator)
-      revert CustomErrors.OnlyOperator();
+    if (msg.sender != operator) revert CustomErrors.OnlyOperator();
     _;
   }
 
   modifier onlyBridgeProxy() {
-    if (msg.sender != bridgeProxyAddress)
-      revert CustomErrors.SenderIsNotBridgeProxy();
+    if (msg.sender != bridgeProxyAddress) revert CustomErrors.SenderIsNotBridgeProxy();
     _;
   }
 
@@ -80,8 +78,7 @@ abstract contract MystikoV2Bridge is IMystikoBridge, AssetPool, CrossChainDataSe
   }
 
   function setPeerMinRollupFee(uint256 _peerMinRollupFee) external onlyOperator {
-    if (_peerMinRollupFee <= 0)
-      revert CustomErrors.Invalid("peer minimal rollup fee");
+    if (_peerMinRollupFee <= 0) revert CustomErrors.Invalid("peer minimal rollup fee");
     peerMinRollupFee = _peerMinRollupFee;
   }
 
@@ -104,29 +101,20 @@ abstract contract MystikoV2Bridge is IMystikoBridge, AssetPool, CrossChainDataSe
     uint256 _amount,
     uint128 _randomS
   ) internal view returns (uint256) {
-    if (_hashK >= DataTypes.FIELD_SIZE)
-      revert CustomErrors.HashKGreaterThanFieldSize();
-    if (_randomS >= DataTypes.FIELD_SIZE)
-      revert CustomErrors.RandomSGreaterThanFieldSize();
+    if (_hashK >= DataTypes.FIELD_SIZE) revert CustomErrors.HashKGreaterThanFieldSize();
+    if (_randomS >= DataTypes.FIELD_SIZE) revert CustomErrors.RandomSGreaterThanFieldSize();
     return hasher3.poseidon([_hashK, _amount, uint256(_randomS)]);
   }
 
   function deposit(DepositRequest memory _request) external payable override {
-    if (depositsDisabled)
-      revert CustomErrors.DepositsDisabled();
-    if (_request.amount < minAmount)
-      revert CustomErrors.AmountTooSmall();
-    if (_request.bridgeFee < minBridgeFee)
-      revert CustomErrors.BridgeFeeTooFew();
-    if (_request.executorFee < peerMinExecutorFee)
-      revert CustomErrors.ExecutorFeeTooFew();
-    if (_request.rollupFee < peerMinRollupFee)
-      revert CustomErrors.RollupFeeToFew();
+    if (depositsDisabled) revert CustomErrors.DepositsDisabled();
+    if (_request.amount < minAmount) revert CustomErrors.AmountTooSmall();
+    if (_request.bridgeFee < minBridgeFee) revert CustomErrors.BridgeFeeTooFew();
+    if (_request.executorFee < peerMinExecutorFee) revert CustomErrors.ExecutorFeeTooFew();
+    if (_request.rollupFee < peerMinRollupFee) revert CustomErrors.RollupFeeToFew();
     uint256 calculatedCommitment = _commitmentHash(_request.hashK, _request.amount, _request.randomS);
-    if (_request.commitment != calculatedCommitment)
-      revert CustomErrors.CommitmentHashIncorrect();
-    if (isSanctioned(msg.sender))
-      revert CustomErrors.SanctionedAddress();
+    if (_request.commitment != calculatedCommitment) revert CustomErrors.CommitmentHashIncorrect();
+    if (isSanctioned(msg.sender)) revert CustomErrors.SanctionedAddress();
 
     // todo check commitment ?
     ICommitmentPool.CommitmentRequest memory cmRequest = ICommitmentPool.CommitmentRequest({
@@ -155,12 +143,9 @@ abstract contract MystikoV2Bridge is IMystikoBridge, AssetPool, CrossChainDataSe
     address _executor,
     ICommitmentPool.CommitmentRequest memory _request
   ) internal {
-    if (_fromContract != peerContract)
-      revert CustomErrors.FromProxyAddressNotMatched();
-    if (_fromChainId != peerChainId)
-      revert CustomErrors.FromChainIdNotMatched();
-    if (_request.amount <= 0)
-      revert CustomErrors.AmountLessThanZero();
+    if (_fromContract != peerContract) revert CustomErrors.FromProxyAddressNotMatched();
+    if (_fromChainId != peerChainId) revert CustomErrors.FromChainIdNotMatched();
+    if (_request.amount <= 0) revert CustomErrors.AmountLessThanZero();
     ICommitmentPool(associatedCommitmentPool).enqueue(_request, _executor);
   }
 

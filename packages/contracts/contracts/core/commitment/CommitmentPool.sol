@@ -54,20 +54,17 @@ abstract contract CommitmentPool is ICommitmentPool, AssetPool, ReentrancyGuard,
   bool private rollupWhitelistDisabled;
 
   modifier onlyOperator() {
-    if (msg.sender != operator)
-      revert CustomErrors.OnlyOperator();
+    if (msg.sender != operator) revert CustomErrors.OnlyOperator();
     _;
   }
 
   modifier onlyRollupWhitelisted() {
-    if (!rollupWhitelistDisabled && !rollupWhitelist[msg.sender])
-      revert CustomErrors.OnlyWhitelistedRoller();
+    if (!rollupWhitelistDisabled && !rollupWhitelist[msg.sender]) revert CustomErrors.OnlyWhitelistedRoller();
     _;
   }
 
   modifier onlyEnqueueWhitelisted() {
-    if (!enqueueWhitelist[msg.sender])
-      revert CustomErrors.OnlyWhitelistedSender();
+    if (!enqueueWhitelist[msg.sender]) revert CustomErrors.OnlyWhitelistedSender();
     _;
   }
 
@@ -84,8 +81,7 @@ abstract contract CommitmentPool is ICommitmentPool, AssetPool, ReentrancyGuard,
   event RollupWhitelistDisabled(bool state);
 
   constructor(uint8 _treeHeight) {
-    if (_treeHeight <= 0)
-      revert CustomErrors.TreeHeightLessThanZero();
+    if (_treeHeight <= 0) revert CustomErrors.TreeHeightLessThanZero();
     operator = msg.sender;
     treeCapacity = 1 << _treeHeight;
     currentRoot = _zeros(_treeHeight);
@@ -103,12 +99,9 @@ abstract contract CommitmentPool is ICommitmentPool, AssetPool, ReentrancyGuard,
     onlyEnqueueWhitelisted
   {
     // todo should do check in upper layer call
-    if (_request.rollupFee < minRollupFee)
-      revert CustomErrors.RollupFeeToFew();
-    if (commitmentIncludedCount + commitmentQueueSize >= treeCapacity)
-      revert CustomErrors.TreeIsFull();
-    if (historicCommitments[_request.commitment])
-      revert CustomErrors.CommitmentHasBeenSubmitted();
+    if (_request.rollupFee < minRollupFee) revert CustomErrors.RollupFeeToFew();
+    if (commitmentIncludedCount + commitmentQueueSize >= treeCapacity) revert CustomErrors.TreeIsFull();
+    if (historicCommitments[_request.commitment]) revert CustomErrors.CommitmentHasBeenSubmitted();
 
     historicCommitments[_request.commitment] = true;
     _enqueueCommitment(_request.commitment, _request.rollupFee, _request.encryptedNote);
@@ -122,27 +115,22 @@ abstract contract CommitmentPool is ICommitmentPool, AssetPool, ReentrancyGuard,
    *  @param _request     The rollup request parameter
    */
   function rollup(RollupRequest memory _request) external override onlyRollupWhitelisted {
-    if (_request.newRoot >= DataTypes.FIELD_SIZE)
-      revert CustomErrors.NewRootGreaterThanFieldSize();
-    if (rootHistory[_request.newRoot])
-      revert CustomErrors.NewRootIsDuplicated();
+    if (_request.newRoot >= DataTypes.FIELD_SIZE) revert CustomErrors.NewRootGreaterThanFieldSize();
+    if (rootHistory[_request.newRoot]) revert CustomErrors.NewRootIsDuplicated();
     if (
       _request.rollupSize <= 0 ||
       _request.rollupSize > commitmentQueueSize ||
       !rollupVerifiers[_request.rollupSize].enabled
-    )
-      revert CustomErrors.Invalid("rollupSize");
+    ) revert CustomErrors.Invalid("rollupSize");
     uint256 includedCount = commitmentIncludedCount;
-    if (includedCount % _request.rollupSize != 0)
-      revert CustomErrors.Invalid("rollupSize");
+    if (includedCount % _request.rollupSize != 0) revert CustomErrors.Invalid("rollupSize");
     uint256 pathIndices = _pathIndices(includedCount, _request.rollupSize);
     uint256[] memory leaves = new uint256[](_request.rollupSize);
     uint256 totalRollupFee = 0;
     for (uint256 index = 0; index < _request.rollupSize; index++) {
       uint256 includedCursor = includedCount + index;
       CommitmentLeaf memory leaf = commitmentQueue[includedCursor];
-      if (leaf.commitment == 0)
-        revert CustomErrors.IndexOutOfBound();
+      if (leaf.commitment == 0) revert CustomErrors.IndexOutOfBound();
       leaves[index] = leaf.commitment;
       totalRollupFee += leaf.rollupFee;
       delete commitmentQueue[includedCursor];
@@ -150,16 +138,14 @@ abstract contract CommitmentPool is ICommitmentPool, AssetPool, ReentrancyGuard,
     }
     commitmentQueueSize -= _request.rollupSize;
     uint256 expectedLeafHash = uint256(keccak256(abi.encodePacked(leaves))) % DataTypes.FIELD_SIZE;
-    if (_request.leafHash != expectedLeafHash)
-      revert CustomErrors.Invalid("leafHash");
+    if (_request.leafHash != expectedLeafHash) revert CustomErrors.Invalid("leafHash");
     uint256[] memory inputs = new uint256[](4);
     inputs[0] = currentRoot;
     inputs[1] = _request.newRoot;
     inputs[2] = expectedLeafHash;
     inputs[3] = pathIndices;
     bool verified = rollupVerifiers[_request.rollupSize].verifier.verifyTx(_request.proof, inputs);
-    if (!verified)
-      revert CustomErrors.Invalid("proof");
+    if (!verified) revert CustomErrors.Invalid("proof");
     commitmentIncludedCount += _request.rollupSize;
     currentRoot = _request.newRoot;
     rootHistory[_request.newRoot] = true;
@@ -175,24 +161,19 @@ abstract contract CommitmentPool is ICommitmentPool, AssetPool, ReentrancyGuard,
     uint32 numOutputs = SafeCast.toUint32(_request.outCommitments.length);
 
     // check input and output lengths.
-    if (!transactVerifiers[numInputs][numOutputs].enabled)
-      revert CustomErrors.Invalid("i/o length");
-    if (_request.sigHashes.length != numInputs)
-      revert CustomErrors.Invalid("sigHashes length");
-    if (_request.outRollupFees.length != numOutputs)
-      revert CustomErrors.Invalid("outRollupFees length");
+    if (!transactVerifiers[numInputs][numOutputs].enabled) revert CustomErrors.Invalid("i/o length");
+    if (_request.sigHashes.length != numInputs) revert CustomErrors.Invalid("sigHashes length");
+    if (_request.outRollupFees.length != numOutputs) revert CustomErrors.Invalid("outRollupFees length");
     if (_request.outEncryptedNotes.length != numOutputs)
       revert CustomErrors.Invalid("outEncryptedNotes length");
     if (commitmentIncludedCount + commitmentQueueSize + numOutputs > treeCapacity)
       revert CustomErrors.TreeIsFull();
-    if (isSanctioned(_request.publicRecipient))
-      revert CustomErrors.SanctionedAddress();
+    if (isSanctioned(_request.publicRecipient)) revert CustomErrors.SanctionedAddress();
 
     // check signature
     bytes32 hash = _transactRequestHash(_request);
     address recoveredSigPk = ECDSA.recover(hash, _signature);
-    if (_request.sigPk != bytes32(uint256(uint160(recoveredSigPk))))
-      revert CustomErrors.Invalid("signature");
+    if (_request.sigPk != bytes32(uint256(uint160(recoveredSigPk)))) revert CustomErrors.Invalid("signature");
 
     // initialize inputs array for verifying proof.
     uint256 totalInput = 2 * numInputs;
@@ -200,30 +181,23 @@ abstract contract CommitmentPool is ICommitmentPool, AssetPool, ReentrancyGuard,
     uint256[] memory inputs = new uint256[](allInput + 2 * numOutputs);
 
     // check whether valid root.
-    if (!rootHistory[_request.rootHash])
-      revert CustomErrors.Invalid("root");
+    if (!rootHistory[_request.rootHash]) revert CustomErrors.Invalid("root");
     inputs[0] = _request.rootHash;
 
     // check serial numbers.
     uint256 offsetSigHash = numInputs + 1;
     for (uint256 i = 0; i < numInputs; i++) {
       uint256 sn = _request.serialNumbers[i];
-      if (spentSerialNumbers[sn])
-        revert CustomErrors.NoteHasBeenSpent();
-      if (sn >= DataTypes.FIELD_SIZE)
-        revert CustomErrors.Invalid("note");
-      if (_request.sigHashes[i] >= DataTypes.FIELD_SIZE)
-        revert CustomErrors.Invalid("sigHash");
+      if (spentSerialNumbers[sn]) revert CustomErrors.NoteHasBeenSpent();
+      if (sn >= DataTypes.FIELD_SIZE) revert CustomErrors.Invalid("note");
+      if (_request.sigHashes[i] >= DataTypes.FIELD_SIZE) revert CustomErrors.Invalid("sigHash");
       inputs[i + 1] = sn;
       inputs[i + offsetSigHash] = _request.sigHashes[i];
     }
 
-    if (uint256(_request.sigPk) >= DataTypes.FIELD_SIZE)
-      revert CustomErrors.Invalid("sigPk");
-    if (_request.publicAmount >= DataTypes.FIELD_SIZE)
-      revert CustomErrors.Invalid("amount");
-    if (_request.relayerFeeAmount >= DataTypes.FIELD_SIZE)
-      revert CustomErrors.Invalid("relayer fee amount");
+    if (uint256(_request.sigPk) >= DataTypes.FIELD_SIZE) revert CustomErrors.Invalid("sigPk");
+    if (_request.publicAmount >= DataTypes.FIELD_SIZE) revert CustomErrors.Invalid("amount");
+    if (_request.relayerFeeAmount >= DataTypes.FIELD_SIZE) revert CustomErrors.Invalid("relayer fee amount");
     inputs[totalInput + 1] = uint256(_request.sigPk);
     inputs[totalInput + 2] = _request.publicAmount;
     inputs[totalInput + 3] = _request.relayerFeeAmount;
@@ -231,22 +205,17 @@ abstract contract CommitmentPool is ICommitmentPool, AssetPool, ReentrancyGuard,
     // check rollup fees and output commitments.
     uint256 offsetRollupFee = allInput + numOutputs;
     for (uint256 i = 0; i < numOutputs; i++) {
-      if (historicCommitments[_request.outCommitments[i]])
-        revert CustomErrors.Duplicated("commitment");
-      if (_request.outCommitments[i] >= DataTypes.FIELD_SIZE)
-        revert CustomErrors.Invalid("out commitment");
-      if (_request.outRollupFees[i] < minRollupFee)
-        revert CustomErrors.RollupFeeToFew();
-      if (_request.outRollupFees[i] >= DataTypes.FIELD_SIZE)
-        revert CustomErrors.Invalid("out rollup fee");
+      if (historicCommitments[_request.outCommitments[i]]) revert CustomErrors.Duplicated("commitment");
+      if (_request.outCommitments[i] >= DataTypes.FIELD_SIZE) revert CustomErrors.Invalid("out commitment");
+      if (_request.outRollupFees[i] < minRollupFee) revert CustomErrors.RollupFeeToFew();
+      if (_request.outRollupFees[i] >= DataTypes.FIELD_SIZE) revert CustomErrors.Invalid("out rollup fee");
       inputs[i + allInput] = _request.outCommitments[i];
       inputs[i + offsetRollupFee] = _request.outRollupFees[i];
     }
 
     // verify proof.
     bool verified = transactVerifiers[numInputs][numOutputs].verifier.verifyTx(_request.proof, inputs);
-    if (!verified)
-      revert CustomErrors.Invalid("transact proof");
+    if (!verified) revert CustomErrors.Invalid("transact proof");
 
     // set spent flag for serial numbers.
     for (uint256 i = 0; i < numInputs; i++) {
@@ -290,38 +259,28 @@ abstract contract CommitmentPool is ICommitmentPool, AssetPool, ReentrancyGuard,
     uint32 _numOutputs,
     IVerifier _transactVerifier
   ) external onlyOperator {
-    if (verifierUpdateDisabled)
-      revert CustomErrors.VerifierUpdatesHasBeenDisabled();
-    if (_numInputs <= 0)
-      revert CustomErrors.NumInputsGreaterThanZero();
+    if (verifierUpdateDisabled) revert CustomErrors.VerifierUpdatesHasBeenDisabled();
+    if (_numInputs <= 0) revert CustomErrors.NumInputsGreaterThanZero();
     transactVerifiers[_numInputs][_numOutputs] = WrappedVerifier(_transactVerifier, true);
   }
 
   function disableTransactVerifier(uint32 _numInputs, uint32 _numOutputs) external onlyOperator {
-    if (verifierUpdateDisabled)
-      revert CustomErrors.VerifierUpdatesHasBeenDisabled();
-    if (_numInputs <= 0)
-      revert CustomErrors.NumInputsGreaterThanZero();
+    if (verifierUpdateDisabled) revert CustomErrors.VerifierUpdatesHasBeenDisabled();
+    if (_numInputs <= 0) revert CustomErrors.NumInputsGreaterThanZero();
     transactVerifiers[_numInputs][_numOutputs].enabled = false;
   }
 
   function enableRollupVerifier(uint32 _rollupSize, IVerifier _rollupVerifier) external onlyOperator {
-    if (verifierUpdateDisabled)
-      revert CustomErrors.VerifierUpdatesHasBeenDisabled();
-    if (_rollupSize <= 0 || _rollupSize >= 256)
-      revert CustomErrors.Invalid("rollupSize");
-    if (_rollupSize & (_rollupSize - 1) != 0)
-      revert CustomErrors.RollupSizeNotPowerOfTwo();
+    if (verifierUpdateDisabled) revert CustomErrors.VerifierUpdatesHasBeenDisabled();
+    if (_rollupSize <= 0 || _rollupSize >= 256) revert CustomErrors.Invalid("rollupSize");
+    if (_rollupSize & (_rollupSize - 1) != 0) revert CustomErrors.RollupSizeNotPowerOfTwo();
     rollupVerifiers[_rollupSize] = WrappedVerifier(_rollupVerifier, true);
   }
 
   function disableRollupVerifier(uint32 _rollupSize) external onlyOperator {
-    if (verifierUpdateDisabled)
-      revert CustomErrors.VerifierUpdatesHasBeenDisabled();
-    if (_rollupSize <= 0 || _rollupSize >= 256)
-      revert CustomErrors.Invalid("rollupSize");
-    if (_rollupSize & (_rollupSize - 1) != 0)
-      revert CustomErrors.RollupSizeNotPowerOfTwo();
+    if (verifierUpdateDisabled) revert CustomErrors.VerifierUpdatesHasBeenDisabled();
+    if (_rollupSize <= 0 || _rollupSize >= 256) revert CustomErrors.Invalid("rollupSize");
+    if (_rollupSize & (_rollupSize - 1) != 0) revert CustomErrors.RollupSizeNotPowerOfTwo();
     rollupVerifiers[_rollupSize].enabled = false;
   }
 
@@ -342,8 +301,7 @@ abstract contract CommitmentPool is ICommitmentPool, AssetPool, ReentrancyGuard,
   }
 
   function setMinRollupFee(uint256 _minRollupFee) external onlyOperator {
-    if (_minRollupFee <= 0)
-      revert CustomErrors.Invalid("_minRollupFee");
+    if (_minRollupFee <= 0) revert CustomErrors.Invalid("_minRollupFee");
     minRollupFee = _minRollupFee;
   }
 
@@ -495,8 +453,7 @@ abstract contract CommitmentPool is ICommitmentPool, AssetPool, ReentrancyGuard,
 
   function _transactRequestHash(TransactRequest memory _request) internal returns (bytes32) {
     uint256 outNotesLen = _request.outEncryptedNotes.length;
-    if (outNotesLen >= 3)
-      revert CustomErrors.OutputNotesLessThanThree();
+    if (outNotesLen >= 3) revert CustomErrors.OutputNotesLessThanThree();
 
     address recipient = _request.publicRecipient;
     address relayerAddress = _request.relayerAddress;

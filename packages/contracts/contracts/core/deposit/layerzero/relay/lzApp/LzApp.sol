@@ -28,8 +28,7 @@ abstract contract LzApp is Ownable, ILayerZeroReceiver, ILayerZeroUserApplicatio
     bytes memory _payload
   ) public virtual override {
     // lzReceive must be called by the endpoint for security
-    if (_msgSender() != address(lzEndpoint))
-      revert CustomErrors.Invalid("endpoint caller");
+    if (_msgSender() != address(lzEndpoint)) revert CustomErrors.Invalid("endpoint caller");
 
     bytes memory trustedRemote = trustedRemoteLookup[_srcChainId];
     // if will still block the message pathway from (srcChainId, srcAddress). should not receive message from untrusted remote.
@@ -56,8 +55,7 @@ abstract contract LzApp is Ownable, ILayerZeroReceiver, ILayerZeroUserApplicatio
     uint256 _bridgeFee
   ) internal virtual {
     bytes memory trustedRemote = trustedRemoteLookup[_dstChainId];
-    if (trustedRemote.length == 0)
-      revert CustomErrors.DestinationChainIsNotTrusted();
+    if (trustedRemote.length == 0) revert CustomErrors.DestinationChainIsNotTrusted();
     lzEndpoint.send{value: _bridgeFee}(
       _dstChainId,
       trustedRemote,

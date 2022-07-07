@@ -16,20 +16,17 @@ contract MystikoTBridgeProxy is ICrossChainProxy {
   }
 
   modifier onlyOperator() {
-    if (msg.sender != operator)
-      revert CustomErrors.OnlyOperator();
+    if (msg.sender != operator) revert CustomErrors.OnlyOperator();
     _;
   }
 
   modifier onlyExecutorWhitelisted() {
-    if (!executorWhitelist[msg.sender])
-      revert CustomErrors.OnlyWhitelistedExecutor();
+    if (!executorWhitelist[msg.sender]) revert CustomErrors.OnlyWhitelistedExecutor();
     _;
   }
 
   modifier onlyRegisterWhitelisted() {
-    if (!registerWhitelist[msg.sender])
-      revert CustomErrors.OnlyRegister();
+    if (!registerWhitelist[msg.sender]) revert CustomErrors.OnlyRegister();
     _;
   }
 
@@ -75,7 +72,6 @@ contract MystikoTBridgeProxy is ICrossChainProxy {
 
   function withdraw(address _recipient) external payable onlyOperator {
     (bool success, ) = _recipient.call{value: address(this).balance}("");
-    if (!success)
-      revert CustomErrors.WithdrawFailed();
+    if (!success) revert CustomErrors.WithdrawFailed();
   }
 }
