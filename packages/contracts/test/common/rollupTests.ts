@@ -133,7 +133,7 @@ export function testRollup(
         commitmentPoolContract
           .connect(rollupAccount)
           .rollup([[proof.proofA, proof.proofB, proof.proofC], 1234, proof.newRoot, proof.leafHash]),
-      ).to.be.revertedWith('invalid rollupSize');
+      ).to.be.revertedWith('Invalid("rollupSize")');
     });
 
     it('should revert unsupported rollup Size', () => {
@@ -159,7 +159,7 @@ export function testRollup(
             proof.newRoot,
             protocol.randomBigInt().toString(),
           ]),
-      ).to.be.revertedWith('invalid leafHash');
+      ).to.be.revertedWith('Invalid("leafHash")');
     });
 
     it('should revert wrong proof', () => {
@@ -172,7 +172,7 @@ export function testRollup(
             protocol.randomBigInt().toString(),
             proof.leafHash,
           ]),
-      ).to.be.revertedWith('invalid proof');
+      ).to.be.revertedWith('Invalid("proof")');
     });
 
     it('should rollup successfully', async () => {

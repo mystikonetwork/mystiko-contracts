@@ -244,6 +244,66 @@ export function testLoopDeposit(
   });
 }
 
+export function loopDepositRevert(
+  contractName: string,
+  protocol: MystikoProtocolV2,
+  mystikoContract: any,
+  commitmentPool: any,
+  testTokenContract: TestToken,
+  sanctionList: DummySanctionsList,
+  accounts: Wallet[],
+  depositAmount: string,
+  isMainAsset: boolean,
+  cmInfo: CommitmentInfo<CommitmentOutput>,
+) {
+  let minTotalAmount: string;
+  let minRollupFee: string;
+  const { commitments } = cmInfo;
+  const numOfCommitments = commitments.length;
+  let expectBalance: string;
+
+  describe(`${contractName} deposit operations`, () => {
+    before(async () => {
+      minRollupFee = (await commitmentPool.getMinRollupFee()).toString();
+      minTotalAmount = toBN(depositAmount).add(toBN(minRollupFee)).toString();
+    });
+
+    it('should approve asset successfully', async () => {
+      if (!isMainAsset) {
+        const approveAmount = toBN(minTotalAmount).muln(commitments.length).toString();
+        await testTokenContract.approve(mystikoContract.address, approveAmount, {
+          from: accounts[0].address,
+        });
+      }
+    });
+
+    it('deposit should revert with tree full', async () => {
+      await sanctionList.addToSanctionsList(accounts[0].address);
+      await mystikoContract.setSanctionCheckDisabled(true);
+
+      for (let i = 0; i < numOfCommitments; i += 1) {
+        await expect(
+          mystikoContract.deposit(
+            [
+              depositAmount,
+              commitments[i].commitmentHash.toString(),
+              commitments[i].k.toString(),
+              commitments[i].randomS.toString(),
+              toHex(commitments[i].encryptedNote),
+              minRollupFee,
+            ],
+            { from: accounts[0].address, value: isMainAsset ? minTotalAmount : '0' },
+          ),
+        ).revertedWith('TreeIsFull()');
+
+        expect(await commitmentPool.isHistoricCommitment(commitments[i].commitmentHash.toString())).to.equal(
+          false,
+        );
+      }
+    });
+  });
+}
+
 export function loopDeposit(
   contractName: string,
   protocol: MystikoProtocolV2,
