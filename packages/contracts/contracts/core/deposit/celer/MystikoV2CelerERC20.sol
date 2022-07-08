@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.4;
+pragma solidity ^0.8.7;
 
 import "./MystikoV2Celer.sol";
 import "../../../libs/asset/ERC20AssetPool.sol";

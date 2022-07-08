@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.4;
+pragma solidity ^0.8.7;
 
 import "../../../libs/asset/AssetPool.sol";
 import "../../../libs/common/DataTypes.sol";
