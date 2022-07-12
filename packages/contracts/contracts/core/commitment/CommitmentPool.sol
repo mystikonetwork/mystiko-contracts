@@ -118,9 +118,9 @@ abstract contract CommitmentPool is ICommitmentPool, AssetPool, ReentrancyGuard,
     if (_request.newRoot >= DataTypes.FIELD_SIZE) revert CustomErrors.NewRootGreaterThanFieldSize();
     if (rootHistory[_request.newRoot]) revert CustomErrors.NewRootIsDuplicated();
     if (
+      !rollupVerifiers[_request.rollupSize].enabled ||
       _request.rollupSize <= 0 ||
-      _request.rollupSize > commitmentQueueSize ||
-      !rollupVerifiers[_request.rollupSize].enabled
+      _request.rollupSize > commitmentQueueSize
     ) revert CustomErrors.Invalid("rollupSize");
     uint256 includedCount = commitmentIncludedCount;
     if (includedCount % _request.rollupSize != 0) revert CustomErrors.Invalid("rollupSize");
