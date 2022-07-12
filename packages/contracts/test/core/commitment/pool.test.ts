@@ -367,26 +367,17 @@ describe('Test Mystiko pool', () => {
       cmInfo,
     );
 
-    testRollup(
-      'CommitmentPoolERC20',
-      protocol,
-      poolErc20,
-      rollup16,
-      testToken,
-      accounts,
-      cmInfo.commitments,
-      {
-        isMainAsset: false,
-        rollupSize: 16,
-        includedCount: 0,
-      },
-    );
-    testRollup('CommitmentPoolERC20', protocol, poolErc20, rollup4, testToken, accounts, cmInfo.commitments, {
+    rollup('CommitmentPoolERC20', protocol, poolErc20, rollup16, testToken, accounts, cmInfo.commitments, {
+      isMainAsset: false,
+      rollupSize: 16,
+      includedCount: 0,
+    });
+    rollup('CommitmentPoolERC20', protocol, poolErc20, rollup4, testToken, accounts, cmInfo.commitments, {
       isMainAsset: false,
       rollupSize: 4,
       includedCount: 16,
     });
-    testRollup('CommitmentPoolERC20', protocol, poolErc20, rollup1, testToken, accounts, cmInfo.commitments, {
+    rollup('CommitmentPoolERC20', protocol, poolErc20, rollup1, testToken, accounts, cmInfo.commitments, {
       isMainAsset: false,
       rollupSize: 1,
       includedCount: 20,
