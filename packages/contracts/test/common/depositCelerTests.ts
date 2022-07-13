@@ -13,6 +13,9 @@ import {
   SourceChainID,
   MinAmount,
   DefaultTokenAmount,
+  DefaultServiceFee,
+  DefaultServiceFeeDivider,
+  ServiceAccountIndex,
 } from '../util/constants';
 
 export function testCelerDeposit(
@@ -35,6 +38,7 @@ export function testCelerDeposit(
   let minRollupFee: string;
   let minExecutorFee: string;
   let minTotalAmount: string;
+  let serviceFee: string;
   let minTotalValue: string;
   const { commitments } = cmInfo;
   const numOfCommitments = commitments.length;
@@ -47,8 +51,10 @@ export function testCelerDeposit(
       minExecutorFee = (await mystikoContract.getMinExecutorFee()).toString();
       minRollupFee = (await commitmentPool.getMinRollupFee()).toString();
 
-      const amount = toBN(depositAmount).add(toBN(minExecutorFee)).add(toBN(minRollupFee));
+      const fee = toBN(depositAmount).mul(toBN(DefaultServiceFee)).div(toBN(DefaultServiceFeeDivider));
+      const amount = toBN(depositAmount).add(toBN(minExecutorFee)).add(toBN(minRollupFee)).add(fee);
       minTotalAmount = amount.toString();
+      serviceFee = fee.toString();
       if (isMainAsset) {
         minTotalValue = amount.add(toBN(minBridgeFee)).toString();
       } else {
@@ -237,6 +243,10 @@ export function testCelerDeposit(
       await sanctionList.addToSanctionsList(bridgeAccount.address);
       await mystikoContract.setSanctionCheckDisabled(true);
 
+      const serviceFeeBefore = isDstMainAsset
+        ? await waffle.provider.getBalance(accounts[ServiceAccountIndex].address)
+        : await await testTokenContract.balanceOf(accounts[ServiceAccountIndex].address);
+
       for (let i = 0; i < numOfCommitments; i += 1) {
         const balanceBefore = isDstMainAsset
           ? await waffle.provider.getBalance(bridgeAccount.address)
@@ -264,13 +274,27 @@ export function testCelerDeposit(
         if (isMainAsset) {
           expect(await waffle.provider.getBalance(commitmentPool.address)).to.be.equal(
             toBN(minTotalAmount)
+              .sub(toBN(serviceFee))
               .muln(i + 1)
+              .toString(),
+          );
+          expect(await waffle.provider.getBalance(accounts[ServiceAccountIndex].address)).to.be.equal(
+            toBN(serviceFee)
+              .muln(i + 1)
+              .add(toBN(serviceFeeBefore.toString()))
               .toString(),
           );
         } else {
           expect(await testTokenContract.balanceOf(commitmentPool.address)).to.be.equal(
             toBN(minTotalAmount)
+              .sub(toBN(serviceFee))
               .muln(i + 1)
+              .toString(),
+          );
+          expect(await testTokenContract.balanceOf(accounts[ServiceAccountIndex].address)).to.be.equal(
+            toBN(serviceFee)
+              .muln(i + 1)
+              .add(toBN(serviceFeeBefore.toString()))
               .toString(),
           );
         }
@@ -292,6 +316,7 @@ export function testCelerDeposit(
               .add(depositAmount)
               .add(minRollupFee)
               .add(minExecutorFee)
+              .add(serviceFee)
               .sub(balanceBefore)
               .toString(),
           );
@@ -331,7 +356,7 @@ export function testCelerDeposit(
     });
 
     it('should source contract have correct balance', async () => {
-      const expectBalance = toBN(minTotalAmount).muln(numOfCommitments).toString();
+      const expectBalance = toBN(minTotalAmount).sub(toBN(serviceFee)).muln(numOfCommitments).toString();
       expect(await waffle.provider.getBalance(bridgeContract.address)).to.be.equal(
         toBN(minBridgeFee).muln(numOfCommitments).toString(),
       );

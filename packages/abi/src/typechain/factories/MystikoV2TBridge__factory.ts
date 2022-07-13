@@ -89,6 +89,11 @@ const _abi = [
     type: 'error',
   },
   {
+    inputs: [],
+    name: 'ServiceFeeDividerTooSmall',
+    type: 'error',
+  },
+  {
     anonymous: false,
     inputs: [
       {
@@ -99,6 +104,97 @@ const _abi = [
       },
     ],
     name: 'CommitmentCrossChain',
+    type: 'event',
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: false,
+        internalType: 'bool',
+        name: 'state',
+        type: 'bool',
+      },
+    ],
+    name: 'DepositsDisabled',
+    type: 'event',
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: false,
+        internalType: 'uint256',
+        name: 'minAmount',
+        type: 'uint256',
+      },
+    ],
+    name: 'MinAmount',
+    type: 'event',
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: false,
+        internalType: 'uint256',
+        name: 'minBridgeFee',
+        type: 'uint256',
+      },
+    ],
+    name: 'MinBridgeFee',
+    type: 'event',
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: false,
+        internalType: 'uint256',
+        name: 'minExecutorFee',
+        type: 'uint256',
+      },
+    ],
+    name: 'MinExecutorFee',
+    type: 'event',
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: false,
+        internalType: 'address',
+        name: 'operator',
+        type: 'address',
+      },
+    ],
+    name: 'OperatorChanged',
+    type: 'event',
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: false,
+        internalType: 'uint256',
+        name: 'peerMinExecutorFee',
+        type: 'uint256',
+      },
+    ],
+    name: 'PeerMinExecutorFee',
+    type: 'event',
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: false,
+        internalType: 'uint256',
+        name: 'peerMinRollupFee',
+        type: 'uint256',
+      },
+    ],
+    name: 'PeerMinRollupFee',
     type: 'event',
   },
   {
@@ -128,6 +224,38 @@ const _abi = [
     type: 'event',
   },
   {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: false,
+        internalType: 'uint256',
+        name: 'serviceFee',
+        type: 'uint256',
+      },
+      {
+        indexed: false,
+        internalType: 'uint256',
+        name: 'serviceFeeDivider',
+        type: 'uint256',
+      },
+    ],
+    name: 'ServiceFeeChanged',
+    type: 'event',
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: false,
+        internalType: 'address',
+        name: 'servicer',
+        type: 'address',
+      },
+    ],
+    name: 'ServiceFeeCollectorChanged',
+    type: 'event',
+  },
+  {
     inputs: [],
     name: 'assetType',
     outputs: [
@@ -135,6 +263,19 @@ const _abi = [
         internalType: 'enum AssetPool.AssetType',
         name: '',
         type: 'uint8',
+      },
+    ],
+    stateMutability: 'view',
+    type: 'function',
+  },
+  {
+    inputs: [],
+    name: 'bridgeProxyAddress',
+    outputs: [
+      {
+        internalType: 'address',
+        name: '',
+        type: 'address',
       },
     ],
     stateMutability: 'view',
@@ -162,6 +303,37 @@ const _abi = [
       },
     ],
     name: 'changeOperator',
+    outputs: [],
+    stateMutability: 'nonpayable',
+    type: 'function',
+  },
+  {
+    inputs: [
+      {
+        internalType: 'uint256',
+        name: '_newServiceFee',
+        type: 'uint256',
+      },
+      {
+        internalType: 'uint256',
+        name: '_newServiceFeeDivider',
+        type: 'uint256',
+      },
+    ],
+    name: 'changeServiceFee',
+    outputs: [],
+    stateMutability: 'nonpayable',
+    type: 'function',
+  },
+  {
+    inputs: [
+      {
+        internalType: 'address',
+        name: '_newCollector',
+        type: 'address',
+      },
+    ],
+    name: 'changeServiceFeeCollector',
     outputs: [],
     stateMutability: 'nonpayable',
     type: 'function',
@@ -341,6 +513,45 @@ const _abi = [
         internalType: 'bool',
         name: '',
         type: 'bool',
+      },
+    ],
+    stateMutability: 'view',
+    type: 'function',
+  },
+  {
+    inputs: [],
+    name: 'peerChainId',
+    outputs: [
+      {
+        internalType: 'uint64',
+        name: '',
+        type: 'uint64',
+      },
+    ],
+    stateMutability: 'view',
+    type: 'function',
+  },
+  {
+    inputs: [],
+    name: 'peerChainName',
+    outputs: [
+      {
+        internalType: 'string',
+        name: '',
+        type: 'string',
+      },
+    ],
+    stateMutability: 'view',
+    type: 'function',
+  },
+  {
+    inputs: [],
+    name: 'peerContract',
+    outputs: [
+      {
+        internalType: 'address',
+        name: '',
+        type: 'address',
       },
     ],
     stateMutability: 'view',

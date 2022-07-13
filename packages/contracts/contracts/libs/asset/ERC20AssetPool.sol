@@ -15,11 +15,14 @@ abstract contract ERC20AssetPool is AssetPool {
 
   function _processDepositTransfer(
     address commitmentPool,
+    address serviceFeeCollector,
+    uint256 serviceFee,
     uint256 amount,
     uint256 bridgeFee
   ) internal virtual override {
     require(msg.value == bridgeFee, "bridge fee mismatch");
     asset.safeTransferFrom(msg.sender, commitmentPool, amount);
+    asset.safeTransferFrom(msg.sender, serviceFeeCollector, serviceFee);
   }
 
   function _processExecutorFeeTransfer(address executor, uint256 amount) internal override {

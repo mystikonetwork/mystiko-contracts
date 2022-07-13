@@ -5,7 +5,12 @@ import { DummySanctionsList, TestToken } from '@mystikonetwork/contracts-abi';
 import { CommitmentOutput, MystikoProtocolV2 } from '@mystikonetwork/protocol';
 import { toHex, toBN } from '@mystikonetwork/utils';
 import { CommitmentInfo } from './commitment';
-import { MinAmount } from '../util/constants';
+import {
+  DefaultServiceFee,
+  DefaultServiceFeeDivider,
+  MinAmount,
+  ServiceAccountIndex,
+} from '../util/constants';
 
 export function testLoopDeposit(
   contractName: string,
@@ -21,14 +26,18 @@ export function testLoopDeposit(
 ) {
   let minTotalAmount: string;
   let minRollupFee: string;
+  let serviceFee: string;
   const { commitments } = cmInfo;
   const numOfCommitments = commitments.length;
   let expectBalance: string;
+  let expectServiceFee: string;
 
   describe(`Test ${contractName} deposit operations`, () => {
     before(async () => {
       minRollupFee = (await commitmentPool.getMinRollupFee()).toString();
-      minTotalAmount = toBN(depositAmount).add(toBN(minRollupFee)).toString();
+      const fee = toBN(depositAmount).mul(toBN(DefaultServiceFee)).div(toBN(DefaultServiceFeeDivider));
+      minTotalAmount = toBN(depositAmount).add(toBN(minRollupFee)).add(fee).toString();
+      serviceFee = fee.toString();
     });
 
     it('should revert when deposit is disabled', async () => {
@@ -164,6 +173,12 @@ export function testLoopDeposit(
       await sanctionList.addToSanctionsList(accounts[0].address);
       await mystikoContract.setSanctionCheckDisabled(true);
 
+      expectServiceFee = (
+        isMainAsset
+          ? await waffle.provider.getBalance(accounts[ServiceAccountIndex].address)
+          : await await testTokenContract.balanceOf(accounts[ServiceAccountIndex].address)
+      ).toString();
+
       for (let i = 0; i < numOfCommitments; i += 1) {
         await expect(
           mystikoContract.deposit(
@@ -193,15 +208,23 @@ export function testLoopDeposit(
     });
 
     it('should have correct balance', async () => {
-      expectBalance = toBN(minTotalAmount).muln(numOfCommitments).toString();
+      expectBalance = toBN(minTotalAmount).sub(toBN(serviceFee)).muln(numOfCommitments).toString();
+      expectServiceFee = toBN(serviceFee).muln(numOfCommitments).add(toBN(expectServiceFee)).toString();
+
       if (isMainAsset) {
         expect(await waffle.provider.getBalance(mystikoContract.address)).to.equal('0');
         expect(await waffle.provider.getBalance(commitmentPool.address)).to.equal(expectBalance);
+        expect(await waffle.provider.getBalance(accounts[ServiceAccountIndex].address)).to.equal(
+          expectServiceFee,
+        );
       } else {
         expect((await testTokenContract.balanceOf(mystikoContract.address)).toString()).to.equal('0');
         expect((await testTokenContract.balanceOf(commitmentPool.address)).toString()).to.equal(
           expectBalance,
         );
+        expect(
+          (await testTokenContract.balanceOf(accounts[ServiceAccountIndex].address)).toString(),
+        ).to.equal(expectServiceFee);
       }
     });
 
@@ -234,11 +257,17 @@ export function testLoopDeposit(
       if (isMainAsset) {
         expect(await waffle.provider.getBalance(mystikoContract.address)).to.equal('0');
         expect(await waffle.provider.getBalance(commitmentPool.address)).to.equal(expectBalance);
+        expect(await waffle.provider.getBalance(accounts[ServiceAccountIndex].address)).to.equal(
+          expectServiceFee,
+        );
       } else {
         expect((await testTokenContract.balanceOf(mystikoContract.address)).toString()).to.equal('0');
         expect((await testTokenContract.balanceOf(commitmentPool.address)).toString()).to.equal(
           expectBalance,
         );
+        expect(
+          (await testTokenContract.balanceOf(accounts[ServiceAccountIndex].address)).toString(),
+        ).to.equal(expectServiceFee);
       }
     });
   });
@@ -317,14 +346,17 @@ export function loopDeposit(
 ) {
   let minTotalAmount: string;
   let minRollupFee: string;
+  let serviceFee: string;
+  let expectServiceFee: string;
   const { commitments } = cmInfo;
   const numOfCommitments = commitments.length;
-  let expectBalance: string;
 
   describe(`${contractName} deposit operations`, () => {
     before(async () => {
       minRollupFee = (await commitmentPool.getMinRollupFee()).toString();
-      minTotalAmount = toBN(depositAmount).add(toBN(minRollupFee)).toString();
+      const fee = toBN(depositAmount).mul(toBN(DefaultServiceFee)).div(toBN(DefaultServiceFeeDivider));
+      minTotalAmount = toBN(depositAmount).add(toBN(minRollupFee)).add(fee).toString();
+      serviceFee = fee.toString();
     });
 
     it('should approve asset successfully', async () => {
@@ -339,6 +371,11 @@ export function loopDeposit(
     it('should deposit successfully', async () => {
       await sanctionList.addToSanctionsList(accounts[0].address);
       await mystikoContract.setSanctionCheckDisabled(true);
+      expectServiceFee = (
+        isMainAsset
+          ? await waffle.provider.getBalance(accounts[ServiceAccountIndex].address)
+          : await await testTokenContract.balanceOf(accounts[ServiceAccountIndex].address)
+      ).toString();
 
       for (let i = 0; i < numOfCommitments; i += 1) {
         await expect(
@@ -369,15 +406,23 @@ export function loopDeposit(
     });
 
     it('should have correct balance', async () => {
-      expectBalance = toBN(minTotalAmount).muln(numOfCommitments).toString();
+      const expectBalance = toBN(minTotalAmount).sub(toBN(serviceFee)).muln(numOfCommitments).toString();
+      expectServiceFee = toBN(serviceFee).muln(numOfCommitments).add(toBN(expectServiceFee)).toString();
+
       if (isMainAsset) {
         expect(await waffle.provider.getBalance(mystikoContract.address)).to.equal('0');
         expect(await waffle.provider.getBalance(commitmentPool.address)).to.equal(expectBalance);
+        expect(await waffle.provider.getBalance(accounts[ServiceAccountIndex].address)).to.equal(
+          expectServiceFee,
+        );
       } else {
         expect((await testTokenContract.balanceOf(mystikoContract.address)).toString()).to.equal('0');
         expect((await testTokenContract.balanceOf(commitmentPool.address)).toString()).to.equal(
           expectBalance,
         );
+        expect(
+          (await testTokenContract.balanceOf(accounts[ServiceAccountIndex].address)).toString(),
+        ).to.equal(expectServiceFee);
       }
     });
   });

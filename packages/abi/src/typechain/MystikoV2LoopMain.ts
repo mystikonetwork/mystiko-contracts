@@ -44,6 +44,8 @@ export interface MystikoV2LoopMainInterface extends utils.Interface {
     'assetType()': FunctionFragment;
     'bridgeType()': FunctionFragment;
     'changeOperator(address)': FunctionFragment;
+    'changeServiceFee(uint256,uint256)': FunctionFragment;
+    'changeServiceFeeCollector(address)': FunctionFragment;
     'deposit((uint256,uint256,uint256,uint128,bytes,uint256))': FunctionFragment;
     'getAssociatedCommitmentPool()': FunctionFragment;
     'getMinAmount()': FunctionFragment;
@@ -60,6 +62,8 @@ export interface MystikoV2LoopMainInterface extends utils.Interface {
   encodeFunctionData(functionFragment: 'assetType', values?: undefined): string;
   encodeFunctionData(functionFragment: 'bridgeType', values?: undefined): string;
   encodeFunctionData(functionFragment: 'changeOperator', values: [string]): string;
+  encodeFunctionData(functionFragment: 'changeServiceFee', values: [BigNumberish, BigNumberish]): string;
+  encodeFunctionData(functionFragment: 'changeServiceFeeCollector', values: [string]): string;
   encodeFunctionData(functionFragment: 'deposit', values: [IMystikoLoop.DepositRequestStruct]): string;
   encodeFunctionData(functionFragment: 'getAssociatedCommitmentPool', values?: undefined): string;
   encodeFunctionData(functionFragment: 'getMinAmount', values?: undefined): string;
@@ -75,6 +79,8 @@ export interface MystikoV2LoopMainInterface extends utils.Interface {
   decodeFunctionResult(functionFragment: 'assetType', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'bridgeType', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'changeOperator', data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'changeServiceFee', data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'changeServiceFeeCollector', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'deposit', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'getAssociatedCommitmentPool', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'getMinAmount', data: BytesLike): Result;
@@ -93,6 +99,8 @@ export interface MystikoV2LoopMainInterface extends utils.Interface {
     'OperatorChanged(address)': EventFragment;
     'SanctionsCheckDisabled(bool)': EventFragment;
     'SanctionsList(address)': EventFragment;
+    'ServiceFeeChanged(uint256,uint256)': EventFragment;
+    'ServiceFeeCollectorChanged(address)': EventFragment;
   };
 
   getEvent(nameOrSignatureOrTopic: 'DepositsDisabled'): EventFragment;
@@ -100,6 +108,8 @@ export interface MystikoV2LoopMainInterface extends utils.Interface {
   getEvent(nameOrSignatureOrTopic: 'OperatorChanged'): EventFragment;
   getEvent(nameOrSignatureOrTopic: 'SanctionsCheckDisabled'): EventFragment;
   getEvent(nameOrSignatureOrTopic: 'SanctionsList'): EventFragment;
+  getEvent(nameOrSignatureOrTopic: 'ServiceFeeChanged'): EventFragment;
+  getEvent(nameOrSignatureOrTopic: 'ServiceFeeCollectorChanged'): EventFragment;
 }
 
 export type DepositsDisabledEvent = TypedEvent<[boolean], { state: boolean }>;
@@ -121,6 +131,17 @@ export type SanctionsCheckDisabledEventFilter = TypedEventFilter<SanctionsCheckD
 export type SanctionsListEvent = TypedEvent<[string], { sanctions: string }>;
 
 export type SanctionsListEventFilter = TypedEventFilter<SanctionsListEvent>;
+
+export type ServiceFeeChangedEvent = TypedEvent<
+  [BigNumber, BigNumber],
+  { serviceFee: BigNumber; serviceFeeDivider: BigNumber }
+>;
+
+export type ServiceFeeChangedEventFilter = TypedEventFilter<ServiceFeeChangedEvent>;
+
+export type ServiceFeeCollectorChangedEvent = TypedEvent<[string], { servicer: string }>;
+
+export type ServiceFeeCollectorChangedEventFilter = TypedEventFilter<ServiceFeeCollectorChangedEvent>;
 
 export interface MystikoV2LoopMain extends BaseContract {
   contractName: 'MystikoV2LoopMain';
@@ -152,6 +173,17 @@ export interface MystikoV2LoopMain extends BaseContract {
 
     changeOperator(
       _newOperator: string,
+      overrides?: Overrides & { from?: string | Promise<string> },
+    ): Promise<ContractTransaction>;
+
+    changeServiceFee(
+      _newServiceFee: BigNumberish,
+      _newServiceFeeDivider: BigNumberish,
+      overrides?: Overrides & { from?: string | Promise<string> },
+    ): Promise<ContractTransaction>;
+
+    changeServiceFeeCollector(
+      _newCollector: string,
       overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<ContractTransaction>;
 
@@ -205,6 +237,17 @@ export interface MystikoV2LoopMain extends BaseContract {
     overrides?: Overrides & { from?: string | Promise<string> },
   ): Promise<ContractTransaction>;
 
+  changeServiceFee(
+    _newServiceFee: BigNumberish,
+    _newServiceFeeDivider: BigNumberish,
+    overrides?: Overrides & { from?: string | Promise<string> },
+  ): Promise<ContractTransaction>;
+
+  changeServiceFeeCollector(
+    _newCollector: string,
+    overrides?: Overrides & { from?: string | Promise<string> },
+  ): Promise<ContractTransaction>;
+
   deposit(
     _request: IMystikoLoop.DepositRequestStruct,
     overrides?: PayableOverrides & { from?: string | Promise<string> },
@@ -252,6 +295,14 @@ export interface MystikoV2LoopMain extends BaseContract {
 
     changeOperator(_newOperator: string, overrides?: CallOverrides): Promise<void>;
 
+    changeServiceFee(
+      _newServiceFee: BigNumberish,
+      _newServiceFeeDivider: BigNumberish,
+      overrides?: CallOverrides,
+    ): Promise<void>;
+
+    changeServiceFeeCollector(_newCollector: string, overrides?: CallOverrides): Promise<void>;
+
     deposit(_request: IMystikoLoop.DepositRequestStruct, overrides?: CallOverrides): Promise<void>;
 
     getAssociatedCommitmentPool(overrides?: CallOverrides): Promise<string>;
@@ -290,6 +341,15 @@ export interface MystikoV2LoopMain extends BaseContract {
 
     'SanctionsList(address)'(sanctions?: null): SanctionsListEventFilter;
     SanctionsList(sanctions?: null): SanctionsListEventFilter;
+
+    'ServiceFeeChanged(uint256,uint256)'(
+      serviceFee?: null,
+      serviceFeeDivider?: null,
+    ): ServiceFeeChangedEventFilter;
+    ServiceFeeChanged(serviceFee?: null, serviceFeeDivider?: null): ServiceFeeChangedEventFilter;
+
+    'ServiceFeeCollectorChanged(address)'(servicer?: null): ServiceFeeCollectorChangedEventFilter;
+    ServiceFeeCollectorChanged(servicer?: null): ServiceFeeCollectorChangedEventFilter;
   };
 
   estimateGas: {
@@ -299,6 +359,17 @@ export interface MystikoV2LoopMain extends BaseContract {
 
     changeOperator(
       _newOperator: string,
+      overrides?: Overrides & { from?: string | Promise<string> },
+    ): Promise<BigNumber>;
+
+    changeServiceFee(
+      _newServiceFee: BigNumberish,
+      _newServiceFeeDivider: BigNumberish,
+      overrides?: Overrides & { from?: string | Promise<string> },
+    ): Promise<BigNumber>;
+
+    changeServiceFeeCollector(
+      _newCollector: string,
       overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<BigNumber>;
 
@@ -350,6 +421,17 @@ export interface MystikoV2LoopMain extends BaseContract {
 
     changeOperator(
       _newOperator: string,
+      overrides?: Overrides & { from?: string | Promise<string> },
+    ): Promise<PopulatedTransaction>;
+
+    changeServiceFee(
+      _newServiceFee: BigNumberish,
+      _newServiceFeeDivider: BigNumberish,
+      overrides?: Overrides & { from?: string | Promise<string> },
+    ): Promise<PopulatedTransaction>;
+
+    changeServiceFeeCollector(
+      _newCollector: string,
       overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<PopulatedTransaction>;
 

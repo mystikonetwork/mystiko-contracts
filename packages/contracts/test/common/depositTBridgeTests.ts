@@ -14,6 +14,9 @@ import {
   SourceChainID,
   MinAmount,
   DefaultTokenAmount,
+  DefaultServiceFee,
+  DefaultServiceFeeDivider,
+  ServiceAccountIndex,
 } from '../util/constants';
 
 export function testTBridgeDeposit(
@@ -36,6 +39,7 @@ export function testTBridgeDeposit(
   let minRollupFee: string;
   let minExecutorFee: string;
   let minTotalAmount: string;
+  let serviceFee: string;
   let minTotalValue: string;
   const { commitments } = cmInfo;
   const numOfCommitments = commitments.length;
@@ -49,8 +53,10 @@ export function testTBridgeDeposit(
       minExecutorFee = (await mystikoContract.getMinExecutorFee()).toString();
       minRollupFee = (await commitmentPool.getMinRollupFee()).toString();
 
-      const amount = toBN(depositAmount).add(toBN(minExecutorFee)).add(toBN(minRollupFee));
+      const fee = toBN(depositAmount).mul(toBN(DefaultServiceFee)).div(toBN(DefaultServiceFeeDivider));
+      const amount = toBN(depositAmount).add(toBN(minExecutorFee)).add(toBN(minRollupFee)).add(fee);
       minTotalAmount = amount.toString();
+      serviceFee = fee.toString();
       if (isMainAsset) {
         minTotalValue = amount.add(toBN(minBridgeFee)).toString();
       } else {
@@ -234,6 +240,10 @@ export function testTBridgeDeposit(
       await sanctionList.addToSanctionsList(accounts[0].address);
       await mystikoContract.setSanctionCheckDisabled(true);
 
+      const serviceFeeBefore = isDstMainAsset
+        ? await waffle.provider.getBalance(accounts[ServiceAccountIndex].address)
+        : await await testTokenContract.balanceOf(accounts[ServiceAccountIndex].address);
+
       for (let i = 0; i < numOfCommitments; i += 1) {
         const depositTx = await mystikoContract.deposit(
           [
@@ -270,13 +280,27 @@ export function testTBridgeDeposit(
         if (isMainAsset) {
           expect(await waffle.provider.getBalance(commitmentPool.address)).to.be.equal(
             toBN(minTotalAmount)
+              .sub(toBN(serviceFee))
               .muln(i + 1)
+              .toString(),
+          );
+          expect(await waffle.provider.getBalance(accounts[ServiceAccountIndex].address)).to.be.equal(
+            toBN(serviceFee)
+              .muln(i + 1)
+              .add(toBN(serviceFeeBefore.toString()))
               .toString(),
           );
         } else {
           expect(await testTokenContract.balanceOf(commitmentPool.address)).to.be.equal(
             toBN(minTotalAmount)
+              .sub(toBN(serviceFee))
               .muln(i + 1)
+              .toString(),
+          );
+          expect(await testTokenContract.balanceOf(accounts[ServiceAccountIndex].address)).to.be.equal(
+            toBN(serviceFee)
+              .muln(i + 1)
+              .add(toBN(serviceFeeBefore.toString()))
               .toString(),
           );
         }
@@ -308,7 +332,10 @@ export function testTBridgeDeposit(
     it('should bridge deposit transaction success', async () => {
       for (let i = 0; i < numOfCommitments; i += 1) {
         if (!isDstMainAsset) {
-          const approveAmount = toBN(minTotalAmount).muln(commitments.length).toString();
+          const approveAmount = toBN(minTotalAmount)
+            .sub(toBN(serviceFee))
+            .muln(commitments.length)
+            .toString();
           await testTokenContract.connect(bridgeAccount).approve(mystikoContract.address, approveAmount, {
             from: bridgeAccount.address,
           });
@@ -380,7 +407,7 @@ export function testTBridgeDeposit(
     });
 
     it('should source contract have correct balance', async () => {
-      const expectBalance = toBN(minTotalAmount).muln(numOfCommitments).toString();
+      const expectBalance = toBN(minTotalAmount).sub(toBN(serviceFee)).muln(numOfCommitments).toString();
       expect(await waffle.provider.getBalance(bridgeContract.address)).to.be.equal(
         toBN(minBridgeFee).muln(numOfCommitments).toString(),
       );
@@ -395,7 +422,7 @@ export function testTBridgeDeposit(
 
     it('should approve asset successfully', async () => {
       if (!isMainAsset) {
-        const approveAmount = toBN(minTotalAmount).muln(commitments.length).toString();
+        const approveAmount = toBN(minTotalAmount).sub(toBN(serviceFee)).muln(commitments.length).toString();
         await testTokenContract.approve(mystikoContract.address, approveAmount, {
           from: accounts[0].address,
         });

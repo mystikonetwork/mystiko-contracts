@@ -38,4 +38,5 @@ library CustomErrors {
   error OnlyRegister();
   error CallCrossChainSyncTxError();
   error WithdrawFailed();
+  error ServiceFeeDividerTooSmall();
 }

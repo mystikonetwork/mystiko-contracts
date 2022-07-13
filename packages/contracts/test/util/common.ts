@@ -68,6 +68,9 @@ import {
   MinAmount,
   BridgeAccountIndex,
   LzChainID,
+  ServiceAccountIndex,
+  DefaultServiceFee,
+  DefaultServiceFeeDivider,
 } from './constants';
 
 // Workaround for https://github.com/nomiclabs/hardhat/issues/849
@@ -155,6 +158,8 @@ export async function deployLoopContracts(
   await coreMain.setMinAmount(minAmount);
   await coreMain.setAssociatedCommitmentPool(poolMain.address);
   await coreMain.updateSanctionsListAddress(sanctionListAddress);
+  await coreMain.changeServiceFeeCollector(accounts[ServiceAccountIndex].address);
+  await coreMain.changeServiceFee(DefaultServiceFee, DefaultServiceFeeDivider);
   await poolMain.addEnqueueWhitelist(coreMain.address);
 
   const loopERC20Factory = (await ethers.getContractFactory(
@@ -165,6 +170,8 @@ export async function deployLoopContracts(
   await coreERC20.setMinAmount(minAmount);
   await coreERC20.setAssociatedCommitmentPool(poolERC20.address);
   await coreERC20.updateSanctionsListAddress(sanctionListAddress);
+  await coreERC20.changeServiceFeeCollector(accounts[ServiceAccountIndex].address);
+  await coreERC20.changeServiceFee(DefaultServiceFee, DefaultServiceFeeDivider);
   await poolERC20.addEnqueueWhitelist(coreERC20.address);
 
   return { coreMain, coreERC20 };
@@ -199,6 +206,8 @@ export async function deployTBridgeContracts(
   await coreMain.setPeerMinExecutorFee(minExecutorFee);
   await coreMain.setPeerMinRollupFee(minRollupFee);
   await coreMain.updateSanctionsListAddress(sanctionListAddress);
+  await coreMain.changeServiceFeeCollector(accounts[ServiceAccountIndex].address);
+  await coreMain.changeServiceFee(DefaultServiceFee, DefaultServiceFeeDivider);
   await poolMain.addEnqueueWhitelist(coreMain.address);
   await tbridge.addRegisterWhitelist(coreMain.address);
 
@@ -216,6 +225,8 @@ export async function deployTBridgeContracts(
   await coreERC20.setPeerMinExecutorFee(minExecutorFee);
   await coreERC20.setPeerMinRollupFee(minRollupFee);
   await coreERC20.updateSanctionsListAddress(sanctionListAddress);
+  await coreERC20.changeServiceFeeCollector(accounts[ServiceAccountIndex].address);
+  await coreERC20.changeServiceFee(DefaultServiceFee, DefaultServiceFeeDivider);
   await poolERC20.addEnqueueWhitelist(coreERC20.address);
   await tbridge.addRegisterWhitelist(coreERC20.address);
 
@@ -251,6 +262,8 @@ export async function deployCelerContracts(
   await coreMain.setPeerMinExecutorFee(minExecutorFee);
   await coreMain.setPeerMinRollupFee(minRollupFee);
   await coreMain.updateSanctionsListAddress(sanctionListAddress);
+  await coreMain.changeServiceFeeCollector(accounts[ServiceAccountIndex].address);
+  await coreMain.changeServiceFee(DefaultServiceFee, DefaultServiceFeeDivider);
   await poolMain.addEnqueueWhitelist(coreMain.address);
 
   const celerERC20Factory = (await ethers.getContractFactory(
@@ -267,6 +280,8 @@ export async function deployCelerContracts(
   await coreERC20.setPeerMinExecutorFee(minExecutorFee);
   await coreERC20.setPeerMinRollupFee(minRollupFee);
   await coreERC20.updateSanctionsListAddress(sanctionListAddress);
+  await coreERC20.changeServiceFeeCollector(accounts[ServiceAccountIndex].address);
+  await coreERC20.changeServiceFee(DefaultServiceFee, DefaultServiceFeeDivider);
   await poolERC20.addEnqueueWhitelist(coreERC20.address);
 
   return { coreMain, coreERC20 };
@@ -301,6 +316,8 @@ export async function deployLayerZeroContracts(
   await coreMain.setPeerMinRollupFee(minRollupFee);
   await coreMain.updateSanctionsListAddress(sanctionListAddress);
   await coreMain.setEndpoint(LzChainID, dummyLZEndpoint.address);
+  await coreMain.changeServiceFeeCollector(accounts[ServiceAccountIndex].address);
+  await coreMain.changeServiceFee(DefaultServiceFee, DefaultServiceFeeDivider);
   await poolMain.addEnqueueWhitelist(coreMain.address);
 
   const lzERC20Factory = (await ethers.getContractFactory(
@@ -317,6 +334,8 @@ export async function deployLayerZeroContracts(
   await coreERC20.setPeerMinRollupFee(minRollupFee);
   await coreERC20.updateSanctionsListAddress(sanctionListAddress);
   await coreERC20.setEndpoint(LzChainID, dummyLZEndpoint.address);
+  await coreERC20.changeServiceFeeCollector(accounts[ServiceAccountIndex].address);
+  await coreERC20.changeServiceFee(DefaultServiceFee, DefaultServiceFeeDivider);
   await poolERC20.addEnqueueWhitelist(coreERC20.address);
 
   return { coreMain, coreERC20 };
@@ -353,6 +372,8 @@ export async function deployAxelarContracts(
   await coreMain.updateSanctionsListAddress(sanctionListAddress);
   await coreMain.setBridgeProxyAddress(dummyAxelarGateway.address);
   await coreMain.setAxelarGasReceiver(dummyAxelarGasService.address);
+  await coreMain.changeServiceFeeCollector(accounts[ServiceAccountIndex].address);
+  await coreMain.changeServiceFee(DefaultServiceFee, DefaultServiceFeeDivider);
   await poolMain.addEnqueueWhitelist(coreMain.address);
 
   const lzERC20Factory = (await ethers.getContractFactory(
@@ -370,6 +391,8 @@ export async function deployAxelarContracts(
   await coreERC20.updateSanctionsListAddress(sanctionListAddress);
   await coreERC20.setBridgeProxyAddress(dummyAxelarGateway.address);
   await coreERC20.setAxelarGasReceiver(dummyAxelarGasService.address);
+  await coreERC20.changeServiceFeeCollector(accounts[ServiceAccountIndex].address);
+  await coreERC20.changeServiceFee(DefaultServiceFee, DefaultServiceFeeDivider);
   await poolERC20.addEnqueueWhitelist(coreERC20.address);
 
   return { coreMain, coreERC20 };

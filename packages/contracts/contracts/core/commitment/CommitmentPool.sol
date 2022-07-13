@@ -81,7 +81,7 @@ abstract contract CommitmentPool is ICommitmentPool, AssetPool, ReentrancyGuard,
   event RollupWhitelistDisabled(bool state);
 
   constructor(uint8 _treeHeight) {
-    if (_treeHeight <= 0) revert CustomErrors.TreeHeightLessThanZero();
+    if (_treeHeight == 0) revert CustomErrors.TreeHeightLessThanZero();
     operator = msg.sender;
     treeCapacity = 1 << _treeHeight;
     currentRoot = _zeros(_treeHeight);
@@ -117,11 +117,8 @@ abstract contract CommitmentPool is ICommitmentPool, AssetPool, ReentrancyGuard,
   function rollup(RollupRequest memory _request) external override onlyRollupWhitelisted {
     if (_request.newRoot >= DataTypes.FIELD_SIZE) revert CustomErrors.NewRootGreaterThanFieldSize();
     if (rootHistory[_request.newRoot]) revert CustomErrors.NewRootIsDuplicated();
-    if (
-      !rollupVerifiers[_request.rollupSize].enabled ||
-      _request.rollupSize <= 0 ||
-      _request.rollupSize > commitmentQueueSize
-    ) revert CustomErrors.Invalid("rollupSize");
+    if (_request.rollupSize > commitmentQueueSize || !rollupVerifiers[_request.rollupSize].enabled)
+      revert CustomErrors.Invalid("rollupSize");
     uint256 includedCount = commitmentIncludedCount;
     if (includedCount % _request.rollupSize != 0) revert CustomErrors.Invalid("rollupSize");
     uint256 pathIndices = _pathIndices(includedCount, _request.rollupSize);
@@ -260,26 +257,26 @@ abstract contract CommitmentPool is ICommitmentPool, AssetPool, ReentrancyGuard,
     IVerifier _transactVerifier
   ) external onlyOperator {
     if (verifierUpdateDisabled) revert CustomErrors.VerifierUpdatesHasBeenDisabled();
-    if (_numInputs <= 0) revert CustomErrors.NumInputsGreaterThanZero();
+    if (_numInputs == 0) revert CustomErrors.NumInputsGreaterThanZero();
     transactVerifiers[_numInputs][_numOutputs] = WrappedVerifier(_transactVerifier, true);
   }
 
   function disableTransactVerifier(uint32 _numInputs, uint32 _numOutputs) external onlyOperator {
     if (verifierUpdateDisabled) revert CustomErrors.VerifierUpdatesHasBeenDisabled();
-    if (_numInputs <= 0) revert CustomErrors.NumInputsGreaterThanZero();
+    if (_numInputs == 0) revert CustomErrors.NumInputsGreaterThanZero();
     transactVerifiers[_numInputs][_numOutputs].enabled = false;
   }
 
   function enableRollupVerifier(uint32 _rollupSize, IVerifier _rollupVerifier) external onlyOperator {
     if (verifierUpdateDisabled) revert CustomErrors.VerifierUpdatesHasBeenDisabled();
-    if (_rollupSize <= 0 || _rollupSize >= 256) revert CustomErrors.Invalid("rollupSize");
+    if (_rollupSize == 0 || _rollupSize > 1024) revert CustomErrors.Invalid("rollupSize");
     if (_rollupSize & (_rollupSize - 1) != 0) revert CustomErrors.RollupSizeNotPowerOfTwo();
     rollupVerifiers[_rollupSize] = WrappedVerifier(_rollupVerifier, true);
   }
 
   function disableRollupVerifier(uint32 _rollupSize) external onlyOperator {
     if (verifierUpdateDisabled) revert CustomErrors.VerifierUpdatesHasBeenDisabled();
-    if (_rollupSize <= 0 || _rollupSize >= 256) revert CustomErrors.Invalid("rollupSize");
+    if (_rollupSize == 0 || _rollupSize > 1024) revert CustomErrors.Invalid("rollupSize");
     if (_rollupSize & (_rollupSize - 1) != 0) revert CustomErrors.RollupSizeNotPowerOfTwo();
     rollupVerifiers[_rollupSize].enabled = false;
   }
@@ -301,7 +298,7 @@ abstract contract CommitmentPool is ICommitmentPool, AssetPool, ReentrancyGuard,
   }
 
   function setMinRollupFee(uint256 _minRollupFee) external onlyOperator {
-    if (_minRollupFee <= 0) revert CustomErrors.Invalid("_minRollupFee");
+    if (_minRollupFee == 0) revert CustomErrors.Invalid("_minRollupFee");
     minRollupFee = _minRollupFee;
   }
 
@@ -435,6 +432,11 @@ abstract contract CommitmentPool is ICommitmentPool, AssetPool, ReentrancyGuard,
   }
 
   function _pathIndices(uint256 _fullPath, uint32 _rollupSize) public pure returns (uint256) {
+    if (_rollupSize >= 0x100) {
+      _rollupSize >>= 8;
+      _fullPath >>= 8;
+    }
+
     if (_rollupSize >= 0x10) {
       _rollupSize >>= 4;
       _fullPath >>= 4;
