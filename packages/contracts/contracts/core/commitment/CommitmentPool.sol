@@ -2,8 +2,8 @@
 pragma solidity ^0.8.7;
 
 import "../../libs/asset/AssetPool.sol";
-import "../../libs/common/DataTypes.sol";
 import "../../libs/common/CustomErrors.sol";
+import "../../libs/verifiers/Pairing.sol";
 import "../../interface/IHasher3.sol";
 import "../../interface/IVerifier.sol";
 import "../../interface/ICommitmentPool.sol";
@@ -115,7 +115,6 @@ abstract contract CommitmentPool is ICommitmentPool, AssetPool, ReentrancyGuard,
    *  @param _request     The rollup request parameter
    */
   function rollup(RollupRequest memory _request) external override onlyRollupWhitelisted {
-    if (_request.newRoot >= DataTypes.FIELD_SIZE) revert CustomErrors.NewRootGreaterThanFieldSize();
     if (rootHistory[_request.newRoot]) revert CustomErrors.NewRootIsDuplicated();
     if (_request.rollupSize > commitmentQueueSize || !rollupVerifiers[_request.rollupSize].enabled)
       revert CustomErrors.Invalid("rollupSize");
@@ -134,7 +133,7 @@ abstract contract CommitmentPool is ICommitmentPool, AssetPool, ReentrancyGuard,
       emit CommitmentIncluded(leaf.commitment);
     }
     commitmentQueueSize -= _request.rollupSize;
-    uint256 expectedLeafHash = uint256(keccak256(abi.encodePacked(leaves))) % DataTypes.FIELD_SIZE;
+    uint256 expectedLeafHash = uint256(keccak256(abi.encodePacked(leaves))) % Pairing.FIELD_SIZE;
     if (_request.leafHash != expectedLeafHash) revert CustomErrors.Invalid("leafHash");
     uint256[] memory inputs = new uint256[](4);
     inputs[0] = currentRoot;
@@ -169,8 +168,8 @@ abstract contract CommitmentPool is ICommitmentPool, AssetPool, ReentrancyGuard,
 
     // check signature
     bytes32 hash = _transactRequestHash(_request);
-    address recoveredSigPk = ECDSA.recover(hash, _signature);
-    if (_request.sigPk != bytes32(uint256(uint160(recoveredSigPk)))) revert CustomErrors.Invalid("signature");
+    if (_request.sigPk != bytes32(uint256(uint160(ECDSA.recover(hash, _signature)))))
+      revert CustomErrors.Invalid("signature");
 
     // initialize inputs array for verifying proof.
     uint256 totalInput = 2 * numInputs;
@@ -186,15 +185,10 @@ abstract contract CommitmentPool is ICommitmentPool, AssetPool, ReentrancyGuard,
     for (uint256 i = 0; i < numInputs; i++) {
       uint256 sn = _request.serialNumbers[i];
       if (spentSerialNumbers[sn]) revert CustomErrors.NoteHasBeenSpent();
-      if (sn >= DataTypes.FIELD_SIZE) revert CustomErrors.Invalid("note");
-      if (_request.sigHashes[i] >= DataTypes.FIELD_SIZE) revert CustomErrors.Invalid("sigHash");
       inputs[i + 1] = sn;
       inputs[i + offsetSigHash] = _request.sigHashes[i];
     }
 
-    if (uint256(_request.sigPk) >= DataTypes.FIELD_SIZE) revert CustomErrors.Invalid("sigPk");
-    if (_request.publicAmount >= DataTypes.FIELD_SIZE) revert CustomErrors.Invalid("amount");
-    if (_request.relayerFeeAmount >= DataTypes.FIELD_SIZE) revert CustomErrors.Invalid("relayer fee amount");
     inputs[totalInput + 1] = uint256(_request.sigPk);
     inputs[totalInput + 2] = _request.publicAmount;
     inputs[totalInput + 3] = _request.relayerFeeAmount;
@@ -203,9 +197,7 @@ abstract contract CommitmentPool is ICommitmentPool, AssetPool, ReentrancyGuard,
     uint256 offsetRollupFee = allInput + numOutputs;
     for (uint256 i = 0; i < numOutputs; i++) {
       if (historicCommitments[_request.outCommitments[i]]) revert CustomErrors.Duplicated("commitment");
-      if (_request.outCommitments[i] >= DataTypes.FIELD_SIZE) revert CustomErrors.Invalid("out commitment");
       if (_request.outRollupFees[i] < minRollupFee) revert CustomErrors.RollupFeeToFew();
-      if (_request.outRollupFees[i] >= DataTypes.FIELD_SIZE) revert CustomErrors.Invalid("out rollup fee");
       inputs[i + allInput] = _request.outCommitments[i];
       inputs[i + offsetRollupFee] = _request.outRollupFees[i];
     }

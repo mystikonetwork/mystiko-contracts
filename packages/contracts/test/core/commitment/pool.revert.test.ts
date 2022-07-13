@@ -6,6 +6,8 @@ import {
   TestToken,
   CommitmentPoolMain,
   DummySanctionsList,
+  CommitmentPoolERC20,
+  MystikoV2LoopERC20,
 } from '@mystikonetwork/contracts-abi';
 import { MystikoProtocolV2, ProtocolFactoryV2 } from '@mystikonetwork/protocol';
 import { toDecimals } from '@mystikonetwork/utils';
@@ -69,6 +71,8 @@ describe('Test Mystiko pool revert', () => {
   let sanctionList: DummySanctionsList;
   let poolMain: CommitmentPoolMain;
   let loopMain: MystikoV2LoopMain;
+  let poolErc20: CommitmentPoolERC20;
+  let loopERC20: MystikoV2LoopERC20;
   let protocol: MystikoProtocolV2;
 
   beforeEach(async () => {
@@ -82,6 +86,8 @@ describe('Test Mystiko pool revert', () => {
 
     poolMain = r.pool.poolMain;
     loopMain = r.loop.coreMain;
+    poolErc20 = r.pool.poolERC20;
+    loopERC20 = r.loop.coreERC20;
   });
 
   it('test pool main', async () => {
@@ -114,6 +120,40 @@ describe('Test Mystiko pool revert', () => {
       accounts,
       depositAmount.toString(),
       true,
+      cmInfo2,
+    );
+  });
+
+  it('test pool erc20', async () => {
+    const depositAmount = toDecimals(40);
+
+    const count = 2;
+    const cmInfo1 = await constructCommitment(protocol, count, depositAmount.toString());
+
+    await loopDeposit(
+      'MystikoV2LoopERC20',
+      protocol,
+      loopERC20,
+      poolErc20,
+      testToken,
+      sanctionList,
+      accounts,
+      depositAmount.toString(),
+      false,
+      cmInfo1,
+    );
+
+    const cmInfo2 = await constructCommitment(protocol, count, depositAmount.toString());
+    await loopDepositRevert(
+      'MystikoV2LoopERC20',
+      protocol,
+      loopERC20,
+      poolErc20,
+      testToken,
+      sanctionList,
+      accounts,
+      depositAmount.toString(),
+      false,
       cmInfo2,
     );
   });

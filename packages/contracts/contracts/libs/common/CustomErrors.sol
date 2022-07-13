@@ -9,7 +9,6 @@ library CustomErrors {
   error RollupFeeToFew();
   error TreeIsFull();
   error CommitmentHasBeenSubmitted();
-  error NewRootGreaterThanFieldSize();
   error NewRootIsDuplicated();
   error Invalid(string param);
   error IndexOutOfBound();

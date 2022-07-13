@@ -7,6 +7,15 @@
 pragma solidity ^0.8.7;
 
 library Pairing {
+  error StaticCallFailed();
+
+  uint256 constant FIELD_SIZE = 21888242871839275222246405745257275088548364400416034343698204186575808495617;
+  uint256 internal constant FIELD_MODULUS =
+    21888242871839275222246405745257275088696311157297823662689037894645226208583;
+  uint256 internal constant BN_N = 3;
+  uint256 internal constant TWISTBX = 0x2b149d40ceb8aaae81be18991be06ac3b5b4c5e559dbefa33267e6dc24a138e5;
+  uint256 internal constant TWISTBY = 0x9713b03af0fed4cd2cafadeed8fdf4a74fa084e52d1852e4a2bd0685c315d2;
+
   struct G1Point {
     uint256 X;
     uint256 Y;
@@ -39,9 +48,9 @@ library Pairing {
 
   /// @return the negation of p, i.e. p.addition(p.negate()) should be zero.
   function negate(G1Point memory p) internal pure returns (G1Point memory) {
-    uint256 FIELD_MODULUS = 0x30644e72e131a029b85045b68181585d97816a916871ca8d3c208c16d87cfd47;
-    if (p.Y == 0) return G1Point(p.X % FIELD_MODULUS, 0);
-    return G1Point(p.X % FIELD_MODULUS, FIELD_MODULUS - (p.Y % FIELD_MODULUS));
+    uint256 fieldModulus = FIELD_MODULUS;
+    if (p.Y == 0) return G1Point(p.X % fieldModulus, 0);
+    return G1Point(p.X % fieldModulus, fieldModulus - (p.Y % fieldModulus));
   }
 
   /// @return r the sum of two points of G1
@@ -59,7 +68,7 @@ library Pairing {
         revert(0, 0)
       }
     }
-    require(success);
+    if (!success) revert StaticCallFailed();
   }
 
   /// @return r the product of a point on G1 and a scalar, i.e.
@@ -77,7 +86,7 @@ library Pairing {
         revert(0, 0)
       }
     }
-    require(success);
+    if (!success) revert StaticCallFailed();
   }
 
   /// @return the result of computing the pairing check
@@ -95,7 +104,7 @@ library Pairing {
         revert(0, 0)
       }
     }
-    require(success);
+    if (!success) revert StaticCallFailed();
     return out[0] != 0;
   }
 
@@ -221,10 +230,10 @@ library Pairing {
     uint256 yx,
     uint256 yy
   ) internal pure returns (uint256, uint256) {
-    uint256 FIELD_MODULUS = 0x30644e72e131a029b85045b68181585d97816a916871ca8d3c208c16d87cfd47;
+    uint256 fieldModulus = FIELD_MODULUS;
     return (
-      submod(mulmod(xx, yx, FIELD_MODULUS), mulmod(xy, yy, FIELD_MODULUS), FIELD_MODULUS),
-      addmod(mulmod(xx, yy, FIELD_MODULUS), mulmod(xy, yx, FIELD_MODULUS), FIELD_MODULUS)
+      submod(mulmod(xx, yx, fieldModulus), mulmod(xy, yy, fieldModulus), fieldModulus),
+      addmod(mulmod(xx, yy, fieldModulus), mulmod(xy, yx, fieldModulus), fieldModulus)
     );
   }
 
@@ -234,8 +243,8 @@ library Pairing {
     uint256 yx,
     uint256 yy
   ) internal pure returns (uint256 rx, uint256 ry) {
-    uint256 FIELD_MODULUS = 0x30644e72e131a029b85045b68181585d97816a916871ca8d3c208c16d87cfd47;
-    return (submod(xx, yx, FIELD_MODULUS), submod(xy, yy, FIELD_MODULUS));
+    uint256 fieldModulus = FIELD_MODULUS;
+    return (submod(xx, yx, fieldModulus), submod(xy, yy, fieldModulus));
   }
 
   function isOnCurve(G2Point memory p) internal pure returns (bool) {
@@ -254,9 +263,9 @@ library Pairing {
   }
 
   function isOnCurve(G1Point memory p) internal pure returns (bool) {
-    uint256 FIELD_MODULUS = 0x30644e72e131a029b85045b68181585d97816a916871ca8d3c208c16d87cfd47;
+    uint256 fieldModulus = FIELD_MODULUS;
     return
-      mulmod(p.Y, p.Y, FIELD_MODULUS) - mulmod(mulmod(p.X, p.X, FIELD_MODULUS), p.X, FIELD_MODULUS) ==
-      3 % FIELD_MODULUS;
+      mulmod(p.Y, p.Y, fieldModulus) - mulmod(mulmod(p.X, p.X, fieldModulus), p.X, fieldModulus) ==
+      BN_N % fieldModulus;
   }
 }

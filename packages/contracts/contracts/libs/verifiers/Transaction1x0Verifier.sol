@@ -76,28 +76,27 @@ contract Transaction1x0Verifier {
   }
 
   function verify(uint256[] memory input, VerifierLib.Proof memory proof) internal view returns (bool) {
-    uint256 SNARK_SCALAR_FIELD = 21888242871839275222246405745257275088548364400416034343698204186575808495617;
+    uint256 fieldSize = Pairing.FIELD_SIZE;
     VerifierLib.VerifyingKey memory vk = verifyingKey();
-    require(input.length + 1 == vk.gamma_abc.length);
-    require(proof.a.X < SNARK_SCALAR_FIELD);
-    require(proof.a.Y < SNARK_SCALAR_FIELD);
-    require(proof.b.X[0] < SNARK_SCALAR_FIELD);
-    require(proof.b.Y[0] < SNARK_SCALAR_FIELD);
-    require(proof.b.X[1] < SNARK_SCALAR_FIELD);
-    require(proof.b.Y[1] < SNARK_SCALAR_FIELD);
-    require(proof.c.X < SNARK_SCALAR_FIELD);
-    require(proof.c.Y < SNARK_SCALAR_FIELD);
-    require(Pairing.isOnCurve(proof.a));
-    require(Pairing.isOnCurve(proof.b));
-    require(Pairing.isOnCurve(proof.c));
+    if (input.length + 1 != vk.gamma_abc.length) revert VerifierLib.InvalidParam();
+    if (proof.a.X >= fieldSize) revert VerifierLib.InvalidParam();
+    if (proof.a.Y >= fieldSize) revert VerifierLib.InvalidParam();
+    if (proof.b.X[0] >= fieldSize) revert VerifierLib.InvalidParam();
+    if (proof.b.Y[0] >= fieldSize) revert VerifierLib.InvalidParam();
+    if (proof.b.X[1] >= fieldSize) revert VerifierLib.InvalidParam();
+    if (proof.b.Y[1] >= fieldSize) revert VerifierLib.InvalidParam();
+    if (proof.c.X >= fieldSize) revert VerifierLib.InvalidParam();
+    if (proof.c.Y >= fieldSize) revert VerifierLib.InvalidParam();
+    if (!Pairing.isOnCurve(proof.a)) revert VerifierLib.NotOnCurve();
+    if (!Pairing.isOnCurve(proof.b)) revert VerifierLib.NotOnCurve();
+    if (!Pairing.isOnCurve(proof.c)) revert VerifierLib.NotOnCurve();
     // Compute the linear combination vk_x
-    Pairing.G1Point memory vk_x = Pairing.G1Point(0, 0);
+    Pairing.G1Point memory vk_x = Pairing.addition(Pairing.G1Point(0, 0), vk.gamma_abc[0]);
     for (uint256 i = 0; i < input.length; i++) {
-      require(input[i] < SNARK_SCALAR_FIELD);
+      if (input[i] >= fieldSize) revert VerifierLib.InvalidParam();
       vk_x = Pairing.addition(vk_x, Pairing.scalar_mul(vk.gamma_abc[i + 1], input[i]));
     }
-    vk_x = Pairing.addition(vk_x, vk.gamma_abc[0]);
-    require(Pairing.isOnCurve(vk_x));
+    if (!Pairing.isOnCurve(vk_x)) revert VerifierLib.NotOnCurve();
     return
       Pairing.pairingProd4(
         proof.a,
@@ -112,7 +111,7 @@ contract Transaction1x0Verifier {
   }
 
   function verifyTx(VerifierLib.Proof memory proof, uint256[] memory input) public view returns (bool r) {
-    require(input.length == 6, "invalid input length");
+    if (input.length != 6) revert VerifierLib.InvalidParam();
     return verify(input, proof);
   }
 }

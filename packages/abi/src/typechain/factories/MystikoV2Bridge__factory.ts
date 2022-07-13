@@ -212,12 +212,6 @@ const _abi = [
         name: 'serviceFee',
         type: 'uint256',
       },
-      {
-        indexed: false,
-        internalType: 'uint256',
-        name: 'serviceFeeDivider',
-        type: 'uint256',
-      },
     ],
     name: 'ServiceFeeChanged',
     type: 'event',
@@ -233,6 +227,19 @@ const _abi = [
       },
     ],
     name: 'ServiceFeeCollectorChanged',
+    type: 'event',
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: false,
+        internalType: 'uint256',
+        name: 'serviceFeeDivider',
+        type: 'uint256',
+      },
+    ],
+    name: 'ServiceFeeDividerChanged',
     type: 'event',
   },
   {
@@ -294,11 +301,6 @@ const _abi = [
         name: '_newServiceFee',
         type: 'uint256',
       },
-      {
-        internalType: 'uint256',
-        name: '_newServiceFeeDivider',
-        type: 'uint256',
-      },
     ],
     name: 'changeServiceFee',
     outputs: [],
@@ -314,6 +316,19 @@ const _abi = [
       },
     ],
     name: 'changeServiceFeeCollector',
+    outputs: [],
+    stateMutability: 'nonpayable',
+    type: 'function',
+  },
+  {
+    inputs: [
+      {
+        internalType: 'uint256',
+        name: '_newServiceFeeDivider',
+        type: 'uint256',
+      },
+    ],
+    name: 'changeServiceFeeDivider',
     outputs: [],
     stateMutability: 'nonpayable',
     type: 'function',
@@ -441,6 +456,32 @@ const _abi = [
   {
     inputs: [],
     name: 'getPeerMinRollupFee',
+    outputs: [
+      {
+        internalType: 'uint256',
+        name: '',
+        type: 'uint256',
+      },
+    ],
+    stateMutability: 'view',
+    type: 'function',
+  },
+  {
+    inputs: [],
+    name: 'getServiceFee',
+    outputs: [
+      {
+        internalType: 'uint256',
+        name: '',
+        type: 'uint256',
+      },
+    ],
+    stateMutability: 'view',
+    type: 'function',
+  },
+  {
+    inputs: [],
+    name: 'getServiceFeeDivider',
     outputs: [
       {
         internalType: 'uint256',

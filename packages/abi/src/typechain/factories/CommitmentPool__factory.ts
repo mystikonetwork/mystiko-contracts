@@ -41,11 +41,6 @@ const _abi = [
   },
   {
     inputs: [],
-    name: 'NewRootGreaterThanFieldSize',
-    type: 'error',
-  },
-  {
-    inputs: [],
     name: 'NewRootIsDuplicated',
     type: 'error',
   },

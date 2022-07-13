@@ -128,6 +128,15 @@ export function testRollup(
       ).to.be.revertedWith('OnlyWhitelistedRoller()');
     });
 
+    it('should revert verifier invalid param', async () => {
+      const fieldSize = '21888242871839275222246405745257275088548364400416034343698204186575808495617';
+      await expect(
+        commitmentPoolContract
+          .connect(rollupAccount)
+          .rollup([[proof.proofA, proof.proofB, proof.proofC], `${rollupSize}`, fieldSize, proof.leafHash]),
+      ).to.be.revertedWith('InvalidParam()');
+    });
+
     it('should revert invalid rollup Size', () => {
       expect(
         commitmentPoolContract
@@ -162,6 +171,32 @@ export function testRollup(
       ).to.be.revertedWith('Invalid("rollupSize")');
     });
 
+    it('should revert wrong proof', () => {
+      expect(
+        commitmentPoolContract
+          .connect(rollupAccount)
+          .rollup([
+            [proof.proofA, proof.proofB, proof.proofA],
+            `${rollupSize}`,
+            proof.newRoot,
+            proof.leafHash,
+          ]),
+      ).to.be.revertedWith('Invalid("proof")');
+    });
+
+    it('should revert wrong newRoot', () => {
+      expect(
+        commitmentPoolContract
+          .connect(rollupAccount)
+          .rollup([
+            [proof.proofA, proof.proofB, proof.proofC],
+            `${rollupSize}`,
+            protocol.randomBigInt().toString(),
+            proof.leafHash,
+          ]),
+      ).to.be.revertedWith('Invalid("proof")');
+    });
+
     it('should revert wrong leaf hash', () => {
       expect(
         commitmentPoolContract
@@ -173,19 +208,6 @@ export function testRollup(
             protocol.randomBigInt().toString(),
           ]),
       ).to.be.revertedWith('Invalid("leafHash")');
-    });
-
-    it('should revert wrong proof', () => {
-      expect(
-        commitmentPoolContract
-          .connect(rollupAccount)
-          .rollup([
-            [proof.proofA, proof.proofB, proof.proofC],
-            `${rollupSize}`,
-            protocol.randomBigInt().toString(),
-            proof.leafHash,
-          ]),
-      ).to.be.revertedWith('Invalid("proof")');
     });
 
     it('should rollup successfully', async () => {
@@ -222,15 +244,6 @@ export function testRollup(
       const expectRollupFee = toBN(rollupFee).muln(rollupSize).toString();
       expect(totalRollupFee.toString()).to.equal(expectRollupFee.toString());
       expect(await commitmentPoolContract.isKnownRoot(proof.newRoot)).to.equal(true);
-    });
-
-    it('should revert newRoot greater than field size', async () => {
-      const fieldSize = '21888242871839275222246405745257275088548364400416034343698204186575808495617';
-      await expect(
-        commitmentPoolContract
-          .connect(rollupAccount)
-          .rollup([[proof.proofA, proof.proofB, proof.proofC], `${rollupSize}`, fieldSize, proof.leafHash]),
-      ).to.be.revertedWith('NewRootGreaterThanFieldSize()');
     });
 
     it('should revert known root', async () => {

@@ -58,8 +58,9 @@ export interface MystikoV2LayerZeroMainInterface extends utils.Interface {
     'bridgeProxyAddress()': FunctionFragment;
     'bridgeType()': FunctionFragment;
     'changeOperator(address)': FunctionFragment;
-    'changeServiceFee(uint256,uint256)': FunctionFragment;
+    'changeServiceFee(uint256)': FunctionFragment;
     'changeServiceFeeCollector(address)': FunctionFragment;
+    'changeServiceFeeDivider(uint256)': FunctionFragment;
     'deposit((uint256,uint256,uint256,uint128,bytes,uint256,uint256,uint256))': FunctionFragment;
     'failedMessages(uint16,bytes,uint64)': FunctionFragment;
     'forceResumeReceive(uint16,bytes)': FunctionFragment;
@@ -70,6 +71,8 @@ export interface MystikoV2LayerZeroMainInterface extends utils.Interface {
     'getMinExecutorFee()': FunctionFragment;
     'getPeerMinExecutorFee()': FunctionFragment;
     'getPeerMinRollupFee()': FunctionFragment;
+    'getServiceFee()': FunctionFragment;
+    'getServiceFeeDivider()': FunctionFragment;
     'isDepositsDisabled()': FunctionFragment;
     'isTrustedRemote(uint16,bytes)': FunctionFragment;
     'localLayerZeroChainId()': FunctionFragment;
@@ -109,8 +112,9 @@ export interface MystikoV2LayerZeroMainInterface extends utils.Interface {
   encodeFunctionData(functionFragment: 'bridgeProxyAddress', values?: undefined): string;
   encodeFunctionData(functionFragment: 'bridgeType', values?: undefined): string;
   encodeFunctionData(functionFragment: 'changeOperator', values: [string]): string;
-  encodeFunctionData(functionFragment: 'changeServiceFee', values: [BigNumberish, BigNumberish]): string;
+  encodeFunctionData(functionFragment: 'changeServiceFee', values: [BigNumberish]): string;
   encodeFunctionData(functionFragment: 'changeServiceFeeCollector', values: [string]): string;
+  encodeFunctionData(functionFragment: 'changeServiceFeeDivider', values: [BigNumberish]): string;
   encodeFunctionData(functionFragment: 'deposit', values: [IMystikoBridge.DepositRequestStruct]): string;
   encodeFunctionData(
     functionFragment: 'failedMessages',
@@ -127,6 +131,8 @@ export interface MystikoV2LayerZeroMainInterface extends utils.Interface {
   encodeFunctionData(functionFragment: 'getMinExecutorFee', values?: undefined): string;
   encodeFunctionData(functionFragment: 'getPeerMinExecutorFee', values?: undefined): string;
   encodeFunctionData(functionFragment: 'getPeerMinRollupFee', values?: undefined): string;
+  encodeFunctionData(functionFragment: 'getServiceFee', values?: undefined): string;
+  encodeFunctionData(functionFragment: 'getServiceFeeDivider', values?: undefined): string;
   encodeFunctionData(functionFragment: 'isDepositsDisabled', values?: undefined): string;
   encodeFunctionData(functionFragment: 'isTrustedRemote', values: [BigNumberish, BytesLike]): string;
   encodeFunctionData(functionFragment: 'localLayerZeroChainId', values?: undefined): string;
@@ -179,6 +185,7 @@ export interface MystikoV2LayerZeroMainInterface extends utils.Interface {
   decodeFunctionResult(functionFragment: 'changeOperator', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'changeServiceFee', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'changeServiceFeeCollector', data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'changeServiceFeeDivider', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'deposit', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'failedMessages', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'forceResumeReceive', data: BytesLike): Result;
@@ -189,6 +196,8 @@ export interface MystikoV2LayerZeroMainInterface extends utils.Interface {
   decodeFunctionResult(functionFragment: 'getMinExecutorFee', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'getPeerMinExecutorFee', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'getPeerMinRollupFee', data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'getServiceFee', data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'getServiceFeeDivider', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'isDepositsDisabled', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'isTrustedRemote', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'localLayerZeroChainId', data: BytesLike): Result;
@@ -236,8 +245,9 @@ export interface MystikoV2LayerZeroMainInterface extends utils.Interface {
     'PeerMinRollupFee(uint256)': EventFragment;
     'SanctionsCheckDisabled(bool)': EventFragment;
     'SanctionsList(address)': EventFragment;
-    'ServiceFeeChanged(uint256,uint256)': EventFragment;
+    'ServiceFeeChanged(uint256)': EventFragment;
     'ServiceFeeCollectorChanged(address)': EventFragment;
+    'ServiceFeeDividerChanged(uint256)': EventFragment;
     'SetTrustedRemote(uint16,bytes)': EventFragment;
   };
 
@@ -255,6 +265,7 @@ export interface MystikoV2LayerZeroMainInterface extends utils.Interface {
   getEvent(nameOrSignatureOrTopic: 'SanctionsList'): EventFragment;
   getEvent(nameOrSignatureOrTopic: 'ServiceFeeChanged'): EventFragment;
   getEvent(nameOrSignatureOrTopic: 'ServiceFeeCollectorChanged'): EventFragment;
+  getEvent(nameOrSignatureOrTopic: 'ServiceFeeDividerChanged'): EventFragment;
   getEvent(nameOrSignatureOrTopic: 'SetTrustedRemote'): EventFragment;
 }
 
@@ -317,16 +328,17 @@ export type SanctionsListEvent = TypedEvent<[string], { sanctions: string }>;
 
 export type SanctionsListEventFilter = TypedEventFilter<SanctionsListEvent>;
 
-export type ServiceFeeChangedEvent = TypedEvent<
-  [BigNumber, BigNumber],
-  { serviceFee: BigNumber; serviceFeeDivider: BigNumber }
->;
+export type ServiceFeeChangedEvent = TypedEvent<[BigNumber], { serviceFee: BigNumber }>;
 
 export type ServiceFeeChangedEventFilter = TypedEventFilter<ServiceFeeChangedEvent>;
 
 export type ServiceFeeCollectorChangedEvent = TypedEvent<[string], { servicer: string }>;
 
 export type ServiceFeeCollectorChangedEventFilter = TypedEventFilter<ServiceFeeCollectorChangedEvent>;
+
+export type ServiceFeeDividerChangedEvent = TypedEvent<[BigNumber], { serviceFeeDivider: BigNumber }>;
+
+export type ServiceFeeDividerChangedEventFilter = TypedEventFilter<ServiceFeeDividerChangedEvent>;
 
 export type SetTrustedRemoteEvent = TypedEvent<
   [number, string],
@@ -372,12 +384,16 @@ export interface MystikoV2LayerZeroMain extends BaseContract {
 
     changeServiceFee(
       _newServiceFee: BigNumberish,
-      _newServiceFeeDivider: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<ContractTransaction>;
 
     changeServiceFeeCollector(
       _newCollector: string,
+      overrides?: Overrides & { from?: string | Promise<string> },
+    ): Promise<ContractTransaction>;
+
+    changeServiceFeeDivider(
+      _newServiceFeeDivider: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<ContractTransaction>;
 
@@ -418,6 +434,10 @@ export interface MystikoV2LayerZeroMain extends BaseContract {
     getPeerMinExecutorFee(overrides?: CallOverrides): Promise<[BigNumber]>;
 
     getPeerMinRollupFee(overrides?: CallOverrides): Promise<[BigNumber]>;
+
+    getServiceFee(overrides?: CallOverrides): Promise<[BigNumber]>;
+
+    getServiceFeeDivider(overrides?: CallOverrides): Promise<[BigNumber]>;
 
     isDepositsDisabled(overrides?: CallOverrides): Promise<[boolean]>;
 
@@ -581,12 +601,16 @@ export interface MystikoV2LayerZeroMain extends BaseContract {
 
   changeServiceFee(
     _newServiceFee: BigNumberish,
-    _newServiceFeeDivider: BigNumberish,
     overrides?: Overrides & { from?: string | Promise<string> },
   ): Promise<ContractTransaction>;
 
   changeServiceFeeCollector(
     _newCollector: string,
+    overrides?: Overrides & { from?: string | Promise<string> },
+  ): Promise<ContractTransaction>;
+
+  changeServiceFeeDivider(
+    _newServiceFeeDivider: BigNumberish,
     overrides?: Overrides & { from?: string | Promise<string> },
   ): Promise<ContractTransaction>;
 
@@ -627,6 +651,10 @@ export interface MystikoV2LayerZeroMain extends BaseContract {
   getPeerMinExecutorFee(overrides?: CallOverrides): Promise<BigNumber>;
 
   getPeerMinRollupFee(overrides?: CallOverrides): Promise<BigNumber>;
+
+  getServiceFee(overrides?: CallOverrides): Promise<BigNumber>;
+
+  getServiceFeeDivider(overrides?: CallOverrides): Promise<BigNumber>;
 
   isDepositsDisabled(overrides?: CallOverrides): Promise<boolean>;
 
@@ -785,13 +813,11 @@ export interface MystikoV2LayerZeroMain extends BaseContract {
 
     changeOperator(_newOperator: string, overrides?: CallOverrides): Promise<void>;
 
-    changeServiceFee(
-      _newServiceFee: BigNumberish,
-      _newServiceFeeDivider: BigNumberish,
-      overrides?: CallOverrides,
-    ): Promise<void>;
+    changeServiceFee(_newServiceFee: BigNumberish, overrides?: CallOverrides): Promise<void>;
 
     changeServiceFeeCollector(_newCollector: string, overrides?: CallOverrides): Promise<void>;
+
+    changeServiceFeeDivider(_newServiceFeeDivider: BigNumberish, overrides?: CallOverrides): Promise<void>;
 
     deposit(_request: IMystikoBridge.DepositRequestStruct, overrides?: CallOverrides): Promise<void>;
 
@@ -827,6 +853,10 @@ export interface MystikoV2LayerZeroMain extends BaseContract {
     getPeerMinExecutorFee(overrides?: CallOverrides): Promise<BigNumber>;
 
     getPeerMinRollupFee(overrides?: CallOverrides): Promise<BigNumber>;
+
+    getServiceFee(overrides?: CallOverrides): Promise<BigNumber>;
+
+    getServiceFeeDivider(overrides?: CallOverrides): Promise<BigNumber>;
 
     isDepositsDisabled(overrides?: CallOverrides): Promise<boolean>;
 
@@ -985,14 +1015,14 @@ export interface MystikoV2LayerZeroMain extends BaseContract {
     'SanctionsList(address)'(sanctions?: null): SanctionsListEventFilter;
     SanctionsList(sanctions?: null): SanctionsListEventFilter;
 
-    'ServiceFeeChanged(uint256,uint256)'(
-      serviceFee?: null,
-      serviceFeeDivider?: null,
-    ): ServiceFeeChangedEventFilter;
-    ServiceFeeChanged(serviceFee?: null, serviceFeeDivider?: null): ServiceFeeChangedEventFilter;
+    'ServiceFeeChanged(uint256)'(serviceFee?: null): ServiceFeeChangedEventFilter;
+    ServiceFeeChanged(serviceFee?: null): ServiceFeeChangedEventFilter;
 
     'ServiceFeeCollectorChanged(address)'(servicer?: null): ServiceFeeCollectorChangedEventFilter;
     ServiceFeeCollectorChanged(servicer?: null): ServiceFeeCollectorChangedEventFilter;
+
+    'ServiceFeeDividerChanged(uint256)'(serviceFeeDivider?: null): ServiceFeeDividerChangedEventFilter;
+    ServiceFeeDividerChanged(serviceFeeDivider?: null): ServiceFeeDividerChangedEventFilter;
 
     'SetTrustedRemote(uint16,bytes)'(_srcChainId?: null, _srcAddress?: null): SetTrustedRemoteEventFilter;
     SetTrustedRemote(_srcChainId?: null, _srcAddress?: null): SetTrustedRemoteEventFilter;
@@ -1012,12 +1042,16 @@ export interface MystikoV2LayerZeroMain extends BaseContract {
 
     changeServiceFee(
       _newServiceFee: BigNumberish,
-      _newServiceFeeDivider: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<BigNumber>;
 
     changeServiceFeeCollector(
       _newCollector: string,
+      overrides?: Overrides & { from?: string | Promise<string> },
+    ): Promise<BigNumber>;
+
+    changeServiceFeeDivider(
+      _newServiceFeeDivider: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<BigNumber>;
 
@@ -1058,6 +1092,10 @@ export interface MystikoV2LayerZeroMain extends BaseContract {
     getPeerMinExecutorFee(overrides?: CallOverrides): Promise<BigNumber>;
 
     getPeerMinRollupFee(overrides?: CallOverrides): Promise<BigNumber>;
+
+    getServiceFee(overrides?: CallOverrides): Promise<BigNumber>;
+
+    getServiceFeeDivider(overrides?: CallOverrides): Promise<BigNumber>;
 
     isDepositsDisabled(overrides?: CallOverrides): Promise<BigNumber>;
 
@@ -1220,12 +1258,16 @@ export interface MystikoV2LayerZeroMain extends BaseContract {
 
     changeServiceFee(
       _newServiceFee: BigNumberish,
-      _newServiceFeeDivider: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<PopulatedTransaction>;
 
     changeServiceFeeCollector(
       _newCollector: string,
+      overrides?: Overrides & { from?: string | Promise<string> },
+    ): Promise<PopulatedTransaction>;
+
+    changeServiceFeeDivider(
+      _newServiceFeeDivider: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<PopulatedTransaction>;
 
@@ -1266,6 +1308,10 @@ export interface MystikoV2LayerZeroMain extends BaseContract {
     getPeerMinExecutorFee(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     getPeerMinRollupFee(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+
+    getServiceFee(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+
+    getServiceFeeDivider(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     isDepositsDisabled(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 

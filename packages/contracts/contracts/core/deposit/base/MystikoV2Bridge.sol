@@ -2,8 +2,8 @@
 pragma solidity ^0.8.7;
 
 import "../../../libs/asset/AssetPool.sol";
-import "../../../libs/common/DataTypes.sol";
 import "../../../libs/common/CustomErrors.sol";
+import "../../../libs/verifiers/Pairing.sol";
 import "../../../interface/IMystikoBridge.sol";
 import "../../../interface/IHasher3.sol";
 import "../../../interface/ICommitmentPool.sol";
@@ -67,7 +67,8 @@ abstract contract MystikoV2Bridge is IMystikoBridge, AssetPool, CrossChainDataSe
   event DepositsDisabled(bool state);
   event OperatorChanged(address operator);
   event ServiceFeeCollectorChanged(address servicer);
-  event ServiceFeeChanged(uint256 serviceFee, uint256 serviceFeeDivider);
+  event ServiceFeeChanged(uint256 serviceFee);
+  event ServiceFeeDividerChanged(uint256 serviceFeeDivider);
   event CommitmentCrossChain(uint256 indexed commitment);
 
   constructor(IHasher3 _hasher3) {
@@ -126,8 +127,9 @@ abstract contract MystikoV2Bridge is IMystikoBridge, AssetPool, CrossChainDataSe
     uint256 _amount,
     uint128 _randomS
   ) internal view returns (uint256) {
-    if (_hashK >= DataTypes.FIELD_SIZE) revert CustomErrors.HashKGreaterThanFieldSize();
-    if (_randomS >= DataTypes.FIELD_SIZE) revert CustomErrors.RandomSGreaterThanFieldSize();
+    uint256 fieldSize = Pairing.FIELD_SIZE;
+    if (_hashK >= fieldSize) revert CustomErrors.HashKGreaterThanFieldSize();
+    if (_randomS >= fieldSize) revert CustomErrors.RandomSGreaterThanFieldSize();
     return hasher3.poseidon([_hashK, _amount, _randomS]);
   }
 
@@ -191,11 +193,23 @@ abstract contract MystikoV2Bridge is IMystikoBridge, AssetPool, CrossChainDataSe
     emit ServiceFeeCollectorChanged(_newCollector);
   }
 
-  function changeServiceFee(uint256 _newServiceFee, uint256 _newServiceFeeDivider) external onlyOperator {
-    if (serviceFeeDivider == 0) revert CustomErrors.ServiceFeeDividerTooSmall();
+  function getServiceFee() public view returns (uint256) {
+    return serviceFee;
+  }
+
+  function changeServiceFee(uint256 _newServiceFee) external onlyOperator {
     serviceFee = _newServiceFee;
+    emit ServiceFeeChanged(_newServiceFee);
+  }
+
+  function getServiceFeeDivider() public view returns (uint256) {
+    return serviceFeeDivider;
+  }
+
+  function changeServiceFeeDivider(uint256 _newServiceFeeDivider) external onlyOperator {
+    if (_newServiceFeeDivider == 0) revert CustomErrors.ServiceFeeDividerTooSmall();
     serviceFeeDivider = _newServiceFeeDivider;
-    emit ServiceFeeChanged(_newServiceFee, _newServiceFeeDivider);
+    emit ServiceFeeDividerChanged(_newServiceFeeDivider);
   }
 
   function setSanctionCheckDisabled(bool _state) external onlyOperator {

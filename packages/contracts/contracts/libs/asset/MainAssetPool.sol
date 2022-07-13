@@ -14,8 +14,10 @@ abstract contract MainAssetPool is AssetPool {
     require(msg.value == amount + bridgeFee + serviceFee, "insufficient token");
     (bool ba, ) = commitmentPool.call{value: amount}("");
     require(ba, "amount transfer failed");
-    (bool bs, ) = serviceFeeCollector.call{value: serviceFee}("");
-    require(bs, "service fee transfer failed");
+    if (serviceFee > 0) {
+      (bool bs, ) = serviceFeeCollector.call{value: serviceFee}("");
+      require(bs, "service fee transfer failed");
+    }
   }
 
   function _processExecutorFeeTransfer(address executor, uint256 amount) internal override {

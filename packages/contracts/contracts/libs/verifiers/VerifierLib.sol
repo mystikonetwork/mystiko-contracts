@@ -8,6 +8,9 @@ pragma solidity ^0.8.7;
 import "./Pairing.sol";
 
 library VerifierLib {
+  error InvalidParam();
+  error NotOnCurve();
+
   struct VerifyingKey {
     Pairing.G1Point alpha;
     Pairing.G2Point beta;
