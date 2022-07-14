@@ -449,61 +449,24 @@ abstract contract CommitmentPool is ICommitmentPool, AssetPool, ReentrancyGuard,
     uint256 outNotesLen = _request.outEncryptedNotes.length;
     if (outNotesLen >= 3) revert CustomErrors.OutputNotesLessThanThree();
 
-    address recipient = _request.publicRecipient;
-    address relayerAddress = _request.relayerAddress;
-    bytes memory note1;
-    bytes memory note2;
-    uint256 totalLength;
-
-    if ((outNotesLen == 0)) {
-      totalLength = 40;
+    bytes memory requestBytes;
+    if (outNotesLen == 0) {
+      requestBytes = abi.encodePacked(_request.publicRecipient, _request.relayerAddress);
     } else if (outNotesLen == 1) {
-      totalLength = 249;
-      note1 = _request.outEncryptedNotes[0];
+      requestBytes = abi.encodePacked(
+        _request.publicRecipient,
+        _request.relayerAddress,
+        _request.outEncryptedNotes[0]
+      );
     } else {
-      totalLength = 458;
-      note1 = _request.outEncryptedNotes[0];
-      note2 = _request.outEncryptedNotes[1];
+      requestBytes = abi.encodePacked(
+        _request.publicRecipient,
+        _request.relayerAddress,
+        _request.outEncryptedNotes[0],
+        _request.outEncryptedNotes[1]
+      );
     }
 
-    bytes32 requestHash;
-
-    assembly {
-      let memPtr := mload(0x40)
-      mstore(add(memPtr, 0), shl(96, recipient))
-      mstore(add(memPtr, 20), shl(96, relayerAddress))
-
-      if sgt(outNotesLen, 0) {
-        let mc := add(memPtr, 40)
-        let end := add(mc, 209)
-
-        for {
-          let cc := add(note1, 32)
-        } lt(mc, end) {
-          mc := add(mc, 32)
-          cc := add(cc, 32)
-        } {
-          mstore(mc, mload(cc))
-        }
-      }
-
-      if sgt(outNotesLen, 1) {
-        let mc := add(memPtr, 249)
-        let end := add(mc, 209)
-
-        for {
-          let cc := add(note2, 32)
-        } lt(mc, end) {
-          mc := add(mc, 32)
-          cc := add(cc, 32)
-        } {
-          mstore(mc, mload(cc))
-        }
-      }
-
-      requestHash := keccak256(memPtr, totalLength)
-    }
-
-    return ECDSA.toEthSignedMessageHash(requestHash);
+    return ECDSA.toEthSignedMessageHash(keccak256(requestBytes));
   }
 }
