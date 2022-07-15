@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: MIT
 
-pragma solidity ^0.8.0;
+pragma solidity ^0.8.7;
 
 import "./LzApp.sol";
 
@@ -42,7 +42,7 @@ abstract contract NonblockingLzApp is LzApp {
     bytes memory _payload
   ) public virtual {
     // only internal transaction
-    require(_msgSender() == address(this), "NonblockingLzApp: caller must be LzApp");
+    if (_msgSender() != address(this)) revert CustomErrors.CallIsNotLzApp();
     _nonblockingLzReceive(_srcChainId, _srcAddress, _nonce, _payload);
   }
 
@@ -62,8 +62,8 @@ abstract contract NonblockingLzApp is LzApp {
   ) public payable virtual {
     // assert there is message to retry
     bytes32 payloadHash = failedMessages[_srcChainId][_srcAddress][_nonce];
-    require(payloadHash != bytes32(0), "NonblockingLzApp: no stored message");
-    require(keccak256(_payload) == payloadHash, "NonblockingLzApp: invalid payload");
+    if (payloadHash == bytes32(0)) revert CustomErrors.NoStoredMessage();
+    if (keccak256(_payload) != payloadHash) revert CustomErrors.Invalid("payload");
     // clear the stored message
     failedMessages[_srcChainId][_srcAddress][_nonce] = bytes32(0);
     // execute the message. revert if it fails again

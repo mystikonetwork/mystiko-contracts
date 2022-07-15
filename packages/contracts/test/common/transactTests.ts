@@ -361,6 +361,22 @@ export function testTransactRevert(
       relayerBalance = await getBalance(relayerAddress, testToken);
     });
 
+    it('should revert when verifier disabled', async () => {
+      await commitmentPoolContract.disableTransactVerifier(numInputs, numOutputs);
+      const request = buildRequest(
+        numInputs,
+        numOutputs,
+        proof,
+        publicRecipientAddress,
+        relayerAddress,
+        outEncryptedNotes,
+      );
+      await expect(commitmentPoolContract.transact(request, signature)).to.be.revertedWith(
+        'Invalid("i/o length")',
+      );
+      await commitmentPoolContract.enableTransactVerifier(numInputs, numOutputs, transactVerifier.address);
+    });
+
     it('should revert when recipient in sanction list', async () => {
       await sanctionList.addToSanctionsList(publicRecipientAddress);
       const request = buildRequest(
@@ -373,7 +389,7 @@ export function testTransactRevert(
       );
 
       await expect(commitmentPoolContract.transact(request, signature)).to.be.revertedWith(
-        'sanctioned address',
+        'SanctionedAddress()',
       );
       await sanctionList.removeToSanctionsList(publicRecipientAddress);
     });

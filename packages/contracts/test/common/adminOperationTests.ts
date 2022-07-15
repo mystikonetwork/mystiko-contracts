@@ -7,7 +7,7 @@ export function testLoopAdminOperations(contractName: string, mystikoContract: a
 
     it('should toggle isDepositDisabled correctly', async () => {
       await expect(mystikoContract.connect(accounts[1]).setDepositsDisabled(true)).to.be.revertedWith(
-        'only operator.',
+        'OnlyOperator()',
       );
 
       await mystikoContract.setDepositsDisabled(true);
@@ -19,7 +19,7 @@ export function testLoopAdminOperations(contractName: string, mystikoContract: a
     it('should changeOperator correctly', async () => {
       await expect(
         mystikoContract.connect(accounts[1]).changeOperator(accounts[1].address),
-      ).to.be.revertedWith('only operator.');
+      ).to.be.revertedWith('OnlyOperator()');
 
       await mystikoContract.changeOperator(accounts[1].address);
       // todo check operator
@@ -36,7 +36,7 @@ export function testBridgeAdminOperations(contractName: string, mystikoContract:
 
     it('should toggle isDepositDisabled correctly', async () => {
       await expect(mystikoContract.connect(accounts[1]).setDepositsDisabled(true)).to.be.revertedWith(
-        'only operator.',
+        'OnlyOperator()',
       );
 
       await mystikoContract.setDepositsDisabled(true);
@@ -48,7 +48,7 @@ export function testBridgeAdminOperations(contractName: string, mystikoContract:
     it('should changeOperator correctly', async () => {
       await expect(
         mystikoContract.connect(accounts[1]).changeOperator(accounts[1].address),
-      ).to.be.revertedWith('only operator.');
+      ).to.be.revertedWith('OnlyOperator()');
 
       await mystikoContract.changeOperator(accounts[1].address);
       // todo check operator
@@ -69,7 +69,7 @@ export function testCommitmentPoolAdminOperations(
 
     it('should toggle isRollupWhitelistDisabled correctly', async () => {
       await expect(mystikoContract.connect(accounts[1]).setRollupWhitelistDisabled(true)).to.be.revertedWith(
-        'only operator.',
+        'OnlyOperator()',
       );
 
       await mystikoContract.setRollupWhitelistDisabled(true);
@@ -80,7 +80,7 @@ export function testCommitmentPoolAdminOperations(
 
     it('should toggle isVerifierUpdateDisabled correctly', async () => {
       await expect(mystikoContract.connect(accounts[1]).setVerifierUpdateDisabled(true)).to.be.revertedWith(
-        'only operator.',
+        'OnlyOperator()',
       );
 
       await mystikoContract.setVerifierUpdateDisabled(true);
@@ -94,11 +94,11 @@ export function testCommitmentPoolAdminOperations(
         mystikoContract
           .connect(accounts[1])
           .enableTransactVerifier(1, 0, '0xfbb61B8b98a59FbC4bD79C23212AddbEFaEB289f'),
-      ).to.be.revertedWith('only operator.');
+      ).to.be.revertedWith('OnlyOperator()');
 
       await expect(
         mystikoContract.enableTransactVerifier(0, 0, '0xfbb61B8b98a59FbC4bD79C23212AddbEFaEB289f'),
-      ).to.be.revertedWith('numInputs should > 0');
+      ).to.be.revertedWith('NumInputsGreaterThanZero()');
 
       await mystikoContract.enableTransactVerifier(1, 0, '0xfbb61B8b98a59FbC4bD79C23212AddbEFaEB289f');
       // todo eric check transact Verifiers address
@@ -109,16 +109,18 @@ export function testCommitmentPoolAdminOperations(
       await mystikoContract.setVerifierUpdateDisabled(true);
       await expect(
         mystikoContract.enableTransactVerifier(1, 0, '0xfbb61B8b98a59FbC4bD79C23212AddbEFaEB289f'),
-      ).to.be.revertedWith('verifier updates have been disabled.');
+      ).to.be.revertedWith('VerifierUpdatesHasBeenDisabled()');
       await mystikoContract.setVerifierUpdateDisabled(false);
     });
 
     it('should disableTransactVerifier correctly', async () => {
       await expect(mystikoContract.connect(accounts[1]).disableTransactVerifier(1, 0)).to.be.revertedWith(
-        'only operator.',
+        'OnlyOperator()',
       );
 
-      await expect(mystikoContract.disableTransactVerifier(0, 0)).to.be.revertedWith('numInputs should > 0');
+      await expect(mystikoContract.disableTransactVerifier(0, 0)).to.be.revertedWith(
+        'NumInputsGreaterThanZero()',
+      );
 
       await mystikoContract.enableTransactVerifier(1, 0, '0xfbb61B8b98a59FbC4bD79C23212AddbEFaEB289f');
       await mystikoContract.disableTransactVerifier(1, 0);
@@ -130,7 +132,7 @@ export function testCommitmentPoolAdminOperations(
 
       await mystikoContract.setVerifierUpdateDisabled(true);
       await expect(mystikoContract.disableTransactVerifier(1, 0)).to.be.revertedWith(
-        'verifier updates have been disabled.',
+        'VerifierUpdatesHasBeenDisabled()',
       );
       await mystikoContract.setVerifierUpdateDisabled(false);
     });
@@ -140,11 +142,11 @@ export function testCommitmentPoolAdminOperations(
         mystikoContract
           .connect(accounts[1])
           .enableRollupVerifier(4, '0xfbb61B8b98a59FbC4bD79C23212AddbEFaEB289f'),
-      ).to.be.revertedWith('only operator.');
+      ).to.be.revertedWith('OnlyOperator()');
 
       await expect(
         mystikoContract.enableRollupVerifier(0, '0xfbb61B8b98a59FbC4bD79C23212AddbEFaEB289f'),
-      ).to.be.revertedWith('invalid rollupSize');
+      ).to.be.revertedWith('Invalid("rollupSize")');
 
       await mystikoContract.enableRollupVerifier(4, '0xfbb61B8b98a59FbC4bD79C23212AddbEFaEB289f');
       // todo eric check rollup Verifiers  address
@@ -155,16 +157,16 @@ export function testCommitmentPoolAdminOperations(
       await mystikoContract.setVerifierUpdateDisabled(true);
       await expect(
         mystikoContract.enableRollupVerifier(4, '0xfbb61B8b98a59FbC4bD79C23212AddbEFaEB289f'),
-      ).to.be.revertedWith('verifier updates have been disabled.');
+      ).to.be.revertedWith('VerifierUpdatesHasBeenDisabled()');
       await mystikoContract.setVerifierUpdateDisabled(false);
     });
 
     it('should disableRollupVerifier correctly', async () => {
       await expect(mystikoContract.connect(accounts[1]).disableRollupVerifier(4)).to.be.revertedWith(
-        'only operator.',
+        'OnlyOperator()',
       );
 
-      await expect(mystikoContract.disableRollupVerifier(0)).to.be.revertedWith('invalid rollupSize');
+      await expect(mystikoContract.disableRollupVerifier(0)).to.be.revertedWith('Invalid("rollupSize")');
 
       await mystikoContract.enableRollupVerifier(4, '0xfbb61B8b98a59FbC4bD79C23212AddbEFaEB289f');
       await mystikoContract.disableRollupVerifier(4);
@@ -176,7 +178,7 @@ export function testCommitmentPoolAdminOperations(
 
       await mystikoContract.setVerifierUpdateDisabled(true);
       await expect(mystikoContract.disableRollupVerifier(4)).to.be.revertedWith(
-        'verifier updates have been disabled.',
+        'VerifierUpdatesHasBeenDisabled()',
       );
       await mystikoContract.setVerifierUpdateDisabled(false);
     });
@@ -184,7 +186,7 @@ export function testCommitmentPoolAdminOperations(
     it('should addRollupWhitelist correctly', async () => {
       await expect(
         mystikoContract.connect(accounts[1]).addRollupWhitelist('0xfbb61B8b98a59FbC4bD79C23212AddbEFaEB289f'),
-      ).to.be.revertedWith('only operator.');
+      ).to.be.revertedWith('OnlyOperator()');
 
       // todo check white list
       // expect(await mystikoContract.rollupWhitelist('0xfbb61B8b98a59FbC4bD79C23212AddbEFaEB289f')).to.equal(
@@ -202,7 +204,7 @@ export function testCommitmentPoolAdminOperations(
         mystikoContract
           .connect(accounts[1])
           .removeRollupWhitelist('0xfbb61B8b98a59FbC4bD79C23212AddbEFaEB289f'),
-      ).to.be.revertedWith('only operator.');
+      ).to.be.revertedWith('OnlyOperator()');
       await mystikoContract.addRollupWhitelist('0xfbb61B8b98a59FbC4bD79C23212AddbEFaEB289f');
       await mystikoContract.removeRollupWhitelist('0xfbb61B8b98a59FbC4bD79C23212AddbEFaEB289f');
 
@@ -217,7 +219,7 @@ export function testCommitmentPoolAdminOperations(
         mystikoContract
           .connect(accounts[1])
           .removeEnqueueWhitelist('0xfbb61B8b98a59FbC4bD79C23212AddbEFaEB289f'),
-      ).to.be.revertedWith('only operator.');
+      ).to.be.revertedWith('OnlyOperator()');
       await mystikoContract.addEnqueueWhitelist('0xfbb61B8b98a59FbC4bD79C23212AddbEFaEB289f');
       await mystikoContract.removeEnqueueWhitelist('0xfbb61B8b98a59FbC4bD79C23212AddbEFaEB289f');
 
@@ -230,7 +232,7 @@ export function testCommitmentPoolAdminOperations(
     it('should changeOperator correctly', async () => {
       await expect(
         mystikoContract.connect(accounts[1]).changeOperator(accounts[1].address),
-      ).to.be.revertedWith('only operator.');
+      ).to.be.revertedWith('OnlyOperator()');
 
       await mystikoContract.changeOperator(accounts[1].address);
       // todo check operator
@@ -249,16 +251,22 @@ export function testTBridgeProxyAdminOperations(
   describe(`Test ${contractName} admin operations`, () => {
     before(async () => {});
 
+    it('should changeOperator correctly', async () => {
+      await expect(tbridgeProxy.connect(accounts[1]).changeOperator(accounts[1].address)).to.be.revertedWith(
+        'OnlyOperator()',
+      );
+    });
+
     // todo check executor/register/withdraw
-    it('should remove executor whitelist  correctly', async () => {
+    it('should remove executor whitelist correctly', async () => {
       await tbridgeProxy.removeExecutorWhitelist(accounts[1].address);
     });
 
-    it('should remove register whitelist  correctly', async () => {
+    it('should remove register whitelist correctly', async () => {
       await tbridgeProxy.removeRegisterWhitelist(accounts[1].address);
     });
 
-    it('should remove executor whitelist  correctly', async () => {
+    it('should remove executor whitelist correctly', async () => {
       await tbridgeProxy.withdraw(accounts[1].address);
     });
   });

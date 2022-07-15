@@ -1,8 +1,9 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.0;
+pragma solidity ^0.8.7;
 
 import "../../../libs/asset/AssetPool.sol";
-import "../../../libs/common/DataTypes.sol";
+import "../../../libs/common/CustomErrors.sol";
+import "../../../libs/verifiers/Pairing.sol";
 import "../../../interface/IMystikoBridge.sol";
 import "../../../interface/IHasher3.sol";
 import "../../../interface/ICommitmentPool.sol";
@@ -11,49 +12,70 @@ import "./CrossChainDataSerializable.sol";
 import "../../rule/Sanctions.sol";
 import "@openzeppelin/contracts/security/ReentrancyGuard.sol";
 import "@openzeppelin/contracts/utils/cryptography/ECDSA.sol";
+import "@openzeppelin/contracts/utils/math/SafeMath.sol";
 
 abstract contract MystikoV2Bridge is IMystikoBridge, AssetPool, CrossChainDataSerializable, Sanctions {
-  // Hasher related.
-  IHasher3 hasher3;
+  using SafeMath for uint256;
 
-  address associatedCommitmentPool;
-  uint64 peerChainId;
-  string peerChainName;
-  address peerContract;
+  // Hasher related.
+  IHasher3 private hasher3;
+
+  address private associatedCommitmentPool;
+  uint64 public peerChainId;
+  string public peerChainName;
+  address public peerContract;
 
   //bridge proxy address
-  address bridgeProxyAddress;
+  address public bridgeProxyAddress;
 
   //local chain fee
-  uint256 minAmount;
-  uint256 minBridgeFee;
-  uint256 minExecutorFee;
+  uint256 private minAmount;
+  uint256 private minBridgeFee;
+  uint256 private minExecutorFee;
 
   //remote chain fee
-  uint256 peerMinExecutorFee;
-  uint256 peerMinRollupFee;
+  uint256 private peerMinExecutorFee;
+  uint256 private peerMinRollupFee;
 
   // Admin related.
-  address operator;
+  address private operator;
+
+  // service fee related.
+  address private serviceFeeCollector;
+  // the service fee takes from depositer
+  uint256 private serviceFee;
+  uint256 private serviceFeeDivider;
 
   // Some switches.
-  bool depositsDisabled;
+  bool private depositsDisabled;
 
   modifier onlyOperator() {
-    require(msg.sender == operator, "only operator.");
+    if (msg.sender != operator) revert CustomErrors.OnlyOperator();
     _;
   }
 
   modifier onlyBridgeProxy() {
-    require(msg.sender == bridgeProxyAddress, "msg sender is not bridge proxy");
+    if (msg.sender != bridgeProxyAddress) revert CustomErrors.SenderIsNotBridgeProxy();
     _;
   }
 
+  event MinAmount(uint256 minAmount);
+  event MinBridgeFee(uint256 minBridgeFee);
+  event MinExecutorFee(uint256 minExecutorFee);
+  event PeerMinExecutorFee(uint256 peerMinExecutorFee);
+  event PeerMinRollupFee(uint256 peerMinRollupFee);
+  event DepositsDisabled(bool state);
+  event OperatorChanged(address operator);
+  event ServiceFeeCollectorChanged(address servicer);
+  event ServiceFeeChanged(uint256 serviceFee);
+  event ServiceFeeDividerChanged(uint256 serviceFeeDivider);
   event CommitmentCrossChain(uint256 indexed commitment);
 
   constructor(IHasher3 _hasher3) {
     operator = msg.sender;
     hasher3 = _hasher3;
+    serviceFee = 1000;
+    serviceFeeDivider = 1000000;
   }
 
   function setBridgeProxyAddress(address _bridgeProxyAddress) external onlyOperator {
@@ -62,23 +84,28 @@ abstract contract MystikoV2Bridge is IMystikoBridge, AssetPool, CrossChainDataSe
 
   function setMinAmount(uint256 _minAmount) external onlyOperator {
     minAmount = _minAmount;
+    emit MinAmount(_minAmount);
   }
 
   function setMinBridgeFee(uint256 _minBridgeFee) external onlyOperator {
     minBridgeFee = _minBridgeFee;
+    emit MinBridgeFee(_minBridgeFee);
   }
 
   function setMinExecutorFee(uint256 _minExecutorFee) external onlyOperator {
     minExecutorFee = _minExecutorFee;
+    emit MinExecutorFee(_minExecutorFee);
   }
 
   function setPeerMinExecutorFee(uint256 _peerMinExecutorFee) external onlyOperator {
     peerMinExecutorFee = _peerMinExecutorFee;
+    emit PeerMinExecutorFee(_peerMinExecutorFee);
   }
 
   function setPeerMinRollupFee(uint256 _peerMinRollupFee) external onlyOperator {
-    require(_peerMinRollupFee > 0, "invalid peer minimal rollup fee");
+    if (_peerMinRollupFee == 0) revert CustomErrors.Invalid("peer minimal rollup fee");
     peerMinRollupFee = _peerMinRollupFee;
+    emit PeerMinRollupFee(_peerMinRollupFee);
   }
 
   function setAssociatedCommitmentPool(address _commitmentPoolAddress) external onlyOperator {
@@ -100,20 +127,21 @@ abstract contract MystikoV2Bridge is IMystikoBridge, AssetPool, CrossChainDataSe
     uint256 _amount,
     uint128 _randomS
   ) internal view returns (uint256) {
-    require(_hashK < DataTypes.FIELD_SIZE, "hashK should be less than FIELD_SIZE");
-    require(_randomS < DataTypes.FIELD_SIZE, "randomS should be less than FIELD_SIZE");
-    return hasher3.poseidon([_hashK, _amount, uint256(_randomS)]);
+    uint256 fieldSize = Pairing.FIELD_SIZE;
+    if (_hashK >= fieldSize) revert CustomErrors.HashKGreaterThanFieldSize();
+    if (_randomS >= fieldSize) revert CustomErrors.RandomSGreaterThanFieldSize();
+    return hasher3.poseidon([_hashK, _amount, _randomS]);
   }
 
   function deposit(DepositRequest memory _request) external payable override {
-    require(!depositsDisabled, "deposits are disabled");
-    require(_request.amount >= minAmount, "amount too small");
-    require(_request.bridgeFee >= minBridgeFee, "bridge fee too few");
-    require(_request.executorFee >= peerMinExecutorFee, "executor fee too few");
-    require(_request.rollupFee >= peerMinRollupFee, "rollup fee too few");
+    if (depositsDisabled) revert CustomErrors.DepositsDisabled();
+    if (_request.amount < minAmount) revert CustomErrors.AmountTooSmall();
+    if (_request.bridgeFee < minBridgeFee) revert CustomErrors.BridgeFeeTooFew();
+    if (_request.executorFee < peerMinExecutorFee) revert CustomErrors.ExecutorFeeTooFew();
+    if (_request.rollupFee < peerMinRollupFee) revert CustomErrors.RollupFeeToFew();
     uint256 calculatedCommitment = _commitmentHash(_request.hashK, _request.amount, _request.randomS);
-    require(_request.commitment == calculatedCommitment, "commitment hash incorrect");
-    require(!isSanctioned(msg.sender), "sanctioned address");
+    if (_request.commitment != calculatedCommitment) revert CustomErrors.CommitmentHashIncorrect();
+    if (isSanctioned(msg.sender)) revert CustomErrors.SanctionedAddress();
 
     // todo check commitment ?
     ICommitmentPool.CommitmentRequest memory cmRequest = ICommitmentPool.CommitmentRequest({
@@ -128,6 +156,8 @@ abstract contract MystikoV2Bridge is IMystikoBridge, AssetPool, CrossChainDataSe
     _processDeposit(_request.bridgeFee, cmRequestBytes);
     _processDepositTransfer(
       associatedCommitmentPool,
+      serviceFeeCollector,
+      serviceFee.mul(_request.amount).div(serviceFeeDivider),
       _request.amount + _request.executorFee + _request.rollupFee,
       _request.bridgeFee
     );
@@ -142,18 +172,44 @@ abstract contract MystikoV2Bridge is IMystikoBridge, AssetPool, CrossChainDataSe
     address _executor,
     ICommitmentPool.CommitmentRequest memory _request
   ) internal {
-    require(_fromContract == peerContract, "from proxy address not matched");
-    require(_fromChainId == peerChainId, "from chain id not matched");
-    require(_request.amount > 0, "amount should be greater than 0");
+    if (_fromContract != peerContract) revert CustomErrors.FromProxyAddressNotMatched();
+    if (_fromChainId != peerChainId) revert CustomErrors.FromChainIdNotMatched();
+    if (_request.amount == 0) revert CustomErrors.AmountLessThanZero();
     ICommitmentPool(associatedCommitmentPool).enqueue(_request, _executor);
   }
 
   function setDepositsDisabled(bool _state) external onlyOperator {
     depositsDisabled = _state;
+    emit DepositsDisabled(_state);
   }
 
   function changeOperator(address _newOperator) external onlyOperator {
     operator = _newOperator;
+    emit OperatorChanged(_newOperator);
+  }
+
+  function changeServiceFeeCollector(address _newCollector) external onlyOperator {
+    serviceFeeCollector = _newCollector;
+    emit ServiceFeeCollectorChanged(_newCollector);
+  }
+
+  function getServiceFee() public view returns (uint256) {
+    return serviceFee;
+  }
+
+  function changeServiceFee(uint256 _newServiceFee) external onlyOperator {
+    serviceFee = _newServiceFee;
+    emit ServiceFeeChanged(_newServiceFee);
+  }
+
+  function getServiceFeeDivider() public view returns (uint256) {
+    return serviceFeeDivider;
+  }
+
+  function changeServiceFeeDivider(uint256 _newServiceFeeDivider) external onlyOperator {
+    if (_newServiceFeeDivider == 0) revert CustomErrors.ServiceFeeDividerTooSmall();
+    serviceFeeDivider = _newServiceFeeDivider;
+    emit ServiceFeeDividerChanged(_newServiceFeeDivider);
   }
 
   function setSanctionCheckDisabled(bool _state) external onlyOperator {

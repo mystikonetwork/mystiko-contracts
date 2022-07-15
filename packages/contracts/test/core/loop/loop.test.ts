@@ -1,6 +1,11 @@
 import { Wallet } from '@ethersproject/wallet';
 import { waffle } from 'hardhat';
-import { MystikoV2LoopERC20, MystikoV2LoopMain } from '@mystikonetwork/contracts-abi';
+import {
+  CommitmentPoolERC20,
+  CommitmentPoolMain,
+  MystikoV2LoopERC20,
+  MystikoV2LoopMain,
+} from '@mystikonetwork/contracts-abi';
 import {
   deployLoopContracts,
   deployDependContracts,
@@ -55,6 +60,8 @@ describe('Test Mystiko loop', () => {
   }
 
   let accounts: Wallet[];
+  let poolMain: CommitmentPoolMain;
+  let poolErc20: CommitmentPoolERC20;
   let loopERC20: MystikoV2LoopERC20;
   let loopMain: MystikoV2LoopMain;
 
@@ -62,13 +69,15 @@ describe('Test Mystiko loop', () => {
     accounts = waffle.provider.getWallets();
 
     const r = await loadFixture(fixture);
+    poolMain = r.pool.poolMain;
+    poolErc20 = r.pool.poolERC20;
     loopMain = r.loop.coreMain;
     loopERC20 = r.loop.coreERC20;
   });
 
   it('test constructor', () => {
-    testLoopConstructor('MystikoV2LoopMain', loopMain, MinAmount);
-    testLoopConstructor('MystikoV2LoopERC20', loopERC20, MinAmount);
+    testLoopConstructor('MystikoV2LoopMain', loopMain, poolMain, MinAmount);
+    testLoopConstructor('MystikoV2LoopERC20', loopERC20, poolErc20, MinAmount);
   });
 
   it('test admin operation', () => {

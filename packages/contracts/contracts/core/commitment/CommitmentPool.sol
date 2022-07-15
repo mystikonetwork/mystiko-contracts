@@ -1,8 +1,9 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.0;
+pragma solidity ^0.8.7;
 
 import "../../libs/asset/AssetPool.sol";
-import "../../libs/common/DataTypes.sol";
+import "../../libs/common/CustomErrors.sol";
+import "../../libs/verifiers/Pairing.sol";
 import "../../interface/IHasher3.sol";
 import "../../interface/IVerifier.sol";
 import "../../interface/ICommitmentPool.sol";
@@ -53,17 +54,17 @@ abstract contract CommitmentPool is ICommitmentPool, AssetPool, ReentrancyGuard,
   bool private rollupWhitelistDisabled;
 
   modifier onlyOperator() {
-    require(msg.sender == operator, "only operator.");
+    if (msg.sender != operator) revert CustomErrors.OnlyOperator();
     _;
   }
 
   modifier onlyRollupWhitelisted() {
-    require(rollupWhitelistDisabled || rollupWhitelist[msg.sender], "only whitelisted roller.");
+    if (!rollupWhitelistDisabled && !rollupWhitelist[msg.sender]) revert CustomErrors.OnlyWhitelistedRoller();
     _;
   }
 
   modifier onlyEnqueueWhitelisted() {
-    require(enqueueWhitelist[msg.sender], "only whitelisted sender.");
+    if (!enqueueWhitelist[msg.sender]) revert CustomErrors.OnlyWhitelistedSender();
     _;
   }
 
@@ -80,7 +81,7 @@ abstract contract CommitmentPool is ICommitmentPool, AssetPool, ReentrancyGuard,
   event RollupWhitelistDisabled(bool state);
 
   constructor(uint8 _treeHeight) {
-    require(_treeHeight > 0, "_treeHeight should be greater than 0");
+    if (_treeHeight == 0) revert CustomErrors.TreeHeightLessThanZero();
     operator = msg.sender;
     treeCapacity = 1 << _treeHeight;
     currentRoot = _zeros(_treeHeight);
@@ -98,9 +99,9 @@ abstract contract CommitmentPool is ICommitmentPool, AssetPool, ReentrancyGuard,
     onlyEnqueueWhitelisted
   {
     // todo should do check in upper layer call
-    require(_request.rollupFee >= minRollupFee, "rollup fee too few");
-    require(commitmentIncludedCount + commitmentQueueSize < treeCapacity, "tree is full");
-    require(!historicCommitments[_request.commitment], "the commitment has been submitted");
+    if (_request.rollupFee < minRollupFee) revert CustomErrors.RollupFeeToFew();
+    if (commitmentIncludedCount + commitmentQueueSize >= treeCapacity) revert CustomErrors.TreeIsFull();
+    if (historicCommitments[_request.commitment]) revert CustomErrors.CommitmentHasBeenSubmitted();
 
     historicCommitments[_request.commitment] = true;
     _enqueueCommitment(_request.commitment, _request.rollupFee, _request.encryptedNote);
@@ -114,38 +115,33 @@ abstract contract CommitmentPool is ICommitmentPool, AssetPool, ReentrancyGuard,
    *  @param _request     The rollup request parameter
    */
   function rollup(RollupRequest memory _request) external override onlyRollupWhitelisted {
-    require(_request.newRoot < DataTypes.FIELD_SIZE, "newRoot should be less than FIELD_SIZE");
-    require(!rootHistory[_request.newRoot], "newRoot is duplicated");
-    require(
-      _request.rollupSize > 0 &&
-        _request.rollupSize <= commitmentQueueSize &&
-        rollupVerifiers[_request.rollupSize].enabled,
-      "invalid rollupSize"
-    );
+    if (rootHistory[_request.newRoot]) revert CustomErrors.NewRootIsDuplicated();
+    if (_request.rollupSize > commitmentQueueSize || !rollupVerifiers[_request.rollupSize].enabled)
+      revert CustomErrors.Invalid("rollupSize");
     uint256 includedCount = commitmentIncludedCount;
-    require(includedCount % _request.rollupSize == 0, "invalid rollupSize at current state");
+    if (includedCount % _request.rollupSize != 0) revert CustomErrors.Invalid("rollupSize");
     uint256 pathIndices = _pathIndices(includedCount, _request.rollupSize);
     uint256[] memory leaves = new uint256[](_request.rollupSize);
     uint256 totalRollupFee = 0;
     for (uint256 index = 0; index < _request.rollupSize; index++) {
       uint256 includedCursor = includedCount + index;
       CommitmentLeaf memory leaf = commitmentQueue[includedCursor];
-      require(leaf.commitment != 0, "index out of bound");
+      if (leaf.commitment == 0) revert CustomErrors.IndexOutOfBound();
       leaves[index] = leaf.commitment;
       totalRollupFee += leaf.rollupFee;
       delete commitmentQueue[includedCursor];
       emit CommitmentIncluded(leaf.commitment);
     }
     commitmentQueueSize -= _request.rollupSize;
-    uint256 expectedLeafHash = uint256(keccak256(abi.encodePacked(leaves))) % DataTypes.FIELD_SIZE;
-    require(_request.leafHash == expectedLeafHash, "invalid leafHash");
+    uint256 expectedLeafHash = uint256(keccak256(abi.encodePacked(leaves))) % Pairing.FIELD_SIZE;
+    if (_request.leafHash != expectedLeafHash) revert CustomErrors.Invalid("leafHash");
     uint256[] memory inputs = new uint256[](4);
     inputs[0] = currentRoot;
     inputs[1] = _request.newRoot;
     inputs[2] = expectedLeafHash;
     inputs[3] = pathIndices;
     bool verified = rollupVerifiers[_request.rollupSize].verifier.verifyTx(_request.proof, inputs);
-    require(verified, "invalid proof");
+    if (!verified) revert CustomErrors.Invalid("proof");
     commitmentIncludedCount += _request.rollupSize;
     currentRoot = _request.newRoot;
     rootHistory[_request.newRoot] = true;
@@ -161,17 +157,19 @@ abstract contract CommitmentPool is ICommitmentPool, AssetPool, ReentrancyGuard,
     uint32 numOutputs = SafeCast.toUint32(_request.outCommitments.length);
 
     // check input and output lengths.
-    require(transactVerifiers[numInputs][numOutputs].enabled, "invalid i/o length");
-    require(_request.sigHashes.length == numInputs, "invalid sigHashes length");
-    require(_request.outRollupFees.length == numOutputs, "invalid outRollupFees length");
-    require(_request.outEncryptedNotes.length == numOutputs, "invalid outEncryptedNotes length");
-    require(commitmentIncludedCount + commitmentQueueSize + numOutputs <= treeCapacity, "tree is full");
-    require(!isSanctioned(_request.publicRecipient), "sanctioned address");
+    if (!transactVerifiers[numInputs][numOutputs].enabled) revert CustomErrors.Invalid("i/o length");
+    if (_request.sigHashes.length != numInputs) revert CustomErrors.Invalid("sigHashes length");
+    if (_request.outRollupFees.length != numOutputs) revert CustomErrors.Invalid("outRollupFees length");
+    if (_request.outEncryptedNotes.length != numOutputs)
+      revert CustomErrors.Invalid("outEncryptedNotes length");
+    if (commitmentIncludedCount + commitmentQueueSize + numOutputs > treeCapacity)
+      revert CustomErrors.TreeIsFull();
+    if (isSanctioned(_request.publicRecipient)) revert CustomErrors.SanctionedAddress();
 
     // check signature
     bytes32 hash = _transactRequestHash(_request);
-    address recoveredSigPk = ECDSA.recover(hash, _signature);
-    require(_request.sigPk == bytes32(uint256(uint160(recoveredSigPk))), "invalid signature");
+    if (_request.sigPk != bytes32(uint256(uint160(ECDSA.recover(hash, _signature)))))
+      revert CustomErrors.Invalid("signature");
 
     // initialize inputs array for verifying proof.
     uint256 totalInput = 2 * numInputs;
@@ -179,23 +177,18 @@ abstract contract CommitmentPool is ICommitmentPool, AssetPool, ReentrancyGuard,
     uint256[] memory inputs = new uint256[](allInput + 2 * numOutputs);
 
     // check whether valid root.
-    require(rootHistory[_request.rootHash], "invalid root");
+    if (!rootHistory[_request.rootHash]) revert CustomErrors.Invalid("root");
     inputs[0] = _request.rootHash;
 
     // check serial numbers.
     uint256 offsetSigHash = numInputs + 1;
     for (uint256 i = 0; i < numInputs; i++) {
       uint256 sn = _request.serialNumbers[i];
-      require(!spentSerialNumbers[sn], "the note has been spent");
-      require(sn < DataTypes.FIELD_SIZE, "the note invalid");
-      require(_request.sigHashes[i] < DataTypes.FIELD_SIZE, "sig hash invalid");
+      if (spentSerialNumbers[sn]) revert CustomErrors.NoteHasBeenSpent();
       inputs[i + 1] = sn;
       inputs[i + offsetSigHash] = _request.sigHashes[i];
     }
 
-    require(uint256(_request.sigPk) < DataTypes.FIELD_SIZE, "invalid sig pk");
-    require(_request.publicAmount < DataTypes.FIELD_SIZE, "invalid amount");
-    require(_request.relayerFeeAmount < DataTypes.FIELD_SIZE, "invalid relayer fee amount");
     inputs[totalInput + 1] = uint256(_request.sigPk);
     inputs[totalInput + 2] = _request.publicAmount;
     inputs[totalInput + 3] = _request.relayerFeeAmount;
@@ -203,17 +196,15 @@ abstract contract CommitmentPool is ICommitmentPool, AssetPool, ReentrancyGuard,
     // check rollup fees and output commitments.
     uint256 offsetRollupFee = allInput + numOutputs;
     for (uint256 i = 0; i < numOutputs; i++) {
-      require(!historicCommitments[_request.outCommitments[i]], "duplicate commitment");
-      require(_request.outCommitments[i] < DataTypes.FIELD_SIZE, "invalid out commitment");
-      require(_request.outRollupFees[i] >= minRollupFee, "rollup fee too low");
-      require(_request.outRollupFees[i] < DataTypes.FIELD_SIZE, "invalid out rollup fee");
+      if (historicCommitments[_request.outCommitments[i]]) revert CustomErrors.Duplicated("commitment");
+      if (_request.outRollupFees[i] < minRollupFee) revert CustomErrors.RollupFeeToFew();
       inputs[i + allInput] = _request.outCommitments[i];
       inputs[i + offsetRollupFee] = _request.outRollupFees[i];
     }
 
     // verify proof.
     bool verified = transactVerifiers[numInputs][numOutputs].verifier.verifyTx(_request.proof, inputs);
-    require(verified, "invalid transact proof");
+    if (!verified) revert CustomErrors.Invalid("transact proof");
 
     // set spent flag for serial numbers.
     for (uint256 i = 0; i < numInputs; i++) {
@@ -257,28 +248,28 @@ abstract contract CommitmentPool is ICommitmentPool, AssetPool, ReentrancyGuard,
     uint32 _numOutputs,
     IVerifier _transactVerifier
   ) external onlyOperator {
-    require(!verifierUpdateDisabled, "verifier updates have been disabled.");
-    require(_numInputs > 0, "numInputs should > 0");
+    if (verifierUpdateDisabled) revert CustomErrors.VerifierUpdatesHasBeenDisabled();
+    if (_numInputs == 0) revert CustomErrors.NumInputsGreaterThanZero();
     transactVerifiers[_numInputs][_numOutputs] = WrappedVerifier(_transactVerifier, true);
   }
 
   function disableTransactVerifier(uint32 _numInputs, uint32 _numOutputs) external onlyOperator {
-    require(!verifierUpdateDisabled, "verifier updates have been disabled.");
-    require(_numInputs > 0, "numInputs should > 0");
+    if (verifierUpdateDisabled) revert CustomErrors.VerifierUpdatesHasBeenDisabled();
+    if (_numInputs == 0) revert CustomErrors.NumInputsGreaterThanZero();
     transactVerifiers[_numInputs][_numOutputs].enabled = false;
   }
 
   function enableRollupVerifier(uint32 _rollupSize, IVerifier _rollupVerifier) external onlyOperator {
-    require(!verifierUpdateDisabled, "verifier updates have been disabled.");
-    require(_rollupSize > 0 && _rollupSize < 256, "invalid rollupSize");
-    require(_rollupSize & (_rollupSize - 1) == 0, "rollup size not power of 2");
+    if (verifierUpdateDisabled) revert CustomErrors.VerifierUpdatesHasBeenDisabled();
+    if (_rollupSize == 0 || _rollupSize > 1024) revert CustomErrors.Invalid("rollupSize");
+    if (_rollupSize & (_rollupSize - 1) != 0) revert CustomErrors.RollupSizeNotPowerOfTwo();
     rollupVerifiers[_rollupSize] = WrappedVerifier(_rollupVerifier, true);
   }
 
   function disableRollupVerifier(uint32 _rollupSize) external onlyOperator {
-    require(!verifierUpdateDisabled, "verifier updates have been disabled.");
-    require(_rollupSize > 0 && _rollupSize < 256, "invalid rollupSize");
-    require(_rollupSize & (_rollupSize - 1) == 0, "rollup size not power of 2");
+    if (verifierUpdateDisabled) revert CustomErrors.VerifierUpdatesHasBeenDisabled();
+    if (_rollupSize == 0 || _rollupSize > 1024) revert CustomErrors.Invalid("rollupSize");
+    if (_rollupSize & (_rollupSize - 1) != 0) revert CustomErrors.RollupSizeNotPowerOfTwo();
     rollupVerifiers[_rollupSize].enabled = false;
   }
 
@@ -299,7 +290,7 @@ abstract contract CommitmentPool is ICommitmentPool, AssetPool, ReentrancyGuard,
   }
 
   function setMinRollupFee(uint256 _minRollupFee) external onlyOperator {
-    require(_minRollupFee > 0, "invalid _minRollupFee");
+    if (_minRollupFee == 0) revert CustomErrors.Invalid("_minRollupFee");
     minRollupFee = _minRollupFee;
   }
 
@@ -428,11 +419,16 @@ abstract contract CommitmentPool is ICommitmentPool, AssetPool, ReentrancyGuard,
     } else if (_nth == 32) {
       return 17318897336142888270342651912033539049925356757640177789706671990424346301218;
     } else {
-      revert("tree height out of bounds");
+      revert CustomErrors.TreeHeightOutOfBounds();
     }
   }
 
   function _pathIndices(uint256 _fullPath, uint32 _rollupSize) public pure returns (uint256) {
+    if (_rollupSize >= 0x100) {
+      _rollupSize >>= 8;
+      _fullPath >>= 8;
+    }
+
     if (_rollupSize >= 0x10) {
       _rollupSize >>= 4;
       _fullPath >>= 4;
@@ -451,63 +447,26 @@ abstract contract CommitmentPool is ICommitmentPool, AssetPool, ReentrancyGuard,
 
   function _transactRequestHash(TransactRequest memory _request) internal returns (bytes32) {
     uint256 outNotesLen = _request.outEncryptedNotes.length;
-    require(outNotesLen < 3, "output notes less than 3");
+    if (outNotesLen >= 3) revert CustomErrors.OutputNotesLessThanThree();
 
-    address recipient = _request.publicRecipient;
-    address relayerAddress = _request.relayerAddress;
-    bytes memory note1;
-    bytes memory note2;
-    uint256 totalLength;
-
-    if ((outNotesLen == 0)) {
-      totalLength = 40;
+    bytes memory requestBytes;
+    if (outNotesLen == 0) {
+      requestBytes = abi.encodePacked(_request.publicRecipient, _request.relayerAddress);
     } else if (outNotesLen == 1) {
-      totalLength = 249;
-      note1 = _request.outEncryptedNotes[0];
+      requestBytes = abi.encodePacked(
+        _request.publicRecipient,
+        _request.relayerAddress,
+        _request.outEncryptedNotes[0]
+      );
     } else {
-      totalLength = 458;
-      note1 = _request.outEncryptedNotes[0];
-      note2 = _request.outEncryptedNotes[1];
+      requestBytes = abi.encodePacked(
+        _request.publicRecipient,
+        _request.relayerAddress,
+        _request.outEncryptedNotes[0],
+        _request.outEncryptedNotes[1]
+      );
     }
 
-    bytes32 requestHash;
-
-    assembly {
-      let memPtr := mload(0x40)
-      mstore(add(memPtr, 0), shl(96, recipient))
-      mstore(add(memPtr, 20), shl(96, relayerAddress))
-
-      if sgt(outNotesLen, 0) {
-        let mc := add(memPtr, 40)
-        let end := add(mc, 209)
-
-        for {
-          let cc := add(note1, 32)
-        } lt(mc, end) {
-          mc := add(mc, 32)
-          cc := add(cc, 32)
-        } {
-          mstore(mc, mload(cc))
-        }
-      }
-
-      if sgt(outNotesLen, 1) {
-        let mc := add(memPtr, 249)
-        let end := add(mc, 209)
-
-        for {
-          let cc := add(note2, 32)
-        } lt(mc, end) {
-          mc := add(mc, 32)
-          cc := add(cc, 32)
-        } {
-          mstore(mc, mload(cc))
-        }
-      }
-
-      requestHash := keccak256(memPtr, totalLength)
-    }
-
-    return ECDSA.toEthSignedMessageHash(requestHash);
+    return ECDSA.toEthSignedMessageHash(keccak256(requestBytes));
   }
 }

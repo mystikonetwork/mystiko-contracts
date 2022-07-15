@@ -2,7 +2,12 @@ import { expect } from 'chai';
 // import { MerkleTree } from '@mystikonetwork/utils';
 import { MerkleTreeHeight, MinRollupFee } from '../util/constants';
 
-export function testLoopConstructor(contractName: string, mystikoContract: any, minAmount: string) {
+export function testLoopConstructor(
+  contractName: string,
+  mystikoContract: any,
+  poolContract: any,
+  minAmount: string,
+) {
   describe(`Test ${contractName} constructor`, () => {
     it('should initialize minAmount correctly', async () => {
       expect(await mystikoContract.getMinAmount()).to.equal(minAmount);
@@ -18,6 +23,9 @@ export function testLoopConstructor(contractName: string, mystikoContract: any, 
     });
     it('should initialize bridge type correctly', async () => {
       expect(await mystikoContract.bridgeType()).to.equal('loop');
+    });
+    it('should initialize associated commitment pool correctly', async () => {
+      expect(await mystikoContract.getAssociatedCommitmentPool()).to.equal(poolContract.address);
     });
 
     if (contractName === 'MystikoV2LoopERC20') {

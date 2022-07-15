@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: UNLICENSED
-pragma solidity ^0.8.0;
+pragma solidity ^0.8.7;
 
 interface ICrossChainProxy {
   event TBridgeCrossChainMessage(address toContract, uint256 toChainId, address fromContract, bytes message);

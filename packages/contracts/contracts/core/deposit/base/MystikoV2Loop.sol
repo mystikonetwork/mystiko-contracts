@@ -1,8 +1,9 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.0;
+pragma solidity ^0.8.7;
 
 import "../../../libs/asset/AssetPool.sol";
-import "../../../libs/common/DataTypes.sol";
+import "../../../libs/common/CustomErrors.sol";
+import "../../../libs/verifiers/Pairing.sol";
 import "../../../interface/IMystikoLoop.sol";
 import "../../../interface/IHasher3.sol";
 import "../../../interface/ICommitmentPool.sol";
@@ -10,8 +11,11 @@ import "../../../interface/ISanctionsList.sol";
 import "../../rule/Sanctions.sol";
 import "@openzeppelin/contracts/security/ReentrancyGuard.sol";
 import "@openzeppelin/contracts/utils/cryptography/ECDSA.sol";
+import "@openzeppelin/contracts/utils/math/SafeMath.sol";
 
 abstract contract MystikoV2Loop is IMystikoLoop, AssetPool, Sanctions {
+  using SafeMath for uint256;
+
   // Hasher related.
   IHasher3 private hasher3;
 
@@ -21,22 +25,33 @@ abstract contract MystikoV2Loop is IMystikoLoop, AssetPool, Sanctions {
   // Admin related.
   address private operator;
 
+  // service fee related.
+  address private serviceFeeCollector;
+  // the service fee takes from depositer
+  uint256 private serviceFee;
+  uint256 private serviceFeeDivider;
+
   // Some switches.
   bool private depositsDisabled;
 
   modifier onlyOperator() {
-    require(msg.sender == operator, "only operator.");
+    if (msg.sender != operator) revert CustomErrors.OnlyOperator();
     _;
   }
 
   constructor(IHasher3 _hasher3) {
     operator = msg.sender;
     hasher3 = _hasher3;
+    serviceFee = 1000;
+    serviceFeeDivider = 1000000;
   }
 
   event MinAmount(uint256 minAmount);
   event DepositsDisabled(bool state);
   event OperatorChanged(address operator);
+  event ServiceFeeCollectorChanged(address servicer);
+  event ServiceFeeChanged(uint256 serviceFee);
+  event ServiceFeeDividerChanged(uint256 serviceFeeDivider);
 
   function setAssociatedCommitmentPool(address _commitmentPoolAddress) external onlyOperator {
     associatedCommitmentPool = _commitmentPoolAddress;
@@ -52,8 +67,9 @@ abstract contract MystikoV2Loop is IMystikoLoop, AssetPool, Sanctions {
     uint256 _amount,
     uint128 _randomS
   ) internal view returns (uint256) {
-    require(_hashK < DataTypes.FIELD_SIZE, "hashK should be less than FIELD_SIZE");
-    require(_randomS < DataTypes.FIELD_SIZE, "randomS should be less than FIELD_SIZE");
+    uint256 fieldSize = Pairing.FIELD_SIZE;
+    if (_hashK >= fieldSize) revert CustomErrors.HashKGreaterThanFieldSize();
+    if (_randomS >= fieldSize) revert CustomErrors.RandomSGreaterThanFieldSize();
     return hasher3.poseidon([_hashK, _amount, _randomS]);
   }
 
@@ -61,11 +77,11 @@ abstract contract MystikoV2Loop is IMystikoLoop, AssetPool, Sanctions {
    *  @param _request     The transact request parameter
    */
   function deposit(DepositRequest memory _request) external payable override {
-    require(!depositsDisabled, "deposits are disabled");
-    require(_request.amount >= minAmount, "amount too small");
+    if (depositsDisabled) revert CustomErrors.DepositsDisabled();
+    if (_request.amount < minAmount) revert CustomErrors.AmountTooSmall();
     uint256 calculatedCommitment = _commitmentHash(_request.hashK, _request.amount, _request.randomS);
-    require(_request.commitment == calculatedCommitment, "commitment hash incorrect");
-    require(!isSanctioned(msg.sender), "sanctioned address");
+    if (_request.commitment != calculatedCommitment) revert CustomErrors.CommitmentHashIncorrect();
+    if (isSanctioned(msg.sender)) revert CustomErrors.SanctionedAddress();
 
     _processDeposit(_request.amount, _request.commitment, _request.rollupFee, _request.encryptedNote);
   }
@@ -86,7 +102,13 @@ abstract contract MystikoV2Loop is IMystikoLoop, AssetPool, Sanctions {
 
     // todo 1 check commitment in queue
     ICommitmentPool(associatedCommitmentPool).enqueue(cmRequest, address(0));
-    _processDepositTransfer(associatedCommitmentPool, _amount + _rollupFee, 0);
+    _processDepositTransfer(
+      associatedCommitmentPool,
+      serviceFeeCollector,
+      serviceFee.mul(_amount).div(serviceFeeDivider),
+      _amount + _rollupFee,
+      0
+    );
   }
 
   function setDepositsDisabled(bool _state) external onlyOperator {
@@ -97,6 +119,30 @@ abstract contract MystikoV2Loop is IMystikoLoop, AssetPool, Sanctions {
   function changeOperator(address _newOperator) external onlyOperator {
     operator = _newOperator;
     emit OperatorChanged(_newOperator);
+  }
+
+  function changeServiceFeeCollector(address _newCollector) external onlyOperator {
+    serviceFeeCollector = _newCollector;
+    emit ServiceFeeCollectorChanged(_newCollector);
+  }
+
+  function getServiceFee() public view returns (uint256) {
+    return serviceFee;
+  }
+
+  function changeServiceFee(uint256 _newServiceFee) external onlyOperator {
+    serviceFee = _newServiceFee;
+    emit ServiceFeeChanged(_newServiceFee);
+  }
+
+  function getServiceFeeDivider() public view returns (uint256) {
+    return serviceFeeDivider;
+  }
+
+  function changeServiceFeeDivider(uint256 _newServiceFeeDivider) external onlyOperator {
+    if (_newServiceFeeDivider == 0) revert CustomErrors.ServiceFeeDividerTooSmall();
+    serviceFeeDivider = _newServiceFeeDivider;
+    emit ServiceFeeDividerChanged(_newServiceFeeDivider);
   }
 
   function setSanctionCheckDisabled(bool _state) external onlyOperator {

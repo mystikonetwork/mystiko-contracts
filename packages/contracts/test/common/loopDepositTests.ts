@@ -5,7 +5,7 @@ import { DummySanctionsList, TestToken } from '@mystikonetwork/contracts-abi';
 import { CommitmentOutput, MystikoProtocolV2 } from '@mystikonetwork/protocol';
 import { toHex, toBN } from '@mystikonetwork/utils';
 import { CommitmentInfo } from './commitment';
-import { MinAmount } from '../util/constants';
+import { MinAmount, ServiceAccountIndex } from '../util/constants';
 
 export function testLoopDeposit(
   contractName: string,
@@ -21,14 +21,20 @@ export function testLoopDeposit(
 ) {
   let minTotalAmount: string;
   let minRollupFee: string;
+  let serviceFeeAmount: string;
   const { commitments } = cmInfo;
   const numOfCommitments = commitments.length;
   let expectBalance: string;
+  let expectServiceFee: string;
 
   describe(`Test ${contractName} deposit operations`, () => {
     before(async () => {
       minRollupFee = (await commitmentPool.getMinRollupFee()).toString();
-      minTotalAmount = toBN(depositAmount).add(toBN(minRollupFee)).toString();
+      const serviceFee = (await mystikoContract.getServiceFee()).toString();
+      const serviceFeeDivider = (await mystikoContract.getServiceFeeDivider()).toString();
+      const fee = toBN(depositAmount).mul(toBN(serviceFee)).div(toBN(serviceFeeDivider));
+      minTotalAmount = toBN(depositAmount).add(toBN(minRollupFee)).add(fee).toString();
+      serviceFeeAmount = fee.toString();
     });
 
     it('should revert when deposit is disabled', async () => {
@@ -45,7 +51,7 @@ export function testLoopDeposit(
           ],
           { from: accounts[0].address, value: isMainAsset ? minTotalAmount : '0' },
         ),
-      ).to.be.revertedWith('deposits are disabled');
+      ).to.be.revertedWith('DepositsDisabled()');
       await mystikoContract.setDepositsDisabled(false);
     });
 
@@ -63,7 +69,7 @@ export function testLoopDeposit(
           ],
           { from: accounts[0].address, value: isMainAsset ? minTotalAmount : '0' },
         ),
-      ).to.be.revertedWith('sanctioned address');
+      ).to.be.revertedWith('SanctionedAddress()');
       await sanctionList.removeToSanctionsList(accounts[0].address);
     });
 
@@ -81,7 +87,24 @@ export function testLoopDeposit(
           ],
           { from: accounts[0].address, value: isMainAsset ? amount : '0' },
         ),
-      ).to.be.revertedWith('amount too small');
+      ).to.be.revertedWith('AmountTooSmall()');
+    });
+
+    it('should revert when hashK greater than field size', async () => {
+      const fieldSize = '21888242871839275222246405745257275088548364400416034343698204186575808495617';
+      await expect(
+        mystikoContract.deposit(
+          [
+            depositAmount,
+            commitments[0].commitmentHash.toString(),
+            fieldSize,
+            commitments[0].randomS.toString(),
+            toHex(commitments[0].encryptedNote),
+            minRollupFee,
+          ],
+          { from: accounts[0].address, value: isMainAsset ? minTotalAmount : '0' },
+        ),
+      ).to.be.revertedWith('HashKGreaterThanFieldSize()');
     });
 
     it('should revert when commitmentHash is incorrect', async () => {
@@ -97,7 +120,7 @@ export function testLoopDeposit(
           ],
           { from: accounts[0].address, value: isMainAsset ? minTotalAmount : '0' },
         ),
-      ).to.be.revertedWith('commitment hash incorrect');
+      ).to.be.revertedWith('CommitmentHashIncorrect()');
     });
 
     it('should approve asset successfully', async () => {
@@ -107,6 +130,24 @@ export function testLoopDeposit(
           from: accounts[0].address,
         });
       }
+    });
+
+    it('should revert onlyEnqueueWhitelisted', async () => {
+      await commitmentPool.removeEnqueueWhitelist(mystikoContract.address);
+      await expect(
+        mystikoContract.deposit(
+          [
+            depositAmount,
+            commitments[0].commitmentHash.toString(),
+            commitments[0].k.toString(),
+            commitments[0].randomS.toString(),
+            toHex(commitments[0].encryptedNote),
+            minRollupFee,
+          ],
+          { from: accounts[0].address, value: isMainAsset ? depositAmount : '0' },
+        ),
+      ).to.be.revertedWith('OnlyWhitelistedSender()');
+      await commitmentPool.addEnqueueWhitelist(mystikoContract.address);
     });
 
     it('should revert when rollup fee is too few', async () => {
@@ -122,12 +163,18 @@ export function testLoopDeposit(
           ],
           { from: accounts[0].address, value: isMainAsset ? depositAmount : '0' },
         ),
-      ).to.be.revertedWith('rollup fee too few');
+      ).to.be.revertedWith('RollupFeeToFew()');
     });
 
     it('should deposit successfully', async () => {
       await sanctionList.addToSanctionsList(accounts[0].address);
       await mystikoContract.setSanctionCheckDisabled(true);
+
+      expectServiceFee = (
+        isMainAsset
+          ? await waffle.provider.getBalance(accounts[ServiceAccountIndex].address)
+          : await await testTokenContract.balanceOf(accounts[ServiceAccountIndex].address)
+      ).toString();
 
       for (let i = 0; i < numOfCommitments; i += 1) {
         await expect(
@@ -158,15 +205,23 @@ export function testLoopDeposit(
     });
 
     it('should have correct balance', async () => {
-      expectBalance = toBN(minTotalAmount).muln(numOfCommitments).toString();
+      expectBalance = toBN(minTotalAmount).sub(toBN(serviceFeeAmount)).muln(numOfCommitments).toString();
+      expectServiceFee = toBN(serviceFeeAmount).muln(numOfCommitments).add(toBN(expectServiceFee)).toString();
+
       if (isMainAsset) {
         expect(await waffle.provider.getBalance(mystikoContract.address)).to.equal('0');
         expect(await waffle.provider.getBalance(commitmentPool.address)).to.equal(expectBalance);
+        expect(await waffle.provider.getBalance(accounts[ServiceAccountIndex].address)).to.equal(
+          expectServiceFee,
+        );
       } else {
         expect((await testTokenContract.balanceOf(mystikoContract.address)).toString()).to.equal('0');
         expect((await testTokenContract.balanceOf(commitmentPool.address)).toString()).to.equal(
           expectBalance,
         );
+        expect(
+          (await testTokenContract.balanceOf(accounts[ServiceAccountIndex].address)).toString(),
+        ).to.equal(expectServiceFee);
       }
     });
 
@@ -192,19 +247,88 @@ export function testLoopDeposit(
           ],
           { from: accounts[0].address, value: isMainAsset ? minTotalAmount : '0' },
         ),
-      ).to.be.revertedWith('the commitment has been submitted');
+      ).to.be.revertedWith('CommitmentHasBeenSubmitted()');
     });
 
     it('should have correct balance', async () => {
       if (isMainAsset) {
         expect(await waffle.provider.getBalance(mystikoContract.address)).to.equal('0');
         expect(await waffle.provider.getBalance(commitmentPool.address)).to.equal(expectBalance);
+        expect(await waffle.provider.getBalance(accounts[ServiceAccountIndex].address)).to.equal(
+          expectServiceFee,
+        );
       } else {
         expect((await testTokenContract.balanceOf(mystikoContract.address)).toString()).to.equal('0');
         expect((await testTokenContract.balanceOf(commitmentPool.address)).toString()).to.equal(
           expectBalance,
         );
+        expect(
+          (await testTokenContract.balanceOf(accounts[ServiceAccountIndex].address)).toString(),
+        ).to.equal(expectServiceFee);
       }
+    });
+  });
+}
+
+export function loopDepositRevert(
+  contractName: string,
+  protocol: MystikoProtocolV2,
+  mystikoContract: any,
+  commitmentPool: any,
+  testTokenContract: TestToken,
+  sanctionList: DummySanctionsList,
+  accounts: Wallet[],
+  depositAmount: string,
+  isMainAsset: boolean,
+  cmInfo: CommitmentInfo<CommitmentOutput>,
+) {
+  let minTotalAmount: string;
+  let minRollupFee: string;
+  const { commitments } = cmInfo;
+  const numOfCommitments = commitments.length;
+
+  describe(`${contractName} deposit operations`, () => {
+    before(async () => {
+      minRollupFee = (await commitmentPool.getMinRollupFee()).toString();
+      minTotalAmount = toBN(depositAmount).add(toBN(minRollupFee)).toString();
+    });
+
+    it('should approve asset successfully', async () => {
+      if (!isMainAsset) {
+        const approveAmount = toBN(minTotalAmount).muln(commitments.length).toString();
+        await testTokenContract.approve(mystikoContract.address, approveAmount, {
+          from: accounts[0].address,
+        });
+      }
+    });
+
+    it('deposit should revert with tree full', async () => {
+      await sanctionList.addToSanctionsList(accounts[0].address);
+      await mystikoContract.setSanctionCheckDisabled(true);
+
+      for (let i = 0; i < numOfCommitments; i += 1) {
+        await expect(
+          mystikoContract.deposit(
+            [
+              depositAmount,
+              commitments[i].commitmentHash.toString(),
+              commitments[i].k.toString(),
+              commitments[i].randomS.toString(),
+              toHex(commitments[i].encryptedNote),
+              minRollupFee,
+            ],
+            { from: accounts[0].address, value: isMainAsset ? minTotalAmount : '0' },
+          ),
+        ).revertedWith('TreeIsFull()');
+
+        expect(await commitmentPool.isHistoricCommitment(commitments[i].commitmentHash.toString())).to.equal(
+          false,
+        );
+      }
+    });
+
+    it('should revert wrong service fee divider', async () => {
+      await expect(mystikoContract.changeServiceFeeDivider(0)).revertedWith('ServiceFeeDividerTooSmall()');
     });
   });
 }
@@ -223,14 +347,18 @@ export function loopDeposit(
 ) {
   let minTotalAmount: string;
   let minRollupFee: string;
+  let serviceFeeAmount: string;
+  let expectServiceFee: string;
   const { commitments } = cmInfo;
   const numOfCommitments = commitments.length;
-  let expectBalance: string;
 
   describe(`${contractName} deposit operations`, () => {
     before(async () => {
       minRollupFee = (await commitmentPool.getMinRollupFee()).toString();
-      minTotalAmount = toBN(depositAmount).add(toBN(minRollupFee)).toString();
+      await mystikoContract.changeServiceFee(0);
+      const fee = toBN('0');
+      minTotalAmount = toBN(depositAmount).add(toBN(minRollupFee)).add(fee).toString();
+      serviceFeeAmount = fee.toString();
     });
 
     it('should approve asset successfully', async () => {
@@ -245,6 +373,11 @@ export function loopDeposit(
     it('should deposit successfully', async () => {
       await sanctionList.addToSanctionsList(accounts[0].address);
       await mystikoContract.setSanctionCheckDisabled(true);
+      expectServiceFee = (
+        isMainAsset
+          ? await waffle.provider.getBalance(accounts[ServiceAccountIndex].address)
+          : await await testTokenContract.balanceOf(accounts[ServiceAccountIndex].address)
+      ).toString();
 
       for (let i = 0; i < numOfCommitments; i += 1) {
         await expect(
@@ -275,15 +408,26 @@ export function loopDeposit(
     });
 
     it('should have correct balance', async () => {
-      expectBalance = toBN(minTotalAmount).muln(numOfCommitments).toString();
+      const expectBalance = toBN(minTotalAmount)
+        .sub(toBN(serviceFeeAmount))
+        .muln(numOfCommitments)
+        .toString();
+      expectServiceFee = toBN(serviceFeeAmount).muln(numOfCommitments).add(toBN(expectServiceFee)).toString();
+
       if (isMainAsset) {
         expect(await waffle.provider.getBalance(mystikoContract.address)).to.equal('0');
         expect(await waffle.provider.getBalance(commitmentPool.address)).to.equal(expectBalance);
+        expect(await waffle.provider.getBalance(accounts[ServiceAccountIndex].address)).to.equal(
+          expectServiceFee,
+        );
       } else {
         expect((await testTokenContract.balanceOf(mystikoContract.address)).toString()).to.equal('0');
         expect((await testTokenContract.balanceOf(commitmentPool.address)).toString()).to.equal(
           expectBalance,
         );
+        expect(
+          (await testTokenContract.balanceOf(accounts[ServiceAccountIndex].address)).toString(),
+        ).to.equal(expectServiceFee);
       }
     });
   });
