@@ -170,7 +170,6 @@ function addNewDepositContractConfig(
   inCoreConfig: any,
   chainId: number,
   version: number,
-  poolName: string,
   name: string,
   address: string,
   startBlock: number,
@@ -191,7 +190,7 @@ function addNewDepositContractConfig(
     const depositContract = chainConfig.depositContracts[j];
     if (depositContract.address === address) {
       depositContract.version = version;
-      depositContract.poolName = poolName;
+      depositContract.poolName = undefined;
       depositContract.startBlock = startBlock;
       depositContract.poolAddress = poolAddress;
 
@@ -219,7 +218,6 @@ function addNewDepositContractConfig(
   console.log('add new deposit contract configure');
   const newContract = {
     version,
-    poolName,
     name,
     address,
     startBlock,
@@ -294,7 +292,6 @@ export function saveCoreContractJson(c: any) {
     coreCfg,
     c.srcChainCfg.chainId,
     c.cfg.version,
-    c.cfg.poolName,
     contractName,
     c.pairSrcDepositCfg.address,
     c.pairSrcDepositCfg.syncStart,
