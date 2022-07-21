@@ -144,6 +144,10 @@ export class ChainConfig extends BaseConfig {
 
   public reset() {
     this.hasher3Address = undefined;
+    this.resetVerifier();
+  }
+
+  public resetVerifier() {
     this.rollup1Address = undefined;
     this.rollup4Address = undefined;
     this.rollup16Address = undefined;

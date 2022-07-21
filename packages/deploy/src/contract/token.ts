@@ -26,7 +26,6 @@ async function transferMainToContract(
 
   const amount = 1;
   const amountWithDecimals = ethers.utils.parseEther(amount.toString());
-
   const accounts = await ethers.getSigners();
   await accounts[0]
     .sendTransaction({
@@ -34,7 +33,7 @@ async function transferMainToContract(
       value: amountWithDecimals,
     })
     .then(() => {
-      console.log('transfer main token contract success ');
+      console.log('transfer main token to pool success, amount ', amount);
       poolCfg.updateTokenTransfer((amount + contractAmount).toString());
       saveConfig(c.mystikoNetwork, c.cfg);
     })
@@ -66,7 +65,7 @@ async function transferTokenToContract(c: any, srcTokenCfg: ChainTokenConfig, in
   await testToken
     .transfer(inPoolCfg.address, amountWithDecimals.toString())
     .then(() => {
-      console.log('transfer token to contract success ');
+      console.log('transfer token to pool success, amount ', amount);
       poolCfg.updateTokenTransfer((amount + contractAmount).toString());
       saveConfig(c.mystikoNetwork, c.cfg);
     })

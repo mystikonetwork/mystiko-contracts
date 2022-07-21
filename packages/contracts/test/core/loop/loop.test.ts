@@ -13,7 +13,7 @@ import {
   deployCommitmentPoolContracts,
 } from '../../util/common';
 import { testLoopConstructor, testLoopAdminOperations } from '../../common';
-import { MinAmount } from '../../util/constants';
+import { MinAmount, ServiceAccountIndex } from '../../util/constants';
 
 describe('Test Mystiko loop', () => {
   async function fixture(accounts: Wallet[]) {
@@ -76,8 +76,20 @@ describe('Test Mystiko loop', () => {
   });
 
   it('test constructor', () => {
-    testLoopConstructor('MystikoV2LoopMain', loopMain, poolMain, MinAmount);
-    testLoopConstructor('MystikoV2LoopERC20', loopERC20, poolErc20, MinAmount);
+    testLoopConstructor(
+      'MystikoV2LoopMain',
+      loopMain,
+      poolMain,
+      MinAmount,
+      accounts[ServiceAccountIndex].address,
+    );
+    testLoopConstructor(
+      'MystikoV2LoopERC20',
+      loopERC20,
+      poolErc20,
+      MinAmount,
+      accounts[ServiceAccountIndex].address,
+    );
   });
 
   it('test admin operation', () => {

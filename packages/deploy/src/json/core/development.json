@@ -17,7 +17,9 @@
           "startBlock": 13,
           "bridgeType": "loop",
           "poolAddress": "0x5FbDB2315678afecb367f032d93F642f64180aa3",
-          "minAmount": "1000"
+          "minAmount": "1000",
+          "serviceFee": 2000,
+          "serviceFeeDivider": 2000000
         },
         {
           "version": 2,
@@ -30,7 +32,9 @@
           "peerContractAddress": "0x9A676e781A523b5d0C0e43731313A708CB607508",
           "minAmount": "2000",
           "minBridgeFee": "1000",
-          "minExecutorFee": "2000"
+          "minExecutorFee": "2000",
+          "serviceFee": 2000,
+          "serviceFeeDivider": 2000000
         }
       ],
       "poolContracts": [

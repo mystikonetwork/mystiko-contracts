@@ -481,6 +481,19 @@ const _abi = [
   },
   {
     inputs: [],
+    name: 'getServiceFeeCollector',
+    outputs: [
+      {
+        internalType: 'address',
+        name: '',
+        type: 'address',
+      },
+    ],
+    stateMutability: 'view',
+    type: 'function',
+  },
+  {
+    inputs: [],
     name: 'getServiceFeeDivider',
     outputs: [
       {

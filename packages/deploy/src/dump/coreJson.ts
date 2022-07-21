@@ -97,6 +97,8 @@ function addPoolContractConfig(
   inCoreConfig: any,
   chainId: number,
   version: number,
+  poolName: string,
+  bridgeType: string,
   address: string,
   startBlock: number,
   isERC20: boolean,
@@ -110,6 +112,9 @@ function addPoolContractConfig(
   for (let j = 0; j < chainConfig.poolContracts.length; j += 1) {
     const poolContract = chainConfig.poolContracts[j];
     if (poolContract.address === address) {
+      poolContract.version = version;
+      poolContract.poolName = poolName;
+      poolContract.bridgeType = bridgeType;
       poolContract.startBlock = startBlock;
       if (isERC20) {
         poolContract.assetAddress = assetAddress;
@@ -129,6 +134,8 @@ function addPoolContractConfig(
   const newPoolContract = {
     version,
     name,
+    poolName,
+    bridgeType,
     address,
     startBlock,
   };
@@ -163,6 +170,7 @@ function addNewDepositContractConfig(
   inCoreConfig: any,
   chainId: number,
   version: number,
+  poolName: string,
   name: string,
   address: string,
   startBlock: number,
@@ -173,6 +181,8 @@ function addNewDepositContractConfig(
   minAmount: string,
   minBridgeFee: string,
   minExecutorFee: string,
+  serviceFee?: number,
+  serviceFeeDivider?: number,
 ): any {
   const coreConfig = inCoreConfig;
   const chainConfig = getChainConfig(coreConfig, chainId);
@@ -180,6 +190,8 @@ function addNewDepositContractConfig(
   for (let j = 0; j < chainConfig.depositContracts.length; j += 1) {
     const depositContract = chainConfig.depositContracts[j];
     if (depositContract.address === address) {
+      depositContract.version = version;
+      depositContract.poolName = poolName;
       depositContract.startBlock = startBlock;
       depositContract.poolAddress = poolAddress;
 
@@ -188,6 +200,12 @@ function addNewDepositContractConfig(
         depositContract.peerContractAddress = peerContractAddress;
       }
       depositContract.minAmount = minAmount;
+      if (serviceFee !== undefined) {
+        depositContract.serviceFee = serviceFee;
+      }
+      if (serviceFeeDivider !== undefined) {
+        depositContract.serviceFeeDivider = serviceFeeDivider;
+      }
 
       if (bridgeType !== BridgeLoop) {
         depositContract.minBridgeFee = minBridgeFee;
@@ -201,6 +219,7 @@ function addNewDepositContractConfig(
   console.log('add new deposit contract configure');
   const newContract = {
     version,
+    poolName,
     name,
     address,
     startBlock,
@@ -220,9 +239,18 @@ function addNewDepositContractConfig(
     // @ts-ignore
     newContract.peerContractAddress = peerContractAddress;
   }
+
   // @ts-ignore
   newContract.minAmount = minAmount;
+  if (serviceFee !== undefined) {
+    // @ts-ignore
+    newContract.serviceFee = serviceFee;
+  }
 
+  if (serviceFeeDivider !== undefined) {
+    // @ts-ignore
+    newContract.serviceFeeDivider = serviceFeeDivider;
+  }
   if (bridgeType !== BridgeLoop) {
     // @ts-ignore
     newContract.minBridgeFee = minBridgeFee;
@@ -251,6 +279,8 @@ export function saveCoreContractJson(c: any) {
     coreCfg,
     c.srcChainCfg.chainId,
     c.cfg.version,
+    c.cfg.poolName,
+    c.bridgeCfg.name,
     c.srcPoolCfg.address,
     c.srcPoolCfg.syncStart,
     c.srcTokenCfg.erc20,
@@ -264,6 +294,7 @@ export function saveCoreContractJson(c: any) {
     coreCfg,
     c.srcChainCfg.chainId,
     c.cfg.version,
+    c.cfg.poolName,
     contractName,
     c.pairSrcDepositCfg.address,
     c.pairSrcDepositCfg.syncStart,
@@ -274,6 +305,8 @@ export function saveCoreContractJson(c: any) {
     c.pairSrcDepositCfg.minAmount,
     c.bridgeCfg.getMinBridgeFee(c.srcChainCfg.network),
     c.pairSrcDepositCfg.minExecutorFee,
+    c.pairSrcDepositCfg.serviceFee,
+    c.pairSrcDepositCfg.serviceFeeDivider,
   );
 
   saveCoreConfig(c.mystikoNetwork, coreCfg);

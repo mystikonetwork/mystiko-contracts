@@ -26,6 +26,7 @@ import {
   MinBridgeFee,
   MinRollupFee,
   DestinationChainID,
+  ServiceAccountIndex,
 } from '../../../util/constants';
 import { testLayerZeroDeposit } from '../../../common/depositLayerZeroTests';
 
@@ -130,7 +131,16 @@ describe('Test Mystiko layer zero', () => {
   });
 
   it('test constructor', () => {
-    testBridgeConstructor('MystikoV2LayerZeroMain', localMain, MinAmount, MinBridgeFee, '0', MinRollupFee);
+    testBridgeConstructor(
+      'MystikoV2LayerZeroMain',
+      localMain,
+      localPoolMain,
+      MinAmount,
+      MinBridgeFee,
+      '0',
+      MinRollupFee,
+      accounts[ServiceAccountIndex].address,
+    );
   });
 
   it('test bridge main to main deposit', async () => {

@@ -217,12 +217,12 @@ function dumpAllTBridgeConfig() {
   });
 }
 
-function dumpChain(taskArgs: any) {
+function dumpMiner(taskArgs: any) {
   dumpRollerConfig(taskArgs);
   dumpTBridgeConfig(taskArgs);
 }
 
-function dumpAllChain() {
+function dumpAllMiner() {
   dumpAllRollerConfig();
   dumpAllTBridgeConfig();
 }
@@ -246,6 +246,7 @@ function resetAllDeployConfig(taskArgs: any) {
     bridge?.resetConfig();
     bridge = cfg.getBridge(BridgeTBridge);
     bridge?.resetConfig();
+    bridge?.resetProxyConfig();
 
     bridge = cfg.getBridge(BridgeCeler);
     bridge?.resetConfig();
@@ -274,12 +275,12 @@ function resetVerifier(taskArgs: any) {
   if (mystikoNetwork === MystikoTestnet) {
     TestNetworks.forEach((network) => {
       const chain = cfg.getChain(network);
-      chain?.reset();
+      chain?.resetVerifier();
     });
   } else {
     MainNetworks.forEach((network) => {
       const chain = cfg.getChain(network);
-      chain?.reset();
+      chain?.resetVerifier();
     });
   }
 
@@ -305,10 +306,10 @@ export async function deploy(taskArgs: any, hre: any) {
     await testToken(taskArgs);
   } else if (step === 'dump') {
     dump(taskArgs);
-  } else if (step === 'dumpChain') {
-    dumpChain(taskArgs);
-  } else if (step === 'dumpAllChain') {
-    dumpAllChain();
+  } else if (step === 'dumpMiner') {
+    dumpMiner(taskArgs);
+  } else if (step === 'dumpAllMiner') {
+    dumpAllMiner();
   } else if (step === 'check') {
     await check(taskArgs);
   } else if (step === 'reset') {

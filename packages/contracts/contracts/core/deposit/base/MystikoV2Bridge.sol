@@ -188,6 +188,10 @@ abstract contract MystikoV2Bridge is IMystikoBridge, AssetPool, CrossChainDataSe
     emit OperatorChanged(_newOperator);
   }
 
+  function getServiceFeeCollector() public view returns (address) {
+    return serviceFeeCollector;
+  }
+
   function changeServiceFeeCollector(address _newCollector) external onlyOperator {
     serviceFeeCollector = _newCollector;
     emit ServiceFeeCollectorChanged(_newCollector);

@@ -121,6 +121,10 @@ abstract contract MystikoV2Loop is IMystikoLoop, AssetPool, Sanctions {
     emit OperatorChanged(_newOperator);
   }
 
+  function getServiceFeeCollector() public view returns (address) {
+    return serviceFeeCollector;
+  }
+
   function changeServiceFeeCollector(address _newCollector) external onlyOperator {
     serviceFeeCollector = _newCollector;
     emit ServiceFeeCollectorChanged(_newCollector);
