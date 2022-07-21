@@ -7,6 +7,7 @@ export function testLoopConstructor(
   mystikoContract: any,
   poolContract: any,
   minAmount: string,
+  serviceAccount: string,
 ) {
   describe(`Test ${contractName} constructor`, () => {
     it('should initialize minAmount correctly', async () => {
@@ -27,6 +28,9 @@ export function testLoopConstructor(
     it('should initialize associated commitment pool correctly', async () => {
       expect(await mystikoContract.getAssociatedCommitmentPool()).to.equal(poolContract.address);
     });
+    it('should initialize service fee collector correctly', async () => {
+      expect(await mystikoContract.getServiceFeeCollector()).to.equal(serviceAccount);
+    });
 
     if (contractName === 'MystikoV2LoopERC20') {
       it('should initialize erc20 token correctly', async () => {
@@ -46,10 +50,12 @@ export function testLoopConstructor(
 export function testBridgeConstructor(
   contractName: string,
   mystikoContract: any,
+  poolContract: any,
   minAmount: string,
   minBridgeFee: string,
   minExecutorFee: string,
   peerMinRoolupFee: string,
+  serviceAccount: string,
 ) {
   describe(`Test ${contractName} constructor`, () => {
     it('should initialize minAmount correctly', async () => {
@@ -70,6 +76,13 @@ export function testBridgeConstructor(
     it('should initialize admin related resources correctly', async () => {
       expect(await mystikoContract.isDepositsDisabled()).to.equal(false);
     });
+    it('should initialize associated commitment pool correctly', async () => {
+      expect(await mystikoContract.getAssociatedCommitmentPool()).to.equal(poolContract.address);
+    });
+    it('should initialize service fee collector correctly', async () => {
+      expect(await mystikoContract.getServiceFeeCollector()).to.equal(serviceAccount);
+    });
+
     it('should initialize bridge type correctly', async () => {
       if (contractName === 'MystikoV2TBridgeMain' || contractName === 'MystikoV2TBridgeERC20') {
         expect(await mystikoContract.bridgeType()).to.equal('tbridge');

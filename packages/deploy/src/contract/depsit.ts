@@ -410,6 +410,90 @@ export async function changeOperator(
   }
 }
 
+export async function changeServiceFeeCollector(
+  c: any,
+  bridgeName: string,
+  erc20: boolean,
+  inDepositCfg: DepositDeployConfig,
+  serviceFeeCollector: string,
+) {
+  if (!inDepositCfg.isServiceFeeCollectorChange(serviceFeeCollector)) {
+    return;
+  }
+
+  const depositCfg = inDepositCfg;
+
+  console.log('change service fee collector');
+  const DepositContractFactoruy = getMystikoDeployContract(bridgeName, erc20);
+  const coreContract = await DepositContractFactoruy.attach(depositCfg.address);
+
+  try {
+    const rsp = await coreContract.changeServiceFeeCollector(serviceFeeCollector);
+    console.log('rsp hash ', rsp.hash);
+    depositCfg.updateServiceFeeCollector(serviceFeeCollector);
+    saveConfig(c.mystikoNetwork, c.cfg);
+  } catch (err: any) {
+    console.error(LOGRED, err);
+    process.exit(1);
+  }
+}
+
+export async function changeServiceFee(
+  c: any,
+  bridgeName: string,
+  erc20: boolean,
+  inDepositCfg: DepositDeployConfig,
+  serviceFee: number,
+) {
+  if (!inDepositCfg.isServiceFeeChange(serviceFee)) {
+    return;
+  }
+
+  const depositCfg = inDepositCfg;
+
+  console.log('change service fee');
+  const DepositContractFactoruy = getMystikoDeployContract(bridgeName, erc20);
+  const coreContract = await DepositContractFactoruy.attach(depositCfg.address);
+
+  try {
+    const rsp = await coreContract.changeServiceFee(serviceFee);
+    console.log('rsp hash ', rsp.hash);
+    depositCfg.updateServiceFee(serviceFee);
+    saveConfig(c.mystikoNetwork, c.cfg);
+  } catch (err: any) {
+    console.error(LOGRED, err);
+    process.exit(1);
+  }
+}
+
+export async function changeServiceFeeDivider(
+  c: any,
+  bridgeName: string,
+  erc20: boolean,
+  inDepositCfg: DepositDeployConfig,
+  serviceFeeDivider: number,
+) {
+  if (!inDepositCfg.isServiceFeeDividerChange(serviceFeeDivider)) {
+    return;
+  }
+
+  const depositCfg = inDepositCfg;
+
+  console.log('change service fee divider');
+  const DepositContractFactoruy = getMystikoDeployContract(bridgeName, erc20);
+  const coreContract = await DepositContractFactoruy.attach(depositCfg.address);
+
+  try {
+    const rsp = await coreContract.changeServiceFeeDivider(serviceFeeDivider);
+    console.log('rsp hash ', rsp.hash);
+    depositCfg.updateServiceFeeDivider(serviceFeeDivider);
+    saveConfig(c.mystikoNetwork, c.cfg);
+  } catch (err: any) {
+    console.error(LOGRED, err);
+    process.exit(1);
+  }
+}
+
 export async function setAssociatedCommitmentPool(
   c: any,
   bridgeName: string,
@@ -502,6 +586,34 @@ export async function doDepositContractConfigure(
 
   if (operatorCfg.admin !== '') {
     await changeOperator(c, bridgeCfg.name, srcChainTokenCfg.erc20, depositCfg, operatorCfg.admin);
+  }
+
+  await changeServiceFeeCollector(
+    c,
+    bridgeCfg.name,
+    srcChainTokenCfg.erc20,
+    depositCfg,
+    operatorCfg.serviceFeeCollector,
+  );
+
+  if (srcChainTokenCfg.serviceFee !== undefined) {
+    await changeServiceFee(
+      c,
+      bridgeCfg.name,
+      srcChainTokenCfg.erc20,
+      depositCfg,
+      srcChainTokenCfg.serviceFee,
+    );
+  }
+
+  if (srcChainTokenCfg.serviceFeeDivider !== undefined) {
+    await changeServiceFeeDivider(
+      c,
+      bridgeCfg.name,
+      srcChainTokenCfg.erc20,
+      depositCfg,
+      srcChainTokenCfg.serviceFeeDivider,
+    );
   }
 
   if (mystikoNetwork === MystikoTestnet) {

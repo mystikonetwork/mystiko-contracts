@@ -1,3 +1,4 @@
+import { check } from '@mystikonetwork/utils';
 import { BaseConfig } from './base';
 
 export interface RawDepositDeployConfig {
@@ -16,6 +17,9 @@ export interface RawDepositDeployConfig {
   trustedRemote?: string;
   sanctionCheckDisable?: boolean;
   operator?: string;
+  serviceFeeCollector?: string;
+  serviceFee?: number;
+  serviceFeeDivider?: number;
 }
 
 export class DepositDeployConfig extends BaseConfig {
@@ -26,6 +30,12 @@ export class DepositDeployConfig extends BaseConfig {
     BaseConfig.checkNumber(this.config, 'syncStart', false);
     BaseConfig.checkEthAddress(this.config, 'address', false);
     BaseConfig.checkEthAddress(this.config, 'operator', false);
+    BaseConfig.checkEthAddress(this.config, 'serviceFeeCollector', false);
+    BaseConfig.checkNumber(this.config, 'serviceFee', false);
+    BaseConfig.checkNumber(this.config, 'serviceFeeDivider', false);
+    if (rawConfig.serviceFeeDivider !== undefined) {
+      check(rawConfig.serviceFeeDivider !== 0, 'service fee divider not 0');
+    }
   }
 
   public get network(): string {
@@ -171,15 +181,15 @@ export class DepositDeployConfig extends BaseConfig {
     this.asRawContractDeployConfig().trustedRemote = address;
   }
 
-  public isSanctionCheckDisableChange(check: boolean): boolean {
-    if (this.asRawContractDeployConfig().sanctionCheckDisable !== check) {
+  public isSanctionCheckDisableChange(bCheck: boolean): boolean {
+    if (this.asRawContractDeployConfig().sanctionCheckDisable !== bCheck) {
       return true;
     }
     return false;
   }
 
-  public updateSanctionCheckDisable(check: boolean) {
-    this.asRawContractDeployConfig().sanctionCheckDisable = check;
+  public updateSanctionCheckDisable(bCheck: boolean) {
+    this.asRawContractDeployConfig().sanctionCheckDisable = bCheck;
   }
 
   public get operator(): string | undefined {
@@ -197,6 +207,47 @@ export class DepositDeployConfig extends BaseConfig {
     return false;
   }
 
+  public updateServiceFeeCollector(addr: string) {
+    this.asRawContractDeployConfig().serviceFeeCollector = addr;
+  }
+
+  public isServiceFeeCollectorChange(address: string): boolean {
+    if (this.asRawContractDeployConfig().serviceFeeCollector !== address) {
+      return true;
+    }
+    return false;
+  }
+
+  public get serviceFee(): number | undefined {
+    return this.asRawContractDeployConfig().serviceFee;
+  }
+
+  public isServiceFeeChange(fee: number): boolean {
+    if (this.asRawContractDeployConfig().serviceFee !== fee) {
+      return true;
+    }
+    return false;
+  }
+
+  public updateServiceFee(fee: number) {
+    this.asRawContractDeployConfig().serviceFee = fee;
+  }
+
+  public get serviceFeeDivider(): number | undefined {
+    return this.asRawContractDeployConfig().serviceFeeDivider;
+  }
+
+  public isServiceFeeDividerChange(divider: number): boolean {
+    if (this.asRawContractDeployConfig().serviceFeeDivider !== divider) {
+      return true;
+    }
+    return false;
+  }
+
+  public updateServiceFeeDivider(divider: number) {
+    this.asRawContractDeployConfig().serviceFeeDivider = divider;
+  }
+
   public reset() {
     this.asRawContractDeployConfig().address = undefined;
     this.asRawContractDeployConfig().syncStart = undefined;
@@ -208,8 +259,12 @@ export class DepositDeployConfig extends BaseConfig {
     this.asRawContractDeployConfig().commitmentPool = undefined;
     this.asRawContractDeployConfig().bridgeProxy = undefined;
     this.asRawContractDeployConfig().peerContract = undefined;
+    this.asRawContractDeployConfig().trustedRemote = undefined;
     this.asRawContractDeployConfig().sanctionCheckDisable = undefined;
     this.asRawContractDeployConfig().operator = undefined;
+    this.asRawContractDeployConfig().serviceFeeCollector = undefined;
+    this.asRawContractDeployConfig().serviceFee = undefined;
+    this.asRawContractDeployConfig().serviceFeeDivider = undefined;
   }
 
   private asRawContractDeployConfig(): RawDepositDeployConfig {

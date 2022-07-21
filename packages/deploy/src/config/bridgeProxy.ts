@@ -73,6 +73,10 @@ export class BridgeProxyConfig extends BaseConfig {
     return this.asRawBridgeProxyConfig().operator;
   }
 
+  public set operator(operator: string | undefined) {
+    this.asRawBridgeProxyConfig().operator = operator;
+  }
+
   public updateOperator(addr: string) {
     this.asRawBridgeProxyConfig().operator = addr;
   }
@@ -122,6 +126,7 @@ export class BridgeProxyConfig extends BaseConfig {
 
   public reset() {
     this.address = '';
+    this.operator = undefined;
     this.asRawBridgeProxyConfig().executorWhitelist = undefined;
     this.executorWhitelistByAddress = {};
     this.asRawBridgeProxyConfig().registerWhitelist = undefined;

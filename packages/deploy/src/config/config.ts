@@ -1,8 +1,4 @@
-import developmentJson from '../json/deploy/development.json';
-import testnetJson from '../json/deploy/testnet.json';
-import mainnetJson from '../json/deploy/mainnet.json';
-
-import { getMystikoNetwork, writeJsonFile } from '../common/utils';
+import { getMystikoNetwork, readJsonFile, writeJsonFile } from '../common/utils';
 import {
   LOGRED,
   MystikoTestnet,
@@ -13,33 +9,35 @@ import {
 } from '../common/constant';
 import { DeployConfig } from './deployConfig';
 
-function load(mystikoNetwork: string): DeployConfig {
-  let cfg: DeployConfig;
+function configFileName(mystikoNetwork: string): string {
   if (mystikoNetwork === MystikoTestnet) {
-    cfg = new DeployConfig(testnetJson);
-  } else if (mystikoNetwork === MystikoMainnet) {
-    cfg = new DeployConfig(mainnetJson);
-  } else if (mystikoNetwork === MystikoDevelopment) {
-    cfg = new DeployConfig(developmentJson);
-  } else {
-    console.error(LOGRED, 'load config network not support');
-    process.exit(-1);
+    return './src/json/deploy/testnet-'
+      .concat(process.env.POOLNAME ? process.env.POOLNAME : '')
+      .concat('.json');
   }
-  return cfg;
+  if (mystikoNetwork === MystikoMainnet) {
+    return './src/json/deploy/mainnet-'
+      .concat(process.env.POOLNAME ? process.env.POOLNAME : '')
+      .concat('.json');
+  }
+  if (mystikoNetwork === MystikoDevelopment) {
+    return './src/json/deploy/development.json';
+  }
+  console.error(LOGRED, 'config network not support');
+  process.exit(-1);
+  return '';
+}
+
+function load(mystikoNetwork: string): DeployConfig {
+  const fileName = configFileName(mystikoNetwork);
+  const deployConfig = readJsonFile(fileName);
+  return new DeployConfig(deployConfig);
 }
 
 export function saveConfig(mystikoNetwork: string, cfg: DeployConfig) {
   const copyCfg = cfg.clone();
-
-  if (mystikoNetwork === MystikoTestnet) {
-    writeJsonFile('./src/json/deploy/testnet.json', copyCfg.toString());
-  } else if (mystikoNetwork === MystikoMainnet) {
-    writeJsonFile('./src/json/deploy/mainnet.json', copyCfg.toString());
-  } else if (mystikoNetwork === MystikoDevelopment) {
-    writeJsonFile('./src/json/deploy/development.json', copyCfg.toString());
-  } else {
-    console.error(LOGRED, 'save base address config network not support');
-  }
+  const fileName = configFileName(mystikoNetwork);
+  writeJsonFile(fileName, copyCfg.toString());
 }
 
 export function loadDeployConfig(mystikoNetwork: string) {

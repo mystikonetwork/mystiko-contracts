@@ -90,6 +90,7 @@ export function saveCelerToml(c: any) {
         }
       }
 
+      saveCelerConfig(c.mystikoNetwork, celerConfig);
       return;
     }
   }

@@ -6,6 +6,7 @@ import { OperatorConfig, RawOperatorConfig } from './operator';
 
 export interface RawDeployConfig {
   version: number;
+  poolName: string;
   circuits: string[];
   chains: RawChainConfig[];
   bridges: RawBridgeConfig[];
@@ -26,6 +27,7 @@ export class DeployConfig extends BaseConfig {
     super(rawConfig);
 
     BaseConfig.checkNumber(this.config, 'version');
+    BaseConfig.checkString(this.config, 'poolName');
     BaseConfig.checkStringArray(this.config, 'circuits');
 
     BaseConfig.checkObjectArray(this.config, 'chains', false);
@@ -38,6 +40,10 @@ export class DeployConfig extends BaseConfig {
 
   public get version(): number {
     return this.asRawDeployConfig().version;
+  }
+
+  public get poolName(): string {
+    return this.asRawDeployConfig().poolName;
   }
 
   public get circuits(): string[] {

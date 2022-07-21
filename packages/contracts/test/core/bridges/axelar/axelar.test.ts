@@ -22,7 +22,7 @@ import {
 import { constructCommitment, testBridgeConstructor } from '../../../common';
 
 // @ts-ignore
-import { MinAmount, MinBridgeFee, MinRollupFee } from '../../../util/constants';
+import { MinAmount, MinBridgeFee, MinRollupFee, ServiceAccountIndex } from '../../../util/constants';
 import { testAxelarDeposit } from '../../../common/depositAxelarTests';
 
 describe('Test Mystiko axelar', () => {
@@ -132,7 +132,16 @@ describe('Test Mystiko axelar', () => {
   });
 
   it('test constructor', () => {
-    testBridgeConstructor('MystikoV2AxelarMain', localMain, MinAmount, MinBridgeFee, '0', MinRollupFee);
+    testBridgeConstructor(
+      'MystikoV2AxelarMain',
+      localMain,
+      localPoolMain,
+      MinAmount,
+      MinBridgeFee,
+      '0',
+      MinRollupFee,
+      accounts[ServiceAccountIndex].address,
+    );
   });
 
   it('test bridge main to main deposit', async () => {

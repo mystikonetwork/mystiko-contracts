@@ -4,6 +4,12 @@
       "network": "bsctestnet",
       "privateKey": "",
       "providers": [
+        "https://data-seed-prebsc-1-s1.binance.org:8545",
+        "https://data-seed-prebsc-2-s1.binance.org:8545",
+        "https://data-seed-prebsc-1-s2.binance.org:8545",
+        "https://data-seed-prebsc-2-s2.binance.org:8545",
+        "https://data-seed-prebsc-1-s3.binance.org:8545",
+        "https://data-seed-prebsc-2-s3.binance.org:8545",
         "https://nd-302-890-317.p2pify.com/430c98aabb1fe49ec6517602e1e40f01",
         "https://speedy-nodes-nyc.moralis.io/d90e3898aa487ee11a6957b9/bsc/testnet"
       ],
@@ -95,13 +101,13 @@
         "local": {
           "network": "ropsten",
           "chainId": 3,
-          "relayProxyAddress": "0xF22688C81068f03E421B2dF395B6D9286Dc37b68",
+          "relayProxyAddress": "0xB6E6B779622ab49BaDb2c55DeA3F92509f69fEd7",
           "bridgeEnalbe": true
         },
         "remote": {
           "network": "bsctestnet",
           "chainId": 97,
-          "relayProxyAddress": "0x0e252c5440a0B6992af74a340FbaDE354979d2b4",
+          "relayProxyAddress": "0xA0d699D87A3304bdd267a6E47C6717503B462278",
           "bridgeEnalbe": true
         }
       },
@@ -109,13 +115,13 @@
         "local": {
           "network": "ropsten",
           "chainId": 3,
-          "relayProxyAddress": "0x625E0A51e4070caDaf043ad6b63296c34a2f5dB0",
+          "relayProxyAddress": "0xB55c050227acFCaf4dE3cecc145DD1f82ae57392",
           "bridgeEnalbe": true
         },
         "remote": {
           "network": "polygontestnet",
           "chainId": 80001,
-          "relayProxyAddress": "0xec0Aef5aDdBE6f3253e0a2dAd2E45a98F66bB0D5",
+          "relayProxyAddress": "0x96fbB9FB158F0b9C23b3755ab4941Ed1ad3F9B3C",
           "bridgeEnalbe": true
         }
       },
@@ -123,13 +129,13 @@
         "local": {
           "network": "ropsten",
           "chainId": 3,
-          "relayProxyAddress": "0xE64181feC5E7C9607d9d70Ab7eC5CB00974C5E3C",
+          "relayProxyAddress": "0x1A735bf6874BEFD37653C69cb7406CC0E38a1BAA",
           "bridgeEnalbe": true
         },
         "remote": {
           "network": "avalanchetestnet",
           "chainId": 43113,
-          "relayProxyAddress": "0xeD92C57454c43d0f50bf6E9bb148eBE66DDB2B83",
+          "relayProxyAddress": "0xfa9De6C63a631D008af7e2394295dBD1850b790a",
           "bridgeEnalbe": true
         }
       },
@@ -137,27 +143,13 @@
         "local": {
           "network": "ropsten",
           "chainId": 3,
-          "relayProxyAddress": "0x4A7ef8493eD5F54061f593B6A11c70b27e3D0201",
+          "relayProxyAddress": "0xC5456AE72363B9971EfaD7E53818cdA1F4451593",
           "bridgeEnalbe": true
         },
         "remote": {
           "network": "fantomtestnet",
           "chainId": 4002,
-          "relayProxyAddress": "0x5F1b0cF7bD527f38d95959D8f7641C76c101c56E",
-          "bridgeEnalbe": true
-        }
-      },
-      {
-        "local": {
-          "network": "ropsten",
-          "chainId": 3,
-          "relayProxyAddress": "0xf52950B2fa40173D95991ffB8f8cE9e166323238",
-          "bridgeEnalbe": true
-        },
-        "remote": {
-          "network": "auroratestnet",
-          "chainId": 1313161555,
-          "relayProxyAddress": "0x4e7FFa3edC590f7d2E495D47e98cc818ec0e74F2",
+          "relayProxyAddress": "0x1D7E8E098F1633C1f483Cc336EC5D382b24ED052",
           "bridgeEnalbe": true
         }
       },
@@ -165,13 +157,13 @@
         "local": {
           "network": "moonbase",
           "chainId": 1287,
-          "relayProxyAddress": "0xBDdcA8ccf78F3B6442b5aDA8289b5A623a720fD8",
+          "relayProxyAddress": "0x6E7Ac411f71DF0910907726e035AF2E37865fBD2",
           "bridgeEnalbe": true
         },
         "remote": {
           "network": "ropsten",
           "chainId": 3,
-          "relayProxyAddress": "0x26FbECa4090A8B9671797e771ac9c07f465c9946",
+          "relayProxyAddress": "0x35794823f1ab1bb5629609213d875911E4FAD085",
           "bridgeEnalbe": true
         }
       }
