@@ -17,28 +17,28 @@ import { TypedEventFilter, TypedEvent, TypedListener, OnEvent } from './common';
 export interface SanctionsInterface extends utils.Interface {
   contractName: 'Sanctions';
   functions: {
-    'sanctionsCheckDisabled()': FunctionFragment;
+    'sanctionsCheck()': FunctionFragment;
     'sanctionsList()': FunctionFragment;
   };
 
-  encodeFunctionData(functionFragment: 'sanctionsCheckDisabled', values?: undefined): string;
+  encodeFunctionData(functionFragment: 'sanctionsCheck', values?: undefined): string;
   encodeFunctionData(functionFragment: 'sanctionsList', values?: undefined): string;
 
-  decodeFunctionResult(functionFragment: 'sanctionsCheckDisabled', data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'sanctionsCheck', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'sanctionsList', data: BytesLike): Result;
 
   events: {
-    'SanctionsCheckDisabled(bool)': EventFragment;
+    'SanctionsCheck(bool)': EventFragment;
     'SanctionsList(address)': EventFragment;
   };
 
-  getEvent(nameOrSignatureOrTopic: 'SanctionsCheckDisabled'): EventFragment;
+  getEvent(nameOrSignatureOrTopic: 'SanctionsCheck'): EventFragment;
   getEvent(nameOrSignatureOrTopic: 'SanctionsList'): EventFragment;
 }
 
-export type SanctionsCheckDisabledEvent = TypedEvent<[boolean], { state: boolean }>;
+export type SanctionsCheckEvent = TypedEvent<[boolean], { state: boolean }>;
 
-export type SanctionsCheckDisabledEventFilter = TypedEventFilter<SanctionsCheckDisabledEvent>;
+export type SanctionsCheckEventFilter = TypedEventFilter<SanctionsCheckEvent>;
 
 export type SanctionsListEvent = TypedEvent<[string], { sanctions: string }>;
 
@@ -68,37 +68,37 @@ export interface Sanctions extends BaseContract {
   removeListener: OnEvent<this>;
 
   functions: {
-    sanctionsCheckDisabled(overrides?: CallOverrides): Promise<[boolean]>;
+    sanctionsCheck(overrides?: CallOverrides): Promise<[boolean]>;
 
     sanctionsList(overrides?: CallOverrides): Promise<[string]>;
   };
 
-  sanctionsCheckDisabled(overrides?: CallOverrides): Promise<boolean>;
+  sanctionsCheck(overrides?: CallOverrides): Promise<boolean>;
 
   sanctionsList(overrides?: CallOverrides): Promise<string>;
 
   callStatic: {
-    sanctionsCheckDisabled(overrides?: CallOverrides): Promise<boolean>;
+    sanctionsCheck(overrides?: CallOverrides): Promise<boolean>;
 
     sanctionsList(overrides?: CallOverrides): Promise<string>;
   };
 
   filters: {
-    'SanctionsCheckDisabled(bool)'(state?: null): SanctionsCheckDisabledEventFilter;
-    SanctionsCheckDisabled(state?: null): SanctionsCheckDisabledEventFilter;
+    'SanctionsCheck(bool)'(state?: null): SanctionsCheckEventFilter;
+    SanctionsCheck(state?: null): SanctionsCheckEventFilter;
 
     'SanctionsList(address)'(sanctions?: null): SanctionsListEventFilter;
     SanctionsList(sanctions?: null): SanctionsListEventFilter;
   };
 
   estimateGas: {
-    sanctionsCheckDisabled(overrides?: CallOverrides): Promise<BigNumber>;
+    sanctionsCheck(overrides?: CallOverrides): Promise<BigNumber>;
 
     sanctionsList(overrides?: CallOverrides): Promise<BigNumber>;
   };
 
   populateTransaction: {
-    sanctionsCheckDisabled(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+    sanctionsCheck(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     sanctionsList(overrides?: CallOverrides): Promise<PopulatedTransaction>;
   };

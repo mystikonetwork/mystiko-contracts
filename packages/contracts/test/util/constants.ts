@@ -6,8 +6,8 @@ export const MinBridgeFee = toDecimals(1000, 0).toString();
 export const MinExecutorFee = toDecimals(0.01).toString();
 export const MinRollupFee = toDecimals(0.01).toString();
 
-export const DefaultServiceFee = 1000;
-export const DefaultServiceFeeDivider = 1000000;
+export const DefaultServiceFee = 2000;
+export const DefaultServiceFeeDivider = 2000000;
 
 export const BridgeAccountIndex = 5;
 export const BridgeExecutorIndex = 6;

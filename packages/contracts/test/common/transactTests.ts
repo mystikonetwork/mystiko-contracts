@@ -211,7 +211,7 @@ export function testTransact(
     });
 
     it('should transact successfully', async () => {
-      await commitmentPoolContract.setSanctionCheckDisabled(true);
+      await commitmentPoolContract.disableSanctionsCheck();
 
       expect(await protocol.zkVerify(proof, vkeyFile)).to.equal(true);
       const request = buildRequest(

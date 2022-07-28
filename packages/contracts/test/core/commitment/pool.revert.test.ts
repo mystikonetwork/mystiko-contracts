@@ -90,7 +90,7 @@ describe('Test Mystiko pool revert', () => {
     loopERC20 = r.loop.coreERC20;
   });
 
-  it('test pool main', async () => {
+  it('test pool revert main', async () => {
     const depositAmount = toDecimals(40);
 
     const count = 2;

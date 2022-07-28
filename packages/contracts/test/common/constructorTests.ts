@@ -17,7 +17,7 @@ export function testLoopConstructor(
       expect(await mystikoContract.isDepositsDisabled()).to.equal(false);
     });
     it('should initialize sanction check disabled correctly', async () => {
-      expect(await mystikoContract.sanctionsCheckDisabled()).to.equal(false);
+      expect(await mystikoContract.sanctionsCheck()).to.equal(true);
     });
     it('should initialize sanction address correctly', async () => {
       expect(await mystikoContract.sanctionsList()).to.not.equal('');

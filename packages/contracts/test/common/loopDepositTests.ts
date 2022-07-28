@@ -168,7 +168,7 @@ export function testLoopDeposit(
 
     it('should deposit successfully', async () => {
       await sanctionList.addToSanctionsList(accounts[0].address);
-      await mystikoContract.setSanctionCheckDisabled(true);
+      await mystikoContract.disableSanctionsCheck();
 
       expectServiceFee = (
         isMainAsset
@@ -304,7 +304,7 @@ export function loopDepositRevert(
 
     it('deposit should revert with tree full', async () => {
       await sanctionList.addToSanctionsList(accounts[0].address);
-      await mystikoContract.setSanctionCheckDisabled(true);
+      await mystikoContract.disableSanctionsCheck();
 
       for (let i = 0; i < numOfCommitments; i += 1) {
         await expect(
@@ -372,7 +372,7 @@ export function loopDeposit(
 
     it('should deposit successfully', async () => {
       await sanctionList.addToSanctionsList(accounts[0].address);
-      await mystikoContract.setSanctionCheckDisabled(true);
+      await mystikoContract.disableSanctionsCheck();
       expectServiceFee = (
         isMainAsset
           ? await waffle.provider.getBalance(accounts[ServiceAccountIndex].address)

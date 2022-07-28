@@ -139,8 +139,10 @@ export interface CommitmentPoolERC20Interface extends utils.Interface {
     'assetType()': FunctionFragment;
     'changeOperator(address)': FunctionFragment;
     'disableRollupVerifier(uint32)': FunctionFragment;
+    'disableSanctionsCheck()': FunctionFragment;
     'disableTransactVerifier(uint32,uint32)': FunctionFragment;
     'enableRollupVerifier(uint32,address)': FunctionFragment;
+    'enableSanctionsCheck()': FunctionFragment;
     'enableTransactVerifier(uint32,uint32,address)': FunctionFragment;
     'enqueue((uint256,uint256,uint256,uint256,bytes),address)': FunctionFragment;
     'getCommitmentIncludedCount()': FunctionFragment;
@@ -154,11 +156,10 @@ export interface CommitmentPoolERC20Interface extends utils.Interface {
     'removeEnqueueWhitelist(address)': FunctionFragment;
     'removeRollupWhitelist(address)': FunctionFragment;
     'rollup((((uint256,uint256),(uint256[2],uint256[2]),(uint256,uint256)),uint32,uint256,uint256))': FunctionFragment;
-    'sanctionsCheckDisabled()': FunctionFragment;
+    'sanctionsCheck()': FunctionFragment;
     'sanctionsList()': FunctionFragment;
     'setMinRollupFee(uint256)': FunctionFragment;
     'setRollupWhitelistDisabled(bool)': FunctionFragment;
-    'setSanctionCheckDisabled(bool)': FunctionFragment;
     'setVerifierUpdateDisabled(bool)': FunctionFragment;
     'transact((((uint256,uint256),(uint256[2],uint256[2]),(uint256,uint256)),uint256,uint256[],uint256[],bytes32,uint256,uint256,uint256[],uint256[],address,address,bytes[]),bytes)': FunctionFragment;
     'updateSanctionsListAddress(address)': FunctionFragment;
@@ -173,11 +174,13 @@ export interface CommitmentPoolERC20Interface extends utils.Interface {
   encodeFunctionData(functionFragment: 'assetType', values?: undefined): string;
   encodeFunctionData(functionFragment: 'changeOperator', values: [string]): string;
   encodeFunctionData(functionFragment: 'disableRollupVerifier', values: [BigNumberish]): string;
+  encodeFunctionData(functionFragment: 'disableSanctionsCheck', values?: undefined): string;
   encodeFunctionData(
     functionFragment: 'disableTransactVerifier',
     values: [BigNumberish, BigNumberish],
   ): string;
   encodeFunctionData(functionFragment: 'enableRollupVerifier', values: [BigNumberish, string]): string;
+  encodeFunctionData(functionFragment: 'enableSanctionsCheck', values?: undefined): string;
   encodeFunctionData(
     functionFragment: 'enableTransactVerifier',
     values: [BigNumberish, BigNumberish, string],
@@ -197,11 +200,10 @@ export interface CommitmentPoolERC20Interface extends utils.Interface {
   encodeFunctionData(functionFragment: 'removeEnqueueWhitelist', values: [string]): string;
   encodeFunctionData(functionFragment: 'removeRollupWhitelist', values: [string]): string;
   encodeFunctionData(functionFragment: 'rollup', values: [ICommitmentPool.RollupRequestStruct]): string;
-  encodeFunctionData(functionFragment: 'sanctionsCheckDisabled', values?: undefined): string;
+  encodeFunctionData(functionFragment: 'sanctionsCheck', values?: undefined): string;
   encodeFunctionData(functionFragment: 'sanctionsList', values?: undefined): string;
   encodeFunctionData(functionFragment: 'setMinRollupFee', values: [BigNumberish]): string;
   encodeFunctionData(functionFragment: 'setRollupWhitelistDisabled', values: [boolean]): string;
-  encodeFunctionData(functionFragment: 'setSanctionCheckDisabled', values: [boolean]): string;
   encodeFunctionData(functionFragment: 'setVerifierUpdateDisabled', values: [boolean]): string;
   encodeFunctionData(
     functionFragment: 'transact',
@@ -218,8 +220,10 @@ export interface CommitmentPoolERC20Interface extends utils.Interface {
   decodeFunctionResult(functionFragment: 'assetType', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'changeOperator', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'disableRollupVerifier', data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'disableSanctionsCheck', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'disableTransactVerifier', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'enableRollupVerifier', data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'enableSanctionsCheck', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'enableTransactVerifier', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'enqueue', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'getCommitmentIncludedCount', data: BytesLike): Result;
@@ -233,11 +237,10 @@ export interface CommitmentPoolERC20Interface extends utils.Interface {
   decodeFunctionResult(functionFragment: 'removeEnqueueWhitelist', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'removeRollupWhitelist', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'rollup', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'sanctionsCheckDisabled', data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'sanctionsCheck', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'sanctionsList', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'setMinRollupFee', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'setRollupWhitelistDisabled', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'setSanctionCheckDisabled', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'setVerifierUpdateDisabled', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'transact', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'updateSanctionsListAddress', data: BytesLike): Result;
@@ -246,8 +249,9 @@ export interface CommitmentPoolERC20Interface extends utils.Interface {
     'CommitmentIncluded(uint256)': EventFragment;
     'CommitmentQueued(uint256,uint256,uint256,bytes)': EventFragment;
     'CommitmentSpent(uint256,uint256)': EventFragment;
+    'OperatorChanged(address)': EventFragment;
     'RollupWhitelistDisabled(bool)': EventFragment;
-    'SanctionsCheckDisabled(bool)': EventFragment;
+    'SanctionsCheck(bool)': EventFragment;
     'SanctionsList(address)': EventFragment;
     'VerifierUpdateDisabled(bool)': EventFragment;
   };
@@ -255,8 +259,9 @@ export interface CommitmentPoolERC20Interface extends utils.Interface {
   getEvent(nameOrSignatureOrTopic: 'CommitmentIncluded'): EventFragment;
   getEvent(nameOrSignatureOrTopic: 'CommitmentQueued'): EventFragment;
   getEvent(nameOrSignatureOrTopic: 'CommitmentSpent'): EventFragment;
+  getEvent(nameOrSignatureOrTopic: 'OperatorChanged'): EventFragment;
   getEvent(nameOrSignatureOrTopic: 'RollupWhitelistDisabled'): EventFragment;
-  getEvent(nameOrSignatureOrTopic: 'SanctionsCheckDisabled'): EventFragment;
+  getEvent(nameOrSignatureOrTopic: 'SanctionsCheck'): EventFragment;
   getEvent(nameOrSignatureOrTopic: 'SanctionsList'): EventFragment;
   getEvent(nameOrSignatureOrTopic: 'VerifierUpdateDisabled'): EventFragment;
 }
@@ -284,13 +289,17 @@ export type CommitmentSpentEvent = TypedEvent<
 
 export type CommitmentSpentEventFilter = TypedEventFilter<CommitmentSpentEvent>;
 
+export type OperatorChangedEvent = TypedEvent<[string], { operator: string }>;
+
+export type OperatorChangedEventFilter = TypedEventFilter<OperatorChangedEvent>;
+
 export type RollupWhitelistDisabledEvent = TypedEvent<[boolean], { state: boolean }>;
 
 export type RollupWhitelistDisabledEventFilter = TypedEventFilter<RollupWhitelistDisabledEvent>;
 
-export type SanctionsCheckDisabledEvent = TypedEvent<[boolean], { state: boolean }>;
+export type SanctionsCheckEvent = TypedEvent<[boolean], { state: boolean }>;
 
-export type SanctionsCheckDisabledEventFilter = TypedEventFilter<SanctionsCheckDisabledEvent>;
+export type SanctionsCheckEventFilter = TypedEventFilter<SanctionsCheckEvent>;
 
 export type SanctionsListEvent = TypedEvent<[string], { sanctions: string }>;
 
@@ -358,6 +367,10 @@ export interface CommitmentPoolERC20 extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<ContractTransaction>;
 
+    disableSanctionsCheck(
+      overrides?: Overrides & { from?: string | Promise<string> },
+    ): Promise<ContractTransaction>;
+
     disableTransactVerifier(
       _numInputs: BigNumberish,
       _numOutputs: BigNumberish,
@@ -367,6 +380,10 @@ export interface CommitmentPoolERC20 extends BaseContract {
     enableRollupVerifier(
       _rollupSize: BigNumberish,
       _rollupVerifier: string,
+      overrides?: Overrides & { from?: string | Promise<string> },
+    ): Promise<ContractTransaction>;
+
+    enableSanctionsCheck(
       overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<ContractTransaction>;
 
@@ -414,7 +431,7 @@ export interface CommitmentPoolERC20 extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<ContractTransaction>;
 
-    sanctionsCheckDisabled(overrides?: CallOverrides): Promise<[boolean]>;
+    sanctionsCheck(overrides?: CallOverrides): Promise<[boolean]>;
 
     sanctionsList(overrides?: CallOverrides): Promise<[string]>;
 
@@ -424,11 +441,6 @@ export interface CommitmentPoolERC20 extends BaseContract {
     ): Promise<ContractTransaction>;
 
     setRollupWhitelistDisabled(
-      _state: boolean,
-      overrides?: Overrides & { from?: string | Promise<string> },
-    ): Promise<ContractTransaction>;
-
-    setSanctionCheckDisabled(
       _state: boolean,
       overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<ContractTransaction>;
@@ -484,6 +496,10 @@ export interface CommitmentPoolERC20 extends BaseContract {
     overrides?: Overrides & { from?: string | Promise<string> },
   ): Promise<ContractTransaction>;
 
+  disableSanctionsCheck(
+    overrides?: Overrides & { from?: string | Promise<string> },
+  ): Promise<ContractTransaction>;
+
   disableTransactVerifier(
     _numInputs: BigNumberish,
     _numOutputs: BigNumberish,
@@ -493,6 +509,10 @@ export interface CommitmentPoolERC20 extends BaseContract {
   enableRollupVerifier(
     _rollupSize: BigNumberish,
     _rollupVerifier: string,
+    overrides?: Overrides & { from?: string | Promise<string> },
+  ): Promise<ContractTransaction>;
+
+  enableSanctionsCheck(
     overrides?: Overrides & { from?: string | Promise<string> },
   ): Promise<ContractTransaction>;
 
@@ -540,7 +560,7 @@ export interface CommitmentPoolERC20 extends BaseContract {
     overrides?: Overrides & { from?: string | Promise<string> },
   ): Promise<ContractTransaction>;
 
-  sanctionsCheckDisabled(overrides?: CallOverrides): Promise<boolean>;
+  sanctionsCheck(overrides?: CallOverrides): Promise<boolean>;
 
   sanctionsList(overrides?: CallOverrides): Promise<string>;
 
@@ -550,11 +570,6 @@ export interface CommitmentPoolERC20 extends BaseContract {
   ): Promise<ContractTransaction>;
 
   setRollupWhitelistDisabled(
-    _state: boolean,
-    overrides?: Overrides & { from?: string | Promise<string> },
-  ): Promise<ContractTransaction>;
-
-  setSanctionCheckDisabled(
     _state: boolean,
     overrides?: Overrides & { from?: string | Promise<string> },
   ): Promise<ContractTransaction>;
@@ -598,6 +613,8 @@ export interface CommitmentPoolERC20 extends BaseContract {
 
     disableRollupVerifier(_rollupSize: BigNumberish, overrides?: CallOverrides): Promise<void>;
 
+    disableSanctionsCheck(overrides?: CallOverrides): Promise<void>;
+
     disableTransactVerifier(
       _numInputs: BigNumberish,
       _numOutputs: BigNumberish,
@@ -609,6 +626,8 @@ export interface CommitmentPoolERC20 extends BaseContract {
       _rollupVerifier: string,
       overrides?: CallOverrides,
     ): Promise<void>;
+
+    enableSanctionsCheck(overrides?: CallOverrides): Promise<void>;
 
     enableTransactVerifier(
       _numInputs: BigNumberish,
@@ -645,15 +664,13 @@ export interface CommitmentPoolERC20 extends BaseContract {
 
     rollup(_request: ICommitmentPool.RollupRequestStruct, overrides?: CallOverrides): Promise<void>;
 
-    sanctionsCheckDisabled(overrides?: CallOverrides): Promise<boolean>;
+    sanctionsCheck(overrides?: CallOverrides): Promise<boolean>;
 
     sanctionsList(overrides?: CallOverrides): Promise<string>;
 
     setMinRollupFee(_minRollupFee: BigNumberish, overrides?: CallOverrides): Promise<void>;
 
     setRollupWhitelistDisabled(_state: boolean, overrides?: CallOverrides): Promise<void>;
-
-    setSanctionCheckDisabled(_state: boolean, overrides?: CallOverrides): Promise<void>;
 
     setVerifierUpdateDisabled(_state: boolean, overrides?: CallOverrides): Promise<void>;
 
@@ -692,11 +709,14 @@ export interface CommitmentPoolERC20 extends BaseContract {
       serialNumber?: BigNumberish | null,
     ): CommitmentSpentEventFilter;
 
+    'OperatorChanged(address)'(operator?: string | null): OperatorChangedEventFilter;
+    OperatorChanged(operator?: string | null): OperatorChangedEventFilter;
+
     'RollupWhitelistDisabled(bool)'(state?: null): RollupWhitelistDisabledEventFilter;
     RollupWhitelistDisabled(state?: null): RollupWhitelistDisabledEventFilter;
 
-    'SanctionsCheckDisabled(bool)'(state?: null): SanctionsCheckDisabledEventFilter;
-    SanctionsCheckDisabled(state?: null): SanctionsCheckDisabledEventFilter;
+    'SanctionsCheck(bool)'(state?: null): SanctionsCheckEventFilter;
+    SanctionsCheck(state?: null): SanctionsCheckEventFilter;
 
     'SanctionsList(address)'(sanctions?: null): SanctionsListEventFilter;
     SanctionsList(sanctions?: null): SanctionsListEventFilter;
@@ -740,6 +760,8 @@ export interface CommitmentPoolERC20 extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<BigNumber>;
 
+    disableSanctionsCheck(overrides?: Overrides & { from?: string | Promise<string> }): Promise<BigNumber>;
+
     disableTransactVerifier(
       _numInputs: BigNumberish,
       _numOutputs: BigNumberish,
@@ -751,6 +773,8 @@ export interface CommitmentPoolERC20 extends BaseContract {
       _rollupVerifier: string,
       overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<BigNumber>;
+
+    enableSanctionsCheck(overrides?: Overrides & { from?: string | Promise<string> }): Promise<BigNumber>;
 
     enableTransactVerifier(
       _numInputs: BigNumberish,
@@ -796,7 +820,7 @@ export interface CommitmentPoolERC20 extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<BigNumber>;
 
-    sanctionsCheckDisabled(overrides?: CallOverrides): Promise<BigNumber>;
+    sanctionsCheck(overrides?: CallOverrides): Promise<BigNumber>;
 
     sanctionsList(overrides?: CallOverrides): Promise<BigNumber>;
 
@@ -806,11 +830,6 @@ export interface CommitmentPoolERC20 extends BaseContract {
     ): Promise<BigNumber>;
 
     setRollupWhitelistDisabled(
-      _state: boolean,
-      overrides?: Overrides & { from?: string | Promise<string> },
-    ): Promise<BigNumber>;
-
-    setSanctionCheckDisabled(
       _state: boolean,
       overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<BigNumber>;
@@ -867,6 +886,10 @@ export interface CommitmentPoolERC20 extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<PopulatedTransaction>;
 
+    disableSanctionsCheck(
+      overrides?: Overrides & { from?: string | Promise<string> },
+    ): Promise<PopulatedTransaction>;
+
     disableTransactVerifier(
       _numInputs: BigNumberish,
       _numOutputs: BigNumberish,
@@ -876,6 +899,10 @@ export interface CommitmentPoolERC20 extends BaseContract {
     enableRollupVerifier(
       _rollupSize: BigNumberish,
       _rollupVerifier: string,
+      overrides?: Overrides & { from?: string | Promise<string> },
+    ): Promise<PopulatedTransaction>;
+
+    enableSanctionsCheck(
       overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<PopulatedTransaction>;
 
@@ -926,7 +953,7 @@ export interface CommitmentPoolERC20 extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<PopulatedTransaction>;
 
-    sanctionsCheckDisabled(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+    sanctionsCheck(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     sanctionsList(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
@@ -936,11 +963,6 @@ export interface CommitmentPoolERC20 extends BaseContract {
     ): Promise<PopulatedTransaction>;
 
     setRollupWhitelistDisabled(
-      _state: boolean,
-      overrides?: Overrides & { from?: string | Promise<string> },
-    ): Promise<PopulatedTransaction>;
-
-    setSanctionCheckDisabled(
       _state: boolean,
       overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<PopulatedTransaction>;

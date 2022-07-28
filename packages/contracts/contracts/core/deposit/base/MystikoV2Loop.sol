@@ -46,10 +46,10 @@ abstract contract MystikoV2Loop is IMystikoLoop, AssetPool, Sanctions {
     serviceFeeDivider = 1000000;
   }
 
+  event OperatorChanged(address indexed operator);
   event MinAmount(uint256 minAmount);
   event DepositsDisabled(bool state);
-  event OperatorChanged(address operator);
-  event ServiceFeeCollectorChanged(address servicer);
+  event ServiceFeeCollectorChanged(address indexed collector);
   event ServiceFeeChanged(uint256 serviceFee);
   event ServiceFeeDividerChanged(uint256 serviceFeeDivider);
 
@@ -117,6 +117,7 @@ abstract contract MystikoV2Loop is IMystikoLoop, AssetPool, Sanctions {
   }
 
   function changeOperator(address _newOperator) external onlyOperator {
+    if (operator == _newOperator) revert CustomErrors.NotChanged();
     operator = _newOperator;
     emit OperatorChanged(_newOperator);
   }
@@ -126,6 +127,7 @@ abstract contract MystikoV2Loop is IMystikoLoop, AssetPool, Sanctions {
   }
 
   function changeServiceFeeCollector(address _newCollector) external onlyOperator {
+    if (serviceFeeCollector == _newCollector) revert CustomErrors.NotChanged();
     serviceFeeCollector = _newCollector;
     emit ServiceFeeCollectorChanged(_newCollector);
   }
@@ -135,6 +137,7 @@ abstract contract MystikoV2Loop is IMystikoLoop, AssetPool, Sanctions {
   }
 
   function changeServiceFee(uint256 _newServiceFee) external onlyOperator {
+    if (serviceFee == _newServiceFee) revert CustomErrors.NotChanged();
     serviceFee = _newServiceFee;
     emit ServiceFeeChanged(_newServiceFee);
   }
@@ -144,14 +147,20 @@ abstract contract MystikoV2Loop is IMystikoLoop, AssetPool, Sanctions {
   }
 
   function changeServiceFeeDivider(uint256 _newServiceFeeDivider) external onlyOperator {
+    if (serviceFeeDivider == _newServiceFeeDivider) revert CustomErrors.NotChanged();
     if (_newServiceFeeDivider == 0) revert CustomErrors.ServiceFeeDividerTooSmall();
     serviceFeeDivider = _newServiceFeeDivider;
     emit ServiceFeeDividerChanged(_newServiceFeeDivider);
   }
 
-  function setSanctionCheckDisabled(bool _state) external onlyOperator {
-    sanctionsCheckDisabled = _state;
-    emit SanctionsCheckDisabled(_state);
+  function enableSanctionsCheck() external onlyOperator {
+    sanctionsCheck = true;
+    emit SanctionsCheck(sanctionsCheck);
+  }
+
+  function disableSanctionsCheck() external onlyOperator {
+    sanctionsCheck = false;
+    emit SanctionsCheck(sanctionsCheck);
   }
 
   function updateSanctionsListAddress(ISanctionsList _sanction) external onlyOperator {

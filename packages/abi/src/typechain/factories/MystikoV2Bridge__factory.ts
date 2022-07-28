@@ -50,6 +50,11 @@ const _abi = [
   },
   {
     inputs: [],
+    name: 'NotChanged',
+    type: 'error',
+  },
+  {
+    inputs: [],
     name: 'OnlyOperator',
     type: 'error',
   },
@@ -142,7 +147,7 @@ const _abi = [
     anonymous: false,
     inputs: [
       {
-        indexed: false,
+        indexed: true,
         internalType: 'address',
         name: 'operator',
         type: 'address',
@@ -187,7 +192,7 @@ const _abi = [
         type: 'bool',
       },
     ],
-    name: 'SanctionsCheckDisabled',
+    name: 'SanctionsCheck',
     type: 'event',
   },
   {
@@ -220,9 +225,9 @@ const _abi = [
     anonymous: false,
     inputs: [
       {
-        indexed: false,
+        indexed: true,
         internalType: 'address',
-        name: 'servicer',
+        name: 'collector',
         type: 'address',
       },
     ],
@@ -386,6 +391,20 @@ const _abi = [
     name: 'deposit',
     outputs: [],
     stateMutability: 'payable',
+    type: 'function',
+  },
+  {
+    inputs: [],
+    name: 'disableSanctionsCheck',
+    outputs: [],
+    stateMutability: 'nonpayable',
+    type: 'function',
+  },
+  {
+    inputs: [],
+    name: 'enableSanctionsCheck',
+    outputs: [],
+    stateMutability: 'nonpayable',
     type: 'function',
   },
   {
@@ -559,7 +578,7 @@ const _abi = [
   },
   {
     inputs: [],
-    name: 'sanctionsCheckDisabled',
+    name: 'sanctionsCheck',
     outputs: [
       {
         internalType: 'bool',
@@ -706,19 +725,6 @@ const _abi = [
       },
     ],
     name: 'setPeerMinRollupFee',
-    outputs: [],
-    stateMutability: 'nonpayable',
-    type: 'function',
-  },
-  {
-    inputs: [
-      {
-        internalType: 'bool',
-        name: '_state',
-        type: 'bool',
-      },
-    ],
-    name: 'setSanctionCheckDisabled',
     outputs: [],
     stateMutability: 'nonpayable',
     type: 'function',
