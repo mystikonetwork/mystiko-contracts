@@ -237,7 +237,7 @@ export function testTBridgeDeposit(
 
     it('should deposit successfully', async () => {
       await sanctionList.addToSanctionsList(accounts[0].address);
-      await mystikoContract.setSanctionCheckDisabled(true);
+      await mystikoContract.disableSanctionsCheck();
 
       const serviceFeeBefore = isDstMainAsset
         ? await waffle.provider.getBalance(accounts[ServiceAccountIndex].address)

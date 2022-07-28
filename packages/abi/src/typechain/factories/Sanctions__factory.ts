@@ -17,7 +17,7 @@ const _abi = [
         type: 'bool',
       },
     ],
-    name: 'SanctionsCheckDisabled',
+    name: 'SanctionsCheck',
     type: 'event',
   },
   {
@@ -35,7 +35,7 @@ const _abi = [
   },
   {
     inputs: [],
-    name: 'sanctionsCheckDisabled',
+    name: 'sanctionsCheck',
     outputs: [
       {
         internalType: 'bool',

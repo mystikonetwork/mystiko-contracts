@@ -75,7 +75,7 @@ describe('Test Mystiko loop', () => {
     loopERC20 = r.loop.coreERC20;
   });
 
-  it('test constructor', () => {
+  it('test loop constructor', () => {
     testLoopConstructor(
       'MystikoV2LoopMain',
       loopMain,

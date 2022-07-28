@@ -17,7 +17,7 @@ export function testLoopConstructor(
       expect(await mystikoContract.isDepositsDisabled()).to.equal(false);
     });
     it('should initialize sanction check disabled correctly', async () => {
-      expect(await mystikoContract.sanctionsCheckDisabled()).to.equal(false);
+      expect(await mystikoContract.sanctionsCheck()).to.equal(true);
     });
     it('should initialize sanction address correctly', async () => {
       expect(await mystikoContract.sanctionsList()).to.not.equal('');
@@ -30,6 +30,9 @@ export function testLoopConstructor(
     });
     it('should initialize service fee collector correctly', async () => {
       expect(await mystikoContract.getServiceFeeCollector()).to.equal(serviceAccount);
+    });
+    it('should enable sanctions check success', async () => {
+      expect(await mystikoContract.enableSanctionsCheck());
     });
 
     if (contractName === 'MystikoV2LoopERC20') {
@@ -82,6 +85,9 @@ export function testBridgeConstructor(
     it('should initialize service fee collector correctly', async () => {
       expect(await mystikoContract.getServiceFeeCollector()).to.equal(serviceAccount);
     });
+    it('should enable sanctions check success', async () => {
+      expect(await mystikoContract.enableSanctionsCheck());
+    });
 
     it('should initialize bridge type correctly', async () => {
       if (contractName === 'MystikoV2TBridgeMain' || contractName === 'MystikoV2TBridgeERC20') {
@@ -118,6 +124,9 @@ export function testCommitmentPoolConstructor(
     it('should initialize admin related resources correctly', async () => {
       expect(await mystikoContract.isVerifierUpdateDisabled()).to.equal(false);
       expect(await mystikoContract.isRollupWhitelistDisabled()).to.equal(false);
+    });
+    it('should enable sanctions check success', async () => {
+      expect(await mystikoContract.enableSanctionsCheck());
     });
   });
 }

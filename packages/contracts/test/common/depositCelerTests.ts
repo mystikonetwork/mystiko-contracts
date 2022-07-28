@@ -240,7 +240,7 @@ export function testCelerDeposit(
 
     it('should deposit successfully', async () => {
       await sanctionList.addToSanctionsList(bridgeAccount.address);
-      await mystikoContract.setSanctionCheckDisabled(true);
+      await mystikoContract.disableSanctionsCheck();
 
       const serviceFeeBefore = isDstMainAsset
         ? await waffle.provider.getBalance(accounts[ServiceAccountIndex].address)

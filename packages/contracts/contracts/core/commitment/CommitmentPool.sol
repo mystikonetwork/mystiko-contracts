@@ -68,6 +68,7 @@ abstract contract CommitmentPool is ICommitmentPool, AssetPool, ReentrancyGuard,
     _;
   }
 
+  event OperatorChanged(address indexed operator);
   event CommitmentQueued(
     uint256 indexed commitment,
     uint256 rollupFee,
@@ -76,7 +77,6 @@ abstract contract CommitmentPool is ICommitmentPool, AssetPool, ReentrancyGuard,
   );
   event CommitmentIncluded(uint256 indexed commitment);
   event CommitmentSpent(uint256 indexed rootHash, uint256 indexed serialNumber);
-
   event VerifierUpdateDisabled(bool state);
   event RollupWhitelistDisabled(bool state);
 
@@ -295,12 +295,19 @@ abstract contract CommitmentPool is ICommitmentPool, AssetPool, ReentrancyGuard,
   }
 
   function changeOperator(address _newOperator) external onlyOperator {
+    if (operator == _newOperator) revert CustomErrors.NotChanged();
     operator = _newOperator;
+    emit OperatorChanged(_newOperator);
   }
 
-  function setSanctionCheckDisabled(bool _state) external onlyOperator {
-    sanctionsCheckDisabled = _state;
-    emit SanctionsCheckDisabled(_state);
+  function enableSanctionsCheck() external onlyOperator {
+    sanctionsCheck = true;
+    emit SanctionsCheck(sanctionsCheck);
+  }
+
+  function disableSanctionsCheck() external onlyOperator {
+    sanctionsCheck = false;
+    emit SanctionsCheck(sanctionsCheck);
   }
 
   function updateSanctionsListAddress(ISanctionsList _sanction) external onlyOperator {

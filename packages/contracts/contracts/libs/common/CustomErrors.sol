@@ -2,6 +2,7 @@ pragma solidity ^0.8.7;
 
 library CustomErrors {
   error OnlyOperator();
+  error NotChanged();
   error OnlyWhitelistedRoller();
   error OnlyWhitelistedSender();
   error OnlyWhitelistedExecutor();

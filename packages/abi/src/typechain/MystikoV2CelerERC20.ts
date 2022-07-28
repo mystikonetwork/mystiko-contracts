@@ -65,6 +65,8 @@ export interface MystikoV2CelerERC20Interface extends utils.Interface {
     'changeServiceFeeCollector(address)': FunctionFragment;
     'changeServiceFeeDivider(uint256)': FunctionFragment;
     'deposit((uint256,uint256,uint256,uint128,bytes,uint256,uint256,uint256))': FunctionFragment;
+    'disableSanctionsCheck()': FunctionFragment;
+    'enableSanctionsCheck()': FunctionFragment;
     'executeMessage(address,uint64,bytes,address)': FunctionFragment;
     'getAssociatedCommitmentPool()': FunctionFragment;
     'getMinAmount()': FunctionFragment;
@@ -79,7 +81,7 @@ export interface MystikoV2CelerERC20Interface extends utils.Interface {
     'peerChainId()': FunctionFragment;
     'peerChainName()': FunctionFragment;
     'peerContract()': FunctionFragment;
-    'sanctionsCheckDisabled()': FunctionFragment;
+    'sanctionsCheck()': FunctionFragment;
     'sanctionsList()': FunctionFragment;
     'setAssociatedCommitmentPool(address)': FunctionFragment;
     'setBridgeProxyAddress(address)': FunctionFragment;
@@ -90,7 +92,6 @@ export interface MystikoV2CelerERC20Interface extends utils.Interface {
     'setPeerContract(uint64,string,address)': FunctionFragment;
     'setPeerMinExecutorFee(uint256)': FunctionFragment;
     'setPeerMinRollupFee(uint256)': FunctionFragment;
-    'setSanctionCheckDisabled(bool)': FunctionFragment;
     'updateSanctionsListAddress(address)': FunctionFragment;
   };
 
@@ -105,6 +106,8 @@ export interface MystikoV2CelerERC20Interface extends utils.Interface {
   encodeFunctionData(functionFragment: 'changeServiceFeeCollector', values: [string]): string;
   encodeFunctionData(functionFragment: 'changeServiceFeeDivider', values: [BigNumberish]): string;
   encodeFunctionData(functionFragment: 'deposit', values: [IMystikoBridge.DepositRequestStruct]): string;
+  encodeFunctionData(functionFragment: 'disableSanctionsCheck', values?: undefined): string;
+  encodeFunctionData(functionFragment: 'enableSanctionsCheck', values?: undefined): string;
   encodeFunctionData(
     functionFragment: 'executeMessage',
     values: [string, BigNumberish, BytesLike, string],
@@ -122,7 +125,7 @@ export interface MystikoV2CelerERC20Interface extends utils.Interface {
   encodeFunctionData(functionFragment: 'peerChainId', values?: undefined): string;
   encodeFunctionData(functionFragment: 'peerChainName', values?: undefined): string;
   encodeFunctionData(functionFragment: 'peerContract', values?: undefined): string;
-  encodeFunctionData(functionFragment: 'sanctionsCheckDisabled', values?: undefined): string;
+  encodeFunctionData(functionFragment: 'sanctionsCheck', values?: undefined): string;
   encodeFunctionData(functionFragment: 'sanctionsList', values?: undefined): string;
   encodeFunctionData(functionFragment: 'setAssociatedCommitmentPool', values: [string]): string;
   encodeFunctionData(functionFragment: 'setBridgeProxyAddress', values: [string]): string;
@@ -133,7 +136,6 @@ export interface MystikoV2CelerERC20Interface extends utils.Interface {
   encodeFunctionData(functionFragment: 'setPeerContract', values: [BigNumberish, string, string]): string;
   encodeFunctionData(functionFragment: 'setPeerMinExecutorFee', values: [BigNumberish]): string;
   encodeFunctionData(functionFragment: 'setPeerMinRollupFee', values: [BigNumberish]): string;
-  encodeFunctionData(functionFragment: 'setSanctionCheckDisabled', values: [boolean]): string;
   encodeFunctionData(functionFragment: 'updateSanctionsListAddress', values: [string]): string;
 
   decodeFunctionResult(functionFragment: 'assetDecimals', data: BytesLike): Result;
@@ -147,6 +149,8 @@ export interface MystikoV2CelerERC20Interface extends utils.Interface {
   decodeFunctionResult(functionFragment: 'changeServiceFeeCollector', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'changeServiceFeeDivider', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'deposit', data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'disableSanctionsCheck', data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'enableSanctionsCheck', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'executeMessage', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'getAssociatedCommitmentPool', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'getMinAmount', data: BytesLike): Result;
@@ -161,7 +165,7 @@ export interface MystikoV2CelerERC20Interface extends utils.Interface {
   decodeFunctionResult(functionFragment: 'peerChainId', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'peerChainName', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'peerContract', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'sanctionsCheckDisabled', data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'sanctionsCheck', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'sanctionsList', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'setAssociatedCommitmentPool', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'setBridgeProxyAddress', data: BytesLike): Result;
@@ -172,7 +176,6 @@ export interface MystikoV2CelerERC20Interface extends utils.Interface {
   decodeFunctionResult(functionFragment: 'setPeerContract', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'setPeerMinExecutorFee', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'setPeerMinRollupFee', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'setSanctionCheckDisabled', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'updateSanctionsListAddress', data: BytesLike): Result;
 
   events: {
@@ -184,7 +187,7 @@ export interface MystikoV2CelerERC20Interface extends utils.Interface {
     'OperatorChanged(address)': EventFragment;
     'PeerMinExecutorFee(uint256)': EventFragment;
     'PeerMinRollupFee(uint256)': EventFragment;
-    'SanctionsCheckDisabled(bool)': EventFragment;
+    'SanctionsCheck(bool)': EventFragment;
     'SanctionsList(address)': EventFragment;
     'ServiceFeeChanged(uint256)': EventFragment;
     'ServiceFeeCollectorChanged(address)': EventFragment;
@@ -199,7 +202,7 @@ export interface MystikoV2CelerERC20Interface extends utils.Interface {
   getEvent(nameOrSignatureOrTopic: 'OperatorChanged'): EventFragment;
   getEvent(nameOrSignatureOrTopic: 'PeerMinExecutorFee'): EventFragment;
   getEvent(nameOrSignatureOrTopic: 'PeerMinRollupFee'): EventFragment;
-  getEvent(nameOrSignatureOrTopic: 'SanctionsCheckDisabled'): EventFragment;
+  getEvent(nameOrSignatureOrTopic: 'SanctionsCheck'): EventFragment;
   getEvent(nameOrSignatureOrTopic: 'SanctionsList'): EventFragment;
   getEvent(nameOrSignatureOrTopic: 'ServiceFeeChanged'): EventFragment;
   getEvent(nameOrSignatureOrTopic: 'ServiceFeeCollectorChanged'): EventFragment;
@@ -238,9 +241,9 @@ export type PeerMinRollupFeeEvent = TypedEvent<[BigNumber], { peerMinRollupFee: 
 
 export type PeerMinRollupFeeEventFilter = TypedEventFilter<PeerMinRollupFeeEvent>;
 
-export type SanctionsCheckDisabledEvent = TypedEvent<[boolean], { state: boolean }>;
+export type SanctionsCheckEvent = TypedEvent<[boolean], { state: boolean }>;
 
-export type SanctionsCheckDisabledEventFilter = TypedEventFilter<SanctionsCheckDisabledEvent>;
+export type SanctionsCheckEventFilter = TypedEventFilter<SanctionsCheckEvent>;
 
 export type SanctionsListEvent = TypedEvent<[string], { sanctions: string }>;
 
@@ -250,7 +253,7 @@ export type ServiceFeeChangedEvent = TypedEvent<[BigNumber], { serviceFee: BigNu
 
 export type ServiceFeeChangedEventFilter = TypedEventFilter<ServiceFeeChangedEvent>;
 
-export type ServiceFeeCollectorChangedEvent = TypedEvent<[string], { servicer: string }>;
+export type ServiceFeeCollectorChangedEvent = TypedEvent<[string], { collector: string }>;
 
 export type ServiceFeeCollectorChangedEventFilter = TypedEventFilter<ServiceFeeCollectorChangedEvent>;
 
@@ -319,6 +322,14 @@ export interface MystikoV2CelerERC20 extends BaseContract {
       overrides?: PayableOverrides & { from?: string | Promise<string> },
     ): Promise<ContractTransaction>;
 
+    disableSanctionsCheck(
+      overrides?: Overrides & { from?: string | Promise<string> },
+    ): Promise<ContractTransaction>;
+
+    enableSanctionsCheck(
+      overrides?: Overrides & { from?: string | Promise<string> },
+    ): Promise<ContractTransaction>;
+
     executeMessage(
       _sender: string,
       _srcChainId: BigNumberish,
@@ -353,7 +364,7 @@ export interface MystikoV2CelerERC20 extends BaseContract {
 
     peerContract(overrides?: CallOverrides): Promise<[string]>;
 
-    sanctionsCheckDisabled(overrides?: CallOverrides): Promise<[boolean]>;
+    sanctionsCheck(overrides?: CallOverrides): Promise<[boolean]>;
 
     sanctionsList(overrides?: CallOverrides): Promise<[string]>;
 
@@ -404,11 +415,6 @@ export interface MystikoV2CelerERC20 extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<ContractTransaction>;
 
-    setSanctionCheckDisabled(
-      _state: boolean,
-      overrides?: Overrides & { from?: string | Promise<string> },
-    ): Promise<ContractTransaction>;
-
     updateSanctionsListAddress(
       _sanction: string,
       overrides?: Overrides & { from?: string | Promise<string> },
@@ -452,6 +458,14 @@ export interface MystikoV2CelerERC20 extends BaseContract {
     overrides?: PayableOverrides & { from?: string | Promise<string> },
   ): Promise<ContractTransaction>;
 
+  disableSanctionsCheck(
+    overrides?: Overrides & { from?: string | Promise<string> },
+  ): Promise<ContractTransaction>;
+
+  enableSanctionsCheck(
+    overrides?: Overrides & { from?: string | Promise<string> },
+  ): Promise<ContractTransaction>;
+
   executeMessage(
     _sender: string,
     _srcChainId: BigNumberish,
@@ -486,7 +500,7 @@ export interface MystikoV2CelerERC20 extends BaseContract {
 
   peerContract(overrides?: CallOverrides): Promise<string>;
 
-  sanctionsCheckDisabled(overrides?: CallOverrides): Promise<boolean>;
+  sanctionsCheck(overrides?: CallOverrides): Promise<boolean>;
 
   sanctionsList(overrides?: CallOverrides): Promise<string>;
 
@@ -537,11 +551,6 @@ export interface MystikoV2CelerERC20 extends BaseContract {
     overrides?: Overrides & { from?: string | Promise<string> },
   ): Promise<ContractTransaction>;
 
-  setSanctionCheckDisabled(
-    _state: boolean,
-    overrides?: Overrides & { from?: string | Promise<string> },
-  ): Promise<ContractTransaction>;
-
   updateSanctionsListAddress(
     _sanction: string,
     overrides?: Overrides & { from?: string | Promise<string> },
@@ -569,6 +578,10 @@ export interface MystikoV2CelerERC20 extends BaseContract {
     changeServiceFeeDivider(_newServiceFeeDivider: BigNumberish, overrides?: CallOverrides): Promise<void>;
 
     deposit(_request: IMystikoBridge.DepositRequestStruct, overrides?: CallOverrides): Promise<void>;
+
+    disableSanctionsCheck(overrides?: CallOverrides): Promise<void>;
+
+    enableSanctionsCheck(overrides?: CallOverrides): Promise<void>;
 
     executeMessage(
       _sender: string,
@@ -604,7 +617,7 @@ export interface MystikoV2CelerERC20 extends BaseContract {
 
     peerContract(overrides?: CallOverrides): Promise<string>;
 
-    sanctionsCheckDisabled(overrides?: CallOverrides): Promise<boolean>;
+    sanctionsCheck(overrides?: CallOverrides): Promise<boolean>;
 
     sanctionsList(overrides?: CallOverrides): Promise<string>;
 
@@ -631,8 +644,6 @@ export interface MystikoV2CelerERC20 extends BaseContract {
 
     setPeerMinRollupFee(_peerMinRollupFee: BigNumberish, overrides?: CallOverrides): Promise<void>;
 
-    setSanctionCheckDisabled(_state: boolean, overrides?: CallOverrides): Promise<void>;
-
     updateSanctionsListAddress(_sanction: string, overrides?: CallOverrides): Promise<void>;
   };
 
@@ -652,8 +663,8 @@ export interface MystikoV2CelerERC20 extends BaseContract {
     'MinExecutorFee(uint256)'(minExecutorFee?: null): MinExecutorFeeEventFilter;
     MinExecutorFee(minExecutorFee?: null): MinExecutorFeeEventFilter;
 
-    'OperatorChanged(address)'(operator?: null): OperatorChangedEventFilter;
-    OperatorChanged(operator?: null): OperatorChangedEventFilter;
+    'OperatorChanged(address)'(operator?: string | null): OperatorChangedEventFilter;
+    OperatorChanged(operator?: string | null): OperatorChangedEventFilter;
 
     'PeerMinExecutorFee(uint256)'(peerMinExecutorFee?: null): PeerMinExecutorFeeEventFilter;
     PeerMinExecutorFee(peerMinExecutorFee?: null): PeerMinExecutorFeeEventFilter;
@@ -661,8 +672,8 @@ export interface MystikoV2CelerERC20 extends BaseContract {
     'PeerMinRollupFee(uint256)'(peerMinRollupFee?: null): PeerMinRollupFeeEventFilter;
     PeerMinRollupFee(peerMinRollupFee?: null): PeerMinRollupFeeEventFilter;
 
-    'SanctionsCheckDisabled(bool)'(state?: null): SanctionsCheckDisabledEventFilter;
-    SanctionsCheckDisabled(state?: null): SanctionsCheckDisabledEventFilter;
+    'SanctionsCheck(bool)'(state?: null): SanctionsCheckEventFilter;
+    SanctionsCheck(state?: null): SanctionsCheckEventFilter;
 
     'SanctionsList(address)'(sanctions?: null): SanctionsListEventFilter;
     SanctionsList(sanctions?: null): SanctionsListEventFilter;
@@ -670,8 +681,8 @@ export interface MystikoV2CelerERC20 extends BaseContract {
     'ServiceFeeChanged(uint256)'(serviceFee?: null): ServiceFeeChangedEventFilter;
     ServiceFeeChanged(serviceFee?: null): ServiceFeeChangedEventFilter;
 
-    'ServiceFeeCollectorChanged(address)'(servicer?: null): ServiceFeeCollectorChangedEventFilter;
-    ServiceFeeCollectorChanged(servicer?: null): ServiceFeeCollectorChangedEventFilter;
+    'ServiceFeeCollectorChanged(address)'(collector?: string | null): ServiceFeeCollectorChangedEventFilter;
+    ServiceFeeCollectorChanged(collector?: string | null): ServiceFeeCollectorChangedEventFilter;
 
     'ServiceFeeDividerChanged(uint256)'(serviceFeeDivider?: null): ServiceFeeDividerChangedEventFilter;
     ServiceFeeDividerChanged(serviceFeeDivider?: null): ServiceFeeDividerChangedEventFilter;
@@ -715,6 +726,10 @@ export interface MystikoV2CelerERC20 extends BaseContract {
       overrides?: PayableOverrides & { from?: string | Promise<string> },
     ): Promise<BigNumber>;
 
+    disableSanctionsCheck(overrides?: Overrides & { from?: string | Promise<string> }): Promise<BigNumber>;
+
+    enableSanctionsCheck(overrides?: Overrides & { from?: string | Promise<string> }): Promise<BigNumber>;
+
     executeMessage(
       _sender: string,
       _srcChainId: BigNumberish,
@@ -749,7 +764,7 @@ export interface MystikoV2CelerERC20 extends BaseContract {
 
     peerContract(overrides?: CallOverrides): Promise<BigNumber>;
 
-    sanctionsCheckDisabled(overrides?: CallOverrides): Promise<BigNumber>;
+    sanctionsCheck(overrides?: CallOverrides): Promise<BigNumber>;
 
     sanctionsList(overrides?: CallOverrides): Promise<BigNumber>;
 
@@ -800,11 +815,6 @@ export interface MystikoV2CelerERC20 extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<BigNumber>;
 
-    setSanctionCheckDisabled(
-      _state: boolean,
-      overrides?: Overrides & { from?: string | Promise<string> },
-    ): Promise<BigNumber>;
-
     updateSanctionsListAddress(
       _sanction: string,
       overrides?: Overrides & { from?: string | Promise<string> },
@@ -849,6 +859,14 @@ export interface MystikoV2CelerERC20 extends BaseContract {
       overrides?: PayableOverrides & { from?: string | Promise<string> },
     ): Promise<PopulatedTransaction>;
 
+    disableSanctionsCheck(
+      overrides?: Overrides & { from?: string | Promise<string> },
+    ): Promise<PopulatedTransaction>;
+
+    enableSanctionsCheck(
+      overrides?: Overrides & { from?: string | Promise<string> },
+    ): Promise<PopulatedTransaction>;
+
     executeMessage(
       _sender: string,
       _srcChainId: BigNumberish,
@@ -883,7 +901,7 @@ export interface MystikoV2CelerERC20 extends BaseContract {
 
     peerContract(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
-    sanctionsCheckDisabled(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+    sanctionsCheck(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     sanctionsList(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
@@ -931,11 +949,6 @@ export interface MystikoV2CelerERC20 extends BaseContract {
 
     setPeerMinRollupFee(
       _peerMinRollupFee: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
-    ): Promise<PopulatedTransaction>;
-
-    setSanctionCheckDisabled(
-      _state: boolean,
       overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<PopulatedTransaction>;
 
