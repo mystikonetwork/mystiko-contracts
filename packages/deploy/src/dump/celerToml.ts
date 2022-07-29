@@ -48,7 +48,13 @@ function buildSenderGroupName(c: any) {
     tokenName = c.dstTokenCfg.assetSymbol;
   }
 
-  return srcNetwork.concat('-').concat(dstNetwork).concat('-').concat(tokenName);
+  return srcNetwork
+    .concat('-')
+    .concat(dstNetwork)
+    .concat('-')
+    .concat(tokenName)
+    .concat('-')
+    .concat(c.cfg.version);
 }
 
 export function saveCelerToml(c: any) {
@@ -86,7 +92,7 @@ export function saveCelerToml(c: any) {
 
         // @ts-ignore
         if (contract.address === oldDstContractAddress) {
-          contract.address = c.pairSrcDepositCfg.address;
+          contract.address = c.pairDstDepositCfg.address;
         }
       }
 
