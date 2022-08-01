@@ -729,7 +729,7 @@
             "0x9a17b3284271617FD89eD0eFf9951861B3606474"
           ],
           "operator": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
-          "sanctionCheckDisable": true,
+          "sanctionCheck": false,
           "enqueueWhitelist": [
             "0x912131DA2711cd74551DC4c714eac97A96B54889"
           ]
@@ -754,7 +754,7 @@
             "0x9a17b3284271617FD89eD0eFf9951861B3606474"
           ],
           "operator": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
-          "sanctionCheckDisable": true,
+          "sanctionCheck": false,
           "enqueueWhitelist": [
             "0x0E7418d06415e60Bbf55644699421db7035fEe10"
           ]
@@ -779,7 +779,7 @@
             "0x9a17b3284271617FD89eD0eFf9951861B3606474"
           ],
           "operator": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
-          "sanctionCheckDisable": true,
+          "sanctionCheck": false,
           "enqueueWhitelist": [
             "0xd531E77F887013519D16286a5B7D21d37Ceee191"
           ]
@@ -804,7 +804,7 @@
             "0x9a17b3284271617FD89eD0eFf9951861B3606474"
           ],
           "operator": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
-          "sanctionCheckDisable": true,
+          "sanctionCheck": false,
           "enqueueWhitelist": [
             "0x0ff4D09598FA4E845EED7263aB5933f0a90b4B3F"
           ]
@@ -829,7 +829,7 @@
             "0x9a17b3284271617FD89eD0eFf9951861B3606474"
           ],
           "operator": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
-          "sanctionCheckDisable": true,
+          "sanctionCheck": false,
           "enqueueWhitelist": [
             "0x9d608fc0DC227bd6242dDD060F0479f8DA0935eD"
           ]
@@ -854,7 +854,7 @@
             "0x9a17b3284271617FD89eD0eFf9951861B3606474"
           ],
           "operator": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
-          "sanctionCheckDisable": true,
+          "sanctionCheck": false,
           "enqueueWhitelist": [
             "0x4178915f45f5c8b77b1d6F7B9ACE55c51E1a24B5"
           ]
@@ -879,7 +879,7 @@
             "0x9a17b3284271617FD89eD0eFf9951861B3606474"
           ],
           "operator": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
-          "sanctionCheckDisable": true,
+          "sanctionCheck": false,
           "enqueueWhitelist": [
             "0x920C9c9E5c705f5a3ca3fdA7F4563a59611c1980"
           ]
@@ -904,7 +904,7 @@
             "0x9a17b3284271617FD89eD0eFf9951861B3606474"
           ],
           "operator": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
-          "sanctionCheckDisable": true,
+          "sanctionCheck": false,
           "enqueueWhitelist": [
             "0x422E1e990F0f98C7bBc277409d5Ce273B640a9e1"
           ]
@@ -929,7 +929,7 @@
             "0x9a17b3284271617FD89eD0eFf9951861B3606474"
           ],
           "operator": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
-          "sanctionCheckDisable": true,
+          "sanctionCheck": false,
           "enqueueWhitelist": [
             "0xeB0de2f82f0De92F5334dfE9443001a57b19Eff9"
           ]
@@ -953,7 +953,7 @@
             "0xE30A04c01224E968EdA56cC92bA1e4F73369A420",
             "0x9a17b3284271617FD89eD0eFf9951861B3606474"
           ],
-          "sanctionCheckDisable": true,
+          "sanctionCheck": false,
           "enqueueWhitelist": [
             "0xAddcaC0dA013642A70f38dd82aCfaDc525F3171F"
           ],
@@ -978,7 +978,7 @@
             "0xE30A04c01224E968EdA56cC92bA1e4F73369A420",
             "0x9a17b3284271617FD89eD0eFf9951861B3606474"
           ],
-          "sanctionCheckDisable": true,
+          "sanctionCheck": false,
           "enqueueWhitelist": [
             "0x596a205eAF1bb30f66c949F880e1050d7e8938aa"
           ],
@@ -995,7 +995,7 @@
             "0x9a17b3284271617FD89eD0eFf9951861B3606474"
           ],
           "operator": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
-          "sanctionCheckDisable": true,
+          "sanctionCheck": false,
           "enqueueWhitelist": [
             "0x015d360D5957CD148B6721f3011B62eADb01E950"
           ],
@@ -1020,7 +1020,7 @@
             "0x9a17b3284271617FD89eD0eFf9951861B3606474"
           ],
           "operator": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
-          "sanctionCheckDisable": true,
+          "sanctionCheck": false,
           "enqueueWhitelist": [
             "0x7C26c82174E6d696b3d51b717899936626f475cb"
           ],
@@ -1054,7 +1054,7 @@
             "0x9a17b3284271617FD89eD0eFf9951861B3606474"
           ],
           "operator": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
-          "sanctionCheckDisable": true,
+          "sanctionCheck": false,
           "enqueueWhitelist": [
             "0x53469e6A9c3a79a243eeA6E74f0e74aB345E49f1"
           ]
@@ -1079,7 +1079,7 @@
             "0x9a17b3284271617FD89eD0eFf9951861B3606474"
           ],
           "operator": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
-          "sanctionCheckDisable": true,
+          "sanctionCheck": false,
           "enqueueWhitelist": [
             "0xA5b4B4093830D6BB5B7F3622Ac5D92284c52362f"
           ]
@@ -1104,7 +1104,7 @@
             "0x9a17b3284271617FD89eD0eFf9951861B3606474"
           ],
           "operator": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
-          "sanctionCheckDisable": true,
+          "sanctionCheck": false,
           "enqueueWhitelist": [
             "0x1C76C14c20De6Edf50DE6fe7bcF43C71992a6CE9"
           ]
@@ -1147,7 +1147,7 @@
             "0x9a17b3284271617FD89eD0eFf9951861B3606474"
           ],
           "operator": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
-          "sanctionCheckDisable": true,
+          "sanctionCheck": false,
           "enqueueWhitelist": [
             "0xe3cB61526ea233F2d01d70bF3B773448b3933caF"
           ]
@@ -1167,7 +1167,7 @@
           "transact2x0Verifier": "0xc07c6B35dF4B32B9F0BCA73ADe0422c6e0eF1708",
           "transact2x1Verifier": "0x2C34599c5A34ce38b361a664275cc5f7Ef85512e",
           "transact2x2Verifier": "0xF02A8331cd7829479A7feAd00CF5B17d5Eff8574",
-          "sanctionCheckDisable": true,
+          "sanctionCheck": false,
           "rollupWhitelist": [
             "0xE30A04c01224E968EdA56cC92bA1e4F73369A420",
             "0x9a17b3284271617FD89eD0eFf9951861B3606474"
@@ -1196,7 +1196,7 @@
             "0xE30A04c01224E968EdA56cC92bA1e4F73369A420",
             "0x9a17b3284271617FD89eD0eFf9951861B3606474"
           ],
-          "sanctionCheckDisable": true,
+          "sanctionCheck": false,
           "enqueueWhitelist": [
             "0xD67c2d9652FED258B475661d028688b5DE72631D"
           ],
@@ -1217,7 +1217,7 @@
           "transact2x0Verifier": "0xc07c6B35dF4B32B9F0BCA73ADe0422c6e0eF1708",
           "transact2x1Verifier": "0x2C34599c5A34ce38b361a664275cc5f7Ef85512e",
           "transact2x2Verifier": "0xF02A8331cd7829479A7feAd00CF5B17d5Eff8574",
-          "sanctionCheckDisable": true,
+          "sanctionCheck": false,
           "rollupWhitelist": [
             "0xE30A04c01224E968EdA56cC92bA1e4F73369A420",
             "0x9a17b3284271617FD89eD0eFf9951861B3606474"
@@ -1242,7 +1242,7 @@
           "transact2x0Verifier": "0xaAC374138ac891f98789Ebf4aB6F111638ef7a2e",
           "transact2x1Verifier": "0xa77c1d49d84c067944a615A0B469e2B5c8A3C4FE",
           "transact2x2Verifier": "0xC751faA58938471D2B140B153F71a2e00D46BAC5",
-          "sanctionCheckDisable": true,
+          "sanctionCheck": false,
           "rollupWhitelist": [
             "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
             "0xE30A04c01224E968EdA56cC92bA1e4F73369A420",
@@ -1265,7 +1265,8 @@
               "minAmount": "100000000000000000",
               "commitmentPool": "0x4f1aA2A2727acF5d6c6C599a67bC3b90Cd93e2aE",
               "operator": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
-              "sanctionCheckDisable": true
+              "sanctionCheckDisable": true,
+              "disableDeposit": true
             }
           ]
         },
@@ -1279,7 +1280,8 @@
               "minAmount": "100000000000000000",
               "commitmentPool": "0x1e317Ec4a4b5bAD7E6005B7cEB231433883A571c",
               "operator": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
-              "sanctionCheckDisable": true
+              "sanctionCheckDisable": true,
+              "disableDeposit": true
             }
           ]
         },
@@ -1293,7 +1295,8 @@
               "minAmount": "100000",
               "commitmentPool": "0x398ecb9AaF4Fc05F2e91Cc3743952bAE99A001d6",
               "operator": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
-              "sanctionCheckDisable": true
+              "sanctionCheckDisable": true,
+              "disableDeposit": true
             }
           ]
         },
@@ -1307,7 +1310,8 @@
               "minAmount": "100000000000000000",
               "commitmentPool": "0x014125b656fa03Deb3b4EB040fA89a3971149e5b",
               "operator": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
-              "sanctionCheckDisable": true
+              "sanctionCheckDisable": true,
+              "disableDeposit": true
             }
           ]
         },
@@ -1321,7 +1325,8 @@
               "minAmount": "100000000000000000",
               "commitmentPool": "0xBDD450fAF90dEd89433a7C0f09b3c67503f6757E",
               "operator": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
-              "sanctionCheckDisable": true
+              "sanctionCheckDisable": true,
+              "disableDeposit": true
             }
           ]
         },
@@ -1335,7 +1340,8 @@
               "minAmount": "100000",
               "commitmentPool": "0x55607D52161f2f2203f8A4Dd89abd3544de084C6",
               "operator": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
-              "sanctionCheckDisable": true
+              "sanctionCheckDisable": true,
+              "disableDeposit": true
             }
           ]
         },
@@ -1349,7 +1355,8 @@
               "minAmount": "100000000000000000",
               "commitmentPool": "0x4c2e5155DeEdC1F8354fB1cF5FE39fFCd38cDC54",
               "operator": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
-              "sanctionCheckDisable": true
+              "sanctionCheckDisable": true,
+              "disableDeposit": true
             }
           ]
         },
@@ -1363,7 +1370,8 @@
               "minAmount": "100000000000000000",
               "commitmentPool": "0xdbBA020A9aa23c2EaEc445a2d71Ac9D514a84cE6",
               "operator": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
-              "sanctionCheckDisable": true
+              "sanctionCheckDisable": true,
+              "disableDeposit": true
             }
           ]
         },
@@ -1377,7 +1385,8 @@
               "minAmount": "100000",
               "commitmentPool": "0x27E3a126f2E149043CC149d34f363c16aE8c9b5d",
               "operator": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
-              "sanctionCheckDisable": true
+              "sanctionCheckDisable": true,
+              "disableDeposit": true
             }
           ]
         },
@@ -1391,7 +1400,8 @@
               "minAmount": "100000000000000000",
               "commitmentPool": "0xAd947Bd9e3E841135B13d83Ff088cd89D7F5898E",
               "operator": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
-              "sanctionCheckDisable": true
+              "sanctionCheckDisable": true,
+              "disableDeposit": true
             }
           ]
         },
@@ -1405,7 +1415,8 @@
               "minAmount": "100000000000000000",
               "commitmentPool": "0x55E8ba54D21d801B82691EE789617d28A56408B9",
               "operator": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
-              "sanctionCheckDisable": true
+              "sanctionCheckDisable": true,
+              "disableDeposit": true
             }
           ]
         },
@@ -1419,7 +1430,8 @@
               "minAmount": "100000",
               "commitmentPool": "0x5A73A49676E748c5181cC0ED5aca8886AE471D2A",
               "operator": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
-              "sanctionCheckDisable": true
+              "sanctionCheckDisable": true,
+              "disableDeposit": true
             }
           ]
         },
@@ -1433,7 +1445,8 @@
               "minAmount": "100000000000000000",
               "commitmentPool": "0x21FD01eeB7f16D830A74d5dAE8eC33457E7C4C04",
               "operator": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
-              "sanctionCheckDisable": true
+              "sanctionCheckDisable": true,
+              "disableDeposit": true
             }
           ]
         },
@@ -1447,7 +1460,8 @@
               "minAmount": "100000000000000000",
               "commitmentPool": "0x2D30408BbfBf6A8A7D75511cF594C0139c1bE17c",
               "operator": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
-              "sanctionCheckDisable": true
+              "sanctionCheckDisable": true,
+              "disableDeposit": true
             }
           ]
         },
@@ -1461,7 +1475,8 @@
               "minAmount": "100000",
               "commitmentPool": "0xdFB5b19F9Ce01ffA8251Ba9077E8b9e0108eA721",
               "operator": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
-              "sanctionCheckDisable": true
+              "sanctionCheckDisable": true,
+              "disableDeposit": true
             }
           ]
         },
@@ -1474,8 +1489,9 @@
               "syncStart": 9042231,
               "minAmount": "100000000000000000",
               "commitmentPool": "0x541c26E18F3f4B69011C32949e25B66263f0c3a1",
-              "sanctionCheckDisable": true,
-              "operator": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022"
+              "sanctionCheck": false,
+              "operator": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
+              "disableDeposit": true
             }
           ]
         },
@@ -1488,8 +1504,9 @@
               "syncStart": 9042260,
               "minAmount": "100000000000000000",
               "commitmentPool": "0x982FF4a82C6e5DCf46DC564A9786b8440520d1F5",
-              "sanctionCheckDisable": true,
-              "operator": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022"
+              "sanctionCheck": false,
+              "operator": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
+              "disableDeposit": true
             }
           ]
         },
@@ -1502,8 +1519,9 @@
               "syncStart": 9091096,
               "minAmount": "100000",
               "commitmentPool": "0xbc23722aBFB9F19C1BED0CC6dBa195aC72A68290",
-              "sanctionCheckDisable": true,
-              "operator": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022"
+              "sanctionCheck": false,
+              "operator": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
+              "disableDeposit": true
             }
           ]
         },
@@ -1546,8 +1564,9 @@
               "syncStart": 2176417,
               "minAmount": "100000000000000000",
               "commitmentPool": "0xa0F3e2fB7d7f24a8fB122748aC9288715e727cd1",
-              "sanctionCheckDisable": true,
-              "operator": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022"
+              "sanctionCheck": false,
+              "operator": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
+              "disableDeposit": true
             }
           ]
         },
@@ -1560,8 +1579,9 @@
               "syncStart": 2176408,
               "minAmount": "100000000000000000",
               "commitmentPool": "0xc10B4E32c28cB2fACD3aF52F1bA74E88Dc82039C",
-              "sanctionCheckDisable": true,
-              "operator": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022"
+              "sanctionCheck": false,
+              "operator": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
+              "disableDeposit": true
             }
           ]
         },
@@ -1574,8 +1594,9 @@
               "syncStart": 2176439,
               "minAmount": "100000",
               "commitmentPool": "0x57B69f33AecA77F1b18E33B47Ae48f8b8d35691e",
-              "sanctionCheckDisable": true,
-              "operator": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022"
+              "sanctionCheck": false,
+              "operator": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
+              "disableDeposit": true
             }
           ]
         }
@@ -1654,7 +1675,7 @@
           "transact2x0Verifier": "0xc55F56709EF1f80a2a627A5363Fd48b47BE0C551",
           "transact2x1Verifier": "0x29BC03f5f6d397917F3A9FE252aa19520C289F4d",
           "transact2x2Verifier": "0x70cC6f0E6Ab4625E8bCe202Fe5EBc3ACc16B5F9b",
-          "sanctionCheckDisable": true,
+          "sanctionCheck": false,
           "rollupWhitelist": [
             "0xE30A04c01224E968EdA56cC92bA1e4F73369A420",
             "0x9a17b3284271617FD89eD0eFf9951861B3606474"
@@ -1680,7 +1701,7 @@
           "transact2x0Verifier": "0x3c500d9660b98D65b5577bB3b9ECB389d6386BFA",
           "transact2x1Verifier": "0x1Fdb5728E298D1175ecF26B983CfD25C6999AaDB",
           "transact2x2Verifier": "0x10c4d537F310dF5204f4bC69B13BF95408945077",
-          "sanctionCheckDisable": true,
+          "sanctionCheck": false,
           "rollupWhitelist": [
             "0xE30A04c01224E968EdA56cC92bA1e4F73369A420",
             "0x9a17b3284271617FD89eD0eFf9951861B3606474"
@@ -1709,7 +1730,7 @@
           "transact2x0Verifier": "0x3c500d9660b98D65b5577bB3b9ECB389d6386BFA",
           "transact2x1Verifier": "0x1Fdb5728E298D1175ecF26B983CfD25C6999AaDB",
           "transact2x2Verifier": "0x10c4d537F310dF5204f4bC69B13BF95408945077",
-          "sanctionCheckDisable": true,
+          "sanctionCheck": false,
           "rollupWhitelist": [
             "0xE30A04c01224E968EdA56cC92bA1e4F73369A420",
             "0x9a17b3284271617FD89eD0eFf9951861B3606474"
@@ -1742,7 +1763,7 @@
             "0xE30A04c01224E968EdA56cC92bA1e4F73369A420",
             "0x9a17b3284271617FD89eD0eFf9951861B3606474"
           ],
-          "sanctionCheckDisable": true,
+          "sanctionCheck": false,
           "enqueueWhitelist": [
             "0xCc8C0870a9AfA9D64Fe73a4158e205e6Bf9BEcfc"
           ],
@@ -1764,7 +1785,7 @@
           "transact2x0Verifier": "0x3c500d9660b98D65b5577bB3b9ECB389d6386BFA",
           "transact2x1Verifier": "0x1Fdb5728E298D1175ecF26B983CfD25C6999AaDB",
           "transact2x2Verifier": "0x10c4d537F310dF5204f4bC69B13BF95408945077",
-          "sanctionCheckDisable": true,
+          "sanctionCheck": false,
           "rollupWhitelist": [
             "0xE30A04c01224E968EdA56cC92bA1e4F73369A420",
             "0x9a17b3284271617FD89eD0eFf9951861B3606474"
@@ -1790,7 +1811,7 @@
           "transact2x0Verifier": "0xc55F56709EF1f80a2a627A5363Fd48b47BE0C551",
           "transact2x1Verifier": "0x29BC03f5f6d397917F3A9FE252aa19520C289F4d",
           "transact2x2Verifier": "0x70cC6f0E6Ab4625E8bCe202Fe5EBc3ACc16B5F9b",
-          "sanctionCheckDisable": true,
+          "sanctionCheck": false,
           "rollupWhitelist": [
             "0xE30A04c01224E968EdA56cC92bA1e4F73369A420",
             "0x9a17b3284271617FD89eD0eFf9951861B3606474"
@@ -1816,7 +1837,7 @@
           "transact2x0Verifier": "0xc55F56709EF1f80a2a627A5363Fd48b47BE0C551",
           "transact2x1Verifier": "0x29BC03f5f6d397917F3A9FE252aa19520C289F4d",
           "transact2x2Verifier": "0x70cC6f0E6Ab4625E8bCe202Fe5EBc3ACc16B5F9b",
-          "sanctionCheckDisable": true,
+          "sanctionCheck": false,
           "rollupWhitelist": [
             "0xE30A04c01224E968EdA56cC92bA1e4F73369A420",
             "0x9a17b3284271617FD89eD0eFf9951861B3606474"
@@ -1842,7 +1863,7 @@
           "transact2x0Verifier": "0xa937aE1B43Af70AFe3a51D54516d5d75e22892aA",
           "transact2x1Verifier": "0xfbb1A6Da247b1D3a261Dbdb425295d29177cf47A",
           "transact2x2Verifier": "0xD78Aa9202B2746B8f0211fD89eD101210a114025",
-          "sanctionCheckDisable": true,
+          "sanctionCheck": false,
           "rollupWhitelist": [
             "0xE30A04c01224E968EdA56cC92bA1e4F73369A420",
             "0x9a17b3284271617FD89eD0eFf9951861B3606474"
@@ -1868,7 +1889,7 @@
           "transact2x0Verifier": "0xa937aE1B43Af70AFe3a51D54516d5d75e22892aA",
           "transact2x1Verifier": "0xfbb1A6Da247b1D3a261Dbdb425295d29177cf47A",
           "transact2x2Verifier": "0xD78Aa9202B2746B8f0211fD89eD101210a114025",
-          "sanctionCheckDisable": true,
+          "sanctionCheck": false,
           "rollupWhitelist": [
             "0xE30A04c01224E968EdA56cC92bA1e4F73369A420",
             "0x9a17b3284271617FD89eD0eFf9951861B3606474"
@@ -1894,7 +1915,7 @@
           "transact2x0Verifier": "0xa937aE1B43Af70AFe3a51D54516d5d75e22892aA",
           "transact2x1Verifier": "0xfbb1A6Da247b1D3a261Dbdb425295d29177cf47A",
           "transact2x2Verifier": "0xD78Aa9202B2746B8f0211fD89eD101210a114025",
-          "sanctionCheckDisable": true,
+          "sanctionCheck": false,
           "rollupWhitelist": [
             "0xE30A04c01224E968EdA56cC92bA1e4F73369A420",
             "0x9a17b3284271617FD89eD0eFf9951861B3606474"
@@ -1920,7 +1941,7 @@
           "transact2x0Verifier": "0xa937aE1B43Af70AFe3a51D54516d5d75e22892aA",
           "transact2x1Verifier": "0xfbb1A6Da247b1D3a261Dbdb425295d29177cf47A",
           "transact2x2Verifier": "0xD78Aa9202B2746B8f0211fD89eD101210a114025",
-          "sanctionCheckDisable": true,
+          "sanctionCheck": false,
           "rollupWhitelist": [
             "0xE30A04c01224E968EdA56cC92bA1e4F73369A420",
             "0x9a17b3284271617FD89eD0eFf9951861B3606474"
@@ -1950,7 +1971,7 @@
             "0xE30A04c01224E968EdA56cC92bA1e4F73369A420",
             "0x9a17b3284271617FD89eD0eFf9951861B3606474"
           ],
-          "sanctionCheckDisable": true,
+          "sanctionCheck": false,
           "enqueueWhitelist": [
             "0xFB09ef54E45eB1fffdcbfd1E219C469b8bD10A69"
           ],
@@ -1972,7 +1993,7 @@
           "transact2x0Verifier": "0xaAC374138ac891f98789Ebf4aB6F111638ef7a2e",
           "transact2x1Verifier": "0xa77c1d49d84c067944a615A0B469e2B5c8A3C4FE",
           "transact2x2Verifier": "0xC751faA58938471D2B140B153F71a2e00D46BAC5",
-          "sanctionCheckDisable": true,
+          "sanctionCheck": false,
           "rollupWhitelist": [
             "0xE30A04c01224E968EdA56cC92bA1e4F73369A420",
             "0x9a17b3284271617FD89eD0eFf9951861B3606474"
@@ -1998,7 +2019,7 @@
           "transact2x0Verifier": "0xaAC374138ac891f98789Ebf4aB6F111638ef7a2e",
           "transact2x1Verifier": "0xa77c1d49d84c067944a615A0B469e2B5c8A3C4FE",
           "transact2x2Verifier": "0xC751faA58938471D2B140B153F71a2e00D46BAC5",
-          "sanctionCheckDisable": true,
+          "sanctionCheck": false,
           "rollupWhitelist": [
             "0xE30A04c01224E968EdA56cC92bA1e4F73369A420",
             "0x9a17b3284271617FD89eD0eFf9951861B3606474"
@@ -2024,7 +2045,7 @@
           "transact2x0Verifier": "0xaAC374138ac891f98789Ebf4aB6F111638ef7a2e",
           "transact2x1Verifier": "0xa77c1d49d84c067944a615A0B469e2B5c8A3C4FE",
           "transact2x2Verifier": "0xC751faA58938471D2B140B153F71a2e00D46BAC5",
-          "sanctionCheckDisable": true,
+          "sanctionCheck": false,
           "rollupWhitelist": [
             "0xE30A04c01224E968EdA56cC92bA1e4F73369A420",
             "0x9a17b3284271617FD89eD0eFf9951861B3606474"
@@ -2050,7 +2071,7 @@
           "transact2x0Verifier": "0xaAC374138ac891f98789Ebf4aB6F111638ef7a2e",
           "transact2x1Verifier": "0xa77c1d49d84c067944a615A0B469e2B5c8A3C4FE",
           "transact2x2Verifier": "0xC751faA58938471D2B140B153F71a2e00D46BAC5",
-          "sanctionCheckDisable": true,
+          "sanctionCheck": false,
           "rollupWhitelist": [
             "0xE30A04c01224E968EdA56cC92bA1e4F73369A420",
             "0x9a17b3284271617FD89eD0eFf9951861B3606474"
@@ -2073,7 +2094,7 @@
             "0xE30A04c01224E968EdA56cC92bA1e4F73369A420",
             "0x9a17b3284271617FD89eD0eFf9951861B3606474"
           ],
-          "sanctionCheckDisable": true,
+          "sanctionCheck": false,
           "enqueueWhitelist": [
             "0x3A6785812d0ed4848B732B7fc2EF9915c567e236"
           ],
@@ -2107,7 +2128,7 @@
             "0xE30A04c01224E968EdA56cC92bA1e4F73369A420",
             "0x9a17b3284271617FD89eD0eFf9951861B3606474"
           ],
-          "sanctionCheckDisable": true,
+          "sanctionCheck": false,
           "enqueueWhitelist": [
             "0x7fa5307aCA482d036C183a57aE288c64Ccd07805",
             "0xDAaAd42C95EED8d84a8496C0Fed93dEa0CDB7cF7"
@@ -2135,7 +2156,7 @@
             "0xE30A04c01224E968EdA56cC92bA1e4F73369A420",
             "0x9a17b3284271617FD89eD0eFf9951861B3606474"
           ],
-          "sanctionCheckDisable": true,
+          "sanctionCheck": false,
           "enqueueWhitelist": [
             "0xe0F6a1E65355683F844a762441D09C61B72a43bc"
           ],
@@ -2162,7 +2183,7 @@
             "0xE30A04c01224E968EdA56cC92bA1e4F73369A420",
             "0x9a17b3284271617FD89eD0eFf9951861B3606474"
           ],
-          "sanctionCheckDisable": true,
+          "sanctionCheck": false,
           "enqueueWhitelist": [
             "0xAA54DF17b7e20b64D8c12853a26E38f5a55A35D8"
           ],
@@ -2183,7 +2204,7 @@
           "transact2x0Verifier": "0x3c500d9660b98D65b5577bB3b9ECB389d6386BFA",
           "transact2x1Verifier": "0x1Fdb5728E298D1175ecF26B983CfD25C6999AaDB",
           "transact2x2Verifier": "0x10c4d537F310dF5204f4bC69B13BF95408945077",
-          "sanctionCheckDisable": true,
+          "sanctionCheck": false,
           "rollupWhitelist": [
             "0xE30A04c01224E968EdA56cC92bA1e4F73369A420",
             "0x9a17b3284271617FD89eD0eFf9951861B3606474"
@@ -2209,7 +2230,7 @@
           "transact2x0Verifier": "0x3c500d9660b98D65b5577bB3b9ECB389d6386BFA",
           "transact2x1Verifier": "0x1Fdb5728E298D1175ecF26B983CfD25C6999AaDB",
           "transact2x2Verifier": "0x10c4d537F310dF5204f4bC69B13BF95408945077",
-          "sanctionCheckDisable": true,
+          "sanctionCheck": false,
           "rollupWhitelist": [
             "0xE30A04c01224E968EdA56cC92bA1e4F73369A420",
             "0x9a17b3284271617FD89eD0eFf9951861B3606474"
@@ -2238,7 +2259,7 @@
           "transact2x0Verifier": "0xc55F56709EF1f80a2a627A5363Fd48b47BE0C551",
           "transact2x1Verifier": "0x29BC03f5f6d397917F3A9FE252aa19520C289F4d",
           "transact2x2Verifier": "0x70cC6f0E6Ab4625E8bCe202Fe5EBc3ACc16B5F9b",
-          "sanctionCheckDisable": true,
+          "sanctionCheck": false,
           "rollupWhitelist": [
             "0xE30A04c01224E968EdA56cC92bA1e4F73369A420",
             "0x9a17b3284271617FD89eD0eFf9951861B3606474"
@@ -2264,10 +2285,11 @@
               "peerMinRollupFee": "10000000000000000",
               "commitmentPool": "0x6b9265c7256ebe4e649D93aBA8242122776CBC3f",
               "bridgeProxy": "0xF25170F86E4291a99a9A560032Fe9948b8BcFBB2",
-              "sanctionCheckDisable": true,
+              "sanctionCheck": false,
               "peerContract": "0x6061e955f1C5a5F2D28d55a18BE976C75716E41B",
               "minBridgeFee": "2000000000000000",
-              "operator": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022"
+              "operator": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
+              "disableDeposit": true
             },
             {
               "network": "bsctestnet",
@@ -2281,9 +2303,10 @@
               "peerMinRollupFee": "10000000000000000",
               "commitmentPool": "0x4c67cc65b9011D7355Cae4e68978a613197Ae13c",
               "bridgeProxy": "0xAd204986D6cB67A5Bc76a3CB8974823F43Cb9AAA",
-              "sanctionCheckDisable": true,
+              "sanctionCheck": false,
               "peerContract": "0x9656a32daFFc6A2b0Da3edC533523B221A704050",
-              "operator": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022"
+              "operator": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
+              "disableDeposit": true
             }
           ]
         },
@@ -2300,10 +2323,11 @@
               "peerMinRollupFee": "10000000000000000",
               "minAmount": "100000000000000000",
               "commitmentPool": "0x5Ee8D337e85CFC743B1e9E197e1A9CfF9936f543",
-              "sanctionCheckDisable": true,
+              "sanctionCheck": false,
               "peerContract": "0x6AE6F7376D7F48db5aA9718B476C940884c2BCc3",
               "minBridgeFee": "2000000000000000",
-              "operator": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022"
+              "operator": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
+              "disableDeposit": true
             },
             {
               "network": "bsctestnet",
@@ -2316,10 +2340,11 @@
               "peerMinRollupFee": "10000000000000000",
               "commitmentPool": "0x2364ad88F0ee5A30168d2354fd5CDea1c00Aa9eE",
               "bridgeProxy": "0xAd204986D6cB67A5Bc76a3CB8974823F43Cb9AAA",
-              "sanctionCheckDisable": true,
+              "sanctionCheck": false,
               "peerContract": "0xCD69f6a0762ab916434b9493e4893D05349f15A6",
               "minBridgeFee": "2000000000000000",
-              "operator": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022"
+              "operator": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
+              "disableDeposit": true
             }
           ]
         },
@@ -2336,10 +2361,11 @@
               "peerMinRollupFee": "10000",
               "commitmentPool": "0xdC1661c76531c1B7df4B69deB4ee7f2afCe2BdC5",
               "bridgeProxy": "0xF25170F86E4291a99a9A560032Fe9948b8BcFBB2",
-              "sanctionCheckDisable": true,
+              "sanctionCheck": false,
               "peerContract": "0xb44C05A1a4C27a468a5270373d6C722e159D3d60",
               "minBridgeFee": "2000000000000000",
-              "operator": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022"
+              "operator": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
+              "disableDeposit": true
             },
             {
               "network": "bsctestnet",
@@ -2353,9 +2379,10 @@
               "peerMinRollupFee": "10000",
               "commitmentPool": "0xE8f8F5A905aD7D290221bD3da176F5c231585599",
               "bridgeProxy": "0xAd204986D6cB67A5Bc76a3CB8974823F43Cb9AAA",
-              "sanctionCheckDisable": true,
+              "sanctionCheck": false,
               "peerContract": "0xa44eee524532DB48fAdC3247D73a69d89A0D8E70",
-              "operator": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022"
+              "operator": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
+              "disableDeposit": true
             }
           ]
         },
@@ -2373,9 +2400,10 @@
               "peerMinRollupFee": "10000000000000000",
               "commitmentPool": "0x2D59446950bB64503ec21e89e6CFaC17eAAB4b5c",
               "bridgeProxy": "0xF25170F86E4291a99a9A560032Fe9948b8BcFBB2",
-              "sanctionCheckDisable": true,
+              "sanctionCheck": false,
               "peerContract": "0x47401e26c09f1e694c430eaE9e4416db26Fe0928",
-              "operator": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022"
+              "operator": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
+              "disableDeposit": true
             },
             {
               "network": "bsctestnet",
@@ -2389,9 +2417,10 @@
               "peerMinRollupFee": "10000000000000000",
               "commitmentPool": "0x17Bb70F9cf670743Bc5AE91358239Fc0B5d39A3b",
               "bridgeProxy": "0xAd204986D6cB67A5Bc76a3CB8974823F43Cb9AAA",
-              "sanctionCheckDisable": true,
+              "sanctionCheck": false,
               "peerContract": "0xCc8C0870a9AfA9D64Fe73a4158e205e6Bf9BEcfc",
-              "operator": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022"
+              "operator": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
+              "disableDeposit": true
             }
           ]
         },
@@ -2409,9 +2438,10 @@
               "peerMinRollupFee": "10000000000000000",
               "minAmount": "100000000000000000",
               "commitmentPool": "0x6b9265c7256ebe4e649D93aBA8242122776CBC3f",
-              "sanctionCheckDisable": true,
+              "sanctionCheck": false,
               "peerContract": "0xB4eFd2B8259E83ebDc83B74b5980b1348f7AbC84",
-              "operator": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022"
+              "operator": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
+              "disableDeposit": true
             },
             {
               "network": "polygontestnet",
@@ -2425,9 +2455,10 @@
               "peerMinRollupFee": "10000000000000000",
               "commitmentPool": "0x12a7c84890782097E47cbddE2daAB58C11C1d585",
               "bridgeProxy": "0x7d43AABC515C356145049227CeE54B608342c0ad",
-              "sanctionCheckDisable": true,
+              "sanctionCheck": false,
               "peerContract": "0xC6F35224C835997286945fc4649E8684465FEa12",
-              "operator": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022"
+              "operator": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
+              "disableDeposit": true
             }
           ]
         },
@@ -2445,9 +2476,10 @@
               "peerMinRollupFee": "10000000000000000",
               "commitmentPool": "0x5Ee8D337e85CFC743B1e9E197e1A9CfF9936f543",
               "bridgeProxy": "0xF25170F86E4291a99a9A560032Fe9948b8BcFBB2",
-              "sanctionCheckDisable": true,
+              "sanctionCheck": false,
               "peerContract": "0x1c87B2b3398eaC6FCdF2C3bFC1BEd7Ab774477BC",
-              "operator": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022"
+              "operator": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
+              "disableDeposit": true
             },
             {
               "network": "polygontestnet",
@@ -2461,9 +2493,10 @@
               "peerMinRollupFee": "10000000000000000",
               "commitmentPool": "0xCA5A6BeE4fBC693b11A1Ade12432F9045cE11fe5",
               "bridgeProxy": "0x7d43AABC515C356145049227CeE54B608342c0ad",
-              "sanctionCheckDisable": true,
+              "sanctionCheck": false,
               "peerContract": "0x1740aD3dB80c0dcE6D064d8C39c080B351409113",
-              "operator": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022"
+              "operator": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
+              "disableDeposit": true
             }
           ]
         },
@@ -2481,9 +2514,10 @@
               "peerMinRollupFee": "10000",
               "commitmentPool": "0xdC1661c76531c1B7df4B69deB4ee7f2afCe2BdC5",
               "bridgeProxy": "0xF25170F86E4291a99a9A560032Fe9948b8BcFBB2",
-              "sanctionCheckDisable": true,
+              "sanctionCheck": false,
               "peerContract": "0xA8c5c20Da4fB1B9227842A77a725D181fA68DB5f",
-              "operator": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022"
+              "operator": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
+              "disableDeposit": true
             },
             {
               "network": "polygontestnet",
@@ -2497,9 +2531,10 @@
               "peerMinRollupFee": "10000",
               "commitmentPool": "0xEf78E6c700e73b5d4d2EBEC517DcfE9327C27efd",
               "bridgeProxy": "0x7d43AABC515C356145049227CeE54B608342c0ad",
-              "sanctionCheckDisable": true,
+              "sanctionCheck": false,
               "peerContract": "0x3d34b19e54aE7569Af816157e07FcB5D95545673",
-              "operator": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022"
+              "operator": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
+              "disableDeposit": true
             }
           ]
         },
@@ -2517,9 +2552,10 @@
               "peerMinRollupFee": "10000000000000000",
               "commitmentPool": "0xbB4FA0D129682DaAC4F3235A33810be56C4ca45a",
               "bridgeProxy": "0xF25170F86E4291a99a9A560032Fe9948b8BcFBB2",
-              "sanctionCheckDisable": true,
+              "sanctionCheck": false,
               "peerContract": "0xC2DFb7b74c9333Df0513E1D5ab987132A1f787F6",
-              "operator": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022"
+              "operator": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
+              "disableDeposit": true
             },
             {
               "network": "polygontestnet",
@@ -2533,9 +2569,10 @@
               "peerMinRollupFee": "10000000000000000",
               "commitmentPool": "0x39dc3F5B7d687Da2C6DfA338E41c59147199A1Dc",
               "bridgeProxy": "0x7d43AABC515C356145049227CeE54B608342c0ad",
-              "sanctionCheckDisable": true,
+              "sanctionCheck": false,
               "peerContract": "0x20c4858832661EA100F1cf4A9DEc1ccbCEF5b5d5",
-              "operator": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022"
+              "operator": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
+              "disableDeposit": true
             }
           ]
         },
@@ -2553,9 +2590,10 @@
               "peerMinRollupFee": "10000000000000000",
               "commitmentPool": "0x6b9265c7256ebe4e649D93aBA8242122776CBC3f",
               "bridgeProxy": "0xF25170F86E4291a99a9A560032Fe9948b8BcFBB2",
-              "sanctionCheckDisable": true,
+              "sanctionCheck": false,
               "peerContract": "0xFB09ef54E45eB1fffdcbfd1E219C469b8bD10A69",
-              "operator": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022"
+              "operator": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
+              "disableDeposit": true
             },
             {
               "network": "avalanchetestnet",
@@ -2569,9 +2607,10 @@
               "bridgeProxy": "0xE9533976C590200E32d95C53f06AE12d292cFc47",
               "minAmount": "100000000000000000",
               "commitmentPool": "0xec0Aef5aDdBE6f3253e0a2dAd2E45a98F66bB0D5",
-              "sanctionCheckDisable": true,
+              "sanctionCheck": false,
               "peerContract": "0xB1F9C0c751f2C980b87766ECC6e09E6Cb699F779",
-              "operator": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022"
+              "operator": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
+              "disableDeposit": true
             }
           ]
         },
@@ -2589,8 +2628,9 @@
               "peerMinRollupFee": "10000000000000000",
               "minAmount": "100000000000000000",
               "commitmentPool": "0x5Ee8D337e85CFC743B1e9E197e1A9CfF9936f543",
-              "sanctionCheckDisable": true,
-              "operator": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022"
+              "sanctionCheck": false,
+              "operator": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
+              "disableDeposit": true
             },
             {
               "network": "avalanchetestnet",
@@ -2604,9 +2644,10 @@
               "peerMinRollupFee": "10000000000000000",
               "minAmount": "100000000000000000",
               "commitmentPool": "0x288c9499e20a1B98e4e5F4c7c287754105596aba",
-              "sanctionCheckDisable": true,
+              "sanctionCheck": false,
               "peerContract": "0xa92184D41E71287eC45DEE0BF243Cd4ab0f2d316",
-              "operator": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022"
+              "operator": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
+              "disableDeposit": true
             }
           ]
         },
@@ -2624,8 +2665,9 @@
               "peerMinRollupFee": "10000",
               "minAmount": "100000",
               "commitmentPool": "0xdC1661c76531c1B7df4B69deB4ee7f2afCe2BdC5",
-              "sanctionCheckDisable": true,
-              "operator": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022"
+              "sanctionCheck": false,
+              "operator": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
+              "disableDeposit": true
             },
             {
               "network": "avalanchetestnet",
@@ -2639,9 +2681,10 @@
               "bridgeProxy": "0xE9533976C590200E32d95C53f06AE12d292cFc47",
               "minAmount": "100000",
               "commitmentPool": "0x9656a32daFFc6A2b0Da3edC533523B221A704050",
-              "sanctionCheckDisable": true,
+              "sanctionCheck": false,
               "peerContract": "0xd24De5d3E864677c4508Cb29F83E04c4C3427EA1",
-              "operator": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022"
+              "operator": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
+              "disableDeposit": true
             }
           ]
         },
@@ -2659,9 +2702,10 @@
               "peerMinRollupFee": "10000000000000000",
               "commitmentPool": "0x497045dA17fdDB7c132193353b8c1d42BB93c8B5",
               "bridgeProxy": "0xF25170F86E4291a99a9A560032Fe9948b8BcFBB2",
-              "sanctionCheckDisable": true,
+              "sanctionCheck": false,
               "peerContract": "0xDAaAd42C95EED8d84a8496C0Fed93dEa0CDB7cF7",
-              "operator": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022"
+              "operator": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
+              "disableDeposit": true
             },
             {
               "network": "avalanchetestnet",
@@ -2675,9 +2719,10 @@
               "bridgeProxy": "0xE9533976C590200E32d95C53f06AE12d292cFc47",
               "minAmount": "100000000000000000",
               "commitmentPool": "0xD708f39419C9B13b9e465C9556ffA5d10558b723",
-              "sanctionCheckDisable": true,
+              "sanctionCheck": false,
               "peerContract": "0xAA54DF17b7e20b64D8c12853a26E38f5a55A35D8",
-              "operator": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022"
+              "operator": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
+              "disableDeposit": true
             }
           ]
         },
@@ -2695,9 +2740,10 @@
               "peerMinRollupFee": "10000000000000000",
               "commitmentPool": "0x6b9265c7256ebe4e649D93aBA8242122776CBC3f",
               "bridgeProxy": "0xF25170F86E4291a99a9A560032Fe9948b8BcFBB2",
-              "sanctionCheckDisable": true,
+              "sanctionCheck": false,
               "peerContract": "0xBb4EE88D77a0AaD4f3226491F6119228910b5DB2",
-              "operator": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022"
+              "operator": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
+              "disableDeposit": true
             },
             {
               "network": "fantomtestnet",
@@ -2711,9 +2757,10 @@
               "peerMinRollupFee": "10000000000000000",
               "commitmentPool": "0x998EdfF44c167ee7eeecbcC784667b406C9c8a15",
               "bridgeProxy": "0xb92d6933A024bcca9A21669a480C236Cbc973110",
-              "sanctionCheckDisable": true,
+              "sanctionCheck": false,
               "peerContract": "0x648084f11D68F85eF18064EE7ef36D5945b8553a",
-              "operator": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022"
+              "operator": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
+              "disableDeposit": true
             }
           ]
         },
@@ -2731,9 +2778,10 @@
               "peerMinRollupFee": "10000000000000000",
               "commitmentPool": "0xbD208957D341845a20409ca226021687C670FcaA",
               "bridgeProxy": "0xF25170F86E4291a99a9A560032Fe9948b8BcFBB2",
-              "sanctionCheckDisable": true,
+              "sanctionCheck": false,
               "peerContract": "0xD2b0ae864f65912DD96ffAa0114aad2dD3fF5007",
-              "operator": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022"
+              "operator": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
+              "disableDeposit": true
             },
             {
               "network": "fantomtestnet",
@@ -2747,9 +2795,10 @@
               "peerMinRollupFee": "10000000000000000",
               "commitmentPool": "0x29FCAd27F74C5C380A011Aff468d3Bf3259f76cE",
               "bridgeProxy": "0xb92d6933A024bcca9A21669a480C236Cbc973110",
-              "sanctionCheckDisable": true,
+              "sanctionCheck": false,
               "peerContract": "0x0900529b17F5233aB28900333E6e0E0cA7535120",
-              "operator": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022"
+              "operator": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
+              "disableDeposit": true
             }
           ]
         },
@@ -2767,8 +2816,9 @@
               "peerMinRollupFee": "10000000000000000",
               "minAmount": "100000000000000000",
               "commitmentPool": "0x5Ee8D337e85CFC743B1e9E197e1A9CfF9936f543",
-              "sanctionCheckDisable": true,
-              "operator": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022"
+              "sanctionCheck": false,
+              "operator": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
+              "disableDeposit": true
             },
             {
               "network": "fantomtestnet",
@@ -2782,9 +2832,10 @@
               "peerMinRollupFee": "10000000000000000",
               "commitmentPool": "0x2DdAA08DEd2C96A4d51158CBb8Bd518805408153",
               "bridgeProxy": "0xb92d6933A024bcca9A21669a480C236Cbc973110",
-              "sanctionCheckDisable": true,
+              "sanctionCheck": false,
               "peerContract": "0xcF2791383f56800bFca739C6D1f55adCE950C12A",
-              "operator": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022"
+              "operator": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
+              "disableDeposit": true
             }
           ]
         },
@@ -2802,9 +2853,10 @@
               "peerMinRollupFee": "10000",
               "commitmentPool": "0xdC1661c76531c1B7df4B69deB4ee7f2afCe2BdC5",
               "bridgeProxy": "0xF25170F86E4291a99a9A560032Fe9948b8BcFBB2",
-              "sanctionCheckDisable": true,
+              "sanctionCheck": false,
               "peerContract": "0x74fab3Ac9DfB07b96115726B20e69B8b1D3a0aC9",
-              "operator": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022"
+              "operator": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
+              "disableDeposit": true
             },
             {
               "network": "fantomtestnet",
@@ -2818,9 +2870,10 @@
               "peerMinRollupFee": "10000",
               "commitmentPool": "0x2C34599c5A34ce38b361a664275cc5f7Ef85512e",
               "bridgeProxy": "0xb92d6933A024bcca9A21669a480C236Cbc973110",
-              "sanctionCheckDisable": true,
+              "sanctionCheck": false,
               "peerContract": "0xA1bd1d58694280c094718b109e174f4cc306f27F",
-              "operator": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022"
+              "operator": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
+              "disableDeposit": true
             }
           ]
         }
@@ -2903,7 +2956,7 @@
           "transact2x0Verifier": "0xc55F56709EF1f80a2a627A5363Fd48b47BE0C551",
           "transact2x1Verifier": "0x29BC03f5f6d397917F3A9FE252aa19520C289F4d",
           "transact2x2Verifier": "0x70cC6f0E6Ab4625E8bCe202Fe5EBc3ACc16B5F9b",
-          "sanctionCheckDisable": true,
+          "sanctionCheck": false,
           "rollupWhitelist": [
             "0xE30A04c01224E968EdA56cC92bA1e4F73369A420",
             "0x9a17b3284271617FD89eD0eFf9951861B3606474"
@@ -2929,7 +2982,7 @@
           "transact2x0Verifier": "0xc55F56709EF1f80a2a627A5363Fd48b47BE0C551",
           "transact2x1Verifier": "0x29BC03f5f6d397917F3A9FE252aa19520C289F4d",
           "transact2x2Verifier": "0x70cC6f0E6Ab4625E8bCe202Fe5EBc3ACc16B5F9b",
-          "sanctionCheckDisable": true,
+          "sanctionCheck": false,
           "rollupWhitelist": [
             "0xE30A04c01224E968EdA56cC92bA1e4F73369A420",
             "0x9a17b3284271617FD89eD0eFf9951861B3606474"
@@ -2959,7 +3012,7 @@
             "0xE30A04c01224E968EdA56cC92bA1e4F73369A420",
             "0x9a17b3284271617FD89eD0eFf9951861B3606474"
           ],
-          "sanctionCheckDisable": true,
+          "sanctionCheck": false,
           "enqueueWhitelist": [
             "0x4726B9A8156f56CF6204aFb3338D58Bbd608ab1C"
           ],
@@ -2981,7 +3034,7 @@
           "transact2x0Verifier": "0x8C9A2a56F1185a85773FE995cBbD4B46E5518e54",
           "transact2x1Verifier": "0x2fe58A37d508D832e0D74f89884cDB16d417Ee4d",
           "transact2x2Verifier": "0xdae84D63921b505390D48e54549DF138c26eDe02",
-          "sanctionCheckDisable": true,
+          "sanctionCheck": false,
           "rollupWhitelist": [
             "0xE30A04c01224E968EdA56cC92bA1e4F73369A420",
             "0x9a17b3284271617FD89eD0eFf9951861B3606474"
@@ -3008,10 +3061,11 @@
               "peerMinRollupFee": "10000000000000000",
               "commitmentPool": "0x4aca973937D7a465e3E8F0870e59c9Cbb440899E",
               "bridgeProxy": "0x6Fcb97553D41516Cb228ac03FdC8B9a0a9df04A1",
-              "sanctionCheckDisable": true,
+              "sanctionCheck": false,
               "peerContract": "0x4726B9A8156f56CF6204aFb3338D58Bbd608ab1C",
               "trustedRemote": "0x4726B9A8156f56CF6204aFb3338D58Bbd608ab1C",
-              "operator": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022"
+              "operator": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
+              "disableDeposit": true
             },
             {
               "network": "avalanchetestnet",
@@ -3025,10 +3079,11 @@
               "peerMinRollupFee": "10000000000000000",
               "minAmount": "100000000000000000",
               "commitmentPool": "0x91e926284aA833550Bf65C61A30D5cf3E89Deb3f",
-              "sanctionCheckDisable": true,
+              "sanctionCheck": false,
               "peerContract": "0xE7aaa17BE61C69D7c706B60E05CA8FefaC3Ca2c8",
               "trustedRemote": "0xE7aaa17BE61C69D7c706B60E05CA8FefaC3Ca2c8",
-              "operator": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022"
+              "operator": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
+              "disableDeposit": true
             }
           ]
         },
@@ -3046,10 +3101,11 @@
               "peerMinRollupFee": "10000",
               "commitmentPool": "0x06006b4a7f1994C9956A9748196467f8DbBbf504",
               "bridgeProxy": "0x6Fcb97553D41516Cb228ac03FdC8B9a0a9df04A1",
-              "sanctionCheckDisable": true,
+              "sanctionCheck": false,
               "peerContract": "0xdF2476CE3be4C1Ca1d75CF6edE678EB033A02b0E",
               "trustedRemote": "0xdF2476CE3be4C1Ca1d75CF6edE678EB033A02b0E",
-              "operator": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022"
+              "operator": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
+              "disableDeposit": true
             },
             {
               "network": "avalanchetestnet",
@@ -3063,10 +3119,11 @@
               "peerMinRollupFee": "10000",
               "minAmount": "100000",
               "commitmentPool": "0xCb77aCfDE75feA2177DbE0BcA5FA7237B1C06926",
-              "sanctionCheckDisable": true,
+              "sanctionCheck": false,
               "peerContract": "0x7712267315fbF1841Dfc4B526D2dB156920F7Cd2",
               "trustedRemote": "0x7712267315fbF1841Dfc4B526D2dB156920F7Cd2",
-              "operator": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022"
+              "operator": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
+              "disableDeposit": true
             }
           ]
         }
@@ -3150,7 +3207,7 @@
           "transact2x0Verifier": "0x408ac31acd22c8372aa9E0b08aC0A0AcA14b4e0d",
           "transact2x1Verifier": "0x4367F171B08f627Cba05d9B0bD96fd642a2D8c08",
           "transact2x2Verifier": "0xC472772e52b66B0a2b7Dbf4B0429216A842718aD",
-          "sanctionCheckDisable": true,
+          "sanctionCheck": false,
           "rollupWhitelist": [
             "0xE30A04c01224E968EdA56cC92bA1e4F73369A420",
             "0x9a17b3284271617FD89eD0eFf9951861B3606474"
@@ -3180,7 +3237,7 @@
             "0xE30A04c01224E968EdA56cC92bA1e4F73369A420",
             "0x9a17b3284271617FD89eD0eFf9951861B3606474"
           ],
-          "sanctionCheckDisable": true,
+          "sanctionCheck": false,
           "enqueueWhitelist": [
             "0xeD08B30622918DEB83d84D43d7709303fE23cc68",
             "0x7F4525Ab40895440927893E521094673174Bb82B"
@@ -3203,7 +3260,7 @@
           "transact2x0Verifier": "0xaAC374138ac891f98789Ebf4aB6F111638ef7a2e",
           "transact2x1Verifier": "0xa77c1d49d84c067944a615A0B469e2B5c8A3C4FE",
           "transact2x2Verifier": "0xC751faA58938471D2B140B153F71a2e00D46BAC5",
-          "sanctionCheckDisable": true,
+          "sanctionCheck": false,
           "rollupWhitelist": [
             "0xE30A04c01224E968EdA56cC92bA1e4F73369A420",
             "0x9a17b3284271617FD89eD0eFf9951861B3606474"
@@ -3230,7 +3287,7 @@
           "transact2x0Verifier": "0xa937aE1B43Af70AFe3a51D54516d5d75e22892aA",
           "transact2x1Verifier": "0xfbb1A6Da247b1D3a261Dbdb425295d29177cf47A",
           "transact2x2Verifier": "0xD78Aa9202B2746B8f0211fD89eD101210a114025",
-          "sanctionCheckDisable": true,
+          "sanctionCheck": false,
           "rollupWhitelist": [
             "0xE30A04c01224E968EdA56cC92bA1e4F73369A420",
             "0x9a17b3284271617FD89eD0eFf9951861B3606474"
@@ -3257,9 +3314,10 @@
               "peerMinRollupFee": "10000000000000000",
               "commitmentPool": "0x9fcC9D3d5E8d60285F72F37c0FC46Ae548D8cDba",
               "bridgeProxy": "0xBC6fcce7c5487d43830a219CA6E7B83238B41e71",
-              "sanctionCheckDisable": true,
+              "sanctionCheck": false,
               "peerContract": "0x6e62d7dfc65e9531De4560a67B96E81bd59E596f",
-              "operator": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022"
+              "operator": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
+              "disableDeposit": true
             },
             {
               "network": "fantomtestnet",
@@ -3273,9 +3331,10 @@
               "peerMinRollupFee": "10000000000000000",
               "commitmentPool": "0x695cc1cCcB01289C99239d030f84399Af06a21D9",
               "bridgeProxy": "0x97837985Ec0494E7b9C71f5D3f9250188477ae14",
-              "sanctionCheckDisable": true,
+              "sanctionCheck": false,
               "peerContract": "0x9b966889865553E8005734a1249ab05d5F395b76",
-              "operator": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022"
+              "operator": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
+              "disableDeposit": true
             }
           ]
         },
@@ -3293,9 +3352,10 @@
               "bridgeProxy": "0xC249632c2D40b9001FE907806902f63038B737Ab",
               "minAmount": "100000000000000000",
               "commitmentPool": "0x90fE901E393baC044e655817ca4782C04E39EA0C",
-              "sanctionCheckDisable": true,
+              "sanctionCheck": false,
               "peerContract": "0xa6dcf62E8d7308369B176382781dE9C8eE2265db",
-              "operator": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022"
+              "operator": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
+              "disableDeposit": true
             },
             {
               "network": "fantomtestnet",
@@ -3309,9 +3369,10 @@
               "peerMinRollupFee": "10000000000000000",
               "commitmentPool": "0x695cc1cCcB01289C99239d030f84399Af06a21D9",
               "bridgeProxy": "0x97837985Ec0494E7b9C71f5D3f9250188477ae14",
-              "sanctionCheckDisable": true,
+              "sanctionCheck": false,
               "peerContract": "0xeD08B30622918DEB83d84D43d7709303fE23cc68",
-              "operator": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022"
+              "operator": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
+              "disableDeposit": true
             }
           ]
         },
@@ -3329,9 +3390,10 @@
               "peerMinRollupFee": "10000000000000000",
               "minAmount": "100000000000000000",
               "commitmentPool": "0x90fE901E393baC044e655817ca4782C04E39EA0C",
-              "sanctionCheckDisable": true,
+              "sanctionCheck": false,
               "peerContract": "0x497045dA17fdDB7c132193353b8c1d42BB93c8B5",
-              "operator": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022"
+              "operator": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
+              "disableDeposit": true
             },
             {
               "network": "polygontestnet",
@@ -3345,9 +3407,10 @@
               "peerMinRollupFee": "10000000000000000",
               "commitmentPool": "0xD89C76BD7E262f268488e4e4792e9bCA58332047",
               "bridgeProxy": "0xBF62ef1486468a6bd26Dd669C06db43dEd5B849B",
-              "sanctionCheckDisable": true,
+              "sanctionCheck": false,
               "peerContract": "0x7F4525Ab40895440927893E521094673174Bb82B",
-              "operator": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022"
+              "operator": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
+              "disableDeposit": true
             }
           ]
         }
@@ -3584,7 +3647,7 @@
             "0xE30A04c01224E968EdA56cC92bA1e4F73369A420",
             "0x9a17b3284271617FD89eD0eFf9951861B3606474"
           ],
-          "sanctionCheckDisable": true,
+          "sanctionCheck": false,
           "enqueueWhitelist": [
             "0xfa9De6C63a631D008af7e2394295dBD1850b790a",
             "0xbad6A090B03B7a934D859a24Fd199626C553c479",
@@ -3614,7 +3677,7 @@
             "0xE30A04c01224E968EdA56cC92bA1e4F73369A420",
             "0x9a17b3284271617FD89eD0eFf9951861B3606474"
           ],
-          "sanctionCheckDisable": true,
+          "sanctionCheck": false,
           "enqueueWhitelist": [
             "0x52EA85D7b11E8742200702dE4d7208C195970711"
           ],
@@ -3641,7 +3704,7 @@
             "0xE30A04c01224E968EdA56cC92bA1e4F73369A420",
             "0x9a17b3284271617FD89eD0eFf9951861B3606474"
           ],
-          "sanctionCheckDisable": true,
+          "sanctionCheck": false,
           "enqueueWhitelist": [
             "0xdEAA07042436b545b32D149f53acc8038C713432",
             "0x26308399736c1bB6d6ec39c1A0915473586455e9",
@@ -3672,7 +3735,7 @@
             "0xE30A04c01224E968EdA56cC92bA1e4F73369A420",
             "0x9a17b3284271617FD89eD0eFf9951861B3606474"
           ],
-          "sanctionCheckDisable": true,
+          "sanctionCheck": false,
           "enqueueWhitelist": [
             "0x51DeDC65F387E8889c2b3b1577d9112Acc6351BA",
             "0xc6361085408494C0f9697160143b8beC3a3f308f",
@@ -3702,7 +3765,7 @@
             "0xE30A04c01224E968EdA56cC92bA1e4F73369A420",
             "0x9a17b3284271617FD89eD0eFf9951861B3606474"
           ],
-          "sanctionCheckDisable": true,
+          "sanctionCheck": false,
           "enqueueWhitelist": [
             "0xC2d9B3fdeD8320e8d8BD25BDC765A6771f947148"
           ],
@@ -3728,7 +3791,7 @@
             "0xE30A04c01224E968EdA56cC92bA1e4F73369A420",
             "0x9a17b3284271617FD89eD0eFf9951861B3606474"
           ],
-          "sanctionCheckDisable": true,
+          "sanctionCheck": false,
           "enqueueWhitelist": [
             "0xE0deaE86a920Af9150bEbA6a0a158c06C50f1C2a"
           ],
@@ -3754,7 +3817,7 @@
             "0xE30A04c01224E968EdA56cC92bA1e4F73369A420",
             "0x9a17b3284271617FD89eD0eFf9951861B3606474"
           ],
-          "sanctionCheckDisable": true,
+          "sanctionCheck": false,
           "enqueueWhitelist": [
             "0x1855d712962f57141eCB68472f711c7061468b18"
           ],
@@ -3780,7 +3843,7 @@
             "0xE30A04c01224E968EdA56cC92bA1e4F73369A420",
             "0x9a17b3284271617FD89eD0eFf9951861B3606474"
           ],
-          "sanctionCheckDisable": true,
+          "sanctionCheck": false,
           "enqueueWhitelist": [
             "0xDc15E18859d9e790144f29E8612CE329036E5eB4"
           ],
@@ -3806,7 +3869,7 @@
             "0xE30A04c01224E968EdA56cC92bA1e4F73369A420",
             "0x9a17b3284271617FD89eD0eFf9951861B3606474"
           ],
-          "sanctionCheckDisable": true,
+          "sanctionCheck": false,
           "enqueueWhitelist": [
             "0x6Fc8C7Ad5CF5bEeA2C528295f1f99595E681Ea99"
           ],
@@ -3833,7 +3896,7 @@
             "0xE30A04c01224E968EdA56cC92bA1e4F73369A420",
             "0x9a17b3284271617FD89eD0eFf9951861B3606474"
           ],
-          "sanctionCheckDisable": true,
+          "sanctionCheck": false,
           "enqueueWhitelist": [
             "0x76751e6197Af30050556a082Ebc1Aa84D1980be4"
           ],
@@ -3859,7 +3922,7 @@
             "0xE30A04c01224E968EdA56cC92bA1e4F73369A420",
             "0x9a17b3284271617FD89eD0eFf9951861B3606474"
           ],
-          "sanctionCheckDisable": true,
+          "sanctionCheck": false,
           "enqueueWhitelist": [
             "0x3C74C9Be93c95E60e012204682F978ADB360E70c"
           ],
@@ -3885,7 +3948,7 @@
             "0xE30A04c01224E968EdA56cC92bA1e4F73369A420",
             "0x9a17b3284271617FD89eD0eFf9951861B3606474"
           ],
-          "sanctionCheckDisable": true,
+          "sanctionCheck": false,
           "enqueueWhitelist": [
             "0x3723dfdc2CA695414C0970BC8E33B134CB9e666d"
           ],
@@ -3911,7 +3974,7 @@
             "0xE30A04c01224E968EdA56cC92bA1e4F73369A420",
             "0x9a17b3284271617FD89eD0eFf9951861B3606474"
           ],
-          "sanctionCheckDisable": true,
+          "sanctionCheck": false,
           "enqueueWhitelist": [
             "0x8F89966e257E8077356f93A74c1F4247AC660BAE"
           ],
@@ -3937,7 +4000,7 @@
             "0xE30A04c01224E968EdA56cC92bA1e4F73369A420",
             "0x9a17b3284271617FD89eD0eFf9951861B3606474"
           ],
-          "sanctionCheckDisable": true,
+          "sanctionCheck": false,
           "enqueueWhitelist": [
             "0x4c4442D71890E69DEa18A7a1Ea8D44fB7229a3ff"
           ],
@@ -3963,7 +4026,7 @@
             "0xE30A04c01224E968EdA56cC92bA1e4F73369A420",
             "0x9a17b3284271617FD89eD0eFf9951861B3606474"
           ],
-          "sanctionCheckDisable": true,
+          "sanctionCheck": false,
           "enqueueWhitelist": [
             "0x9D4254756FecA66B58041b7Cf5B1067830ff9D69"
           ],
@@ -3988,7 +4051,7 @@
             "0xE30A04c01224E968EdA56cC92bA1e4F73369A420",
             "0x9a17b3284271617FD89eD0eFf9951861B3606474"
           ],
-          "sanctionCheckDisable": true,
+          "sanctionCheck": false,
           "enqueueWhitelist": [
             "0x1cF3F084635FEa4a455f3165D75697499e8a1C53"
           ],
@@ -4014,7 +4077,7 @@
             "0xE30A04c01224E968EdA56cC92bA1e4F73369A420",
             "0x9a17b3284271617FD89eD0eFf9951861B3606474"
           ],
-          "sanctionCheckDisable": true,
+          "sanctionCheck": false,
           "enqueueWhitelist": [
             "0xeb2a6545516ce618807c07BB04E9CCb8ED7D8e6F"
           ],
@@ -4040,7 +4103,7 @@
             "0xE30A04c01224E968EdA56cC92bA1e4F73369A420",
             "0x9a17b3284271617FD89eD0eFf9951861B3606474"
           ],
-          "sanctionCheckDisable": true,
+          "sanctionCheck": false,
           "enqueueWhitelist": [
             "0x3D960887d5365D21e782622BD9dC78757CAe7291"
           ],
@@ -4066,7 +4129,7 @@
             "0xE30A04c01224E968EdA56cC92bA1e4F73369A420",
             "0x9a17b3284271617FD89eD0eFf9951861B3606474"
           ],
-          "sanctionCheckDisable": true,
+          "sanctionCheck": false,
           "enqueueWhitelist": [
             "0x30F3045945773b38fCbB2DF414151ac33ED97EBA"
           ],
@@ -4106,7 +4169,7 @@
           "transact2x0Verifier": "0x408ac31acd22c8372aa9E0b08aC0A0AcA14b4e0d",
           "transact2x1Verifier": "0x4367F171B08f627Cba05d9B0bD96fd642a2D8c08",
           "transact2x2Verifier": "0xC472772e52b66B0a2b7Dbf4B0429216A842718aD",
-          "sanctionCheckDisable": true,
+          "sanctionCheck": false,
           "rollupWhitelist": [
             "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
             "0xE30A04c01224E968EdA56cC92bA1e4F73369A420",
@@ -4133,7 +4196,7 @@
           "transact2x0Verifier": "0xaAC374138ac891f98789Ebf4aB6F111638ef7a2e",
           "transact2x1Verifier": "0xa77c1d49d84c067944a615A0B469e2B5c8A3C4FE",
           "transact2x2Verifier": "0xC751faA58938471D2B140B153F71a2e00D46BAC5",
-          "sanctionCheckDisable": true,
+          "sanctionCheck": false,
           "rollupWhitelist": [
             "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
             "0xE30A04c01224E968EdA56cC92bA1e4F73369A420",
@@ -4160,7 +4223,7 @@
           "transact2x0Verifier": "0xaAC374138ac891f98789Ebf4aB6F111638ef7a2e",
           "transact2x1Verifier": "0xa77c1d49d84c067944a615A0B469e2B5c8A3C4FE",
           "transact2x2Verifier": "0xC751faA58938471D2B140B153F71a2e00D46BAC5",
-          "sanctionCheckDisable": true,
+          "sanctionCheck": false,
           "rollupWhitelist": [
             "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
             "0xE30A04c01224E968EdA56cC92bA1e4F73369A420",
@@ -4187,7 +4250,7 @@
           "transact2x0Verifier": "0xaAC374138ac891f98789Ebf4aB6F111638ef7a2e",
           "transact2x1Verifier": "0xa77c1d49d84c067944a615A0B469e2B5c8A3C4FE",
           "transact2x2Verifier": "0xC751faA58938471D2B140B153F71a2e00D46BAC5",
-          "sanctionCheckDisable": true,
+          "sanctionCheck": false,
           "rollupWhitelist": [
             "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
             "0xE30A04c01224E968EdA56cC92bA1e4F73369A420",
@@ -4214,7 +4277,7 @@
           "transact2x0Verifier": "0x408ac31acd22c8372aa9E0b08aC0A0AcA14b4e0d",
           "transact2x1Verifier": "0x4367F171B08f627Cba05d9B0bD96fd642a2D8c08",
           "transact2x2Verifier": "0xC472772e52b66B0a2b7Dbf4B0429216A842718aD",
-          "sanctionCheckDisable": true,
+          "sanctionCheck": false,
           "rollupWhitelist": [
             "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
             "0xE30A04c01224E968EdA56cC92bA1e4F73369A420",
@@ -4241,7 +4304,7 @@
           "transact2x0Verifier": "0xc07c6B35dF4B32B9F0BCA73ADe0422c6e0eF1708",
           "transact2x1Verifier": "0x2C34599c5A34ce38b361a664275cc5f7Ef85512e",
           "transact2x2Verifier": "0xF02A8331cd7829479A7feAd00CF5B17d5Eff8574",
-          "sanctionCheckDisable": true,
+          "sanctionCheck": false,
           "rollupWhitelist": [
             "0xE30A04c01224E968EdA56cC92bA1e4F73369A420",
             "0x9a17b3284271617FD89eD0eFf9951861B3606474"
@@ -4267,7 +4330,7 @@
           "transact2x0Verifier": "0xc07c6B35dF4B32B9F0BCA73ADe0422c6e0eF1708",
           "transact2x1Verifier": "0x2C34599c5A34ce38b361a664275cc5f7Ef85512e",
           "transact2x2Verifier": "0xF02A8331cd7829479A7feAd00CF5B17d5Eff8574",
-          "sanctionCheckDisable": true,
+          "sanctionCheck": false,
           "rollupWhitelist": [
             "0xE30A04c01224E968EdA56cC92bA1e4F73369A420",
             "0x9a17b3284271617FD89eD0eFf9951861B3606474"
@@ -4293,7 +4356,7 @@
           "transact2x0Verifier": "0xc07c6B35dF4B32B9F0BCA73ADe0422c6e0eF1708",
           "transact2x1Verifier": "0x2C34599c5A34ce38b361a664275cc5f7Ef85512e",
           "transact2x2Verifier": "0xF02A8331cd7829479A7feAd00CF5B17d5Eff8574",
-          "sanctionCheckDisable": true,
+          "sanctionCheck": false,
           "rollupWhitelist": [
             "0xE30A04c01224E968EdA56cC92bA1e4F73369A420",
             "0x9a17b3284271617FD89eD0eFf9951861B3606474"
@@ -4319,7 +4382,7 @@
           "transact2x0Verifier": "0xc07c6B35dF4B32B9F0BCA73ADe0422c6e0eF1708",
           "transact2x1Verifier": "0x2C34599c5A34ce38b361a664275cc5f7Ef85512e",
           "transact2x2Verifier": "0xF02A8331cd7829479A7feAd00CF5B17d5Eff8574",
-          "sanctionCheckDisable": true,
+          "sanctionCheck": false,
           "rollupWhitelist": [
             "0xE30A04c01224E968EdA56cC92bA1e4F73369A420",
             "0x9a17b3284271617FD89eD0eFf9951861B3606474"
@@ -4346,9 +4409,10 @@
               "peerMinRollupFee": "10000000000000000",
               "minAmount": "100000000000000000",
               "commitmentPool": "0x4471873169EA7cd3f45beA9105f567Bdc8608240",
-              "sanctionCheckDisable": true,
+              "sanctionCheck": false,
               "peerContract": "0x52EA85D7b11E8742200702dE4d7208C195970711",
-              "operator": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022"
+              "operator": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
+              "disableDeposit": true
             },
             {
               "network": "bsctestnet",
@@ -4362,9 +4426,10 @@
               "peerMinRollupFee": "10000000000000000",
               "minAmount": "100000000000000000",
               "commitmentPool": "0x916b009bAD1FE24Ee55364Fafe4C31fdE6D3C7b0",
-              "sanctionCheckDisable": true,
+              "sanctionCheck": false,
               "peerContract": "0x2829C83026ef66cDB222DF232953cca6c64663eA",
-              "operator": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022"
+              "operator": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
+              "disableDeposit": true
             }
           ]
         },
@@ -4383,8 +4448,9 @@
               "peerMinRollupFee": "10000000000000000",
               "minAmount": "100000000000000000",
               "commitmentPool": "0x6A29C3E7DC05B2888243644DB079ff8Edf890665",
-              "sanctionCheckDisable": true,
-              "operator": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022"
+              "sanctionCheck": false,
+              "operator": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
+              "disableDeposit": true
             },
             {
               "network": "bsctestnet",
@@ -4398,9 +4464,10 @@
               "peerMinRollupFee": "10000000000000000",
               "minAmount": "100000000000000000",
               "commitmentPool": "0xB19a6Fe202216fF1218Ca0FAa52D9FB24d419583",
-              "sanctionCheckDisable": true,
+              "sanctionCheck": false,
               "peerContract": "0x26308399736c1bB6d6ec39c1A0915473586455e9",
-              "operator": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022"
+              "operator": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
+              "disableDeposit": true
             }
           ]
         },
@@ -4418,9 +4485,10 @@
               "peerMinRollupFee": "10000",
               "minAmount": "100000",
               "commitmentPool": "0x9FC14A30Baa288C367A40E4723472B4e30c2D493",
-              "sanctionCheckDisable": true,
+              "sanctionCheck": false,
               "peerContract": "0x6Fc8C7Ad5CF5bEeA2C528295f1f99595E681Ea99",
-              "operator": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022"
+              "operator": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
+              "disableDeposit": true
             },
             {
               "network": "bsctestnet",
@@ -4434,9 +4502,10 @@
               "peerMinRollupFee": "10000",
               "minAmount": "100000",
               "commitmentPool": "0x7688D576465516caE181203bdfa29C2d238910c5",
-              "sanctionCheckDisable": true,
+              "sanctionCheck": false,
               "peerContract": "0xbfA52Aa3Ad07E534b7583c7AE9D52238F35BA9bd",
-              "operator": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022"
+              "operator": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
+              "disableDeposit": true
             }
           ]
         },
@@ -4454,9 +4523,10 @@
               "peerMinRollupFee": "10000000000000000",
               "minAmount": "100000000000000000",
               "commitmentPool": "0xaa5C42e04ca2CdA34220EAfBB65f26F711031933",
-              "sanctionCheckDisable": true,
+              "sanctionCheck": false,
               "peerContract": "0x76751e6197Af30050556a082Ebc1Aa84D1980be4",
-              "operator": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022"
+              "operator": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
+              "disableDeposit": true
             },
             {
               "network": "bsctestnet",
@@ -4470,9 +4540,10 @@
               "peerMinRollupFee": "10000000000000000",
               "minAmount": "100000000000000000",
               "commitmentPool": "0x5c96152fb012aC206e8a8374C158EeAcF662686b",
-              "sanctionCheckDisable": true,
+              "sanctionCheck": false,
               "peerContract": "0xC2d9B3fdeD8320e8d8BD25BDC765A6771f947148",
-              "operator": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022"
+              "operator": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
+              "disableDeposit": true
             }
           ]
         },
@@ -4490,9 +4561,10 @@
               "peerMinRollupFee": "10000000000000000",
               "minAmount": "100000000000000000",
               "commitmentPool": "0x4471873169EA7cd3f45beA9105f567Bdc8608240",
-              "sanctionCheckDisable": true,
+              "sanctionCheck": false,
               "peerContract": "0x3723dfdc2CA695414C0970BC8E33B134CB9e666d",
-              "operator": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022"
+              "operator": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
+              "disableDeposit": true
             },
             {
               "network": "polygontestnet",
@@ -4506,9 +4578,10 @@
               "peerMinRollupFee": "10000000000000000",
               "minAmount": "100000000000000000",
               "commitmentPool": "0xeD92C57454c43d0f50bf6E9bb148eBE66DDB2B83",
-              "sanctionCheckDisable": true,
+              "sanctionCheck": false,
               "peerContract": "0x60C46D18a7059e96ef67dB976BaAa847C2215eb2",
-              "operator": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022"
+              "operator": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
+              "disableDeposit": true
             }
           ]
         },
@@ -4526,9 +4599,10 @@
               "peerMinRollupFee": "10000000000000000",
               "minAmount": "100000000000000000",
               "commitmentPool": "0x6A29C3E7DC05B2888243644DB079ff8Edf890665",
-              "sanctionCheckDisable": true,
+              "sanctionCheck": false,
               "peerContract": "0x8F89966e257E8077356f93A74c1F4247AC660BAE",
-              "operator": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022"
+              "operator": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
+              "disableDeposit": true
             },
             {
               "network": "polygontestnet",
@@ -4542,9 +4616,10 @@
               "peerMinRollupFee": "10000000000000000",
               "minAmount": "100000000000000000",
               "commitmentPool": "0x882A35e449121Eb6ab731C71745AFE6d0176Ab6e",
-              "sanctionCheckDisable": true,
+              "sanctionCheck": false,
               "peerContract": "0x45497A6848e0927b49E8E466431cf3A12c5aa867",
-              "operator": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022"
+              "operator": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
+              "disableDeposit": true
             }
           ]
         },
@@ -4562,9 +4637,10 @@
               "peerMinRollupFee": "10000",
               "minAmount": "100000",
               "commitmentPool": "0x9FC14A30Baa288C367A40E4723472B4e30c2D493",
-              "sanctionCheckDisable": true,
+              "sanctionCheck": false,
               "peerContract": "0x4c4442D71890E69DEa18A7a1Ea8D44fB7229a3ff",
-              "operator": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022"
+              "operator": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
+              "disableDeposit": true
             },
             {
               "network": "polygontestnet",
@@ -4578,9 +4654,10 @@
               "peerMinRollupFee": "10000",
               "minAmount": "100000",
               "commitmentPool": "0xad32a2e08A0Bd483B6Dd1105C87CCc09f08EF3D3",
-              "sanctionCheckDisable": true,
+              "sanctionCheck": false,
               "peerContract": "0x1f8073751eA1f8dFa115C802D772a7fF904565bf",
-              "operator": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022"
+              "operator": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
+              "disableDeposit": true
             }
           ]
         },
@@ -4598,9 +4675,10 @@
               "peerMinRollupFee": "10000000000000000",
               "minAmount": "100000000000000000",
               "commitmentPool": "0x9BF3E1bc9abc9D9BC7fd27b40FA3D61cFE1AAB24",
-              "sanctionCheckDisable": true,
+              "sanctionCheck": false,
               "peerContract": "0x3C74C9Be93c95E60e012204682F978ADB360E70c",
-              "operator": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022"
+              "operator": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
+              "disableDeposit": true
             },
             {
               "network": "polygontestnet",
@@ -4614,9 +4692,10 @@
               "peerMinRollupFee": "10000000000000000",
               "minAmount": "100000000000000000",
               "commitmentPool": "0xBEA6fF6960311E89f0468Ba38270DfD82E29C5f5",
-              "sanctionCheckDisable": true,
+              "sanctionCheck": false,
               "peerContract": "0xE0deaE86a920Af9150bEbA6a0a158c06C50f1C2a",
-              "operator": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022"
+              "operator": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
+              "disableDeposit": true
             }
           ]
         },
@@ -4634,9 +4713,10 @@
               "peerMinRollupFee": "10000000000000000",
               "minAmount": "100000000000000000",
               "commitmentPool": "0x4471873169EA7cd3f45beA9105f567Bdc8608240",
-              "sanctionCheckDisable": true,
+              "sanctionCheck": false,
               "peerContract": "0x1cF3F084635FEa4a455f3165D75697499e8a1C53",
-              "operator": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022"
+              "operator": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
+              "disableDeposit": true
             },
             {
               "network": "avalanchetestnet",
@@ -4650,9 +4730,10 @@
               "peerMinRollupFee": "10000000000000000",
               "minAmount": "100000000000000000",
               "commitmentPool": "0xB66D6AA15839EEF3b8A1A94f04Da8213477AE272",
-              "sanctionCheckDisable": true,
+              "sanctionCheck": false,
               "peerContract": "0x119F0aD1f5Fae316825d225b0E26E4fcC43Ec22B",
-              "operator": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022"
+              "operator": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
+              "disableDeposit": true
             }
           ]
         },
@@ -4670,9 +4751,10 @@
               "peerMinRollupFee": "10000000000000000",
               "minAmount": "100000000000000000",
               "commitmentPool": "0x6A29C3E7DC05B2888243644DB079ff8Edf890665",
-              "sanctionCheckDisable": true,
+              "sanctionCheck": false,
               "peerContract": "0xeb2a6545516ce618807c07BB04E9CCb8ED7D8e6F",
-              "operator": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022"
+              "operator": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
+              "disableDeposit": true
             },
             {
               "network": "avalanchetestnet",
@@ -4686,9 +4768,10 @@
               "peerMinRollupFee": "10000000000000000",
               "minAmount": "100000000000000000",
               "commitmentPool": "0xd445a7744CFdf49976175c643ce163bC8653F195",
-              "sanctionCheckDisable": true,
+              "sanctionCheck": false,
               "peerContract": "0x8E34503a7307a7de5e18bAdb5422EF19cBb855e3",
-              "operator": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022"
+              "operator": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
+              "disableDeposit": true
             }
           ]
         },
@@ -4706,9 +4789,10 @@
               "peerMinRollupFee": "10000",
               "minAmount": "100000",
               "commitmentPool": "0x9FC14A30Baa288C367A40E4723472B4e30c2D493",
-              "sanctionCheckDisable": true,
+              "sanctionCheck": false,
               "peerContract": "0x3D960887d5365D21e782622BD9dC78757CAe7291",
-              "operator": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022"
+              "operator": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
+              "disableDeposit": true
             },
             {
               "network": "avalanchetestnet",
@@ -4722,9 +4806,10 @@
               "peerMinRollupFee": "10000",
               "minAmount": "100000",
               "commitmentPool": "0xdA7C4d1C3637458734b4b01d55157068640B256E",
-              "sanctionCheckDisable": true,
+              "sanctionCheck": false,
               "peerContract": "0xB0D918020f70A416d9ce5753Db48A46905a75561",
-              "operator": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022"
+              "operator": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
+              "disableDeposit": true
             }
           ]
         },
@@ -4742,9 +4827,10 @@
               "peerMinRollupFee": "10000000000000000",
               "minAmount": "100000000000000000",
               "commitmentPool": "0xd7D8c269A35fd039b551b8E8c4F33d27FD6Bf77A",
-              "sanctionCheckDisable": true,
+              "sanctionCheck": false,
               "peerContract": "0x9D4254756FecA66B58041b7Cf5B1067830ff9D69",
-              "operator": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022"
+              "operator": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
+              "disableDeposit": true
             },
             {
               "network": "avalanchetestnet",
@@ -4758,9 +4844,10 @@
               "peerMinRollupFee": "10000000000000000",
               "minAmount": "100000000000000000",
               "commitmentPool": "0x5eF315d16694Feb96F9A18f867A2C714F6A09A1b",
-              "sanctionCheckDisable": true,
+              "sanctionCheck": false,
               "peerContract": "0x1855d712962f57141eCB68472f711c7061468b18",
-              "operator": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022"
+              "operator": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
+              "disableDeposit": true
             }
           ]
         },
@@ -4826,9 +4913,10 @@
               "peerMinRollupFee": "10000000000000000",
               "minAmount": "100000000000000000",
               "commitmentPool": "0x6A29C3E7DC05B2888243644DB079ff8Edf890665",
-              "sanctionCheckDisable": true,
+              "sanctionCheck": false,
               "peerContract": "0x30F3045945773b38fCbB2DF414151ac33ED97EBA",
-              "operator": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022"
+              "operator": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
+              "disableDeposit": true
             },
             {
               "network": "fantomtestnet",
@@ -4842,9 +4930,10 @@
               "peerMinRollupFee": "10000000000000000",
               "minAmount": "100000000000000000",
               "commitmentPool": "0xD2AdD62027f27ec1876a497FDBC4c07646612409",
-              "sanctionCheckDisable": true,
+              "sanctionCheck": false,
               "peerContract": "0x951f12AD0a32B4B0f54a76fC06Ff0615882e5449",
-              "operator": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022"
+              "operator": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
+              "disableDeposit": true
             }
           ]
         },
@@ -4862,9 +4951,10 @@
               "peerMinRollupFee": "10000",
               "commitmentPool": "0x9FC14A30Baa288C367A40E4723472B4e30c2D493",
               "bridgeProxy": "0x4A7ef8493eD5F54061f593B6A11c70b27e3D0201",
-              "sanctionCheckDisable": true,
+              "sanctionCheck": false,
               "peerContract": "0xFE1d5aa18d6A75C06a072baF7984A9Bc39D4fd15",
-              "operator": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022"
+              "operator": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
+              "disableDeposit": true
             },
             {
               "network": "fantomtestnet",
@@ -4878,9 +4968,10 @@
               "peerMinRollupFee": "10000",
               "commitmentPool": "0xbEb33076942A81eFa4e8e25f0ACCD6052cc6F5bb",
               "bridgeProxy": "0x5F1b0cF7bD527f38d95959D8f7641C76c101c56E",
-              "sanctionCheckDisable": true,
+              "sanctionCheck": false,
               "peerContract": "0x51DeDC65F387E8889c2b3b1577d9112Acc6351BA",
-              "operator": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022"
+              "operator": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
+              "disableDeposit": true
             }
           ]
         },
@@ -4898,9 +4989,10 @@
               "peerMinRollupFee": "10000000000000000",
               "commitmentPool": "0x3c1a5da9236D10B24B5736245b47E0f5Baf7c4E7",
               "bridgeProxy": "0x4A7ef8493eD5F54061f593B6A11c70b27e3D0201",
-              "sanctionCheckDisable": true,
+              "sanctionCheck": false,
               "peerContract": "0xB9c7d20193786Bdc08F3678af8CDfBC03241399d",
-              "operator": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022"
+              "operator": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
+              "disableDeposit": true
             },
             {
               "network": "fantomtestnet",
@@ -4914,9 +5006,10 @@
               "peerMinRollupFee": "10000000000000000",
               "commitmentPool": "0x531d84f3d420e7Cb1FD077DA4988D4E4099816C1",
               "bridgeProxy": "0x5F1b0cF7bD527f38d95959D8f7641C76c101c56E",
-              "sanctionCheckDisable": true,
+              "sanctionCheck": false,
               "peerContract": "0x080C9cD8c8719af0b1ee6B0fcFcc49De3F5C6276",
-              "operator": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022"
+              "operator": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
+              "disableDeposit": true
             }
           ]
         },
@@ -4934,9 +5027,10 @@
               "peerMinRollupFee": "10000000000000000",
               "commitmentPool": "0x4471873169EA7cd3f45beA9105f567Bdc8608240",
               "bridgeProxy": "0x4A7ef8493eD5F54061f593B6A11c70b27e3D0201",
-              "sanctionCheckDisable": true,
+              "sanctionCheck": false,
               "peerContract": "0x49cfb680aD77b0D70Df898473af97f55d28BCB4c",
-              "operator": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022"
+              "operator": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
+              "disableDeposit": true
             },
             {
               "network": "fantomtestnet",
@@ -4950,9 +5044,10 @@
               "peerMinRollupFee": "10000000000000000",
               "commitmentPool": "0xE9619b4233bF28109c7ba6C6Bd70625248105529",
               "bridgeProxy": "0x5F1b0cF7bD527f38d95959D8f7641C76c101c56E",
-              "sanctionCheckDisable": true,
+              "sanctionCheck": false,
               "peerContract": "0xfa9De6C63a631D008af7e2394295dBD1850b790a",
-              "operator": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022"
+              "operator": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
+              "disableDeposit": true
             }
           ]
         },
@@ -4970,9 +5065,10 @@
               "peerMinRollupFee": "10000000000000000",
               "commitmentPool": "0x4471873169EA7cd3f45beA9105f567Bdc8608240",
               "bridgeProxy": "0x26FbECa4090A8B9671797e771ac9c07f465c9946",
-              "sanctionCheckDisable": true,
+              "sanctionCheck": false,
               "peerContract": "0xD87A66666e826b31b3A946a5DA9fEB98CDA8152B",
-              "operator": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022"
+              "operator": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
+              "disableDeposit": true
             },
             {
               "network": "moonbase",
@@ -4986,9 +5082,10 @@
               "peerMinRollupFee": "10000000000000000",
               "commitmentPool": "0x3dC8cce87022c2a242a7A5f88bE5d0Ca652c2c88",
               "bridgeProxy": "0xBDdcA8ccf78F3B6442b5aDA8289b5A623a720fD8",
-              "sanctionCheckDisable": true,
+              "sanctionCheck": false,
               "peerContract": "0xbad6A090B03B7a934D859a24Fd199626C553c479",
-              "operator": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022"
+              "operator": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
+              "disableDeposit": true
             }
           ]
         },
@@ -5006,9 +5103,10 @@
               "peerMinRollupFee": "10000000000000000",
               "commitmentPool": "0xe6bbDD85c352aBAb56CFbb54AF796DFe68F34444",
               "bridgeProxy": "0x26FbECa4090A8B9671797e771ac9c07f465c9946",
-              "sanctionCheckDisable": true,
+              "sanctionCheck": false,
               "peerContract": "0xFd3441F94a24702E555053E4c08288b290ce73Dc",
-              "operator": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022"
+              "operator": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
+              "disableDeposit": true
             },
             {
               "network": "moonbase",
@@ -5022,9 +5120,10 @@
               "peerMinRollupFee": "10000000000000000",
               "commitmentPool": "0x151b60d8E7d78B38edD4D982C25a9ca1b967f0bA",
               "bridgeProxy": "0xBDdcA8ccf78F3B6442b5aDA8289b5A623a720fD8",
-              "sanctionCheckDisable": true,
+              "sanctionCheck": false,
               "peerContract": "0x24FD23B04855879B3BaCF682f339e536aBE9E620",
-              "operator": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022"
+              "operator": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
+              "disableDeposit": true
             }
           ]
         },
@@ -5042,9 +5141,10 @@
               "peerMinRollupFee": "10000000000000000",
               "commitmentPool": "0x6A29C3E7DC05B2888243644DB079ff8Edf890665",
               "bridgeProxy": "0x26FbECa4090A8B9671797e771ac9c07f465c9946",
-              "sanctionCheckDisable": true,
+              "sanctionCheck": false,
               "peerContract": "0x30F3045945773b38fCbB2DF414151ac33ED97EBA",
-              "operator": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022"
+              "operator": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
+              "disableDeposit": true
             },
             {
               "network": "moonbase",
@@ -5058,9 +5158,10 @@
               "peerMinRollupFee": "10000000000000000",
               "commitmentPool": "0xD2AdD62027f27ec1876a497FDBC4c07646612409",
               "bridgeProxy": "0xBDdcA8ccf78F3B6442b5aDA8289b5A623a720fD8",
-              "sanctionCheckDisable": true,
+              "sanctionCheck": false,
               "peerContract": "0xdEAA07042436b545b32D149f53acc8038C713432",
-              "operator": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022"
+              "operator": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
+              "disableDeposit": true
             }
           ]
         },
@@ -5078,9 +5179,10 @@
               "peerMinRollupFee": "10000",
               "commitmentPool": "0x9FC14A30Baa288C367A40E4723472B4e30c2D493",
               "bridgeProxy": "0x26FbECa4090A8B9671797e771ac9c07f465c9946",
-              "sanctionCheckDisable": true,
+              "sanctionCheck": false,
               "peerContract": "0x983a5E99feb3d0d971E88A560fA2f3CAc6E63A19",
-              "operator": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022"
+              "operator": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
+              "disableDeposit": true
             },
             {
               "network": "moonbase",
@@ -5094,9 +5196,10 @@
               "peerMinRollupFee": "10000",
               "commitmentPool": "0xb4359d3CA903567D6ed88940608952e7A4Cab511",
               "bridgeProxy": "0xBDdcA8ccf78F3B6442b5aDA8289b5A623a720fD8",
-              "sanctionCheckDisable": true,
+              "sanctionCheck": false,
               "peerContract": "0xc6361085408494C0f9697160143b8beC3a3f308f",
-              "operator": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022"
+              "operator": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
+              "disableDeposit": true
             }
           ]
         }

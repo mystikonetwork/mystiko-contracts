@@ -373,26 +373,31 @@ export async function setCommitmentPoolVerifier(
   await setCommitmentPoolTransact2x2Verifier(c, erc20, poolCfg, chainCfg);
 }
 
-export async function setPoolSanctionCheckDisabled(
+export async function setPoolSanctionCheck(
   c: any,
   erc20: boolean,
   inPoolCfg: PoolDeployConfig,
   check: boolean,
 ) {
-  if (!inPoolCfg.isSanctionCheckDisableChange(check)) {
+  if (!inPoolCfg.isSanctionCheckChange(check)) {
     return;
   }
 
   const poolCfg = inPoolCfg;
 
-  console.log('set pool sanction check disable ', check);
+  console.log('set pool sanction check ', check);
   const PoolContractFactory = getMystikoPoolContract(erc20);
   const poolContract = await PoolContractFactory.attach(poolCfg.address);
 
   try {
-    const rsp = await poolContract.setSanctionCheckDisabled(check);
-    console.log('pool rsp hash ', rsp.hash);
-    poolCfg.updateSanctionDisableCheck(check);
+    if (check) {
+      const rsp = await poolContract.enableSanctionsCheck();
+      console.log('pool rsp hash ', rsp.hash);
+    } else {
+      const rsp = await poolContract.disableSanctionsCheck();
+      console.log('pool rsp hash ', rsp.hash);
+    }
+    poolCfg.updateSanctionCheck(check);
     saveConfig(c.mystikoNetwork, c.cfg);
   } catch (err: any) {
     console.error(LOGRED, err);
@@ -527,6 +532,6 @@ export async function doCommitmentPoolConfigure(
   }
 
   if (mystikoNetwork === MystikoTestnet) {
-    await setPoolSanctionCheckDisabled(c, chainTokenCfg.erc20, poolCfg, true);
+    await setPoolSanctionCheck(c, chainTokenCfg.erc20, poolCfg, false);
   }
 }

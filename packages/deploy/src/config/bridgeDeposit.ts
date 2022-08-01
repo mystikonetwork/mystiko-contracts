@@ -15,11 +15,12 @@ export interface RawDepositDeployConfig {
   bridgeProxy?: string;
   peerContract?: string;
   trustedRemote?: string;
-  sanctionCheckDisable?: boolean;
+  sanctionCheck?: boolean;
   operator?: string;
   serviceFeeCollector?: string;
   serviceFee?: number;
   serviceFeeDivider?: number;
+  disableDeposit?: boolean;
 }
 
 export class DepositDeployConfig extends BaseConfig {
@@ -181,15 +182,15 @@ export class DepositDeployConfig extends BaseConfig {
     this.asRawContractDeployConfig().trustedRemote = address;
   }
 
-  public isSanctionCheckDisableChange(bCheck: boolean): boolean {
-    if (this.asRawContractDeployConfig().sanctionCheckDisable !== bCheck) {
+  public isSanctionCheckChange(bCheck: boolean): boolean {
+    if (this.asRawContractDeployConfig().sanctionCheck !== bCheck) {
       return true;
     }
     return false;
   }
 
-  public updateSanctionCheckDisable(bCheck: boolean) {
-    this.asRawContractDeployConfig().sanctionCheckDisable = bCheck;
+  public updateSanctionCheck(bCheck: boolean) {
+    this.asRawContractDeployConfig().sanctionCheck = bCheck;
   }
 
   public get operator(): string | undefined {
@@ -248,6 +249,17 @@ export class DepositDeployConfig extends BaseConfig {
     this.asRawContractDeployConfig().serviceFeeDivider = divider;
   }
 
+  public isDepositDisableChange(disable: boolean): boolean {
+    if (this.asRawContractDeployConfig().disableDeposit !== disable) {
+      return true;
+    }
+    return false;
+  }
+
+  public updateDepositDisable(disable: boolean) {
+    this.asRawContractDeployConfig().disableDeposit = disable;
+  }
+
   public reset() {
     this.asRawContractDeployConfig().address = undefined;
     this.asRawContractDeployConfig().syncStart = undefined;
@@ -260,11 +272,12 @@ export class DepositDeployConfig extends BaseConfig {
     this.asRawContractDeployConfig().bridgeProxy = undefined;
     this.asRawContractDeployConfig().peerContract = undefined;
     this.asRawContractDeployConfig().trustedRemote = undefined;
-    this.asRawContractDeployConfig().sanctionCheckDisable = undefined;
+    this.asRawContractDeployConfig().sanctionCheck = undefined;
     this.asRawContractDeployConfig().operator = undefined;
     this.asRawContractDeployConfig().serviceFeeCollector = undefined;
     this.asRawContractDeployConfig().serviceFee = undefined;
     this.asRawContractDeployConfig().serviceFeeDivider = undefined;
+    this.asRawContractDeployConfig().disableDeposit = undefined;
   }
 
   private asRawContractDeployConfig(): RawDepositDeployConfig {

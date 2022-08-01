@@ -93,14 +93,14 @@ export function getMystikoDeployContract(bridge: string, bErc20: boolean) {
   return coreContract;
 }
 
-export async function setDepositSanctionCheckDisabled(
+export async function setDepositSanctionCheck(
   c: any,
   bridgeName: string,
   erc20: boolean,
   inDepositCfg: DepositDeployConfig,
   check: boolean,
 ) {
-  if (!inDepositCfg.isSanctionCheckDisableChange(check)) {
+  if (!inDepositCfg.isSanctionCheckChange(check)) {
     return;
   }
 
@@ -110,9 +110,15 @@ export async function setDepositSanctionCheckDisabled(
   const coreContract = await DepositContractFactoruy.attach(depositCfg.address);
 
   try {
-    const rsp = await coreContract.setSanctionCheckDisabled(check);
-    console.log('deposit rsp hash ', rsp.hash);
-    depositCfg.updateSanctionCheckDisable(check);
+    if (check) {
+      const rsp = await coreContract.enableSanctions();
+      console.log('deposit rsp hash ', rsp.hash);
+    } else {
+      const rsp = await coreContract.disableSanctions();
+      console.log('deposit rsp hash ', rsp.hash);
+    }
+
+    depositCfg.updateSanctionCheck(check);
     saveConfig(c.mystikoNetwork, c.cfg);
   } catch (err: any) {
     console.error(LOGRED, err);
@@ -494,6 +500,34 @@ export async function changeServiceFeeDivider(
   }
 }
 
+export async function changeDepositDisable(
+  c: any,
+  bridgeName: string,
+  erc20: boolean,
+  inDepositCfg: DepositDeployConfig,
+  disable: boolean,
+) {
+  if (!inDepositCfg.isDepositDisableChange(disable)) {
+    return;
+  }
+
+  const depositCfg = inDepositCfg;
+
+  console.log('disable deposit ', disable);
+  const DepositContractFactoruy = getMystikoDeployContract(bridgeName, erc20);
+  const coreContract = await DepositContractFactoruy.attach(depositCfg.address);
+
+  try {
+    const rsp = await coreContract.toggleDeposits(disable);
+    console.log('rsp hash ', rsp.hash);
+    depositCfg.updateDepositDisable(disable);
+    saveConfig(c.mystikoNetwork, c.cfg);
+  } catch (err: any) {
+    console.error(LOGRED, err);
+    process.exit(1);
+  }
+}
+
 export async function setAssociatedCommitmentPool(
   c: any,
   bridgeName: string,
@@ -616,8 +650,12 @@ export async function doDepositContractConfigure(
     );
   }
 
+  if (c.depositDisable) {
+    await changeDepositDisable(c, bridgeCfg.name, srcChainTokenCfg.erc20, depositCfg, true);
+  }
+
   if (mystikoNetwork === MystikoTestnet) {
-    await setDepositSanctionCheckDisabled(c, bridgeCfg.name, srcChainTokenCfg.erc20, depositCfg, true);
+    await setDepositSanctionCheck(c, bridgeCfg.name, srcChainTokenCfg.erc20, depositCfg, false);
   }
 }
 

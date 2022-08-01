@@ -1,15 +1,15 @@
 import { initBaseContractFactory } from './contract/base';
 import { initTestTokenContractFactory, transferToContract } from './contract/token';
 import { initTBridgeContractFactory } from './contract/tbridge';
-import { initPoolContractFactory, setPoolSanctionCheckDisabled } from './contract/commitment';
-import { initDepositContractFactory, setDepositSanctionCheckDisabled } from './contract/depsit';
+import { initPoolContractFactory, setPoolSanctionCheck } from './contract/commitment';
+import { initDepositContractFactory, setDepositSanctionCheck } from './contract/depsit';
 import { BridgeLoop, LOGRED, MystikoTestnet } from './common/constant';
 import { loadConfig } from './config/config';
 
 let ethers: any;
 
 // deploy mystiko contract and config contract
-async function sanctionCheckDisabled(taskArgs: any) {
+async function sanctionCheck(taskArgs: any) {
   const c = loadConfig(taskArgs);
   const parameter = taskArgs.param;
 
@@ -18,22 +18,16 @@ async function sanctionCheckDisabled(taskArgs: any) {
     return;
   }
 
-  const checkDisable = parameter === 'true';
-  console.log('sanction check disabled ', checkDisable);
+  const check = parameter === 'true';
+  console.log('sanction check ', check);
 
   if (c.srcPoolCfg === undefined) {
     console.error('commitment pool configure not exist');
     process.exit(-1);
   }
 
-  await setPoolSanctionCheckDisabled(c, c.srcTokenCfg.erc20, c.srcPoolCfg, checkDisable);
-  await setDepositSanctionCheckDisabled(
-    c,
-    c.bridgeCfg.name,
-    c.srcTokenCfg.erc20,
-    c.pairSrcDepositCfg,
-    checkDisable,
-  );
+  await setPoolSanctionCheck(c, c.srcTokenCfg.erc20, c.srcPoolCfg, check);
+  await setDepositSanctionCheck(c, c.bridgeCfg.name, c.srcTokenCfg.erc20, c.pairSrcDepositCfg, check);
 }
 
 async function tokenTransfer(taskArgs: any) {
@@ -55,8 +49,8 @@ export async function set(taskArgs: any, hre: any) {
   await initPoolContractFactory(ethers);
   await initDepositContractFactory(ethers);
 
-  if (taskArgs.func === 'sanctionCheckDisabled') {
-    await sanctionCheckDisabled(taskArgs);
+  if (taskArgs.func === 'sanctionCheck') {
+    await sanctionCheck(taskArgs);
   } else if (taskArgs.func === 'tokenTransfer') {
     await tokenTransfer(taskArgs);
   } else {

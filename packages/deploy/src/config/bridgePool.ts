@@ -16,7 +16,7 @@ export interface RawPoolDeployConfig {
   transact2x0Verifier?: string;
   transact2x1Verifier?: string;
   transact2x2Verifier?: string;
-  sanctionCheckDisable?: boolean;
+  sanctionCheck?: boolean;
   tokenTransfer?: string;
   operator?: string;
   enqueueWhitelist?: string[];
@@ -195,15 +195,15 @@ export class PoolDeployConfig extends BaseConfig {
     this.asRawContractDeployConfig().transact2x2Verifier = address;
   }
 
-  public isSanctionCheckDisableChange(disable: boolean): boolean {
-    if (this.asRawContractDeployConfig().sanctionCheckDisable !== disable) {
+  public isSanctionCheckChange(bCheck: boolean): boolean {
+    if (this.asRawContractDeployConfig().sanctionCheck !== bCheck) {
       return true;
     }
     return false;
   }
 
-  public updateSanctionDisableCheck(disable: boolean) {
-    this.asRawContractDeployConfig().sanctionCheckDisable = disable;
+  public updateSanctionCheck(bCheck: boolean) {
+    this.asRawContractDeployConfig().sanctionCheck = bCheck;
   }
 
   public isTokenTransfer(): boolean {
@@ -288,7 +288,7 @@ export class PoolDeployConfig extends BaseConfig {
     this.asRawContractDeployConfig().transact2x0Verifier = undefined;
     this.asRawContractDeployConfig().transact2x1Verifier = undefined;
     this.asRawContractDeployConfig().transact2x2Verifier = undefined;
-    this.asRawContractDeployConfig().sanctionCheckDisable = undefined;
+    this.asRawContractDeployConfig().sanctionCheck = undefined;
     this.asRawContractDeployConfig().tokenTransfer = undefined;
     this.asRawContractDeployConfig().rollupWhitelist = undefined;
     this.rollupWhitelistByAddress = {};
