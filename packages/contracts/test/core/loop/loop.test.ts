@@ -5,6 +5,7 @@ import {
   CommitmentPoolMain,
   MystikoV2LoopERC20,
   MystikoV2LoopMain,
+  SanctionsOracle,
 } from '@mystikonetwork/contracts-abi';
 import {
   deployLoopContracts,
@@ -29,14 +30,22 @@ describe('Test Mystiko loop', () => {
       rollup1,
       rollup4,
       rollup16,
-      sanctionList,
+      sanctionList1,
+      sanctionList2,
     } = await deployDependContracts(accounts);
-    const pool = await deployCommitmentPoolContracts(accounts, testToken.address, sanctionList.address, {});
+    const pool = await deployCommitmentPoolContracts(
+      accounts,
+      testToken.address,
+      sanctionList1.address,
+      sanctionList2.address,
+      {},
+    );
     const loop = await deployLoopContracts(
       accounts,
       hasher3.address,
       testToken.address,
-      sanctionList.address,
+      sanctionList1.address,
+      sanctionList2.address,
       pool.poolMain,
       pool.poolERC20,
       {},
@@ -55,13 +64,15 @@ describe('Test Mystiko loop', () => {
       rollup16,
       pool,
       loop,
-      sanctionList,
+      sanctionList1,
+      sanctionList2,
     };
   }
 
   let accounts: Wallet[];
   let poolMain: CommitmentPoolMain;
   let poolErc20: CommitmentPoolERC20;
+  let sanctionList1: SanctionsOracle;
   let loopERC20: MystikoV2LoopERC20;
   let loopMain: MystikoV2LoopMain;
 
@@ -73,6 +84,7 @@ describe('Test Mystiko loop', () => {
     poolErc20 = r.pool.poolERC20;
     loopMain = r.loop.coreMain;
     loopERC20 = r.loop.coreERC20;
+    sanctionList1 = r.sanctionList1;
   });
 
   it('test loop constructor', () => {
@@ -80,6 +92,7 @@ describe('Test Mystiko loop', () => {
       'MystikoV2LoopMain',
       loopMain,
       poolMain,
+      sanctionList1,
       MinAmount,
       accounts[ServiceAccountIndex].address,
     );
@@ -87,6 +100,7 @@ describe('Test Mystiko loop', () => {
       'MystikoV2LoopERC20',
       loopERC20,
       poolErc20,
+      sanctionList1,
       MinAmount,
       accounts[ServiceAccountIndex].address,
     );

@@ -8,7 +8,7 @@ import {
   MystikoV2TBridgeMain,
   TestToken,
   CommitmentPoolMain,
-  DummySanctionsList,
+  SanctionsOracle,
   CommitmentPoolERC20,
 } from '@mystikonetwork/contracts-abi';
 import { MystikoProtocolV2, ProtocolFactoryV2 } from '@mystikonetwork/protocol';
@@ -47,7 +47,8 @@ describe('Test Mystiko tbridge', () => {
       rollup1,
       rollup4,
       rollup16,
-      sanctionList,
+      sanctionList1,
+      sanctionList2,
     } = await deployDependContracts(accounts);
 
     const tbridge = await deployTbridgeProxyContracts(accounts);
@@ -55,13 +56,15 @@ describe('Test Mystiko tbridge', () => {
     const poolLocal = await deployCommitmentPoolContracts(
       accounts,
       testToken.address,
-      sanctionList.address,
+      sanctionList1.address,
+      sanctionList2.address,
       {},
     );
     const poolRemote = await deployCommitmentPoolContracts(
       accounts,
       testToken.address,
-      sanctionList.address,
+      sanctionList1.address,
+      sanctionList2.address,
       {},
     );
 
@@ -69,7 +72,8 @@ describe('Test Mystiko tbridge', () => {
       accounts,
       hasher3.address,
       testToken.address,
-      sanctionList.address,
+      sanctionList1.address,
+      sanctionList2.address,
       tbridge,
       poolLocal.poolMain,
       poolLocal.poolERC20,
@@ -80,7 +84,8 @@ describe('Test Mystiko tbridge', () => {
       accounts,
       hasher3.address,
       testToken.address,
-      sanctionList.address,
+      sanctionList1.address,
+      sanctionList2.address,
       tbridge,
       poolRemote.poolMain,
       poolRemote.poolERC20,
@@ -104,13 +109,14 @@ describe('Test Mystiko tbridge', () => {
       local,
       remote,
       tbridge,
-      sanctionList,
+      sanctionList1,
+      sanctionList2,
     };
   }
 
   let accounts: Wallet[];
   let testToken: TestToken;
-  let sanctionList: DummySanctionsList;
+  let sanctionList1: SanctionsOracle;
   let tbridgeProxy: MystikoTBridgeProxy;
   let localPoolMain: CommitmentPoolMain;
   let remotePoolMain: CommitmentPoolMain;
@@ -137,7 +143,7 @@ describe('Test Mystiko tbridge', () => {
     localERC20 = r.local.coreERC20;
     remoteMain = r.remote.coreMain;
     remoteERC20 = r.remote.coreERC20;
-    sanctionList = r.sanctionList;
+    sanctionList1 = r.sanctionList1;
     tbridgeProxy = r.tbridge;
   });
 
@@ -184,7 +190,7 @@ describe('Test Mystiko tbridge', () => {
       localPoolMain,
       remoteMain,
       remotePoolMain,
-      sanctionList,
+      sanctionList1,
       tbridgeProxy,
       testToken,
       accounts,
@@ -244,7 +250,7 @@ describe('Test Mystiko tbridge', () => {
       localPoolERC20,
       remoteERC20,
       remotePoolERC20,
-      sanctionList,
+      sanctionList1,
       tbridgeProxy,
       testToken,
       accounts,

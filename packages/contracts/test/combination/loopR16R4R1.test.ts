@@ -14,7 +14,6 @@ import {
   Rollup4Verifier,
   TestToken,
   CommitmentPoolMain,
-  DummySanctionsList,
 } from '@mystikonetwork/contracts-abi';
 import { MystikoProtocolV2, ProtocolFactoryV2 } from '@mystikonetwork/protocol';
 import { toBN, toDecimals } from '@mystikonetwork/utils';
@@ -42,14 +41,22 @@ describe('Mystiko combination test R16R4R1 ', () => {
       rollup1,
       rollup4,
       rollup16,
-      sanctionList,
+      sanctionList1,
+      sanctionList2,
     } = await deployDependContracts(accounts);
-    const pool = await deployCommitmentPoolContracts(accounts, testToken.address, sanctionList.address, {});
+    const pool = await deployCommitmentPoolContracts(
+      accounts,
+      testToken.address,
+      sanctionList1.address,
+      sanctionList2.address,
+      {},
+    );
     const loop = await deployLoopContracts(
       accounts,
       hasher3.address,
       testToken.address,
-      sanctionList.address,
+      sanctionList1.address,
+      sanctionList2.address,
       pool.poolMain,
       pool.poolERC20,
       {},
@@ -68,13 +75,13 @@ describe('Mystiko combination test R16R4R1 ', () => {
       rollup16,
       pool,
       loop,
-      sanctionList,
+      sanctionList1,
+      sanctionList2,
     };
   }
 
   let accounts: Wallet[];
   let testToken: TestToken;
-  let sanctionList: DummySanctionsList;
   let poolMain: CommitmentPoolMain;
   let loopMain: MystikoV2LoopMain;
   let transaction1x0Verifier: Transaction1x0Verifier;
@@ -95,7 +102,6 @@ describe('Mystiko combination test R16R4R1 ', () => {
 
     const r = await loadFixture(fixture);
     testToken = r.testToken;
-    sanctionList = r.sanctionList;
 
     poolMain = r.pool.poolMain;
     loopMain = r.loop.coreMain;
@@ -123,7 +129,6 @@ describe('Mystiko combination test R16R4R1 ', () => {
       loopMain,
       poolMain,
       testToken,
-      sanctionList,
       accounts,
       depositAmount.toString(),
       true,

@@ -137,6 +137,7 @@ export interface CommitmentPoolERC20Interface extends utils.Interface {
     'assetName()': FunctionFragment;
     'assetSymbol()': FunctionFragment;
     'assetType()': FunctionFragment;
+    'chainalysisSanctionsList()': FunctionFragment;
     'changeOperator(address)': FunctionFragment;
     'disableRollupVerifier(uint32)': FunctionFragment;
     'disableSanctionsCheck()': FunctionFragment;
@@ -153,16 +154,17 @@ export interface CommitmentPoolERC20Interface extends utils.Interface {
     'isRollupWhitelistDisabled()': FunctionFragment;
     'isSpentSerialNumber(uint256)': FunctionFragment;
     'isVerifierUpdateDisabled()': FunctionFragment;
+    'mystikoSanctionsList()': FunctionFragment;
     'removeEnqueueWhitelist(address)': FunctionFragment;
     'removeRollupWhitelist(address)': FunctionFragment;
     'rollup((((uint256,uint256),(uint256[2],uint256[2]),(uint256,uint256)),uint32,uint256,uint256))': FunctionFragment;
     'sanctionsCheck()': FunctionFragment;
-    'sanctionsList()': FunctionFragment;
     'setMinRollupFee(uint256)': FunctionFragment;
     'setRollupWhitelistDisabled(bool)': FunctionFragment;
     'setVerifierUpdateDisabled(bool)': FunctionFragment;
     'transact((((uint256,uint256),(uint256[2],uint256[2]),(uint256,uint256)),uint256,uint256[],uint256[],bytes32,uint256,uint256,uint256[],uint256[],address,address,bytes[]),bytes)': FunctionFragment;
-    'updateSanctionsListAddress(address)': FunctionFragment;
+    'updateChainalysisSanctionsListAddress(address)': FunctionFragment;
+    'updateMystikoSanctionsListAddress(address)': FunctionFragment;
   };
 
   encodeFunctionData(functionFragment: '_pathIndices', values: [BigNumberish, BigNumberish]): string;
@@ -172,6 +174,7 @@ export interface CommitmentPoolERC20Interface extends utils.Interface {
   encodeFunctionData(functionFragment: 'assetName', values?: undefined): string;
   encodeFunctionData(functionFragment: 'assetSymbol', values?: undefined): string;
   encodeFunctionData(functionFragment: 'assetType', values?: undefined): string;
+  encodeFunctionData(functionFragment: 'chainalysisSanctionsList', values?: undefined): string;
   encodeFunctionData(functionFragment: 'changeOperator', values: [string]): string;
   encodeFunctionData(functionFragment: 'disableRollupVerifier', values: [BigNumberish]): string;
   encodeFunctionData(functionFragment: 'disableSanctionsCheck', values?: undefined): string;
@@ -197,11 +200,11 @@ export interface CommitmentPoolERC20Interface extends utils.Interface {
   encodeFunctionData(functionFragment: 'isRollupWhitelistDisabled', values?: undefined): string;
   encodeFunctionData(functionFragment: 'isSpentSerialNumber', values: [BigNumberish]): string;
   encodeFunctionData(functionFragment: 'isVerifierUpdateDisabled', values?: undefined): string;
+  encodeFunctionData(functionFragment: 'mystikoSanctionsList', values?: undefined): string;
   encodeFunctionData(functionFragment: 'removeEnqueueWhitelist', values: [string]): string;
   encodeFunctionData(functionFragment: 'removeRollupWhitelist', values: [string]): string;
   encodeFunctionData(functionFragment: 'rollup', values: [ICommitmentPool.RollupRequestStruct]): string;
   encodeFunctionData(functionFragment: 'sanctionsCheck', values?: undefined): string;
-  encodeFunctionData(functionFragment: 'sanctionsList', values?: undefined): string;
   encodeFunctionData(functionFragment: 'setMinRollupFee', values: [BigNumberish]): string;
   encodeFunctionData(functionFragment: 'setRollupWhitelistDisabled', values: [boolean]): string;
   encodeFunctionData(functionFragment: 'setVerifierUpdateDisabled', values: [boolean]): string;
@@ -209,7 +212,8 @@ export interface CommitmentPoolERC20Interface extends utils.Interface {
     functionFragment: 'transact',
     values: [ICommitmentPool.TransactRequestStruct, BytesLike],
   ): string;
-  encodeFunctionData(functionFragment: 'updateSanctionsListAddress', values: [string]): string;
+  encodeFunctionData(functionFragment: 'updateChainalysisSanctionsListAddress', values: [string]): string;
+  encodeFunctionData(functionFragment: 'updateMystikoSanctionsListAddress', values: [string]): string;
 
   decodeFunctionResult(functionFragment: '_pathIndices', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'addEnqueueWhitelist', data: BytesLike): Result;
@@ -218,6 +222,7 @@ export interface CommitmentPoolERC20Interface extends utils.Interface {
   decodeFunctionResult(functionFragment: 'assetName', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'assetSymbol', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'assetType', data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'chainalysisSanctionsList', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'changeOperator', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'disableRollupVerifier', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'disableSanctionsCheck', data: BytesLike): Result;
@@ -234,37 +239,44 @@ export interface CommitmentPoolERC20Interface extends utils.Interface {
   decodeFunctionResult(functionFragment: 'isRollupWhitelistDisabled', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'isSpentSerialNumber', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'isVerifierUpdateDisabled', data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'mystikoSanctionsList', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'removeEnqueueWhitelist', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'removeRollupWhitelist', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'rollup', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'sanctionsCheck', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'sanctionsList', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'setMinRollupFee', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'setRollupWhitelistDisabled', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'setVerifierUpdateDisabled', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'transact', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'updateSanctionsListAddress', data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'updateChainalysisSanctionsListAddress', data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'updateMystikoSanctionsListAddress', data: BytesLike): Result;
 
   events: {
+    'ChainalysisSanctionsList(address)': EventFragment;
     'CommitmentIncluded(uint256)': EventFragment;
     'CommitmentQueued(uint256,uint256,uint256,bytes)': EventFragment;
     'CommitmentSpent(uint256,uint256)': EventFragment;
+    'MystikoSanctionsList(address)': EventFragment;
     'OperatorChanged(address)': EventFragment;
     'RollupWhitelistDisabled(bool)': EventFragment;
     'SanctionsCheck(bool)': EventFragment;
-    'SanctionsList(address)': EventFragment;
     'VerifierUpdateDisabled(bool)': EventFragment;
   };
 
+  getEvent(nameOrSignatureOrTopic: 'ChainalysisSanctionsList'): EventFragment;
   getEvent(nameOrSignatureOrTopic: 'CommitmentIncluded'): EventFragment;
   getEvent(nameOrSignatureOrTopic: 'CommitmentQueued'): EventFragment;
   getEvent(nameOrSignatureOrTopic: 'CommitmentSpent'): EventFragment;
+  getEvent(nameOrSignatureOrTopic: 'MystikoSanctionsList'): EventFragment;
   getEvent(nameOrSignatureOrTopic: 'OperatorChanged'): EventFragment;
   getEvent(nameOrSignatureOrTopic: 'RollupWhitelistDisabled'): EventFragment;
   getEvent(nameOrSignatureOrTopic: 'SanctionsCheck'): EventFragment;
-  getEvent(nameOrSignatureOrTopic: 'SanctionsList'): EventFragment;
   getEvent(nameOrSignatureOrTopic: 'VerifierUpdateDisabled'): EventFragment;
 }
+
+export type ChainalysisSanctionsListEvent = TypedEvent<[string], { sanctions: string }>;
+
+export type ChainalysisSanctionsListEventFilter = TypedEventFilter<ChainalysisSanctionsListEvent>;
 
 export type CommitmentIncludedEvent = TypedEvent<[BigNumber], { commitment: BigNumber }>;
 
@@ -289,6 +301,10 @@ export type CommitmentSpentEvent = TypedEvent<
 
 export type CommitmentSpentEventFilter = TypedEventFilter<CommitmentSpentEvent>;
 
+export type MystikoSanctionsListEvent = TypedEvent<[string], { sanctions: string }>;
+
+export type MystikoSanctionsListEventFilter = TypedEventFilter<MystikoSanctionsListEvent>;
+
 export type OperatorChangedEvent = TypedEvent<[string], { operator: string }>;
 
 export type OperatorChangedEventFilter = TypedEventFilter<OperatorChangedEvent>;
@@ -300,10 +316,6 @@ export type RollupWhitelistDisabledEventFilter = TypedEventFilter<RollupWhitelis
 export type SanctionsCheckEvent = TypedEvent<[boolean], { state: boolean }>;
 
 export type SanctionsCheckEventFilter = TypedEventFilter<SanctionsCheckEvent>;
-
-export type SanctionsListEvent = TypedEvent<[string], { sanctions: string }>;
-
-export type SanctionsListEventFilter = TypedEventFilter<SanctionsListEvent>;
 
 export type VerifierUpdateDisabledEvent = TypedEvent<[boolean], { state: boolean }>;
 
@@ -356,6 +368,8 @@ export interface CommitmentPoolERC20 extends BaseContract {
     assetSymbol(overrides?: CallOverrides): Promise<[string]>;
 
     assetType(overrides?: CallOverrides): Promise<[number]>;
+
+    chainalysisSanctionsList(overrides?: CallOverrides): Promise<[string]>;
 
     changeOperator(
       _newOperator: string,
@@ -416,6 +430,8 @@ export interface CommitmentPoolERC20 extends BaseContract {
 
     isVerifierUpdateDisabled(overrides?: CallOverrides): Promise<[boolean]>;
 
+    mystikoSanctionsList(overrides?: CallOverrides): Promise<[string]>;
+
     removeEnqueueWhitelist(
       _actor: string,
       overrides?: Overrides & { from?: string | Promise<string> },
@@ -432,8 +448,6 @@ export interface CommitmentPoolERC20 extends BaseContract {
     ): Promise<ContractTransaction>;
 
     sanctionsCheck(overrides?: CallOverrides): Promise<[boolean]>;
-
-    sanctionsList(overrides?: CallOverrides): Promise<[string]>;
 
     setMinRollupFee(
       _minRollupFee: BigNumberish,
@@ -456,7 +470,12 @@ export interface CommitmentPoolERC20 extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<ContractTransaction>;
 
-    updateSanctionsListAddress(
+    updateChainalysisSanctionsListAddress(
+      _sanction: string,
+      overrides?: Overrides & { from?: string | Promise<string> },
+    ): Promise<ContractTransaction>;
+
+    updateMystikoSanctionsListAddress(
       _sanction: string,
       overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<ContractTransaction>;
@@ -485,6 +504,8 @@ export interface CommitmentPoolERC20 extends BaseContract {
   assetSymbol(overrides?: CallOverrides): Promise<string>;
 
   assetType(overrides?: CallOverrides): Promise<number>;
+
+  chainalysisSanctionsList(overrides?: CallOverrides): Promise<string>;
 
   changeOperator(
     _newOperator: string,
@@ -545,6 +566,8 @@ export interface CommitmentPoolERC20 extends BaseContract {
 
   isVerifierUpdateDisabled(overrides?: CallOverrides): Promise<boolean>;
 
+  mystikoSanctionsList(overrides?: CallOverrides): Promise<string>;
+
   removeEnqueueWhitelist(
     _actor: string,
     overrides?: Overrides & { from?: string | Promise<string> },
@@ -561,8 +584,6 @@ export interface CommitmentPoolERC20 extends BaseContract {
   ): Promise<ContractTransaction>;
 
   sanctionsCheck(overrides?: CallOverrides): Promise<boolean>;
-
-  sanctionsList(overrides?: CallOverrides): Promise<string>;
 
   setMinRollupFee(
     _minRollupFee: BigNumberish,
@@ -585,7 +606,12 @@ export interface CommitmentPoolERC20 extends BaseContract {
     overrides?: Overrides & { from?: string | Promise<string> },
   ): Promise<ContractTransaction>;
 
-  updateSanctionsListAddress(
+  updateChainalysisSanctionsListAddress(
+    _sanction: string,
+    overrides?: Overrides & { from?: string | Promise<string> },
+  ): Promise<ContractTransaction>;
+
+  updateMystikoSanctionsListAddress(
     _sanction: string,
     overrides?: Overrides & { from?: string | Promise<string> },
   ): Promise<ContractTransaction>;
@@ -608,6 +634,8 @@ export interface CommitmentPoolERC20 extends BaseContract {
     assetSymbol(overrides?: CallOverrides): Promise<string>;
 
     assetType(overrides?: CallOverrides): Promise<number>;
+
+    chainalysisSanctionsList(overrides?: CallOverrides): Promise<string>;
 
     changeOperator(_newOperator: string, overrides?: CallOverrides): Promise<void>;
 
@@ -658,6 +686,8 @@ export interface CommitmentPoolERC20 extends BaseContract {
 
     isVerifierUpdateDisabled(overrides?: CallOverrides): Promise<boolean>;
 
+    mystikoSanctionsList(overrides?: CallOverrides): Promise<string>;
+
     removeEnqueueWhitelist(_actor: string, overrides?: CallOverrides): Promise<void>;
 
     removeRollupWhitelist(_roller: string, overrides?: CallOverrides): Promise<void>;
@@ -665,8 +695,6 @@ export interface CommitmentPoolERC20 extends BaseContract {
     rollup(_request: ICommitmentPool.RollupRequestStruct, overrides?: CallOverrides): Promise<void>;
 
     sanctionsCheck(overrides?: CallOverrides): Promise<boolean>;
-
-    sanctionsList(overrides?: CallOverrides): Promise<string>;
 
     setMinRollupFee(_minRollupFee: BigNumberish, overrides?: CallOverrides): Promise<void>;
 
@@ -680,10 +708,15 @@ export interface CommitmentPoolERC20 extends BaseContract {
       overrides?: CallOverrides,
     ): Promise<void>;
 
-    updateSanctionsListAddress(_sanction: string, overrides?: CallOverrides): Promise<void>;
+    updateChainalysisSanctionsListAddress(_sanction: string, overrides?: CallOverrides): Promise<void>;
+
+    updateMystikoSanctionsListAddress(_sanction: string, overrides?: CallOverrides): Promise<void>;
   };
 
   filters: {
+    'ChainalysisSanctionsList(address)'(sanctions?: null): ChainalysisSanctionsListEventFilter;
+    ChainalysisSanctionsList(sanctions?: null): ChainalysisSanctionsListEventFilter;
+
     'CommitmentIncluded(uint256)'(commitment?: BigNumberish | null): CommitmentIncludedEventFilter;
     CommitmentIncluded(commitment?: BigNumberish | null): CommitmentIncludedEventFilter;
 
@@ -709,6 +742,9 @@ export interface CommitmentPoolERC20 extends BaseContract {
       serialNumber?: BigNumberish | null,
     ): CommitmentSpentEventFilter;
 
+    'MystikoSanctionsList(address)'(sanctions?: null): MystikoSanctionsListEventFilter;
+    MystikoSanctionsList(sanctions?: null): MystikoSanctionsListEventFilter;
+
     'OperatorChanged(address)'(operator?: string | null): OperatorChangedEventFilter;
     OperatorChanged(operator?: string | null): OperatorChangedEventFilter;
 
@@ -717,9 +753,6 @@ export interface CommitmentPoolERC20 extends BaseContract {
 
     'SanctionsCheck(bool)'(state?: null): SanctionsCheckEventFilter;
     SanctionsCheck(state?: null): SanctionsCheckEventFilter;
-
-    'SanctionsList(address)'(sanctions?: null): SanctionsListEventFilter;
-    SanctionsList(sanctions?: null): SanctionsListEventFilter;
 
     'VerifierUpdateDisabled(bool)'(state?: null): VerifierUpdateDisabledEventFilter;
     VerifierUpdateDisabled(state?: null): VerifierUpdateDisabledEventFilter;
@@ -749,6 +782,8 @@ export interface CommitmentPoolERC20 extends BaseContract {
     assetSymbol(overrides?: CallOverrides): Promise<BigNumber>;
 
     assetType(overrides?: CallOverrides): Promise<BigNumber>;
+
+    chainalysisSanctionsList(overrides?: CallOverrides): Promise<BigNumber>;
 
     changeOperator(
       _newOperator: string,
@@ -805,6 +840,8 @@ export interface CommitmentPoolERC20 extends BaseContract {
 
     isVerifierUpdateDisabled(overrides?: CallOverrides): Promise<BigNumber>;
 
+    mystikoSanctionsList(overrides?: CallOverrides): Promise<BigNumber>;
+
     removeEnqueueWhitelist(
       _actor: string,
       overrides?: Overrides & { from?: string | Promise<string> },
@@ -821,8 +858,6 @@ export interface CommitmentPoolERC20 extends BaseContract {
     ): Promise<BigNumber>;
 
     sanctionsCheck(overrides?: CallOverrides): Promise<BigNumber>;
-
-    sanctionsList(overrides?: CallOverrides): Promise<BigNumber>;
 
     setMinRollupFee(
       _minRollupFee: BigNumberish,
@@ -845,7 +880,12 @@ export interface CommitmentPoolERC20 extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<BigNumber>;
 
-    updateSanctionsListAddress(
+    updateChainalysisSanctionsListAddress(
+      _sanction: string,
+      overrides?: Overrides & { from?: string | Promise<string> },
+    ): Promise<BigNumber>;
+
+    updateMystikoSanctionsListAddress(
       _sanction: string,
       overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<BigNumber>;
@@ -875,6 +915,8 @@ export interface CommitmentPoolERC20 extends BaseContract {
     assetSymbol(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     assetType(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+
+    chainalysisSanctionsList(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     changeOperator(
       _newOperator: string,
@@ -938,6 +980,8 @@ export interface CommitmentPoolERC20 extends BaseContract {
 
     isVerifierUpdateDisabled(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
+    mystikoSanctionsList(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+
     removeEnqueueWhitelist(
       _actor: string,
       overrides?: Overrides & { from?: string | Promise<string> },
@@ -954,8 +998,6 @@ export interface CommitmentPoolERC20 extends BaseContract {
     ): Promise<PopulatedTransaction>;
 
     sanctionsCheck(overrides?: CallOverrides): Promise<PopulatedTransaction>;
-
-    sanctionsList(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     setMinRollupFee(
       _minRollupFee: BigNumberish,
@@ -978,7 +1020,12 @@ export interface CommitmentPoolERC20 extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<PopulatedTransaction>;
 
-    updateSanctionsListAddress(
+    updateChainalysisSanctionsListAddress(
+      _sanction: string,
+      overrides?: Overrides & { from?: string | Promise<string> },
+    ): Promise<PopulatedTransaction>;
+
+    updateMystikoSanctionsListAddress(
       _sanction: string,
       overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<PopulatedTransaction>;

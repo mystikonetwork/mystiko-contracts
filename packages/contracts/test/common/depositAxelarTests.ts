@@ -1,7 +1,7 @@
 import { expect } from 'chai';
 import { waffle } from 'hardhat';
 import { ethers } from 'ethers';
-import { DummySanctionsList, TestToken } from '@mystikonetwork/contracts-abi';
+import { SanctionsOracle, TestToken } from '@mystikonetwork/contracts-abi';
 import { CommitmentOutput, MystikoProtocolV2 } from '@mystikonetwork/protocol';
 import { toHex, toBN } from '@mystikonetwork/utils';
 import { Wallet } from '@ethersproject/wallet';
@@ -21,7 +21,7 @@ export function testAxelarDeposit(
   peerMystikoContract: any,
   commitmentPool: any,
   peerCommitmentPool: any,
-  sanctionList: DummySanctionsList,
+  sanctionList: SanctionsOracle,
   bridgeContract: any,
   gasService: any,
   testTokenContract: TestToken,
@@ -83,7 +83,7 @@ export function testAxelarDeposit(
     });
 
     it('should deposit successfully', async () => {
-      await sanctionList.addToSanctionsList(bridgeAccount.address);
+      await sanctionList.addToSanctionsList([bridgeAccount.address]);
       await mystikoContract.disableSanctionsCheck();
 
       const serviceFeeBefore = isDstMainAsset

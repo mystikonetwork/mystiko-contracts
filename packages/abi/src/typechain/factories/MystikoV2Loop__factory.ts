@@ -57,6 +57,19 @@ const _abi = [
     inputs: [
       {
         indexed: false,
+        internalType: 'contract ISanctionsList',
+        name: 'sanctions',
+        type: 'address',
+      },
+    ],
+    name: 'ChainalysisSanctionsList',
+    type: 'event',
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: false,
         internalType: 'bool',
         name: 'state',
         type: 'bool',
@@ -76,6 +89,19 @@ const _abi = [
       },
     ],
     name: 'MinAmount',
+    type: 'event',
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: false,
+        internalType: 'contract ISanctionsList',
+        name: 'sanctions',
+        type: 'address',
+      },
+    ],
+    name: 'MystikoSanctionsList',
     type: 'event',
   },
   {
@@ -102,19 +128,6 @@ const _abi = [
       },
     ],
     name: 'SanctionsCheck',
-    type: 'event',
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: false,
-        internalType: 'contract ISanctionsList',
-        name: 'sanctions',
-        type: 'address',
-      },
-    ],
-    name: 'SanctionsList',
     type: 'event',
   },
   {
@@ -180,6 +193,19 @@ const _abi = [
       },
     ],
     stateMutability: 'pure',
+    type: 'function',
+  },
+  {
+    inputs: [],
+    name: 'chainalysisSanctionsList',
+    outputs: [
+      {
+        internalType: 'contract ISanctionsList',
+        name: '',
+        type: 'address',
+      },
+    ],
+    stateMutability: 'view',
     type: 'function',
   },
   {
@@ -373,12 +399,12 @@ const _abi = [
   },
   {
     inputs: [],
-    name: 'sanctionsCheck',
+    name: 'mystikoSanctionsList',
     outputs: [
       {
-        internalType: 'bool',
+        internalType: 'contract ISanctionsList',
         name: '',
-        type: 'bool',
+        type: 'address',
       },
     ],
     stateMutability: 'view',
@@ -386,12 +412,12 @@ const _abi = [
   },
   {
     inputs: [],
-    name: 'sanctionsList',
+    name: 'sanctionsCheck',
     outputs: [
       {
-        internalType: 'contract ISanctionsList',
+        internalType: 'bool',
         name: '',
-        type: 'address',
+        type: 'bool',
       },
     ],
     stateMutability: 'view',
@@ -444,7 +470,20 @@ const _abi = [
         type: 'address',
       },
     ],
-    name: 'updateSanctionsListAddress',
+    name: 'updateChainalysisSanctionsListAddress',
+    outputs: [],
+    stateMutability: 'nonpayable',
+    type: 'function',
+  },
+  {
+    inputs: [
+      {
+        internalType: 'contract ISanctionsList',
+        name: '_sanction',
+        type: 'address',
+      },
+    ],
+    name: 'updateMystikoSanctionsListAddress',
     outputs: [],
     stateMutability: 'nonpayable',
     type: 'function',

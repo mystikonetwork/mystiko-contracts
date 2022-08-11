@@ -230,9 +230,14 @@ abstract contract MystikoV2Bridge is IMystikoBridge, AssetPool, CrossChainDataSe
     emit SanctionsCheck(sanctionsCheck);
   }
 
-  function updateSanctionsListAddress(ISanctionsList _sanction) external onlyOperator {
-    sanctionsList = _sanction;
-    emit SanctionsList(_sanction);
+  function updateChainalysisSanctionsListAddress(ISanctionsList _sanction) external onlyOperator {
+    chainalysisSanctionsList = _sanction;
+    emit ChainalysisSanctionsList(_sanction);
+  }
+
+  function updateMystikoSanctionsListAddress(ISanctionsList _sanction) external onlyOperator {
+    mystikoSanctionsList = _sanction;
+    emit MystikoSanctionsList(_sanction);
   }
 
   function bridgeType() public pure virtual returns (string memory);

@@ -155,6 +155,7 @@ export function testCommitmentPoolAdminOperations(
       // expect(verifier.enabled).to.equal(true);
 
       await mystikoContract.setVerifierUpdateDisabled(true);
+      expect(await mystikoContract.isVerifierUpdateDisabled()).to.be.equal(true);
       await expect(
         mystikoContract.enableRollupVerifier(4, '0xfbb61B8b98a59FbC4bD79C23212AddbEFaEB289f'),
       ).to.be.revertedWith('VerifierUpdatesHasBeenDisabled()');

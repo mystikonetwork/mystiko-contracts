@@ -16,7 +16,7 @@ import {
   TestToken,
   CommitmentPoolMain,
   CommitmentPoolERC20,
-  DummySanctionsList,
+  SanctionsOracle,
 } from '@mystikonetwork/contracts-abi';
 import { MystikoProtocolV2, ProtocolFactoryV2 } from '@mystikonetwork/protocol';
 import { toBN, toDecimals } from '@mystikonetwork/utils';
@@ -41,27 +41,45 @@ import { rollup } from '../../common/rollupTests';
 describe('Test Mystiko pool tree', () => {
   it('test pool tree', async () => {
     const accounts = waffle.provider.getWallets();
-    const { testToken, sanctionList } = await deployDependContracts(accounts);
+    const { testToken, sanctionList1, sanctionList2 } = await deployDependContracts(accounts);
     for (let i = 1; i < 33; i += 1) {
-      await deployCommitmentPoolContracts(accounts, testToken.address, sanctionList.address, {
-        treeHeight: i,
-      });
+      await deployCommitmentPoolContracts(
+        accounts,
+        testToken.address,
+        sanctionList1.address,
+        sanctionList2.address,
+        {
+          treeHeight: i,
+        },
+      );
     }
   });
 
   it('should revert when treeHeight less than zero', async () => {
     const accounts = waffle.provider.getWallets();
-    const { testToken, sanctionList } = await deployDependContracts(accounts);
+    const { testToken, sanctionList1, sanctionList2 } = await deployDependContracts(accounts);
     await expect(
-      deployCommitmentPoolContracts(accounts, testToken.address, sanctionList.address, { treeHeight: 0 }),
+      deployCommitmentPoolContracts(
+        accounts,
+        testToken.address,
+        sanctionList1.address,
+        sanctionList2.address,
+        { treeHeight: 0 },
+      ),
     ).revertedWith('TreeHeightLessThanZero()');
   });
 
   it('should revert when treeHeight out of bounds', async () => {
     const accounts = waffle.provider.getWallets();
-    const { testToken, sanctionList } = await deployDependContracts(accounts);
+    const { testToken, sanctionList1, sanctionList2 } = await deployDependContracts(accounts);
     await expect(
-      deployCommitmentPoolContracts(accounts, testToken.address, sanctionList.address, { treeHeight: 33 }),
+      deployCommitmentPoolContracts(
+        accounts,
+        testToken.address,
+        sanctionList1.address,
+        sanctionList2.address,
+        { treeHeight: 33 },
+      ),
     ).revertedWith('TreeHeightOutOfBounds()');
   });
 });
@@ -80,14 +98,22 @@ describe('Test Mystiko pool', () => {
       rollup1,
       rollup4,
       rollup16,
-      sanctionList,
+      sanctionList1,
+      sanctionList2,
     } = await deployDependContracts(accounts);
-    const pool = await deployCommitmentPoolContracts(accounts, testToken.address, sanctionList.address, {});
+    const pool = await deployCommitmentPoolContracts(
+      accounts,
+      testToken.address,
+      sanctionList1.address,
+      sanctionList2.address,
+      {},
+    );
     const loop = await deployLoopContracts(
       accounts,
       hasher3.address,
       testToken.address,
-      sanctionList.address,
+      sanctionList1.address,
+      sanctionList2.address,
       pool.poolMain,
       pool.poolERC20,
       {},
@@ -106,13 +132,15 @@ describe('Test Mystiko pool', () => {
       rollup16,
       pool,
       loop,
-      sanctionList,
+      sanctionList1,
+      sanctionList2,
     };
   }
 
   let accounts: Wallet[];
   let testToken: TestToken;
-  let sanctionList: DummySanctionsList;
+  let sanctionList1: SanctionsOracle;
+  let sanctionList2: SanctionsOracle;
   let poolMain: CommitmentPoolMain;
   let poolErc20: CommitmentPoolERC20;
   let loopERC20: MystikoV2LoopERC20;
@@ -135,7 +163,8 @@ describe('Test Mystiko pool', () => {
 
     const r = await loadFixture(fixture);
     testToken = r.testToken;
-    sanctionList = r.sanctionList;
+    sanctionList1 = r.sanctionList1;
+    sanctionList2 = r.sanctionList2;
 
     poolMain = r.pool.poolMain;
     poolErc20 = r.pool.poolERC20;
@@ -175,27 +204,61 @@ describe('Test Mystiko pool', () => {
       loopMain,
       poolMain,
       testToken,
-      sanctionList,
+      sanctionList1,
+      sanctionList2,
       accounts,
       depositAmount.toString(),
       true,
       cmInfo,
     );
 
-    testRollup('CommitmentPoolMain', protocol, poolMain, rollup16, testToken, accounts, cmInfo.commitments, {
-      rollupSize: 16,
-      includedCount: 0,
-    });
+    testRollup(
+      'CommitmentPoolMain',
+      protocol,
+      poolMain,
+      rollup16,
+      testToken,
+      sanctionList1,
+      sanctionList2,
+      accounts,
+      cmInfo.commitments,
+      {
+        rollupSize: 16,
+        includedCount: 0,
+      },
+    );
 
-    testRollup('CommitmentPoolMain', protocol, poolMain, rollup4, testToken, accounts, cmInfo.commitments, {
-      rollupSize: 4,
-      includedCount: 16,
-    });
+    testRollup(
+      'CommitmentPoolMain',
+      protocol,
+      poolMain,
+      rollup4,
+      testToken,
+      sanctionList1,
+      sanctionList2,
+      accounts,
+      cmInfo.commitments,
+      {
+        rollupSize: 4,
+        includedCount: 16,
+      },
+    );
 
-    testRollup('CommitmentPoolMain', protocol, poolMain, rollup1, testToken, accounts, cmInfo.commitments, {
-      rollupSize: 1,
-      includedCount: 20,
-    });
+    testRollup(
+      'CommitmentPoolMain',
+      protocol,
+      poolMain,
+      rollup1,
+      testToken,
+      sanctionList1,
+      sanctionList2,
+      accounts,
+      cmInfo.commitments,
+      {
+        rollupSize: 1,
+        includedCount: 20,
+      },
+    );
 
     queueSize = 0;
     includedCounter = 21;
@@ -203,7 +266,7 @@ describe('Test Mystiko pool', () => {
       'CommitmentPoolMain',
       protocol,
       poolMain,
-      sanctionList,
+      sanctionList1,
       transaction1x0Verifier,
       cmInfo,
       [0],
@@ -360,7 +423,8 @@ describe('Test Mystiko pool', () => {
       loopERC20,
       poolErc20,
       testToken,
-      sanctionList,
+      sanctionList1,
+      sanctionList2,
       accounts,
       depositAmount.toString(),
       false,

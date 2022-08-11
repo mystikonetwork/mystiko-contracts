@@ -1,6 +1,5 @@
 module.exports = {
   skipFiles: [
-    'mocks/DummySanctions.sol',
     'mocks/token/TestToken.sol',
     'mocks/proxy/DummyCelerMessageBus.sol',
     'mocks/proxy/DummyLZEndpoint.sol',

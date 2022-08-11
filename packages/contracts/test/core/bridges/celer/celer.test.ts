@@ -7,7 +7,7 @@ import {
   MystikoV2CelerMain,
   TestToken,
   CommitmentPoolMain,
-  DummySanctionsList,
+  SanctionsOracle,
   DummyCelerMessageBus,
   CommitmentPoolERC20,
 } from '@mystikonetwork/contracts-abi';
@@ -46,7 +46,8 @@ describe('Test Mystiko celer', () => {
       rollup1,
       rollup4,
       rollup16,
-      sanctionList,
+      sanctionList1,
+      sanctionList2,
     } = await deployDependContracts(accounts);
 
     const dummyCeler = await deployDummyCelerContracts(accounts);
@@ -54,13 +55,15 @@ describe('Test Mystiko celer', () => {
     const poolLocal = await deployCommitmentPoolContracts(
       accounts,
       testToken.address,
-      sanctionList.address,
+      sanctionList1.address,
+      sanctionList2.address,
       {},
     );
     const poolRemote = await deployCommitmentPoolContracts(
       accounts,
       testToken.address,
-      sanctionList.address,
+      sanctionList1.address,
+      sanctionList2.address,
       {},
     );
 
@@ -68,7 +71,8 @@ describe('Test Mystiko celer', () => {
       accounts,
       hasher3.address,
       testToken.address,
-      sanctionList.address,
+      sanctionList1.address,
+      sanctionList2.address,
       dummyCeler,
       poolLocal.poolMain,
       poolLocal.poolERC20,
@@ -79,7 +83,8 @@ describe('Test Mystiko celer', () => {
       accounts,
       hasher3.address,
       testToken.address,
-      sanctionList.address,
+      sanctionList1.address,
+      sanctionList2.address,
       dummyCeler,
       poolRemote.poolMain,
       poolRemote.poolERC20,
@@ -102,14 +107,15 @@ describe('Test Mystiko celer', () => {
       poolRemote,
       local,
       remote,
-      sanctionList,
+      sanctionList1,
+      sanctionList2,
       dummyCeler,
     };
   }
 
   let accounts: Wallet[];
   let testToken: TestToken;
-  let sanctionList: DummySanctionsList;
+  let sanctionList1: SanctionsOracle;
   let localPoolMain: CommitmentPoolMain;
   let remotePoolMain: CommitmentPoolMain;
   let localPoolERC20: CommitmentPoolERC20;
@@ -136,7 +142,7 @@ describe('Test Mystiko celer', () => {
     localERC20 = r.local.coreERC20;
     remoteMain = r.remote.coreMain;
     remoteERC20 = r.remote.coreERC20;
-    sanctionList = r.sanctionList;
+    sanctionList1 = r.sanctionList1;
     dummyCeler = r.dummyCeler;
   });
 
@@ -182,7 +188,7 @@ describe('Test Mystiko celer', () => {
       localPoolMain,
       remoteMain,
       remotePoolMain,
-      sanctionList,
+      sanctionList1,
       dummyCeler,
       testToken,
       accounts,
@@ -242,7 +248,7 @@ describe('Test Mystiko celer', () => {
       localPoolERC20,
       remoteERC20,
       remotePoolERC20,
-      sanctionList,
+      sanctionList1,
       dummyCeler,
       testToken,
       accounts,

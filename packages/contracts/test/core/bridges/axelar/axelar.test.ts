@@ -5,7 +5,7 @@ import { toDecimals } from '@mystikonetwork/utils';
 import {
   TestToken,
   CommitmentPoolMain,
-  DummySanctionsList,
+  SanctionsOracle,
   MystikoV2LayerZeroMain,
   DummyAxelarGateway,
   DummyAxelarGasService,
@@ -39,7 +39,8 @@ describe('Test Mystiko axelar', () => {
       rollup1,
       rollup4,
       rollup16,
-      sanctionList,
+      sanctionList1,
+      sanctionList2,
     } = await deployDependContracts(accounts);
 
     const dummyAxelarGateway = await deployDummyAxelarGateway(accounts);
@@ -48,13 +49,15 @@ describe('Test Mystiko axelar', () => {
     const poolLocal = await deployCommitmentPoolContracts(
       accounts,
       testToken.address,
-      sanctionList.address,
+      sanctionList1.address,
+      sanctionList2.address,
       {},
     );
     const poolRemote = await deployCommitmentPoolContracts(
       accounts,
       testToken.address,
-      sanctionList.address,
+      sanctionList1.address,
+      sanctionList2.address,
       {},
     );
 
@@ -62,7 +65,8 @@ describe('Test Mystiko axelar', () => {
       accounts,
       hasher3.address,
       testToken.address,
-      sanctionList.address,
+      sanctionList1.address,
+      sanctionList2.address,
       dummyAxelarGateway,
       dummyAxelarGasService,
       poolLocal.poolMain,
@@ -74,7 +78,8 @@ describe('Test Mystiko axelar', () => {
       accounts,
       hasher3.address,
       testToken.address,
-      sanctionList.address,
+      sanctionList1.address,
+      sanctionList2.address,
       dummyAxelarGateway,
       dummyAxelarGasService,
       poolRemote.poolMain,
@@ -98,7 +103,8 @@ describe('Test Mystiko axelar', () => {
       poolRemote,
       local,
       remote,
-      sanctionList,
+      sanctionList1,
+      sanctionList2,
       dummyAxelarGateway,
       dummyAxelarGasService,
     };
@@ -106,7 +112,7 @@ describe('Test Mystiko axelar', () => {
 
   let accounts: Wallet[];
   let testToken: TestToken;
-  let sanctionList: DummySanctionsList;
+  let sanctionList1: SanctionsOracle;
   let localPoolMain: CommitmentPoolMain;
   let remotePoolMain: CommitmentPoolMain;
   let localMain: MystikoV2LayerZeroMain;
@@ -126,7 +132,7 @@ describe('Test Mystiko axelar', () => {
     remotePoolMain = r.poolRemote.poolMain;
     localMain = r.local.coreMain;
     remoteMain = r.remote.coreMain;
-    sanctionList = r.sanctionList;
+    sanctionList1 = r.sanctionList1;
     dummyAxelarGateway = r.dummyAxelarGateway;
     dummyAxelarGasService = r.dummyAxelarGasService;
   });
@@ -155,7 +161,7 @@ describe('Test Mystiko axelar', () => {
       remoteMain,
       localPoolMain,
       remotePoolMain,
-      sanctionList,
+      sanctionList1,
       dummyAxelarGateway,
       dummyAxelarGasService,
       testToken,

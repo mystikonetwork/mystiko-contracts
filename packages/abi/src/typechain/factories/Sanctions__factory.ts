@@ -12,12 +12,12 @@ const _abi = [
     inputs: [
       {
         indexed: false,
-        internalType: 'bool',
-        name: 'state',
-        type: 'bool',
+        internalType: 'contract ISanctionsList',
+        name: 'sanctions',
+        type: 'address',
       },
     ],
-    name: 'SanctionsCheck',
+    name: 'ChainalysisSanctionsList',
     type: 'event',
   },
   {
@@ -30,8 +30,47 @@ const _abi = [
         type: 'address',
       },
     ],
-    name: 'SanctionsList',
+    name: 'MystikoSanctionsList',
     type: 'event',
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: false,
+        internalType: 'bool',
+        name: 'state',
+        type: 'bool',
+      },
+    ],
+    name: 'SanctionsCheck',
+    type: 'event',
+  },
+  {
+    inputs: [],
+    name: 'chainalysisSanctionsList',
+    outputs: [
+      {
+        internalType: 'contract ISanctionsList',
+        name: '',
+        type: 'address',
+      },
+    ],
+    stateMutability: 'view',
+    type: 'function',
+  },
+  {
+    inputs: [],
+    name: 'mystikoSanctionsList',
+    outputs: [
+      {
+        internalType: 'contract ISanctionsList',
+        name: '',
+        type: 'address',
+      },
+    ],
+    stateMutability: 'view',
+    type: 'function',
   },
   {
     inputs: [],
@@ -41,19 +80,6 @@ const _abi = [
         internalType: 'bool',
         name: '',
         type: 'bool',
-      },
-    ],
-    stateMutability: 'view',
-    type: 'function',
-  },
-  {
-    inputs: [],
-    name: 'sanctionsList',
-    outputs: [
-      {
-        internalType: 'contract ISanctionsList',
-        name: '',
-        type: 'address',
       },
     ],
     stateMutability: 'view',

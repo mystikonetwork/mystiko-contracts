@@ -1,7 +1,7 @@
 import { expect } from 'chai';
 import { waffle } from 'hardhat';
 import { ethers } from 'ethers';
-import { DummySanctionsList, TestToken } from '@mystikonetwork/contracts-abi';
+import { SanctionsOracle, TestToken } from '@mystikonetwork/contracts-abi';
 import { CommitmentOutput, MystikoProtocolV2 } from '@mystikonetwork/protocol';
 import { toHex, toBN } from '@mystikonetwork/utils';
 import { Wallet } from '@ethersproject/wallet';
@@ -24,7 +24,7 @@ export function testTBridgeDeposit(
   commitmentPool: any,
   peerMystikoContract: any,
   peerCommitmentPool: any,
-  sanctionList: DummySanctionsList,
+  sanctionList: SanctionsOracle,
   bridgeContract: any,
   testTokenContract: TestToken,
   accounts: Wallet[],
@@ -97,7 +97,7 @@ export function testTBridgeDeposit(
     });
 
     it('should revert when sender in sanction list', async () => {
-      await sanctionList.addToSanctionsList(accounts[0].address);
+      await sanctionList.addToSanctionsList([accounts[0].address]);
       await expect(
         mystikoContract.deposit(
           [
@@ -113,7 +113,7 @@ export function testTBridgeDeposit(
           { from: accounts[0].address, value: minTotalValue },
         ),
       ).to.be.revertedWith('SanctionedAddress()');
-      await sanctionList.removeToSanctionsList(accounts[0].address);
+      await sanctionList.removeFromSanctionsList([accounts[0].address]);
     });
 
     it('should revert when amount is too few', async () => {
@@ -236,7 +236,7 @@ export function testTBridgeDeposit(
     });
 
     it('should deposit successfully', async () => {
-      await sanctionList.addToSanctionsList(accounts[0].address);
+      await sanctionList.addToSanctionsList([accounts[0].address]);
       await mystikoContract.disableSanctionsCheck();
 
       const serviceFeeBefore = isDstMainAsset

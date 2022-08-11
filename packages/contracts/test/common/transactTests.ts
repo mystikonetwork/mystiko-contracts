@@ -1,4 +1,4 @@
-import { DummySanctionsList, TestToken } from '@mystikonetwork/contracts-abi';
+import { SanctionsOracle, TestToken } from '@mystikonetwork/contracts-abi';
 import { MerkleTree } from '@mystikonetwork/merkle';
 import { CommitmentOutput, MystikoProtocolV2 } from '@mystikonetwork/protocol';
 import { toBN, toBuff, toHex, toHexNoPrefix } from '@mystikonetwork/utils';
@@ -302,7 +302,7 @@ export function testTransactRevert(
   contractName: string,
   protocol: MystikoProtocolV2,
   commitmentPoolContract: any,
-  sanctionList: DummySanctionsList,
+  sanctionList: SanctionsOracle,
   transactVerifier: any,
   commitmentInfo: CommitmentInfo<CommitmentOutput>,
   inCommitmentsIndices: number[],
@@ -378,7 +378,7 @@ export function testTransactRevert(
     });
 
     it('should revert when recipient in sanction list', async () => {
-      await sanctionList.addToSanctionsList(publicRecipientAddress);
+      await sanctionList.addToSanctionsList([publicRecipientAddress]);
       const request = buildRequest(
         numInputs,
         numOutputs,
@@ -391,7 +391,7 @@ export function testTransactRevert(
       await expect(commitmentPoolContract.transact(request, signature)).to.be.revertedWith(
         'SanctionedAddress()',
       );
-      await sanctionList.removeToSanctionsList(publicRecipientAddress);
+      await sanctionList.removeFromSanctionsList([publicRecipientAddress]);
     });
 
     it('should have correct balance', async () => {

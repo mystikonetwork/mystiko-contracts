@@ -310,9 +310,14 @@ abstract contract CommitmentPool is ICommitmentPool, AssetPool, ReentrancyGuard,
     emit SanctionsCheck(sanctionsCheck);
   }
 
-  function updateSanctionsListAddress(ISanctionsList _sanction) external onlyOperator {
-    sanctionsList = _sanction;
-    emit SanctionsList(_sanction);
+  function updateChainalysisSanctionsListAddress(ISanctionsList _sanction) external onlyOperator {
+    chainalysisSanctionsList = _sanction;
+    emit ChainalysisSanctionsList(_sanction);
+  }
+
+  function updateMystikoSanctionsListAddress(ISanctionsList _sanction) external onlyOperator {
+    mystikoSanctionsList = _sanction;
+    emit MystikoSanctionsList(_sanction);
   }
 
   function isHistoricCommitment(uint256 _commitment) public view returns (bool) {

@@ -17,32 +17,41 @@ import { TypedEventFilter, TypedEvent, TypedListener, OnEvent } from './common';
 export interface SanctionsInterface extends utils.Interface {
   contractName: 'Sanctions';
   functions: {
+    'chainalysisSanctionsList()': FunctionFragment;
+    'mystikoSanctionsList()': FunctionFragment;
     'sanctionsCheck()': FunctionFragment;
-    'sanctionsList()': FunctionFragment;
   };
 
+  encodeFunctionData(functionFragment: 'chainalysisSanctionsList', values?: undefined): string;
+  encodeFunctionData(functionFragment: 'mystikoSanctionsList', values?: undefined): string;
   encodeFunctionData(functionFragment: 'sanctionsCheck', values?: undefined): string;
-  encodeFunctionData(functionFragment: 'sanctionsList', values?: undefined): string;
 
+  decodeFunctionResult(functionFragment: 'chainalysisSanctionsList', data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'mystikoSanctionsList', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'sanctionsCheck', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'sanctionsList', data: BytesLike): Result;
 
   events: {
+    'ChainalysisSanctionsList(address)': EventFragment;
+    'MystikoSanctionsList(address)': EventFragment;
     'SanctionsCheck(bool)': EventFragment;
-    'SanctionsList(address)': EventFragment;
   };
 
+  getEvent(nameOrSignatureOrTopic: 'ChainalysisSanctionsList'): EventFragment;
+  getEvent(nameOrSignatureOrTopic: 'MystikoSanctionsList'): EventFragment;
   getEvent(nameOrSignatureOrTopic: 'SanctionsCheck'): EventFragment;
-  getEvent(nameOrSignatureOrTopic: 'SanctionsList'): EventFragment;
 }
+
+export type ChainalysisSanctionsListEvent = TypedEvent<[string], { sanctions: string }>;
+
+export type ChainalysisSanctionsListEventFilter = TypedEventFilter<ChainalysisSanctionsListEvent>;
+
+export type MystikoSanctionsListEvent = TypedEvent<[string], { sanctions: string }>;
+
+export type MystikoSanctionsListEventFilter = TypedEventFilter<MystikoSanctionsListEvent>;
 
 export type SanctionsCheckEvent = TypedEvent<[boolean], { state: boolean }>;
 
 export type SanctionsCheckEventFilter = TypedEventFilter<SanctionsCheckEvent>;
-
-export type SanctionsListEvent = TypedEvent<[string], { sanctions: string }>;
-
-export type SanctionsListEventFilter = TypedEventFilter<SanctionsListEvent>;
 
 export interface Sanctions extends BaseContract {
   contractName: 'Sanctions';
@@ -68,38 +77,51 @@ export interface Sanctions extends BaseContract {
   removeListener: OnEvent<this>;
 
   functions: {
-    sanctionsCheck(overrides?: CallOverrides): Promise<[boolean]>;
+    chainalysisSanctionsList(overrides?: CallOverrides): Promise<[string]>;
 
-    sanctionsList(overrides?: CallOverrides): Promise<[string]>;
+    mystikoSanctionsList(overrides?: CallOverrides): Promise<[string]>;
+
+    sanctionsCheck(overrides?: CallOverrides): Promise<[boolean]>;
   };
+
+  chainalysisSanctionsList(overrides?: CallOverrides): Promise<string>;
+
+  mystikoSanctionsList(overrides?: CallOverrides): Promise<string>;
 
   sanctionsCheck(overrides?: CallOverrides): Promise<boolean>;
 
-  sanctionsList(overrides?: CallOverrides): Promise<string>;
-
   callStatic: {
-    sanctionsCheck(overrides?: CallOverrides): Promise<boolean>;
+    chainalysisSanctionsList(overrides?: CallOverrides): Promise<string>;
 
-    sanctionsList(overrides?: CallOverrides): Promise<string>;
+    mystikoSanctionsList(overrides?: CallOverrides): Promise<string>;
+
+    sanctionsCheck(overrides?: CallOverrides): Promise<boolean>;
   };
 
   filters: {
+    'ChainalysisSanctionsList(address)'(sanctions?: null): ChainalysisSanctionsListEventFilter;
+    ChainalysisSanctionsList(sanctions?: null): ChainalysisSanctionsListEventFilter;
+
+    'MystikoSanctionsList(address)'(sanctions?: null): MystikoSanctionsListEventFilter;
+    MystikoSanctionsList(sanctions?: null): MystikoSanctionsListEventFilter;
+
     'SanctionsCheck(bool)'(state?: null): SanctionsCheckEventFilter;
     SanctionsCheck(state?: null): SanctionsCheckEventFilter;
-
-    'SanctionsList(address)'(sanctions?: null): SanctionsListEventFilter;
-    SanctionsList(sanctions?: null): SanctionsListEventFilter;
   };
 
   estimateGas: {
-    sanctionsCheck(overrides?: CallOverrides): Promise<BigNumber>;
+    chainalysisSanctionsList(overrides?: CallOverrides): Promise<BigNumber>;
 
-    sanctionsList(overrides?: CallOverrides): Promise<BigNumber>;
+    mystikoSanctionsList(overrides?: CallOverrides): Promise<BigNumber>;
+
+    sanctionsCheck(overrides?: CallOverrides): Promise<BigNumber>;
   };
 
   populateTransaction: {
-    sanctionsCheck(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+    chainalysisSanctionsList(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
-    sanctionsList(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+    mystikoSanctionsList(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+
+    sanctionsCheck(overrides?: CallOverrides): Promise<PopulatedTransaction>;
   };
 }

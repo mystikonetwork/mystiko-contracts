@@ -1,7 +1,7 @@
 import { expect } from 'chai';
 import { waffle } from 'hardhat';
 import { Wallet } from '@ethersproject/wallet';
-import { DummySanctionsList, TestToken } from '@mystikonetwork/contracts-abi';
+import { SanctionsOracle, TestToken } from '@mystikonetwork/contracts-abi';
 import { CommitmentOutput, MystikoProtocolV2 } from '@mystikonetwork/protocol';
 import { toHex, toBN } from '@mystikonetwork/utils';
 import { CommitmentInfo } from './commitment';
@@ -13,7 +13,8 @@ export function testLoopDeposit(
   mystikoContract: any,
   commitmentPool: any,
   testTokenContract: TestToken,
-  sanctionList: DummySanctionsList,
+  sanctionList1: SanctionsOracle,
+  sanctionList2: SanctionsOracle,
   accounts: Wallet[],
   depositAmount: string,
   isMainAsset: boolean,
@@ -55,8 +56,8 @@ export function testLoopDeposit(
       await mystikoContract.setDepositsDisabled(false);
     });
 
-    it('should revert when sender in sanction list', async () => {
-      await sanctionList.addToSanctionsList(accounts[0].address);
+    it('should revert when sender in chainalysis sanction list', async () => {
+      await sanctionList1.addToSanctionsList([accounts[0].address]);
       await expect(
         mystikoContract.deposit(
           [
@@ -70,7 +71,25 @@ export function testLoopDeposit(
           { from: accounts[0].address, value: isMainAsset ? minTotalAmount : '0' },
         ),
       ).to.be.revertedWith('SanctionedAddress()');
-      await sanctionList.removeToSanctionsList(accounts[0].address);
+      await sanctionList1.removeFromSanctionsList([accounts[0].address]);
+    });
+
+    it('should revert when sender in mystiko sanction list', async () => {
+      await sanctionList2.addToSanctionsList([accounts[0].address]);
+      await expect(
+        mystikoContract.deposit(
+          [
+            depositAmount,
+            commitments[0].commitmentHash.toString(),
+            commitments[0].k.toString(),
+            commitments[0].randomS.toString(),
+            toHex(commitments[0].encryptedNote),
+            minRollupFee,
+          ],
+          { from: accounts[0].address, value: isMainAsset ? minTotalAmount : '0' },
+        ),
+      ).to.be.revertedWith('SanctionedAddress()');
+      await sanctionList2.removeFromSanctionsList([accounts[0].address]);
     });
 
     it('should revert when amount is too few', async () => {
@@ -167,7 +186,7 @@ export function testLoopDeposit(
     });
 
     it('should deposit successfully', async () => {
-      await sanctionList.addToSanctionsList(accounts[0].address);
+      await sanctionList1.addToSanctionsList([accounts[0].address]);
       await mystikoContract.disableSanctionsCheck();
 
       expectServiceFee = (
@@ -276,7 +295,6 @@ export function loopDepositRevert(
   mystikoContract: any,
   commitmentPool: any,
   testTokenContract: TestToken,
-  sanctionList: DummySanctionsList,
   accounts: Wallet[],
   depositAmount: string,
   isMainAsset: boolean,
@@ -303,9 +321,6 @@ export function loopDepositRevert(
     });
 
     it('deposit should revert with tree full', async () => {
-      await sanctionList.addToSanctionsList(accounts[0].address);
-      await mystikoContract.disableSanctionsCheck();
-
       for (let i = 0; i < numOfCommitments; i += 1) {
         await expect(
           mystikoContract.deposit(
@@ -339,7 +354,6 @@ export function loopDeposit(
   mystikoContract: any,
   commitmentPool: any,
   testTokenContract: TestToken,
-  sanctionList: DummySanctionsList,
   accounts: Wallet[],
   depositAmount: string,
   isMainAsset: boolean,
@@ -371,8 +385,6 @@ export function loopDeposit(
     });
 
     it('should deposit successfully', async () => {
-      await sanctionList.addToSanctionsList(accounts[0].address);
-      await mystikoContract.disableSanctionsCheck();
       expectServiceFee = (
         isMainAsset
           ? await waffle.provider.getBalance(accounts[ServiceAccountIndex].address)

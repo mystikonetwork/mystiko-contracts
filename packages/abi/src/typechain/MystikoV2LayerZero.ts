@@ -57,6 +57,7 @@ export interface MystikoV2LayerZeroInterface extends utils.Interface {
     'assetType()': FunctionFragment;
     'bridgeProxyAddress()': FunctionFragment;
     'bridgeType()': FunctionFragment;
+    'chainalysisSanctionsList()': FunctionFragment;
     'changeOperator(address)': FunctionFragment;
     'changeServiceFee(uint256)': FunctionFragment;
     'changeServiceFeeCollector(address)': FunctionFragment;
@@ -81,6 +82,7 @@ export interface MystikoV2LayerZeroInterface extends utils.Interface {
     'localLayerZeroChainId()': FunctionFragment;
     'lzEndpoint()': FunctionFragment;
     'lzReceive(uint16,bytes,uint64,bytes)': FunctionFragment;
+    'mystikoSanctionsList()': FunctionFragment;
     'nonblockingLzReceive(uint16,bytes,uint64,bytes)': FunctionFragment;
     'owner()': FunctionFragment;
     'peerChainId()': FunctionFragment;
@@ -90,7 +92,6 @@ export interface MystikoV2LayerZeroInterface extends utils.Interface {
     'renounceOwnership()': FunctionFragment;
     'retryMessage(uint16,bytes,uint64,bytes)': FunctionFragment;
     'sanctionsCheck()': FunctionFragment;
-    'sanctionsList()': FunctionFragment;
     'setAssociatedCommitmentPool(address)': FunctionFragment;
     'setBridgeProxyAddress(address)': FunctionFragment;
     'setConfig(uint16,uint16,uint256,bytes)': FunctionFragment;
@@ -107,12 +108,14 @@ export interface MystikoV2LayerZeroInterface extends utils.Interface {
     'setTrustedRemote(uint16,bytes)': FunctionFragment;
     'transferOwnership(address)': FunctionFragment;
     'trustedRemoteLookup(uint16)': FunctionFragment;
-    'updateSanctionsListAddress(address)': FunctionFragment;
+    'updateChainalysisSanctionsListAddress(address)': FunctionFragment;
+    'updateMystikoSanctionsListAddress(address)': FunctionFragment;
   };
 
   encodeFunctionData(functionFragment: 'assetType', values?: undefined): string;
   encodeFunctionData(functionFragment: 'bridgeProxyAddress', values?: undefined): string;
   encodeFunctionData(functionFragment: 'bridgeType', values?: undefined): string;
+  encodeFunctionData(functionFragment: 'chainalysisSanctionsList', values?: undefined): string;
   encodeFunctionData(functionFragment: 'changeOperator', values: [string]): string;
   encodeFunctionData(functionFragment: 'changeServiceFee', values: [BigNumberish]): string;
   encodeFunctionData(functionFragment: 'changeServiceFeeCollector', values: [string]): string;
@@ -146,6 +149,7 @@ export interface MystikoV2LayerZeroInterface extends utils.Interface {
     functionFragment: 'lzReceive',
     values: [BigNumberish, BytesLike, BigNumberish, BytesLike],
   ): string;
+  encodeFunctionData(functionFragment: 'mystikoSanctionsList', values?: undefined): string;
   encodeFunctionData(
     functionFragment: 'nonblockingLzReceive',
     values: [BigNumberish, BytesLike, BigNumberish, BytesLike],
@@ -161,7 +165,6 @@ export interface MystikoV2LayerZeroInterface extends utils.Interface {
     values: [BigNumberish, BytesLike, BigNumberish, BytesLike],
   ): string;
   encodeFunctionData(functionFragment: 'sanctionsCheck', values?: undefined): string;
-  encodeFunctionData(functionFragment: 'sanctionsList', values?: undefined): string;
   encodeFunctionData(functionFragment: 'setAssociatedCommitmentPool', values: [string]): string;
   encodeFunctionData(functionFragment: 'setBridgeProxyAddress', values: [string]): string;
   encodeFunctionData(
@@ -181,11 +184,13 @@ export interface MystikoV2LayerZeroInterface extends utils.Interface {
   encodeFunctionData(functionFragment: 'setTrustedRemote', values: [BigNumberish, BytesLike]): string;
   encodeFunctionData(functionFragment: 'transferOwnership', values: [string]): string;
   encodeFunctionData(functionFragment: 'trustedRemoteLookup', values: [BigNumberish]): string;
-  encodeFunctionData(functionFragment: 'updateSanctionsListAddress', values: [string]): string;
+  encodeFunctionData(functionFragment: 'updateChainalysisSanctionsListAddress', values: [string]): string;
+  encodeFunctionData(functionFragment: 'updateMystikoSanctionsListAddress', values: [string]): string;
 
   decodeFunctionResult(functionFragment: 'assetType', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'bridgeProxyAddress', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'bridgeType', data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'chainalysisSanctionsList', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'changeOperator', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'changeServiceFee', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'changeServiceFeeCollector', data: BytesLike): Result;
@@ -210,6 +215,7 @@ export interface MystikoV2LayerZeroInterface extends utils.Interface {
   decodeFunctionResult(functionFragment: 'localLayerZeroChainId', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'lzEndpoint', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'lzReceive', data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'mystikoSanctionsList', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'nonblockingLzReceive', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'owner', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'peerChainId', data: BytesLike): Result;
@@ -219,7 +225,6 @@ export interface MystikoV2LayerZeroInterface extends utils.Interface {
   decodeFunctionResult(functionFragment: 'renounceOwnership', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'retryMessage', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'sanctionsCheck', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'sanctionsList', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'setAssociatedCommitmentPool', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'setBridgeProxyAddress', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'setConfig', data: BytesLike): Result;
@@ -236,44 +241,51 @@ export interface MystikoV2LayerZeroInterface extends utils.Interface {
   decodeFunctionResult(functionFragment: 'setTrustedRemote', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'transferOwnership', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'trustedRemoteLookup', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'updateSanctionsListAddress', data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'updateChainalysisSanctionsListAddress', data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'updateMystikoSanctionsListAddress', data: BytesLike): Result;
 
   events: {
+    'ChainalysisSanctionsList(address)': EventFragment;
     'CommitmentCrossChain(uint256)': EventFragment;
     'DepositsDisabled(bool)': EventFragment;
     'MessageFailed(uint16,bytes,uint64,bytes)': EventFragment;
     'MinAmount(uint256)': EventFragment;
     'MinBridgeFee(uint256)': EventFragment;
     'MinExecutorFee(uint256)': EventFragment;
+    'MystikoSanctionsList(address)': EventFragment;
     'OperatorChanged(address)': EventFragment;
     'OwnershipTransferred(address,address)': EventFragment;
     'PeerMinExecutorFee(uint256)': EventFragment;
     'PeerMinRollupFee(uint256)': EventFragment;
     'SanctionsCheck(bool)': EventFragment;
-    'SanctionsList(address)': EventFragment;
     'ServiceFeeChanged(uint256)': EventFragment;
     'ServiceFeeCollectorChanged(address)': EventFragment;
     'ServiceFeeDividerChanged(uint256)': EventFragment;
     'SetTrustedRemote(uint16,bytes)': EventFragment;
   };
 
+  getEvent(nameOrSignatureOrTopic: 'ChainalysisSanctionsList'): EventFragment;
   getEvent(nameOrSignatureOrTopic: 'CommitmentCrossChain'): EventFragment;
   getEvent(nameOrSignatureOrTopic: 'DepositsDisabled'): EventFragment;
   getEvent(nameOrSignatureOrTopic: 'MessageFailed'): EventFragment;
   getEvent(nameOrSignatureOrTopic: 'MinAmount'): EventFragment;
   getEvent(nameOrSignatureOrTopic: 'MinBridgeFee'): EventFragment;
   getEvent(nameOrSignatureOrTopic: 'MinExecutorFee'): EventFragment;
+  getEvent(nameOrSignatureOrTopic: 'MystikoSanctionsList'): EventFragment;
   getEvent(nameOrSignatureOrTopic: 'OperatorChanged'): EventFragment;
   getEvent(nameOrSignatureOrTopic: 'OwnershipTransferred'): EventFragment;
   getEvent(nameOrSignatureOrTopic: 'PeerMinExecutorFee'): EventFragment;
   getEvent(nameOrSignatureOrTopic: 'PeerMinRollupFee'): EventFragment;
   getEvent(nameOrSignatureOrTopic: 'SanctionsCheck'): EventFragment;
-  getEvent(nameOrSignatureOrTopic: 'SanctionsList'): EventFragment;
   getEvent(nameOrSignatureOrTopic: 'ServiceFeeChanged'): EventFragment;
   getEvent(nameOrSignatureOrTopic: 'ServiceFeeCollectorChanged'): EventFragment;
   getEvent(nameOrSignatureOrTopic: 'ServiceFeeDividerChanged'): EventFragment;
   getEvent(nameOrSignatureOrTopic: 'SetTrustedRemote'): EventFragment;
 }
+
+export type ChainalysisSanctionsListEvent = TypedEvent<[string], { sanctions: string }>;
+
+export type ChainalysisSanctionsListEventFilter = TypedEventFilter<ChainalysisSanctionsListEvent>;
 
 export type CommitmentCrossChainEvent = TypedEvent<[BigNumber], { commitment: BigNumber }>;
 
@@ -307,6 +319,10 @@ export type MinExecutorFeeEvent = TypedEvent<[BigNumber], { minExecutorFee: BigN
 
 export type MinExecutorFeeEventFilter = TypedEventFilter<MinExecutorFeeEvent>;
 
+export type MystikoSanctionsListEvent = TypedEvent<[string], { sanctions: string }>;
+
+export type MystikoSanctionsListEventFilter = TypedEventFilter<MystikoSanctionsListEvent>;
+
 export type OperatorChangedEvent = TypedEvent<[string], { operator: string }>;
 
 export type OperatorChangedEventFilter = TypedEventFilter<OperatorChangedEvent>;
@@ -329,10 +345,6 @@ export type PeerMinRollupFeeEventFilter = TypedEventFilter<PeerMinRollupFeeEvent
 export type SanctionsCheckEvent = TypedEvent<[boolean], { state: boolean }>;
 
 export type SanctionsCheckEventFilter = TypedEventFilter<SanctionsCheckEvent>;
-
-export type SanctionsListEvent = TypedEvent<[string], { sanctions: string }>;
-
-export type SanctionsListEventFilter = TypedEventFilter<SanctionsListEvent>;
 
 export type ServiceFeeChangedEvent = TypedEvent<[BigNumber], { serviceFee: BigNumber }>;
 
@@ -382,6 +394,8 @@ export interface MystikoV2LayerZero extends BaseContract {
     bridgeProxyAddress(overrides?: CallOverrides): Promise<[string]>;
 
     bridgeType(overrides?: CallOverrides): Promise<[string]>;
+
+    chainalysisSanctionsList(overrides?: CallOverrides): Promise<[string]>;
 
     changeOperator(
       _newOperator: string,
@@ -475,6 +489,8 @@ export interface MystikoV2LayerZero extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<ContractTransaction>;
 
+    mystikoSanctionsList(overrides?: CallOverrides): Promise<[string]>;
+
     nonblockingLzReceive(
       _srcChainId: BigNumberish,
       _srcAddress: BytesLike,
@@ -506,8 +522,6 @@ export interface MystikoV2LayerZero extends BaseContract {
     ): Promise<ContractTransaction>;
 
     sanctionsCheck(overrides?: CallOverrides): Promise<[boolean]>;
-
-    sanctionsList(overrides?: CallOverrides): Promise<[string]>;
 
     setAssociatedCommitmentPool(
       _commitmentPoolAddress: string,
@@ -593,7 +607,12 @@ export interface MystikoV2LayerZero extends BaseContract {
 
     trustedRemoteLookup(arg0: BigNumberish, overrides?: CallOverrides): Promise<[string]>;
 
-    updateSanctionsListAddress(
+    updateChainalysisSanctionsListAddress(
+      _sanction: string,
+      overrides?: Overrides & { from?: string | Promise<string> },
+    ): Promise<ContractTransaction>;
+
+    updateMystikoSanctionsListAddress(
       _sanction: string,
       overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<ContractTransaction>;
@@ -604,6 +623,8 @@ export interface MystikoV2LayerZero extends BaseContract {
   bridgeProxyAddress(overrides?: CallOverrides): Promise<string>;
 
   bridgeType(overrides?: CallOverrides): Promise<string>;
+
+  chainalysisSanctionsList(overrides?: CallOverrides): Promise<string>;
 
   changeOperator(
     _newOperator: string,
@@ -697,6 +718,8 @@ export interface MystikoV2LayerZero extends BaseContract {
     overrides?: Overrides & { from?: string | Promise<string> },
   ): Promise<ContractTransaction>;
 
+  mystikoSanctionsList(overrides?: CallOverrides): Promise<string>;
+
   nonblockingLzReceive(
     _srcChainId: BigNumberish,
     _srcAddress: BytesLike,
@@ -728,8 +751,6 @@ export interface MystikoV2LayerZero extends BaseContract {
   ): Promise<ContractTransaction>;
 
   sanctionsCheck(overrides?: CallOverrides): Promise<boolean>;
-
-  sanctionsList(overrides?: CallOverrides): Promise<string>;
 
   setAssociatedCommitmentPool(
     _commitmentPoolAddress: string,
@@ -815,7 +836,12 @@ export interface MystikoV2LayerZero extends BaseContract {
 
   trustedRemoteLookup(arg0: BigNumberish, overrides?: CallOverrides): Promise<string>;
 
-  updateSanctionsListAddress(
+  updateChainalysisSanctionsListAddress(
+    _sanction: string,
+    overrides?: Overrides & { from?: string | Promise<string> },
+  ): Promise<ContractTransaction>;
+
+  updateMystikoSanctionsListAddress(
     _sanction: string,
     overrides?: Overrides & { from?: string | Promise<string> },
   ): Promise<ContractTransaction>;
@@ -826,6 +852,8 @@ export interface MystikoV2LayerZero extends BaseContract {
     bridgeProxyAddress(overrides?: CallOverrides): Promise<string>;
 
     bridgeType(overrides?: CallOverrides): Promise<string>;
+
+    chainalysisSanctionsList(overrides?: CallOverrides): Promise<string>;
 
     changeOperator(_newOperator: string, overrides?: CallOverrides): Promise<void>;
 
@@ -900,6 +928,8 @@ export interface MystikoV2LayerZero extends BaseContract {
       overrides?: CallOverrides,
     ): Promise<void>;
 
+    mystikoSanctionsList(overrides?: CallOverrides): Promise<string>;
+
     nonblockingLzReceive(
       _srcChainId: BigNumberish,
       _srcAddress: BytesLike,
@@ -929,8 +959,6 @@ export interface MystikoV2LayerZero extends BaseContract {
     ): Promise<void>;
 
     sanctionsCheck(overrides?: CallOverrides): Promise<boolean>;
-
-    sanctionsList(overrides?: CallOverrides): Promise<string>;
 
     setAssociatedCommitmentPool(_commitmentPoolAddress: string, overrides?: CallOverrides): Promise<void>;
 
@@ -979,10 +1007,15 @@ export interface MystikoV2LayerZero extends BaseContract {
 
     trustedRemoteLookup(arg0: BigNumberish, overrides?: CallOverrides): Promise<string>;
 
-    updateSanctionsListAddress(_sanction: string, overrides?: CallOverrides): Promise<void>;
+    updateChainalysisSanctionsListAddress(_sanction: string, overrides?: CallOverrides): Promise<void>;
+
+    updateMystikoSanctionsListAddress(_sanction: string, overrides?: CallOverrides): Promise<void>;
   };
 
   filters: {
+    'ChainalysisSanctionsList(address)'(sanctions?: null): ChainalysisSanctionsListEventFilter;
+    ChainalysisSanctionsList(sanctions?: null): ChainalysisSanctionsListEventFilter;
+
     'CommitmentCrossChain(uint256)'(commitment?: BigNumberish | null): CommitmentCrossChainEventFilter;
     CommitmentCrossChain(commitment?: BigNumberish | null): CommitmentCrossChainEventFilter;
 
@@ -1011,6 +1044,9 @@ export interface MystikoV2LayerZero extends BaseContract {
     'MinExecutorFee(uint256)'(minExecutorFee?: null): MinExecutorFeeEventFilter;
     MinExecutorFee(minExecutorFee?: null): MinExecutorFeeEventFilter;
 
+    'MystikoSanctionsList(address)'(sanctions?: null): MystikoSanctionsListEventFilter;
+    MystikoSanctionsList(sanctions?: null): MystikoSanctionsListEventFilter;
+
     'OperatorChanged(address)'(operator?: string | null): OperatorChangedEventFilter;
     OperatorChanged(operator?: string | null): OperatorChangedEventFilter;
 
@@ -1032,9 +1068,6 @@ export interface MystikoV2LayerZero extends BaseContract {
     'SanctionsCheck(bool)'(state?: null): SanctionsCheckEventFilter;
     SanctionsCheck(state?: null): SanctionsCheckEventFilter;
 
-    'SanctionsList(address)'(sanctions?: null): SanctionsListEventFilter;
-    SanctionsList(sanctions?: null): SanctionsListEventFilter;
-
     'ServiceFeeChanged(uint256)'(serviceFee?: null): ServiceFeeChangedEventFilter;
     ServiceFeeChanged(serviceFee?: null): ServiceFeeChangedEventFilter;
 
@@ -1054,6 +1087,8 @@ export interface MystikoV2LayerZero extends BaseContract {
     bridgeProxyAddress(overrides?: CallOverrides): Promise<BigNumber>;
 
     bridgeType(overrides?: CallOverrides): Promise<BigNumber>;
+
+    chainalysisSanctionsList(overrides?: CallOverrides): Promise<BigNumber>;
 
     changeOperator(
       _newOperator: string,
@@ -1143,6 +1178,8 @@ export interface MystikoV2LayerZero extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<BigNumber>;
 
+    mystikoSanctionsList(overrides?: CallOverrides): Promise<BigNumber>;
+
     nonblockingLzReceive(
       _srcChainId: BigNumberish,
       _srcAddress: BytesLike,
@@ -1172,8 +1209,6 @@ export interface MystikoV2LayerZero extends BaseContract {
     ): Promise<BigNumber>;
 
     sanctionsCheck(overrides?: CallOverrides): Promise<BigNumber>;
-
-    sanctionsList(overrides?: CallOverrides): Promise<BigNumber>;
 
     setAssociatedCommitmentPool(
       _commitmentPoolAddress: string,
@@ -1259,7 +1294,12 @@ export interface MystikoV2LayerZero extends BaseContract {
 
     trustedRemoteLookup(arg0: BigNumberish, overrides?: CallOverrides): Promise<BigNumber>;
 
-    updateSanctionsListAddress(
+    updateChainalysisSanctionsListAddress(
+      _sanction: string,
+      overrides?: Overrides & { from?: string | Promise<string> },
+    ): Promise<BigNumber>;
+
+    updateMystikoSanctionsListAddress(
       _sanction: string,
       overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<BigNumber>;
@@ -1271,6 +1311,8 @@ export interface MystikoV2LayerZero extends BaseContract {
     bridgeProxyAddress(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     bridgeType(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+
+    chainalysisSanctionsList(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     changeOperator(
       _newOperator: string,
@@ -1364,6 +1406,8 @@ export interface MystikoV2LayerZero extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<PopulatedTransaction>;
 
+    mystikoSanctionsList(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+
     nonblockingLzReceive(
       _srcChainId: BigNumberish,
       _srcAddress: BytesLike,
@@ -1395,8 +1439,6 @@ export interface MystikoV2LayerZero extends BaseContract {
     ): Promise<PopulatedTransaction>;
 
     sanctionsCheck(overrides?: CallOverrides): Promise<PopulatedTransaction>;
-
-    sanctionsList(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     setAssociatedCommitmentPool(
       _commitmentPoolAddress: string,
@@ -1482,7 +1524,12 @@ export interface MystikoV2LayerZero extends BaseContract {
 
     trustedRemoteLookup(arg0: BigNumberish, overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
-    updateSanctionsListAddress(
+    updateChainalysisSanctionsListAddress(
+      _sanction: string,
+      overrides?: Overrides & { from?: string | Promise<string> },
+    ): Promise<PopulatedTransaction>;
+
+    updateMystikoSanctionsListAddress(
       _sanction: string,
       overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<PopulatedTransaction>;

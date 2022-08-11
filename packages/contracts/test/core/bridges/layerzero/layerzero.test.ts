@@ -5,7 +5,7 @@ import { toDecimals } from '@mystikonetwork/utils';
 import {
   TestToken,
   CommitmentPoolMain,
-  DummySanctionsList,
+  SanctionsOracle,
   DummyLZEndpoint,
   MystikoV2LayerZeroMain,
 } from '@mystikonetwork/contracts-abi';
@@ -44,7 +44,8 @@ describe('Test Mystiko layer zero', () => {
       rollup1,
       rollup4,
       rollup16,
-      sanctionList,
+      sanctionList1,
+      sanctionList2,
     } = await deployDependContracts(accounts);
 
     const dummyLZEndpoint = await deployDummyLayerZeroContracts(accounts);
@@ -52,13 +53,15 @@ describe('Test Mystiko layer zero', () => {
     const poolLocal = await deployCommitmentPoolContracts(
       accounts,
       testToken.address,
-      sanctionList.address,
+      sanctionList1.address,
+      sanctionList2.address,
       {},
     );
     const poolRemote = await deployCommitmentPoolContracts(
       accounts,
       testToken.address,
-      sanctionList.address,
+      sanctionList1.address,
+      sanctionList2.address,
       {},
     );
 
@@ -66,7 +69,8 @@ describe('Test Mystiko layer zero', () => {
       accounts,
       hasher3.address,
       testToken.address,
-      sanctionList.address,
+      sanctionList1.address,
+      sanctionList2.address,
       dummyLZEndpoint,
       poolLocal.poolMain,
       poolLocal.poolERC20,
@@ -77,7 +81,8 @@ describe('Test Mystiko layer zero', () => {
       accounts,
       hasher3.address,
       testToken.address,
-      sanctionList.address,
+      sanctionList1.address,
+      sanctionList2.address,
       dummyLZEndpoint,
       poolRemote.poolMain,
       poolRemote.poolERC20,
@@ -100,14 +105,15 @@ describe('Test Mystiko layer zero', () => {
       poolRemote,
       local,
       remote,
-      sanctionList,
+      sanctionList1,
+      sanctionList2,
       dummyLZEndpoint,
     };
   }
 
   let accounts: Wallet[];
   let testToken: TestToken;
-  let sanctionList: DummySanctionsList;
+  let sanctionList1: SanctionsOracle;
   let localPoolMain: CommitmentPoolMain;
   let remotePoolMain: CommitmentPoolMain;
   let localMain: MystikoV2LayerZeroMain;
@@ -126,7 +132,7 @@ describe('Test Mystiko layer zero', () => {
     remotePoolMain = r.poolRemote.poolMain;
     localMain = r.local.coreMain;
     remoteMain = r.remote.coreMain;
-    sanctionList = r.sanctionList;
+    sanctionList1 = r.sanctionList1;
     dummyLZEndpoint = r.dummyLZEndpoint;
   });
 
@@ -160,7 +166,7 @@ describe('Test Mystiko layer zero', () => {
       localMain,
       localPoolMain,
       remotePoolMain,
-      sanctionList,
+      sanctionList1,
       dummyLZEndpoint,
       testToken,
       accounts,

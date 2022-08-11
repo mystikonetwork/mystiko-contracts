@@ -5,7 +5,6 @@ import {
   MystikoV2LoopMain,
   TestToken,
   CommitmentPoolMain,
-  DummySanctionsList,
   CommitmentPoolERC20,
   MystikoV2LoopERC20,
 } from '@mystikonetwork/contracts-abi';
@@ -34,16 +33,24 @@ describe('Test Mystiko pool revert', () => {
       rollup1,
       rollup4,
       rollup16,
-      sanctionList,
+      sanctionList1,
+      sanctionList2,
     } = await deployDependContracts(accounts);
-    const pool = await deployCommitmentPoolContracts(accounts, testToken.address, sanctionList.address, {
-      treeHeight: 1,
-    });
+    const pool = await deployCommitmentPoolContracts(
+      accounts,
+      testToken.address,
+      sanctionList1.address,
+      sanctionList2.address,
+      {
+        treeHeight: 1,
+      },
+    );
     const loop = await deployLoopContracts(
       accounts,
       hasher3.address,
       testToken.address,
-      sanctionList.address,
+      sanctionList1.address,
+      sanctionList2.address,
       pool.poolMain,
       pool.poolERC20,
       {},
@@ -62,13 +69,13 @@ describe('Test Mystiko pool revert', () => {
       rollup16,
       pool,
       loop,
-      sanctionList,
+      sanctionList1,
+      sanctionList2,
     };
   }
 
   let accounts: Wallet[];
   let testToken: TestToken;
-  let sanctionList: DummySanctionsList;
   let poolMain: CommitmentPoolMain;
   let loopMain: MystikoV2LoopMain;
   let poolErc20: CommitmentPoolERC20;
@@ -82,7 +89,6 @@ describe('Test Mystiko pool revert', () => {
 
     const r = await loadFixture(fixture);
     testToken = r.testToken;
-    sanctionList = r.sanctionList;
 
     poolMain = r.pool.poolMain;
     loopMain = r.loop.coreMain;
@@ -102,7 +108,6 @@ describe('Test Mystiko pool revert', () => {
       loopMain,
       poolMain,
       testToken,
-      sanctionList,
       accounts,
       depositAmount.toString(),
       true,
@@ -116,7 +121,6 @@ describe('Test Mystiko pool revert', () => {
       loopMain,
       poolMain,
       testToken,
-      sanctionList,
       accounts,
       depositAmount.toString(),
       true,
@@ -136,7 +140,6 @@ describe('Test Mystiko pool revert', () => {
       loopERC20,
       poolErc20,
       testToken,
-      sanctionList,
       accounts,
       depositAmount.toString(),
       false,
@@ -150,7 +153,6 @@ describe('Test Mystiko pool revert', () => {
       loopERC20,
       poolErc20,
       testToken,
-      sanctionList,
       accounts,
       depositAmount.toString(),
       false,

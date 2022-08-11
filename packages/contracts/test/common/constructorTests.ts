@@ -1,11 +1,12 @@
+import { SanctionsOracle } from '@mystikonetwork/contracts-abi';
 import { expect } from 'chai';
-// import { MerkleTree } from '@mystikonetwork/utils';
 import { MerkleTreeHeight, MinRollupFee } from '../util/constants';
 
 export function testLoopConstructor(
   contractName: string,
   mystikoContract: any,
   poolContract: any,
+  sanctionList: SanctionsOracle,
   minAmount: string,
   serviceAccount: string,
 ) {
@@ -19,8 +20,11 @@ export function testLoopConstructor(
     it('should initialize sanction check disabled correctly', async () => {
       expect(await mystikoContract.sanctionsCheck()).to.equal(true);
     });
-    it('should initialize sanction address correctly', async () => {
-      expect(await mystikoContract.sanctionsList()).to.not.equal('');
+    it('should initialize chainalysis sanction address correctly', async () => {
+      expect(await mystikoContract.chainalysisSanctionsList()).to.not.equal('');
+    });
+    it('should initialize mystiko sanction address correctly', async () => {
+      expect(await mystikoContract.mystikoSanctionsList()).to.not.equal('');
     });
     it('should initialize bridge type correctly', async () => {
       expect(await mystikoContract.bridgeType()).to.equal('loop');
@@ -47,6 +51,17 @@ export function testLoopConstructor(
         expect(await mystikoContract.assetType()).to.equal(1);
       });
     }
+
+    it('should get sanctioned verbose success', async () => {
+      // expect(await sanctionList.isSanctionedVerbose(serviceAccount)).to.be.equal(false);
+      const trx1 = await sanctionList.isSanctionedVerbose(serviceAccount);
+      expect(trx1).to.emit(sanctionList, 'NonSanctionedAddress').withArgs(serviceAccount);
+
+      await sanctionList.addToSanctionsList([serviceAccount]);
+      // expect(await sanctionList.isSanctionedVerbose(serviceAccount)).to.be.equal(true);
+      const trx2 = sanctionList.isSanctionedVerbose(serviceAccount);
+      expect(trx2).to.emit(sanctionList, 'SanctionedAddress').withArgs(serviceAccount);
+    });
   });
 }
 
