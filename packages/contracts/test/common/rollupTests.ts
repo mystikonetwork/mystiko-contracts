@@ -1,4 +1,4 @@
-import { SanctionsOracle, TestToken } from '@mystikonetwork/contracts-abi';
+import { TestToken } from '@mystikonetwork/contracts-abi';
 import { MerkleTree } from '@mystikonetwork/merkle';
 import { CommitmentOutput, MystikoProtocolV2 } from '@mystikonetwork/protocol';
 import { toBN } from '@mystikonetwork/utils';
@@ -85,8 +85,6 @@ export function testRollup(
   commitmentPoolContract: any,
   rollupVerifierContract: any,
   testTokenContract: TestToken,
-  sanctionList1: SanctionsOracle,
-  sanctionList2: SanctionsOracle,
   accounts: Wallet[],
   commitments: any[],
   {
@@ -137,36 +135,6 @@ export function testRollup(
           .connect(rollupAccount)
           .rollup([[proof.proofA, proof.proofB, proof.proofC], `${rollupSize}`, fieldSize, proof.leafHash]),
       ).to.be.revertedWith('InvalidParam()');
-    });
-
-    it('should revert when sender in chainalysis sanction list', async () => {
-      await sanctionList1.addToSanctionsList([accounts[0].address]);
-      expect(
-        commitmentPoolContract
-          .connect(rollupAccount)
-          .rollup([
-            [proof.proofA, proof.proofB, proof.proofC],
-            `${rollupSize}`,
-            proof.newRoot,
-            proof.leafHash,
-          ]),
-      ).to.be.revertedWith('SanctionedAddress()');
-      await sanctionList1.removeFromSanctionsList([accounts[0].address]);
-    });
-
-    it('should revert when sender in mystiko sanction list', async () => {
-      await sanctionList2.addToSanctionsList([accounts[0].address]);
-      expect(
-        commitmentPoolContract
-          .connect(rollupAccount)
-          .rollup([
-            [proof.proofA, proof.proofB, proof.proofC],
-            `${rollupSize}`,
-            proof.newRoot,
-            proof.leafHash,
-          ]),
-      ).to.be.revertedWith('SanctionedAddress()');
-      await sanctionList2.removeFromSanctionsList([accounts[0].address]);
     });
 
     it('should revert invalid rollup Size', () => {

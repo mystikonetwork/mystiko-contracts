@@ -164,6 +164,7 @@ abstract contract CommitmentPool is ICommitmentPool, AssetPool, ReentrancyGuard,
       revert CustomErrors.Invalid("outEncryptedNotes length");
     if (commitmentIncludedCount + commitmentQueueSize + numOutputs > treeCapacity)
       revert CustomErrors.TreeIsFull();
+    if (isSanctioned(tx.origin)) revert CustomErrors.SanctionedAddress();
     if (isSanctioned(_request.publicRecipient)) revert CustomErrors.SanctionedAddress();
 
     // check signature

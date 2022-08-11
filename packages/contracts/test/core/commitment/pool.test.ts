@@ -212,61 +212,30 @@ describe('Test Mystiko pool', () => {
       cmInfo,
     );
 
-    testRollup(
-      'CommitmentPoolMain',
-      protocol,
-      poolMain,
-      rollup16,
-      testToken,
-      sanctionList1,
-      sanctionList2,
-      accounts,
-      cmInfo.commitments,
-      {
-        rollupSize: 16,
-        includedCount: 0,
-      },
-    );
+    testRollup('CommitmentPoolMain', protocol, poolMain, rollup16, testToken, accounts, cmInfo.commitments, {
+      rollupSize: 16,
+      includedCount: 0,
+    });
 
-    testRollup(
-      'CommitmentPoolMain',
-      protocol,
-      poolMain,
-      rollup4,
-      testToken,
-      sanctionList1,
-      sanctionList2,
-      accounts,
-      cmInfo.commitments,
-      {
-        rollupSize: 4,
-        includedCount: 16,
-      },
-    );
+    testRollup('CommitmentPoolMain', protocol, poolMain, rollup4, testToken, accounts, cmInfo.commitments, {
+      rollupSize: 4,
+      includedCount: 16,
+    });
 
-    testRollup(
-      'CommitmentPoolMain',
-      protocol,
-      poolMain,
-      rollup1,
-      testToken,
-      sanctionList1,
-      sanctionList2,
-      accounts,
-      cmInfo.commitments,
-      {
-        rollupSize: 1,
-        includedCount: 20,
-      },
-    );
+    testRollup('CommitmentPoolMain', protocol, poolMain, rollup1, testToken, accounts, cmInfo.commitments, {
+      rollupSize: 1,
+      includedCount: 20,
+    });
 
     queueSize = 0;
     includedCounter = 21;
     testTransactRevert(
+      accounts,
       'CommitmentPoolMain',
       protocol,
       poolMain,
       sanctionList1,
+      sanctionList2,
       transaction1x0Verifier,
       cmInfo,
       [0],

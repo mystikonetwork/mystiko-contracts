@@ -1,3 +1,4 @@
+import { Wallet } from '@ethersproject/wallet';
 import { SanctionsOracle, TestToken } from '@mystikonetwork/contracts-abi';
 import { MerkleTree } from '@mystikonetwork/merkle';
 import { CommitmentOutput, MystikoProtocolV2 } from '@mystikonetwork/protocol';
@@ -299,10 +300,12 @@ export function testTransact(
 }
 
 export function testTransactRevert(
+  accounts: Wallet[],
   contractName: string,
   protocol: MystikoProtocolV2,
   commitmentPoolContract: any,
-  sanctionList: SanctionsOracle,
+  sanctionList1: SanctionsOracle,
+  sanctionList2: SanctionsOracle,
   transactVerifier: any,
   commitmentInfo: CommitmentInfo<CommitmentOutput>,
   inCommitmentsIndices: number[],
@@ -377,8 +380,8 @@ export function testTransactRevert(
       await commitmentPoolContract.enableTransactVerifier(numInputs, numOutputs, transactVerifier.address);
     });
 
-    it('should revert when recipient in sanction list', async () => {
-      await sanctionList.addToSanctionsList([publicRecipientAddress]);
+    it('should revert when sender in sanction list', async () => {
+      await sanctionList1.addToSanctionsList([accounts[0].address]);
       const request = buildRequest(
         numInputs,
         numOutputs,
@@ -391,7 +394,24 @@ export function testTransactRevert(
       await expect(commitmentPoolContract.transact(request, signature)).to.be.revertedWith(
         'SanctionedAddress()',
       );
-      await sanctionList.removeFromSanctionsList([publicRecipientAddress]);
+      await sanctionList1.removeFromSanctionsList([accounts[0].address]);
+    });
+
+    it('should revert when recipient in sanction list', async () => {
+      await sanctionList2.addToSanctionsList([publicRecipientAddress]);
+      const request = buildRequest(
+        numInputs,
+        numOutputs,
+        proof,
+        publicRecipientAddress,
+        relayerAddress,
+        outEncryptedNotes,
+      );
+
+      await expect(commitmentPoolContract.transact(request, signature)).to.be.revertedWith(
+        'SanctionedAddress()',
+      );
+      await sanctionList2.removeFromSanctionsList([publicRecipientAddress]);
     });
 
     it('should have correct balance', async () => {
