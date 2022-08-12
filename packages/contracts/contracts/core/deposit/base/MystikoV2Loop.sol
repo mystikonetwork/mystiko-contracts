@@ -21,6 +21,7 @@ abstract contract MystikoV2Loop is IMystikoLoop, AssetPool, Sanctions {
 
   address private associatedCommitmentPool;
   uint256 private minAmount;
+  uint256 private maxAmount;
 
   // Admin related.
   address private operator;
@@ -48,6 +49,7 @@ abstract contract MystikoV2Loop is IMystikoLoop, AssetPool, Sanctions {
 
   event OperatorChanged(address indexed operator);
   event MinAmount(uint256 minAmount);
+  event MaxAmount(uint256 maxAmount);
   event DepositsDisabled(bool state);
   event ServiceFeeCollectorChanged(address indexed collector);
   event ServiceFeeChanged(uint256 serviceFee);
@@ -60,6 +62,11 @@ abstract contract MystikoV2Loop is IMystikoLoop, AssetPool, Sanctions {
   function setMinAmount(uint256 _minAmount) external onlyOperator {
     minAmount = _minAmount;
     emit MinAmount(_minAmount);
+  }
+
+  function setMaxAmount(uint256 _maxAmount) external onlyOperator {
+    maxAmount = _maxAmount;
+    emit MaxAmount(_maxAmount);
   }
 
   function _commitmentHash(
@@ -79,6 +86,7 @@ abstract contract MystikoV2Loop is IMystikoLoop, AssetPool, Sanctions {
   function deposit(DepositRequest memory _request) external payable override {
     if (depositsDisabled) revert CustomErrors.DepositsDisabled();
     if (_request.amount < minAmount) revert CustomErrors.AmountTooSmall();
+    if (_request.amount > maxAmount) revert CustomErrors.AmountTooLarge();
     uint256 calculatedCommitment = _commitmentHash(_request.hashK, _request.amount, _request.randomS);
     if (_request.commitment != calculatedCommitment) revert CustomErrors.CommitmentHashIncorrect();
     if (isSanctioned(msg.sender)) revert CustomErrors.SanctionedAddress();
@@ -174,6 +182,10 @@ abstract contract MystikoV2Loop is IMystikoLoop, AssetPool, Sanctions {
 
   function getMinAmount() public view returns (uint256) {
     return minAmount;
+  }
+
+  function getMaxAmount() public view returns (uint256) {
+    return maxAmount;
   }
 
   function getAssociatedCommitmentPool() public view returns (address) {
