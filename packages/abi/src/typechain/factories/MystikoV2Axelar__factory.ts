@@ -70,6 +70,11 @@ const _abi = [
   },
   {
     inputs: [],
+    name: 'MaxAmountLessThanMinAmount',
+    type: 'error',
+  },
+  {
+    inputs: [],
     name: 'NotApprovedByGateway',
     type: 'error',
   },

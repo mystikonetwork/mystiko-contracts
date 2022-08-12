@@ -90,6 +90,8 @@ abstract contract MystikoV2Bridge is IMystikoBridge, AssetPool, CrossChainDataSe
   }
 
   function setMaxAmount(uint256 _maxAmount) external onlyOperator {
+    if (_maxAmount < minAmount)
+      revert CustomErrors.MaxAmountLessThanMinAmount();
     maxAmount = _maxAmount;
     emit MaxAmount(_maxAmount);
   }

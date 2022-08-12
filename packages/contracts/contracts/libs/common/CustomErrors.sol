@@ -40,4 +40,5 @@ library CustomErrors {
   error CallCrossChainSyncTxError();
   error WithdrawFailed();
   error ServiceFeeDividerTooSmall();
+  error MaxAmountLessThanMinAmount();
 }
