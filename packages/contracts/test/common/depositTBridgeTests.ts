@@ -15,6 +15,7 @@ import {
   MinAmount,
   DefaultTokenAmount,
   ServiceAccountIndex,
+  MaxAmount,
 } from '../util/constants';
 
 export function testTBridgeDeposit(
@@ -118,6 +119,25 @@ export function testTBridgeDeposit(
 
     it('should revert when amount is too few', async () => {
       const amount = toBN(MinAmount).sub(toBN(1)).toString();
+      await expect(
+        mystikoContract.deposit(
+          [
+            amount,
+            commitments[0].commitmentHash.toString(),
+            commitments[0].k.toString(),
+            commitments[0].randomS.toString(),
+            toHex(commitments[0].encryptedNote),
+            '0',
+            minExecutorFee,
+            minRollupFee,
+          ],
+          { from: accounts[0].address, value: amount },
+        ),
+      ).to.be.revertedWith('AmountTooSmall()');
+    });
+
+    it('should revert when amount is too few', async () => {
+      const amount = toBN(MaxAmount).sub(toBN(1)).toString();
       await expect(
         mystikoContract.deposit(
           [

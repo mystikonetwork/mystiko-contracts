@@ -27,6 +27,7 @@ import {
   MinRollupFee,
   DestinationChainID,
   ServiceAccountIndex,
+  MaxAmount,
 } from '../../../util/constants';
 import { testLayerZeroDeposit } from '../../../common/depositLayerZeroTests';
 
@@ -136,6 +137,7 @@ describe('Test Mystiko layer zero', () => {
       localMain,
       localPoolMain,
       MinAmount,
+      MaxAmount,
       MinBridgeFee,
       '0',
       MinRollupFee,

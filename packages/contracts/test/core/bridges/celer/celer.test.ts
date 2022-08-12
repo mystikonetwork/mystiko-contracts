@@ -29,6 +29,7 @@ import {
   MinExecutorFee,
   MinAmount,
   ServiceAccountIndex,
+  MaxAmount,
 } from '../../../util/constants';
 import { testCelerDeposit } from '../../../common/depositCelerTests';
 
@@ -147,6 +148,7 @@ describe('Test Mystiko celer', () => {
       localMain,
       localPoolMain,
       MinAmount,
+      MaxAmount,
       MinBridgeFee,
       MinExecutorFee,
       MinRollupFee,
@@ -159,6 +161,7 @@ describe('Test Mystiko celer', () => {
       localERC20,
       localPoolERC20,
       MinAmount,
+      MaxAmount,
       MinBridgeFee,
       MinExecutorFee,
       MinRollupFee,

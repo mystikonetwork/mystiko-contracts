@@ -30,6 +30,7 @@ abstract contract MystikoV2Bridge is IMystikoBridge, AssetPool, CrossChainDataSe
 
   //local chain fee
   uint256 private minAmount;
+  uint256 private maxAmount;
   uint256 private minBridgeFee;
   uint256 private minExecutorFee;
 
@@ -61,6 +62,7 @@ abstract contract MystikoV2Bridge is IMystikoBridge, AssetPool, CrossChainDataSe
 
   event OperatorChanged(address indexed operator);
   event MinAmount(uint256 minAmount);
+  event MaxAmount(uint256 maxAmount);
   event MinBridgeFee(uint256 minBridgeFee);
   event MinExecutorFee(uint256 minExecutorFee);
   event PeerMinExecutorFee(uint256 peerMinExecutorFee);
@@ -85,6 +87,11 @@ abstract contract MystikoV2Bridge is IMystikoBridge, AssetPool, CrossChainDataSe
   function setMinAmount(uint256 _minAmount) external onlyOperator {
     minAmount = _minAmount;
     emit MinAmount(_minAmount);
+  }
+
+  function setMaxAmount(uint256 _maxAmount) external onlyOperator {
+    maxAmount = _maxAmount;
+    emit MaxAmount(_maxAmount);
   }
 
   function setMinBridgeFee(uint256 _minBridgeFee) external onlyOperator {
@@ -136,6 +143,7 @@ abstract contract MystikoV2Bridge is IMystikoBridge, AssetPool, CrossChainDataSe
   function deposit(DepositRequest memory _request) external payable override {
     if (depositsDisabled) revert CustomErrors.DepositsDisabled();
     if (_request.amount < minAmount) revert CustomErrors.AmountTooSmall();
+    if (_request.amount > maxAmount) revert CustomErrors.AmountTooLarge();
     if (_request.bridgeFee < minBridgeFee) revert CustomErrors.BridgeFeeTooFew();
     if (_request.executorFee < peerMinExecutorFee) revert CustomErrors.ExecutorFeeTooFew();
     if (_request.rollupFee < peerMinRollupFee) revert CustomErrors.RollupFeeToFew();
@@ -239,6 +247,10 @@ abstract contract MystikoV2Bridge is IMystikoBridge, AssetPool, CrossChainDataSe
 
   function getMinAmount() public view returns (uint256) {
     return minAmount;
+  }
+
+  function getMaxAmount() public view returns (uint256) {
+    return maxAmount;
   }
 
   function getMinBridgeFee() public view returns (uint256) {
