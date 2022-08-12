@@ -140,7 +140,7 @@ export function testCelerDeposit(
     });
 
     it('should revert when amount is too large', async () => {
-      const amount = toBN(MaxAmount).sub(toBN(1)).toString();
+      const amount = toBN(MaxAmount).add(toBN(1)).toString();
       await expect(
         mystikoContract.deposit(
           [
@@ -155,7 +155,7 @@ export function testCelerDeposit(
           ],
           { from: accounts[0].address, value: amount },
         ),
-      ).to.be.revertedWith('AmountTooSmall()');
+      ).to.be.revertedWith('AmountTooLarge()');
     });
 
     it('should revert when bridge fee is too few', async () => {
