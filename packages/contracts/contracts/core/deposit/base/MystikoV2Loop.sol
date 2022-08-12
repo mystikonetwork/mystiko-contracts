@@ -60,6 +60,8 @@ abstract contract MystikoV2Loop is IMystikoLoop, AssetPool, Sanctions {
   }
 
   function setMinAmount(uint256 _minAmount) external onlyOperator {
+    if (_minAmount > maxAmount)
+      revert CustomErrors.MinAmountGreaterThanMaxAmount();
     minAmount = _minAmount;
     emit MinAmount(_minAmount);
   }

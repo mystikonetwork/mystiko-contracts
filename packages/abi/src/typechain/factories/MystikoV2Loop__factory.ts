@@ -39,6 +39,11 @@ const _abi = [
   },
   {
     inputs: [],
+    name: 'MinAmountGreaterThanMaxAmount',
+    type: 'error',
+  },
+  {
+    inputs: [],
     name: 'NotChanged',
     type: 'error',
   },

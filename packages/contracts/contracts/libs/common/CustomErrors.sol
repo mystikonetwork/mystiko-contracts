@@ -41,4 +41,5 @@ library CustomErrors {
   error WithdrawFailed();
   error ServiceFeeDividerTooSmall();
   error MaxAmountLessThanMinAmount();
+  error MinAmountGreaterThanMaxAmount();
 }
