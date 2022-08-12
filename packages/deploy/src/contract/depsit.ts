@@ -388,6 +388,34 @@ export async function setMinAmount(
   }
 }
 
+export async function setMaxAmount(
+  c: any,
+  bridgeName: string,
+  erc20: boolean,
+  inDepositCfg: DepositDeployConfig,
+  maxAmount: string,
+) {
+  if (!inDepositCfg.isMaxAmountChange(maxAmount)) {
+    return;
+  }
+
+  const depositCfg = inDepositCfg;
+
+  console.log('set max amount');
+  const DepositContractFactoruy = getMystikoDeployContract(bridgeName, erc20);
+  const coreContract = await DepositContractFactoruy.attach(depositCfg.address);
+
+  try {
+    const rsp = await coreContract.setMaxAmount(maxAmount);
+    console.log('rsp hash ', rsp.hash);
+    depositCfg.updateMinAmount(maxAmount);
+    saveConfig(c.mystikoNetwork, c.cfg);
+  } catch (err: any) {
+    console.error(LOGRED, err);
+    process.exit(1);
+  }
+}
+
 export async function changeOperator(
   c: any,
   bridgeName: string,
@@ -609,6 +637,7 @@ export async function doDepositContractConfigure(
     );
   }
 
+  await setMaxAmount(c, bridgeCfg.name, srcChainTokenCfg.erc20, depositCfg, srcChainTokenCfg.maxAmount);
   await setMinAmount(c, bridgeCfg.name, srcChainTokenCfg.erc20, depositCfg, srcChainTokenCfg.minAmount);
   await setAssociatedCommitmentPool(
     c,

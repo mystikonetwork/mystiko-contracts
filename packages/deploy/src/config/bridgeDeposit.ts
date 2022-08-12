@@ -7,6 +7,7 @@ export interface RawDepositDeployConfig {
   address?: string;
   syncStart?: number;
   minAmount?: string;
+  maxAmount?: string;
   minBridgeFee?: string;
   minExecutorFee?: string;
   peerMinExecutorFee?: string;
@@ -75,8 +76,19 @@ export class DepositDeployConfig extends BaseConfig {
     return this.asRawContractDeployConfig().minAmount;
   }
 
+  public get maxAmount(): string | undefined {
+    return this.asRawContractDeployConfig().maxAmount;
+  }
+
   public isMinAmountChange(fee: string): boolean {
     if (this.asRawContractDeployConfig().minAmount !== fee) {
+      return true;
+    }
+    return false;
+  }
+
+  public isMaxAmountChange(fee: string): boolean {
+    if (this.asRawContractDeployConfig().maxAmount !== fee) {
       return true;
     }
     return false;
@@ -264,6 +276,7 @@ export class DepositDeployConfig extends BaseConfig {
     this.asRawContractDeployConfig().address = undefined;
     this.asRawContractDeployConfig().syncStart = undefined;
     this.asRawContractDeployConfig().minAmount = undefined;
+    this.asRawContractDeployConfig().maxAmount = undefined;
     this.asRawContractDeployConfig().minBridgeFee = undefined;
     this.asRawContractDeployConfig().minExecutorFee = undefined;
     this.asRawContractDeployConfig().peerMinExecutorFee = undefined;

@@ -178,6 +178,7 @@ function addNewDepositContractConfig(
   peerChainId: number,
   peerContractAddress: string,
   minAmount: string,
+  maxAmount: string,
   minBridgeFee: string,
   minExecutorFee: string,
   serviceFee?: number,
@@ -199,6 +200,7 @@ function addNewDepositContractConfig(
         depositContract.peerContractAddress = peerContractAddress;
       }
       depositContract.minAmount = minAmount;
+      depositContract.maxAmount = maxAmount;
       if (serviceFee !== undefined) {
         depositContract.serviceFee = serviceFee;
       }
@@ -240,6 +242,8 @@ function addNewDepositContractConfig(
 
   // @ts-ignore
   newContract.minAmount = minAmount;
+  // @ts-ignore
+  newContract.maxAmount = maxAmount;
   if (serviceFee !== undefined) {
     // @ts-ignore
     newContract.serviceFee = serviceFee;
@@ -300,6 +304,7 @@ export function saveCoreContractJson(c: any) {
     c.dstChainCfg.chainId,
     c.pairDstDepositCfg.address,
     c.pairSrcDepositCfg.minAmount,
+    c.pairSrcDepositCfg.maxAmount,
     c.bridgeCfg.getMinBridgeFee(c.srcChainCfg.network),
     c.pairSrcDepositCfg.minExecutorFee,
     c.pairSrcDepositCfg.serviceFee,
