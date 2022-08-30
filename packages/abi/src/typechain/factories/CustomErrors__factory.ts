@@ -23,6 +23,16 @@ const _abi = [
   },
   {
     inputs: [],
+    name: 'AuditorIndexError',
+    type: 'error',
+  },
+  {
+    inputs: [],
+    name: 'AuditorKeyNotChanged',
+    type: 'error',
+  },
+  {
+    inputs: [],
     name: 'BridgeFeeTooFew',
     type: 'error',
   },
@@ -195,11 +205,6 @@ const _abi = [
   },
   {
     inputs: [],
-    name: 'ServiceFeeDividerTooSmall',
-    type: 'error',
-  },
-  {
-    inputs: [],
     name: 'TreeHeightLessThanZero',
     type: 'error',
   },
@@ -226,7 +231,7 @@ const _abi = [
 ];
 
 const _bytecode =
-  '0x60566037600b82828239805160001a607314602a57634e487b7160e01b600052600060045260246000fd5b30600052607381538281f3fe73000000000000000000000000000000000000000030146080604052600080fdfea26469706673582212206d4f0d365cb5c66bf86f1424cef77539a9d362cb6bcf4915f21389ff79d6abca64736f6c63430008070033';
+  '0x60566037600b82828239805160001a607314602a57634e487b7160e01b600052600060045260246000fd5b30600052607381538281f3fe73000000000000000000000000000000000000000030146080604052600080fdfea26469706673582212207285e16c931fbf83e750ae4c1c020f9c26b09c915d740515fa349f2466dc64af64736f6c63430008070033';
 
 type CustomErrorsConstructorParams = [signer?: Signer] | ConstructorParameters<typeof ContractFactory>;
 

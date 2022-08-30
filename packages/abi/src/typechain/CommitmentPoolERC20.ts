@@ -137,6 +137,7 @@ export interface CommitmentPoolERC20Interface extends utils.Interface {
     'assetName()': FunctionFragment;
     'assetSymbol()': FunctionFragment;
     'assetType()': FunctionFragment;
+    'auditorCount()': FunctionFragment;
     'changeOperator(address)': FunctionFragment;
     'disableRollupVerifier(uint32)': FunctionFragment;
     'disableSanctionsCheck()': FunctionFragment;
@@ -145,6 +146,7 @@ export interface CommitmentPoolERC20Interface extends utils.Interface {
     'enableSanctionsCheck()': FunctionFragment;
     'enableTransactVerifier(uint32,uint32,address)': FunctionFragment;
     'enqueue((uint256,uint256,uint256,uint256,bytes),address)': FunctionFragment;
+    'getAuditorKey(uint256)': FunctionFragment;
     'getCommitmentIncludedCount()': FunctionFragment;
     'getMinRollupFee()': FunctionFragment;
     'getTreeCapacity()': FunctionFragment;
@@ -162,6 +164,7 @@ export interface CommitmentPoolERC20Interface extends utils.Interface {
     'setRollupWhitelistDisabled(bool)': FunctionFragment;
     'setVerifierUpdateDisabled(bool)': FunctionFragment;
     'transact((((uint256,uint256),(uint256[2],uint256[2]),(uint256,uint256)),uint256,uint256[],uint256[],bytes32,uint256,uint256,uint256[],uint256[],address,address,bytes[]),bytes)': FunctionFragment;
+    'updateAuditorKey(uint256,bytes32)': FunctionFragment;
     'updateSanctionsListAddress(address)': FunctionFragment;
   };
 
@@ -172,6 +175,7 @@ export interface CommitmentPoolERC20Interface extends utils.Interface {
   encodeFunctionData(functionFragment: 'assetName', values?: undefined): string;
   encodeFunctionData(functionFragment: 'assetSymbol', values?: undefined): string;
   encodeFunctionData(functionFragment: 'assetType', values?: undefined): string;
+  encodeFunctionData(functionFragment: 'auditorCount', values?: undefined): string;
   encodeFunctionData(functionFragment: 'changeOperator', values: [string]): string;
   encodeFunctionData(functionFragment: 'disableRollupVerifier', values: [BigNumberish]): string;
   encodeFunctionData(functionFragment: 'disableSanctionsCheck', values?: undefined): string;
@@ -189,6 +193,7 @@ export interface CommitmentPoolERC20Interface extends utils.Interface {
     functionFragment: 'enqueue',
     values: [ICommitmentPool.CommitmentRequestStruct, string],
   ): string;
+  encodeFunctionData(functionFragment: 'getAuditorKey', values: [BigNumberish]): string;
   encodeFunctionData(functionFragment: 'getCommitmentIncludedCount', values?: undefined): string;
   encodeFunctionData(functionFragment: 'getMinRollupFee', values?: undefined): string;
   encodeFunctionData(functionFragment: 'getTreeCapacity', values?: undefined): string;
@@ -209,6 +214,7 @@ export interface CommitmentPoolERC20Interface extends utils.Interface {
     functionFragment: 'transact',
     values: [ICommitmentPool.TransactRequestStruct, BytesLike],
   ): string;
+  encodeFunctionData(functionFragment: 'updateAuditorKey', values: [BigNumberish, BytesLike]): string;
   encodeFunctionData(functionFragment: 'updateSanctionsListAddress', values: [string]): string;
 
   decodeFunctionResult(functionFragment: '_pathIndices', data: BytesLike): Result;
@@ -218,6 +224,7 @@ export interface CommitmentPoolERC20Interface extends utils.Interface {
   decodeFunctionResult(functionFragment: 'assetName', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'assetSymbol', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'assetType', data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'auditorCount', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'changeOperator', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'disableRollupVerifier', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'disableSanctionsCheck', data: BytesLike): Result;
@@ -226,6 +233,7 @@ export interface CommitmentPoolERC20Interface extends utils.Interface {
   decodeFunctionResult(functionFragment: 'enableSanctionsCheck', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'enableTransactVerifier', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'enqueue', data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'getAuditorKey', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'getCommitmentIncludedCount', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'getMinRollupFee', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'getTreeCapacity', data: BytesLike): Result;
@@ -243,9 +251,11 @@ export interface CommitmentPoolERC20Interface extends utils.Interface {
   decodeFunctionResult(functionFragment: 'setRollupWhitelistDisabled', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'setVerifierUpdateDisabled', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'transact', data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'updateAuditorKey', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'updateSanctionsListAddress', data: BytesLike): Result;
 
   events: {
+    'AuditorKeyChanged(uint256,bytes32)': EventFragment;
     'CommitmentIncluded(uint256)': EventFragment;
     'CommitmentQueued(uint256,uint256,uint256,bytes)': EventFragment;
     'CommitmentSpent(uint256,uint256)': EventFragment;
@@ -256,6 +266,7 @@ export interface CommitmentPoolERC20Interface extends utils.Interface {
     'VerifierUpdateDisabled(bool)': EventFragment;
   };
 
+  getEvent(nameOrSignatureOrTopic: 'AuditorKeyChanged'): EventFragment;
   getEvent(nameOrSignatureOrTopic: 'CommitmentIncluded'): EventFragment;
   getEvent(nameOrSignatureOrTopic: 'CommitmentQueued'): EventFragment;
   getEvent(nameOrSignatureOrTopic: 'CommitmentSpent'): EventFragment;
@@ -265,6 +276,10 @@ export interface CommitmentPoolERC20Interface extends utils.Interface {
   getEvent(nameOrSignatureOrTopic: 'SanctionsList'): EventFragment;
   getEvent(nameOrSignatureOrTopic: 'VerifierUpdateDisabled'): EventFragment;
 }
+
+export type AuditorKeyChangedEvent = TypedEvent<[BigNumber, string], { index: BigNumber; key: string }>;
+
+export type AuditorKeyChangedEventFilter = TypedEventFilter<AuditorKeyChangedEvent>;
 
 export type CommitmentIncludedEvent = TypedEvent<[BigNumber], { commitment: BigNumber }>;
 
@@ -357,6 +372,8 @@ export interface CommitmentPoolERC20 extends BaseContract {
 
     assetType(overrides?: CallOverrides): Promise<[number]>;
 
+    auditorCount(overrides?: CallOverrides): Promise<[BigNumber]>;
+
     changeOperator(
       _newOperator: string,
       overrides?: Overrides & { from?: string | Promise<string> },
@@ -399,6 +416,8 @@ export interface CommitmentPoolERC20 extends BaseContract {
       _executor: string,
       overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<ContractTransaction>;
+
+    getAuditorKey(_index: BigNumberish, overrides?: CallOverrides): Promise<[string]>;
 
     getCommitmentIncludedCount(overrides?: CallOverrides): Promise<[BigNumber]>;
 
@@ -456,6 +475,12 @@ export interface CommitmentPoolERC20 extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<ContractTransaction>;
 
+    updateAuditorKey(
+      _index: BigNumberish,
+      _key: BytesLike,
+      overrides?: Overrides & { from?: string | Promise<string> },
+    ): Promise<ContractTransaction>;
+
     updateSanctionsListAddress(
       _sanction: string,
       overrides?: Overrides & { from?: string | Promise<string> },
@@ -485,6 +510,8 @@ export interface CommitmentPoolERC20 extends BaseContract {
   assetSymbol(overrides?: CallOverrides): Promise<string>;
 
   assetType(overrides?: CallOverrides): Promise<number>;
+
+  auditorCount(overrides?: CallOverrides): Promise<BigNumber>;
 
   changeOperator(
     _newOperator: string,
@@ -528,6 +555,8 @@ export interface CommitmentPoolERC20 extends BaseContract {
     _executor: string,
     overrides?: Overrides & { from?: string | Promise<string> },
   ): Promise<ContractTransaction>;
+
+  getAuditorKey(_index: BigNumberish, overrides?: CallOverrides): Promise<string>;
 
   getCommitmentIncludedCount(overrides?: CallOverrides): Promise<BigNumber>;
 
@@ -585,6 +614,12 @@ export interface CommitmentPoolERC20 extends BaseContract {
     overrides?: Overrides & { from?: string | Promise<string> },
   ): Promise<ContractTransaction>;
 
+  updateAuditorKey(
+    _index: BigNumberish,
+    _key: BytesLike,
+    overrides?: Overrides & { from?: string | Promise<string> },
+  ): Promise<ContractTransaction>;
+
   updateSanctionsListAddress(
     _sanction: string,
     overrides?: Overrides & { from?: string | Promise<string> },
@@ -608,6 +643,8 @@ export interface CommitmentPoolERC20 extends BaseContract {
     assetSymbol(overrides?: CallOverrides): Promise<string>;
 
     assetType(overrides?: CallOverrides): Promise<number>;
+
+    auditorCount(overrides?: CallOverrides): Promise<BigNumber>;
 
     changeOperator(_newOperator: string, overrides?: CallOverrides): Promise<void>;
 
@@ -641,6 +678,8 @@ export interface CommitmentPoolERC20 extends BaseContract {
       _executor: string,
       overrides?: CallOverrides,
     ): Promise<void>;
+
+    getAuditorKey(_index: BigNumberish, overrides?: CallOverrides): Promise<string>;
 
     getCommitmentIncludedCount(overrides?: CallOverrides): Promise<BigNumber>;
 
@@ -680,10 +719,18 @@ export interface CommitmentPoolERC20 extends BaseContract {
       overrides?: CallOverrides,
     ): Promise<void>;
 
+    updateAuditorKey(_index: BigNumberish, _key: BytesLike, overrides?: CallOverrides): Promise<void>;
+
     updateSanctionsListAddress(_sanction: string, overrides?: CallOverrides): Promise<void>;
   };
 
   filters: {
+    'AuditorKeyChanged(uint256,bytes32)'(
+      index?: BigNumberish | null,
+      key?: null,
+    ): AuditorKeyChangedEventFilter;
+    AuditorKeyChanged(index?: BigNumberish | null, key?: null): AuditorKeyChangedEventFilter;
+
     'CommitmentIncluded(uint256)'(commitment?: BigNumberish | null): CommitmentIncludedEventFilter;
     CommitmentIncluded(commitment?: BigNumberish | null): CommitmentIncludedEventFilter;
 
@@ -750,6 +797,8 @@ export interface CommitmentPoolERC20 extends BaseContract {
 
     assetType(overrides?: CallOverrides): Promise<BigNumber>;
 
+    auditorCount(overrides?: CallOverrides): Promise<BigNumber>;
+
     changeOperator(
       _newOperator: string,
       overrides?: Overrides & { from?: string | Promise<string> },
@@ -788,6 +837,8 @@ export interface CommitmentPoolERC20 extends BaseContract {
       _executor: string,
       overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<BigNumber>;
+
+    getAuditorKey(_index: BigNumberish, overrides?: CallOverrides): Promise<BigNumber>;
 
     getCommitmentIncludedCount(overrides?: CallOverrides): Promise<BigNumber>;
 
@@ -845,6 +896,12 @@ export interface CommitmentPoolERC20 extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<BigNumber>;
 
+    updateAuditorKey(
+      _index: BigNumberish,
+      _key: BytesLike,
+      overrides?: Overrides & { from?: string | Promise<string> },
+    ): Promise<BigNumber>;
+
     updateSanctionsListAddress(
       _sanction: string,
       overrides?: Overrides & { from?: string | Promise<string> },
@@ -875,6 +932,8 @@ export interface CommitmentPoolERC20 extends BaseContract {
     assetSymbol(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     assetType(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+
+    auditorCount(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     changeOperator(
       _newOperator: string,
@@ -918,6 +977,8 @@ export interface CommitmentPoolERC20 extends BaseContract {
       _executor: string,
       overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<PopulatedTransaction>;
+
+    getAuditorKey(_index: BigNumberish, overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     getCommitmentIncludedCount(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
@@ -975,6 +1036,12 @@ export interface CommitmentPoolERC20 extends BaseContract {
     transact(
       _request: ICommitmentPool.TransactRequestStruct,
       _signature: BytesLike,
+      overrides?: Overrides & { from?: string | Promise<string> },
+    ): Promise<PopulatedTransaction>;
+
+    updateAuditorKey(
+      _index: BigNumberish,
+      _key: BytesLike,
       overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<PopulatedTransaction>;
 

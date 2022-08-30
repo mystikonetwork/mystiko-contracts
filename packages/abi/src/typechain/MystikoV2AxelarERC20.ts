@@ -61,9 +61,6 @@ export interface MystikoV2AxelarERC20Interface extends utils.Interface {
     'bridgeProxyAddress()': FunctionFragment;
     'bridgeType()': FunctionFragment;
     'changeOperator(address)': FunctionFragment;
-    'changeServiceFee(uint256)': FunctionFragment;
-    'changeServiceFeeCollector(address)': FunctionFragment;
-    'changeServiceFeeDivider(uint256)': FunctionFragment;
     'deposit((uint256,uint256,uint256,uint128,bytes,uint256,uint256,uint256))': FunctionFragment;
     'disableSanctionsCheck()': FunctionFragment;
     'enableSanctionsCheck()': FunctionFragment;
@@ -77,9 +74,6 @@ export interface MystikoV2AxelarERC20Interface extends utils.Interface {
     'getMinExecutorFee()': FunctionFragment;
     'getPeerMinExecutorFee()': FunctionFragment;
     'getPeerMinRollupFee()': FunctionFragment;
-    'getServiceFee()': FunctionFragment;
-    'getServiceFeeCollector()': FunctionFragment;
-    'getServiceFeeDivider()': FunctionFragment;
     'isDepositsDisabled()': FunctionFragment;
     'peerChainId()': FunctionFragment;
     'peerChainName()': FunctionFragment;
@@ -107,9 +101,6 @@ export interface MystikoV2AxelarERC20Interface extends utils.Interface {
   encodeFunctionData(functionFragment: 'bridgeProxyAddress', values?: undefined): string;
   encodeFunctionData(functionFragment: 'bridgeType', values?: undefined): string;
   encodeFunctionData(functionFragment: 'changeOperator', values: [string]): string;
-  encodeFunctionData(functionFragment: 'changeServiceFee', values: [BigNumberish]): string;
-  encodeFunctionData(functionFragment: 'changeServiceFeeCollector', values: [string]): string;
-  encodeFunctionData(functionFragment: 'changeServiceFeeDivider', values: [BigNumberish]): string;
   encodeFunctionData(functionFragment: 'deposit', values: [IMystikoBridge.DepositRequestStruct]): string;
   encodeFunctionData(functionFragment: 'disableSanctionsCheck', values?: undefined): string;
   encodeFunctionData(functionFragment: 'enableSanctionsCheck', values?: undefined): string;
@@ -126,9 +117,6 @@ export interface MystikoV2AxelarERC20Interface extends utils.Interface {
   encodeFunctionData(functionFragment: 'getMinExecutorFee', values?: undefined): string;
   encodeFunctionData(functionFragment: 'getPeerMinExecutorFee', values?: undefined): string;
   encodeFunctionData(functionFragment: 'getPeerMinRollupFee', values?: undefined): string;
-  encodeFunctionData(functionFragment: 'getServiceFee', values?: undefined): string;
-  encodeFunctionData(functionFragment: 'getServiceFeeCollector', values?: undefined): string;
-  encodeFunctionData(functionFragment: 'getServiceFeeDivider', values?: undefined): string;
   encodeFunctionData(functionFragment: 'isDepositsDisabled', values?: undefined): string;
   encodeFunctionData(functionFragment: 'peerChainId', values?: undefined): string;
   encodeFunctionData(functionFragment: 'peerChainName', values?: undefined): string;
@@ -155,9 +143,6 @@ export interface MystikoV2AxelarERC20Interface extends utils.Interface {
   decodeFunctionResult(functionFragment: 'bridgeProxyAddress', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'bridgeType', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'changeOperator', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'changeServiceFee', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'changeServiceFeeCollector', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'changeServiceFeeDivider', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'deposit', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'disableSanctionsCheck', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'enableSanctionsCheck', data: BytesLike): Result;
@@ -171,9 +156,6 @@ export interface MystikoV2AxelarERC20Interface extends utils.Interface {
   decodeFunctionResult(functionFragment: 'getMinExecutorFee', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'getPeerMinExecutorFee', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'getPeerMinRollupFee', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'getServiceFee', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'getServiceFeeCollector', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'getServiceFeeDivider', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'isDepositsDisabled', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'peerChainId', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'peerChainName', data: BytesLike): Result;
@@ -206,9 +188,6 @@ export interface MystikoV2AxelarERC20Interface extends utils.Interface {
     'PeerMinRollupFee(uint256)': EventFragment;
     'SanctionsCheck(bool)': EventFragment;
     'SanctionsList(address)': EventFragment;
-    'ServiceFeeChanged(uint256)': EventFragment;
-    'ServiceFeeCollectorChanged(address)': EventFragment;
-    'ServiceFeeDividerChanged(uint256)': EventFragment;
   };
 
   getEvent(nameOrSignatureOrTopic: 'CallContractMessage'): EventFragment;
@@ -223,9 +202,6 @@ export interface MystikoV2AxelarERC20Interface extends utils.Interface {
   getEvent(nameOrSignatureOrTopic: 'PeerMinRollupFee'): EventFragment;
   getEvent(nameOrSignatureOrTopic: 'SanctionsCheck'): EventFragment;
   getEvent(nameOrSignatureOrTopic: 'SanctionsList'): EventFragment;
-  getEvent(nameOrSignatureOrTopic: 'ServiceFeeChanged'): EventFragment;
-  getEvent(nameOrSignatureOrTopic: 'ServiceFeeCollectorChanged'): EventFragment;
-  getEvent(nameOrSignatureOrTopic: 'ServiceFeeDividerChanged'): EventFragment;
 }
 
 export type CallContractMessageEvent = TypedEvent<
@@ -279,18 +255,6 @@ export type SanctionsListEvent = TypedEvent<[string], { sanctions: string }>;
 
 export type SanctionsListEventFilter = TypedEventFilter<SanctionsListEvent>;
 
-export type ServiceFeeChangedEvent = TypedEvent<[BigNumber], { serviceFee: BigNumber }>;
-
-export type ServiceFeeChangedEventFilter = TypedEventFilter<ServiceFeeChangedEvent>;
-
-export type ServiceFeeCollectorChangedEvent = TypedEvent<[string], { collector: string }>;
-
-export type ServiceFeeCollectorChangedEventFilter = TypedEventFilter<ServiceFeeCollectorChangedEvent>;
-
-export type ServiceFeeDividerChangedEvent = TypedEvent<[BigNumber], { serviceFeeDivider: BigNumber }>;
-
-export type ServiceFeeDividerChangedEventFilter = TypedEventFilter<ServiceFeeDividerChangedEvent>;
-
 export interface MystikoV2AxelarERC20 extends BaseContract {
   contractName: 'MystikoV2AxelarERC20';
   connect(signerOrProvider: Signer | Provider | string): this;
@@ -329,21 +293,6 @@ export interface MystikoV2AxelarERC20 extends BaseContract {
 
     changeOperator(
       _newOperator: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
-    ): Promise<ContractTransaction>;
-
-    changeServiceFee(
-      _newServiceFee: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
-    ): Promise<ContractTransaction>;
-
-    changeServiceFeeCollector(
-      _newCollector: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
-    ): Promise<ContractTransaction>;
-
-    changeServiceFeeDivider(
-      _newServiceFeeDivider: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<ContractTransaction>;
 
@@ -393,12 +342,6 @@ export interface MystikoV2AxelarERC20 extends BaseContract {
     getPeerMinExecutorFee(overrides?: CallOverrides): Promise<[BigNumber]>;
 
     getPeerMinRollupFee(overrides?: CallOverrides): Promise<[BigNumber]>;
-
-    getServiceFee(overrides?: CallOverrides): Promise<[BigNumber]>;
-
-    getServiceFeeCollector(overrides?: CallOverrides): Promise<[string]>;
-
-    getServiceFeeDivider(overrides?: CallOverrides): Promise<[BigNumber]>;
 
     isDepositsDisabled(overrides?: CallOverrides): Promise<[boolean]>;
 
@@ -492,21 +435,6 @@ export interface MystikoV2AxelarERC20 extends BaseContract {
     overrides?: Overrides & { from?: string | Promise<string> },
   ): Promise<ContractTransaction>;
 
-  changeServiceFee(
-    _newServiceFee: BigNumberish,
-    overrides?: Overrides & { from?: string | Promise<string> },
-  ): Promise<ContractTransaction>;
-
-  changeServiceFeeCollector(
-    _newCollector: string,
-    overrides?: Overrides & { from?: string | Promise<string> },
-  ): Promise<ContractTransaction>;
-
-  changeServiceFeeDivider(
-    _newServiceFeeDivider: BigNumberish,
-    overrides?: Overrides & { from?: string | Promise<string> },
-  ): Promise<ContractTransaction>;
-
   deposit(
     _request: IMystikoBridge.DepositRequestStruct,
     overrides?: PayableOverrides & { from?: string | Promise<string> },
@@ -553,12 +481,6 @@ export interface MystikoV2AxelarERC20 extends BaseContract {
   getPeerMinExecutorFee(overrides?: CallOverrides): Promise<BigNumber>;
 
   getPeerMinRollupFee(overrides?: CallOverrides): Promise<BigNumber>;
-
-  getServiceFee(overrides?: CallOverrides): Promise<BigNumber>;
-
-  getServiceFeeCollector(overrides?: CallOverrides): Promise<string>;
-
-  getServiceFeeDivider(overrides?: CallOverrides): Promise<BigNumber>;
 
   isDepositsDisabled(overrides?: CallOverrides): Promise<boolean>;
 
@@ -649,12 +571,6 @@ export interface MystikoV2AxelarERC20 extends BaseContract {
 
     changeOperator(_newOperator: string, overrides?: CallOverrides): Promise<void>;
 
-    changeServiceFee(_newServiceFee: BigNumberish, overrides?: CallOverrides): Promise<void>;
-
-    changeServiceFeeCollector(_newCollector: string, overrides?: CallOverrides): Promise<void>;
-
-    changeServiceFeeDivider(_newServiceFeeDivider: BigNumberish, overrides?: CallOverrides): Promise<void>;
-
     deposit(_request: IMystikoBridge.DepositRequestStruct, overrides?: CallOverrides): Promise<void>;
 
     disableSanctionsCheck(overrides?: CallOverrides): Promise<void>;
@@ -694,12 +610,6 @@ export interface MystikoV2AxelarERC20 extends BaseContract {
     getPeerMinExecutorFee(overrides?: CallOverrides): Promise<BigNumber>;
 
     getPeerMinRollupFee(overrides?: CallOverrides): Promise<BigNumber>;
-
-    getServiceFee(overrides?: CallOverrides): Promise<BigNumber>;
-
-    getServiceFeeCollector(overrides?: CallOverrides): Promise<string>;
-
-    getServiceFeeDivider(overrides?: CallOverrides): Promise<BigNumber>;
 
     isDepositsDisabled(overrides?: CallOverrides): Promise<boolean>;
 
@@ -782,15 +692,6 @@ export interface MystikoV2AxelarERC20 extends BaseContract {
 
     'SanctionsList(address)'(sanctions?: null): SanctionsListEventFilter;
     SanctionsList(sanctions?: null): SanctionsListEventFilter;
-
-    'ServiceFeeChanged(uint256)'(serviceFee?: null): ServiceFeeChangedEventFilter;
-    ServiceFeeChanged(serviceFee?: null): ServiceFeeChangedEventFilter;
-
-    'ServiceFeeCollectorChanged(address)'(collector?: string | null): ServiceFeeCollectorChangedEventFilter;
-    ServiceFeeCollectorChanged(collector?: string | null): ServiceFeeCollectorChangedEventFilter;
-
-    'ServiceFeeDividerChanged(uint256)'(serviceFeeDivider?: null): ServiceFeeDividerChangedEventFilter;
-    ServiceFeeDividerChanged(serviceFeeDivider?: null): ServiceFeeDividerChangedEventFilter;
   };
 
   estimateGas: {
@@ -808,21 +709,6 @@ export interface MystikoV2AxelarERC20 extends BaseContract {
 
     changeOperator(
       _newOperator: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
-    ): Promise<BigNumber>;
-
-    changeServiceFee(
-      _newServiceFee: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
-    ): Promise<BigNumber>;
-
-    changeServiceFeeCollector(
-      _newCollector: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
-    ): Promise<BigNumber>;
-
-    changeServiceFeeDivider(
-      _newServiceFeeDivider: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<BigNumber>;
 
@@ -868,12 +754,6 @@ export interface MystikoV2AxelarERC20 extends BaseContract {
     getPeerMinExecutorFee(overrides?: CallOverrides): Promise<BigNumber>;
 
     getPeerMinRollupFee(overrides?: CallOverrides): Promise<BigNumber>;
-
-    getServiceFee(overrides?: CallOverrides): Promise<BigNumber>;
-
-    getServiceFeeCollector(overrides?: CallOverrides): Promise<BigNumber>;
-
-    getServiceFeeDivider(overrides?: CallOverrides): Promise<BigNumber>;
 
     isDepositsDisabled(overrides?: CallOverrides): Promise<BigNumber>;
 
@@ -968,21 +848,6 @@ export interface MystikoV2AxelarERC20 extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<PopulatedTransaction>;
 
-    changeServiceFee(
-      _newServiceFee: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
-    ): Promise<PopulatedTransaction>;
-
-    changeServiceFeeCollector(
-      _newCollector: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
-    ): Promise<PopulatedTransaction>;
-
-    changeServiceFeeDivider(
-      _newServiceFeeDivider: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
-    ): Promise<PopulatedTransaction>;
-
     deposit(
       _request: IMystikoBridge.DepositRequestStruct,
       overrides?: PayableOverrides & { from?: string | Promise<string> },
@@ -1029,12 +894,6 @@ export interface MystikoV2AxelarERC20 extends BaseContract {
     getPeerMinExecutorFee(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     getPeerMinRollupFee(overrides?: CallOverrides): Promise<PopulatedTransaction>;
-
-    getServiceFee(overrides?: CallOverrides): Promise<PopulatedTransaction>;
-
-    getServiceFeeCollector(overrides?: CallOverrides): Promise<PopulatedTransaction>;
-
-    getServiceFeeDivider(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     isDepositsDisabled(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 

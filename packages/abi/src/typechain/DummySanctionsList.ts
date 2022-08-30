@@ -21,16 +21,16 @@ export interface DummySanctionsListInterface extends utils.Interface {
   functions: {
     'addToSanctionsList(address)': FunctionFragment;
     'isSanctioned(address)': FunctionFragment;
-    'removeToSanctionsList(address)': FunctionFragment;
+    'removeFromSanctionsList(address)': FunctionFragment;
   };
 
   encodeFunctionData(functionFragment: 'addToSanctionsList', values: [string]): string;
   encodeFunctionData(functionFragment: 'isSanctioned', values: [string]): string;
-  encodeFunctionData(functionFragment: 'removeToSanctionsList', values: [string]): string;
+  encodeFunctionData(functionFragment: 'removeFromSanctionsList', values: [string]): string;
 
   decodeFunctionResult(functionFragment: 'addToSanctionsList', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'isSanctioned', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'removeToSanctionsList', data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'removeFromSanctionsList', data: BytesLike): Result;
 
   events: {};
 }
@@ -66,7 +66,7 @@ export interface DummySanctionsList extends BaseContract {
 
     isSanctioned(addr: string, overrides?: CallOverrides): Promise<[boolean]>;
 
-    removeToSanctionsList(
+    removeFromSanctionsList(
       addr: string,
       overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<ContractTransaction>;
@@ -79,7 +79,7 @@ export interface DummySanctionsList extends BaseContract {
 
   isSanctioned(addr: string, overrides?: CallOverrides): Promise<boolean>;
 
-  removeToSanctionsList(
+  removeFromSanctionsList(
     addr: string,
     overrides?: Overrides & { from?: string | Promise<string> },
   ): Promise<ContractTransaction>;
@@ -89,7 +89,7 @@ export interface DummySanctionsList extends BaseContract {
 
     isSanctioned(addr: string, overrides?: CallOverrides): Promise<boolean>;
 
-    removeToSanctionsList(addr: string, overrides?: CallOverrides): Promise<void>;
+    removeFromSanctionsList(addr: string, overrides?: CallOverrides): Promise<void>;
   };
 
   filters: {};
@@ -102,7 +102,7 @@ export interface DummySanctionsList extends BaseContract {
 
     isSanctioned(addr: string, overrides?: CallOverrides): Promise<BigNumber>;
 
-    removeToSanctionsList(
+    removeFromSanctionsList(
       addr: string,
       overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<BigNumber>;
@@ -116,7 +116,7 @@ export interface DummySanctionsList extends BaseContract {
 
     isSanctioned(addr: string, overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
-    removeToSanctionsList(
+    removeFromSanctionsList(
       addr: string,
       overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<PopulatedTransaction>;
