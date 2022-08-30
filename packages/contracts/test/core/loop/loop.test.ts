@@ -95,8 +95,8 @@ describe('Test Mystiko loop', () => {
   });
 
   it('test admin operation', () => {
-    testLoopAdminOperations('MystikoV2LoopMain', loopMain, accounts);
-    testLoopAdminOperations('MystikoV2LoopERC20', loopERC20, accounts);
+    testLoopAdminOperations('MystikoV2LoopMain', loopMain, accounts, {});
+    testLoopAdminOperations('MystikoV2LoopERC20', loopERC20, accounts, {});
   });
 
   // test loop erc20 and main deposit with commitment pool test at pool.test.ts
