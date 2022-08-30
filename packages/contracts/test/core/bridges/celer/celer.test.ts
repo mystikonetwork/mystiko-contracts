@@ -170,8 +170,8 @@ describe('Test Mystiko celer', () => {
   });
 
   it('test admin operation', () => {
-    testBridgeAdminOperations('MystikoV2CelerMain', localMain, accounts);
-    testBridgeAdminOperations('MystikoV2CelerERC20', localERC20, accounts);
+    testBridgeAdminOperations('MystikoV2CelerMain', localMain, accounts, {});
+    testBridgeAdminOperations('MystikoV2CelerERC20', localERC20, accounts, {});
   });
 
   it('test bridge main to main deposit', async () => {
