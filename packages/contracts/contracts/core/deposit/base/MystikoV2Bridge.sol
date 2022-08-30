@@ -41,12 +41,6 @@ abstract contract MystikoV2Bridge is IMystikoBridge, AssetPool, CrossChainDataSe
   // Admin related.
   address private operator;
 
-  // service fee related.
-  address private serviceFeeCollector;
-  // the service fee takes from depositer
-  uint256 private serviceFee;
-  uint256 private serviceFeeDivider;
-
   // Some switches.
   bool private depositsDisabled;
 
@@ -68,16 +62,11 @@ abstract contract MystikoV2Bridge is IMystikoBridge, AssetPool, CrossChainDataSe
   event PeerMinExecutorFee(uint256 peerMinExecutorFee);
   event PeerMinRollupFee(uint256 peerMinRollupFee);
   event DepositsDisabled(bool state);
-  event ServiceFeeCollectorChanged(address indexed collector);
-  event ServiceFeeChanged(uint256 serviceFee);
-  event ServiceFeeDividerChanged(uint256 serviceFeeDivider);
   event CommitmentCrossChain(uint256 indexed commitment);
 
   constructor(IHasher3 _hasher3) {
     operator = msg.sender;
     hasher3 = _hasher3;
-    serviceFee = 1000;
-    serviceFeeDivider = 1000000;
   }
 
   function setBridgeProxyAddress(address _bridgeProxyAddress) external onlyOperator {
@@ -85,15 +74,13 @@ abstract contract MystikoV2Bridge is IMystikoBridge, AssetPool, CrossChainDataSe
   }
 
   function setMinAmount(uint256 _minAmount) external onlyOperator {
-    if (_minAmount > maxAmount)
-      revert CustomErrors.MinAmountGreaterThanMaxAmount();
+    if (_minAmount > maxAmount) revert CustomErrors.MinAmountGreaterThanMaxAmount();
     minAmount = _minAmount;
     emit MinAmount(_minAmount);
   }
 
   function setMaxAmount(uint256 _maxAmount) external onlyOperator {
-    if (_maxAmount < minAmount)
-      revert CustomErrors.MaxAmountLessThanMinAmount();
+    if (_maxAmount < minAmount) revert CustomErrors.MaxAmountLessThanMinAmount();
     maxAmount = _maxAmount;
     emit MaxAmount(_maxAmount);
   }
@@ -168,8 +155,6 @@ abstract contract MystikoV2Bridge is IMystikoBridge, AssetPool, CrossChainDataSe
     _processDeposit(_request.bridgeFee, cmRequestBytes);
     _processDepositTransfer(
       associatedCommitmentPool,
-      serviceFeeCollector,
-      serviceFee.mul(_request.amount).div(serviceFeeDivider),
       _request.amount + _request.executorFee + _request.rollupFee,
       _request.bridgeFee
     );
@@ -199,37 +184,6 @@ abstract contract MystikoV2Bridge is IMystikoBridge, AssetPool, CrossChainDataSe
     if (operator == _newOperator) revert CustomErrors.NotChanged();
     operator = _newOperator;
     emit OperatorChanged(_newOperator);
-  }
-
-  function getServiceFeeCollector() public view returns (address) {
-    return serviceFeeCollector;
-  }
-
-  function changeServiceFeeCollector(address _newCollector) external onlyOperator {
-    if (serviceFeeCollector == _newCollector) revert CustomErrors.NotChanged();
-    serviceFeeCollector = _newCollector;
-    emit ServiceFeeCollectorChanged(_newCollector);
-  }
-
-  function getServiceFee() public view returns (uint256) {
-    return serviceFee;
-  }
-
-  function changeServiceFee(uint256 _newServiceFee) external onlyOperator {
-    if (serviceFee == _newServiceFee) revert CustomErrors.NotChanged();
-    serviceFee = _newServiceFee;
-    emit ServiceFeeChanged(_newServiceFee);
-  }
-
-  function getServiceFeeDivider() public view returns (uint256) {
-    return serviceFeeDivider;
-  }
-
-  function changeServiceFeeDivider(uint256 _newServiceFeeDivider) external onlyOperator {
-    if (serviceFeeDivider == _newServiceFeeDivider) revert CustomErrors.NotChanged();
-    if (_newServiceFeeDivider == 0) revert CustomErrors.ServiceFeeDividerTooSmall();
-    serviceFeeDivider = _newServiceFeeDivider;
-    emit ServiceFeeDividerChanged(_newServiceFeeDivider);
   }
 
   function enableSanctionsCheck() external onlyOperator {

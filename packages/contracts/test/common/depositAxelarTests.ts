@@ -11,7 +11,6 @@ import {
   DefaultPoolAmount,
   DefaultTokenAmount,
   DestinationChainID,
-  ServiceAccountIndex,
 } from '../util/constants';
 
 export function testAxelarDeposit(
@@ -35,7 +34,6 @@ export function testAxelarDeposit(
   let minRollupFee: string;
   let minExecutorFee: string;
   let minTotalAmount: string;
-  let serviceFeeAmount: string;
   let minTotalValue: string;
   const { commitments } = cmInfo;
   const numOfCommitments = commitments.length;
@@ -47,13 +45,9 @@ export function testAxelarDeposit(
       minBridgeFee = (await mystikoContract.getMinBridgeFee()).toString();
       minExecutorFee = (await mystikoContract.getMinExecutorFee()).toString();
       minRollupFee = (await commitmentPool.getMinRollupFee()).toString();
-      const serviceFee = (await mystikoContract.getServiceFee()).toString();
-      const serviceFeeDivider = (await mystikoContract.getServiceFeeDivider()).toString();
 
-      const fee = toBN(depositAmount).mul(toBN(serviceFee)).div(toBN(serviceFeeDivider));
-      const amount = toBN(depositAmount).add(toBN(minExecutorFee)).add(toBN(minRollupFee)).add(fee);
+      const amount = toBN(depositAmount).add(toBN(minExecutorFee)).add(toBN(minRollupFee));
       minTotalAmount = amount.toString();
-      serviceFeeAmount = fee.toString();
       if (isMainAsset) {
         minTotalValue = amount.add(toBN(minBridgeFee)).toString();
       } else {
@@ -85,10 +79,6 @@ export function testAxelarDeposit(
     it('should deposit successfully', async () => {
       await sanctionList.addToSanctionsList(bridgeAccount.address);
       await mystikoContract.disableSanctionsCheck();
-
-      const serviceFeeBefore = isDstMainAsset
-        ? await waffle.provider.getBalance(accounts[ServiceAccountIndex].address)
-        : await await testTokenContract.balanceOf(accounts[ServiceAccountIndex].address);
 
       for (let i = 0; i < numOfCommitments; i += 1) {
         const balanceBefore = isDstMainAsset
@@ -123,27 +113,13 @@ export function testAxelarDeposit(
         if (isMainAsset) {
           expect(await waffle.provider.getBalance(commitmentPool.address)).to.be.equal(
             toBN(minTotalAmount)
-              .sub(toBN(serviceFeeAmount))
               .muln(i + 1)
-              .toString(),
-          );
-          expect(await waffle.provider.getBalance(accounts[ServiceAccountIndex].address)).to.be.equal(
-            toBN(serviceFeeAmount)
-              .muln(i + 1)
-              .add(toBN(serviceFeeBefore.toString()))
               .toString(),
           );
         } else {
           expect(await testTokenContract.balanceOf(commitmentPool.address)).to.be.equal(
             toBN(minTotalAmount)
-              .sub(toBN(serviceFeeAmount))
               .muln(i + 1)
-              .toString(),
-          );
-          expect(await testTokenContract.balanceOf(accounts[ServiceAccountIndex].address)).to.be.equal(
-            toBN(serviceFeeAmount)
-              .muln(i + 1)
-              .add(toBN(serviceFeeBefore.toString()))
               .toString(),
           );
         }
@@ -204,10 +180,7 @@ export function testAxelarDeposit(
     });
 
     it('should source contract have correct balance', async () => {
-      const expectBalance = toBN(minTotalAmount)
-        .sub(toBN(serviceFeeAmount))
-        .muln(numOfCommitments)
-        .toString();
+      const expectBalance = toBN(minTotalAmount).muln(numOfCommitments).toString();
       expect(await waffle.provider.getBalance(gasService.address)).to.be.equal(
         toBN(minBridgeFee).muln(numOfCommitments).toString(),
       );
