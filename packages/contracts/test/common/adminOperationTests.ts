@@ -1,9 +1,28 @@
 import { expect } from 'chai';
 import { MystikoTBridgeProxy } from '@mystikonetwork/contracts-abi';
+import { toBN } from '@mystikonetwork/utils';
+import { MaxAmount, MinAmount } from '../util/constants';
 
-export function testLoopAdminOperations(contractName: string, mystikoContract: any, accounts: any[]) {
+export function testLoopAdminOperations(
+  contractName: string,
+  mystikoContract: any,
+  accounts: any[],
+  { minAmount = MinAmount, maxAmount = MaxAmount },
+) {
   describe(`Test ${contractName} admin operations`, () => {
     before(async () => {});
+
+    it('should revert when minAmount greater than maxAmount', async () => {
+      await expect(mystikoContract.setMinAmount(toBN(maxAmount).add(toBN(1)).toString())).to.be.revertedWith(
+        'MinAmountGreaterThanMaxAmount()',
+      );
+    });
+
+    it('should revert when maxAmount less than minAmount', async () => {
+      await expect(mystikoContract.setMaxAmount(toBN(minAmount).sub(toBN(1)).toString())).to.be.revertedWith(
+        'MaxAmountLessThanMinAmount()',
+      );
+    });
 
     it('should toggle isDepositDisabled correctly', async () => {
       await expect(mystikoContract.connect(accounts[1]).setDepositsDisabled(true)).to.be.revertedWith(
@@ -30,9 +49,26 @@ export function testLoopAdminOperations(contractName: string, mystikoContract: a
   });
 }
 
-export function testBridgeAdminOperations(contractName: string, mystikoContract: any, accounts: any[]) {
+export function testBridgeAdminOperations(
+  contractName: string,
+  mystikoContract: any,
+  accounts: any[],
+  { minAmount = MinAmount, maxAmount = MaxAmount },
+) {
   describe(`Test ${contractName} admin operations`, () => {
     before(async () => {});
+
+    it('should revert when minAmount greater than maxAmount', async () => {
+      await expect(mystikoContract.setMinAmount(toBN(maxAmount).add(toBN(1)).toString())).to.be.revertedWith(
+        'MinAmountGreaterThanMaxAmount()',
+      );
+    });
+
+    it('should revert when maxAmount less than minAmount', async () => {
+      await expect(mystikoContract.setMaxAmount(toBN(minAmount).sub(toBN(1)).toString())).to.be.revertedWith(
+        'MaxAmountLessThanMinAmount()',
+      );
+    });
 
     it('should toggle isDepositDisabled correctly', async () => {
       await expect(mystikoContract.connect(accounts[1]).setDepositsDisabled(true)).to.be.revertedWith(

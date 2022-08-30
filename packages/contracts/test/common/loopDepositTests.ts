@@ -5,7 +5,7 @@ import { DummySanctionsList, TestToken } from '@mystikonetwork/contracts-abi';
 import { CommitmentOutput, MystikoProtocolV2 } from '@mystikonetwork/protocol';
 import { toHex, toBN } from '@mystikonetwork/utils';
 import { CommitmentInfo } from './commitment';
-import { MinAmount, ServiceAccountIndex } from '../util/constants';
+import { MaxAmount, MinAmount, ServiceAccountIndex } from '../util/constants';
 
 export function testLoopDeposit(
   contractName: string,
@@ -88,6 +88,23 @@ export function testLoopDeposit(
           { from: accounts[0].address, value: isMainAsset ? amount : '0' },
         ),
       ).to.be.revertedWith('AmountTooSmall()');
+    });
+
+    it('should revert when amount is too large', async () => {
+      const amount = toBN(MaxAmount).add(toBN(1)).toString();
+      await expect(
+        mystikoContract.deposit(
+          [
+            amount,
+            commitments[0].commitmentHash.toString(),
+            commitments[0].k.toString(),
+            commitments[0].randomS.toString(),
+            toHex(commitments[0].encryptedNote),
+            '0',
+          ],
+          { from: accounts[0].address, value: isMainAsset ? amount : '0' },
+        ),
+      ).to.be.revertedWith('AmountTooLarge()');
     });
 
     it('should revert when hashK greater than field size', async () => {

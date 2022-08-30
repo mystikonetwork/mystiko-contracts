@@ -6,6 +6,7 @@ export interface RawChainTokenConfig {
   assetDecimals: number;
   erc20: boolean;
   minAmount: string;
+  maxAmount: string;
   minExecutorFee: string;
   minRollupFee: string;
   serviceFee?: number;
@@ -20,6 +21,7 @@ export class ChainTokenConfig extends BaseConfig {
     BaseConfig.checkString(this.config, 'assetSymbol');
     BaseConfig.checkNumber(this.config, 'assetDecimals');
     BaseConfig.checkString(this.config, 'minAmount');
+    BaseConfig.checkString(this.config, 'maxAmount');
     BaseConfig.checkString(this.config, 'minExecutorFee');
     BaseConfig.checkString(this.config, 'minRollupFee');
     BaseConfig.checkNumber(this.config, 'serviceFee', false);
@@ -49,6 +51,10 @@ export class ChainTokenConfig extends BaseConfig {
 
   public get minAmount(): string {
     return this.asRawChainConfig().minAmount;
+  }
+
+  public get maxAmount(): string {
+    return this.asRawChainConfig().maxAmount;
   }
 
   public get minExecutorFee(): string {

@@ -2,6 +2,7 @@ import { toDecimals } from '@mystikonetwork/utils';
 
 export const MerkleTreeHeight = 20;
 export const MinAmount = toDecimals(0.1).toString();
+export const MaxAmount = toDecimals(100).toString();
 export const MinBridgeFee = toDecimals(1000, 0).toString();
 export const MinExecutorFee = toDecimals(0.01).toString();
 export const MinRollupFee = toDecimals(0.01).toString();

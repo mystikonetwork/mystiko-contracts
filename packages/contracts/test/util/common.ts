@@ -71,6 +71,7 @@ import {
   ServiceAccountIndex,
   DefaultServiceFee,
   DefaultServiceFeeDivider,
+  MaxAmount,
 } from './constants';
 
 // Workaround for https://github.com/nomiclabs/hardhat/issues/849
@@ -148,13 +149,14 @@ export async function deployLoopContracts(
   sanctionListAddress: string,
   poolMain: CommitmentPoolMain,
   poolERC20: CommitmentPoolERC20,
-  { minAmount = MinAmount },
+  { minAmount = MinAmount, maxAmount = MaxAmount },
 ): Promise<CoreLoopDeploymentInfo> {
   const loopMainFactory = (await ethers.getContractFactory(
     'MystikoV2LoopMain',
   )) as MystikoV2LoopMain__factory;
   const coreMain = await loopMainFactory.connect(accounts[0]).deploy(hasher3Address);
   await coreMain.deployed();
+  await coreMain.setMaxAmount(maxAmount);
   await coreMain.setMinAmount(minAmount);
   await coreMain.setAssociatedCommitmentPool(poolMain.address);
   await coreMain.updateSanctionsListAddress(sanctionListAddress);
@@ -168,6 +170,7 @@ export async function deployLoopContracts(
   )) as MystikoV2LoopERC20__factory;
   const coreERC20 = await loopERC20Factory.connect(accounts[0]).deploy(hasher3Address, tokenAddress);
   await coreERC20.deployed();
+  await coreERC20.setMaxAmount(maxAmount);
   await coreERC20.setMinAmount(minAmount);
   await coreERC20.setAssociatedCommitmentPool(poolERC20.address);
   await coreERC20.updateSanctionsListAddress(sanctionListAddress);
@@ -189,6 +192,7 @@ export async function deployTBridgeContracts(
   poolERC20: CommitmentPoolERC20,
   {
     minAmount = MinAmount,
+    maxAmount = MaxAmount,
     minBridgeFee = MinBridgeFee,
     minExecutorFee = MinExecutorFee,
     minRollupFee = MinRollupFee,
@@ -202,6 +206,7 @@ export async function deployTBridgeContracts(
   await coreMain.deployed();
   await coreMain.setAssociatedCommitmentPool(poolMain.address);
   await coreMain.setBridgeProxyAddress(tbridge.address);
+  await coreMain.setMaxAmount(maxAmount);
   await coreMain.setMinAmount(minAmount);
   await coreMain.setMinBridgeFee(minBridgeFee);
   await coreMain.setMinExecutorFee(minExecutorFee);
@@ -222,6 +227,7 @@ export async function deployTBridgeContracts(
   await coreERC20.deployed();
   await coreERC20.setAssociatedCommitmentPool(poolERC20.address);
   await coreERC20.setBridgeProxyAddress(tbridge.address);
+  await coreERC20.setMaxAmount(maxAmount);
   await coreERC20.setMinAmount(minAmount);
   await coreERC20.setMinBridgeFee(minBridgeFee);
   await coreERC20.setMinExecutorFee(minExecutorFee);
@@ -247,6 +253,7 @@ export async function deployCelerContracts(
   poolERC20: CommitmentPoolERC20,
   {
     minAmount = MinAmount,
+    maxAmount = MaxAmount,
     minBridgeFee = MinBridgeFee,
     minExecutorFee = MinExecutorFee,
     minRollupFee = MinRollupFee,
@@ -260,6 +267,7 @@ export async function deployCelerContracts(
   await coreMain.deployed();
   await coreMain.setAssociatedCommitmentPool(poolMain.address);
   await coreMain.setBridgeProxyAddress(dummyCeler.address);
+  await coreMain.setMaxAmount(maxAmount);
   await coreMain.setMinAmount(minAmount);
   await coreMain.setMinBridgeFee(minBridgeFee);
   await coreMain.setMinExecutorFee(minExecutorFee);
@@ -277,6 +285,7 @@ export async function deployCelerContracts(
   await coreERC20.deployed();
   await coreERC20.setAssociatedCommitmentPool(poolERC20.address);
   await coreERC20.setBridgeProxyAddress(dummyCeler.address);
+  await coreERC20.setMaxAmount(maxAmount);
   await coreERC20.setMinAmount(minAmount);
   await coreERC20.setMinBridgeFee(minBridgeFee);
   await coreERC20.setMinExecutorFee(minExecutorFee);
@@ -299,6 +308,7 @@ export async function deployLayerZeroContracts(
   poolERC20: CommitmentPoolERC20,
   {
     minAmount = MinAmount,
+    maxAmount = MaxAmount,
     minBridgeFee = MinBridgeFee,
     minExecutorFee = MinExecutorFee,
     minRollupFee = MinRollupFee,
@@ -311,6 +321,7 @@ export async function deployLayerZeroContracts(
   const coreMain = await lzMainFactory.connect(accounts[0]).deploy(hasher3Address);
   await coreMain.deployed();
   await coreMain.setAssociatedCommitmentPool(poolMain.address);
+  await coreMain.setMaxAmount(maxAmount);
   await coreMain.setMinAmount(minAmount);
   await coreMain.setMinBridgeFee(minBridgeFee);
   await coreMain.setMinExecutorFee(minExecutorFee);
@@ -328,6 +339,7 @@ export async function deployLayerZeroContracts(
   const coreERC20 = await lzERC20Factory.connect(accounts[0]).deploy(hasher3Address, tokenAddress);
   await coreERC20.deployed();
   await coreERC20.setAssociatedCommitmentPool(poolERC20.address);
+  await coreERC20.setMaxAmount(maxAmount);
   await coreERC20.setMinAmount(minAmount);
   await coreERC20.setMinBridgeFee(minBridgeFee);
   await coreERC20.setMinExecutorFee(minExecutorFee);
@@ -352,6 +364,7 @@ export async function deployAxelarContracts(
   poolERC20: CommitmentPoolERC20,
   {
     minAmount = MinAmount,
+    maxAmount = MaxAmount,
     minBridgeFee = MinBridgeFee,
     minExecutorFee = MinExecutorFee,
     minRollupFee = MinRollupFee,
@@ -364,6 +377,7 @@ export async function deployAxelarContracts(
   const coreMain = await lzMainFactory.connect(accounts[0]).deploy(hasher3Address);
   await coreMain.deployed();
   await coreMain.setAssociatedCommitmentPool(poolMain.address);
+  await coreMain.setMaxAmount(maxAmount);
   await coreMain.setMinAmount(minAmount);
   await coreMain.setMinBridgeFee(minBridgeFee);
   await coreMain.setMinExecutorFee(minExecutorFee);
@@ -382,6 +396,7 @@ export async function deployAxelarContracts(
   const coreERC20 = await lzERC20Factory.connect(accounts[0]).deploy(hasher3Address, tokenAddress);
   await coreERC20.deployed();
   await coreERC20.setAssociatedCommitmentPool(poolERC20.address);
+  await coreERC20.setMaxAmount(maxAmount);
   await coreERC20.setMinAmount(minAmount);
   await coreERC20.setMinBridgeFee(minBridgeFee);
   await coreERC20.setMinExecutorFee(minExecutorFee);

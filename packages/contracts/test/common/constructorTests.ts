@@ -7,11 +7,15 @@ export function testLoopConstructor(
   mystikoContract: any,
   poolContract: any,
   minAmount: string,
+  maxAmount: string,
   serviceAccount: string,
 ) {
   describe(`Test ${contractName} constructor`, () => {
     it('should initialize minAmount correctly', async () => {
       expect(await mystikoContract.getMinAmount()).to.equal(minAmount);
+    });
+    it('should initialize maxAmount correctly', async () => {
+      expect(await mystikoContract.getMaxAmount()).to.equal(maxAmount);
     });
     it('should initialize admin related resources correctly', async () => {
       expect(await mystikoContract.isDepositsDisabled()).to.equal(false);
@@ -55,6 +59,7 @@ export function testBridgeConstructor(
   mystikoContract: any,
   poolContract: any,
   minAmount: string,
+  maxAmount: string,
   minBridgeFee: string,
   minExecutorFee: string,
   peerMinRoolupFee: string,
@@ -63,6 +68,9 @@ export function testBridgeConstructor(
   describe(`Test ${contractName} constructor`, () => {
     it('should initialize minAmount correctly', async () => {
       expect(await mystikoContract.getMinAmount()).to.equal(minAmount);
+    });
+    it('should initialize maxAmount correctly', async () => {
+      expect(await mystikoContract.getMaxAmount()).to.equal(maxAmount);
     });
     it('should initialize minBridgeFee correctly', async () => {
       expect(await mystikoContract.getMinBridgeFee()).to.equal(minBridgeFee);

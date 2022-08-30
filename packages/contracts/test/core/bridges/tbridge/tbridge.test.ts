@@ -29,6 +29,7 @@ import {
   MinExecutorFee,
   MinAmount,
   ServiceAccountIndex,
+  MaxAmount,
 } from '../../../util/constants';
 import { testTBridgeDeposit } from '../../../common/depositTBridgeTests';
 import { testTBridgeProxyAdminOperations } from '../../../common/adminOperationTests';
@@ -148,6 +149,7 @@ describe('Test Mystiko tbridge', () => {
       localMain,
       localPoolMain,
       MinAmount,
+      MaxAmount,
       MinBridgeFee,
       MinExecutorFee,
       MinRollupFee,
@@ -160,6 +162,7 @@ describe('Test Mystiko tbridge', () => {
       localERC20,
       localPoolERC20,
       MinAmount,
+      MaxAmount,
       MinBridgeFee,
       MinExecutorFee,
       MinRollupFee,
@@ -168,8 +171,8 @@ describe('Test Mystiko tbridge', () => {
   });
 
   it('test admin operation', () => {
-    testBridgeAdminOperations('MystikoV2TBridgeMain', localMain, accounts);
-    testBridgeAdminOperations('MystikoV2TBridgeERC20', localERC20, accounts);
+    testBridgeAdminOperations('MystikoV2TBridgeMain', localMain, accounts, {});
+    testBridgeAdminOperations('MystikoV2TBridgeERC20', localERC20, accounts, {});
     testTBridgeProxyAdminOperations('MystikoTBridgeProxy', tbridgeProxy, accounts);
   });
 

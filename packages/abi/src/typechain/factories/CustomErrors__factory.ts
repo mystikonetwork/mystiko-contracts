@@ -13,6 +13,11 @@ const _abi = [
   },
   {
     inputs: [],
+    name: 'AmountTooLarge',
+    type: 'error',
+  },
+  {
+    inputs: [],
     name: 'AmountTooSmall',
     type: 'error',
   },
@@ -96,6 +101,16 @@ const _abi = [
       },
     ],
     name: 'Invalid',
+    type: 'error',
+  },
+  {
+    inputs: [],
+    name: 'MaxAmountLessThanMinAmount',
+    type: 'error',
+  },
+  {
+    inputs: [],
+    name: 'MinAmountGreaterThanMaxAmount',
     type: 'error',
   },
   {
@@ -211,7 +226,7 @@ const _abi = [
 ];
 
 const _bytecode =
-  '0x60566037600b82828239805160001a607314602a57634e487b7160e01b600052600060045260246000fd5b30600052607381538281f3fe73000000000000000000000000000000000000000030146080604052600080fdfea2646970667358221220f5195cf9e8d054609181185e9d88aeb454d38a36ac1d1dec4a648278b4463b3364736f6c63430008070033';
+  '0x60566037600b82828239805160001a607314602a57634e487b7160e01b600052600060045260246000fd5b30600052607381538281f3fe73000000000000000000000000000000000000000030146080604052600080fdfea26469706673582212206d4f0d365cb5c66bf86f1424cef77539a9d362cb6bcf4915f21389ff79d6abca64736f6c63430008070033';
 
 type CustomErrorsConstructorParams = [signer?: Signer] | ConstructorParameters<typeof ContractFactory>;
 

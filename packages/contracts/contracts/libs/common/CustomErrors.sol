@@ -26,6 +26,7 @@ library CustomErrors {
   error RandomSGreaterThanFieldSize();
   error DepositsDisabled();
   error AmountTooSmall();
+  error AmountTooLarge();
   error BridgeFeeTooFew();
   error ExecutorFeeTooFew();
   error CommitmentHashIncorrect();
@@ -39,4 +40,6 @@ library CustomErrors {
   error CallCrossChainSyncTxError();
   error WithdrawFailed();
   error ServiceFeeDividerTooSmall();
+  error MaxAmountLessThanMinAmount();
+  error MinAmountGreaterThanMaxAmount();
 }

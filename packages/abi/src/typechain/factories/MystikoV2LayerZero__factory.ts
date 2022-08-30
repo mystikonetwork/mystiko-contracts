@@ -14,6 +14,11 @@ const _abi = [
   },
   {
     inputs: [],
+    name: 'AmountTooLarge',
+    type: 'error',
+  },
+  {
+    inputs: [],
     name: 'AmountTooSmall',
     type: 'error',
   },
@@ -75,6 +80,16 @@ const _abi = [
   },
   {
     inputs: [],
+    name: 'MaxAmountLessThanMinAmount',
+    type: 'error',
+  },
+  {
+    inputs: [],
+    name: 'MinAmountGreaterThanMaxAmount',
+    type: 'error',
+  },
+  {
+    inputs: [],
     name: 'NoStoredMessage',
     type: 'error',
   },
@@ -132,6 +147,19 @@ const _abi = [
       },
     ],
     name: 'DepositsDisabled',
+    type: 'event',
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: false,
+        internalType: 'uint256',
+        name: 'maxAmount',
+        type: 'uint256',
+      },
+    ],
+    name: 'MaxAmount',
     type: 'event',
   },
   {
@@ -602,6 +630,19 @@ const _abi = [
   },
   {
     inputs: [],
+    name: 'getMaxAmount',
+    outputs: [
+      {
+        internalType: 'uint256',
+        name: '',
+        type: 'uint256',
+      },
+    ],
+    stateMutability: 'view',
+    type: 'function',
+  },
+  {
+    inputs: [],
     name: 'getMinAmount',
     outputs: [
       {
@@ -1030,6 +1071,19 @@ const _abi = [
       },
     ],
     name: 'setEndpoint',
+    outputs: [],
+    stateMutability: 'nonpayable',
+    type: 'function',
+  },
+  {
+    inputs: [
+      {
+        internalType: 'uint256',
+        name: '_maxAmount',
+        type: 'uint256',
+      },
+    ],
+    name: 'setMaxAmount',
     outputs: [],
     stateMutability: 'nonpayable',
     type: 'function',

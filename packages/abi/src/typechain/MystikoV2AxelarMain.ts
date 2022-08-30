@@ -68,6 +68,7 @@ export interface MystikoV2AxelarMainInterface extends utils.Interface {
     'executeWithToken(bytes32,string,string,bytes,string,uint256)': FunctionFragment;
     'gateway()': FunctionFragment;
     'getAssociatedCommitmentPool()': FunctionFragment;
+    'getMaxAmount()': FunctionFragment;
     'getMinAmount()': FunctionFragment;
     'getMinBridgeFee()': FunctionFragment;
     'getMinExecutorFee()': FunctionFragment;
@@ -86,6 +87,7 @@ export interface MystikoV2AxelarMainInterface extends utils.Interface {
     'setAxelarGasReceiver(address)': FunctionFragment;
     'setBridgeProxyAddress(address)': FunctionFragment;
     'setDepositsDisabled(bool)': FunctionFragment;
+    'setMaxAmount(uint256)': FunctionFragment;
     'setMinAmount(uint256)': FunctionFragment;
     'setMinBridgeFee(uint256)': FunctionFragment;
     'setMinExecutorFee(uint256)': FunctionFragment;
@@ -112,6 +114,7 @@ export interface MystikoV2AxelarMainInterface extends utils.Interface {
   ): string;
   encodeFunctionData(functionFragment: 'gateway', values?: undefined): string;
   encodeFunctionData(functionFragment: 'getAssociatedCommitmentPool', values?: undefined): string;
+  encodeFunctionData(functionFragment: 'getMaxAmount', values?: undefined): string;
   encodeFunctionData(functionFragment: 'getMinAmount', values?: undefined): string;
   encodeFunctionData(functionFragment: 'getMinBridgeFee', values?: undefined): string;
   encodeFunctionData(functionFragment: 'getMinExecutorFee', values?: undefined): string;
@@ -130,6 +133,7 @@ export interface MystikoV2AxelarMainInterface extends utils.Interface {
   encodeFunctionData(functionFragment: 'setAxelarGasReceiver', values: [string]): string;
   encodeFunctionData(functionFragment: 'setBridgeProxyAddress', values: [string]): string;
   encodeFunctionData(functionFragment: 'setDepositsDisabled', values: [boolean]): string;
+  encodeFunctionData(functionFragment: 'setMaxAmount', values: [BigNumberish]): string;
   encodeFunctionData(functionFragment: 'setMinAmount', values: [BigNumberish]): string;
   encodeFunctionData(functionFragment: 'setMinBridgeFee', values: [BigNumberish]): string;
   encodeFunctionData(functionFragment: 'setMinExecutorFee', values: [BigNumberish]): string;
@@ -152,6 +156,7 @@ export interface MystikoV2AxelarMainInterface extends utils.Interface {
   decodeFunctionResult(functionFragment: 'executeWithToken', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'gateway', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'getAssociatedCommitmentPool', data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'getMaxAmount', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'getMinAmount', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'getMinBridgeFee', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'getMinExecutorFee', data: BytesLike): Result;
@@ -170,6 +175,7 @@ export interface MystikoV2AxelarMainInterface extends utils.Interface {
   decodeFunctionResult(functionFragment: 'setAxelarGasReceiver', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'setBridgeProxyAddress', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'setDepositsDisabled', data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'setMaxAmount', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'setMinAmount', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'setMinBridgeFee', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'setMinExecutorFee', data: BytesLike): Result;
@@ -182,6 +188,7 @@ export interface MystikoV2AxelarMainInterface extends utils.Interface {
     'CallContractMessage(string,string)': EventFragment;
     'CommitmentCrossChain(uint256)': EventFragment;
     'DepositsDisabled(bool)': EventFragment;
+    'MaxAmount(uint256)': EventFragment;
     'MinAmount(uint256)': EventFragment;
     'MinBridgeFee(uint256)': EventFragment;
     'MinExecutorFee(uint256)': EventFragment;
@@ -198,6 +205,7 @@ export interface MystikoV2AxelarMainInterface extends utils.Interface {
   getEvent(nameOrSignatureOrTopic: 'CallContractMessage'): EventFragment;
   getEvent(nameOrSignatureOrTopic: 'CommitmentCrossChain'): EventFragment;
   getEvent(nameOrSignatureOrTopic: 'DepositsDisabled'): EventFragment;
+  getEvent(nameOrSignatureOrTopic: 'MaxAmount'): EventFragment;
   getEvent(nameOrSignatureOrTopic: 'MinAmount'): EventFragment;
   getEvent(nameOrSignatureOrTopic: 'MinBridgeFee'): EventFragment;
   getEvent(nameOrSignatureOrTopic: 'MinExecutorFee'): EventFragment;
@@ -225,6 +233,10 @@ export type CommitmentCrossChainEventFilter = TypedEventFilter<CommitmentCrossCh
 export type DepositsDisabledEvent = TypedEvent<[boolean], { state: boolean }>;
 
 export type DepositsDisabledEventFilter = TypedEventFilter<DepositsDisabledEvent>;
+
+export type MaxAmountEvent = TypedEvent<[BigNumber], { maxAmount: BigNumber }>;
+
+export type MaxAmountEventFilter = TypedEventFilter<MaxAmountEvent>;
 
 export type MinAmountEvent = TypedEvent<[BigNumber], { minAmount: BigNumber }>;
 
@@ -355,6 +367,8 @@ export interface MystikoV2AxelarMain extends BaseContract {
 
     getAssociatedCommitmentPool(overrides?: CallOverrides): Promise<[string]>;
 
+    getMaxAmount(overrides?: CallOverrides): Promise<[BigNumber]>;
+
     getMinAmount(overrides?: CallOverrides): Promise<[BigNumber]>;
 
     getMinBridgeFee(overrides?: CallOverrides): Promise<[BigNumber]>;
@@ -400,6 +414,11 @@ export interface MystikoV2AxelarMain extends BaseContract {
 
     setDepositsDisabled(
       _state: boolean,
+      overrides?: Overrides & { from?: string | Promise<string> },
+    ): Promise<ContractTransaction>;
+
+    setMaxAmount(
+      _maxAmount: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<ContractTransaction>;
 
@@ -502,6 +521,8 @@ export interface MystikoV2AxelarMain extends BaseContract {
 
   getAssociatedCommitmentPool(overrides?: CallOverrides): Promise<string>;
 
+  getMaxAmount(overrides?: CallOverrides): Promise<BigNumber>;
+
   getMinAmount(overrides?: CallOverrides): Promise<BigNumber>;
 
   getMinBridgeFee(overrides?: CallOverrides): Promise<BigNumber>;
@@ -547,6 +568,11 @@ export interface MystikoV2AxelarMain extends BaseContract {
 
   setDepositsDisabled(
     _state: boolean,
+    overrides?: Overrides & { from?: string | Promise<string> },
+  ): Promise<ContractTransaction>;
+
+  setMaxAmount(
+    _maxAmount: BigNumberish,
     overrides?: Overrides & { from?: string | Promise<string> },
   ): Promise<ContractTransaction>;
 
@@ -630,6 +656,8 @@ export interface MystikoV2AxelarMain extends BaseContract {
 
     getAssociatedCommitmentPool(overrides?: CallOverrides): Promise<string>;
 
+    getMaxAmount(overrides?: CallOverrides): Promise<BigNumber>;
+
     getMinAmount(overrides?: CallOverrides): Promise<BigNumber>;
 
     getMinBridgeFee(overrides?: CallOverrides): Promise<BigNumber>;
@@ -666,6 +694,8 @@ export interface MystikoV2AxelarMain extends BaseContract {
 
     setDepositsDisabled(_state: boolean, overrides?: CallOverrides): Promise<void>;
 
+    setMaxAmount(_maxAmount: BigNumberish, overrides?: CallOverrides): Promise<void>;
+
     setMinAmount(_minAmount: BigNumberish, overrides?: CallOverrides): Promise<void>;
 
     setMinBridgeFee(_minBridgeFee: BigNumberish, overrides?: CallOverrides): Promise<void>;
@@ -698,6 +728,9 @@ export interface MystikoV2AxelarMain extends BaseContract {
 
     'DepositsDisabled(bool)'(state?: null): DepositsDisabledEventFilter;
     DepositsDisabled(state?: null): DepositsDisabledEventFilter;
+
+    'MaxAmount(uint256)'(maxAmount?: null): MaxAmountEventFilter;
+    MaxAmount(maxAmount?: null): MaxAmountEventFilter;
 
     'MinAmount(uint256)'(minAmount?: null): MinAmountEventFilter;
     MinAmount(minAmount?: null): MinAmountEventFilter;
@@ -791,6 +824,8 @@ export interface MystikoV2AxelarMain extends BaseContract {
 
     getAssociatedCommitmentPool(overrides?: CallOverrides): Promise<BigNumber>;
 
+    getMaxAmount(overrides?: CallOverrides): Promise<BigNumber>;
+
     getMinAmount(overrides?: CallOverrides): Promise<BigNumber>;
 
     getMinBridgeFee(overrides?: CallOverrides): Promise<BigNumber>;
@@ -836,6 +871,11 @@ export interface MystikoV2AxelarMain extends BaseContract {
 
     setDepositsDisabled(
       _state: boolean,
+      overrides?: Overrides & { from?: string | Promise<string> },
+    ): Promise<BigNumber>;
+
+    setMaxAmount(
+      _maxAmount: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<BigNumber>;
 
@@ -939,6 +979,8 @@ export interface MystikoV2AxelarMain extends BaseContract {
 
     getAssociatedCommitmentPool(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
+    getMaxAmount(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+
     getMinAmount(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     getMinBridgeFee(overrides?: CallOverrides): Promise<PopulatedTransaction>;
@@ -984,6 +1026,11 @@ export interface MystikoV2AxelarMain extends BaseContract {
 
     setDepositsDisabled(
       _state: boolean,
+      overrides?: Overrides & { from?: string | Promise<string> },
+    ): Promise<PopulatedTransaction>;
+
+    setMaxAmount(
+      _maxAmount: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<PopulatedTransaction>;
 

@@ -68,6 +68,7 @@ export interface MystikoV2LayerZeroMainInterface extends utils.Interface {
     'forceResumeReceive(uint16,bytes)': FunctionFragment;
     'getAssociatedCommitmentPool()': FunctionFragment;
     'getConfig(uint16,uint16,address,uint256)': FunctionFragment;
+    'getMaxAmount()': FunctionFragment;
     'getMinAmount()': FunctionFragment;
     'getMinBridgeFee()': FunctionFragment;
     'getMinExecutorFee()': FunctionFragment;
@@ -96,6 +97,7 @@ export interface MystikoV2LayerZeroMainInterface extends utils.Interface {
     'setConfig(uint16,uint16,uint256,bytes)': FunctionFragment;
     'setDepositsDisabled(bool)': FunctionFragment;
     'setEndpoint(uint16,address)': FunctionFragment;
+    'setMaxAmount(uint256)': FunctionFragment;
     'setMinAmount(uint256)': FunctionFragment;
     'setMinBridgeFee(uint256)': FunctionFragment;
     'setMinExecutorFee(uint256)': FunctionFragment;
@@ -130,6 +132,7 @@ export interface MystikoV2LayerZeroMainInterface extends utils.Interface {
     functionFragment: 'getConfig',
     values: [BigNumberish, BigNumberish, string, BigNumberish],
   ): string;
+  encodeFunctionData(functionFragment: 'getMaxAmount', values?: undefined): string;
   encodeFunctionData(functionFragment: 'getMinAmount', values?: undefined): string;
   encodeFunctionData(functionFragment: 'getMinBridgeFee', values?: undefined): string;
   encodeFunctionData(functionFragment: 'getMinExecutorFee', values?: undefined): string;
@@ -170,6 +173,7 @@ export interface MystikoV2LayerZeroMainInterface extends utils.Interface {
   ): string;
   encodeFunctionData(functionFragment: 'setDepositsDisabled', values: [boolean]): string;
   encodeFunctionData(functionFragment: 'setEndpoint', values: [BigNumberish, string]): string;
+  encodeFunctionData(functionFragment: 'setMaxAmount', values: [BigNumberish]): string;
   encodeFunctionData(functionFragment: 'setMinAmount', values: [BigNumberish]): string;
   encodeFunctionData(functionFragment: 'setMinBridgeFee', values: [BigNumberish]): string;
   encodeFunctionData(functionFragment: 'setMinExecutorFee', values: [BigNumberish]): string;
@@ -197,6 +201,7 @@ export interface MystikoV2LayerZeroMainInterface extends utils.Interface {
   decodeFunctionResult(functionFragment: 'forceResumeReceive', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'getAssociatedCommitmentPool', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'getConfig', data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'getMaxAmount', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'getMinAmount', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'getMinBridgeFee', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'getMinExecutorFee', data: BytesLike): Result;
@@ -225,6 +230,7 @@ export interface MystikoV2LayerZeroMainInterface extends utils.Interface {
   decodeFunctionResult(functionFragment: 'setConfig', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'setDepositsDisabled', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'setEndpoint', data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'setMaxAmount', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'setMinAmount', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'setMinBridgeFee', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'setMinExecutorFee', data: BytesLike): Result;
@@ -241,6 +247,7 @@ export interface MystikoV2LayerZeroMainInterface extends utils.Interface {
   events: {
     'CommitmentCrossChain(uint256)': EventFragment;
     'DepositsDisabled(bool)': EventFragment;
+    'MaxAmount(uint256)': EventFragment;
     'MessageFailed(uint16,bytes,uint64,bytes)': EventFragment;
     'MinAmount(uint256)': EventFragment;
     'MinBridgeFee(uint256)': EventFragment;
@@ -259,6 +266,7 @@ export interface MystikoV2LayerZeroMainInterface extends utils.Interface {
 
   getEvent(nameOrSignatureOrTopic: 'CommitmentCrossChain'): EventFragment;
   getEvent(nameOrSignatureOrTopic: 'DepositsDisabled'): EventFragment;
+  getEvent(nameOrSignatureOrTopic: 'MaxAmount'): EventFragment;
   getEvent(nameOrSignatureOrTopic: 'MessageFailed'): EventFragment;
   getEvent(nameOrSignatureOrTopic: 'MinAmount'): EventFragment;
   getEvent(nameOrSignatureOrTopic: 'MinBridgeFee'): EventFragment;
@@ -282,6 +290,10 @@ export type CommitmentCrossChainEventFilter = TypedEventFilter<CommitmentCrossCh
 export type DepositsDisabledEvent = TypedEvent<[boolean], { state: boolean }>;
 
 export type DepositsDisabledEventFilter = TypedEventFilter<DepositsDisabledEvent>;
+
+export type MaxAmountEvent = TypedEvent<[BigNumber], { maxAmount: BigNumber }>;
+
+export type MaxAmountEventFilter = TypedEventFilter<MaxAmountEvent>;
 
 export type MessageFailedEvent = TypedEvent<
   [number, string, BigNumber, string],
@@ -439,6 +451,8 @@ export interface MystikoV2LayerZeroMain extends BaseContract {
       overrides?: CallOverrides,
     ): Promise<[string]>;
 
+    getMaxAmount(overrides?: CallOverrides): Promise<[BigNumber]>;
+
     getMinAmount(overrides?: CallOverrides): Promise<[BigNumber]>;
 
     getMinBridgeFee(overrides?: CallOverrides): Promise<[BigNumber]>;
@@ -535,6 +549,11 @@ export interface MystikoV2LayerZeroMain extends BaseContract {
     setEndpoint(
       _lzChainId: BigNumberish,
       _lzEndpoint: string,
+      overrides?: Overrides & { from?: string | Promise<string> },
+    ): Promise<ContractTransaction>;
+
+    setMaxAmount(
+      _maxAmount: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<ContractTransaction>;
 
@@ -661,6 +680,8 @@ export interface MystikoV2LayerZeroMain extends BaseContract {
     overrides?: CallOverrides,
   ): Promise<string>;
 
+  getMaxAmount(overrides?: CallOverrides): Promise<BigNumber>;
+
   getMinAmount(overrides?: CallOverrides): Promise<BigNumber>;
 
   getMinBridgeFee(overrides?: CallOverrides): Promise<BigNumber>;
@@ -757,6 +778,11 @@ export interface MystikoV2LayerZeroMain extends BaseContract {
   setEndpoint(
     _lzChainId: BigNumberish,
     _lzEndpoint: string,
+    overrides?: Overrides & { from?: string | Promise<string> },
+  ): Promise<ContractTransaction>;
+
+  setMaxAmount(
+    _maxAmount: BigNumberish,
     overrides?: Overrides & { from?: string | Promise<string> },
   ): Promise<ContractTransaction>;
 
@@ -864,6 +890,8 @@ export interface MystikoV2LayerZeroMain extends BaseContract {
       overrides?: CallOverrides,
     ): Promise<string>;
 
+    getMaxAmount(overrides?: CallOverrides): Promise<BigNumber>;
+
     getMinAmount(overrides?: CallOverrides): Promise<BigNumber>;
 
     getMinBridgeFee(overrides?: CallOverrides): Promise<BigNumber>;
@@ -948,6 +976,8 @@ export interface MystikoV2LayerZeroMain extends BaseContract {
 
     setEndpoint(_lzChainId: BigNumberish, _lzEndpoint: string, overrides?: CallOverrides): Promise<void>;
 
+    setMaxAmount(_maxAmount: BigNumberish, overrides?: CallOverrides): Promise<void>;
+
     setMinAmount(_minAmount: BigNumberish, overrides?: CallOverrides): Promise<void>;
 
     setMinBridgeFee(_minBridgeFee: BigNumberish, overrides?: CallOverrides): Promise<void>;
@@ -988,6 +1018,9 @@ export interface MystikoV2LayerZeroMain extends BaseContract {
 
     'DepositsDisabled(bool)'(state?: null): DepositsDisabledEventFilter;
     DepositsDisabled(state?: null): DepositsDisabledEventFilter;
+
+    'MaxAmount(uint256)'(maxAmount?: null): MaxAmountEventFilter;
+    MaxAmount(maxAmount?: null): MaxAmountEventFilter;
 
     'MessageFailed(uint16,bytes,uint64,bytes)'(
       _srcChainId?: null,
@@ -1107,6 +1140,8 @@ export interface MystikoV2LayerZeroMain extends BaseContract {
       overrides?: CallOverrides,
     ): Promise<BigNumber>;
 
+    getMaxAmount(overrides?: CallOverrides): Promise<BigNumber>;
+
     getMinAmount(overrides?: CallOverrides): Promise<BigNumber>;
 
     getMinBridgeFee(overrides?: CallOverrides): Promise<BigNumber>;
@@ -1201,6 +1236,11 @@ export interface MystikoV2LayerZeroMain extends BaseContract {
     setEndpoint(
       _lzChainId: BigNumberish,
       _lzEndpoint: string,
+      overrides?: Overrides & { from?: string | Promise<string> },
+    ): Promise<BigNumber>;
+
+    setMaxAmount(
+      _maxAmount: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<BigNumber>;
 
@@ -1328,6 +1368,8 @@ export interface MystikoV2LayerZeroMain extends BaseContract {
       overrides?: CallOverrides,
     ): Promise<PopulatedTransaction>;
 
+    getMaxAmount(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+
     getMinAmount(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     getMinBridgeFee(overrides?: CallOverrides): Promise<PopulatedTransaction>;
@@ -1424,6 +1466,11 @@ export interface MystikoV2LayerZeroMain extends BaseContract {
     setEndpoint(
       _lzChainId: BigNumberish,
       _lzEndpoint: string,
+      overrides?: Overrides & { from?: string | Promise<string> },
+    ): Promise<PopulatedTransaction>;
+
+    setMaxAmount(
+      _maxAmount: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<PopulatedTransaction>;
 

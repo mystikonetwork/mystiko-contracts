@@ -9,6 +9,11 @@ import type { MystikoV2Loop, MystikoV2LoopInterface } from '../MystikoV2Loop';
 const _abi = [
   {
     inputs: [],
+    name: 'AmountTooLarge',
+    type: 'error',
+  },
+  {
+    inputs: [],
     name: 'AmountTooSmall',
     type: 'error',
   },
@@ -25,6 +30,16 @@ const _abi = [
   {
     inputs: [],
     name: 'HashKGreaterThanFieldSize',
+    type: 'error',
+  },
+  {
+    inputs: [],
+    name: 'MaxAmountLessThanMinAmount',
+    type: 'error',
+  },
+  {
+    inputs: [],
+    name: 'MinAmountGreaterThanMaxAmount',
     type: 'error',
   },
   {
@@ -63,6 +78,19 @@ const _abi = [
       },
     ],
     name: 'DepositsDisabled',
+    type: 'event',
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: false,
+        internalType: 'uint256',
+        name: 'maxAmount',
+        type: 'uint256',
+      },
+    ],
+    name: 'MaxAmount',
     type: 'event',
   },
   {
@@ -308,6 +336,19 @@ const _abi = [
   },
   {
     inputs: [],
+    name: 'getMaxAmount',
+    outputs: [
+      {
+        internalType: 'uint256',
+        name: '',
+        type: 'uint256',
+      },
+    ],
+    stateMutability: 'view',
+    type: 'function',
+  },
+  {
+    inputs: [],
     name: 'getMinAmount',
     outputs: [
       {
@@ -419,6 +460,19 @@ const _abi = [
       },
     ],
     name: 'setDepositsDisabled',
+    outputs: [],
+    stateMutability: 'nonpayable',
+    type: 'function',
+  },
+  {
+    inputs: [
+      {
+        internalType: 'uint256',
+        name: '_maxAmount',
+        type: 'uint256',
+      },
+    ],
+    name: 'setMaxAmount',
     outputs: [],
     stateMutability: 'nonpayable',
     type: 'function',
