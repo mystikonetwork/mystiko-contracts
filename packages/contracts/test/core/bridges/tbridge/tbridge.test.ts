@@ -171,8 +171,8 @@ describe('Test Mystiko tbridge', () => {
   });
 
   it('test admin operation', () => {
-    testBridgeAdminOperations('MystikoV2TBridgeMain', localMain, accounts);
-    testBridgeAdminOperations('MystikoV2TBridgeERC20', localERC20, accounts);
+    testBridgeAdminOperations('MystikoV2TBridgeMain', localMain, accounts, {});
+    testBridgeAdminOperations('MystikoV2TBridgeERC20', localERC20, accounts, {});
     testTBridgeProxyAdminOperations('MystikoTBridgeProxy', tbridgeProxy, accounts);
   });
 
