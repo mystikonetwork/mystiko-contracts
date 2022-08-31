@@ -368,6 +368,14 @@ abstract contract CommitmentPool is ICommitmentPool, AssetPool, ReentrancyGuard,
     return auditorKeys[_index];
   }
 
+  function getAllAuditorKeys() public view returns (bytes32[] memory) {
+    bytes32[] memory keys = new bytes32[](auditorCount);
+    for (uint256 i = 0; i < auditorCount; i++) {
+      keys[i] = auditorKeys[i];
+    }
+    return keys;
+  }
+
   function _enqueueCommitment(
     uint256 _commitment,
     uint256 _rollupFee,

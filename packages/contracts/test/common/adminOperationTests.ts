@@ -293,6 +293,12 @@ export function testCommitmentPoolAdminOperations(
         expect(await mystikoContract.getAuditorKey(i)).to.equal(key);
       }
 
+      const keys = await mystikoContract.getAllAuditorKeys();
+      expect(keys.length).to.equal(count);
+      for (let i = 0; i < count; i += 1) {
+        expect(keys[i]).to.equal(key);
+      }
+
       await expect(mystikoContract.updateAuditorKey(0, key)).to.be.revertedWith('AuditorKeyNotChanged');
       await expect(mystikoContract.updateAuditorKey(count, key)).to.be.revertedWith('AuditorIndexError');
 
