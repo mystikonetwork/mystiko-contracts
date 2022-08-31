@@ -27,7 +27,6 @@ export function testLayerZeroDeposit(
   let minRollupFee: string;
   let minExecutorFee: string;
   let minTotalAmount: string;
-  let serviceFeeAmount: string;
   let minTotalValue: string;
   const { commitments } = cmInfo;
   const numOfCommitments = commitments.length;

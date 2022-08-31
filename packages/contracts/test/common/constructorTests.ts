@@ -7,7 +7,6 @@ export function testLoopConstructor(
   poolContract: any,
   minAmount: string,
   maxAmount: string,
-  sactionAccount: string,
 ) {
   describe(`Test ${contractName} constructor`, () => {
     it('should initialize minAmount correctly', async () => {
