@@ -13,7 +13,7 @@ import {
   deployCommitmentPoolContracts,
 } from '../../util/common';
 import { testLoopConstructor, testLoopAdminOperations } from '../../common';
-import { MaxAmount, MinAmount, ServiceAccountIndex } from '../../util/constants';
+import { MaxAmount, MinAmount, SactionAccountIndex } from '../../util/constants';
 
 describe('Test Mystiko loop', () => {
   async function fixture(accounts: Wallet[]) {
@@ -82,7 +82,7 @@ describe('Test Mystiko loop', () => {
       poolMain,
       MinAmount,
       MaxAmount,
-      accounts[ServiceAccountIndex].address,
+      accounts[SactionAccountIndex].address,
     );
     testLoopConstructor(
       'MystikoV2LoopERC20',
@@ -90,7 +90,7 @@ describe('Test Mystiko loop', () => {
       poolErc20,
       MinAmount,
       MaxAmount,
-      accounts[ServiceAccountIndex].address,
+      accounts[SactionAccountIndex].address,
     );
   });
 

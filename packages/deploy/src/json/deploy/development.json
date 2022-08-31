@@ -16,8 +16,6 @@
           "maxAmount": "1000000",
           "minExecutorFee": "1000",
           "minRollupFee": "1000",
-          "serviceFee": 2000,
-          "serviceFeeDivider": 2000000,
           "recommendedAmounts": [
             "1000",
             "2000",
@@ -33,8 +31,6 @@
           "maxAmount": "2000000",
           "minExecutorFee": "2000",
           "minRollupFee": "2000",
-          "serviceFee": 2000,
-          "serviceFeeDivider": 2000000,
           "address": "0xf900322b2d706b35f43b9f8d00dc4617292c2697",
           "recommendedAmounts": [
             "1000",
@@ -123,7 +119,6 @@
   ],
   "operator": {
     "admin": "",
-    "serviceFeeCollector": "0x2179A55c6552F069FFB3ecaD41db3fab5f23d30c",
     "executors": [
       "0x2fD64dFE5Fa6e1e6bEc263BeB7A903DeF1c1e4e8"
     ],

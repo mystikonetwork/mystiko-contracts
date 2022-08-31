@@ -27,6 +27,8 @@ library CustomErrors {
   error DepositsDisabled();
   error AmountTooSmall();
   error AmountTooLarge();
+  error MaxAmountLessThanMinAmount();
+  error MinAmountGreaterThanMaxAmount();
   error BridgeFeeTooFew();
   error ExecutorFeeTooFew();
   error CommitmentHashIncorrect();
@@ -39,7 +41,6 @@ library CustomErrors {
   error OnlyRegister();
   error CallCrossChainSyncTxError();
   error WithdrawFailed();
-  error ServiceFeeDividerTooSmall();
-  error MaxAmountLessThanMinAmount();
-  error MinAmountGreaterThanMaxAmount();
+  error AuditorIndexError();
+  error AuditorKeyNotChanged();
 }

@@ -9,8 +9,6 @@ export interface RawChainTokenConfig {
   maxAmount: string;
   minExecutorFee: string;
   minRollupFee: string;
-  serviceFee?: number;
-  serviceFeeDivider?: number;
   recommendedAmounts: string[];
   address?: string;
 }
@@ -24,11 +22,6 @@ export class ChainTokenConfig extends BaseConfig {
     BaseConfig.checkString(this.config, 'maxAmount');
     BaseConfig.checkString(this.config, 'minExecutorFee');
     BaseConfig.checkString(this.config, 'minRollupFee');
-    BaseConfig.checkNumber(this.config, 'serviceFee', false);
-    BaseConfig.checkNumber(this.config, 'serviceFeeDivider', false);
-    if (rawConfig.serviceFeeDivider !== undefined) {
-      check(rawConfig.serviceFeeDivider !== 0, 'service fee divider not 0');
-    }
     BaseConfig.checkStringArray(this.config, 'recommendedAmounts');
 
     check(rawConfig.erc20 === false || rawConfig.erc20 === true, 'erc20 configure not exist');
@@ -63,14 +56,6 @@ export class ChainTokenConfig extends BaseConfig {
 
   public get minRollupFee(): string {
     return this.asRawChainConfig().minRollupFee;
-  }
-
-  public get serviceFee(): number | undefined {
-    return this.asRawChainConfig().serviceFee;
-  }
-
-  public get serviceFeeDivider(): number | undefined {
-    return this.asRawChainConfig().serviceFeeDivider;
   }
 
   public get address(): string {

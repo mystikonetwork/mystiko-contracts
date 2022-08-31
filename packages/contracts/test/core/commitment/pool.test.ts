@@ -201,6 +201,7 @@ describe('Test Mystiko pool', () => {
     includedCounter = 21;
     testTransactRevert(
       'CommitmentPoolMain',
+      accounts,
       protocol,
       poolMain,
       sanctionList,

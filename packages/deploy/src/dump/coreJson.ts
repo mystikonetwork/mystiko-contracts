@@ -181,8 +181,6 @@ function addNewDepositContractConfig(
   maxAmount: string,
   minBridgeFee: string,
   minExecutorFee: string,
-  serviceFee?: number,
-  serviceFeeDivider?: number,
 ): any {
   const coreConfig = inCoreConfig;
   const chainConfig = getChainConfig(coreConfig, chainId);
@@ -201,12 +199,6 @@ function addNewDepositContractConfig(
       }
       depositContract.minAmount = minAmount;
       depositContract.maxAmount = maxAmount;
-      if (serviceFee !== undefined) {
-        depositContract.serviceFee = serviceFee;
-      }
-      if (serviceFeeDivider !== undefined) {
-        depositContract.serviceFeeDivider = serviceFeeDivider;
-      }
 
       if (bridgeType !== BridgeLoop) {
         depositContract.minBridgeFee = minBridgeFee;
@@ -244,15 +236,7 @@ function addNewDepositContractConfig(
   newContract.minAmount = minAmount;
   // @ts-ignore
   newContract.maxAmount = maxAmount;
-  if (serviceFee !== undefined) {
-    // @ts-ignore
-    newContract.serviceFee = serviceFee;
-  }
 
-  if (serviceFeeDivider !== undefined) {
-    // @ts-ignore
-    newContract.serviceFeeDivider = serviceFeeDivider;
-  }
   if (bridgeType !== BridgeLoop) {
     // @ts-ignore
     newContract.minBridgeFee = minBridgeFee;
@@ -307,8 +291,6 @@ export function saveCoreContractJson(c: any) {
     c.pairSrcDepositCfg.maxAmount,
     c.bridgeCfg.getMinBridgeFee(c.srcChainCfg.network),
     c.pairSrcDepositCfg.minExecutorFee,
-    c.pairSrcDepositCfg.serviceFee,
-    c.pairSrcDepositCfg.serviceFeeDivider,
   );
 
   saveCoreConfig(c.mystikoNetwork, coreCfg);

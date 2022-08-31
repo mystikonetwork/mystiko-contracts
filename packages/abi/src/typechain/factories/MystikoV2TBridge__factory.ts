@@ -109,11 +109,6 @@ const _abi = [
     type: 'error',
   },
   {
-    inputs: [],
-    name: 'ServiceFeeDividerTooSmall',
-    type: 'error',
-  },
-  {
     anonymous: false,
     inputs: [
       {
@@ -257,45 +252,6 @@ const _abi = [
     type: 'event',
   },
   {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: false,
-        internalType: 'uint256',
-        name: 'serviceFee',
-        type: 'uint256',
-      },
-    ],
-    name: 'ServiceFeeChanged',
-    type: 'event',
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: true,
-        internalType: 'address',
-        name: 'collector',
-        type: 'address',
-      },
-    ],
-    name: 'ServiceFeeCollectorChanged',
-    type: 'event',
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: false,
-        internalType: 'uint256',
-        name: 'serviceFeeDivider',
-        type: 'uint256',
-      },
-    ],
-    name: 'ServiceFeeDividerChanged',
-    type: 'event',
-  },
-  {
     inputs: [],
     name: 'assetType',
     outputs: [
@@ -343,45 +299,6 @@ const _abi = [
       },
     ],
     name: 'changeOperator',
-    outputs: [],
-    stateMutability: 'nonpayable',
-    type: 'function',
-  },
-  {
-    inputs: [
-      {
-        internalType: 'uint256',
-        name: '_newServiceFee',
-        type: 'uint256',
-      },
-    ],
-    name: 'changeServiceFee',
-    outputs: [],
-    stateMutability: 'nonpayable',
-    type: 'function',
-  },
-  {
-    inputs: [
-      {
-        internalType: 'address',
-        name: '_newCollector',
-        type: 'address',
-      },
-    ],
-    name: 'changeServiceFeeCollector',
-    outputs: [],
-    stateMutability: 'nonpayable',
-    type: 'function',
-  },
-  {
-    inputs: [
-      {
-        internalType: 'uint256',
-        name: '_newServiceFeeDivider',
-        type: 'uint256',
-      },
-    ],
-    name: 'changeServiceFeeDivider',
     outputs: [],
     stateMutability: 'nonpayable',
     type: 'function',
@@ -570,45 +487,6 @@ const _abi = [
   {
     inputs: [],
     name: 'getPeerMinRollupFee',
-    outputs: [
-      {
-        internalType: 'uint256',
-        name: '',
-        type: 'uint256',
-      },
-    ],
-    stateMutability: 'view',
-    type: 'function',
-  },
-  {
-    inputs: [],
-    name: 'getServiceFee',
-    outputs: [
-      {
-        internalType: 'uint256',
-        name: '',
-        type: 'uint256',
-      },
-    ],
-    stateMutability: 'view',
-    type: 'function',
-  },
-  {
-    inputs: [],
-    name: 'getServiceFeeCollector',
-    outputs: [
-      {
-        internalType: 'address',
-        name: '',
-        type: 'address',
-      },
-    ],
-    stateMutability: 'view',
-    type: 'function',
-  },
-  {
-    inputs: [],
-    name: 'getServiceFeeDivider',
     outputs: [
       {
         internalType: 'uint256',
