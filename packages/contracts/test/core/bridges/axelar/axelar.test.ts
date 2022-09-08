@@ -22,13 +22,7 @@ import {
 import { constructCommitment, testBridgeConstructor } from '../../../common';
 
 // @ts-ignore
-import {
-  MaxAmount,
-  MinAmount,
-  MinBridgeFee,
-  MinRollupFee,
-  ServiceAccountIndex,
-} from '../../../util/constants';
+import { MaxAmount, MinAmount, MinBridgeFee, MinRollupFee } from '../../../util/constants';
 import { testAxelarDeposit } from '../../../common/depositAxelarTests';
 
 describe('Test Mystiko axelar', () => {
@@ -147,7 +141,6 @@ describe('Test Mystiko axelar', () => {
       MinBridgeFee,
       '0',
       MinRollupFee,
-      accounts[ServiceAccountIndex].address,
     );
   });
 

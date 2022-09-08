@@ -9,6 +9,16 @@ import type { CommitmentPool, CommitmentPoolInterface } from '../CommitmentPool'
 const _abi = [
   {
     inputs: [],
+    name: 'AuditorIndexError',
+    type: 'error',
+  },
+  {
+    inputs: [],
+    name: 'AuditorKeyNotChanged',
+    type: 'error',
+  },
+  {
+    inputs: [],
     name: 'CommitmentHasBeenSubmitted',
     type: 'error',
   },
@@ -113,6 +123,25 @@ const _abi = [
     inputs: [],
     name: 'VerifierUpdatesHasBeenDisabled',
     type: 'error',
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: true,
+        internalType: 'uint256',
+        name: 'index',
+        type: 'uint256',
+      },
+      {
+        indexed: false,
+        internalType: 'bytes32',
+        name: 'key',
+        type: 'bytes32',
+      },
+    ],
+    name: 'AuditorKeyChanged',
+    type: 'event',
   },
   {
     anonymous: false,
@@ -306,6 +335,19 @@ const _abi = [
     type: 'function',
   },
   {
+    inputs: [],
+    name: 'auditorCount',
+    outputs: [
+      {
+        internalType: 'uint256',
+        name: '',
+        type: 'uint256',
+      },
+    ],
+    stateMutability: 'view',
+    type: 'function',
+  },
+  {
     inputs: [
       {
         internalType: 'address',
@@ -447,6 +489,38 @@ const _abi = [
     name: 'enqueue',
     outputs: [],
     stateMutability: 'nonpayable',
+    type: 'function',
+  },
+  {
+    inputs: [],
+    name: 'getAllAuditorKeys',
+    outputs: [
+      {
+        internalType: 'bytes32[]',
+        name: '',
+        type: 'bytes32[]',
+      },
+    ],
+    stateMutability: 'view',
+    type: 'function',
+  },
+  {
+    inputs: [
+      {
+        internalType: 'uint256',
+        name: '_index',
+        type: 'uint256',
+      },
+    ],
+    name: 'getAuditorKey',
+    outputs: [
+      {
+        internalType: 'bytes32',
+        name: '',
+        type: 'bytes32',
+      },
+    ],
+    stateMutability: 'view',
     type: 'function',
   },
   {
@@ -879,6 +953,24 @@ const _abi = [
       },
     ],
     name: 'transact',
+    outputs: [],
+    stateMutability: 'nonpayable',
+    type: 'function',
+  },
+  {
+    inputs: [
+      {
+        internalType: 'uint256',
+        name: '_index',
+        type: 'uint256',
+      },
+      {
+        internalType: 'bytes32',
+        name: '_key',
+        type: 'bytes32',
+      },
+    ],
+    name: 'updateAuditorKey',
     outputs: [],
     stateMutability: 'nonpayable',
     type: 'function',

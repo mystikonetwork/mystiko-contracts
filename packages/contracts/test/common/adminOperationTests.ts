@@ -1,6 +1,7 @@
 import { expect } from 'chai';
 import { MystikoTBridgeProxy } from '@mystikonetwork/contracts-abi';
 import { toBN } from '@mystikonetwork/utils';
+import { ethers } from 'ethers';
 import { MaxAmount, MinAmount } from '../util/constants';
 
 export function testLoopAdminOperations(
@@ -191,6 +192,7 @@ export function testCommitmentPoolAdminOperations(
       // expect(verifier.enabled).to.equal(true);
 
       await mystikoContract.setVerifierUpdateDisabled(true);
+      expect(await mystikoContract.isVerifierUpdateDisabled()).to.be.equal(true);
       await expect(
         mystikoContract.enableRollupVerifier(4, '0xfbb61B8b98a59FbC4bD79C23212AddbEFaEB289f'),
       ).to.be.revertedWith('VerifierUpdatesHasBeenDisabled()');
@@ -275,6 +277,34 @@ export function testCommitmentPoolAdminOperations(
       // expect(await mystikoContract.operator()).to.equal(accounts[1].address);
       await mystikoContract.connect(accounts[1]).changeOperator(accounts[0].address);
       // expect(await mystikoContract.operator()).to.equal(accounts[0].address);
+    });
+
+    it('should set auditor key correctly', async () => {
+      const key = ethers.utils.formatBytes32String('0x74657374');
+      const count = await mystikoContract.auditorCount();
+
+      for (let i = 0; i < count; i += 1) {
+        await expect(mystikoContract.updateAuditorKey(i, key))
+          .to.emit(mystikoContract, 'AuditorKeyChanged')
+          .withArgs(i, key);
+      }
+
+      for (let i = 0; i < count; i += 1) {
+        expect(await mystikoContract.getAuditorKey(i)).to.equal(key);
+      }
+
+      const keys = await mystikoContract.getAllAuditorKeys();
+      expect(keys.length).to.equal(count);
+      for (let i = 0; i < count; i += 1) {
+        expect(keys[i]).to.equal(key);
+      }
+
+      await expect(mystikoContract.updateAuditorKey(0, key)).to.be.revertedWith('AuditorKeyNotChanged');
+      await expect(mystikoContract.updateAuditorKey(count, key)).to.be.revertedWith('AuditorIndexError');
+
+      expect(await mystikoContract.getAuditorKey(count)).to.equal(
+        '0x0000000000000000000000000000000000000000000000000000000000000000',
+      );
     });
   });
 }

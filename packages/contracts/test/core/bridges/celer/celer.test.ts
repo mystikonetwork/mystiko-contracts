@@ -28,7 +28,6 @@ import {
   MinBridgeFee,
   MinExecutorFee,
   MinAmount,
-  ServiceAccountIndex,
   MaxAmount,
 } from '../../../util/constants';
 import { testCelerDeposit } from '../../../common/depositCelerTests';
@@ -152,7 +151,6 @@ describe('Test Mystiko celer', () => {
       MinBridgeFee,
       MinExecutorFee,
       MinRollupFee,
-      accounts[ServiceAccountIndex].address,
     );
 
     await localERC20.setPeerContract(DestinationChainID, '', remoteERC20.address);
@@ -165,7 +163,6 @@ describe('Test Mystiko celer', () => {
       MinBridgeFee,
       MinExecutorFee,
       MinRollupFee,
-      accounts[ServiceAccountIndex].address,
     );
   });
 

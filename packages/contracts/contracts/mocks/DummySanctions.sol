@@ -8,7 +8,7 @@ contract DummySanctionsList {
     sanctionsList[addr] = true;
   }
 
-  function removeToSanctionsList(address addr) external {
+  function removeFromSanctionsList(address addr) external {
     sanctionsList[addr] = false;
   }
 

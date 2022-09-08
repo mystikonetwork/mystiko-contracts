@@ -300,6 +300,7 @@ export function testTransact(
 
 export function testTransactRevert(
   contractName: string,
+  accounts: any[],
   protocol: MystikoProtocolV2,
   commitmentPoolContract: any,
   sanctionList: DummySanctionsList,
@@ -377,6 +378,23 @@ export function testTransactRevert(
       await commitmentPoolContract.enableTransactVerifier(numInputs, numOutputs, transactVerifier.address);
     });
 
+    it('should revert when sender in sanction list', async () => {
+      await sanctionList.addToSanctionsList(accounts[0].address);
+      const request = buildRequest(
+        numInputs,
+        numOutputs,
+        proof,
+        publicRecipientAddress,
+        relayerAddress,
+        outEncryptedNotes,
+      );
+
+      await expect(commitmentPoolContract.transact(request, signature)).to.be.revertedWith(
+        'SanctionedAddress()',
+      );
+      await sanctionList.removeFromSanctionsList(accounts[0].address);
+    });
+
     it('should revert when recipient in sanction list', async () => {
       await sanctionList.addToSanctionsList(publicRecipientAddress);
       const request = buildRequest(
@@ -391,7 +409,7 @@ export function testTransactRevert(
       await expect(commitmentPoolContract.transact(request, signature)).to.be.revertedWith(
         'SanctionedAddress()',
       );
-      await sanctionList.removeToSanctionsList(publicRecipientAddress);
+      await sanctionList.removeFromSanctionsList(publicRecipientAddress);
     });
 
     it('should have correct balance', async () => {

@@ -1,5 +1,4 @@
 import { expect } from 'chai';
-// import { MerkleTree } from '@mystikonetwork/utils';
 import { MerkleTreeHeight, MinRollupFee } from '../util/constants';
 
 export function testLoopConstructor(
@@ -8,7 +7,6 @@ export function testLoopConstructor(
   poolContract: any,
   minAmount: string,
   maxAmount: string,
-  serviceAccount: string,
 ) {
   describe(`Test ${contractName} constructor`, () => {
     it('should initialize minAmount correctly', async () => {
@@ -31,9 +29,6 @@ export function testLoopConstructor(
     });
     it('should initialize associated commitment pool correctly', async () => {
       expect(await mystikoContract.getAssociatedCommitmentPool()).to.equal(poolContract.address);
-    });
-    it('should initialize service fee collector correctly', async () => {
-      expect(await mystikoContract.getServiceFeeCollector()).to.equal(serviceAccount);
     });
     it('should enable sanctions check success', async () => {
       expect(await mystikoContract.enableSanctionsCheck());
@@ -63,7 +58,6 @@ export function testBridgeConstructor(
   minBridgeFee: string,
   minExecutorFee: string,
   peerMinRoolupFee: string,
-  serviceAccount: string,
 ) {
   describe(`Test ${contractName} constructor`, () => {
     it('should initialize minAmount correctly', async () => {
@@ -89,9 +83,6 @@ export function testBridgeConstructor(
     });
     it('should initialize associated commitment pool correctly', async () => {
       expect(await mystikoContract.getAssociatedCommitmentPool()).to.equal(poolContract.address);
-    });
-    it('should initialize service fee collector correctly', async () => {
-      expect(await mystikoContract.getServiceFeeCollector()).to.equal(serviceAccount);
     });
     it('should enable sanctions check success', async () => {
       expect(await mystikoContract.enableSanctionsCheck());

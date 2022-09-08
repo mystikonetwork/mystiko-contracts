@@ -14,6 +14,8 @@ import "@openzeppelin/contracts/utils/cryptography/ECDSA.sol";
 import "@openzeppelin/contracts/utils/math/SafeCast.sol";
 
 abstract contract CommitmentPool is ICommitmentPool, AssetPool, ReentrancyGuard, Sanctions {
+  uint256 public constant auditorCount = 5;
+
   struct CommitmentLeaf {
     uint256 commitment;
     uint256 rollupFee;
@@ -53,6 +55,9 @@ abstract contract CommitmentPool is ICommitmentPool, AssetPool, ReentrancyGuard,
   bool private verifierUpdateDisabled;
   bool private rollupWhitelistDisabled;
 
+  // auditor keys
+  bytes32[auditorCount] private auditorKeys;
+
   modifier onlyOperator() {
     if (msg.sender != operator) revert CustomErrors.OnlyOperator();
     _;
@@ -79,6 +84,7 @@ abstract contract CommitmentPool is ICommitmentPool, AssetPool, ReentrancyGuard,
   event CommitmentSpent(uint256 indexed rootHash, uint256 indexed serialNumber);
   event VerifierUpdateDisabled(bool state);
   event RollupWhitelistDisabled(bool state);
+  event AuditorKeyChanged(uint256 indexed index, bytes32 key);
 
   constructor(uint8 _treeHeight) {
     if (_treeHeight == 0) revert CustomErrors.TreeHeightLessThanZero();
@@ -164,6 +170,7 @@ abstract contract CommitmentPool is ICommitmentPool, AssetPool, ReentrancyGuard,
       revert CustomErrors.Invalid("outEncryptedNotes length");
     if (commitmentIncludedCount + commitmentQueueSize + numOutputs > treeCapacity)
       revert CustomErrors.TreeIsFull();
+    if (isSanctioned(tx.origin)) revert CustomErrors.SanctionedAddress();
     if (isSanctioned(_request.publicRecipient)) revert CustomErrors.SanctionedAddress();
 
     // check signature
@@ -315,6 +322,13 @@ abstract contract CommitmentPool is ICommitmentPool, AssetPool, ReentrancyGuard,
     emit SanctionsList(_sanction);
   }
 
+  function updateAuditorKey(uint256 _index, bytes32 _key) external onlyOperator {
+    if (_index + 1 > auditorCount) revert CustomErrors.AuditorIndexError();
+    if (auditorKeys[_index] == _key) revert CustomErrors.AuditorKeyNotChanged();
+    auditorKeys[_index] = _key;
+    emit AuditorKeyChanged(_index, _key);
+  }
+
   function isHistoricCommitment(uint256 _commitment) public view returns (bool) {
     return historicCommitments[_commitment];
   }
@@ -345,6 +359,21 @@ abstract contract CommitmentPool is ICommitmentPool, AssetPool, ReentrancyGuard,
 
   function getCommitmentIncludedCount() public view returns (uint256) {
     return commitmentIncludedCount;
+  }
+
+  function getAuditorKey(uint256 _index) public view returns (bytes32) {
+    if (_index + 1 > auditorCount) {
+      return bytes32(0);
+    }
+    return auditorKeys[_index];
+  }
+
+  function getAllAuditorKeys() public view returns (bytes32[] memory) {
+    bytes32[] memory keys = new bytes32[](auditorCount);
+    for (uint256 i = 0; i < auditorCount; i++) {
+      keys[i] = auditorKeys[i];
+    }
+    return keys;
   }
 
   function _enqueueCommitment(
