@@ -959,10 +959,10 @@
     tweetnacl "^1.0.3"
     tweetnacl-util "^0.15.1"
 
-"@mystikonetwork/config@^0.1.8":
-  version "0.1.8"
-  resolved "https://npm.pkg.github.com/download/@mystikonetwork/config/0.1.8/e50a53256fbe80994845d1a811387b01ab329fca6f0679521e7afd7e3f1a6b31#54577abde38bd86e79e4ebd6091e1f4d744fe03c"
-  integrity sha512-YDCpfF+YTey5uUUqcB6HpAhk2VLdoPWwsbCqnxTD6BMT9mBtH19Ed4aRROkzM6kuOPggDilwp7q0MmQ9PPiafQ==
+"@mystikonetwork/config@^0.1.16":
+  version "0.1.16"
+  resolved "https://npm.pkg.github.com/download/@mystikonetwork/config/0.1.16/579f07d2bd701f52e16e3be944a380b3e8f6fc32#579f07d2bd701f52e16e3be944a380b3e8f6fc32"
+  integrity sha512-XP0XqCwLat3xYqp7MUeZK63bESp6DsewzkV++gpiNXPmL9f4WpOCgFxuHtk1TKlk34Zcw2QtWMxuDaOMgeZsLQ==
   dependencies:
     "@mystikonetwork/utils" "^0.1.1"
     bn.js "^5.2.0"

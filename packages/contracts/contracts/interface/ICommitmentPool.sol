@@ -32,6 +32,8 @@ interface ICommitmentPool {
     address publicRecipient;
     address relayerAddress;
     bytes[] outEncryptedNotes;
+    bytes32 randomAuditingPublicKey;
+    uint256[] encryptedAuditorNotes;
   }
 
   function enqueue(CommitmentRequest memory _request, address _executor) external;

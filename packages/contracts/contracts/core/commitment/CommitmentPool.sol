@@ -26,6 +26,11 @@ abstract contract CommitmentPool is ICommitmentPool, AssetPool, ReentrancyGuard,
     bool enabled;
   }
 
+  struct UnpackedPublicKey {
+    uint256 xSign;
+    uint256 y;
+  }
+
   // Transact proof verifier related contract
   mapping(uint32 => mapping(uint32 => WrappedVerifier)) private transactVerifiers;
   // Rollup proof verifier related contract
@@ -55,8 +60,8 @@ abstract contract CommitmentPool is ICommitmentPool, AssetPool, ReentrancyGuard,
   bool private verifierUpdateDisabled;
   bool private rollupWhitelistDisabled;
 
-  // auditor keys
-  bytes32[auditorCount] private auditorKeys;
+  // auditor public keys
+  bytes32[auditorCount] private auditorPublicKeys;
 
   modifier onlyOperator() {
     if (msg.sender != operator) revert CustomErrors.OnlyOperator();
@@ -82,9 +87,10 @@ abstract contract CommitmentPool is ICommitmentPool, AssetPool, ReentrancyGuard,
   );
   event CommitmentIncluded(uint256 indexed commitment);
   event CommitmentSpent(uint256 indexed rootHash, uint256 indexed serialNumber);
+  event EncryptedAuditorNote(uint64 id, bytes32 auditorPublicKey, uint256 encryptedAuditorNote);
   event VerifierUpdateDisabled(bool state);
   event RollupWhitelistDisabled(bool state);
-  event AuditorKeyChanged(uint256 indexed index, bytes32 key);
+  event AuditorPublicKeyChanged(uint256 indexed index, bytes32 publicKey);
 
   constructor(uint8 _treeHeight) {
     if (_treeHeight == 0) revert CustomErrors.TreeHeightLessThanZero();
@@ -172,6 +178,8 @@ abstract contract CommitmentPool is ICommitmentPool, AssetPool, ReentrancyGuard,
       revert CustomErrors.TreeIsFull();
     if (isSanctioned(tx.origin)) revert CustomErrors.SanctionedAddress();
     if (isSanctioned(_request.publicRecipient)) revert CustomErrors.SanctionedAddress();
+    if (_request.encryptedAuditorNotes.length != numInputs * auditorCount)
+      revert CustomErrors.AuditorNotesLengthError();
 
     // check signature
     bytes32 hash = _transactRequestHash(_request);
@@ -181,7 +189,8 @@ abstract contract CommitmentPool is ICommitmentPool, AssetPool, ReentrancyGuard,
     // initialize inputs array for verifying proof.
     uint256 totalInput = 2 * numInputs;
     uint256 allInput = 2 * numInputs + 4;
-    uint256[] memory inputs = new uint256[](allInput + 2 * numOutputs);
+    uint256 allInputAndOutput = allInput + 2 * numOutputs;
+    uint256[] memory inputs = new uint256[](allInputAndOutput + 2 + (2 + numInputs) * auditorCount);
 
     // check whether valid root.
     if (!rootHistory[_request.rootHash]) revert CustomErrors.Invalid("root");
@@ -208,6 +217,9 @@ abstract contract CommitmentPool is ICommitmentPool, AssetPool, ReentrancyGuard,
       inputs[i + allInput] = _request.outCommitments[i];
       inputs[i + offsetRollupFee] = _request.outRollupFees[i];
     }
+
+    // set auditor related inputs
+    _setAuditingInputs(_request, inputs, allInputAndOutput);
 
     // verify proof.
     bool verified = transactVerifiers[numInputs][numOutputs].verifier.verifyTx(_request.proof, inputs);
@@ -238,6 +250,9 @@ abstract contract CommitmentPool is ICommitmentPool, AssetPool, ReentrancyGuard,
     if (_request.relayerFeeAmount > 0) {
       _processWithdrawTransfer(_request.relayerAddress, _request.relayerFeeAmount);
     }
+
+    // emit encrypted auditing notes.
+    _emitAuditingNotes(_request);
   }
 
   function setRollupWhitelistDisabled(bool _state) external onlyOperator {
@@ -322,11 +337,11 @@ abstract contract CommitmentPool is ICommitmentPool, AssetPool, ReentrancyGuard,
     emit SanctionsList(_sanction);
   }
 
-  function updateAuditorKey(uint256 _index, bytes32 _key) external onlyOperator {
+  function updateAuditorPublicKey(uint256 _index, bytes32 _publicKey) external onlyOperator {
     if (_index + 1 > auditorCount) revert CustomErrors.AuditorIndexError();
-    if (auditorKeys[_index] == _key) revert CustomErrors.AuditorKeyNotChanged();
-    auditorKeys[_index] = _key;
-    emit AuditorKeyChanged(_index, _key);
+    if (auditorPublicKeys[_index] == _publicKey) revert CustomErrors.AuditorPublicKeyNotChanged();
+    auditorPublicKeys[_index] = _publicKey;
+    emit AuditorPublicKeyChanged(_index, _publicKey);
   }
 
   function isHistoricCommitment(uint256 _commitment) public view returns (bool) {
@@ -361,19 +376,19 @@ abstract contract CommitmentPool is ICommitmentPool, AssetPool, ReentrancyGuard,
     return commitmentIncludedCount;
   }
 
-  function getAuditorKey(uint256 _index) public view returns (bytes32) {
+  function getAuditorPublicKey(uint256 _index) public view returns (bytes32) {
     if (_index + 1 > auditorCount) {
       return bytes32(0);
     }
-    return auditorKeys[_index];
+    return auditorPublicKeys[_index];
   }
 
-  function getAllAuditorKeys() public view returns (bytes32[] memory) {
-    bytes32[] memory keys = new bytes32[](auditorCount);
+  function getAllAuditorPublicKeys() public view returns (bytes32[] memory) {
+    bytes32[] memory publicKeys = new bytes32[](auditorCount);
     for (uint256 i = 0; i < auditorCount; i++) {
-      keys[i] = auditorKeys[i];
+      publicKeys[i] = auditorPublicKeys[i];
     }
-    return keys;
+    return publicKeys;
   }
 
   function _enqueueCommitment(
@@ -504,5 +519,49 @@ abstract contract CommitmentPool is ICommitmentPool, AssetPool, ReentrancyGuard,
     }
 
     return ECDSA.toEthSignedMessageHash(keccak256(requestBytes));
+  }
+
+  function _unpackPublicKey(bytes32 _publicKey) internal returns (UnpackedPublicKey memory) {
+    bytes memory bytesArray = abi.encodePacked(_publicKey);
+    bytes memory reversedBytesArray = new bytes(32);
+    UnpackedPublicKey memory unpacked;
+    unpacked.xSign = (uint8(bytesArray[31]) & 0x80) >> 7;
+    reversedBytesArray[0] = bytesArray[31] & 0x7f;
+    for (uint8 i = 1; i < 32; i++) {
+      reversedBytesArray[i] = bytesArray[31 - i];
+    }
+    unpacked.y = uint256(bytes32(reversedBytesArray));
+    return unpacked;
+  }
+
+  function _setAuditingInputs(
+    TransactRequest memory _request,
+    uint256[] memory inputs,
+    uint256 previousIndex
+  ) internal {
+    UnpackedPublicKey memory unpackedAuditingPublicKey = _unpackPublicKey(_request.randomAuditingPublicKey);
+    inputs[previousIndex] = unpackedAuditingPublicKey.xSign;
+    inputs[previousIndex + 1] = unpackedAuditingPublicKey.y;
+    for (uint256 i = 0; i < auditorCount; i++) {
+      UnpackedPublicKey memory unpackedAuditorPublicKey = _unpackPublicKey(auditorPublicKeys[i]);
+      inputs[previousIndex + 2 + i] = unpackedAuditorPublicKey.xSign;
+      inputs[previousIndex + 2 + auditorCount + i] = unpackedAuditorPublicKey.y;
+    }
+    for (uint256 i = 0; i < _request.encryptedAuditorNotes.length; i++) {
+      inputs[previousIndex + 2 + 2 * auditorCount + i] = _request.encryptedAuditorNotes[i];
+    }
+  }
+
+  function _emitAuditingNotes(TransactRequest memory _request) internal {
+    for (uint32 i = 0; i < _request.serialNumbers.length; i++) {
+      for (uint32 j = 0; j < auditorCount; j++) {
+        uint64 id = (uint64(i) << 32) | uint64(j);
+        emit EncryptedAuditorNote(
+          id,
+          auditorPublicKeys[j],
+          _request.encryptedAuditorNotes[i * auditorCount + j]
+        );
+      }
+    }
   }
 }

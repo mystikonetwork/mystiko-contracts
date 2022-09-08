@@ -14,7 +14,12 @@ const _abi = [
   },
   {
     inputs: [],
-    name: 'AuditorKeyNotChanged',
+    name: 'AuditorNotesLengthError',
+    type: 'error',
+  },
+  {
+    inputs: [],
+    name: 'AuditorPublicKeyNotChanged',
     type: 'error',
   },
   {
@@ -136,11 +141,11 @@ const _abi = [
       {
         indexed: false,
         internalType: 'bytes32',
-        name: 'key',
+        name: 'publicKey',
         type: 'bytes32',
       },
     ],
-    name: 'AuditorKeyChanged',
+    name: 'AuditorPublicKeyChanged',
     type: 'event',
   },
   {
@@ -204,6 +209,31 @@ const _abi = [
       },
     ],
     name: 'CommitmentSpent',
+    type: 'event',
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: false,
+        internalType: 'uint64',
+        name: 'id',
+        type: 'uint64',
+      },
+      {
+        indexed: false,
+        internalType: 'bytes32',
+        name: 'auditorPublicKey',
+        type: 'bytes32',
+      },
+      {
+        indexed: false,
+        internalType: 'uint256',
+        name: 'encryptedAuditorNote',
+        type: 'uint256',
+      },
+    ],
+    name: 'EncryptedAuditorNote',
     type: 'event',
   },
   {
@@ -493,7 +523,7 @@ const _abi = [
   },
   {
     inputs: [],
-    name: 'getAllAuditorKeys',
+    name: 'getAllAuditorPublicKeys',
     outputs: [
       {
         internalType: 'bytes32[]',
@@ -512,7 +542,7 @@ const _abi = [
         type: 'uint256',
       },
     ],
-    name: 'getAuditorKey',
+    name: 'getAuditorPublicKey',
     outputs: [
       {
         internalType: 'bytes32',
@@ -941,6 +971,16 @@ const _abi = [
             name: 'outEncryptedNotes',
             type: 'bytes[]',
           },
+          {
+            internalType: 'bytes32',
+            name: 'randomAuditingPublicKey',
+            type: 'bytes32',
+          },
+          {
+            internalType: 'uint256[]',
+            name: 'encryptedAuditorNotes',
+            type: 'uint256[]',
+          },
         ],
         internalType: 'struct ICommitmentPool.TransactRequest',
         name: '_request',
@@ -966,11 +1006,11 @@ const _abi = [
       },
       {
         internalType: 'bytes32',
-        name: '_key',
+        name: '_publicKey',
         type: 'bytes32',
       },
     ],
-    name: 'updateAuditorKey',
+    name: 'updateAuditorPublicKey',
     outputs: [],
     stateMutability: 'nonpayable',
     type: 'function',
