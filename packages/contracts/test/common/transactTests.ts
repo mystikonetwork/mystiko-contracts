@@ -1,4 +1,5 @@
 import { DummySanctionsList, TestToken } from '@mystikonetwork/contracts-abi';
+import { ECIES } from '@mystikonetwork/ecies';
 import { MerkleTree } from '@mystikonetwork/merkle';
 import { CommitmentOutput, MystikoProtocolV2 } from '@mystikonetwork/protocol';
 import { toBN, toBuff, toHex, toHexNoPrefix } from '@mystikonetwork/utils';
@@ -26,6 +27,8 @@ async function generateProof(
   relayerFeeAmount: BN,
   outAmounts: BN[],
   rollupFeeAmounts: BN[],
+  randomAuditingSecretKey: BN,
+  auditorPublicKeys: BN[],
   programFile: string,
   abiFile: string,
   provingKeyFile: string,
@@ -100,6 +103,8 @@ async function generateProof(
       outRandomPs,
       outRandomRs,
       outRandomSs,
+      randomAuditingSecretKey,
+      auditorPublicKeys,
       programFile,
       abiFile,
       provingKeyFile,
@@ -124,9 +129,13 @@ function buildRequest(
   publicRecipientAddress: string,
   relayerAddress: string,
   outEncryptedNotes: Buffer[],
+  randomAuditingSecretKey: BN,
+  encryptedAuditorNotes: BN[],
 ) {
+  const abc = proof.proof as { a: string; b: string; c: string };
+  const randomAuditingPublicKey = ECIES.publicKey(randomAuditingSecretKey);
   return [
-    [proof.proof.a, proof.proof.b, proof.proof.c],
+    [abc.a, abc.b, abc.c],
     proof.inputs[0],
     proof.inputs.slice(1, 1 + numInputs),
     proof.inputs.slice(1 + numInputs, 1 + 2 * numInputs),
@@ -138,6 +147,8 @@ function buildRequest(
     publicRecipientAddress,
     relayerAddress,
     outEncryptedNotes.map(toHex),
+    randomAuditingPublicKey.toString(),
+    encryptedAuditorNotes.map((e) => e.toString()),
   ];
 }
 
@@ -166,6 +177,7 @@ export function testTransact(
   const publicRecipientAddress = '0x2Bd6FBfDA256cebAC13931bc3E91F6e0f59A5e23';
   const relayerAddress = '0xc9192277ea18ff49618E412197C9c9eaCF43A5e3';
   const signatureKeys = generateSignatureKeys();
+  const randomAuditingSecretKey = ECIES.generateSecretKey();
   let recipientBalance: BN;
   let relayerBalance: BN;
   let proof: ZKProof;
@@ -173,11 +185,19 @@ export function testTransact(
   let outEncryptedNotes: Buffer[];
   let signature: string;
   let txReceipt: any;
+  const auditorPublicKeys: BN[] = [];
+  let encryptedAuditorNotes: BN[] = [];
   const events: ethers.utils.LogDescription[] = [];
 
   describe(`Test ${contractName} transaction${numInputs}x${numOutputs} operations`, () => {
     before(async () => {
       await commitmentPoolContract.enableTransactVerifier(numInputs, numOutputs, transactVerifier.address);
+      for (let i = 0; i < protocol.numOfAuditors; i += 1) {
+        const auditorSecretKey = ECIES.generateSecretKey();
+        const auditorPublicKey = ECIES.publicKey(auditorSecretKey);
+        auditorPublicKeys.push(auditorPublicKey);
+        await commitmentPoolContract.updateAuditorPublicKey(i, auditorPublicKey.toString());
+      }
       const proofWithCommitments = await generateProof(
         protocol,
         numInputs,
@@ -190,6 +210,8 @@ export function testTransact(
         relayerFeeAmount,
         outAmounts,
         rollupFeeAmounts,
+        randomAuditingSecretKey,
+        auditorPublicKeys,
         programFile,
         abiFile,
         provingKeyFile,
@@ -208,6 +230,9 @@ export function testTransact(
       );
       recipientBalance = await getBalance(publicRecipientAddress, testToken);
       relayerBalance = await getBalance(relayerAddress, testToken);
+      encryptedAuditorNotes = proof.inputs
+        .slice(proof.inputs.length - numInputs * protocol.numOfAuditors)
+        .map((n) => toBN(toHexNoPrefix(n), 16));
     });
 
     it('should transact successfully', async () => {
@@ -221,6 +246,8 @@ export function testTransact(
         publicRecipientAddress,
         relayerAddress,
         outEncryptedNotes,
+        randomAuditingSecretKey,
+        encryptedAuditorNotes,
       );
       const tx = await commitmentPoolContract.transact(request, signature);
       txReceipt = await tx.wait();
@@ -248,6 +275,19 @@ export function testTransact(
             event.args.rootHash.toString() === toBN(toHexNoPrefix(rootHash), 16).toString(),
         );
         expect(index).to.gte(0);
+        for (let j = 0; j < protocol.numOfAuditors; j += 1) {
+          const id = toBN(i).shln(32).or(toBN(j));
+          const auditorPublicKey = auditorPublicKeys[j];
+          const encryptedAuditorNote = encryptedAuditorNotes[i * protocol.numOfAuditors + j];
+          const auditingEventIndex = events.findIndex(
+            (event) =>
+              event.name === 'EncryptedAuditorNote' &&
+              event.args.id.toString() === id.toString() &&
+              event.args.auditorPublicKey.toString() === auditorPublicKey.toString() &&
+              event.args.encryptedAuditorNote.toString() === encryptedAuditorNote.toString(),
+          );
+          expect(auditingEventIndex).to.gte(0);
+        }
       }
       for (let i = 0; i < numOutputs; i += 1) {
         const outCommitment = outCommitments[i].commitmentHash;
@@ -322,6 +362,7 @@ export function testTransactRevert(
   const numOutputs = outAmounts.length;
   const publicRecipientAddress = '0x2Bd6FBfDA256cebAC13931bc3E91F6e0f59A5e23';
   const relayerAddress = '0xc9192277ea18ff49618E412197C9c9eaCF43A5e3';
+  const randomAuditingSecretKey = ECIES.generateSecretKey();
   let recipientBalance: BN;
   let relayerBalance: BN;
   const signatureKeys = generateSignatureKeys();
@@ -329,9 +370,13 @@ export function testTransactRevert(
   let outCommitments: CommitmentOutput[];
   let outEncryptedNotes: Buffer[];
   let signature: string;
+  let encryptedAuditorNotes: BN[] = [];
   describe(`Test ${contractName} transaction${numInputs}x${numOutputs} operations revert`, () => {
     before(async () => {
       await commitmentPoolContract.enableTransactVerifier(numInputs, numOutputs, transactVerifier.address);
+      const auditorPublicKeys: BN[] = (await commitmentPoolContract.getAllAuditorPublicKeys()).map((k: any) =>
+        toBN(k.toString()),
+      );
       const proofWithCommitments = await generateProof(
         protocol,
         numInputs,
@@ -344,6 +389,8 @@ export function testTransactRevert(
         relayerFeeAmount,
         outAmounts,
         rollupFeeAmounts,
+        randomAuditingSecretKey,
+        auditorPublicKeys,
         programFile,
         abiFile,
         provingKeyFile,
@@ -360,6 +407,9 @@ export function testTransactRevert(
 
       recipientBalance = await getBalance(publicRecipientAddress, testToken);
       relayerBalance = await getBalance(relayerAddress, testToken);
+      encryptedAuditorNotes = proof.inputs
+        .slice(proof.inputs.length - numInputs * protocol.numOfAuditors)
+        .map((n) => toBN(toHexNoPrefix(n), 16));
     });
 
     it('should revert when verifier disabled', async () => {
@@ -371,6 +421,8 @@ export function testTransactRevert(
         publicRecipientAddress,
         relayerAddress,
         outEncryptedNotes,
+        randomAuditingSecretKey,
+        encryptedAuditorNotes,
       );
       await expect(commitmentPoolContract.transact(request, signature)).to.be.revertedWith(
         'Invalid("i/o length")',
@@ -387,6 +439,8 @@ export function testTransactRevert(
         publicRecipientAddress,
         relayerAddress,
         outEncryptedNotes,
+        randomAuditingSecretKey,
+        encryptedAuditorNotes,
       );
 
       await expect(commitmentPoolContract.transact(request, signature)).to.be.revertedWith(
@@ -404,6 +458,8 @@ export function testTransactRevert(
         publicRecipientAddress,
         relayerAddress,
         outEncryptedNotes,
+        randomAuditingSecretKey,
+        encryptedAuditorNotes,
       );
 
       await expect(commitmentPoolContract.transact(request, signature)).to.be.revertedWith(

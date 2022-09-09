@@ -61,6 +61,8 @@ export declare namespace ICommitmentPool {
     publicRecipient: string;
     relayerAddress: string;
     outEncryptedNotes: BytesLike[];
+    randomAuditingPublicKey: BigNumberish;
+    encryptedAuditorNotes: BigNumberish[];
   };
 
   export type TransactRequestStructOutput = [
@@ -76,6 +78,8 @@ export declare namespace ICommitmentPool {
     string,
     string,
     string[],
+    BigNumber,
+    BigNumber[],
   ] & {
     proof: IVerifier.ProofStructOutput;
     rootHash: BigNumber;
@@ -89,6 +93,8 @@ export declare namespace ICommitmentPool {
     publicRecipient: string;
     relayerAddress: string;
     outEncryptedNotes: string[];
+    randomAuditingPublicKey: BigNumber;
+    encryptedAuditorNotes: BigNumber[];
   };
 }
 
@@ -132,7 +138,7 @@ export interface ICommitmentPoolInterface extends utils.Interface {
   functions: {
     'enqueue((uint256,uint256,uint256,uint256,bytes),address)': FunctionFragment;
     'rollup((((uint256,uint256),(uint256[2],uint256[2]),(uint256,uint256)),uint32,uint256,uint256))': FunctionFragment;
-    'transact((((uint256,uint256),(uint256[2],uint256[2]),(uint256,uint256)),uint256,uint256[],uint256[],bytes32,uint256,uint256,uint256[],uint256[],address,address,bytes[]),bytes)': FunctionFragment;
+    'transact((((uint256,uint256),(uint256[2],uint256[2]),(uint256,uint256)),uint256,uint256[],uint256[],bytes32,uint256,uint256,uint256[],uint256[],address,address,bytes[],uint256,uint256[]),bytes)': FunctionFragment;
   };
 
   encodeFunctionData(

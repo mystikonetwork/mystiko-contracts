@@ -42,5 +42,6 @@ library CustomErrors {
   error CallCrossChainSyncTxError();
   error WithdrawFailed();
   error AuditorIndexError();
-  error AuditorKeyNotChanged();
+  error AuditorPublicKeyNotChanged();
+  error AuditorNotesLengthError();
 }

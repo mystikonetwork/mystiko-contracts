@@ -257,6 +257,16 @@ const _abi = [
             name: 'outEncryptedNotes',
             type: 'bytes[]',
           },
+          {
+            internalType: 'uint256',
+            name: 'randomAuditingPublicKey',
+            type: 'uint256',
+          },
+          {
+            internalType: 'uint256[]',
+            name: 'encryptedAuditorNotes',
+            type: 'uint256[]',
+          },
         ],
         internalType: 'struct ICommitmentPool.TransactRequest',
         name: '_request',

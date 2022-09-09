@@ -61,6 +61,8 @@ export declare namespace ICommitmentPool {
     publicRecipient: string;
     relayerAddress: string;
     outEncryptedNotes: BytesLike[];
+    randomAuditingPublicKey: BigNumberish;
+    encryptedAuditorNotes: BigNumberish[];
   };
 
   export type TransactRequestStructOutput = [
@@ -76,6 +78,8 @@ export declare namespace ICommitmentPool {
     string,
     string,
     string[],
+    BigNumber,
+    BigNumber[],
   ] & {
     proof: IVerifier.ProofStructOutput;
     rootHash: BigNumber;
@@ -89,6 +93,8 @@ export declare namespace ICommitmentPool {
     publicRecipient: string;
     relayerAddress: string;
     outEncryptedNotes: string[];
+    randomAuditingPublicKey: BigNumber;
+    encryptedAuditorNotes: BigNumber[];
   };
 }
 
@@ -143,8 +149,8 @@ export interface CommitmentPoolInterface extends utils.Interface {
     'enableSanctionsCheck()': FunctionFragment;
     'enableTransactVerifier(uint32,uint32,address)': FunctionFragment;
     'enqueue((uint256,uint256,uint256,uint256,bytes),address)': FunctionFragment;
-    'getAllAuditorKeys()': FunctionFragment;
-    'getAuditorKey(uint256)': FunctionFragment;
+    'getAllAuditorPublicKeys()': FunctionFragment;
+    'getAuditorPublicKey(uint256)': FunctionFragment;
     'getCommitmentIncludedCount()': FunctionFragment;
     'getMinRollupFee()': FunctionFragment;
     'getTreeCapacity()': FunctionFragment;
@@ -161,8 +167,8 @@ export interface CommitmentPoolInterface extends utils.Interface {
     'setMinRollupFee(uint256)': FunctionFragment;
     'setRollupWhitelistDisabled(bool)': FunctionFragment;
     'setVerifierUpdateDisabled(bool)': FunctionFragment;
-    'transact((((uint256,uint256),(uint256[2],uint256[2]),(uint256,uint256)),uint256,uint256[],uint256[],bytes32,uint256,uint256,uint256[],uint256[],address,address,bytes[]),bytes)': FunctionFragment;
-    'updateAuditorKey(uint256,bytes32)': FunctionFragment;
+    'transact((((uint256,uint256),(uint256[2],uint256[2]),(uint256,uint256)),uint256,uint256[],uint256[],bytes32,uint256,uint256,uint256[],uint256[],address,address,bytes[],uint256,uint256[]),bytes)': FunctionFragment;
+    'updateAuditorPublicKey(uint256,uint256)': FunctionFragment;
     'updateSanctionsListAddress(address)': FunctionFragment;
   };
 
@@ -188,8 +194,8 @@ export interface CommitmentPoolInterface extends utils.Interface {
     functionFragment: 'enqueue',
     values: [ICommitmentPool.CommitmentRequestStruct, string],
   ): string;
-  encodeFunctionData(functionFragment: 'getAllAuditorKeys', values?: undefined): string;
-  encodeFunctionData(functionFragment: 'getAuditorKey', values: [BigNumberish]): string;
+  encodeFunctionData(functionFragment: 'getAllAuditorPublicKeys', values?: undefined): string;
+  encodeFunctionData(functionFragment: 'getAuditorPublicKey', values: [BigNumberish]): string;
   encodeFunctionData(functionFragment: 'getCommitmentIncludedCount', values?: undefined): string;
   encodeFunctionData(functionFragment: 'getMinRollupFee', values?: undefined): string;
   encodeFunctionData(functionFragment: 'getTreeCapacity', values?: undefined): string;
@@ -210,7 +216,10 @@ export interface CommitmentPoolInterface extends utils.Interface {
     functionFragment: 'transact',
     values: [ICommitmentPool.TransactRequestStruct, BytesLike],
   ): string;
-  encodeFunctionData(functionFragment: 'updateAuditorKey', values: [BigNumberish, BytesLike]): string;
+  encodeFunctionData(
+    functionFragment: 'updateAuditorPublicKey',
+    values: [BigNumberish, BigNumberish],
+  ): string;
   encodeFunctionData(functionFragment: 'updateSanctionsListAddress', values: [string]): string;
 
   decodeFunctionResult(functionFragment: '_pathIndices', data: BytesLike): Result;
@@ -226,8 +235,8 @@ export interface CommitmentPoolInterface extends utils.Interface {
   decodeFunctionResult(functionFragment: 'enableSanctionsCheck', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'enableTransactVerifier', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'enqueue', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'getAllAuditorKeys', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'getAuditorKey', data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'getAllAuditorPublicKeys', data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'getAuditorPublicKey', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'getCommitmentIncludedCount', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'getMinRollupFee', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'getTreeCapacity', data: BytesLike): Result;
@@ -245,14 +254,15 @@ export interface CommitmentPoolInterface extends utils.Interface {
   decodeFunctionResult(functionFragment: 'setRollupWhitelistDisabled', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'setVerifierUpdateDisabled', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'transact', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'updateAuditorKey', data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'updateAuditorPublicKey', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'updateSanctionsListAddress', data: BytesLike): Result;
 
   events: {
-    'AuditorKeyChanged(uint256,bytes32)': EventFragment;
+    'AuditorPublicKeyChanged(uint256,uint256)': EventFragment;
     'CommitmentIncluded(uint256)': EventFragment;
     'CommitmentQueued(uint256,uint256,uint256,bytes)': EventFragment;
     'CommitmentSpent(uint256,uint256)': EventFragment;
+    'EncryptedAuditorNote(uint64,uint256,uint256)': EventFragment;
     'OperatorChanged(address)': EventFragment;
     'RollupWhitelistDisabled(bool)': EventFragment;
     'SanctionsCheck(bool)': EventFragment;
@@ -260,10 +270,11 @@ export interface CommitmentPoolInterface extends utils.Interface {
     'VerifierUpdateDisabled(bool)': EventFragment;
   };
 
-  getEvent(nameOrSignatureOrTopic: 'AuditorKeyChanged'): EventFragment;
+  getEvent(nameOrSignatureOrTopic: 'AuditorPublicKeyChanged'): EventFragment;
   getEvent(nameOrSignatureOrTopic: 'CommitmentIncluded'): EventFragment;
   getEvent(nameOrSignatureOrTopic: 'CommitmentQueued'): EventFragment;
   getEvent(nameOrSignatureOrTopic: 'CommitmentSpent'): EventFragment;
+  getEvent(nameOrSignatureOrTopic: 'EncryptedAuditorNote'): EventFragment;
   getEvent(nameOrSignatureOrTopic: 'OperatorChanged'): EventFragment;
   getEvent(nameOrSignatureOrTopic: 'RollupWhitelistDisabled'): EventFragment;
   getEvent(nameOrSignatureOrTopic: 'SanctionsCheck'): EventFragment;
@@ -271,9 +282,12 @@ export interface CommitmentPoolInterface extends utils.Interface {
   getEvent(nameOrSignatureOrTopic: 'VerifierUpdateDisabled'): EventFragment;
 }
 
-export type AuditorKeyChangedEvent = TypedEvent<[BigNumber, string], { index: BigNumber; key: string }>;
+export type AuditorPublicKeyChangedEvent = TypedEvent<
+  [BigNumber, BigNumber],
+  { index: BigNumber; publicKey: BigNumber }
+>;
 
-export type AuditorKeyChangedEventFilter = TypedEventFilter<AuditorKeyChangedEvent>;
+export type AuditorPublicKeyChangedEventFilter = TypedEventFilter<AuditorPublicKeyChangedEvent>;
 
 export type CommitmentIncludedEvent = TypedEvent<[BigNumber], { commitment: BigNumber }>;
 
@@ -297,6 +311,17 @@ export type CommitmentSpentEvent = TypedEvent<
 >;
 
 export type CommitmentSpentEventFilter = TypedEventFilter<CommitmentSpentEvent>;
+
+export type EncryptedAuditorNoteEvent = TypedEvent<
+  [BigNumber, BigNumber, BigNumber],
+  {
+    id: BigNumber;
+    auditorPublicKey: BigNumber;
+    encryptedAuditorNote: BigNumber;
+  }
+>;
+
+export type EncryptedAuditorNoteEventFilter = TypedEventFilter<EncryptedAuditorNoteEvent>;
 
 export type OperatorChangedEvent = TypedEvent<[string], { operator: string }>;
 
@@ -405,9 +430,9 @@ export interface CommitmentPool extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<ContractTransaction>;
 
-    getAllAuditorKeys(overrides?: CallOverrides): Promise<[string[]]>;
+    getAllAuditorPublicKeys(overrides?: CallOverrides): Promise<[BigNumber[]]>;
 
-    getAuditorKey(_index: BigNumberish, overrides?: CallOverrides): Promise<[string]>;
+    getAuditorPublicKey(_index: BigNumberish, overrides?: CallOverrides): Promise<[BigNumber]>;
 
     getCommitmentIncludedCount(overrides?: CallOverrides): Promise<[BigNumber]>;
 
@@ -465,9 +490,9 @@ export interface CommitmentPool extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<ContractTransaction>;
 
-    updateAuditorKey(
+    updateAuditorPublicKey(
       _index: BigNumberish,
-      _key: BytesLike,
+      _publicKey: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<ContractTransaction>;
 
@@ -540,9 +565,9 @@ export interface CommitmentPool extends BaseContract {
     overrides?: Overrides & { from?: string | Promise<string> },
   ): Promise<ContractTransaction>;
 
-  getAllAuditorKeys(overrides?: CallOverrides): Promise<string[]>;
+  getAllAuditorPublicKeys(overrides?: CallOverrides): Promise<BigNumber[]>;
 
-  getAuditorKey(_index: BigNumberish, overrides?: CallOverrides): Promise<string>;
+  getAuditorPublicKey(_index: BigNumberish, overrides?: CallOverrides): Promise<BigNumber>;
 
   getCommitmentIncludedCount(overrides?: CallOverrides): Promise<BigNumber>;
 
@@ -600,9 +625,9 @@ export interface CommitmentPool extends BaseContract {
     overrides?: Overrides & { from?: string | Promise<string> },
   ): Promise<ContractTransaction>;
 
-  updateAuditorKey(
+  updateAuditorPublicKey(
     _index: BigNumberish,
-    _key: BytesLike,
+    _publicKey: BigNumberish,
     overrides?: Overrides & { from?: string | Promise<string> },
   ): Promise<ContractTransaction>;
 
@@ -659,9 +684,9 @@ export interface CommitmentPool extends BaseContract {
       overrides?: CallOverrides,
     ): Promise<void>;
 
-    getAllAuditorKeys(overrides?: CallOverrides): Promise<string[]>;
+    getAllAuditorPublicKeys(overrides?: CallOverrides): Promise<BigNumber[]>;
 
-    getAuditorKey(_index: BigNumberish, overrides?: CallOverrides): Promise<string>;
+    getAuditorPublicKey(_index: BigNumberish, overrides?: CallOverrides): Promise<BigNumber>;
 
     getCommitmentIncludedCount(overrides?: CallOverrides): Promise<BigNumber>;
 
@@ -701,17 +726,24 @@ export interface CommitmentPool extends BaseContract {
       overrides?: CallOverrides,
     ): Promise<void>;
 
-    updateAuditorKey(_index: BigNumberish, _key: BytesLike, overrides?: CallOverrides): Promise<void>;
+    updateAuditorPublicKey(
+      _index: BigNumberish,
+      _publicKey: BigNumberish,
+      overrides?: CallOverrides,
+    ): Promise<void>;
 
     updateSanctionsListAddress(_sanction: string, overrides?: CallOverrides): Promise<void>;
   };
 
   filters: {
-    'AuditorKeyChanged(uint256,bytes32)'(
+    'AuditorPublicKeyChanged(uint256,uint256)'(
       index?: BigNumberish | null,
-      key?: null,
-    ): AuditorKeyChangedEventFilter;
-    AuditorKeyChanged(index?: BigNumberish | null, key?: null): AuditorKeyChangedEventFilter;
+      publicKey?: null,
+    ): AuditorPublicKeyChangedEventFilter;
+    AuditorPublicKeyChanged(
+      index?: BigNumberish | null,
+      publicKey?: null,
+    ): AuditorPublicKeyChangedEventFilter;
 
     'CommitmentIncluded(uint256)'(commitment?: BigNumberish | null): CommitmentIncludedEventFilter;
     CommitmentIncluded(commitment?: BigNumberish | null): CommitmentIncludedEventFilter;
@@ -737,6 +769,17 @@ export interface CommitmentPool extends BaseContract {
       rootHash?: BigNumberish | null,
       serialNumber?: BigNumberish | null,
     ): CommitmentSpentEventFilter;
+
+    'EncryptedAuditorNote(uint64,uint256,uint256)'(
+      id?: null,
+      auditorPublicKey?: null,
+      encryptedAuditorNote?: null,
+    ): EncryptedAuditorNoteEventFilter;
+    EncryptedAuditorNote(
+      id?: null,
+      auditorPublicKey?: null,
+      encryptedAuditorNote?: null,
+    ): EncryptedAuditorNoteEventFilter;
 
     'OperatorChanged(address)'(operator?: string | null): OperatorChangedEventFilter;
     OperatorChanged(operator?: string | null): OperatorChangedEventFilter;
@@ -814,9 +857,9 @@ export interface CommitmentPool extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<BigNumber>;
 
-    getAllAuditorKeys(overrides?: CallOverrides): Promise<BigNumber>;
+    getAllAuditorPublicKeys(overrides?: CallOverrides): Promise<BigNumber>;
 
-    getAuditorKey(_index: BigNumberish, overrides?: CallOverrides): Promise<BigNumber>;
+    getAuditorPublicKey(_index: BigNumberish, overrides?: CallOverrides): Promise<BigNumber>;
 
     getCommitmentIncludedCount(overrides?: CallOverrides): Promise<BigNumber>;
 
@@ -874,9 +917,9 @@ export interface CommitmentPool extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<BigNumber>;
 
-    updateAuditorKey(
+    updateAuditorPublicKey(
       _index: BigNumberish,
-      _key: BytesLike,
+      _publicKey: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<BigNumber>;
 
@@ -950,9 +993,9 @@ export interface CommitmentPool extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<PopulatedTransaction>;
 
-    getAllAuditorKeys(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+    getAllAuditorPublicKeys(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
-    getAuditorKey(_index: BigNumberish, overrides?: CallOverrides): Promise<PopulatedTransaction>;
+    getAuditorPublicKey(_index: BigNumberish, overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     getCommitmentIncludedCount(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
@@ -1013,9 +1056,9 @@ export interface CommitmentPool extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<PopulatedTransaction>;
 
-    updateAuditorKey(
+    updateAuditorPublicKey(
       _index: BigNumberish,
-      _key: BytesLike,
+      _publicKey: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<PopulatedTransaction>;
 

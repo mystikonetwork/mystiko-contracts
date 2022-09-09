@@ -1,7 +1,8 @@
+import BN from 'bn.js';
 import { expect } from 'chai';
 import { MystikoTBridgeProxy } from '@mystikonetwork/contracts-abi';
-import { toBN } from '@mystikonetwork/utils';
-import { ethers } from 'ethers';
+import { ECIES, KEY_LEN } from '@mystikonetwork/ecies';
+import { toBN, toFixedLenHex } from '@mystikonetwork/utils';
 import { MaxAmount, MinAmount } from '../util/constants';
 
 export function testLoopAdminOperations(
@@ -280,31 +281,38 @@ export function testCommitmentPoolAdminOperations(
     });
 
     it('should set auditor key correctly', async () => {
-      const key = ethers.utils.formatBytes32String('0x74657374');
       const count = await mystikoContract.auditorCount();
+      const auditorPublicKeys: BN[] = [];
 
       for (let i = 0; i < count; i += 1) {
-        await expect(mystikoContract.updateAuditorKey(i, key))
-          .to.emit(mystikoContract, 'AuditorKeyChanged')
-          .withArgs(i, key);
+        const auditorSecretKey = ECIES.generateSecretKey();
+        const auditorPublicKey = ECIES.publicKey(auditorSecretKey);
+        auditorPublicKeys.push(auditorPublicKey);
+        await expect(mystikoContract.updateAuditorPublicKey(i, auditorPublicKey.toString()))
+          .to.emit(mystikoContract, 'AuditorPublicKeyChanged')
+          .withArgs(i, auditorPublicKey.toString());
       }
 
       for (let i = 0; i < count; i += 1) {
-        expect(await mystikoContract.getAuditorKey(i)).to.equal(key);
+        expect(await mystikoContract.getAuditorPublicKey(i)).to.equal(
+          toFixedLenHex(auditorPublicKeys[i], KEY_LEN),
+        );
       }
 
-      const keys = await mystikoContract.getAllAuditorKeys();
-      expect(keys.length).to.equal(count);
+      const returnedPublicKeys = await mystikoContract.getAllAuditorPublicKeys();
+      expect(returnedPublicKeys.length).to.equal(count);
       for (let i = 0; i < count; i += 1) {
-        expect(keys[i]).to.equal(key);
+        expect(returnedPublicKeys[i]).to.equal(auditorPublicKeys[i].toString());
       }
 
-      await expect(mystikoContract.updateAuditorKey(0, key)).to.be.revertedWith('AuditorKeyNotChanged');
-      await expect(mystikoContract.updateAuditorKey(count, key)).to.be.revertedWith('AuditorIndexError');
+      await expect(
+        mystikoContract.updateAuditorPublicKey(0, auditorPublicKeys[0].toString()),
+      ).to.be.revertedWith('AuditorPublicKeyNotChanged');
+      await expect(
+        mystikoContract.updateAuditorPublicKey(count, auditorPublicKeys[0].toString()),
+      ).to.be.revertedWith('AuditorIndexError');
 
-      expect(await mystikoContract.getAuditorKey(count)).to.equal(
-        '0x0000000000000000000000000000000000000000000000000000000000000000',
-      );
+      expect(await mystikoContract.getAuditorPublicKey(count)).to.equal('0');
     });
   });
 }
