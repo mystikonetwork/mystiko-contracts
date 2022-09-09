@@ -258,9 +258,9 @@ const _abi = [
             type: 'bytes[]',
           },
           {
-            internalType: 'bytes32',
+            internalType: 'uint256',
             name: 'randomAuditingPublicKey',
-            type: 'bytes32',
+            type: 'uint256',
           },
           {
             internalType: 'uint256[]',

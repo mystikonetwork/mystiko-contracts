@@ -140,9 +140,9 @@ const _abi = [
       },
       {
         indexed: false,
-        internalType: 'bytes32',
+        internalType: 'uint256',
         name: 'publicKey',
-        type: 'bytes32',
+        type: 'uint256',
       },
     ],
     name: 'AuditorPublicKeyChanged',
@@ -222,9 +222,9 @@ const _abi = [
       },
       {
         indexed: false,
-        internalType: 'bytes32',
+        internalType: 'uint256',
         name: 'auditorPublicKey',
-        type: 'bytes32',
+        type: 'uint256',
       },
       {
         indexed: false,
@@ -526,9 +526,9 @@ const _abi = [
     name: 'getAllAuditorPublicKeys',
     outputs: [
       {
-        internalType: 'bytes32[]',
+        internalType: 'uint256[]',
         name: '',
-        type: 'bytes32[]',
+        type: 'uint256[]',
       },
     ],
     stateMutability: 'view',
@@ -545,9 +545,9 @@ const _abi = [
     name: 'getAuditorPublicKey',
     outputs: [
       {
-        internalType: 'bytes32',
+        internalType: 'uint256',
         name: '',
-        type: 'bytes32',
+        type: 'uint256',
       },
     ],
     stateMutability: 'view',
@@ -972,9 +972,9 @@ const _abi = [
             type: 'bytes[]',
           },
           {
-            internalType: 'bytes32',
+            internalType: 'uint256',
             name: 'randomAuditingPublicKey',
-            type: 'bytes32',
+            type: 'uint256',
           },
           {
             internalType: 'uint256[]',
@@ -1005,9 +1005,9 @@ const _abi = [
         type: 'uint256',
       },
       {
-        internalType: 'bytes32',
+        internalType: 'uint256',
         name: '_publicKey',
-        type: 'bytes32',
+        type: 'uint256',
       },
     ],
     name: 'updateAuditorPublicKey',
