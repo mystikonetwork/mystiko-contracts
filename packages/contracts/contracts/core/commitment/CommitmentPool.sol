@@ -61,7 +61,7 @@ abstract contract CommitmentPool is ICommitmentPool, AssetPool, ReentrancyGuard,
   bool private rollupWhitelistDisabled;
 
   // auditor public keys
-  bytes32[auditorCount] private auditorPublicKeys;
+  uint256[auditorCount] private auditorPublicKeys;
 
   modifier onlyOperator() {
     if (msg.sender != operator) revert CustomErrors.OnlyOperator();
@@ -87,10 +87,10 @@ abstract contract CommitmentPool is ICommitmentPool, AssetPool, ReentrancyGuard,
   );
   event CommitmentIncluded(uint256 indexed commitment);
   event CommitmentSpent(uint256 indexed rootHash, uint256 indexed serialNumber);
-  event EncryptedAuditorNote(uint64 id, bytes32 auditorPublicKey, uint256 encryptedAuditorNote);
+  event EncryptedAuditorNote(uint64 id, uint256 auditorPublicKey, uint256 encryptedAuditorNote);
   event VerifierUpdateDisabled(bool state);
   event RollupWhitelistDisabled(bool state);
-  event AuditorPublicKeyChanged(uint256 indexed index, bytes32 publicKey);
+  event AuditorPublicKeyChanged(uint256 indexed index, uint256 publicKey);
 
   constructor(uint8 _treeHeight) {
     if (_treeHeight == 0) revert CustomErrors.TreeHeightLessThanZero();
@@ -337,7 +337,7 @@ abstract contract CommitmentPool is ICommitmentPool, AssetPool, ReentrancyGuard,
     emit SanctionsList(_sanction);
   }
 
-  function updateAuditorPublicKey(uint256 _index, bytes32 _publicKey) external onlyOperator {
+  function updateAuditorPublicKey(uint256 _index, uint256 _publicKey) external onlyOperator {
     if (_index + 1 > auditorCount) revert CustomErrors.AuditorIndexError();
     if (auditorPublicKeys[_index] == _publicKey) revert CustomErrors.AuditorPublicKeyNotChanged();
     auditorPublicKeys[_index] = _publicKey;
@@ -376,15 +376,15 @@ abstract contract CommitmentPool is ICommitmentPool, AssetPool, ReentrancyGuard,
     return commitmentIncludedCount;
   }
 
-  function getAuditorPublicKey(uint256 _index) public view returns (bytes32) {
+  function getAuditorPublicKey(uint256 _index) public view returns (uint256) {
     if (_index + 1 > auditorCount) {
-      return bytes32(0);
+      return 0;
     }
     return auditorPublicKeys[_index];
   }
 
-  function getAllAuditorPublicKeys() public view returns (bytes32[] memory) {
-    bytes32[] memory publicKeys = new bytes32[](auditorCount);
+  function getAllAuditorPublicKeys() public view returns (uint256[] memory) {
+    uint256[] memory publicKeys = new uint256[](auditorCount);
     for (uint256 i = 0; i < auditorCount; i++) {
       publicKeys[i] = auditorPublicKeys[i];
     }
@@ -521,16 +521,10 @@ abstract contract CommitmentPool is ICommitmentPool, AssetPool, ReentrancyGuard,
     return ECDSA.toEthSignedMessageHash(keccak256(requestBytes));
   }
 
-  function _unpackPublicKey(bytes32 _publicKey) internal returns (UnpackedPublicKey memory) {
-    bytes memory bytesArray = abi.encodePacked(_publicKey);
-    bytes memory reversedBytesArray = new bytes(32);
+  function _unpackPublicKey(uint256 _publicKey) internal returns (UnpackedPublicKey memory) {
     UnpackedPublicKey memory unpacked;
-    unpacked.xSign = (uint8(bytesArray[31]) & 0x80) >> 7;
-    reversedBytesArray[0] = bytesArray[31] & 0x7f;
-    for (uint8 i = 1; i < 32; i++) {
-      reversedBytesArray[i] = bytesArray[31 - i];
-    }
-    unpacked.y = uint256(bytes32(reversedBytesArray));
+    unpacked.xSign = _publicKey >> 255;
+    unpacked.y = _publicKey & 0x7fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff;
     return unpacked;
   }
 

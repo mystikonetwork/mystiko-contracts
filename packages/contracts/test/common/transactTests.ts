@@ -1,8 +1,8 @@
 import { DummySanctionsList, TestToken } from '@mystikonetwork/contracts-abi';
-import { ECIES, KEY_LEN } from '@mystikonetwork/ecies';
+import { ECIES } from '@mystikonetwork/ecies';
 import { MerkleTree } from '@mystikonetwork/merkle';
 import { CommitmentOutput, MystikoProtocolV2 } from '@mystikonetwork/protocol';
-import { toBN, toBuff, toFixedLenHex, toHex, toHexNoPrefix } from '@mystikonetwork/utils';
+import { toBN, toBuff, toHex, toHexNoPrefix } from '@mystikonetwork/utils';
 import { ZKProof } from '@mystikonetwork/zkp';
 import BN from 'bn.js';
 import { expect } from 'chai';
@@ -28,7 +28,7 @@ async function generateProof(
   outAmounts: BN[],
   rollupFeeAmounts: BN[],
   randomAuditingSecretKey: BN,
-  auditorPublicKeys: Buffer[],
+  auditorPublicKeys: BN[],
   programFile: string,
   abiFile: string,
   provingKeyFile: string,
@@ -147,7 +147,7 @@ function buildRequest(
     publicRecipientAddress,
     relayerAddress,
     outEncryptedNotes.map(toHex),
-    toFixedLenHex(randomAuditingPublicKey, KEY_LEN),
+    randomAuditingPublicKey.toString(),
     encryptedAuditorNotes.map((e) => e.toString()),
   ];
 }
@@ -185,7 +185,7 @@ export function testTransact(
   let outEncryptedNotes: Buffer[];
   let signature: string;
   let txReceipt: any;
-  const auditorPublicKeys: Buffer[] = [];
+  const auditorPublicKeys: BN[] = [];
   let encryptedAuditorNotes: BN[] = [];
   const events: ethers.utils.LogDescription[] = [];
 
@@ -195,9 +195,8 @@ export function testTransact(
       for (let i = 0; i < protocol.numOfAuditors; i += 1) {
         const auditorSecretKey = ECIES.generateSecretKey();
         const auditorPublicKey = ECIES.publicKey(auditorSecretKey);
-        const auditorPublicKeyStr = toFixedLenHex(auditorPublicKey, KEY_LEN);
         auditorPublicKeys.push(auditorPublicKey);
-        await commitmentPoolContract.updateAuditorPublicKey(i, auditorPublicKeyStr);
+        await commitmentPoolContract.updateAuditorPublicKey(i, auditorPublicKey.toString());
       }
       const proofWithCommitments = await generateProof(
         protocol,
@@ -284,7 +283,7 @@ export function testTransact(
             (event) =>
               event.name === 'EncryptedAuditorNote' &&
               event.args.id.toString() === id.toString() &&
-              event.args.auditorPublicKey.toString() === toFixedLenHex(auditorPublicKey, KEY_LEN) &&
+              event.args.auditorPublicKey.toString() === auditorPublicKey.toString() &&
               event.args.encryptedAuditorNote.toString() === encryptedAuditorNote.toString(),
           );
           expect(auditingEventIndex).to.gte(0);
@@ -375,8 +374,8 @@ export function testTransactRevert(
   describe(`Test ${contractName} transaction${numInputs}x${numOutputs} operations revert`, () => {
     before(async () => {
       await commitmentPoolContract.enableTransactVerifier(numInputs, numOutputs, transactVerifier.address);
-      const auditorPublicKeys: Buffer[] = (await commitmentPoolContract.getAllAuditorPublicKeys()).map(
-        (k: any) => toBuff(k),
+      const auditorPublicKeys: BN[] = (await commitmentPoolContract.getAllAuditorPublicKeys()).map((k: any) =>
+        toBN(k.toString()),
       );
       const proofWithCommitments = await generateProof(
         protocol,

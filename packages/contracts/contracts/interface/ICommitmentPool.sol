@@ -32,7 +32,7 @@ interface ICommitmentPool {
     address publicRecipient;
     address relayerAddress;
     bytes[] outEncryptedNotes;
-    bytes32 randomAuditingPublicKey;
+    uint256 randomAuditingPublicKey;
     uint256[] encryptedAuditorNotes;
   }
 
