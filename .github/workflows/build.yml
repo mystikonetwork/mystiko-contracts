@@ -38,7 +38,6 @@ jobs:
           git checkout -- src/json/bridge/tbridge/development.json
           git checkout -- src/json/core/development.json
           git checkout -- src/json/deploy/development.json
-          git checkout -- src/json/rollup/development.json
       - run: lerna run lint
       - run: lerna run test
       - run: git diff --quiet || (echo "some generated files are not included in repo" && exit 1)
