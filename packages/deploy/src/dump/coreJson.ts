@@ -236,6 +236,8 @@ function addNewDepositContractConfig(
   newContract.minAmount = minAmount;
   // @ts-ignore
   newContract.maxAmount = maxAmount;
+  // @ts-ignore
+  newContract.maxAmount = maxAmount;
 
   if (bridgeType !== BridgeLoop) {
     // @ts-ignore

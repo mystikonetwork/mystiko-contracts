@@ -83,3 +83,9 @@ export function delay(timeoutMs: number) {
     setTimeout(resolve, timeoutMs);
   }).then(() => {});
 }
+
+export async function waitConfirm(rsp: any, force: boolean) {
+  if (force) {
+    await rsp.wait(1);
+  }
+}

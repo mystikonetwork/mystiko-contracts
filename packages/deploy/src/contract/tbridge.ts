@@ -1,4 +1,5 @@
 import { MystikoTBridgeProxy__factory } from '@mystikonetwork/contracts-abi';
+import { waitConfirm } from '../common/utils';
 import { BridgeConfig } from '../config/bridge';
 import { OperatorConfig } from '../config/operator';
 import {
@@ -37,6 +38,7 @@ async function setExecutorWhitelist(c: any, bridgeCfg: BridgeProxyConfig, execut
   try {
     const rsp = await proxy.addExecutorWhitelist(executor);
     console.log('rsp hash ', rsp.hash);
+    await waitConfirm(rsp, false);
     bridgeCfg.addExecutorToWhitelist(executor);
     saveConfig(c.mystikoNetwork, c.cfg);
   } catch (err: any) {
@@ -66,6 +68,7 @@ async function changeOperator(c: any, inBridgeProxyCfg: BridgeProxyConfig, opera
   try {
     const rsp = await proxy.changeOperator(operator);
     console.log('rsp hash ', rsp.hash);
+    await waitConfirm(rsp, false);
     bridgeProxyCfg.updateOperator(operator);
     saveConfig(c.mystikoNetwork, c.cfg);
   } catch (err: any) {
@@ -91,6 +94,7 @@ export async function addRegisterWhitelist(
   try {
     const rsp = await proxy.addRegisterWhitelist(depositContractAddress);
     console.log('rsp hash ', rsp.hash);
+    await waitConfirm(rsp, false);
     bridgeProxyConfig.addRegisterToWhitelist(depositContractAddress);
     saveConfig(c.mystikoNetwork, c.cfg);
   } catch (err: any) {

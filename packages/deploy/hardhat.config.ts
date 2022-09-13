@@ -79,11 +79,23 @@ const moonbaseAlphaTestEndpoint = process.env.MOONBASE_ALPHA_ENDPOINT || DEFAULT
 const moonbaseAlphaTestPrivateKey = process.env.MOONBASE_ALPHA_PRIVATE_KEY || DEFAULT_PRIVATE_KEY;
 
 // Mainnets
-const ethMainnetEndpoint = process.env.ETH_MAINNET_ENDPOINT || DEFAULT_ENDPOINT;
-const ethMainnetPrivateKey = process.env.ETH_MAINNET_PRIVATE_KEY || DEFAULT_PRIVATE_KEY;
+const ethEndpoint = process.env.ETH_ENDPOINT || DEFAULT_ENDPOINT;
+const ethPrivateKey = process.env.ETH_PRIVATE_KEY || DEFAULT_PRIVATE_KEY;
 
 const bscEndpoint = process.env.BSC_ENDPOINT || DEFAULT_ENDPOINT;
 const bscPrivateKey = process.env.BSC_PRIVATE_KEY || DEFAULT_PRIVATE_KEY;
+
+const fantomEndpoint = process.env.FANTOM_ENDPOINT || DEFAULT_ENDPOINT;
+const fantomPrivateKey = process.env.FANTOM_PRIVATE_KEY || DEFAULT_PRIVATE_KEY;
+
+const avalancheEndpoint = process.env.AVALANCHE_ENDPOINT || DEFAULT_ENDPOINT;
+const avalanchePrivateKey = process.env.AVALANCHE_PRIVATE_KEY || DEFAULT_PRIVATE_KEY;
+
+const polygonEndpoint = process.env.POLYGON_ENDPOINT || DEFAULT_ENDPOINT;
+const polygonPrivateKey = process.env.POLYGON_PRIVATE_KEY || DEFAULT_PRIVATE_KEY;
+
+const moonbeamEndpoint = process.env.MOONBEAM_ENDPOINT || DEFAULT_ENDPOINT;
+const moonbeamPrivateKey = process.env.MOONBEAM_PRIVATE_KEY || DEFAULT_PRIVATE_KEY;
 
 const config: HardhatUserConfig = {
   defaultNetwork: 'hardhat',
@@ -122,13 +134,29 @@ const config: HardhatUserConfig = {
       url: polygonTestEndpoint,
       accounts: [`0x${polygonTestPrivateKey}`],
     },
-    ethMainnet: {
-      url: ethMainnetEndpoint,
-      accounts: [`0x${ethMainnetPrivateKey}`],
+    eth: {
+      url: ethEndpoint,
+      accounts: [`0x${ethPrivateKey}`],
     },
     bsc: {
       url: bscEndpoint,
       accounts: [`0x${bscPrivateKey}`],
+    },
+    fantom: {
+      url: fantomEndpoint,
+      accounts: [`0x${fantomPrivateKey}`],
+    },
+    avalanche: {
+      url: avalancheEndpoint,
+      accounts: [`0x${avalanchePrivateKey}`],
+    },
+    moonbeam: {
+      url: moonbeamEndpoint,
+      accounts: [`0x${moonbeamPrivateKey}`],
+    },
+    polygon: {
+      url: polygonEndpoint,
+      accounts: [`0x${polygonPrivateKey}`],
     },
   },
   paths: {
