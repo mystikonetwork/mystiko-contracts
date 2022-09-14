@@ -1373,7 +1373,7 @@
           "peerContractAddress": "0xD5c5DbA15136b7E7c9a708E703e90F40b754dD42",
           "minAmount": "100000000000000000",
           "maxAmount": "100000000000000000000",
-          "minBridgeFee": "80000000000000000",
+          "minBridgeFee": "200000000000000000",
           "minExecutorFee": "0"
         }
       ],
@@ -1738,7 +1738,7 @@
           "peerContractAddress": "0xaf75B708248d183F073A333681dFBfAdaFf9557B",
           "minAmount": "100000000000000000",
           "maxAmount": "100000000000000000000",
-          "minBridgeFee": "60000000000000000",
+          "minBridgeFee": "30000000000000000",
           "minExecutorFee": "0"
         },
         {
@@ -1752,7 +1752,7 @@
           "peerContractAddress": "0x6EEbC35EB638596bA4018E11A55a2622Fdd377ea",
           "minAmount": "100000000000000000",
           "maxAmount": "100000000000000000000",
-          "minBridgeFee": "60000000000000000",
+          "minBridgeFee": "30000000000000000",
           "minExecutorFee": "0"
         }
       ],
@@ -2112,7 +2112,7 @@
           "peerContractAddress": "0x44411052957eE6ADFF9d8761E7DC7ea1926ED7a3",
           "minAmount": "100000000000000000",
           "maxAmount": "100000000000000000000",
-          "minBridgeFee": "200000000000000000",
+          "minBridgeFee": "1000000000000000000",
           "minExecutorFee": "0"
         }
       ],
