@@ -3,7 +3,7 @@
 skipCounter=$1;
 step=$2
 
-sed -i -e "s/step[0-9]/step${step}/g" deploy.txt
+sed -i -e "s/step[0-9]/step${step}/g" ./scripts/deploy.txt
 
 counter=1;
 while read -r line
@@ -25,4 +25,4 @@ do
 
    echo $counter
    counter=$(( $counter + 1 ))
-done < deploy.txt
+done < ./scripts/deploy.txt

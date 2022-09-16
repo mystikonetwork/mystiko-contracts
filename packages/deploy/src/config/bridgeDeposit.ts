@@ -88,6 +88,10 @@ export class DepositDeployConfig extends BaseConfig {
     this.asRawContractDeployConfig().minAmount = amount;
   }
 
+  public updateMaxAmount(amount: string) {
+    this.asRawContractDeployConfig().maxAmount = amount;
+  }
+
   public isMinBridgeFeeChange(fee: string): boolean {
     if (this.asRawContractDeployConfig().minBridgeFee !== fee) {
       return true;

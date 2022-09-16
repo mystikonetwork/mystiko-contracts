@@ -99,71 +99,71 @@
     "pairs": [
       {
         "local": {
-          "network": "ropsten",
-          "chainId": 3,
-          "relayProxyAddress": "0xB6E6B779622ab49BaDb2c55DeA3F92509f69fEd7",
+          "network": "goerli",
+          "chainId": 5,
+          "relayProxyAddress": "0x2981bE5B344BE1F7594E63fE619fF9730836CFf1",
           "bridgeEnalbe": true
         },
         "remote": {
           "network": "bsctestnet",
           "chainId": 97,
-          "relayProxyAddress": "0xA0d699D87A3304bdd267a6E47C6717503B462278",
+          "relayProxyAddress": "0x0d919af3E8878Eea018f4628584484798055e82D",
           "bridgeEnalbe": true
         }
       },
       {
         "local": {
-          "network": "ropsten",
-          "chainId": 3,
-          "relayProxyAddress": "0xB55c050227acFCaf4dE3cecc145DD1f82ae57392",
+          "network": "goerli",
+          "chainId": 5,
+          "relayProxyAddress": "0x3F47c3D0b738220Eb81983933637581a1df4D7Cc",
           "bridgeEnalbe": true
         },
         "remote": {
           "network": "polygontestnet",
           "chainId": 80001,
-          "relayProxyAddress": "0x96fbB9FB158F0b9C23b3755ab4941Ed1ad3F9B3C",
+          "relayProxyAddress": "0x868420Db7C1074D07898D655D2Bc7308395B041b",
           "bridgeEnalbe": true
         }
       },
       {
         "local": {
-          "network": "ropsten",
-          "chainId": 3,
-          "relayProxyAddress": "0x1A735bf6874BEFD37653C69cb7406CC0E38a1BAA",
+          "network": "goerli",
+          "chainId": 5,
+          "relayProxyAddress": "0x1bd1127150f6c13e72Ceb647663d61A8F289d138",
           "bridgeEnalbe": true
         },
         "remote": {
           "network": "avalanchetestnet",
           "chainId": 43113,
-          "relayProxyAddress": "0xfa9De6C63a631D008af7e2394295dBD1850b790a",
+          "relayProxyAddress": "0xd0afBB1aE703b68177C4debA96bFA5F01b0a2878",
           "bridgeEnalbe": true
         }
       },
       {
         "local": {
-          "network": "ropsten",
-          "chainId": 3,
-          "relayProxyAddress": "0xC5456AE72363B9971EfaD7E53818cdA1F4451593",
+          "network": "goerli",
+          "chainId": 5,
+          "relayProxyAddress": "0xb4B4BD21A461a4Af8749C1A57F40d0D278e91d3b",
           "bridgeEnalbe": true
         },
         "remote": {
           "network": "fantomtestnet",
           "chainId": 4002,
-          "relayProxyAddress": "0x1D7E8E098F1633C1f483Cc336EC5D382b24ED052",
+          "relayProxyAddress": "0x163f5E5eefF3ad8EAADc4b2B284a8D8650673982",
           "bridgeEnalbe": true
         }
       },
       {
         "local": {
-          "network": "moonbase",
-          "chainId": 1287,
-          "relayProxyAddress": "0x6E7Ac411f71DF0910907726e035AF2E37865fBD2",
+          "network": "goerli",
+          "chainId": 5,
+          "relayProxyAddress": "0x7FE6b87881552668009a2b9fe1A9C93D5DE852d1",
           "bridgeEnalbe": true
         },
         "remote": {
-          "network": "ropsten",
-          "chainId": 3,
-          "relayProxyAddress": "0x35794823f1ab1bb5629609213d875911E4FAD085",
+          "network": "moonbase",
+          "chainId": 1287,
+          "relayProxyAddress": "0x7835E56b44108A733ACf8e5954B75c2FdfD93740",
           "bridgeEnalbe": true
         }
       }

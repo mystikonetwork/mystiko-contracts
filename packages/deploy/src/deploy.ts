@@ -34,7 +34,6 @@ import {
 import { deployBaseContract, initBaseContractFactory } from './contract/base';
 import { checkCoreConfig, saveCoreContractJson } from './dump/coreJson';
 import { dumpChainTBridgeConfig, saveTBridgeJson } from './dump/tbridgeJson';
-import { dumpChainRollerConfig, saveRollupJson } from './dump/rollupJson';
 import { saveCelerToml } from './dump/celerToml';
 
 let ethers: any;
@@ -47,7 +46,6 @@ async function deployStep1(taskArgs: any) {
 
 function dumpConfig(c: any) {
   saveCoreContractJson(c);
-  saveRollupJson(c);
   if (c.bridgeCfg.name === BridgeTBridge) {
     saveTBridgeJson(c);
   }
@@ -195,20 +193,9 @@ function dump(taskArgs: any) {
   dumpConfig(c);
 }
 
-function dumpRollerConfig(taskArgs: any) {
-  const srcNetwork = taskArgs.src;
-  dumpChainRollerConfig(srcNetwork);
-}
-
 function dumpTBridgeConfig(taskArgs: any) {
   const srcNetwork = taskArgs.src;
   dumpChainTBridgeConfig(srcNetwork);
-}
-
-function dumpAllRollerConfig() {
-  TestNetworks.forEach((network) => {
-    dumpChainRollerConfig(network);
-  });
 }
 
 function dumpAllTBridgeConfig() {
@@ -218,12 +205,10 @@ function dumpAllTBridgeConfig() {
 }
 
 function dumpMiner(taskArgs: any) {
-  dumpRollerConfig(taskArgs);
   dumpTBridgeConfig(taskArgs);
 }
 
 function dumpAllMiner() {
-  dumpAllRollerConfig();
   dumpAllTBridgeConfig();
 }
 
