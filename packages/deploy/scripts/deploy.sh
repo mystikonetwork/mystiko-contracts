@@ -1,9 +1,10 @@
 #!/bin/bash
 
+version=gamma
 skipCounter=$1;
 step=$2
 
-sed -i -e "s/step[0-9]/step${step}/g" ./scripts/deploy.txt
+sed -i -e "s/step[0-9]/step${step}/g" ./scripts/deploy.${version}.txt
 
 counter=1;
 while read -r line
@@ -25,4 +26,4 @@ do
 
    echo $counter
    counter=$(( $counter + 1 ))
-done < ./scripts/deploy.txt
+done < ./scripts/deploy.${version}.txt

@@ -1,7 +1,7 @@
 {
   "version": 3,
   "poolName": "beta-20220720",
-  "depositDisable": false,
+  "depositDisable": true,
   "circuits": [],
   "chains": [
     {
@@ -1250,7 +1250,8 @@
               "commitmentPool": "0x8D6Cbbb7D1534dD4CA17D7fe7D650bAa36EB011E",
               "sanctionCheck": false,
               "operator": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
-              "serviceFeeCollector": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022"
+              "serviceFeeCollector": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
+              "disableDeposit": true
             }
           ]
         },
@@ -1265,7 +1266,8 @@
               "commitmentPool": "0x89e2aaB6140A049F3195c07cF6f9093C3F79721b",
               "sanctionCheck": false,
               "operator": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
-              "serviceFeeCollector": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022"
+              "serviceFeeCollector": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
+              "disableDeposit": true
             }
           ]
         },
@@ -1280,7 +1282,8 @@
               "commitmentPool": "0x0ce9f96056d6fCfcEAbFA07cAFfe351DA990723e",
               "sanctionCheck": false,
               "operator": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
-              "serviceFeeCollector": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022"
+              "serviceFeeCollector": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
+              "disableDeposit": true
             }
           ]
         },
@@ -1295,7 +1298,8 @@
               "commitmentPool": "0x8Cf050615b1502350F3F7441F46429199d5aeEa2",
               "sanctionCheck": false,
               "operator": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
-              "serviceFeeCollector": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022"
+              "serviceFeeCollector": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
+              "disableDeposit": true
             }
           ]
         },
@@ -1310,7 +1314,8 @@
               "commitmentPool": "0x056e13c39E3e2b0e34f7447F549DD9CeEd9f6A5C",
               "sanctionCheck": false,
               "operator": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
-              "serviceFeeCollector": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022"
+              "serviceFeeCollector": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
+              "disableDeposit": true
             }
           ]
         },
@@ -1325,7 +1330,8 @@
               "commitmentPool": "0xD58000e8ff1805963E40A561462376F7447Ab332",
               "sanctionCheck": false,
               "operator": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
-              "serviceFeeCollector": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022"
+              "serviceFeeCollector": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
+              "disableDeposit": true
             }
           ]
         },
@@ -1340,7 +1346,8 @@
               "commitmentPool": "0x50617a363C95000f33eA4E3A57B03F349a9E2858",
               "sanctionCheck": false,
               "operator": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
-              "serviceFeeCollector": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022"
+              "serviceFeeCollector": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
+              "disableDeposit": true
             }
           ]
         },
@@ -1355,7 +1362,8 @@
               "commitmentPool": "0x786F0f01D41E97B1c2dB4767915e36E6D7aBc22A",
               "sanctionCheck": false,
               "operator": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
-              "serviceFeeCollector": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022"
+              "serviceFeeCollector": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
+              "disableDeposit": true
             }
           ]
         },
@@ -1370,7 +1378,8 @@
               "commitmentPool": "0x8550E32Cb56e125FE08EC93E2e22c8061CA72C5F",
               "sanctionCheck": false,
               "operator": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
-              "serviceFeeCollector": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022"
+              "serviceFeeCollector": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
+              "disableDeposit": true
             }
           ]
         },
@@ -1385,7 +1394,8 @@
               "commitmentPool": "0x7E3cb5297844e968879BcbfdD931376280397be2",
               "sanctionCheck": false,
               "operator": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
-              "serviceFeeCollector": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022"
+              "serviceFeeCollector": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
+              "disableDeposit": true
             }
           ]
         },
@@ -1400,7 +1410,8 @@
               "commitmentPool": "0x3c500d9660b98D65b5577bB3b9ECB389d6386BFA",
               "sanctionCheck": false,
               "operator": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
-              "serviceFeeCollector": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022"
+              "serviceFeeCollector": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
+              "disableDeposit": true
             }
           ]
         },
@@ -1415,7 +1426,8 @@
               "commitmentPool": "0x8d7E301c20D93D7cE47003D7ceE324Cf1B462c6F",
               "sanctionCheck": false,
               "operator": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
-              "serviceFeeCollector": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022"
+              "serviceFeeCollector": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
+              "disableDeposit": true
             }
           ]
         },
@@ -1430,7 +1442,8 @@
               "commitmentPool": "0xfC227720a279A50a649236C45AD72868b273FC70",
               "sanctionCheck": false,
               "operator": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
-              "serviceFeeCollector": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022"
+              "serviceFeeCollector": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
+              "disableDeposit": true
             }
           ]
         },
@@ -1445,7 +1458,8 @@
               "commitmentPool": "0xD202083C029269289B13e861d393C545305c8260",
               "sanctionCheck": false,
               "operator": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
-              "serviceFeeCollector": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022"
+              "serviceFeeCollector": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
+              "disableDeposit": true
             }
           ]
         },
@@ -1460,7 +1474,8 @@
               "commitmentPool": "0xb310916a84d80EC1283E37B475b49787D2CcAA34",
               "sanctionCheck": false,
               "operator": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
-              "serviceFeeCollector": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022"
+              "serviceFeeCollector": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
+              "disableDeposit": true
             }
           ]
         },
@@ -1475,7 +1490,8 @@
               "commitmentPool": "0xce3CD2967F52c461c259eFB829EA73396BcfeAf8",
               "sanctionCheck": false,
               "operator": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
-              "serviceFeeCollector": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022"
+              "serviceFeeCollector": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
+              "disableDeposit": true
             }
           ]
         },
@@ -1490,7 +1506,8 @@
               "commitmentPool": "0xE0deaE86a920Af9150bEbA6a0a158c06C50f1C2a",
               "sanctionCheck": false,
               "operator": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
-              "serviceFeeCollector": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022"
+              "serviceFeeCollector": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
+              "disableDeposit": true
             }
           ]
         },
@@ -1505,7 +1522,8 @@
               "commitmentPool": "0x1f8073751eA1f8dFa115C802D772a7fF904565bf",
               "sanctionCheck": false,
               "operator": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
-              "serviceFeeCollector": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022"
+              "serviceFeeCollector": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
+              "disableDeposit": true
             }
           ]
         },
@@ -1544,7 +1562,8 @@
               "commitmentPool": "0x3a4e16337d635c80597a580D6e3baCa547649FD4",
               "sanctionCheck": false,
               "operator": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
-              "serviceFeeCollector": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022"
+              "serviceFeeCollector": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
+              "disableDeposit": true
             }
           ]
         },
@@ -1559,7 +1578,8 @@
               "commitmentPool": "0x2abB9C43889C681b02dA5459D8356208b6EbD7c0",
               "sanctionCheck": false,
               "operator": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
-              "serviceFeeCollector": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022"
+              "serviceFeeCollector": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
+              "disableDeposit": true
             }
           ]
         },
@@ -1574,7 +1594,8 @@
               "commitmentPool": "0x3845eAB5B9c05207C3043aE4aF296c3B58032A90",
               "sanctionCheck": false,
               "operator": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
-              "serviceFeeCollector": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022"
+              "serviceFeeCollector": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
+              "disableDeposit": true
             }
           ]
         }
@@ -2264,7 +2285,8 @@
               "sanctionCheck": false,
               "operator": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
               "serviceFeeCollector": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
-              "peerContract": "0x47e264e3F7AeC6FebE8d1De71d8B3aB0E3594412"
+              "peerContract": "0x47e264e3F7AeC6FebE8d1De71d8B3aB0E3594412",
+              "disableDeposit": true
             },
             {
               "network": "bsctestnet",
@@ -2281,7 +2303,8 @@
               "sanctionCheck": false,
               "operator": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
               "serviceFeeCollector": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
-              "peerContract": "0xe76d64A82Ca8bBb733dEC44952a20C83BEb4F0dc"
+              "peerContract": "0xe76d64A82Ca8bBb733dEC44952a20C83BEb4F0dc",
+              "disableDeposit": true
             }
           ]
         },
@@ -2302,7 +2325,8 @@
               "sanctionCheck": false,
               "operator": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
               "serviceFeeCollector": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
-              "peerContract": "0x5580637Cd441350B2585717db579113326b3E5aC"
+              "peerContract": "0x5580637Cd441350B2585717db579113326b3E5aC",
+              "disableDeposit": true
             },
             {
               "network": "bsctestnet",
@@ -2319,7 +2343,8 @@
               "sanctionCheck": false,
               "operator": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
               "serviceFeeCollector": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
-              "peerContract": "0xCFC94003081ce7EcdBc43f94A443Cf9fad0F8847"
+              "peerContract": "0xCFC94003081ce7EcdBc43f94A443Cf9fad0F8847",
+              "disableDeposit": true
             }
           ]
         },
@@ -2340,7 +2365,8 @@
               "sanctionCheck": false,
               "operator": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
               "serviceFeeCollector": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
-              "peerContract": "0x59F22C9e8735098b38c870cb067D7A1e7CB95a97"
+              "peerContract": "0x59F22C9e8735098b38c870cb067D7A1e7CB95a97",
+              "disableDeposit": true
             },
             {
               "network": "bsctestnet",
@@ -2357,7 +2383,8 @@
               "sanctionCheck": false,
               "operator": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
               "serviceFeeCollector": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
-              "peerContract": "0x50910F51101D8D5B9A352A8805ac338f506B532f"
+              "peerContract": "0x50910F51101D8D5B9A352A8805ac338f506B532f",
+              "disableDeposit": true
             }
           ]
         },
@@ -2378,7 +2405,8 @@
               "sanctionCheck": false,
               "operator": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
               "serviceFeeCollector": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
-              "peerContract": "0xA6f444773882ea7564546fDD0803249cdEe477Cd"
+              "peerContract": "0xA6f444773882ea7564546fDD0803249cdEe477Cd",
+              "disableDeposit": true
             },
             {
               "network": "bsctestnet",
@@ -2395,7 +2423,8 @@
               "sanctionCheck": false,
               "operator": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
               "serviceFeeCollector": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
-              "peerContract": "0x963F0A83B4C0a216c791B9A70dd0cD018CCf8d8a"
+              "peerContract": "0x963F0A83B4C0a216c791B9A70dd0cD018CCf8d8a",
+              "disableDeposit": true
             }
           ]
         },
@@ -2416,7 +2445,8 @@
               "sanctionCheck": false,
               "operator": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
               "serviceFeeCollector": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
-              "peerContract": "0xFc6897F1760977e83C21067EDaEd7328Efa78151"
+              "peerContract": "0xFc6897F1760977e83C21067EDaEd7328Efa78151",
+              "disableDeposit": true
             },
             {
               "network": "polygontestnet",
@@ -2433,7 +2463,8 @@
               "sanctionCheck": false,
               "operator": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
               "serviceFeeCollector": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
-              "peerContract": "0xB048D6C726f4B9e9D61EB307446237a2C63dcc9E"
+              "peerContract": "0xB048D6C726f4B9e9D61EB307446237a2C63dcc9E",
+              "disableDeposit": true
             }
           ]
         },
@@ -2454,7 +2485,8 @@
               "sanctionCheck": false,
               "operator": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
               "serviceFeeCollector": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
-              "peerContract": "0x67638afb8f3de114Ddc504d6F000ccb857f01563"
+              "peerContract": "0x67638afb8f3de114Ddc504d6F000ccb857f01563",
+              "disableDeposit": true
             },
             {
               "network": "polygontestnet",
@@ -2471,7 +2503,8 @@
               "sanctionCheck": false,
               "operator": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
               "serviceFeeCollector": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
-              "peerContract": "0xe6bbDD85c352aBAb56CFbb54AF796DFe68F34444"
+              "peerContract": "0xe6bbDD85c352aBAb56CFbb54AF796DFe68F34444",
+              "disableDeposit": true
             }
           ]
         },
@@ -2492,7 +2525,8 @@
               "sanctionCheck": false,
               "operator": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
               "serviceFeeCollector": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
-              "peerContract": "0x89AF3538FcF16D80eb8A29528cd56a2C7CC77A78"
+              "peerContract": "0x89AF3538FcF16D80eb8A29528cd56a2C7CC77A78",
+              "disableDeposit": true
             },
             {
               "network": "polygontestnet",
@@ -2509,7 +2543,8 @@
               "sanctionCheck": false,
               "operator": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
               "serviceFeeCollector": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
-              "peerContract": "0x386B7e1DBF00B02F0ddFD17c7E4699749923fEC7"
+              "peerContract": "0x386B7e1DBF00B02F0ddFD17c7E4699749923fEC7",
+              "disableDeposit": true
             }
           ]
         },
@@ -2530,7 +2565,8 @@
               "operator": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
               "serviceFeeCollector": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
               "sanctionCheck": false,
-              "peerContract": "0x51A91a1dF8ea76Bbb9ad7AB112aaAb038E0EB020"
+              "peerContract": "0x51A91a1dF8ea76Bbb9ad7AB112aaAb038E0EB020",
+              "disableDeposit": true
             },
             {
               "network": "polygontestnet",
@@ -2547,7 +2583,8 @@
               "sanctionCheck": false,
               "operator": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
               "serviceFeeCollector": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
-              "peerContract": "0x8f80998256093fBc598D5A0f6eeee58f991Cc5ab"
+              "peerContract": "0x8f80998256093fBc598D5A0f6eeee58f991Cc5ab",
+              "disableDeposit": true
             }
           ]
         },
@@ -2568,7 +2605,8 @@
               "sanctionCheck": false,
               "operator": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
               "serviceFeeCollector": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
-              "peerContract": "0x85eC2bb0e34725E6E1627Fec8b73f4D1b04b4D0C"
+              "peerContract": "0x85eC2bb0e34725E6E1627Fec8b73f4D1b04b4D0C",
+              "disableDeposit": true
             },
             {
               "network": "avalanchetestnet",
@@ -2585,7 +2623,8 @@
               "sanctionCheck": false,
               "operator": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
               "serviceFeeCollector": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
-              "peerContract": "0x6a8846aD5b6dB61afd8C10256aD9361b6aafe065"
+              "peerContract": "0x6a8846aD5b6dB61afd8C10256aD9361b6aafe065",
+              "disableDeposit": true
             }
           ]
         },
@@ -2606,7 +2645,8 @@
               "sanctionCheck": false,
               "operator": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
               "serviceFeeCollector": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
-              "peerContract": "0x6a9490117D6200B8411D7791947D4844829404B9"
+              "peerContract": "0x6a9490117D6200B8411D7791947D4844829404B9",
+              "disableDeposit": true
             },
             {
               "network": "avalanchetestnet",
@@ -2623,7 +2663,8 @@
               "sanctionCheck": false,
               "operator": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
               "serviceFeeCollector": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
-              "peerContract": "0xA57543Bb0c5509018B5C48Db868dE8924C16C16B"
+              "peerContract": "0xA57543Bb0c5509018B5C48Db868dE8924C16C16B",
+              "disableDeposit": true
             }
           ]
         },
@@ -2644,7 +2685,8 @@
               "sanctionCheck": false,
               "operator": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
               "serviceFeeCollector": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
-              "peerContract": "0xFE16F05b3B0448E5559173a661C14037d9b365B3"
+              "peerContract": "0xFE16F05b3B0448E5559173a661C14037d9b365B3",
+              "disableDeposit": true
             },
             {
               "network": "avalanchetestnet",
@@ -2661,7 +2703,8 @@
               "sanctionCheck": false,
               "operator": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
               "serviceFeeCollector": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
-              "peerContract": "0xa96341982C67922BF960c299a01Cb5c79b6F6F56"
+              "peerContract": "0xa96341982C67922BF960c299a01Cb5c79b6F6F56",
+              "disableDeposit": true
             }
           ]
         },
@@ -2682,7 +2725,8 @@
               "sanctionCheck": false,
               "operator": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
               "serviceFeeCollector": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
-              "peerContract": "0x8BFd92DDb7F312A051b93e1bB0515D846F20B219"
+              "peerContract": "0x8BFd92DDb7F312A051b93e1bB0515D846F20B219",
+              "disableDeposit": true
             },
             {
               "network": "avalanchetestnet",
@@ -2699,7 +2743,8 @@
               "sanctionCheck": false,
               "operator": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
               "serviceFeeCollector": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
-              "peerContract": "0x5c46495A4D7525B2De731E1bc6e65a7a975D165B"
+              "peerContract": "0x5c46495A4D7525B2De731E1bc6e65a7a975D165B",
+              "disableDeposit": true
             }
           ]
         },
@@ -2720,7 +2765,8 @@
               "sanctionCheck": false,
               "operator": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
               "serviceFeeCollector": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
-              "peerContract": "0xdE189dFF7fD8649546c34A7f825CB78d383A36Bb"
+              "peerContract": "0xdE189dFF7fD8649546c34A7f825CB78d383A36Bb",
+              "disableDeposit": true
             },
             {
               "network": "fantomtestnet",
@@ -2737,7 +2783,8 @@
               "sanctionCheck": false,
               "operator": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
               "serviceFeeCollector": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
-              "peerContract": "0xa9e60d1B37190Cf46FCD88FbBd89a9b0EB67fd6D"
+              "peerContract": "0xa9e60d1B37190Cf46FCD88FbBd89a9b0EB67fd6D",
+              "disableDeposit": true
             }
           ]
         },
@@ -2758,7 +2805,8 @@
               "sanctionCheck": false,
               "operator": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
               "serviceFeeCollector": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
-              "peerContract": "0x1b4Be6967a8c88ab87Cf202E8e22FC05E73bA820"
+              "peerContract": "0x1b4Be6967a8c88ab87Cf202E8e22FC05E73bA820",
+              "disableDeposit": true
             },
             {
               "network": "fantomtestnet",
@@ -2775,7 +2823,8 @@
               "sanctionCheck": false,
               "operator": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
               "serviceFeeCollector": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
-              "peerContract": "0x08c7C3CB7E23F0AD7e1654e76fFcc018eC03B734"
+              "peerContract": "0x08c7C3CB7E23F0AD7e1654e76fFcc018eC03B734",
+              "disableDeposit": true
             }
           ]
         },
@@ -2796,7 +2845,8 @@
               "sanctionCheck": false,
               "operator": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
               "serviceFeeCollector": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
-              "peerContract": "0x971eDAb015aaC63bC0a18Dd56B07D582bf5FF5e1"
+              "peerContract": "0x971eDAb015aaC63bC0a18Dd56B07D582bf5FF5e1",
+              "disableDeposit": true
             },
             {
               "network": "fantomtestnet",
@@ -2813,7 +2863,8 @@
               "sanctionCheck": false,
               "operator": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
               "serviceFeeCollector": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
-              "peerContract": "0x11c6DCF48318eB2FA8cc331bdC84e3B434d756e2"
+              "peerContract": "0x11c6DCF48318eB2FA8cc331bdC84e3B434d756e2",
+              "disableDeposit": true
             }
           ]
         },
@@ -2834,7 +2885,8 @@
               "sanctionCheck": false,
               "operator": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
               "serviceFeeCollector": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
-              "peerContract": "0x3D3325Be9ED68b4BddB1d090d42653474Dd1894b"
+              "peerContract": "0x3D3325Be9ED68b4BddB1d090d42653474Dd1894b",
+              "disableDeposit": true
             },
             {
               "network": "fantomtestnet",
@@ -2851,7 +2903,8 @@
               "sanctionCheck": false,
               "operator": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
               "serviceFeeCollector": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
-              "peerContract": "0xC534B05F12D893516ec3Cb1E6387c51A728e0a2d"
+              "peerContract": "0xC534B05F12D893516ec3Cb1E6387c51A728e0a2d",
+              "disableDeposit": true
             }
           ]
         }
@@ -3043,7 +3096,8 @@
               "operator": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
               "serviceFeeCollector": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
               "peerContract": "0xbAa43c20765b6aDAc8aEef54f66F75EbB0000b55",
-              "trustedRemote": "0xbAa43c20765b6aDAc8aEef54f66F75EbB0000b55"
+              "trustedRemote": "0xbAa43c20765b6aDAc8aEef54f66F75EbB0000b55",
+              "disableDeposit": true
             },
             {
               "network": "avalanchetestnet",
@@ -3061,7 +3115,8 @@
               "operator": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
               "serviceFeeCollector": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
               "peerContract": "0x5F5E5bEb807b54C4055E949Cb483EFEDd597cb70",
-              "trustedRemote": "0x5F5E5bEb807b54C4055E949Cb483EFEDd597cb70"
+              "trustedRemote": "0x5F5E5bEb807b54C4055E949Cb483EFEDd597cb70",
+              "disableDeposit": true
             }
           ]
         },
@@ -3083,7 +3138,8 @@
               "operator": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
               "serviceFeeCollector": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
               "peerContract": "0xd17c921527610a547C1E604b16b8583aE493bD1a",
-              "trustedRemote": "0xd17c921527610a547C1E604b16b8583aE493bD1a"
+              "trustedRemote": "0xd17c921527610a547C1E604b16b8583aE493bD1a",
+              "disableDeposit": true
             },
             {
               "network": "avalanchetestnet",
@@ -3101,7 +3157,8 @@
               "serviceFeeCollector": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
               "sanctionCheck": false,
               "peerContract": "0xD66cd9ee7F59C39B3b7837e926d4B9De8A8E3Bb6",
-              "trustedRemote": "0xD66cd9ee7F59C39B3b7837e926d4B9De8A8E3Bb6"
+              "trustedRemote": "0xD66cd9ee7F59C39B3b7837e926d4B9De8A8E3Bb6",
+              "disableDeposit": true
             }
           ]
         }
@@ -3295,7 +3352,8 @@
               "sanctionCheck": false,
               "operator": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
               "serviceFeeCollector": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
-              "peerContract": "0x3b2aa3DE917A59B86a5771F07fF24DF6Bc0F52d4"
+              "peerContract": "0x3b2aa3DE917A59B86a5771F07fF24DF6Bc0F52d4",
+              "disableDeposit": true
             },
             {
               "network": "fantomtestnet",
@@ -3312,7 +3370,8 @@
               "sanctionCheck": false,
               "operator": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
               "serviceFeeCollector": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
-              "peerContract": "0x9A30dF988055a02dF0d6429A5c6F079019e1d88c"
+              "peerContract": "0x9A30dF988055a02dF0d6429A5c6F079019e1d88c",
+              "disableDeposit": true
             }
           ]
         },
@@ -3333,7 +3392,8 @@
               "sanctionCheck": false,
               "operator": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
               "serviceFeeCollector": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
-              "peerContract": "0x109C57ae3fDA11Cba3BBc9e3794814770F90E437"
+              "peerContract": "0x109C57ae3fDA11Cba3BBc9e3794814770F90E437",
+              "disableDeposit": true
             },
             {
               "network": "fantomtestnet",
@@ -3341,7 +3401,7 @@
               "address": "0x109C57ae3fDA11Cba3BBc9e3794814770F90E437",
               "syncStart": 9791311,
               "minAmount": "100000000000000000",
-              "minBridgeFee": "80000000000000000",
+              "minBridgeFee": "200000000000000000",
               "minExecutorFee": "0",
               "peerMinExecutorFee": "0",
               "peerMinRollupFee": "10000000000000000",
@@ -3350,7 +3410,8 @@
               "sanctionCheck": false,
               "operator": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
               "serviceFeeCollector": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
-              "peerContract": "0x163F2C6E21bfaA56FF2E48C2c846125eE4E218B0"
+              "peerContract": "0x163F2C6E21bfaA56FF2E48C2c846125eE4E218B0",
+              "disableDeposit": true
             }
           ]
         },
@@ -3371,7 +3432,8 @@
               "sanctionCheck": false,
               "operator": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
               "serviceFeeCollector": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
-              "peerContract": "0xe9447613848FE50D93a55Bab68155a10C5b6B98f"
+              "peerContract": "0xe9447613848FE50D93a55Bab68155a10C5b6B98f",
+              "disableDeposit": true
             },
             {
               "network": "polygontestnet",
@@ -3388,7 +3450,8 @@
               "sanctionCheck": false,
               "operator": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
               "serviceFeeCollector": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
-              "peerContract": "0x147eBB8B5E166E58739d4C02Ab1CEBa74F3f325B"
+              "peerContract": "0x147eBB8B5E166E58739d4C02Ab1CEBa74F3f325B",
+              "disableDeposit": true
             }
           ]
         }
@@ -4375,7 +4438,8 @@
               "sanctionCheck": false,
               "operator": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
               "serviceFeeCollector": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
-              "peerContract": "0xFe9FEdDc56184Ef44a4Fbb9261C3a183126FaF78"
+              "peerContract": "0xFe9FEdDc56184Ef44a4Fbb9261C3a183126FaF78",
+              "disableDeposit": true
             },
             {
               "network": "bsctestnet",
@@ -4392,7 +4456,8 @@
               "sanctionCheck": false,
               "operator": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
               "serviceFeeCollector": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
-              "peerContract": "0x06006b4a7f1994C9956A9748196467f8DbBbf504"
+              "peerContract": "0x06006b4a7f1994C9956A9748196467f8DbBbf504",
+              "disableDeposit": true
             }
           ]
         },
@@ -4413,7 +4478,8 @@
               "sanctionCheck": false,
               "operator": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
               "serviceFeeCollector": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
-              "peerContract": "0x925608543f33e75BAedB5f0344C6E6C57Dc13383"
+              "peerContract": "0x925608543f33e75BAedB5f0344C6E6C57Dc13383",
+              "disableDeposit": true
             },
             {
               "network": "bsctestnet",
@@ -4430,7 +4496,8 @@
               "sanctionCheck": false,
               "operator": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
               "serviceFeeCollector": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
-              "peerContract": "0x0275954e53C465B2fB73428CaaC5B1A2A0B17bd2"
+              "peerContract": "0x0275954e53C465B2fB73428CaaC5B1A2A0B17bd2",
+              "disableDeposit": true
             }
           ]
         },
@@ -4451,7 +4518,8 @@
               "sanctionCheck": false,
               "operator": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
               "serviceFeeCollector": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
-              "peerContract": "0xc5A5f5E9AD872CF2278f20FBe5144A95B5FaC27b"
+              "peerContract": "0xc5A5f5E9AD872CF2278f20FBe5144A95B5FaC27b",
+              "disableDeposit": true
             },
             {
               "network": "bsctestnet",
@@ -4468,7 +4536,8 @@
               "sanctionCheck": false,
               "operator": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
               "serviceFeeCollector": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
-              "peerContract": "0x6DBcDe05cc1eCF4bB023EF953245C26966bF9B06"
+              "peerContract": "0x6DBcDe05cc1eCF4bB023EF953245C26966bF9B06",
+              "disableDeposit": true
             }
           ]
         },
@@ -4489,7 +4558,8 @@
               "sanctionCheck": false,
               "operator": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
               "serviceFeeCollector": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
-              "peerContract": "0x50B3e7ef7005E5F00ff03Eb7cdd46b217197db2e"
+              "peerContract": "0x50B3e7ef7005E5F00ff03Eb7cdd46b217197db2e",
+              "disableDeposit": true
             },
             {
               "network": "bsctestnet",
@@ -4506,7 +4576,8 @@
               "sanctionCheck": false,
               "operator": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
               "serviceFeeCollector": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
-              "peerContract": "0xFEacC1dB8E09B4f27fB3aEc03AfF2822fcDE56b8"
+              "peerContract": "0xFEacC1dB8E09B4f27fB3aEc03AfF2822fcDE56b8",
+              "disableDeposit": true
             }
           ]
         },
@@ -4527,7 +4598,8 @@
               "sanctionCheck": false,
               "operator": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
               "serviceFeeCollector": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
-              "peerContract": "0x6C141DE4Da5d8DF5728DA49226b2D7e8A1a11241"
+              "peerContract": "0x6C141DE4Da5d8DF5728DA49226b2D7e8A1a11241",
+              "disableDeposit": true
             },
             {
               "network": "polygontestnet",
@@ -4544,7 +4616,8 @@
               "sanctionCheck": false,
               "operator": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
               "serviceFeeCollector": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
-              "peerContract": "0xaba6C36c53F5E81d86F288C81924A4024bC080f0"
+              "peerContract": "0xaba6C36c53F5E81d86F288C81924A4024bC080f0",
+              "disableDeposit": true
             }
           ]
         },
@@ -4565,7 +4638,8 @@
               "operator": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
               "serviceFeeCollector": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
               "sanctionCheck": false,
-              "peerContract": "0x4103265a0fC7F7b0C3e685E9931Fe81c23A95139"
+              "peerContract": "0x4103265a0fC7F7b0C3e685E9931Fe81c23A95139",
+              "disableDeposit": true
             },
             {
               "network": "polygontestnet",
@@ -4582,7 +4656,8 @@
               "sanctionCheck": false,
               "operator": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
               "serviceFeeCollector": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
-              "peerContract": "0x59Ac55E3899CD043FD19fF46189E45838e1cF9b7"
+              "peerContract": "0x59Ac55E3899CD043FD19fF46189E45838e1cF9b7",
+              "disableDeposit": true
             }
           ]
         },
@@ -4603,7 +4678,8 @@
               "operator": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
               "serviceFeeCollector": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
               "sanctionCheck": false,
-              "peerContract": "0xb3acEc92332164fdC58282F8308214377F1178c2"
+              "peerContract": "0xb3acEc92332164fdC58282F8308214377F1178c2",
+              "disableDeposit": true
             },
             {
               "network": "polygontestnet",
@@ -4620,7 +4696,8 @@
               "sanctionCheck": false,
               "operator": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
               "serviceFeeCollector": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
-              "peerContract": "0x59A64dAECc154FC0884169b444D7E3942a9471B4"
+              "peerContract": "0x59A64dAECc154FC0884169b444D7E3942a9471B4",
+              "disableDeposit": true
             }
           ]
         },
@@ -4641,7 +4718,8 @@
               "sanctionCheck": false,
               "operator": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
               "serviceFeeCollector": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
-              "peerContract": "0xcE099213E847DFD40378773EEa35aE74f11303a2"
+              "peerContract": "0xcE099213E847DFD40378773EEa35aE74f11303a2",
+              "disableDeposit": true
             },
             {
               "network": "polygontestnet",
@@ -4658,7 +4736,8 @@
               "sanctionCheck": false,
               "operator": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
               "serviceFeeCollector": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
-              "peerContract": "0xAFd7e97b70B74A24320dc3400B9fBa0F757661Da"
+              "peerContract": "0xAFd7e97b70B74A24320dc3400B9fBa0F757661Da",
+              "disableDeposit": true
             }
           ]
         },
@@ -4679,7 +4758,8 @@
               "operator": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
               "serviceFeeCollector": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
               "sanctionCheck": false,
-              "peerContract": "0x265a8f2E4782A78EF5c0C3F9dBC068353C1f6aF8"
+              "peerContract": "0x265a8f2E4782A78EF5c0C3F9dBC068353C1f6aF8",
+              "disableDeposit": true
             },
             {
               "network": "avalanchetestnet",
@@ -4696,7 +4776,8 @@
               "sanctionCheck": false,
               "operator": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
               "serviceFeeCollector": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
-              "peerContract": "0x96871980f60529C8957d0Afea7b6BA258bE872ff"
+              "peerContract": "0x96871980f60529C8957d0Afea7b6BA258bE872ff",
+              "disableDeposit": true
             }
           ]
         },
@@ -4717,7 +4798,8 @@
               "sanctionCheck": false,
               "operator": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
               "serviceFeeCollector": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
-              "peerContract": "0xB048D6C726f4B9e9D61EB307446237a2C63dcc9E"
+              "peerContract": "0xB048D6C726f4B9e9D61EB307446237a2C63dcc9E",
+              "disableDeposit": true
             },
             {
               "network": "avalanchetestnet",
@@ -4734,7 +4816,8 @@
               "sanctionCheck": false,
               "operator": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
               "serviceFeeCollector": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
-              "peerContract": "0xEa3A45c0c94E9D926657112b3A77EB3dB612c5c9"
+              "peerContract": "0xEa3A45c0c94E9D926657112b3A77EB3dB612c5c9",
+              "disableDeposit": true
             }
           ]
         },
@@ -4755,7 +4838,8 @@
               "sanctionCheck": false,
               "operator": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
               "serviceFeeCollector": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
-              "peerContract": "0xb54573c43c4320aCb818e822868a6403e459bc4B"
+              "peerContract": "0xb54573c43c4320aCb818e822868a6403e459bc4B",
+              "disableDeposit": true
             },
             {
               "network": "avalanchetestnet",
@@ -4772,7 +4856,8 @@
               "sanctionCheck": false,
               "operator": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
               "serviceFeeCollector": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
-              "peerContract": "0x6280C46349973E1a367e36c0651148D84C60E408"
+              "peerContract": "0x6280C46349973E1a367e36c0651148D84C60E408",
+              "disableDeposit": true
             }
           ]
         },
@@ -4793,7 +4878,8 @@
               "sanctionCheck": false,
               "operator": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
               "serviceFeeCollector": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
-              "peerContract": "0xE174d6F573AA1085CDc00Ff5C699D13d00818F25"
+              "peerContract": "0xE174d6F573AA1085CDc00Ff5C699D13d00818F25",
+              "disableDeposit": true
             },
             {
               "network": "avalanchetestnet",
@@ -4810,7 +4896,8 @@
               "sanctionCheck": false,
               "operator": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
               "serviceFeeCollector": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
-              "peerContract": "0x5b97A25e73dA51de0835cB69bcF988Ff304FaafB"
+              "peerContract": "0x5b97A25e73dA51de0835cB69bcF988Ff304FaafB",
+              "disableDeposit": true
             }
           ]
         },
@@ -4867,7 +4954,8 @@
               "operator": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
               "serviceFeeCollector": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
               "sanctionCheck": false,
-              "peerContract": "0x97B6807b8A52B2E68481c8081994F126D87DF78A"
+              "peerContract": "0x97B6807b8A52B2E68481c8081994F126D87DF78A",
+              "disableDeposit": true
             },
             {
               "network": "fantomtestnet",
@@ -4884,7 +4972,8 @@
               "sanctionCheck": false,
               "operator": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
               "serviceFeeCollector": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
-              "peerContract": "0x88c4f0BCF04d24409b3f70ad0B00Af38B3433620"
+              "peerContract": "0x88c4f0BCF04d24409b3f70ad0B00Af38B3433620",
+              "disableDeposit": true
             }
           ]
         },
@@ -4905,7 +4994,8 @@
               "operator": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
               "serviceFeeCollector": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
               "sanctionCheck": false,
-              "peerContract": "0x3C7D747dF8F2B2c5464d8a9a00dBD3d972776444"
+              "peerContract": "0x3C7D747dF8F2B2c5464d8a9a00dBD3d972776444",
+              "disableDeposit": true
             },
             {
               "network": "fantomtestnet",
@@ -4922,7 +5012,8 @@
               "sanctionCheck": false,
               "operator": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
               "serviceFeeCollector": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
-              "peerContract": "0xbB0BffF2613295cAa4540669a87072B12092f1f2"
+              "peerContract": "0xbB0BffF2613295cAa4540669a87072B12092f1f2",
+              "disableDeposit": true
             }
           ]
         },
@@ -4943,7 +5034,8 @@
               "sanctionCheck": false,
               "operator": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
               "serviceFeeCollector": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
-              "peerContract": "0x616Aca86cBD1774D6Dd5A44333237b4CD58be221"
+              "peerContract": "0x616Aca86cBD1774D6Dd5A44333237b4CD58be221",
+              "disableDeposit": true
             },
             {
               "network": "fantomtestnet",
@@ -4960,7 +5052,8 @@
               "sanctionCheck": false,
               "operator": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
               "serviceFeeCollector": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
-              "peerContract": "0x25Fb01b2F47e3b77CE0AEc630e947d136Cafd247"
+              "peerContract": "0x25Fb01b2F47e3b77CE0AEc630e947d136Cafd247",
+              "disableDeposit": true
             }
           ]
         },
@@ -4981,7 +5074,8 @@
               "sanctionCheck": false,
               "operator": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
               "serviceFeeCollector": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
-              "peerContract": "0x8d7E301c20D93D7cE47003D7ceE324Cf1B462c6F"
+              "peerContract": "0x8d7E301c20D93D7cE47003D7ceE324Cf1B462c6F",
+              "disableDeposit": true
             },
             {
               "network": "fantomtestnet",
@@ -4998,7 +5092,8 @@
               "sanctionCheck": false,
               "operator": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
               "serviceFeeCollector": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
-              "peerContract": "0xEDF452A9FA952F724336d5f367E45f2994B33968"
+              "peerContract": "0xEDF452A9FA952F724336d5f367E45f2994B33968",
+              "disableDeposit": true
             }
           ]
         },
@@ -5019,7 +5114,8 @@
               "sanctionCheck": false,
               "operator": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
               "serviceFeeCollector": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
-              "peerContract": "0x2917304cb56d20E4Ca2E3c12d44FC2CaCdFE59E7"
+              "peerContract": "0x2917304cb56d20E4Ca2E3c12d44FC2CaCdFE59E7",
+              "disableDeposit": true
             },
             {
               "network": "moonbase",
@@ -5036,7 +5132,8 @@
               "sanctionCheck": false,
               "operator": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
               "serviceFeeCollector": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
-              "peerContract": "0xA7B3d69343929e5FfB93b3903a6e95602A374566"
+              "peerContract": "0xA7B3d69343929e5FfB93b3903a6e95602A374566",
+              "disableDeposit": true
             }
           ]
         },
@@ -5057,7 +5154,8 @@
               "sanctionCheck": false,
               "operator": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
               "serviceFeeCollector": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
-              "peerContract": "0xE12B0baA3959C31F99f0E974094c3473B716531c"
+              "peerContract": "0xE12B0baA3959C31F99f0E974094c3473B716531c",
+              "disableDeposit": true
             },
             {
               "network": "moonbase",
@@ -5074,7 +5172,8 @@
               "sanctionCheck": false,
               "operator": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
               "serviceFeeCollector": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
-              "peerContract": "0xD2b3c2217F5C3B48CDc7c3D57D4305517427C13f"
+              "peerContract": "0xD2b3c2217F5C3B48CDc7c3D57D4305517427C13f",
+              "disableDeposit": true
             }
           ]
         },
@@ -5095,7 +5194,8 @@
               "sanctionCheck": false,
               "operator": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
               "serviceFeeCollector": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
-              "peerContract": "0xC6F35224C835997286945fc4649E8684465FEa12"
+              "peerContract": "0xC6F35224C835997286945fc4649E8684465FEa12",
+              "disableDeposit": true
             },
             {
               "network": "moonbase",
@@ -5112,7 +5212,8 @@
               "sanctionCheck": false,
               "operator": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
               "serviceFeeCollector": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
-              "peerContract": "0x1398bBC4A148f49F6a5B53866178f20f626D930a"
+              "peerContract": "0x1398bBC4A148f49F6a5B53866178f20f626D930a",
+              "disableDeposit": true
             }
           ]
         },
@@ -5133,7 +5234,8 @@
               "operator": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
               "serviceFeeCollector": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
               "sanctionCheck": false,
-              "peerContract": "0x2FC45D9B7DEFe0607725998b04cbCe8D326F23Ff"
+              "peerContract": "0x2FC45D9B7DEFe0607725998b04cbCe8D326F23Ff",
+              "disableDeposit": true
             },
             {
               "network": "moonbase",
@@ -5150,7 +5252,8 @@
               "sanctionCheck": false,
               "operator": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
               "serviceFeeCollector": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
-              "peerContract": "0x662af8bf2419799BDA38c85F3ce5a458e9809A1e"
+              "peerContract": "0x662af8bf2419799BDA38c85F3ce5a458e9809A1e",
+              "disableDeposit": true
             }
           ]
         }
