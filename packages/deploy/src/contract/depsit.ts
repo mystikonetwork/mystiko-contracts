@@ -592,7 +592,7 @@ export async function doDepositContractConfigure(
   if (operatorCfg.admin !== '') {
     await changeOperator(c, bridgeCfg.name, srcChainTokenCfg.erc20, depositCfg, operatorCfg.admin);
   }
-  
+
   if (c.cfg.depositDisable) {
     await changeDepositDisable(c, bridgeCfg.name, srcChainTokenCfg.erc20, depositCfg, true);
   }
