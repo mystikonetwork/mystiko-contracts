@@ -486,7 +486,7 @@ export async function changeDepositDisable(
   const coreContract = await DepositContractFactoruy.attach(depositCfg.address);
 
   try {
-    const rsp = await coreContract.toggleDeposits(disable);
+    const rsp = await coreContract.setDepositsDisabled(disable);
     console.log('rsp hash ', rsp.hash);
     await waitConfirm(rsp, true);
     depositCfg.updateDepositDisable(disable);
@@ -593,7 +593,7 @@ export async function doDepositContractConfigure(
     await changeOperator(c, bridgeCfg.name, srcChainTokenCfg.erc20, depositCfg, operatorCfg.admin);
   }
 
-  if (c.depositDisable) {
+  if (c.cfg.depositDisable) {
     await changeDepositDisable(c, bridgeCfg.name, srcChainTokenCfg.erc20, depositCfg, true);
   }
 
