@@ -12,10 +12,10 @@ import {
   PopulatedTransaction,
   Signer,
   utils,
-} from "ethers";
-import { FunctionFragment, Result } from "@ethersproject/abi";
-import { Listener, Provider } from "@ethersproject/providers";
-import { TypedEventFilter, TypedEvent, TypedListener, OnEvent } from "./common";
+} from 'ethers';
+import { FunctionFragment, Result } from '@ethersproject/abi';
+import { Listener, Provider } from '@ethersproject/providers';
+import { TypedEventFilter, TypedEvent, TypedListener, OnEvent } from './common';
 
 export declare namespace ICommitmentPool {
   export type CommitmentRequestStruct = {
@@ -26,13 +26,7 @@ export declare namespace ICommitmentPool {
     encryptedNote: BytesLike;
   };
 
-  export type CommitmentRequestStructOutput = [
-    BigNumber,
-    BigNumber,
-    BigNumber,
-    BigNumber,
-    string
-  ] & {
+  export type CommitmentRequestStructOutput = [BigNumber, BigNumber, BigNumber, BigNumber, string] & {
     amount: BigNumber;
     commitment: BigNumber;
     executorFee: BigNumber;
@@ -47,12 +41,7 @@ export declare namespace ICommitmentPool {
     leafHash: BigNumberish;
   };
 
-  export type RollupRequestStructOutput = [
-    IVerifier.ProofStructOutput,
-    number,
-    BigNumber,
-    BigNumber
-  ] & {
+  export type RollupRequestStructOutput = [IVerifier.ProofStructOutput, number, BigNumber, BigNumber] & {
     proof: IVerifier.ProofStructOutput;
     rollupSize: number;
     newRoot: BigNumber;
@@ -90,7 +79,7 @@ export declare namespace ICommitmentPool {
     string,
     string[],
     BigNumber,
-    BigNumber[]
+    BigNumber[],
   ] & {
     proof: IVerifier.ProofStructOutput;
     rootHash: BigNumber;
@@ -122,10 +111,10 @@ export declare namespace IVerifier {
     Y: [BigNumberish, BigNumberish];
   };
 
-  export type G2PointStructOutput = [
-    [BigNumber, BigNumber],
-    [BigNumber, BigNumber]
-  ] & { X: [BigNumber, BigNumber]; Y: [BigNumber, BigNumber] };
+  export type G2PointStructOutput = [[BigNumber, BigNumber], [BigNumber, BigNumber]] & {
+    X: [BigNumber, BigNumber];
+    Y: [BigNumber, BigNumber];
+  };
 
   export type ProofStruct = {
     a: IVerifier.G1PointStruct;
@@ -136,7 +125,7 @@ export declare namespace IVerifier {
   export type ProofStructOutput = [
     IVerifier.G1PointStructOutput,
     IVerifier.G2PointStructOutput,
-    IVerifier.G1PointStructOutput
+    IVerifier.G1PointStructOutput,
   ] & {
     a: IVerifier.G1PointStructOutput;
     b: IVerifier.G2PointStructOutput;
@@ -145,35 +134,32 @@ export declare namespace IVerifier {
 }
 
 export interface ICommitmentPoolInterface extends utils.Interface {
-  contractName: "ICommitmentPool";
+  contractName: 'ICommitmentPool';
   functions: {
-    "enqueue((uint256,uint256,uint256,uint256,bytes),address)": FunctionFragment;
-    "rollup((((uint256,uint256),(uint256[2],uint256[2]),(uint256,uint256)),uint32,uint256,uint256))": FunctionFragment;
-    "transact((((uint256,uint256),(uint256[2],uint256[2]),(uint256,uint256)),uint256,uint256[],uint256[],bytes32,uint256,uint256,uint256[],uint256[],address,address,bytes[],uint256,uint256[]),bytes)": FunctionFragment;
+    'enqueue((uint256,uint256,uint256,uint256,bytes),address)': FunctionFragment;
+    'rollup((((uint256,uint256),(uint256[2],uint256[2]),(uint256,uint256)),uint32,uint256,uint256))': FunctionFragment;
+    'transact((((uint256,uint256),(uint256[2],uint256[2]),(uint256,uint256)),uint256,uint256[],uint256[],bytes32,uint256,uint256,uint256[],uint256[],address,address,bytes[],uint256,uint256[]),bytes)': FunctionFragment;
   };
 
   encodeFunctionData(
-    functionFragment: "enqueue",
-    values: [ICommitmentPool.CommitmentRequestStruct, string]
+    functionFragment: 'enqueue',
+    values: [ICommitmentPool.CommitmentRequestStruct, string],
   ): string;
+  encodeFunctionData(functionFragment: 'rollup', values: [ICommitmentPool.RollupRequestStruct]): string;
   encodeFunctionData(
-    functionFragment: "rollup",
-    values: [ICommitmentPool.RollupRequestStruct]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "transact",
-    values: [ICommitmentPool.TransactRequestStruct, BytesLike]
+    functionFragment: 'transact',
+    values: [ICommitmentPool.TransactRequestStruct, BytesLike],
   ): string;
 
-  decodeFunctionResult(functionFragment: "enqueue", data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: "rollup", data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: "transact", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'enqueue', data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'rollup', data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'transact', data: BytesLike): Result;
 
   events: {};
 }
 
 export interface ICommitmentPool extends BaseContract {
-  contractName: "ICommitmentPool";
+  contractName: 'ICommitmentPool';
   connect(signerOrProvider: Signer | Provider | string): this;
   attach(addressOrName: string): this;
   deployed(): Promise<this>;
@@ -183,16 +169,12 @@ export interface ICommitmentPool extends BaseContract {
   queryFilter<TEvent extends TypedEvent>(
     event: TypedEventFilter<TEvent>,
     fromBlockOrBlockhash?: string | number | undefined,
-    toBlock?: string | number | undefined
+    toBlock?: string | number | undefined,
   ): Promise<Array<TEvent>>;
 
-  listeners<TEvent extends TypedEvent>(
-    eventFilter?: TypedEventFilter<TEvent>
-  ): Array<TypedListener<TEvent>>;
+  listeners<TEvent extends TypedEvent>(eventFilter?: TypedEventFilter<TEvent>): Array<TypedListener<TEvent>>;
   listeners(eventName?: string): Array<Listener>;
-  removeAllListeners<TEvent extends TypedEvent>(
-    eventFilter: TypedEventFilter<TEvent>
-  ): this;
+  removeAllListeners<TEvent extends TypedEvent>(eventFilter: TypedEventFilter<TEvent>): this;
   removeAllListeners(eventName?: string): this;
   off: OnEvent<this>;
   on: OnEvent<this>;
@@ -203,54 +185,51 @@ export interface ICommitmentPool extends BaseContract {
     enqueue(
       _request: ICommitmentPool.CommitmentRequestStruct,
       _executor: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<ContractTransaction>;
 
     rollup(
       _request: ICommitmentPool.RollupRequestStruct,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<ContractTransaction>;
 
     transact(
       _request: ICommitmentPool.TransactRequestStruct,
       _signature: BytesLike,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<ContractTransaction>;
   };
 
   enqueue(
     _request: ICommitmentPool.CommitmentRequestStruct,
     _executor: string,
-    overrides?: Overrides & { from?: string | Promise<string> }
+    overrides?: Overrides & { from?: string | Promise<string> },
   ): Promise<ContractTransaction>;
 
   rollup(
     _request: ICommitmentPool.RollupRequestStruct,
-    overrides?: Overrides & { from?: string | Promise<string> }
+    overrides?: Overrides & { from?: string | Promise<string> },
   ): Promise<ContractTransaction>;
 
   transact(
     _request: ICommitmentPool.TransactRequestStruct,
     _signature: BytesLike,
-    overrides?: Overrides & { from?: string | Promise<string> }
+    overrides?: Overrides & { from?: string | Promise<string> },
   ): Promise<ContractTransaction>;
 
   callStatic: {
     enqueue(
       _request: ICommitmentPool.CommitmentRequestStruct,
       _executor: string,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<void>;
 
-    rollup(
-      _request: ICommitmentPool.RollupRequestStruct,
-      overrides?: CallOverrides
-    ): Promise<void>;
+    rollup(_request: ICommitmentPool.RollupRequestStruct, overrides?: CallOverrides): Promise<void>;
 
     transact(
       _request: ICommitmentPool.TransactRequestStruct,
       _signature: BytesLike,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<void>;
   };
 
@@ -260,18 +239,18 @@ export interface ICommitmentPool extends BaseContract {
     enqueue(
       _request: ICommitmentPool.CommitmentRequestStruct,
       _executor: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<BigNumber>;
 
     rollup(
       _request: ICommitmentPool.RollupRequestStruct,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<BigNumber>;
 
     transact(
       _request: ICommitmentPool.TransactRequestStruct,
       _signature: BytesLike,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<BigNumber>;
   };
 
@@ -279,18 +258,18 @@ export interface ICommitmentPool extends BaseContract {
     enqueue(
       _request: ICommitmentPool.CommitmentRequestStruct,
       _executor: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<PopulatedTransaction>;
 
     rollup(
       _request: ICommitmentPool.RollupRequestStruct,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<PopulatedTransaction>;
 
     transact(
       _request: ICommitmentPool.TransactRequestStruct,
       _signature: BytesLike,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<PopulatedTransaction>;
   };
 }

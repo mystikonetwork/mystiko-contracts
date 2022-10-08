@@ -12,29 +12,29 @@ import {
   PopulatedTransaction,
   Signer,
   utils,
-} from "ethers";
-import { FunctionFragment, Result } from "@ethersproject/abi";
-import { Listener, Provider } from "@ethersproject/providers";
-import { TypedEventFilter, TypedEvent, TypedListener, OnEvent } from "./common";
+} from 'ethers';
+import { FunctionFragment, Result } from '@ethersproject/abi';
+import { Listener, Provider } from '@ethersproject/providers';
+import { TypedEventFilter, TypedEvent, TypedListener, OnEvent } from './common';
 
 export interface ILayerZeroReceiverInterface extends utils.Interface {
-  contractName: "ILayerZeroReceiver";
+  contractName: 'ILayerZeroReceiver';
   functions: {
-    "lzReceive(uint16,bytes,uint64,bytes)": FunctionFragment;
+    'lzReceive(uint16,bytes,uint64,bytes)': FunctionFragment;
   };
 
   encodeFunctionData(
-    functionFragment: "lzReceive",
-    values: [BigNumberish, BytesLike, BigNumberish, BytesLike]
+    functionFragment: 'lzReceive',
+    values: [BigNumberish, BytesLike, BigNumberish, BytesLike],
   ): string;
 
-  decodeFunctionResult(functionFragment: "lzReceive", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'lzReceive', data: BytesLike): Result;
 
   events: {};
 }
 
 export interface ILayerZeroReceiver extends BaseContract {
-  contractName: "ILayerZeroReceiver";
+  contractName: 'ILayerZeroReceiver';
   connect(signerOrProvider: Signer | Provider | string): this;
   attach(addressOrName: string): this;
   deployed(): Promise<this>;
@@ -44,16 +44,12 @@ export interface ILayerZeroReceiver extends BaseContract {
   queryFilter<TEvent extends TypedEvent>(
     event: TypedEventFilter<TEvent>,
     fromBlockOrBlockhash?: string | number | undefined,
-    toBlock?: string | number | undefined
+    toBlock?: string | number | undefined,
   ): Promise<Array<TEvent>>;
 
-  listeners<TEvent extends TypedEvent>(
-    eventFilter?: TypedEventFilter<TEvent>
-  ): Array<TypedListener<TEvent>>;
+  listeners<TEvent extends TypedEvent>(eventFilter?: TypedEventFilter<TEvent>): Array<TypedListener<TEvent>>;
   listeners(eventName?: string): Array<Listener>;
-  removeAllListeners<TEvent extends TypedEvent>(
-    eventFilter: TypedEventFilter<TEvent>
-  ): this;
+  removeAllListeners<TEvent extends TypedEvent>(eventFilter: TypedEventFilter<TEvent>): this;
   removeAllListeners(eventName?: string): this;
   off: OnEvent<this>;
   on: OnEvent<this>;
@@ -66,7 +62,7 @@ export interface ILayerZeroReceiver extends BaseContract {
       _srcAddress: BytesLike,
       _nonce: BigNumberish,
       _payload: BytesLike,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<ContractTransaction>;
   };
 
@@ -75,7 +71,7 @@ export interface ILayerZeroReceiver extends BaseContract {
     _srcAddress: BytesLike,
     _nonce: BigNumberish,
     _payload: BytesLike,
-    overrides?: Overrides & { from?: string | Promise<string> }
+    overrides?: Overrides & { from?: string | Promise<string> },
   ): Promise<ContractTransaction>;
 
   callStatic: {
@@ -84,7 +80,7 @@ export interface ILayerZeroReceiver extends BaseContract {
       _srcAddress: BytesLike,
       _nonce: BigNumberish,
       _payload: BytesLike,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<void>;
   };
 
@@ -96,7 +92,7 @@ export interface ILayerZeroReceiver extends BaseContract {
       _srcAddress: BytesLike,
       _nonce: BigNumberish,
       _payload: BytesLike,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<BigNumber>;
   };
 
@@ -106,7 +102,7 @@ export interface ILayerZeroReceiver extends BaseContract {
       _srcAddress: BytesLike,
       _nonce: BigNumberish,
       _payload: BytesLike,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<PopulatedTransaction>;
   };
 }

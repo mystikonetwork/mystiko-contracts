@@ -13,10 +13,10 @@ import {
   PopulatedTransaction,
   Signer,
   utils,
-} from "ethers";
-import { FunctionFragment, Result, EventFragment } from "@ethersproject/abi";
-import { Listener, Provider } from "@ethersproject/providers";
-import { TypedEventFilter, TypedEvent, TypedListener, OnEvent } from "./common";
+} from 'ethers';
+import { FunctionFragment, Result, EventFragment } from '@ethersproject/abi';
+import { Listener, Provider } from '@ethersproject/providers';
+import { TypedEventFilter, TypedEvent, TypedListener, OnEvent } from './common';
 
 export declare namespace IMystikoLoop {
   export type DepositRequestStruct = {
@@ -28,14 +28,7 @@ export declare namespace IMystikoLoop {
     rollupFee: BigNumberish;
   };
 
-  export type DepositRequestStructOutput = [
-    BigNumber,
-    BigNumber,
-    BigNumber,
-    BigNumber,
-    string,
-    BigNumber
-  ] & {
+  export type DepositRequestStructOutput = [BigNumber, BigNumber, BigNumber, BigNumber, string, BigNumber] & {
     amount: BigNumber;
     commitment: BigNumber;
     hashK: BigNumber;
@@ -46,174 +39,83 @@ export declare namespace IMystikoLoop {
 }
 
 export interface MystikoV2LoopMainInterface extends utils.Interface {
-  contractName: "MystikoV2LoopMain";
+  contractName: 'MystikoV2LoopMain';
   functions: {
-    "assetType()": FunctionFragment;
-    "bridgeType()": FunctionFragment;
-    "changeOperator(address)": FunctionFragment;
-    "deposit((uint256,uint256,uint256,uint128,bytes,uint256))": FunctionFragment;
-    "disableSanctionsCheck()": FunctionFragment;
-    "enableSanctionsCheck()": FunctionFragment;
-    "getAssociatedCommitmentPool()": FunctionFragment;
-    "getMaxAmount()": FunctionFragment;
-    "getMinAmount()": FunctionFragment;
-    "isDepositsDisabled()": FunctionFragment;
-    "sanctionsCheck()": FunctionFragment;
-    "sanctionsList()": FunctionFragment;
-    "setAssociatedCommitmentPool(address)": FunctionFragment;
-    "setDepositsDisabled(bool)": FunctionFragment;
-    "setMaxAmount(uint256)": FunctionFragment;
-    "setMinAmount(uint256)": FunctionFragment;
-    "updateSanctionsListAddress(address)": FunctionFragment;
+    'assetType()': FunctionFragment;
+    'bridgeType()': FunctionFragment;
+    'changeOperator(address)': FunctionFragment;
+    'deposit((uint256,uint256,uint256,uint128,bytes,uint256))': FunctionFragment;
+    'disableSanctionsCheck()': FunctionFragment;
+    'enableSanctionsCheck()': FunctionFragment;
+    'getAssociatedCommitmentPool()': FunctionFragment;
+    'getMaxAmount()': FunctionFragment;
+    'getMinAmount()': FunctionFragment;
+    'isDepositsDisabled()': FunctionFragment;
+    'sanctionsCheck()': FunctionFragment;
+    'sanctionsList()': FunctionFragment;
+    'setAssociatedCommitmentPool(address)': FunctionFragment;
+    'setDepositsDisabled(bool)': FunctionFragment;
+    'setMaxAmount(uint256)': FunctionFragment;
+    'setMinAmount(uint256)': FunctionFragment;
+    'updateSanctionsListAddress(address)': FunctionFragment;
   };
 
-  encodeFunctionData(functionFragment: "assetType", values?: undefined): string;
-  encodeFunctionData(
-    functionFragment: "bridgeType",
-    values?: undefined
-  ): string;
-  encodeFunctionData(
-    functionFragment: "changeOperator",
-    values: [string]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "deposit",
-    values: [IMystikoLoop.DepositRequestStruct]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "disableSanctionsCheck",
-    values?: undefined
-  ): string;
-  encodeFunctionData(
-    functionFragment: "enableSanctionsCheck",
-    values?: undefined
-  ): string;
-  encodeFunctionData(
-    functionFragment: "getAssociatedCommitmentPool",
-    values?: undefined
-  ): string;
-  encodeFunctionData(
-    functionFragment: "getMaxAmount",
-    values?: undefined
-  ): string;
-  encodeFunctionData(
-    functionFragment: "getMinAmount",
-    values?: undefined
-  ): string;
-  encodeFunctionData(
-    functionFragment: "isDepositsDisabled",
-    values?: undefined
-  ): string;
-  encodeFunctionData(
-    functionFragment: "sanctionsCheck",
-    values?: undefined
-  ): string;
-  encodeFunctionData(
-    functionFragment: "sanctionsList",
-    values?: undefined
-  ): string;
-  encodeFunctionData(
-    functionFragment: "setAssociatedCommitmentPool",
-    values: [string]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "setDepositsDisabled",
-    values: [boolean]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "setMaxAmount",
-    values: [BigNumberish]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "setMinAmount",
-    values: [BigNumberish]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "updateSanctionsListAddress",
-    values: [string]
-  ): string;
+  encodeFunctionData(functionFragment: 'assetType', values?: undefined): string;
+  encodeFunctionData(functionFragment: 'bridgeType', values?: undefined): string;
+  encodeFunctionData(functionFragment: 'changeOperator', values: [string]): string;
+  encodeFunctionData(functionFragment: 'deposit', values: [IMystikoLoop.DepositRequestStruct]): string;
+  encodeFunctionData(functionFragment: 'disableSanctionsCheck', values?: undefined): string;
+  encodeFunctionData(functionFragment: 'enableSanctionsCheck', values?: undefined): string;
+  encodeFunctionData(functionFragment: 'getAssociatedCommitmentPool', values?: undefined): string;
+  encodeFunctionData(functionFragment: 'getMaxAmount', values?: undefined): string;
+  encodeFunctionData(functionFragment: 'getMinAmount', values?: undefined): string;
+  encodeFunctionData(functionFragment: 'isDepositsDisabled', values?: undefined): string;
+  encodeFunctionData(functionFragment: 'sanctionsCheck', values?: undefined): string;
+  encodeFunctionData(functionFragment: 'sanctionsList', values?: undefined): string;
+  encodeFunctionData(functionFragment: 'setAssociatedCommitmentPool', values: [string]): string;
+  encodeFunctionData(functionFragment: 'setDepositsDisabled', values: [boolean]): string;
+  encodeFunctionData(functionFragment: 'setMaxAmount', values: [BigNumberish]): string;
+  encodeFunctionData(functionFragment: 'setMinAmount', values: [BigNumberish]): string;
+  encodeFunctionData(functionFragment: 'updateSanctionsListAddress', values: [string]): string;
 
-  decodeFunctionResult(functionFragment: "assetType", data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: "bridgeType", data: BytesLike): Result;
-  decodeFunctionResult(
-    functionFragment: "changeOperator",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(functionFragment: "deposit", data: BytesLike): Result;
-  decodeFunctionResult(
-    functionFragment: "disableSanctionsCheck",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "enableSanctionsCheck",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "getAssociatedCommitmentPool",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "getMaxAmount",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "getMinAmount",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "isDepositsDisabled",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "sanctionsCheck",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "sanctionsList",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "setAssociatedCommitmentPool",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "setDepositsDisabled",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "setMaxAmount",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "setMinAmount",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "updateSanctionsListAddress",
-    data: BytesLike
-  ): Result;
+  decodeFunctionResult(functionFragment: 'assetType', data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'bridgeType', data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'changeOperator', data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'deposit', data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'disableSanctionsCheck', data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'enableSanctionsCheck', data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'getAssociatedCommitmentPool', data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'getMaxAmount', data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'getMinAmount', data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'isDepositsDisabled', data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'sanctionsCheck', data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'sanctionsList', data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'setAssociatedCommitmentPool', data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'setDepositsDisabled', data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'setMaxAmount', data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'setMinAmount', data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'updateSanctionsListAddress', data: BytesLike): Result;
 
   events: {
-    "DepositsDisabled(bool)": EventFragment;
-    "MaxAmount(uint256)": EventFragment;
-    "MinAmount(uint256)": EventFragment;
-    "OperatorChanged(address)": EventFragment;
-    "SanctionsCheck(bool)": EventFragment;
-    "SanctionsList(address)": EventFragment;
+    'DepositsDisabled(bool)': EventFragment;
+    'MaxAmount(uint256)': EventFragment;
+    'MinAmount(uint256)': EventFragment;
+    'OperatorChanged(address)': EventFragment;
+    'SanctionsCheck(bool)': EventFragment;
+    'SanctionsList(address)': EventFragment;
   };
 
-  getEvent(nameOrSignatureOrTopic: "DepositsDisabled"): EventFragment;
-  getEvent(nameOrSignatureOrTopic: "MaxAmount"): EventFragment;
-  getEvent(nameOrSignatureOrTopic: "MinAmount"): EventFragment;
-  getEvent(nameOrSignatureOrTopic: "OperatorChanged"): EventFragment;
-  getEvent(nameOrSignatureOrTopic: "SanctionsCheck"): EventFragment;
-  getEvent(nameOrSignatureOrTopic: "SanctionsList"): EventFragment;
+  getEvent(nameOrSignatureOrTopic: 'DepositsDisabled'): EventFragment;
+  getEvent(nameOrSignatureOrTopic: 'MaxAmount'): EventFragment;
+  getEvent(nameOrSignatureOrTopic: 'MinAmount'): EventFragment;
+  getEvent(nameOrSignatureOrTopic: 'OperatorChanged'): EventFragment;
+  getEvent(nameOrSignatureOrTopic: 'SanctionsCheck'): EventFragment;
+  getEvent(nameOrSignatureOrTopic: 'SanctionsList'): EventFragment;
 }
 
 export type DepositsDisabledEvent = TypedEvent<[boolean], { state: boolean }>;
 
-export type DepositsDisabledEventFilter =
-  TypedEventFilter<DepositsDisabledEvent>;
+export type DepositsDisabledEventFilter = TypedEventFilter<DepositsDisabledEvent>;
 
 export type MaxAmountEvent = TypedEvent<[BigNumber], { maxAmount: BigNumber }>;
 
@@ -236,7 +138,7 @@ export type SanctionsListEvent = TypedEvent<[string], { sanctions: string }>;
 export type SanctionsListEventFilter = TypedEventFilter<SanctionsListEvent>;
 
 export interface MystikoV2LoopMain extends BaseContract {
-  contractName: "MystikoV2LoopMain";
+  contractName: 'MystikoV2LoopMain';
   connect(signerOrProvider: Signer | Provider | string): this;
   attach(addressOrName: string): this;
   deployed(): Promise<this>;
@@ -246,16 +148,12 @@ export interface MystikoV2LoopMain extends BaseContract {
   queryFilter<TEvent extends TypedEvent>(
     event: TypedEventFilter<TEvent>,
     fromBlockOrBlockhash?: string | number | undefined,
-    toBlock?: string | number | undefined
+    toBlock?: string | number | undefined,
   ): Promise<Array<TEvent>>;
 
-  listeners<TEvent extends TypedEvent>(
-    eventFilter?: TypedEventFilter<TEvent>
-  ): Array<TypedListener<TEvent>>;
+  listeners<TEvent extends TypedEvent>(eventFilter?: TypedEventFilter<TEvent>): Array<TypedListener<TEvent>>;
   listeners(eventName?: string): Array<Listener>;
-  removeAllListeners<TEvent extends TypedEvent>(
-    eventFilter: TypedEventFilter<TEvent>
-  ): this;
+  removeAllListeners<TEvent extends TypedEvent>(eventFilter: TypedEventFilter<TEvent>): this;
   removeAllListeners(eventName?: string): this;
   off: OnEvent<this>;
   on: OnEvent<this>;
@@ -269,20 +167,20 @@ export interface MystikoV2LoopMain extends BaseContract {
 
     changeOperator(
       _newOperator: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<ContractTransaction>;
 
     deposit(
       _request: IMystikoLoop.DepositRequestStruct,
-      overrides?: PayableOverrides & { from?: string | Promise<string> }
+      overrides?: PayableOverrides & { from?: string | Promise<string> },
     ): Promise<ContractTransaction>;
 
     disableSanctionsCheck(
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<ContractTransaction>;
 
     enableSanctionsCheck(
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<ContractTransaction>;
 
     getAssociatedCommitmentPool(overrides?: CallOverrides): Promise<[string]>;
@@ -299,27 +197,27 @@ export interface MystikoV2LoopMain extends BaseContract {
 
     setAssociatedCommitmentPool(
       _commitmentPoolAddress: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<ContractTransaction>;
 
     setDepositsDisabled(
       _state: boolean,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<ContractTransaction>;
 
     setMaxAmount(
       _maxAmount: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<ContractTransaction>;
 
     setMinAmount(
       _minAmount: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<ContractTransaction>;
 
     updateSanctionsListAddress(
       _sanction: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<ContractTransaction>;
   };
 
@@ -329,20 +227,20 @@ export interface MystikoV2LoopMain extends BaseContract {
 
   changeOperator(
     _newOperator: string,
-    overrides?: Overrides & { from?: string | Promise<string> }
+    overrides?: Overrides & { from?: string | Promise<string> },
   ): Promise<ContractTransaction>;
 
   deposit(
     _request: IMystikoLoop.DepositRequestStruct,
-    overrides?: PayableOverrides & { from?: string | Promise<string> }
+    overrides?: PayableOverrides & { from?: string | Promise<string> },
   ): Promise<ContractTransaction>;
 
   disableSanctionsCheck(
-    overrides?: Overrides & { from?: string | Promise<string> }
+    overrides?: Overrides & { from?: string | Promise<string> },
   ): Promise<ContractTransaction>;
 
   enableSanctionsCheck(
-    overrides?: Overrides & { from?: string | Promise<string> }
+    overrides?: Overrides & { from?: string | Promise<string> },
   ): Promise<ContractTransaction>;
 
   getAssociatedCommitmentPool(overrides?: CallOverrides): Promise<string>;
@@ -359,27 +257,27 @@ export interface MystikoV2LoopMain extends BaseContract {
 
   setAssociatedCommitmentPool(
     _commitmentPoolAddress: string,
-    overrides?: Overrides & { from?: string | Promise<string> }
+    overrides?: Overrides & { from?: string | Promise<string> },
   ): Promise<ContractTransaction>;
 
   setDepositsDisabled(
     _state: boolean,
-    overrides?: Overrides & { from?: string | Promise<string> }
+    overrides?: Overrides & { from?: string | Promise<string> },
   ): Promise<ContractTransaction>;
 
   setMaxAmount(
     _maxAmount: BigNumberish,
-    overrides?: Overrides & { from?: string | Promise<string> }
+    overrides?: Overrides & { from?: string | Promise<string> },
   ): Promise<ContractTransaction>;
 
   setMinAmount(
     _minAmount: BigNumberish,
-    overrides?: Overrides & { from?: string | Promise<string> }
+    overrides?: Overrides & { from?: string | Promise<string> },
   ): Promise<ContractTransaction>;
 
   updateSanctionsListAddress(
     _sanction: string,
-    overrides?: Overrides & { from?: string | Promise<string> }
+    overrides?: Overrides & { from?: string | Promise<string> },
   ): Promise<ContractTransaction>;
 
   callStatic: {
@@ -387,15 +285,9 @@ export interface MystikoV2LoopMain extends BaseContract {
 
     bridgeType(overrides?: CallOverrides): Promise<string>;
 
-    changeOperator(
-      _newOperator: string,
-      overrides?: CallOverrides
-    ): Promise<void>;
+    changeOperator(_newOperator: string, overrides?: CallOverrides): Promise<void>;
 
-    deposit(
-      _request: IMystikoLoop.DepositRequestStruct,
-      overrides?: CallOverrides
-    ): Promise<void>;
+    deposit(_request: IMystikoLoop.DepositRequestStruct, overrides?: CallOverrides): Promise<void>;
 
     disableSanctionsCheck(overrides?: CallOverrides): Promise<void>;
 
@@ -413,51 +305,34 @@ export interface MystikoV2LoopMain extends BaseContract {
 
     sanctionsList(overrides?: CallOverrides): Promise<string>;
 
-    setAssociatedCommitmentPool(
-      _commitmentPoolAddress: string,
-      overrides?: CallOverrides
-    ): Promise<void>;
+    setAssociatedCommitmentPool(_commitmentPoolAddress: string, overrides?: CallOverrides): Promise<void>;
 
-    setDepositsDisabled(
-      _state: boolean,
-      overrides?: CallOverrides
-    ): Promise<void>;
+    setDepositsDisabled(_state: boolean, overrides?: CallOverrides): Promise<void>;
 
-    setMaxAmount(
-      _maxAmount: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<void>;
+    setMaxAmount(_maxAmount: BigNumberish, overrides?: CallOverrides): Promise<void>;
 
-    setMinAmount(
-      _minAmount: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<void>;
+    setMinAmount(_minAmount: BigNumberish, overrides?: CallOverrides): Promise<void>;
 
-    updateSanctionsListAddress(
-      _sanction: string,
-      overrides?: CallOverrides
-    ): Promise<void>;
+    updateSanctionsListAddress(_sanction: string, overrides?: CallOverrides): Promise<void>;
   };
 
   filters: {
-    "DepositsDisabled(bool)"(state?: null): DepositsDisabledEventFilter;
+    'DepositsDisabled(bool)'(state?: null): DepositsDisabledEventFilter;
     DepositsDisabled(state?: null): DepositsDisabledEventFilter;
 
-    "MaxAmount(uint256)"(maxAmount?: null): MaxAmountEventFilter;
+    'MaxAmount(uint256)'(maxAmount?: null): MaxAmountEventFilter;
     MaxAmount(maxAmount?: null): MaxAmountEventFilter;
 
-    "MinAmount(uint256)"(minAmount?: null): MinAmountEventFilter;
+    'MinAmount(uint256)'(minAmount?: null): MinAmountEventFilter;
     MinAmount(minAmount?: null): MinAmountEventFilter;
 
-    "OperatorChanged(address)"(
-      operator?: string | null
-    ): OperatorChangedEventFilter;
+    'OperatorChanged(address)'(operator?: string | null): OperatorChangedEventFilter;
     OperatorChanged(operator?: string | null): OperatorChangedEventFilter;
 
-    "SanctionsCheck(bool)"(state?: null): SanctionsCheckEventFilter;
+    'SanctionsCheck(bool)'(state?: null): SanctionsCheckEventFilter;
     SanctionsCheck(state?: null): SanctionsCheckEventFilter;
 
-    "SanctionsList(address)"(sanctions?: null): SanctionsListEventFilter;
+    'SanctionsList(address)'(sanctions?: null): SanctionsListEventFilter;
     SanctionsList(sanctions?: null): SanctionsListEventFilter;
   };
 
@@ -468,21 +343,17 @@ export interface MystikoV2LoopMain extends BaseContract {
 
     changeOperator(
       _newOperator: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<BigNumber>;
 
     deposit(
       _request: IMystikoLoop.DepositRequestStruct,
-      overrides?: PayableOverrides & { from?: string | Promise<string> }
+      overrides?: PayableOverrides & { from?: string | Promise<string> },
     ): Promise<BigNumber>;
 
-    disableSanctionsCheck(
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<BigNumber>;
+    disableSanctionsCheck(overrides?: Overrides & { from?: string | Promise<string> }): Promise<BigNumber>;
 
-    enableSanctionsCheck(
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<BigNumber>;
+    enableSanctionsCheck(overrides?: Overrides & { from?: string | Promise<string> }): Promise<BigNumber>;
 
     getAssociatedCommitmentPool(overrides?: CallOverrides): Promise<BigNumber>;
 
@@ -498,27 +369,27 @@ export interface MystikoV2LoopMain extends BaseContract {
 
     setAssociatedCommitmentPool(
       _commitmentPoolAddress: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<BigNumber>;
 
     setDepositsDisabled(
       _state: boolean,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<BigNumber>;
 
     setMaxAmount(
       _maxAmount: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<BigNumber>;
 
     setMinAmount(
       _minAmount: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<BigNumber>;
 
     updateSanctionsListAddress(
       _sanction: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<BigNumber>;
   };
 
@@ -529,33 +400,29 @@ export interface MystikoV2LoopMain extends BaseContract {
 
     changeOperator(
       _newOperator: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<PopulatedTransaction>;
 
     deposit(
       _request: IMystikoLoop.DepositRequestStruct,
-      overrides?: PayableOverrides & { from?: string | Promise<string> }
+      overrides?: PayableOverrides & { from?: string | Promise<string> },
     ): Promise<PopulatedTransaction>;
 
     disableSanctionsCheck(
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<PopulatedTransaction>;
 
     enableSanctionsCheck(
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<PopulatedTransaction>;
 
-    getAssociatedCommitmentPool(
-      overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>;
+    getAssociatedCommitmentPool(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     getMaxAmount(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     getMinAmount(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
-    isDepositsDisabled(
-      overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>;
+    isDepositsDisabled(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     sanctionsCheck(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
@@ -563,27 +430,27 @@ export interface MystikoV2LoopMain extends BaseContract {
 
     setAssociatedCommitmentPool(
       _commitmentPoolAddress: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<PopulatedTransaction>;
 
     setDepositsDisabled(
       _state: boolean,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<PopulatedTransaction>;
 
     setMaxAmount(
       _maxAmount: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<PopulatedTransaction>;
 
     setMinAmount(
       _minAmount: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<PopulatedTransaction>;
 
     updateSanctionsListAddress(
       _sanction: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<PopulatedTransaction>;
   };
 }

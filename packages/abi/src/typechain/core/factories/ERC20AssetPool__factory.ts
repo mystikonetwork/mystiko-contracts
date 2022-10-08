@@ -2,65 +2,62 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import { Contract, Signer, utils } from "ethers";
-import { Provider } from "@ethersproject/providers";
-import type {
-  ERC20AssetPool,
-  ERC20AssetPoolInterface,
-} from "../ERC20AssetPool";
+import { Contract, Signer, utils } from 'ethers';
+import { Provider } from '@ethersproject/providers';
+import type { ERC20AssetPool, ERC20AssetPoolInterface } from '../ERC20AssetPool';
 
 const _abi = [
   {
     inputs: [],
-    name: "assetDecimals",
+    name: 'assetDecimals',
     outputs: [
       {
-        internalType: "uint8",
-        name: "",
-        type: "uint8",
+        internalType: 'uint8',
+        name: '',
+        type: 'uint8',
       },
     ],
-    stateMutability: "view",
-    type: "function",
+    stateMutability: 'view',
+    type: 'function',
   },
   {
     inputs: [],
-    name: "assetName",
+    name: 'assetName',
     outputs: [
       {
-        internalType: "string",
-        name: "",
-        type: "string",
+        internalType: 'string',
+        name: '',
+        type: 'string',
       },
     ],
-    stateMutability: "view",
-    type: "function",
+    stateMutability: 'view',
+    type: 'function',
   },
   {
     inputs: [],
-    name: "assetSymbol",
+    name: 'assetSymbol',
     outputs: [
       {
-        internalType: "string",
-        name: "",
-        type: "string",
+        internalType: 'string',
+        name: '',
+        type: 'string',
       },
     ],
-    stateMutability: "view",
-    type: "function",
+    stateMutability: 'view',
+    type: 'function',
   },
   {
     inputs: [],
-    name: "assetType",
+    name: 'assetType',
     outputs: [
       {
-        internalType: "enum AssetPool.AssetType",
-        name: "",
-        type: "uint8",
+        internalType: 'enum AssetPool.AssetType',
+        name: '',
+        type: 'uint8',
       },
     ],
-    stateMutability: "pure",
-    type: "function",
+    stateMutability: 'pure',
+    type: 'function',
   },
 ];
 
@@ -69,10 +66,7 @@ export class ERC20AssetPool__factory {
   static createInterface(): ERC20AssetPoolInterface {
     return new utils.Interface(_abi) as ERC20AssetPoolInterface;
   }
-  static connect(
-    address: string,
-    signerOrProvider: Signer | Provider
-  ): ERC20AssetPool {
+  static connect(address: string, signerOrProvider: Signer | Provider): ERC20AssetPool {
     return new Contract(address, _abi, signerOrProvider) as ERC20AssetPool;
   }
 }

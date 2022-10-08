@@ -2,23 +2,23 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import { Contract, Signer, utils } from "ethers";
-import { Provider } from "@ethersproject/providers";
-import type { MainAssetPool, MainAssetPoolInterface } from "../MainAssetPool";
+import { Contract, Signer, utils } from 'ethers';
+import { Provider } from '@ethersproject/providers';
+import type { MainAssetPool, MainAssetPoolInterface } from '../MainAssetPool';
 
 const _abi = [
   {
     inputs: [],
-    name: "assetType",
+    name: 'assetType',
     outputs: [
       {
-        internalType: "enum AssetPool.AssetType",
-        name: "",
-        type: "uint8",
+        internalType: 'enum AssetPool.AssetType',
+        name: '',
+        type: 'uint8',
       },
     ],
-    stateMutability: "pure",
-    type: "function",
+    stateMutability: 'pure',
+    type: 'function',
   },
 ];
 
@@ -27,10 +27,7 @@ export class MainAssetPool__factory {
   static createInterface(): MainAssetPoolInterface {
     return new utils.Interface(_abi) as MainAssetPoolInterface;
   }
-  static connect(
-    address: string,
-    signerOrProvider: Signer | Provider
-  ): MainAssetPool {
+  static connect(address: string, signerOrProvider: Signer | Provider): MainAssetPool {
     return new Contract(address, _abi, signerOrProvider) as MainAssetPool;
   }
 }

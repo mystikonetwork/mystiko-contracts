@@ -9,26 +9,26 @@ import {
   PopulatedTransaction,
   Signer,
   utils,
-} from "ethers";
-import { FunctionFragment, Result } from "@ethersproject/abi";
-import { Listener, Provider } from "@ethersproject/providers";
-import { TypedEventFilter, TypedEvent, TypedListener, OnEvent } from "./common";
+} from 'ethers';
+import { FunctionFragment, Result } from '@ethersproject/abi';
+import { Listener, Provider } from '@ethersproject/providers';
+import { TypedEventFilter, TypedEvent, TypedListener, OnEvent } from './common';
 
 export interface AssetPoolInterface extends utils.Interface {
-  contractName: "AssetPool";
+  contractName: 'AssetPool';
   functions: {
-    "assetType()": FunctionFragment;
+    'assetType()': FunctionFragment;
   };
 
-  encodeFunctionData(functionFragment: "assetType", values?: undefined): string;
+  encodeFunctionData(functionFragment: 'assetType', values?: undefined): string;
 
-  decodeFunctionResult(functionFragment: "assetType", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'assetType', data: BytesLike): Result;
 
   events: {};
 }
 
 export interface AssetPool extends BaseContract {
-  contractName: "AssetPool";
+  contractName: 'AssetPool';
   connect(signerOrProvider: Signer | Provider | string): this;
   attach(addressOrName: string): this;
   deployed(): Promise<this>;
@@ -38,16 +38,12 @@ export interface AssetPool extends BaseContract {
   queryFilter<TEvent extends TypedEvent>(
     event: TypedEventFilter<TEvent>,
     fromBlockOrBlockhash?: string | number | undefined,
-    toBlock?: string | number | undefined
+    toBlock?: string | number | undefined,
   ): Promise<Array<TEvent>>;
 
-  listeners<TEvent extends TypedEvent>(
-    eventFilter?: TypedEventFilter<TEvent>
-  ): Array<TypedListener<TEvent>>;
+  listeners<TEvent extends TypedEvent>(eventFilter?: TypedEventFilter<TEvent>): Array<TypedListener<TEvent>>;
   listeners(eventName?: string): Array<Listener>;
-  removeAllListeners<TEvent extends TypedEvent>(
-    eventFilter: TypedEventFilter<TEvent>
-  ): this;
+  removeAllListeners<TEvent extends TypedEvent>(eventFilter: TypedEventFilter<TEvent>): this;
   removeAllListeners(eventName?: string): this;
   off: OnEvent<this>;
   on: OnEvent<this>;

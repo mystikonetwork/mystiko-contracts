@@ -2,97 +2,94 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import { Contract, Signer, utils } from "ethers";
-import { Provider } from "@ethersproject/providers";
-import type {
-  IAxelarExecutable,
-  IAxelarExecutableInterface,
-} from "../IAxelarExecutable";
+import { Contract, Signer, utils } from 'ethers';
+import { Provider } from '@ethersproject/providers';
+import type { IAxelarExecutable, IAxelarExecutableInterface } from '../IAxelarExecutable';
 
 const _abi = [
   {
     inputs: [],
-    name: "NotApprovedByGateway",
-    type: "error",
+    name: 'NotApprovedByGateway',
+    type: 'error',
   },
   {
     inputs: [
       {
-        internalType: "bytes32",
-        name: "commandId",
-        type: "bytes32",
+        internalType: 'bytes32',
+        name: 'commandId',
+        type: 'bytes32',
       },
       {
-        internalType: "string",
-        name: "sourceChain",
-        type: "string",
+        internalType: 'string',
+        name: 'sourceChain',
+        type: 'string',
       },
       {
-        internalType: "string",
-        name: "sourceAddress",
-        type: "string",
+        internalType: 'string',
+        name: 'sourceAddress',
+        type: 'string',
       },
       {
-        internalType: "bytes",
-        name: "payload",
-        type: "bytes",
+        internalType: 'bytes',
+        name: 'payload',
+        type: 'bytes',
       },
     ],
-    name: "execute",
+    name: 'execute',
     outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
+    stateMutability: 'nonpayable',
+    type: 'function',
   },
   {
     inputs: [
       {
-        internalType: "bytes32",
-        name: "commandId",
-        type: "bytes32",
+        internalType: 'bytes32',
+        name: 'commandId',
+        type: 'bytes32',
       },
       {
-        internalType: "string",
-        name: "sourceChain",
-        type: "string",
+        internalType: 'string',
+        name: 'sourceChain',
+        type: 'string',
       },
       {
-        internalType: "string",
-        name: "sourceAddress",
-        type: "string",
+        internalType: 'string',
+        name: 'sourceAddress',
+        type: 'string',
       },
       {
-        internalType: "bytes",
-        name: "payload",
-        type: "bytes",
+        internalType: 'bytes',
+        name: 'payload',
+        type: 'bytes',
       },
       {
-        internalType: "string",
-        name: "tokenSymbol",
-        type: "string",
+        internalType: 'string',
+        name: 'tokenSymbol',
+        type: 'string',
       },
       {
-        internalType: "uint256",
-        name: "amount",
-        type: "uint256",
+        internalType: 'uint256',
+        name: 'amount',
+        type: 'uint256',
       },
     ],
-    name: "executeWithToken",
+    name: 'executeWithToken',
     outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
+    stateMutability: 'nonpayable',
+    type: 'function',
   },
   {
     inputs: [],
-    name: "gateway",
+    name: 'gateway',
     outputs: [
       {
-        internalType: "contract IAxelarGateway",
-        name: "",
-        type: "address",
+        internalType: 'contract IAxelarGateway',
+        name: '',
+        type: 'address',
       },
     ],
-    stateMutability: "view",
-    type: "function",
+    stateMutability: 'view',
+    type: 'function',
   },
 ];
 
@@ -101,10 +98,7 @@ export class IAxelarExecutable__factory {
   static createInterface(): IAxelarExecutableInterface {
     return new utils.Interface(_abi) as IAxelarExecutableInterface;
   }
-  static connect(
-    address: string,
-    signerOrProvider: Signer | Provider
-  ): IAxelarExecutable {
+  static connect(address: string, signerOrProvider: Signer | Provider): IAxelarExecutable {
     return new Contract(address, _abi, signerOrProvider) as IAxelarExecutable;
   }
 }

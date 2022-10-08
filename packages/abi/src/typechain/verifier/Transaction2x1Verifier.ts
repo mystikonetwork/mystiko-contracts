@@ -10,10 +10,10 @@ import {
   PopulatedTransaction,
   Signer,
   utils,
-} from "ethers";
-import { FunctionFragment, Result } from "@ethersproject/abi";
-import { Listener, Provider } from "@ethersproject/providers";
-import { TypedEventFilter, TypedEvent, TypedListener, OnEvent } from "./common";
+} from 'ethers';
+import { FunctionFragment, Result } from '@ethersproject/abi';
+import { Listener, Provider } from '@ethersproject/providers';
+import { TypedEventFilter, TypedEvent, TypedListener, OnEvent } from './common';
 
 export declare namespace Pairing {
   export type G1PointStruct = { X: BigNumberish; Y: BigNumberish };
@@ -28,10 +28,10 @@ export declare namespace Pairing {
     Y: [BigNumberish, BigNumberish];
   };
 
-  export type G2PointStructOutput = [
-    [BigNumber, BigNumber],
-    [BigNumber, BigNumber]
-  ] & { X: [BigNumber, BigNumber]; Y: [BigNumber, BigNumber] };
+  export type G2PointStructOutput = [[BigNumber, BigNumber], [BigNumber, BigNumber]] & {
+    X: [BigNumber, BigNumber];
+    Y: [BigNumber, BigNumber];
+  };
 }
 
 export declare namespace VerifierLib {
@@ -44,7 +44,7 @@ export declare namespace VerifierLib {
   export type ProofStructOutput = [
     Pairing.G1PointStructOutput,
     Pairing.G2PointStructOutput,
-    Pairing.G1PointStructOutput
+    Pairing.G1PointStructOutput,
   ] & {
     a: Pairing.G1PointStructOutput;
     b: Pairing.G2PointStructOutput;
@@ -53,23 +53,20 @@ export declare namespace VerifierLib {
 }
 
 export interface Transaction2x1VerifierInterface extends utils.Interface {
-  contractName: "Transaction2x1Verifier";
+  contractName: 'Transaction2x1Verifier';
   functions: {
-    "verifyTx(((uint256,uint256),(uint256[2],uint256[2]),(uint256,uint256)),uint256[])": FunctionFragment;
+    'verifyTx(((uint256,uint256),(uint256[2],uint256[2]),(uint256,uint256)),uint256[])': FunctionFragment;
   };
 
-  encodeFunctionData(
-    functionFragment: "verifyTx",
-    values: [VerifierLib.ProofStruct, BigNumberish[]]
-  ): string;
+  encodeFunctionData(functionFragment: 'verifyTx', values: [VerifierLib.ProofStruct, BigNumberish[]]): string;
 
-  decodeFunctionResult(functionFragment: "verifyTx", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'verifyTx', data: BytesLike): Result;
 
   events: {};
 }
 
 export interface Transaction2x1Verifier extends BaseContract {
-  contractName: "Transaction2x1Verifier";
+  contractName: 'Transaction2x1Verifier';
   connect(signerOrProvider: Signer | Provider | string): this;
   attach(addressOrName: string): this;
   deployed(): Promise<this>;
@@ -79,16 +76,12 @@ export interface Transaction2x1Verifier extends BaseContract {
   queryFilter<TEvent extends TypedEvent>(
     event: TypedEventFilter<TEvent>,
     fromBlockOrBlockhash?: string | number | undefined,
-    toBlock?: string | number | undefined
+    toBlock?: string | number | undefined,
   ): Promise<Array<TEvent>>;
 
-  listeners<TEvent extends TypedEvent>(
-    eventFilter?: TypedEventFilter<TEvent>
-  ): Array<TypedListener<TEvent>>;
+  listeners<TEvent extends TypedEvent>(eventFilter?: TypedEventFilter<TEvent>): Array<TypedListener<TEvent>>;
   listeners(eventName?: string): Array<Listener>;
-  removeAllListeners<TEvent extends TypedEvent>(
-    eventFilter: TypedEventFilter<TEvent>
-  ): this;
+  removeAllListeners<TEvent extends TypedEvent>(eventFilter: TypedEventFilter<TEvent>): this;
   removeAllListeners(eventName?: string): this;
   off: OnEvent<this>;
   on: OnEvent<this>;
@@ -99,21 +92,21 @@ export interface Transaction2x1Verifier extends BaseContract {
     verifyTx(
       proof: VerifierLib.ProofStruct,
       input: BigNumberish[],
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<[boolean] & { r: boolean }>;
   };
 
   verifyTx(
     proof: VerifierLib.ProofStruct,
     input: BigNumberish[],
-    overrides?: CallOverrides
+    overrides?: CallOverrides,
   ): Promise<boolean>;
 
   callStatic: {
     verifyTx(
       proof: VerifierLib.ProofStruct,
       input: BigNumberish[],
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<boolean>;
   };
 
@@ -123,7 +116,7 @@ export interface Transaction2x1Verifier extends BaseContract {
     verifyTx(
       proof: VerifierLib.ProofStruct,
       input: BigNumberish[],
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<BigNumber>;
   };
 
@@ -131,7 +124,7 @@ export interface Transaction2x1Verifier extends BaseContract {
     verifyTx(
       proof: VerifierLib.ProofStruct,
       input: BigNumberish[],
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<PopulatedTransaction>;
   };
 }

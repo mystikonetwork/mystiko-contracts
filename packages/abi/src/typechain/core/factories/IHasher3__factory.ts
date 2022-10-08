@@ -2,29 +2,29 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import { Contract, Signer, utils } from "ethers";
-import { Provider } from "@ethersproject/providers";
-import type { IHasher3, IHasher3Interface } from "../IHasher3";
+import { Contract, Signer, utils } from 'ethers';
+import { Provider } from '@ethersproject/providers';
+import type { IHasher3, IHasher3Interface } from '../IHasher3';
 
 const _abi = [
   {
     inputs: [
       {
-        internalType: "uint256[3]",
-        name: "data",
-        type: "uint256[3]",
+        internalType: 'uint256[3]',
+        name: 'data',
+        type: 'uint256[3]',
       },
     ],
-    name: "poseidon",
+    name: 'poseidon',
     outputs: [
       {
-        internalType: "uint256",
-        name: "",
-        type: "uint256",
+        internalType: 'uint256',
+        name: '',
+        type: 'uint256',
       },
     ],
-    stateMutability: "pure",
-    type: "function",
+    stateMutability: 'pure',
+    type: 'function',
   },
 ];
 
@@ -33,10 +33,7 @@ export class IHasher3__factory {
   static createInterface(): IHasher3Interface {
     return new utils.Interface(_abi) as IHasher3Interface;
   }
-  static connect(
-    address: string,
-    signerOrProvider: Signer | Provider
-  ): IHasher3 {
+  static connect(address: string, signerOrProvider: Signer | Provider): IHasher3 {
     return new Contract(address, _abi, signerOrProvider) as IHasher3;
   }
 }

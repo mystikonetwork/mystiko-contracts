@@ -12,32 +12,26 @@ import {
   PopulatedTransaction,
   Signer,
   utils,
-} from "ethers";
-import { FunctionFragment, Result, EventFragment } from "@ethersproject/abi";
-import { Listener, Provider } from "@ethersproject/providers";
-import { TypedEventFilter, TypedEvent, TypedListener, OnEvent } from "./common";
+} from 'ethers';
+import { FunctionFragment, Result, EventFragment } from '@ethersproject/abi';
+import { Listener, Provider } from '@ethersproject/providers';
+import { TypedEventFilter, TypedEvent, TypedListener, OnEvent } from './common';
 
 export interface ICrossChainProxyInterface extends utils.Interface {
-  contractName: "ICrossChainProxy";
+  contractName: 'ICrossChainProxy';
   functions: {
-    "sendMessage(address,uint64,bytes)": FunctionFragment;
+    'sendMessage(address,uint64,bytes)': FunctionFragment;
   };
 
-  encodeFunctionData(
-    functionFragment: "sendMessage",
-    values: [string, BigNumberish, BytesLike]
-  ): string;
+  encodeFunctionData(functionFragment: 'sendMessage', values: [string, BigNumberish, BytesLike]): string;
 
-  decodeFunctionResult(
-    functionFragment: "sendMessage",
-    data: BytesLike
-  ): Result;
+  decodeFunctionResult(functionFragment: 'sendMessage', data: BytesLike): Result;
 
   events: {
-    "TBridgeCrossChainMessage(address,uint256,address,bytes)": EventFragment;
+    'TBridgeCrossChainMessage(address,uint256,address,bytes)': EventFragment;
   };
 
-  getEvent(nameOrSignatureOrTopic: "TBridgeCrossChainMessage"): EventFragment;
+  getEvent(nameOrSignatureOrTopic: 'TBridgeCrossChainMessage'): EventFragment;
 }
 
 export type TBridgeCrossChainMessageEvent = TypedEvent<
@@ -50,11 +44,10 @@ export type TBridgeCrossChainMessageEvent = TypedEvent<
   }
 >;
 
-export type TBridgeCrossChainMessageEventFilter =
-  TypedEventFilter<TBridgeCrossChainMessageEvent>;
+export type TBridgeCrossChainMessageEventFilter = TypedEventFilter<TBridgeCrossChainMessageEvent>;
 
 export interface ICrossChainProxy extends BaseContract {
-  contractName: "ICrossChainProxy";
+  contractName: 'ICrossChainProxy';
   connect(signerOrProvider: Signer | Provider | string): this;
   attach(addressOrName: string): this;
   deployed(): Promise<this>;
@@ -64,16 +57,12 @@ export interface ICrossChainProxy extends BaseContract {
   queryFilter<TEvent extends TypedEvent>(
     event: TypedEventFilter<TEvent>,
     fromBlockOrBlockhash?: string | number | undefined,
-    toBlock?: string | number | undefined
+    toBlock?: string | number | undefined,
   ): Promise<Array<TEvent>>;
 
-  listeners<TEvent extends TypedEvent>(
-    eventFilter?: TypedEventFilter<TEvent>
-  ): Array<TypedListener<TEvent>>;
+  listeners<TEvent extends TypedEvent>(eventFilter?: TypedEventFilter<TEvent>): Array<TypedListener<TEvent>>;
   listeners(eventName?: string): Array<Listener>;
-  removeAllListeners<TEvent extends TypedEvent>(
-    eventFilter: TypedEventFilter<TEvent>
-  ): this;
+  removeAllListeners<TEvent extends TypedEvent>(eventFilter: TypedEventFilter<TEvent>): this;
   removeAllListeners(eventName?: string): this;
   off: OnEvent<this>;
   on: OnEvent<this>;
@@ -85,7 +74,7 @@ export interface ICrossChainProxy extends BaseContract {
       _toContract: string,
       _toChainId: BigNumberish,
       _message: BytesLike,
-      overrides?: PayableOverrides & { from?: string | Promise<string> }
+      overrides?: PayableOverrides & { from?: string | Promise<string> },
     ): Promise<ContractTransaction>;
   };
 
@@ -93,7 +82,7 @@ export interface ICrossChainProxy extends BaseContract {
     _toContract: string,
     _toChainId: BigNumberish,
     _message: BytesLike,
-    overrides?: PayableOverrides & { from?: string | Promise<string> }
+    overrides?: PayableOverrides & { from?: string | Promise<string> },
   ): Promise<ContractTransaction>;
 
   callStatic: {
@@ -101,22 +90,22 @@ export interface ICrossChainProxy extends BaseContract {
       _toContract: string,
       _toChainId: BigNumberish,
       _message: BytesLike,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<void>;
   };
 
   filters: {
-    "TBridgeCrossChainMessage(address,uint256,address,bytes)"(
+    'TBridgeCrossChainMessage(address,uint256,address,bytes)'(
       toContract?: null,
       toChainId?: null,
       fromContract?: null,
-      message?: null
+      message?: null,
     ): TBridgeCrossChainMessageEventFilter;
     TBridgeCrossChainMessage(
       toContract?: null,
       toChainId?: null,
       fromContract?: null,
-      message?: null
+      message?: null,
     ): TBridgeCrossChainMessageEventFilter;
   };
 
@@ -125,7 +114,7 @@ export interface ICrossChainProxy extends BaseContract {
       _toContract: string,
       _toChainId: BigNumberish,
       _message: BytesLike,
-      overrides?: PayableOverrides & { from?: string | Promise<string> }
+      overrides?: PayableOverrides & { from?: string | Promise<string> },
     ): Promise<BigNumber>;
   };
 
@@ -134,7 +123,7 @@ export interface ICrossChainProxy extends BaseContract {
       _toContract: string,
       _toChainId: BigNumberish,
       _message: BytesLike,
-      overrides?: PayableOverrides & { from?: string | Promise<string> }
+      overrides?: PayableOverrides & { from?: string | Promise<string> },
     ): Promise<PopulatedTransaction>;
   };
 }

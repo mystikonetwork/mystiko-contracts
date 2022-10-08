@@ -13,10 +13,10 @@ import {
   PopulatedTransaction,
   Signer,
   utils,
-} from "ethers";
-import { FunctionFragment, Result, EventFragment } from "@ethersproject/abi";
-import { Listener, Provider } from "@ethersproject/providers";
-import { TypedEventFilter, TypedEvent, TypedListener, OnEvent } from "./common";
+} from 'ethers';
+import { FunctionFragment, Result, EventFragment } from '@ethersproject/abi';
+import { Listener, Provider } from '@ethersproject/providers';
+import { TypedEventFilter, TypedEvent, TypedListener, OnEvent } from './common';
 
 export declare namespace IMystikoBridge {
   export type DepositRequestStruct = {
@@ -38,7 +38,7 @@ export declare namespace IMystikoBridge {
     string,
     BigNumber,
     BigNumber,
-    BigNumber
+    BigNumber,
   ] & {
     amount: BigNumber;
     commitment: BigNumber;
@@ -52,498 +52,229 @@ export declare namespace IMystikoBridge {
 }
 
 export interface MystikoV2LayerZeroERC20Interface extends utils.Interface {
-  contractName: "MystikoV2LayerZeroERC20";
+  contractName: 'MystikoV2LayerZeroERC20';
   functions: {
-    "assetDecimals()": FunctionFragment;
-    "assetName()": FunctionFragment;
-    "assetSymbol()": FunctionFragment;
-    "assetType()": FunctionFragment;
-    "bridgeProxyAddress()": FunctionFragment;
-    "bridgeType()": FunctionFragment;
-    "changeOperator(address)": FunctionFragment;
-    "deposit((uint256,uint256,uint256,uint128,bytes,uint256,uint256,uint256))": FunctionFragment;
-    "disableSanctionsCheck()": FunctionFragment;
-    "enableSanctionsCheck()": FunctionFragment;
-    "failedMessages(uint16,bytes,uint64)": FunctionFragment;
-    "forceResumeReceive(uint16,bytes)": FunctionFragment;
-    "getAssociatedCommitmentPool()": FunctionFragment;
-    "getConfig(uint16,uint16,address,uint256)": FunctionFragment;
-    "getMaxAmount()": FunctionFragment;
-    "getMinAmount()": FunctionFragment;
-    "getMinBridgeFee()": FunctionFragment;
-    "getMinExecutorFee()": FunctionFragment;
-    "getPeerMinExecutorFee()": FunctionFragment;
-    "getPeerMinRollupFee()": FunctionFragment;
-    "isDepositsDisabled()": FunctionFragment;
-    "isTrustedRemote(uint16,bytes)": FunctionFragment;
-    "localLayerZeroChainId()": FunctionFragment;
-    "lzEndpoint()": FunctionFragment;
-    "lzReceive(uint16,bytes,uint64,bytes)": FunctionFragment;
-    "nonblockingLzReceive(uint16,bytes,uint64,bytes)": FunctionFragment;
-    "owner()": FunctionFragment;
-    "peerChainId()": FunctionFragment;
-    "peerChainName()": FunctionFragment;
-    "peerContract()": FunctionFragment;
-    "peerLayerZeroChainId()": FunctionFragment;
-    "renounceOwnership()": FunctionFragment;
-    "retryMessage(uint16,bytes,uint64,bytes)": FunctionFragment;
-    "sanctionsCheck()": FunctionFragment;
-    "sanctionsList()": FunctionFragment;
-    "setAssociatedCommitmentPool(address)": FunctionFragment;
-    "setBridgeProxyAddress(address)": FunctionFragment;
-    "setConfig(uint16,uint16,uint256,bytes)": FunctionFragment;
-    "setDepositsDisabled(bool)": FunctionFragment;
-    "setEndpoint(uint16,address)": FunctionFragment;
-    "setMaxAmount(uint256)": FunctionFragment;
-    "setMinAmount(uint256)": FunctionFragment;
-    "setMinBridgeFee(uint256)": FunctionFragment;
-    "setMinExecutorFee(uint256)": FunctionFragment;
-    "setPeerContract(uint64,string,address)": FunctionFragment;
-    "setPeerMinExecutorFee(uint256)": FunctionFragment;
-    "setPeerMinRollupFee(uint256)": FunctionFragment;
-    "setReceiveVersion(uint16)": FunctionFragment;
-    "setSendVersion(uint16)": FunctionFragment;
-    "setTrustedRemote(uint16,bytes)": FunctionFragment;
-    "transferOwnership(address)": FunctionFragment;
-    "trustedRemoteLookup(uint16)": FunctionFragment;
-    "updateSanctionsListAddress(address)": FunctionFragment;
+    'assetDecimals()': FunctionFragment;
+    'assetName()': FunctionFragment;
+    'assetSymbol()': FunctionFragment;
+    'assetType()': FunctionFragment;
+    'bridgeProxyAddress()': FunctionFragment;
+    'bridgeType()': FunctionFragment;
+    'changeOperator(address)': FunctionFragment;
+    'deposit((uint256,uint256,uint256,uint128,bytes,uint256,uint256,uint256))': FunctionFragment;
+    'disableSanctionsCheck()': FunctionFragment;
+    'enableSanctionsCheck()': FunctionFragment;
+    'failedMessages(uint16,bytes,uint64)': FunctionFragment;
+    'forceResumeReceive(uint16,bytes)': FunctionFragment;
+    'getAssociatedCommitmentPool()': FunctionFragment;
+    'getConfig(uint16,uint16,address,uint256)': FunctionFragment;
+    'getMaxAmount()': FunctionFragment;
+    'getMinAmount()': FunctionFragment;
+    'getMinBridgeFee()': FunctionFragment;
+    'getMinExecutorFee()': FunctionFragment;
+    'getPeerMinExecutorFee()': FunctionFragment;
+    'getPeerMinRollupFee()': FunctionFragment;
+    'isDepositsDisabled()': FunctionFragment;
+    'isTrustedRemote(uint16,bytes)': FunctionFragment;
+    'localLayerZeroChainId()': FunctionFragment;
+    'lzEndpoint()': FunctionFragment;
+    'lzReceive(uint16,bytes,uint64,bytes)': FunctionFragment;
+    'nonblockingLzReceive(uint16,bytes,uint64,bytes)': FunctionFragment;
+    'owner()': FunctionFragment;
+    'peerChainId()': FunctionFragment;
+    'peerChainName()': FunctionFragment;
+    'peerContract()': FunctionFragment;
+    'peerLayerZeroChainId()': FunctionFragment;
+    'renounceOwnership()': FunctionFragment;
+    'retryMessage(uint16,bytes,uint64,bytes)': FunctionFragment;
+    'sanctionsCheck()': FunctionFragment;
+    'sanctionsList()': FunctionFragment;
+    'setAssociatedCommitmentPool(address)': FunctionFragment;
+    'setBridgeProxyAddress(address)': FunctionFragment;
+    'setConfig(uint16,uint16,uint256,bytes)': FunctionFragment;
+    'setDepositsDisabled(bool)': FunctionFragment;
+    'setEndpoint(uint16,address)': FunctionFragment;
+    'setMaxAmount(uint256)': FunctionFragment;
+    'setMinAmount(uint256)': FunctionFragment;
+    'setMinBridgeFee(uint256)': FunctionFragment;
+    'setMinExecutorFee(uint256)': FunctionFragment;
+    'setPeerContract(uint64,string,address)': FunctionFragment;
+    'setPeerMinExecutorFee(uint256)': FunctionFragment;
+    'setPeerMinRollupFee(uint256)': FunctionFragment;
+    'setReceiveVersion(uint16)': FunctionFragment;
+    'setSendVersion(uint16)': FunctionFragment;
+    'setTrustedRemote(uint16,bytes)': FunctionFragment;
+    'transferOwnership(address)': FunctionFragment;
+    'trustedRemoteLookup(uint16)': FunctionFragment;
+    'updateSanctionsListAddress(address)': FunctionFragment;
   };
 
+  encodeFunctionData(functionFragment: 'assetDecimals', values?: undefined): string;
+  encodeFunctionData(functionFragment: 'assetName', values?: undefined): string;
+  encodeFunctionData(functionFragment: 'assetSymbol', values?: undefined): string;
+  encodeFunctionData(functionFragment: 'assetType', values?: undefined): string;
+  encodeFunctionData(functionFragment: 'bridgeProxyAddress', values?: undefined): string;
+  encodeFunctionData(functionFragment: 'bridgeType', values?: undefined): string;
+  encodeFunctionData(functionFragment: 'changeOperator', values: [string]): string;
+  encodeFunctionData(functionFragment: 'deposit', values: [IMystikoBridge.DepositRequestStruct]): string;
+  encodeFunctionData(functionFragment: 'disableSanctionsCheck', values?: undefined): string;
+  encodeFunctionData(functionFragment: 'enableSanctionsCheck', values?: undefined): string;
   encodeFunctionData(
-    functionFragment: "assetDecimals",
-    values?: undefined
+    functionFragment: 'failedMessages',
+    values: [BigNumberish, BytesLike, BigNumberish],
   ): string;
-  encodeFunctionData(functionFragment: "assetName", values?: undefined): string;
+  encodeFunctionData(functionFragment: 'forceResumeReceive', values: [BigNumberish, BytesLike]): string;
+  encodeFunctionData(functionFragment: 'getAssociatedCommitmentPool', values?: undefined): string;
   encodeFunctionData(
-    functionFragment: "assetSymbol",
-    values?: undefined
+    functionFragment: 'getConfig',
+    values: [BigNumberish, BigNumberish, string, BigNumberish],
   ): string;
-  encodeFunctionData(functionFragment: "assetType", values?: undefined): string;
+  encodeFunctionData(functionFragment: 'getMaxAmount', values?: undefined): string;
+  encodeFunctionData(functionFragment: 'getMinAmount', values?: undefined): string;
+  encodeFunctionData(functionFragment: 'getMinBridgeFee', values?: undefined): string;
+  encodeFunctionData(functionFragment: 'getMinExecutorFee', values?: undefined): string;
+  encodeFunctionData(functionFragment: 'getPeerMinExecutorFee', values?: undefined): string;
+  encodeFunctionData(functionFragment: 'getPeerMinRollupFee', values?: undefined): string;
+  encodeFunctionData(functionFragment: 'isDepositsDisabled', values?: undefined): string;
+  encodeFunctionData(functionFragment: 'isTrustedRemote', values: [BigNumberish, BytesLike]): string;
+  encodeFunctionData(functionFragment: 'localLayerZeroChainId', values?: undefined): string;
+  encodeFunctionData(functionFragment: 'lzEndpoint', values?: undefined): string;
   encodeFunctionData(
-    functionFragment: "bridgeProxyAddress",
-    values?: undefined
-  ): string;
-  encodeFunctionData(
-    functionFragment: "bridgeType",
-    values?: undefined
-  ): string;
-  encodeFunctionData(
-    functionFragment: "changeOperator",
-    values: [string]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "deposit",
-    values: [IMystikoBridge.DepositRequestStruct]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "disableSanctionsCheck",
-    values?: undefined
-  ): string;
-  encodeFunctionData(
-    functionFragment: "enableSanctionsCheck",
-    values?: undefined
-  ): string;
-  encodeFunctionData(
-    functionFragment: "failedMessages",
-    values: [BigNumberish, BytesLike, BigNumberish]
+    functionFragment: 'lzReceive',
+    values: [BigNumberish, BytesLike, BigNumberish, BytesLike],
   ): string;
   encodeFunctionData(
-    functionFragment: "forceResumeReceive",
-    values: [BigNumberish, BytesLike]
+    functionFragment: 'nonblockingLzReceive',
+    values: [BigNumberish, BytesLike, BigNumberish, BytesLike],
   ): string;
+  encodeFunctionData(functionFragment: 'owner', values?: undefined): string;
+  encodeFunctionData(functionFragment: 'peerChainId', values?: undefined): string;
+  encodeFunctionData(functionFragment: 'peerChainName', values?: undefined): string;
+  encodeFunctionData(functionFragment: 'peerContract', values?: undefined): string;
+  encodeFunctionData(functionFragment: 'peerLayerZeroChainId', values?: undefined): string;
+  encodeFunctionData(functionFragment: 'renounceOwnership', values?: undefined): string;
   encodeFunctionData(
-    functionFragment: "getAssociatedCommitmentPool",
-    values?: undefined
+    functionFragment: 'retryMessage',
+    values: [BigNumberish, BytesLike, BigNumberish, BytesLike],
   ): string;
+  encodeFunctionData(functionFragment: 'sanctionsCheck', values?: undefined): string;
+  encodeFunctionData(functionFragment: 'sanctionsList', values?: undefined): string;
+  encodeFunctionData(functionFragment: 'setAssociatedCommitmentPool', values: [string]): string;
+  encodeFunctionData(functionFragment: 'setBridgeProxyAddress', values: [string]): string;
   encodeFunctionData(
-    functionFragment: "getConfig",
-    values: [BigNumberish, BigNumberish, string, BigNumberish]
+    functionFragment: 'setConfig',
+    values: [BigNumberish, BigNumberish, BigNumberish, BytesLike],
   ): string;
-  encodeFunctionData(
-    functionFragment: "getMaxAmount",
-    values?: undefined
-  ): string;
-  encodeFunctionData(
-    functionFragment: "getMinAmount",
-    values?: undefined
-  ): string;
-  encodeFunctionData(
-    functionFragment: "getMinBridgeFee",
-    values?: undefined
-  ): string;
-  encodeFunctionData(
-    functionFragment: "getMinExecutorFee",
-    values?: undefined
-  ): string;
-  encodeFunctionData(
-    functionFragment: "getPeerMinExecutorFee",
-    values?: undefined
-  ): string;
-  encodeFunctionData(
-    functionFragment: "getPeerMinRollupFee",
-    values?: undefined
-  ): string;
-  encodeFunctionData(
-    functionFragment: "isDepositsDisabled",
-    values?: undefined
-  ): string;
-  encodeFunctionData(
-    functionFragment: "isTrustedRemote",
-    values: [BigNumberish, BytesLike]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "localLayerZeroChainId",
-    values?: undefined
-  ): string;
-  encodeFunctionData(
-    functionFragment: "lzEndpoint",
-    values?: undefined
-  ): string;
-  encodeFunctionData(
-    functionFragment: "lzReceive",
-    values: [BigNumberish, BytesLike, BigNumberish, BytesLike]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "nonblockingLzReceive",
-    values: [BigNumberish, BytesLike, BigNumberish, BytesLike]
-  ): string;
-  encodeFunctionData(functionFragment: "owner", values?: undefined): string;
-  encodeFunctionData(
-    functionFragment: "peerChainId",
-    values?: undefined
-  ): string;
-  encodeFunctionData(
-    functionFragment: "peerChainName",
-    values?: undefined
-  ): string;
-  encodeFunctionData(
-    functionFragment: "peerContract",
-    values?: undefined
-  ): string;
-  encodeFunctionData(
-    functionFragment: "peerLayerZeroChainId",
-    values?: undefined
-  ): string;
-  encodeFunctionData(
-    functionFragment: "renounceOwnership",
-    values?: undefined
-  ): string;
-  encodeFunctionData(
-    functionFragment: "retryMessage",
-    values: [BigNumberish, BytesLike, BigNumberish, BytesLike]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "sanctionsCheck",
-    values?: undefined
-  ): string;
-  encodeFunctionData(
-    functionFragment: "sanctionsList",
-    values?: undefined
-  ): string;
-  encodeFunctionData(
-    functionFragment: "setAssociatedCommitmentPool",
-    values: [string]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "setBridgeProxyAddress",
-    values: [string]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "setConfig",
-    values: [BigNumberish, BigNumberish, BigNumberish, BytesLike]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "setDepositsDisabled",
-    values: [boolean]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "setEndpoint",
-    values: [BigNumberish, string]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "setMaxAmount",
-    values: [BigNumberish]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "setMinAmount",
-    values: [BigNumberish]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "setMinBridgeFee",
-    values: [BigNumberish]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "setMinExecutorFee",
-    values: [BigNumberish]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "setPeerContract",
-    values: [BigNumberish, string, string]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "setPeerMinExecutorFee",
-    values: [BigNumberish]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "setPeerMinRollupFee",
-    values: [BigNumberish]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "setReceiveVersion",
-    values: [BigNumberish]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "setSendVersion",
-    values: [BigNumberish]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "setTrustedRemote",
-    values: [BigNumberish, BytesLike]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "transferOwnership",
-    values: [string]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "trustedRemoteLookup",
-    values: [BigNumberish]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "updateSanctionsListAddress",
-    values: [string]
-  ): string;
+  encodeFunctionData(functionFragment: 'setDepositsDisabled', values: [boolean]): string;
+  encodeFunctionData(functionFragment: 'setEndpoint', values: [BigNumberish, string]): string;
+  encodeFunctionData(functionFragment: 'setMaxAmount', values: [BigNumberish]): string;
+  encodeFunctionData(functionFragment: 'setMinAmount', values: [BigNumberish]): string;
+  encodeFunctionData(functionFragment: 'setMinBridgeFee', values: [BigNumberish]): string;
+  encodeFunctionData(functionFragment: 'setMinExecutorFee', values: [BigNumberish]): string;
+  encodeFunctionData(functionFragment: 'setPeerContract', values: [BigNumberish, string, string]): string;
+  encodeFunctionData(functionFragment: 'setPeerMinExecutorFee', values: [BigNumberish]): string;
+  encodeFunctionData(functionFragment: 'setPeerMinRollupFee', values: [BigNumberish]): string;
+  encodeFunctionData(functionFragment: 'setReceiveVersion', values: [BigNumberish]): string;
+  encodeFunctionData(functionFragment: 'setSendVersion', values: [BigNumberish]): string;
+  encodeFunctionData(functionFragment: 'setTrustedRemote', values: [BigNumberish, BytesLike]): string;
+  encodeFunctionData(functionFragment: 'transferOwnership', values: [string]): string;
+  encodeFunctionData(functionFragment: 'trustedRemoteLookup', values: [BigNumberish]): string;
+  encodeFunctionData(functionFragment: 'updateSanctionsListAddress', values: [string]): string;
 
-  decodeFunctionResult(
-    functionFragment: "assetDecimals",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(functionFragment: "assetName", data: BytesLike): Result;
-  decodeFunctionResult(
-    functionFragment: "assetSymbol",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(functionFragment: "assetType", data: BytesLike): Result;
-  decodeFunctionResult(
-    functionFragment: "bridgeProxyAddress",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(functionFragment: "bridgeType", data: BytesLike): Result;
-  decodeFunctionResult(
-    functionFragment: "changeOperator",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(functionFragment: "deposit", data: BytesLike): Result;
-  decodeFunctionResult(
-    functionFragment: "disableSanctionsCheck",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "enableSanctionsCheck",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "failedMessages",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "forceResumeReceive",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "getAssociatedCommitmentPool",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(functionFragment: "getConfig", data: BytesLike): Result;
-  decodeFunctionResult(
-    functionFragment: "getMaxAmount",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "getMinAmount",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "getMinBridgeFee",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "getMinExecutorFee",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "getPeerMinExecutorFee",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "getPeerMinRollupFee",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "isDepositsDisabled",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "isTrustedRemote",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "localLayerZeroChainId",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(functionFragment: "lzEndpoint", data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: "lzReceive", data: BytesLike): Result;
-  decodeFunctionResult(
-    functionFragment: "nonblockingLzReceive",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(functionFragment: "owner", data: BytesLike): Result;
-  decodeFunctionResult(
-    functionFragment: "peerChainId",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "peerChainName",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "peerContract",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "peerLayerZeroChainId",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "renounceOwnership",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "retryMessage",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "sanctionsCheck",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "sanctionsList",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "setAssociatedCommitmentPool",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "setBridgeProxyAddress",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(functionFragment: "setConfig", data: BytesLike): Result;
-  decodeFunctionResult(
-    functionFragment: "setDepositsDisabled",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "setEndpoint",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "setMaxAmount",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "setMinAmount",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "setMinBridgeFee",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "setMinExecutorFee",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "setPeerContract",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "setPeerMinExecutorFee",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "setPeerMinRollupFee",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "setReceiveVersion",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "setSendVersion",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "setTrustedRemote",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "transferOwnership",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "trustedRemoteLookup",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "updateSanctionsListAddress",
-    data: BytesLike
-  ): Result;
+  decodeFunctionResult(functionFragment: 'assetDecimals', data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'assetName', data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'assetSymbol', data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'assetType', data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'bridgeProxyAddress', data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'bridgeType', data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'changeOperator', data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'deposit', data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'disableSanctionsCheck', data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'enableSanctionsCheck', data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'failedMessages', data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'forceResumeReceive', data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'getAssociatedCommitmentPool', data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'getConfig', data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'getMaxAmount', data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'getMinAmount', data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'getMinBridgeFee', data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'getMinExecutorFee', data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'getPeerMinExecutorFee', data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'getPeerMinRollupFee', data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'isDepositsDisabled', data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'isTrustedRemote', data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'localLayerZeroChainId', data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'lzEndpoint', data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'lzReceive', data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'nonblockingLzReceive', data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'owner', data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'peerChainId', data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'peerChainName', data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'peerContract', data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'peerLayerZeroChainId', data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'renounceOwnership', data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'retryMessage', data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'sanctionsCheck', data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'sanctionsList', data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'setAssociatedCommitmentPool', data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'setBridgeProxyAddress', data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'setConfig', data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'setDepositsDisabled', data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'setEndpoint', data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'setMaxAmount', data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'setMinAmount', data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'setMinBridgeFee', data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'setMinExecutorFee', data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'setPeerContract', data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'setPeerMinExecutorFee', data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'setPeerMinRollupFee', data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'setReceiveVersion', data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'setSendVersion', data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'setTrustedRemote', data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'transferOwnership', data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'trustedRemoteLookup', data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'updateSanctionsListAddress', data: BytesLike): Result;
 
   events: {
-    "CommitmentCrossChain(uint256)": EventFragment;
-    "DepositsDisabled(bool)": EventFragment;
-    "MaxAmount(uint256)": EventFragment;
-    "MessageFailed(uint16,bytes,uint64,bytes)": EventFragment;
-    "MinAmount(uint256)": EventFragment;
-    "MinBridgeFee(uint256)": EventFragment;
-    "MinExecutorFee(uint256)": EventFragment;
-    "OperatorChanged(address)": EventFragment;
-    "OwnershipTransferred(address,address)": EventFragment;
-    "PeerMinExecutorFee(uint256)": EventFragment;
-    "PeerMinRollupFee(uint256)": EventFragment;
-    "SanctionsCheck(bool)": EventFragment;
-    "SanctionsList(address)": EventFragment;
-    "SetTrustedRemote(uint16,bytes)": EventFragment;
+    'CommitmentCrossChain(uint256)': EventFragment;
+    'DepositsDisabled(bool)': EventFragment;
+    'MaxAmount(uint256)': EventFragment;
+    'MessageFailed(uint16,bytes,uint64,bytes)': EventFragment;
+    'MinAmount(uint256)': EventFragment;
+    'MinBridgeFee(uint256)': EventFragment;
+    'MinExecutorFee(uint256)': EventFragment;
+    'OperatorChanged(address)': EventFragment;
+    'OwnershipTransferred(address,address)': EventFragment;
+    'PeerMinExecutorFee(uint256)': EventFragment;
+    'PeerMinRollupFee(uint256)': EventFragment;
+    'SanctionsCheck(bool)': EventFragment;
+    'SanctionsList(address)': EventFragment;
+    'SetTrustedRemote(uint16,bytes)': EventFragment;
   };
 
-  getEvent(nameOrSignatureOrTopic: "CommitmentCrossChain"): EventFragment;
-  getEvent(nameOrSignatureOrTopic: "DepositsDisabled"): EventFragment;
-  getEvent(nameOrSignatureOrTopic: "MaxAmount"): EventFragment;
-  getEvent(nameOrSignatureOrTopic: "MessageFailed"): EventFragment;
-  getEvent(nameOrSignatureOrTopic: "MinAmount"): EventFragment;
-  getEvent(nameOrSignatureOrTopic: "MinBridgeFee"): EventFragment;
-  getEvent(nameOrSignatureOrTopic: "MinExecutorFee"): EventFragment;
-  getEvent(nameOrSignatureOrTopic: "OperatorChanged"): EventFragment;
-  getEvent(nameOrSignatureOrTopic: "OwnershipTransferred"): EventFragment;
-  getEvent(nameOrSignatureOrTopic: "PeerMinExecutorFee"): EventFragment;
-  getEvent(nameOrSignatureOrTopic: "PeerMinRollupFee"): EventFragment;
-  getEvent(nameOrSignatureOrTopic: "SanctionsCheck"): EventFragment;
-  getEvent(nameOrSignatureOrTopic: "SanctionsList"): EventFragment;
-  getEvent(nameOrSignatureOrTopic: "SetTrustedRemote"): EventFragment;
+  getEvent(nameOrSignatureOrTopic: 'CommitmentCrossChain'): EventFragment;
+  getEvent(nameOrSignatureOrTopic: 'DepositsDisabled'): EventFragment;
+  getEvent(nameOrSignatureOrTopic: 'MaxAmount'): EventFragment;
+  getEvent(nameOrSignatureOrTopic: 'MessageFailed'): EventFragment;
+  getEvent(nameOrSignatureOrTopic: 'MinAmount'): EventFragment;
+  getEvent(nameOrSignatureOrTopic: 'MinBridgeFee'): EventFragment;
+  getEvent(nameOrSignatureOrTopic: 'MinExecutorFee'): EventFragment;
+  getEvent(nameOrSignatureOrTopic: 'OperatorChanged'): EventFragment;
+  getEvent(nameOrSignatureOrTopic: 'OwnershipTransferred'): EventFragment;
+  getEvent(nameOrSignatureOrTopic: 'PeerMinExecutorFee'): EventFragment;
+  getEvent(nameOrSignatureOrTopic: 'PeerMinRollupFee'): EventFragment;
+  getEvent(nameOrSignatureOrTopic: 'SanctionsCheck'): EventFragment;
+  getEvent(nameOrSignatureOrTopic: 'SanctionsList'): EventFragment;
+  getEvent(nameOrSignatureOrTopic: 'SetTrustedRemote'): EventFragment;
 }
 
-export type CommitmentCrossChainEvent = TypedEvent<
-  [BigNumber],
-  { commitment: BigNumber }
->;
+export type CommitmentCrossChainEvent = TypedEvent<[BigNumber], { commitment: BigNumber }>;
 
-export type CommitmentCrossChainEventFilter =
-  TypedEventFilter<CommitmentCrossChainEvent>;
+export type CommitmentCrossChainEventFilter = TypedEventFilter<CommitmentCrossChainEvent>;
 
 export type DepositsDisabledEvent = TypedEvent<[boolean], { state: boolean }>;
 
-export type DepositsDisabledEventFilter =
-  TypedEventFilter<DepositsDisabledEvent>;
+export type DepositsDisabledEventFilter = TypedEventFilter<DepositsDisabledEvent>;
 
 export type MaxAmountEvent = TypedEvent<[BigNumber], { maxAmount: BigNumber }>;
 
@@ -565,17 +296,11 @@ export type MinAmountEvent = TypedEvent<[BigNumber], { minAmount: BigNumber }>;
 
 export type MinAmountEventFilter = TypedEventFilter<MinAmountEvent>;
 
-export type MinBridgeFeeEvent = TypedEvent<
-  [BigNumber],
-  { minBridgeFee: BigNumber }
->;
+export type MinBridgeFeeEvent = TypedEvent<[BigNumber], { minBridgeFee: BigNumber }>;
 
 export type MinBridgeFeeEventFilter = TypedEventFilter<MinBridgeFeeEvent>;
 
-export type MinExecutorFeeEvent = TypedEvent<
-  [BigNumber],
-  { minExecutorFee: BigNumber }
->;
+export type MinExecutorFeeEvent = TypedEvent<[BigNumber], { minExecutorFee: BigNumber }>;
 
 export type MinExecutorFeeEventFilter = TypedEventFilter<MinExecutorFeeEvent>;
 
@@ -588,24 +313,15 @@ export type OwnershipTransferredEvent = TypedEvent<
   { previousOwner: string; newOwner: string }
 >;
 
-export type OwnershipTransferredEventFilter =
-  TypedEventFilter<OwnershipTransferredEvent>;
+export type OwnershipTransferredEventFilter = TypedEventFilter<OwnershipTransferredEvent>;
 
-export type PeerMinExecutorFeeEvent = TypedEvent<
-  [BigNumber],
-  { peerMinExecutorFee: BigNumber }
->;
+export type PeerMinExecutorFeeEvent = TypedEvent<[BigNumber], { peerMinExecutorFee: BigNumber }>;
 
-export type PeerMinExecutorFeeEventFilter =
-  TypedEventFilter<PeerMinExecutorFeeEvent>;
+export type PeerMinExecutorFeeEventFilter = TypedEventFilter<PeerMinExecutorFeeEvent>;
 
-export type PeerMinRollupFeeEvent = TypedEvent<
-  [BigNumber],
-  { peerMinRollupFee: BigNumber }
->;
+export type PeerMinRollupFeeEvent = TypedEvent<[BigNumber], { peerMinRollupFee: BigNumber }>;
 
-export type PeerMinRollupFeeEventFilter =
-  TypedEventFilter<PeerMinRollupFeeEvent>;
+export type PeerMinRollupFeeEventFilter = TypedEventFilter<PeerMinRollupFeeEvent>;
 
 export type SanctionsCheckEvent = TypedEvent<[boolean], { state: boolean }>;
 
@@ -620,11 +336,10 @@ export type SetTrustedRemoteEvent = TypedEvent<
   { _srcChainId: number; _srcAddress: string }
 >;
 
-export type SetTrustedRemoteEventFilter =
-  TypedEventFilter<SetTrustedRemoteEvent>;
+export type SetTrustedRemoteEventFilter = TypedEventFilter<SetTrustedRemoteEvent>;
 
 export interface MystikoV2LayerZeroERC20 extends BaseContract {
-  contractName: "MystikoV2LayerZeroERC20";
+  contractName: 'MystikoV2LayerZeroERC20';
   connect(signerOrProvider: Signer | Provider | string): this;
   attach(addressOrName: string): this;
   deployed(): Promise<this>;
@@ -634,16 +349,12 @@ export interface MystikoV2LayerZeroERC20 extends BaseContract {
   queryFilter<TEvent extends TypedEvent>(
     event: TypedEventFilter<TEvent>,
     fromBlockOrBlockhash?: string | number | undefined,
-    toBlock?: string | number | undefined
+    toBlock?: string | number | undefined,
   ): Promise<Array<TEvent>>;
 
-  listeners<TEvent extends TypedEvent>(
-    eventFilter?: TypedEventFilter<TEvent>
-  ): Array<TypedListener<TEvent>>;
+  listeners<TEvent extends TypedEvent>(eventFilter?: TypedEventFilter<TEvent>): Array<TypedListener<TEvent>>;
   listeners(eventName?: string): Array<Listener>;
-  removeAllListeners<TEvent extends TypedEvent>(
-    eventFilter: TypedEventFilter<TEvent>
-  ): this;
+  removeAllListeners<TEvent extends TypedEvent>(eventFilter: TypedEventFilter<TEvent>): this;
   removeAllListeners(eventName?: string): this;
   off: OnEvent<this>;
   on: OnEvent<this>;
@@ -665,33 +376,33 @@ export interface MystikoV2LayerZeroERC20 extends BaseContract {
 
     changeOperator(
       _newOperator: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<ContractTransaction>;
 
     deposit(
       _request: IMystikoBridge.DepositRequestStruct,
-      overrides?: PayableOverrides & { from?: string | Promise<string> }
+      overrides?: PayableOverrides & { from?: string | Promise<string> },
     ): Promise<ContractTransaction>;
 
     disableSanctionsCheck(
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<ContractTransaction>;
 
     enableSanctionsCheck(
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<ContractTransaction>;
 
     failedMessages(
       arg0: BigNumberish,
       arg1: BytesLike,
       arg2: BigNumberish,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<[string]>;
 
     forceResumeReceive(
       _srcChainId: BigNumberish,
       _srcAddress: BytesLike,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<ContractTransaction>;
 
     getAssociatedCommitmentPool(overrides?: CallOverrides): Promise<[string]>;
@@ -701,7 +412,7 @@ export interface MystikoV2LayerZeroERC20 extends BaseContract {
       _chainId: BigNumberish,
       arg2: string,
       _configType: BigNumberish,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<[string]>;
 
     getMaxAmount(overrides?: CallOverrides): Promise<[BigNumber]>;
@@ -721,7 +432,7 @@ export interface MystikoV2LayerZeroERC20 extends BaseContract {
     isTrustedRemote(
       _srcChainId: BigNumberish,
       _srcAddress: BytesLike,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<[boolean]>;
 
     localLayerZeroChainId(overrides?: CallOverrides): Promise<[number]>;
@@ -733,7 +444,7 @@ export interface MystikoV2LayerZeroERC20 extends BaseContract {
       _srcAddress: BytesLike,
       _nonce: BigNumberish,
       _payload: BytesLike,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<ContractTransaction>;
 
     nonblockingLzReceive(
@@ -741,7 +452,7 @@ export interface MystikoV2LayerZeroERC20 extends BaseContract {
       _srcAddress: BytesLike,
       _nonce: BigNumberish,
       _payload: BytesLike,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<ContractTransaction>;
 
     owner(overrides?: CallOverrides): Promise<[string]>;
@@ -755,7 +466,7 @@ export interface MystikoV2LayerZeroERC20 extends BaseContract {
     peerLayerZeroChainId(overrides?: CallOverrides): Promise<[number]>;
 
     renounceOwnership(
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<ContractTransaction>;
 
     retryMessage(
@@ -763,7 +474,7 @@ export interface MystikoV2LayerZeroERC20 extends BaseContract {
       _srcAddress: BytesLike,
       _nonce: BigNumberish,
       _payload: BytesLike,
-      overrides?: PayableOverrides & { from?: string | Promise<string> }
+      overrides?: PayableOverrides & { from?: string | Promise<string> },
     ): Promise<ContractTransaction>;
 
     sanctionsCheck(overrides?: CallOverrides): Promise<[boolean]>;
@@ -772,12 +483,12 @@ export interface MystikoV2LayerZeroERC20 extends BaseContract {
 
     setAssociatedCommitmentPool(
       _commitmentPoolAddress: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<ContractTransaction>;
 
     setBridgeProxyAddress(
       _bridgeProxyAddress: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<ContractTransaction>;
 
     setConfig(
@@ -785,86 +496,83 @@ export interface MystikoV2LayerZeroERC20 extends BaseContract {
       _chainId: BigNumberish,
       _configType: BigNumberish,
       _config: BytesLike,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<ContractTransaction>;
 
     setDepositsDisabled(
       _state: boolean,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<ContractTransaction>;
 
     setEndpoint(
       _lzChainId: BigNumberish,
       _lzEndpoint: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<ContractTransaction>;
 
     setMaxAmount(
       _maxAmount: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<ContractTransaction>;
 
     setMinAmount(
       _minAmount: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<ContractTransaction>;
 
     setMinBridgeFee(
       _minBridgeFee: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<ContractTransaction>;
 
     setMinExecutorFee(
       _minExecutorFee: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<ContractTransaction>;
 
     setPeerContract(
       _peerChainId: BigNumberish,
       _peerChainName: string,
       _peerContract: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<ContractTransaction>;
 
     setPeerMinExecutorFee(
       _peerMinExecutorFee: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<ContractTransaction>;
 
     setPeerMinRollupFee(
       _peerMinRollupFee: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<ContractTransaction>;
 
     setReceiveVersion(
       _version: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<ContractTransaction>;
 
     setSendVersion(
       _version: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<ContractTransaction>;
 
     setTrustedRemote(
       _peerLayerZeroChainId: BigNumberish,
       _peerAddress: BytesLike,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<ContractTransaction>;
 
     transferOwnership(
       newOwner: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<ContractTransaction>;
 
-    trustedRemoteLookup(
-      arg0: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<[string]>;
+    trustedRemoteLookup(arg0: BigNumberish, overrides?: CallOverrides): Promise<[string]>;
 
     updateSanctionsListAddress(
       _sanction: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<ContractTransaction>;
   };
 
@@ -882,33 +590,33 @@ export interface MystikoV2LayerZeroERC20 extends BaseContract {
 
   changeOperator(
     _newOperator: string,
-    overrides?: Overrides & { from?: string | Promise<string> }
+    overrides?: Overrides & { from?: string | Promise<string> },
   ): Promise<ContractTransaction>;
 
   deposit(
     _request: IMystikoBridge.DepositRequestStruct,
-    overrides?: PayableOverrides & { from?: string | Promise<string> }
+    overrides?: PayableOverrides & { from?: string | Promise<string> },
   ): Promise<ContractTransaction>;
 
   disableSanctionsCheck(
-    overrides?: Overrides & { from?: string | Promise<string> }
+    overrides?: Overrides & { from?: string | Promise<string> },
   ): Promise<ContractTransaction>;
 
   enableSanctionsCheck(
-    overrides?: Overrides & { from?: string | Promise<string> }
+    overrides?: Overrides & { from?: string | Promise<string> },
   ): Promise<ContractTransaction>;
 
   failedMessages(
     arg0: BigNumberish,
     arg1: BytesLike,
     arg2: BigNumberish,
-    overrides?: CallOverrides
+    overrides?: CallOverrides,
   ): Promise<string>;
 
   forceResumeReceive(
     _srcChainId: BigNumberish,
     _srcAddress: BytesLike,
-    overrides?: Overrides & { from?: string | Promise<string> }
+    overrides?: Overrides & { from?: string | Promise<string> },
   ): Promise<ContractTransaction>;
 
   getAssociatedCommitmentPool(overrides?: CallOverrides): Promise<string>;
@@ -918,7 +626,7 @@ export interface MystikoV2LayerZeroERC20 extends BaseContract {
     _chainId: BigNumberish,
     arg2: string,
     _configType: BigNumberish,
-    overrides?: CallOverrides
+    overrides?: CallOverrides,
   ): Promise<string>;
 
   getMaxAmount(overrides?: CallOverrides): Promise<BigNumber>;
@@ -938,7 +646,7 @@ export interface MystikoV2LayerZeroERC20 extends BaseContract {
   isTrustedRemote(
     _srcChainId: BigNumberish,
     _srcAddress: BytesLike,
-    overrides?: CallOverrides
+    overrides?: CallOverrides,
   ): Promise<boolean>;
 
   localLayerZeroChainId(overrides?: CallOverrides): Promise<number>;
@@ -950,7 +658,7 @@ export interface MystikoV2LayerZeroERC20 extends BaseContract {
     _srcAddress: BytesLike,
     _nonce: BigNumberish,
     _payload: BytesLike,
-    overrides?: Overrides & { from?: string | Promise<string> }
+    overrides?: Overrides & { from?: string | Promise<string> },
   ): Promise<ContractTransaction>;
 
   nonblockingLzReceive(
@@ -958,7 +666,7 @@ export interface MystikoV2LayerZeroERC20 extends BaseContract {
     _srcAddress: BytesLike,
     _nonce: BigNumberish,
     _payload: BytesLike,
-    overrides?: Overrides & { from?: string | Promise<string> }
+    overrides?: Overrides & { from?: string | Promise<string> },
   ): Promise<ContractTransaction>;
 
   owner(overrides?: CallOverrides): Promise<string>;
@@ -972,7 +680,7 @@ export interface MystikoV2LayerZeroERC20 extends BaseContract {
   peerLayerZeroChainId(overrides?: CallOverrides): Promise<number>;
 
   renounceOwnership(
-    overrides?: Overrides & { from?: string | Promise<string> }
+    overrides?: Overrides & { from?: string | Promise<string> },
   ): Promise<ContractTransaction>;
 
   retryMessage(
@@ -980,7 +688,7 @@ export interface MystikoV2LayerZeroERC20 extends BaseContract {
     _srcAddress: BytesLike,
     _nonce: BigNumberish,
     _payload: BytesLike,
-    overrides?: PayableOverrides & { from?: string | Promise<string> }
+    overrides?: PayableOverrides & { from?: string | Promise<string> },
   ): Promise<ContractTransaction>;
 
   sanctionsCheck(overrides?: CallOverrides): Promise<boolean>;
@@ -989,12 +697,12 @@ export interface MystikoV2LayerZeroERC20 extends BaseContract {
 
   setAssociatedCommitmentPool(
     _commitmentPoolAddress: string,
-    overrides?: Overrides & { from?: string | Promise<string> }
+    overrides?: Overrides & { from?: string | Promise<string> },
   ): Promise<ContractTransaction>;
 
   setBridgeProxyAddress(
     _bridgeProxyAddress: string,
-    overrides?: Overrides & { from?: string | Promise<string> }
+    overrides?: Overrides & { from?: string | Promise<string> },
   ): Promise<ContractTransaction>;
 
   setConfig(
@@ -1002,86 +710,83 @@ export interface MystikoV2LayerZeroERC20 extends BaseContract {
     _chainId: BigNumberish,
     _configType: BigNumberish,
     _config: BytesLike,
-    overrides?: Overrides & { from?: string | Promise<string> }
+    overrides?: Overrides & { from?: string | Promise<string> },
   ): Promise<ContractTransaction>;
 
   setDepositsDisabled(
     _state: boolean,
-    overrides?: Overrides & { from?: string | Promise<string> }
+    overrides?: Overrides & { from?: string | Promise<string> },
   ): Promise<ContractTransaction>;
 
   setEndpoint(
     _lzChainId: BigNumberish,
     _lzEndpoint: string,
-    overrides?: Overrides & { from?: string | Promise<string> }
+    overrides?: Overrides & { from?: string | Promise<string> },
   ): Promise<ContractTransaction>;
 
   setMaxAmount(
     _maxAmount: BigNumberish,
-    overrides?: Overrides & { from?: string | Promise<string> }
+    overrides?: Overrides & { from?: string | Promise<string> },
   ): Promise<ContractTransaction>;
 
   setMinAmount(
     _minAmount: BigNumberish,
-    overrides?: Overrides & { from?: string | Promise<string> }
+    overrides?: Overrides & { from?: string | Promise<string> },
   ): Promise<ContractTransaction>;
 
   setMinBridgeFee(
     _minBridgeFee: BigNumberish,
-    overrides?: Overrides & { from?: string | Promise<string> }
+    overrides?: Overrides & { from?: string | Promise<string> },
   ): Promise<ContractTransaction>;
 
   setMinExecutorFee(
     _minExecutorFee: BigNumberish,
-    overrides?: Overrides & { from?: string | Promise<string> }
+    overrides?: Overrides & { from?: string | Promise<string> },
   ): Promise<ContractTransaction>;
 
   setPeerContract(
     _peerChainId: BigNumberish,
     _peerChainName: string,
     _peerContract: string,
-    overrides?: Overrides & { from?: string | Promise<string> }
+    overrides?: Overrides & { from?: string | Promise<string> },
   ): Promise<ContractTransaction>;
 
   setPeerMinExecutorFee(
     _peerMinExecutorFee: BigNumberish,
-    overrides?: Overrides & { from?: string | Promise<string> }
+    overrides?: Overrides & { from?: string | Promise<string> },
   ): Promise<ContractTransaction>;
 
   setPeerMinRollupFee(
     _peerMinRollupFee: BigNumberish,
-    overrides?: Overrides & { from?: string | Promise<string> }
+    overrides?: Overrides & { from?: string | Promise<string> },
   ): Promise<ContractTransaction>;
 
   setReceiveVersion(
     _version: BigNumberish,
-    overrides?: Overrides & { from?: string | Promise<string> }
+    overrides?: Overrides & { from?: string | Promise<string> },
   ): Promise<ContractTransaction>;
 
   setSendVersion(
     _version: BigNumberish,
-    overrides?: Overrides & { from?: string | Promise<string> }
+    overrides?: Overrides & { from?: string | Promise<string> },
   ): Promise<ContractTransaction>;
 
   setTrustedRemote(
     _peerLayerZeroChainId: BigNumberish,
     _peerAddress: BytesLike,
-    overrides?: Overrides & { from?: string | Promise<string> }
+    overrides?: Overrides & { from?: string | Promise<string> },
   ): Promise<ContractTransaction>;
 
   transferOwnership(
     newOwner: string,
-    overrides?: Overrides & { from?: string | Promise<string> }
+    overrides?: Overrides & { from?: string | Promise<string> },
   ): Promise<ContractTransaction>;
 
-  trustedRemoteLookup(
-    arg0: BigNumberish,
-    overrides?: CallOverrides
-  ): Promise<string>;
+  trustedRemoteLookup(arg0: BigNumberish, overrides?: CallOverrides): Promise<string>;
 
   updateSanctionsListAddress(
     _sanction: string,
-    overrides?: Overrides & { from?: string | Promise<string> }
+    overrides?: Overrides & { from?: string | Promise<string> },
   ): Promise<ContractTransaction>;
 
   callStatic: {
@@ -1097,15 +802,9 @@ export interface MystikoV2LayerZeroERC20 extends BaseContract {
 
     bridgeType(overrides?: CallOverrides): Promise<string>;
 
-    changeOperator(
-      _newOperator: string,
-      overrides?: CallOverrides
-    ): Promise<void>;
+    changeOperator(_newOperator: string, overrides?: CallOverrides): Promise<void>;
 
-    deposit(
-      _request: IMystikoBridge.DepositRequestStruct,
-      overrides?: CallOverrides
-    ): Promise<void>;
+    deposit(_request: IMystikoBridge.DepositRequestStruct, overrides?: CallOverrides): Promise<void>;
 
     disableSanctionsCheck(overrides?: CallOverrides): Promise<void>;
 
@@ -1115,13 +814,13 @@ export interface MystikoV2LayerZeroERC20 extends BaseContract {
       arg0: BigNumberish,
       arg1: BytesLike,
       arg2: BigNumberish,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<string>;
 
     forceResumeReceive(
       _srcChainId: BigNumberish,
       _srcAddress: BytesLike,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<void>;
 
     getAssociatedCommitmentPool(overrides?: CallOverrides): Promise<string>;
@@ -1131,7 +830,7 @@ export interface MystikoV2LayerZeroERC20 extends BaseContract {
       _chainId: BigNumberish,
       arg2: string,
       _configType: BigNumberish,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<string>;
 
     getMaxAmount(overrides?: CallOverrides): Promise<BigNumber>;
@@ -1151,7 +850,7 @@ export interface MystikoV2LayerZeroERC20 extends BaseContract {
     isTrustedRemote(
       _srcChainId: BigNumberish,
       _srcAddress: BytesLike,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<boolean>;
 
     localLayerZeroChainId(overrides?: CallOverrides): Promise<number>;
@@ -1163,7 +862,7 @@ export interface MystikoV2LayerZeroERC20 extends BaseContract {
       _srcAddress: BytesLike,
       _nonce: BigNumberish,
       _payload: BytesLike,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<void>;
 
     nonblockingLzReceive(
@@ -1171,7 +870,7 @@ export interface MystikoV2LayerZeroERC20 extends BaseContract {
       _srcAddress: BytesLike,
       _nonce: BigNumberish,
       _payload: BytesLike,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<void>;
 
     owner(overrides?: CallOverrides): Promise<string>;
@@ -1191,187 +890,123 @@ export interface MystikoV2LayerZeroERC20 extends BaseContract {
       _srcAddress: BytesLike,
       _nonce: BigNumberish,
       _payload: BytesLike,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<void>;
 
     sanctionsCheck(overrides?: CallOverrides): Promise<boolean>;
 
     sanctionsList(overrides?: CallOverrides): Promise<string>;
 
-    setAssociatedCommitmentPool(
-      _commitmentPoolAddress: string,
-      overrides?: CallOverrides
-    ): Promise<void>;
+    setAssociatedCommitmentPool(_commitmentPoolAddress: string, overrides?: CallOverrides): Promise<void>;
 
-    setBridgeProxyAddress(
-      _bridgeProxyAddress: string,
-      overrides?: CallOverrides
-    ): Promise<void>;
+    setBridgeProxyAddress(_bridgeProxyAddress: string, overrides?: CallOverrides): Promise<void>;
 
     setConfig(
       _version: BigNumberish,
       _chainId: BigNumberish,
       _configType: BigNumberish,
       _config: BytesLike,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<void>;
 
-    setDepositsDisabled(
-      _state: boolean,
-      overrides?: CallOverrides
-    ): Promise<void>;
+    setDepositsDisabled(_state: boolean, overrides?: CallOverrides): Promise<void>;
 
-    setEndpoint(
-      _lzChainId: BigNumberish,
-      _lzEndpoint: string,
-      overrides?: CallOverrides
-    ): Promise<void>;
+    setEndpoint(_lzChainId: BigNumberish, _lzEndpoint: string, overrides?: CallOverrides): Promise<void>;
 
-    setMaxAmount(
-      _maxAmount: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<void>;
+    setMaxAmount(_maxAmount: BigNumberish, overrides?: CallOverrides): Promise<void>;
 
-    setMinAmount(
-      _minAmount: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<void>;
+    setMinAmount(_minAmount: BigNumberish, overrides?: CallOverrides): Promise<void>;
 
-    setMinBridgeFee(
-      _minBridgeFee: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<void>;
+    setMinBridgeFee(_minBridgeFee: BigNumberish, overrides?: CallOverrides): Promise<void>;
 
-    setMinExecutorFee(
-      _minExecutorFee: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<void>;
+    setMinExecutorFee(_minExecutorFee: BigNumberish, overrides?: CallOverrides): Promise<void>;
 
     setPeerContract(
       _peerChainId: BigNumberish,
       _peerChainName: string,
       _peerContract: string,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<void>;
 
-    setPeerMinExecutorFee(
-      _peerMinExecutorFee: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<void>;
+    setPeerMinExecutorFee(_peerMinExecutorFee: BigNumberish, overrides?: CallOverrides): Promise<void>;
 
-    setPeerMinRollupFee(
-      _peerMinRollupFee: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<void>;
+    setPeerMinRollupFee(_peerMinRollupFee: BigNumberish, overrides?: CallOverrides): Promise<void>;
 
-    setReceiveVersion(
-      _version: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<void>;
+    setReceiveVersion(_version: BigNumberish, overrides?: CallOverrides): Promise<void>;
 
-    setSendVersion(
-      _version: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<void>;
+    setSendVersion(_version: BigNumberish, overrides?: CallOverrides): Promise<void>;
 
     setTrustedRemote(
       _peerLayerZeroChainId: BigNumberish,
       _peerAddress: BytesLike,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<void>;
 
-    transferOwnership(
-      newOwner: string,
-      overrides?: CallOverrides
-    ): Promise<void>;
+    transferOwnership(newOwner: string, overrides?: CallOverrides): Promise<void>;
 
-    trustedRemoteLookup(
-      arg0: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<string>;
+    trustedRemoteLookup(arg0: BigNumberish, overrides?: CallOverrides): Promise<string>;
 
-    updateSanctionsListAddress(
-      _sanction: string,
-      overrides?: CallOverrides
-    ): Promise<void>;
+    updateSanctionsListAddress(_sanction: string, overrides?: CallOverrides): Promise<void>;
   };
 
   filters: {
-    "CommitmentCrossChain(uint256)"(
-      commitment?: BigNumberish | null
-    ): CommitmentCrossChainEventFilter;
-    CommitmentCrossChain(
-      commitment?: BigNumberish | null
-    ): CommitmentCrossChainEventFilter;
+    'CommitmentCrossChain(uint256)'(commitment?: BigNumberish | null): CommitmentCrossChainEventFilter;
+    CommitmentCrossChain(commitment?: BigNumberish | null): CommitmentCrossChainEventFilter;
 
-    "DepositsDisabled(bool)"(state?: null): DepositsDisabledEventFilter;
+    'DepositsDisabled(bool)'(state?: null): DepositsDisabledEventFilter;
     DepositsDisabled(state?: null): DepositsDisabledEventFilter;
 
-    "MaxAmount(uint256)"(maxAmount?: null): MaxAmountEventFilter;
+    'MaxAmount(uint256)'(maxAmount?: null): MaxAmountEventFilter;
     MaxAmount(maxAmount?: null): MaxAmountEventFilter;
 
-    "MessageFailed(uint16,bytes,uint64,bytes)"(
+    'MessageFailed(uint16,bytes,uint64,bytes)'(
       _srcChainId?: null,
       _srcAddress?: null,
       _nonce?: null,
-      _payload?: null
+      _payload?: null,
     ): MessageFailedEventFilter;
     MessageFailed(
       _srcChainId?: null,
       _srcAddress?: null,
       _nonce?: null,
-      _payload?: null
+      _payload?: null,
     ): MessageFailedEventFilter;
 
-    "MinAmount(uint256)"(minAmount?: null): MinAmountEventFilter;
+    'MinAmount(uint256)'(minAmount?: null): MinAmountEventFilter;
     MinAmount(minAmount?: null): MinAmountEventFilter;
 
-    "MinBridgeFee(uint256)"(minBridgeFee?: null): MinBridgeFeeEventFilter;
+    'MinBridgeFee(uint256)'(minBridgeFee?: null): MinBridgeFeeEventFilter;
     MinBridgeFee(minBridgeFee?: null): MinBridgeFeeEventFilter;
 
-    "MinExecutorFee(uint256)"(minExecutorFee?: null): MinExecutorFeeEventFilter;
+    'MinExecutorFee(uint256)'(minExecutorFee?: null): MinExecutorFeeEventFilter;
     MinExecutorFee(minExecutorFee?: null): MinExecutorFeeEventFilter;
 
-    "OperatorChanged(address)"(
-      operator?: string | null
-    ): OperatorChangedEventFilter;
+    'OperatorChanged(address)'(operator?: string | null): OperatorChangedEventFilter;
     OperatorChanged(operator?: string | null): OperatorChangedEventFilter;
 
-    "OwnershipTransferred(address,address)"(
+    'OwnershipTransferred(address,address)'(
       previousOwner?: string | null,
-      newOwner?: string | null
+      newOwner?: string | null,
     ): OwnershipTransferredEventFilter;
     OwnershipTransferred(
       previousOwner?: string | null,
-      newOwner?: string | null
+      newOwner?: string | null,
     ): OwnershipTransferredEventFilter;
 
-    "PeerMinExecutorFee(uint256)"(
-      peerMinExecutorFee?: null
-    ): PeerMinExecutorFeeEventFilter;
-    PeerMinExecutorFee(
-      peerMinExecutorFee?: null
-    ): PeerMinExecutorFeeEventFilter;
+    'PeerMinExecutorFee(uint256)'(peerMinExecutorFee?: null): PeerMinExecutorFeeEventFilter;
+    PeerMinExecutorFee(peerMinExecutorFee?: null): PeerMinExecutorFeeEventFilter;
 
-    "PeerMinRollupFee(uint256)"(
-      peerMinRollupFee?: null
-    ): PeerMinRollupFeeEventFilter;
+    'PeerMinRollupFee(uint256)'(peerMinRollupFee?: null): PeerMinRollupFeeEventFilter;
     PeerMinRollupFee(peerMinRollupFee?: null): PeerMinRollupFeeEventFilter;
 
-    "SanctionsCheck(bool)"(state?: null): SanctionsCheckEventFilter;
+    'SanctionsCheck(bool)'(state?: null): SanctionsCheckEventFilter;
     SanctionsCheck(state?: null): SanctionsCheckEventFilter;
 
-    "SanctionsList(address)"(sanctions?: null): SanctionsListEventFilter;
+    'SanctionsList(address)'(sanctions?: null): SanctionsListEventFilter;
     SanctionsList(sanctions?: null): SanctionsListEventFilter;
 
-    "SetTrustedRemote(uint16,bytes)"(
-      _srcChainId?: null,
-      _srcAddress?: null
-    ): SetTrustedRemoteEventFilter;
-    SetTrustedRemote(
-      _srcChainId?: null,
-      _srcAddress?: null
-    ): SetTrustedRemoteEventFilter;
+    'SetTrustedRemote(uint16,bytes)'(_srcChainId?: null, _srcAddress?: null): SetTrustedRemoteEventFilter;
+    SetTrustedRemote(_srcChainId?: null, _srcAddress?: null): SetTrustedRemoteEventFilter;
   };
 
   estimateGas: {
@@ -1389,33 +1024,29 @@ export interface MystikoV2LayerZeroERC20 extends BaseContract {
 
     changeOperator(
       _newOperator: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<BigNumber>;
 
     deposit(
       _request: IMystikoBridge.DepositRequestStruct,
-      overrides?: PayableOverrides & { from?: string | Promise<string> }
+      overrides?: PayableOverrides & { from?: string | Promise<string> },
     ): Promise<BigNumber>;
 
-    disableSanctionsCheck(
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<BigNumber>;
+    disableSanctionsCheck(overrides?: Overrides & { from?: string | Promise<string> }): Promise<BigNumber>;
 
-    enableSanctionsCheck(
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<BigNumber>;
+    enableSanctionsCheck(overrides?: Overrides & { from?: string | Promise<string> }): Promise<BigNumber>;
 
     failedMessages(
       arg0: BigNumberish,
       arg1: BytesLike,
       arg2: BigNumberish,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<BigNumber>;
 
     forceResumeReceive(
       _srcChainId: BigNumberish,
       _srcAddress: BytesLike,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<BigNumber>;
 
     getAssociatedCommitmentPool(overrides?: CallOverrides): Promise<BigNumber>;
@@ -1425,7 +1056,7 @@ export interface MystikoV2LayerZeroERC20 extends BaseContract {
       _chainId: BigNumberish,
       arg2: string,
       _configType: BigNumberish,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<BigNumber>;
 
     getMaxAmount(overrides?: CallOverrides): Promise<BigNumber>;
@@ -1445,7 +1076,7 @@ export interface MystikoV2LayerZeroERC20 extends BaseContract {
     isTrustedRemote(
       _srcChainId: BigNumberish,
       _srcAddress: BytesLike,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<BigNumber>;
 
     localLayerZeroChainId(overrides?: CallOverrides): Promise<BigNumber>;
@@ -1457,7 +1088,7 @@ export interface MystikoV2LayerZeroERC20 extends BaseContract {
       _srcAddress: BytesLike,
       _nonce: BigNumberish,
       _payload: BytesLike,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<BigNumber>;
 
     nonblockingLzReceive(
@@ -1465,7 +1096,7 @@ export interface MystikoV2LayerZeroERC20 extends BaseContract {
       _srcAddress: BytesLike,
       _nonce: BigNumberish,
       _payload: BytesLike,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<BigNumber>;
 
     owner(overrides?: CallOverrides): Promise<BigNumber>;
@@ -1478,16 +1109,14 @@ export interface MystikoV2LayerZeroERC20 extends BaseContract {
 
     peerLayerZeroChainId(overrides?: CallOverrides): Promise<BigNumber>;
 
-    renounceOwnership(
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<BigNumber>;
+    renounceOwnership(overrides?: Overrides & { from?: string | Promise<string> }): Promise<BigNumber>;
 
     retryMessage(
       _srcChainId: BigNumberish,
       _srcAddress: BytesLike,
       _nonce: BigNumberish,
       _payload: BytesLike,
-      overrides?: PayableOverrides & { from?: string | Promise<string> }
+      overrides?: PayableOverrides & { from?: string | Promise<string> },
     ): Promise<BigNumber>;
 
     sanctionsCheck(overrides?: CallOverrides): Promise<BigNumber>;
@@ -1496,12 +1125,12 @@ export interface MystikoV2LayerZeroERC20 extends BaseContract {
 
     setAssociatedCommitmentPool(
       _commitmentPoolAddress: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<BigNumber>;
 
     setBridgeProxyAddress(
       _bridgeProxyAddress: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<BigNumber>;
 
     setConfig(
@@ -1509,86 +1138,83 @@ export interface MystikoV2LayerZeroERC20 extends BaseContract {
       _chainId: BigNumberish,
       _configType: BigNumberish,
       _config: BytesLike,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<BigNumber>;
 
     setDepositsDisabled(
       _state: boolean,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<BigNumber>;
 
     setEndpoint(
       _lzChainId: BigNumberish,
       _lzEndpoint: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<BigNumber>;
 
     setMaxAmount(
       _maxAmount: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<BigNumber>;
 
     setMinAmount(
       _minAmount: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<BigNumber>;
 
     setMinBridgeFee(
       _minBridgeFee: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<BigNumber>;
 
     setMinExecutorFee(
       _minExecutorFee: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<BigNumber>;
 
     setPeerContract(
       _peerChainId: BigNumberish,
       _peerChainName: string,
       _peerContract: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<BigNumber>;
 
     setPeerMinExecutorFee(
       _peerMinExecutorFee: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<BigNumber>;
 
     setPeerMinRollupFee(
       _peerMinRollupFee: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<BigNumber>;
 
     setReceiveVersion(
       _version: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<BigNumber>;
 
     setSendVersion(
       _version: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<BigNumber>;
 
     setTrustedRemote(
       _peerLayerZeroChainId: BigNumberish,
       _peerAddress: BytesLike,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<BigNumber>;
 
     transferOwnership(
       newOwner: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<BigNumber>;
 
-    trustedRemoteLookup(
-      arg0: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<BigNumber>;
+    trustedRemoteLookup(arg0: BigNumberish, overrides?: CallOverrides): Promise<BigNumber>;
 
     updateSanctionsListAddress(
       _sanction: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<BigNumber>;
   };
 
@@ -1601,53 +1227,49 @@ export interface MystikoV2LayerZeroERC20 extends BaseContract {
 
     assetType(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
-    bridgeProxyAddress(
-      overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>;
+    bridgeProxyAddress(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     bridgeType(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     changeOperator(
       _newOperator: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<PopulatedTransaction>;
 
     deposit(
       _request: IMystikoBridge.DepositRequestStruct,
-      overrides?: PayableOverrides & { from?: string | Promise<string> }
+      overrides?: PayableOverrides & { from?: string | Promise<string> },
     ): Promise<PopulatedTransaction>;
 
     disableSanctionsCheck(
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<PopulatedTransaction>;
 
     enableSanctionsCheck(
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<PopulatedTransaction>;
 
     failedMessages(
       arg0: BigNumberish,
       arg1: BytesLike,
       arg2: BigNumberish,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<PopulatedTransaction>;
 
     forceResumeReceive(
       _srcChainId: BigNumberish,
       _srcAddress: BytesLike,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<PopulatedTransaction>;
 
-    getAssociatedCommitmentPool(
-      overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>;
+    getAssociatedCommitmentPool(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     getConfig(
       _version: BigNumberish,
       _chainId: BigNumberish,
       arg2: string,
       _configType: BigNumberish,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<PopulatedTransaction>;
 
     getMaxAmount(overrides?: CallOverrides): Promise<PopulatedTransaction>;
@@ -1658,27 +1280,19 @@ export interface MystikoV2LayerZeroERC20 extends BaseContract {
 
     getMinExecutorFee(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
-    getPeerMinExecutorFee(
-      overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>;
+    getPeerMinExecutorFee(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
-    getPeerMinRollupFee(
-      overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>;
+    getPeerMinRollupFee(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
-    isDepositsDisabled(
-      overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>;
+    isDepositsDisabled(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     isTrustedRemote(
       _srcChainId: BigNumberish,
       _srcAddress: BytesLike,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<PopulatedTransaction>;
 
-    localLayerZeroChainId(
-      overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>;
+    localLayerZeroChainId(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     lzEndpoint(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
@@ -1687,7 +1301,7 @@ export interface MystikoV2LayerZeroERC20 extends BaseContract {
       _srcAddress: BytesLike,
       _nonce: BigNumberish,
       _payload: BytesLike,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<PopulatedTransaction>;
 
     nonblockingLzReceive(
@@ -1695,7 +1309,7 @@ export interface MystikoV2LayerZeroERC20 extends BaseContract {
       _srcAddress: BytesLike,
       _nonce: BigNumberish,
       _payload: BytesLike,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<PopulatedTransaction>;
 
     owner(overrides?: CallOverrides): Promise<PopulatedTransaction>;
@@ -1706,12 +1320,10 @@ export interface MystikoV2LayerZeroERC20 extends BaseContract {
 
     peerContract(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
-    peerLayerZeroChainId(
-      overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>;
+    peerLayerZeroChainId(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     renounceOwnership(
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<PopulatedTransaction>;
 
     retryMessage(
@@ -1719,7 +1331,7 @@ export interface MystikoV2LayerZeroERC20 extends BaseContract {
       _srcAddress: BytesLike,
       _nonce: BigNumberish,
       _payload: BytesLike,
-      overrides?: PayableOverrides & { from?: string | Promise<string> }
+      overrides?: PayableOverrides & { from?: string | Promise<string> },
     ): Promise<PopulatedTransaction>;
 
     sanctionsCheck(overrides?: CallOverrides): Promise<PopulatedTransaction>;
@@ -1728,12 +1340,12 @@ export interface MystikoV2LayerZeroERC20 extends BaseContract {
 
     setAssociatedCommitmentPool(
       _commitmentPoolAddress: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<PopulatedTransaction>;
 
     setBridgeProxyAddress(
       _bridgeProxyAddress: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<PopulatedTransaction>;
 
     setConfig(
@@ -1741,86 +1353,83 @@ export interface MystikoV2LayerZeroERC20 extends BaseContract {
       _chainId: BigNumberish,
       _configType: BigNumberish,
       _config: BytesLike,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<PopulatedTransaction>;
 
     setDepositsDisabled(
       _state: boolean,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<PopulatedTransaction>;
 
     setEndpoint(
       _lzChainId: BigNumberish,
       _lzEndpoint: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<PopulatedTransaction>;
 
     setMaxAmount(
       _maxAmount: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<PopulatedTransaction>;
 
     setMinAmount(
       _minAmount: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<PopulatedTransaction>;
 
     setMinBridgeFee(
       _minBridgeFee: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<PopulatedTransaction>;
 
     setMinExecutorFee(
       _minExecutorFee: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<PopulatedTransaction>;
 
     setPeerContract(
       _peerChainId: BigNumberish,
       _peerChainName: string,
       _peerContract: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<PopulatedTransaction>;
 
     setPeerMinExecutorFee(
       _peerMinExecutorFee: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<PopulatedTransaction>;
 
     setPeerMinRollupFee(
       _peerMinRollupFee: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<PopulatedTransaction>;
 
     setReceiveVersion(
       _version: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<PopulatedTransaction>;
 
     setSendVersion(
       _version: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<PopulatedTransaction>;
 
     setTrustedRemote(
       _peerLayerZeroChainId: BigNumberish,
       _peerAddress: BytesLike,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<PopulatedTransaction>;
 
     transferOwnership(
       newOwner: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<PopulatedTransaction>;
 
-    trustedRemoteLookup(
-      arg0: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>;
+    trustedRemoteLookup(arg0: BigNumberish, overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     updateSanctionsListAddress(
       _sanction: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<PopulatedTransaction>;
   };
 }

@@ -10,29 +10,29 @@ import {
   PopulatedTransaction,
   Signer,
   utils,
-} from "ethers";
-import { FunctionFragment, Result } from "@ethersproject/abi";
-import { Listener, Provider } from "@ethersproject/providers";
-import { TypedEventFilter, TypedEvent, TypedListener, OnEvent } from "./common";
+} from 'ethers';
+import { FunctionFragment, Result } from '@ethersproject/abi';
+import { Listener, Provider } from '@ethersproject/providers';
+import { TypedEventFilter, TypedEvent, TypedListener, OnEvent } from './common';
 
 export interface IHasher3Interface extends utils.Interface {
-  contractName: "IHasher3";
+  contractName: 'IHasher3';
   functions: {
-    "poseidon(uint256[3])": FunctionFragment;
+    'poseidon(uint256[3])': FunctionFragment;
   };
 
   encodeFunctionData(
-    functionFragment: "poseidon",
-    values: [[BigNumberish, BigNumberish, BigNumberish]]
+    functionFragment: 'poseidon',
+    values: [[BigNumberish, BigNumberish, BigNumberish]],
   ): string;
 
-  decodeFunctionResult(functionFragment: "poseidon", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'poseidon', data: BytesLike): Result;
 
   events: {};
 }
 
 export interface IHasher3 extends BaseContract {
-  contractName: "IHasher3";
+  contractName: 'IHasher3';
   connect(signerOrProvider: Signer | Provider | string): this;
   attach(addressOrName: string): this;
   deployed(): Promise<this>;
@@ -42,16 +42,12 @@ export interface IHasher3 extends BaseContract {
   queryFilter<TEvent extends TypedEvent>(
     event: TypedEventFilter<TEvent>,
     fromBlockOrBlockhash?: string | number | undefined,
-    toBlock?: string | number | undefined
+    toBlock?: string | number | undefined,
   ): Promise<Array<TEvent>>;
 
-  listeners<TEvent extends TypedEvent>(
-    eventFilter?: TypedEventFilter<TEvent>
-  ): Array<TypedListener<TEvent>>;
+  listeners<TEvent extends TypedEvent>(eventFilter?: TypedEventFilter<TEvent>): Array<TypedListener<TEvent>>;
   listeners(eventName?: string): Array<Listener>;
-  removeAllListeners<TEvent extends TypedEvent>(
-    eventFilter: TypedEventFilter<TEvent>
-  ): this;
+  removeAllListeners<TEvent extends TypedEvent>(eventFilter: TypedEventFilter<TEvent>): this;
   removeAllListeners(eventName?: string): this;
   off: OnEvent<this>;
   on: OnEvent<this>;
@@ -61,35 +57,26 @@ export interface IHasher3 extends BaseContract {
   functions: {
     poseidon(
       data: [BigNumberish, BigNumberish, BigNumberish],
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<[BigNumber]>;
   };
 
-  poseidon(
-    data: [BigNumberish, BigNumberish, BigNumberish],
-    overrides?: CallOverrides
-  ): Promise<BigNumber>;
+  poseidon(data: [BigNumberish, BigNumberish, BigNumberish], overrides?: CallOverrides): Promise<BigNumber>;
 
   callStatic: {
-    poseidon(
-      data: [BigNumberish, BigNumberish, BigNumberish],
-      overrides?: CallOverrides
-    ): Promise<BigNumber>;
+    poseidon(data: [BigNumberish, BigNumberish, BigNumberish], overrides?: CallOverrides): Promise<BigNumber>;
   };
 
   filters: {};
 
   estimateGas: {
-    poseidon(
-      data: [BigNumberish, BigNumberish, BigNumberish],
-      overrides?: CallOverrides
-    ): Promise<BigNumber>;
+    poseidon(data: [BigNumberish, BigNumberish, BigNumberish], overrides?: CallOverrides): Promise<BigNumber>;
   };
 
   populateTransaction: {
     poseidon(
       data: [BigNumberish, BigNumberish, BigNumberish],
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<PopulatedTransaction>;
   };
 }

@@ -2,41 +2,38 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import { Contract, Signer, utils } from "ethers";
-import { Provider } from "@ethersproject/providers";
-import type {
-  ILayerZeroReceiver,
-  ILayerZeroReceiverInterface,
-} from "../ILayerZeroReceiver";
+import { Contract, Signer, utils } from 'ethers';
+import { Provider } from '@ethersproject/providers';
+import type { ILayerZeroReceiver, ILayerZeroReceiverInterface } from '../ILayerZeroReceiver';
 
 const _abi = [
   {
     inputs: [
       {
-        internalType: "uint16",
-        name: "_srcChainId",
-        type: "uint16",
+        internalType: 'uint16',
+        name: '_srcChainId',
+        type: 'uint16',
       },
       {
-        internalType: "bytes",
-        name: "_srcAddress",
-        type: "bytes",
+        internalType: 'bytes',
+        name: '_srcAddress',
+        type: 'bytes',
       },
       {
-        internalType: "uint64",
-        name: "_nonce",
-        type: "uint64",
+        internalType: 'uint64',
+        name: '_nonce',
+        type: 'uint64',
       },
       {
-        internalType: "bytes",
-        name: "_payload",
-        type: "bytes",
+        internalType: 'bytes',
+        name: '_payload',
+        type: 'bytes',
       },
     ],
-    name: "lzReceive",
+    name: 'lzReceive',
     outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
+    stateMutability: 'nonpayable',
+    type: 'function',
   },
 ];
 
@@ -45,10 +42,7 @@ export class ILayerZeroReceiver__factory {
   static createInterface(): ILayerZeroReceiverInterface {
     return new utils.Interface(_abi) as ILayerZeroReceiverInterface;
   }
-  static connect(
-    address: string,
-    signerOrProvider: Signer | Provider
-  ): ILayerZeroReceiver {
+  static connect(address: string, signerOrProvider: Signer | Provider): ILayerZeroReceiver {
     return new Contract(address, _abi, signerOrProvider) as ILayerZeroReceiver;
   }
 }

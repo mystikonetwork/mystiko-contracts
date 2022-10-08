@@ -2,32 +2,29 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import { Contract, Signer, utils } from "ethers";
-import { Provider } from "@ethersproject/providers";
-import type {
-  ISanctionsList,
-  ISanctionsListInterface,
-} from "../ISanctionsList";
+import { Contract, Signer, utils } from 'ethers';
+import { Provider } from '@ethersproject/providers';
+import type { ISanctionsList, ISanctionsListInterface } from '../ISanctionsList';
 
 const _abi = [
   {
     inputs: [
       {
-        internalType: "address",
-        name: "addr",
-        type: "address",
+        internalType: 'address',
+        name: 'addr',
+        type: 'address',
       },
     ],
-    name: "isSanctioned",
+    name: 'isSanctioned',
     outputs: [
       {
-        internalType: "bool",
-        name: "",
-        type: "bool",
+        internalType: 'bool',
+        name: '',
+        type: 'bool',
       },
     ],
-    stateMutability: "view",
-    type: "function",
+    stateMutability: 'view',
+    type: 'function',
   },
 ];
 
@@ -36,10 +33,7 @@ export class ISanctionsList__factory {
   static createInterface(): ISanctionsListInterface {
     return new utils.Interface(_abi) as ISanctionsListInterface;
   }
-  static connect(
-    address: string,
-    signerOrProvider: Signer | Provider
-  ): ISanctionsList {
+  static connect(address: string, signerOrProvider: Signer | Provider): ISanctionsList {
     return new Contract(address, _abi, signerOrProvider) as ISanctionsList;
   }
 }

@@ -10,29 +10,26 @@ import {
   PopulatedTransaction,
   Signer,
   utils,
-} from "ethers";
-import { FunctionFragment, Result } from "@ethersproject/abi";
-import { Listener, Provider } from "@ethersproject/providers";
-import { TypedEventFilter, TypedEvent, TypedListener, OnEvent } from "./common";
+} from 'ethers';
+import { FunctionFragment, Result } from '@ethersproject/abi';
+import { Listener, Provider } from '@ethersproject/providers';
+import { TypedEventFilter, TypedEvent, TypedListener, OnEvent } from './common';
 
 export interface Hasher2Interface extends utils.Interface {
-  contractName: "Hasher2";
+  contractName: 'Hasher2';
   functions: {
-    "poseidon(bytes32[2])": FunctionFragment;
+    'poseidon(bytes32[2])': FunctionFragment;
   };
 
-  encodeFunctionData(
-    functionFragment: "poseidon",
-    values: [[BytesLike, BytesLike]]
-  ): string;
+  encodeFunctionData(functionFragment: 'poseidon', values: [[BytesLike, BytesLike]]): string;
 
-  decodeFunctionResult(functionFragment: "poseidon", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'poseidon', data: BytesLike): Result;
 
   events: {};
 }
 
 export interface Hasher2 extends BaseContract {
-  contractName: "Hasher2";
+  contractName: 'Hasher2';
   connect(signerOrProvider: Signer | Provider | string): this;
   attach(addressOrName: string): this;
   deployed(): Promise<this>;
@@ -42,16 +39,12 @@ export interface Hasher2 extends BaseContract {
   queryFilter<TEvent extends TypedEvent>(
     event: TypedEventFilter<TEvent>,
     fromBlockOrBlockhash?: string | number | undefined,
-    toBlock?: string | number | undefined
+    toBlock?: string | number | undefined,
   ): Promise<Array<TEvent>>;
 
-  listeners<TEvent extends TypedEvent>(
-    eventFilter?: TypedEventFilter<TEvent>
-  ): Array<TypedListener<TEvent>>;
+  listeners<TEvent extends TypedEvent>(eventFilter?: TypedEventFilter<TEvent>): Array<TypedListener<TEvent>>;
   listeners(eventName?: string): Array<Listener>;
-  removeAllListeners<TEvent extends TypedEvent>(
-    eventFilter: TypedEventFilter<TEvent>
-  ): this;
+  removeAllListeners<TEvent extends TypedEvent>(eventFilter: TypedEventFilter<TEvent>): this;
   removeAllListeners(eventName?: string): this;
   off: OnEvent<this>;
   on: OnEvent<this>;
@@ -59,62 +52,47 @@ export interface Hasher2 extends BaseContract {
   removeListener: OnEvent<this>;
 
   functions: {
-    "poseidon(bytes32[2])"(
-      input: [BytesLike, BytesLike],
-      overrides?: CallOverrides
-    ): Promise<[string]>;
+    'poseidon(bytes32[2])'(input: [BytesLike, BytesLike], overrides?: CallOverrides): Promise<[string]>;
 
-    "poseidon(uint256[2])"(
+    'poseidon(uint256[2])'(
       input: [BigNumberish, BigNumberish],
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<[BigNumber]>;
   };
 
-  "poseidon(bytes32[2])"(
-    input: [BytesLike, BytesLike],
-    overrides?: CallOverrides
-  ): Promise<string>;
+  'poseidon(bytes32[2])'(input: [BytesLike, BytesLike], overrides?: CallOverrides): Promise<string>;
 
-  "poseidon(uint256[2])"(
-    input: [BigNumberish, BigNumberish],
-    overrides?: CallOverrides
-  ): Promise<BigNumber>;
+  'poseidon(uint256[2])'(input: [BigNumberish, BigNumberish], overrides?: CallOverrides): Promise<BigNumber>;
 
   callStatic: {
-    "poseidon(bytes32[2])"(
-      input: [BytesLike, BytesLike],
-      overrides?: CallOverrides
-    ): Promise<string>;
+    'poseidon(bytes32[2])'(input: [BytesLike, BytesLike], overrides?: CallOverrides): Promise<string>;
 
-    "poseidon(uint256[2])"(
+    'poseidon(uint256[2])'(
       input: [BigNumberish, BigNumberish],
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<BigNumber>;
   };
 
   filters: {};
 
   estimateGas: {
-    "poseidon(bytes32[2])"(
-      input: [BytesLike, BytesLike],
-      overrides?: CallOverrides
-    ): Promise<BigNumber>;
+    'poseidon(bytes32[2])'(input: [BytesLike, BytesLike], overrides?: CallOverrides): Promise<BigNumber>;
 
-    "poseidon(uint256[2])"(
+    'poseidon(uint256[2])'(
       input: [BigNumberish, BigNumberish],
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<BigNumber>;
   };
 
   populateTransaction: {
-    "poseidon(bytes32[2])"(
+    'poseidon(bytes32[2])'(
       input: [BytesLike, BytesLike],
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<PopulatedTransaction>;
 
-    "poseidon(uint256[2])"(
+    'poseidon(uint256[2])'(
       input: [BigNumberish, BigNumberish],
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<PopulatedTransaction>;
   };
 }

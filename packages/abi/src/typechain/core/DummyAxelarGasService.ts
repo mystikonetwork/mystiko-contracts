@@ -13,102 +13,62 @@ import {
   PopulatedTransaction,
   Signer,
   utils,
-} from "ethers";
-import { FunctionFragment, Result, EventFragment } from "@ethersproject/abi";
-import { Listener, Provider } from "@ethersproject/providers";
-import { TypedEventFilter, TypedEvent, TypedListener, OnEvent } from "./common";
+} from 'ethers';
+import { FunctionFragment, Result, EventFragment } from '@ethersproject/abi';
+import { Listener, Provider } from '@ethersproject/providers';
+import { TypedEventFilter, TypedEvent, TypedListener, OnEvent } from './common';
 
 export interface DummyAxelarGasServiceInterface extends utils.Interface {
-  contractName: "DummyAxelarGasService";
+  contractName: 'DummyAxelarGasService';
   functions: {
-    "collectFees(address,address[])": FunctionFragment;
-    "contractId()": FunctionFragment;
-    "payGasForContractCall(address,string,string,bytes,address,uint256,address)": FunctionFragment;
-    "payGasForContractCallWithToken(address,string,string,bytes,string,uint256,address,uint256,address)": FunctionFragment;
-    "payNativeGasForContractCall(address,string,string,bytes,address)": FunctionFragment;
-    "payNativeGasForContractCallWithToken(address,string,string,bytes,string,uint256,address)": FunctionFragment;
-    "refund(address,address,uint256)": FunctionFragment;
+    'collectFees(address,address[])': FunctionFragment;
+    'contractId()': FunctionFragment;
+    'payGasForContractCall(address,string,string,bytes,address,uint256,address)': FunctionFragment;
+    'payGasForContractCallWithToken(address,string,string,bytes,string,uint256,address,uint256,address)': FunctionFragment;
+    'payNativeGasForContractCall(address,string,string,bytes,address)': FunctionFragment;
+    'payNativeGasForContractCallWithToken(address,string,string,bytes,string,uint256,address)': FunctionFragment;
+    'refund(address,address,uint256)': FunctionFragment;
   };
 
+  encodeFunctionData(functionFragment: 'collectFees', values: [string, string[]]): string;
+  encodeFunctionData(functionFragment: 'contractId', values?: undefined): string;
   encodeFunctionData(
-    functionFragment: "collectFees",
-    values: [string, string[]]
+    functionFragment: 'payGasForContractCall',
+    values: [string, string, string, BytesLike, string, BigNumberish, string],
   ): string;
   encodeFunctionData(
-    functionFragment: "contractId",
-    values?: undefined
+    functionFragment: 'payGasForContractCallWithToken',
+    values: [string, string, string, BytesLike, string, BigNumberish, string, BigNumberish, string],
   ): string;
   encodeFunctionData(
-    functionFragment: "payGasForContractCall",
-    values: [string, string, string, BytesLike, string, BigNumberish, string]
+    functionFragment: 'payNativeGasForContractCall',
+    values: [string, string, string, BytesLike, string],
   ): string;
   encodeFunctionData(
-    functionFragment: "payGasForContractCallWithToken",
-    values: [
-      string,
-      string,
-      string,
-      BytesLike,
-      string,
-      BigNumberish,
-      string,
-      BigNumberish,
-      string
-    ]
+    functionFragment: 'payNativeGasForContractCallWithToken',
+    values: [string, string, string, BytesLike, string, BigNumberish, string],
   ): string;
-  encodeFunctionData(
-    functionFragment: "payNativeGasForContractCall",
-    values: [string, string, string, BytesLike, string]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "payNativeGasForContractCallWithToken",
-    values: [string, string, string, BytesLike, string, BigNumberish, string]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "refund",
-    values: [string, string, BigNumberish]
-  ): string;
+  encodeFunctionData(functionFragment: 'refund', values: [string, string, BigNumberish]): string;
 
-  decodeFunctionResult(
-    functionFragment: "collectFees",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(functionFragment: "contractId", data: BytesLike): Result;
-  decodeFunctionResult(
-    functionFragment: "payGasForContractCall",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "payGasForContractCallWithToken",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "payNativeGasForContractCall",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "payNativeGasForContractCallWithToken",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(functionFragment: "refund", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'collectFees', data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'contractId', data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'payGasForContractCall', data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'payGasForContractCallWithToken', data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'payNativeGasForContractCall', data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'payNativeGasForContractCallWithToken', data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'refund', data: BytesLike): Result;
 
   events: {
-    "GasPaidForContractCall(address,string,string,bytes32,address,uint256,address)": EventFragment;
-    "GasPaidForContractCallWithToken(address,string,string,bytes32,string,uint256,address,uint256,address)": EventFragment;
-    "NativeGasPaidForContractCall(address,string,string,bytes32,uint256,address)": EventFragment;
-    "NativeGasPaidForContractCallWithToken(address,string,string,bytes32,string,uint256,uint256,address)": EventFragment;
+    'GasPaidForContractCall(address,string,string,bytes32,address,uint256,address)': EventFragment;
+    'GasPaidForContractCallWithToken(address,string,string,bytes32,string,uint256,address,uint256,address)': EventFragment;
+    'NativeGasPaidForContractCall(address,string,string,bytes32,uint256,address)': EventFragment;
+    'NativeGasPaidForContractCallWithToken(address,string,string,bytes32,string,uint256,uint256,address)': EventFragment;
   };
 
-  getEvent(nameOrSignatureOrTopic: "GasPaidForContractCall"): EventFragment;
-  getEvent(
-    nameOrSignatureOrTopic: "GasPaidForContractCallWithToken"
-  ): EventFragment;
-  getEvent(
-    nameOrSignatureOrTopic: "NativeGasPaidForContractCall"
-  ): EventFragment;
-  getEvent(
-    nameOrSignatureOrTopic: "NativeGasPaidForContractCallWithToken"
-  ): EventFragment;
+  getEvent(nameOrSignatureOrTopic: 'GasPaidForContractCall'): EventFragment;
+  getEvent(nameOrSignatureOrTopic: 'GasPaidForContractCallWithToken'): EventFragment;
+  getEvent(nameOrSignatureOrTopic: 'NativeGasPaidForContractCall'): EventFragment;
+  getEvent(nameOrSignatureOrTopic: 'NativeGasPaidForContractCallWithToken'): EventFragment;
 }
 
 export type GasPaidForContractCallEvent = TypedEvent<
@@ -124,21 +84,10 @@ export type GasPaidForContractCallEvent = TypedEvent<
   }
 >;
 
-export type GasPaidForContractCallEventFilter =
-  TypedEventFilter<GasPaidForContractCallEvent>;
+export type GasPaidForContractCallEventFilter = TypedEventFilter<GasPaidForContractCallEvent>;
 
 export type GasPaidForContractCallWithTokenEvent = TypedEvent<
-  [
-    string,
-    string,
-    string,
-    string,
-    string,
-    BigNumber,
-    string,
-    BigNumber,
-    string
-  ],
+  [string, string, string, string, string, BigNumber, string, BigNumber, string],
   {
     sourceAddress: string;
     destinationChain: string;
@@ -167,8 +116,7 @@ export type NativeGasPaidForContractCallEvent = TypedEvent<
   }
 >;
 
-export type NativeGasPaidForContractCallEventFilter =
-  TypedEventFilter<NativeGasPaidForContractCallEvent>;
+export type NativeGasPaidForContractCallEventFilter = TypedEventFilter<NativeGasPaidForContractCallEvent>;
 
 export type NativeGasPaidForContractCallWithTokenEvent = TypedEvent<
   [string, string, string, string, string, BigNumber, BigNumber, string],
@@ -188,7 +136,7 @@ export type NativeGasPaidForContractCallWithTokenEventFilter =
   TypedEventFilter<NativeGasPaidForContractCallWithTokenEvent>;
 
 export interface DummyAxelarGasService extends BaseContract {
-  contractName: "DummyAxelarGasService";
+  contractName: 'DummyAxelarGasService';
   connect(signerOrProvider: Signer | Provider | string): this;
   attach(addressOrName: string): this;
   deployed(): Promise<this>;
@@ -198,16 +146,12 @@ export interface DummyAxelarGasService extends BaseContract {
   queryFilter<TEvent extends TypedEvent>(
     event: TypedEventFilter<TEvent>,
     fromBlockOrBlockhash?: string | number | undefined,
-    toBlock?: string | number | undefined
+    toBlock?: string | number | undefined,
   ): Promise<Array<TEvent>>;
 
-  listeners<TEvent extends TypedEvent>(
-    eventFilter?: TypedEventFilter<TEvent>
-  ): Array<TypedListener<TEvent>>;
+  listeners<TEvent extends TypedEvent>(eventFilter?: TypedEventFilter<TEvent>): Array<TypedListener<TEvent>>;
   listeners(eventName?: string): Array<Listener>;
-  removeAllListeners<TEvent extends TypedEvent>(
-    eventFilter: TypedEventFilter<TEvent>
-  ): this;
+  removeAllListeners<TEvent extends TypedEvent>(eventFilter: TypedEventFilter<TEvent>): this;
   removeAllListeners(eventName?: string): this;
   off: OnEvent<this>;
   on: OnEvent<this>;
@@ -218,7 +162,7 @@ export interface DummyAxelarGasService extends BaseContract {
     collectFees(
       receiver: string,
       tokens: string[],
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<ContractTransaction>;
 
     contractId(overrides?: CallOverrides): Promise<[string]>;
@@ -231,7 +175,7 @@ export interface DummyAxelarGasService extends BaseContract {
       gasToken: string,
       gasFeeAmount: BigNumberish,
       refundAddress: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<ContractTransaction>;
 
     payGasForContractCallWithToken(
@@ -244,7 +188,7 @@ export interface DummyAxelarGasService extends BaseContract {
       gasToken: string,
       gasFeeAmount: BigNumberish,
       refundAddress: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<ContractTransaction>;
 
     payNativeGasForContractCall(
@@ -253,7 +197,7 @@ export interface DummyAxelarGasService extends BaseContract {
       destinationAddress: string,
       payload: BytesLike,
       refundAddress: string,
-      overrides?: PayableOverrides & { from?: string | Promise<string> }
+      overrides?: PayableOverrides & { from?: string | Promise<string> },
     ): Promise<ContractTransaction>;
 
     payNativeGasForContractCallWithToken(
@@ -264,21 +208,21 @@ export interface DummyAxelarGasService extends BaseContract {
       symbol: string,
       amount: BigNumberish,
       refundAddress: string,
-      overrides?: PayableOverrides & { from?: string | Promise<string> }
+      overrides?: PayableOverrides & { from?: string | Promise<string> },
     ): Promise<ContractTransaction>;
 
     refund(
       receiver: string,
       token: string,
       amount: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<ContractTransaction>;
   };
 
   collectFees(
     receiver: string,
     tokens: string[],
-    overrides?: Overrides & { from?: string | Promise<string> }
+    overrides?: Overrides & { from?: string | Promise<string> },
   ): Promise<ContractTransaction>;
 
   contractId(overrides?: CallOverrides): Promise<string>;
@@ -291,7 +235,7 @@ export interface DummyAxelarGasService extends BaseContract {
     gasToken: string,
     gasFeeAmount: BigNumberish,
     refundAddress: string,
-    overrides?: Overrides & { from?: string | Promise<string> }
+    overrides?: Overrides & { from?: string | Promise<string> },
   ): Promise<ContractTransaction>;
 
   payGasForContractCallWithToken(
@@ -304,7 +248,7 @@ export interface DummyAxelarGasService extends BaseContract {
     gasToken: string,
     gasFeeAmount: BigNumberish,
     refundAddress: string,
-    overrides?: Overrides & { from?: string | Promise<string> }
+    overrides?: Overrides & { from?: string | Promise<string> },
   ): Promise<ContractTransaction>;
 
   payNativeGasForContractCall(
@@ -313,7 +257,7 @@ export interface DummyAxelarGasService extends BaseContract {
     destinationAddress: string,
     payload: BytesLike,
     refundAddress: string,
-    overrides?: PayableOverrides & { from?: string | Promise<string> }
+    overrides?: PayableOverrides & { from?: string | Promise<string> },
   ): Promise<ContractTransaction>;
 
   payNativeGasForContractCallWithToken(
@@ -324,22 +268,18 @@ export interface DummyAxelarGasService extends BaseContract {
     symbol: string,
     amount: BigNumberish,
     refundAddress: string,
-    overrides?: PayableOverrides & { from?: string | Promise<string> }
+    overrides?: PayableOverrides & { from?: string | Promise<string> },
   ): Promise<ContractTransaction>;
 
   refund(
     receiver: string,
     token: string,
     amount: BigNumberish,
-    overrides?: Overrides & { from?: string | Promise<string> }
+    overrides?: Overrides & { from?: string | Promise<string> },
   ): Promise<ContractTransaction>;
 
   callStatic: {
-    collectFees(
-      receiver: string,
-      tokens: string[],
-      overrides?: CallOverrides
-    ): Promise<void>;
+    collectFees(receiver: string, tokens: string[], overrides?: CallOverrides): Promise<void>;
 
     contractId(overrides?: CallOverrides): Promise<string>;
 
@@ -351,7 +291,7 @@ export interface DummyAxelarGasService extends BaseContract {
       gasToken: string,
       gasFeeAmount: BigNumberish,
       refundAddress: string,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<void>;
 
     payGasForContractCallWithToken(
@@ -364,7 +304,7 @@ export interface DummyAxelarGasService extends BaseContract {
       gasToken: string,
       gasFeeAmount: BigNumberish,
       refundAddress: string,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<void>;
 
     payNativeGasForContractCall(
@@ -373,7 +313,7 @@ export interface DummyAxelarGasService extends BaseContract {
       destinationAddress: string,
       payload: BytesLike,
       refundAddress: string,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<void>;
 
     payNativeGasForContractCallWithToken(
@@ -384,26 +324,21 @@ export interface DummyAxelarGasService extends BaseContract {
       symbol: string,
       amount: BigNumberish,
       refundAddress: string,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<void>;
 
-    refund(
-      receiver: string,
-      token: string,
-      amount: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<void>;
+    refund(receiver: string, token: string, amount: BigNumberish, overrides?: CallOverrides): Promise<void>;
   };
 
   filters: {
-    "GasPaidForContractCall(address,string,string,bytes32,address,uint256,address)"(
+    'GasPaidForContractCall(address,string,string,bytes32,address,uint256,address)'(
       sourceAddress?: string | null,
       destinationChain?: null,
       destinationAddress?: null,
       payloadHash?: BytesLike | null,
       gasToken?: null,
       gasFeeAmount?: null,
-      refundAddress?: null
+      refundAddress?: null,
     ): GasPaidForContractCallEventFilter;
     GasPaidForContractCall(
       sourceAddress?: string | null,
@@ -412,10 +347,10 @@ export interface DummyAxelarGasService extends BaseContract {
       payloadHash?: BytesLike | null,
       gasToken?: null,
       gasFeeAmount?: null,
-      refundAddress?: null
+      refundAddress?: null,
     ): GasPaidForContractCallEventFilter;
 
-    "GasPaidForContractCallWithToken(address,string,string,bytes32,string,uint256,address,uint256,address)"(
+    'GasPaidForContractCallWithToken(address,string,string,bytes32,string,uint256,address,uint256,address)'(
       sourceAddress?: string | null,
       destinationChain?: null,
       destinationAddress?: null,
@@ -424,7 +359,7 @@ export interface DummyAxelarGasService extends BaseContract {
       amount?: null,
       gasToken?: null,
       gasFeeAmount?: null,
-      refundAddress?: null
+      refundAddress?: null,
     ): GasPaidForContractCallWithTokenEventFilter;
     GasPaidForContractCallWithToken(
       sourceAddress?: string | null,
@@ -435,16 +370,16 @@ export interface DummyAxelarGasService extends BaseContract {
       amount?: null,
       gasToken?: null,
       gasFeeAmount?: null,
-      refundAddress?: null
+      refundAddress?: null,
     ): GasPaidForContractCallWithTokenEventFilter;
 
-    "NativeGasPaidForContractCall(address,string,string,bytes32,uint256,address)"(
+    'NativeGasPaidForContractCall(address,string,string,bytes32,uint256,address)'(
       sourceAddress?: string | null,
       destinationChain?: null,
       destinationAddress?: null,
       payloadHash?: BytesLike | null,
       gasFeeAmount?: null,
-      refundAddress?: null
+      refundAddress?: null,
     ): NativeGasPaidForContractCallEventFilter;
     NativeGasPaidForContractCall(
       sourceAddress?: string | null,
@@ -452,10 +387,10 @@ export interface DummyAxelarGasService extends BaseContract {
       destinationAddress?: null,
       payloadHash?: BytesLike | null,
       gasFeeAmount?: null,
-      refundAddress?: null
+      refundAddress?: null,
     ): NativeGasPaidForContractCallEventFilter;
 
-    "NativeGasPaidForContractCallWithToken(address,string,string,bytes32,string,uint256,uint256,address)"(
+    'NativeGasPaidForContractCallWithToken(address,string,string,bytes32,string,uint256,uint256,address)'(
       sourceAddress?: string | null,
       destinationChain?: null,
       destinationAddress?: null,
@@ -463,7 +398,7 @@ export interface DummyAxelarGasService extends BaseContract {
       symbol?: null,
       amount?: null,
       gasFeeAmount?: null,
-      refundAddress?: null
+      refundAddress?: null,
     ): NativeGasPaidForContractCallWithTokenEventFilter;
     NativeGasPaidForContractCallWithToken(
       sourceAddress?: string | null,
@@ -473,7 +408,7 @@ export interface DummyAxelarGasService extends BaseContract {
       symbol?: null,
       amount?: null,
       gasFeeAmount?: null,
-      refundAddress?: null
+      refundAddress?: null,
     ): NativeGasPaidForContractCallWithTokenEventFilter;
   };
 
@@ -481,7 +416,7 @@ export interface DummyAxelarGasService extends BaseContract {
     collectFees(
       receiver: string,
       tokens: string[],
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<BigNumber>;
 
     contractId(overrides?: CallOverrides): Promise<BigNumber>;
@@ -494,7 +429,7 @@ export interface DummyAxelarGasService extends BaseContract {
       gasToken: string,
       gasFeeAmount: BigNumberish,
       refundAddress: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<BigNumber>;
 
     payGasForContractCallWithToken(
@@ -507,7 +442,7 @@ export interface DummyAxelarGasService extends BaseContract {
       gasToken: string,
       gasFeeAmount: BigNumberish,
       refundAddress: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<BigNumber>;
 
     payNativeGasForContractCall(
@@ -516,7 +451,7 @@ export interface DummyAxelarGasService extends BaseContract {
       destinationAddress: string,
       payload: BytesLike,
       refundAddress: string,
-      overrides?: PayableOverrides & { from?: string | Promise<string> }
+      overrides?: PayableOverrides & { from?: string | Promise<string> },
     ): Promise<BigNumber>;
 
     payNativeGasForContractCallWithToken(
@@ -527,14 +462,14 @@ export interface DummyAxelarGasService extends BaseContract {
       symbol: string,
       amount: BigNumberish,
       refundAddress: string,
-      overrides?: PayableOverrides & { from?: string | Promise<string> }
+      overrides?: PayableOverrides & { from?: string | Promise<string> },
     ): Promise<BigNumber>;
 
     refund(
       receiver: string,
       token: string,
       amount: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<BigNumber>;
   };
 
@@ -542,7 +477,7 @@ export interface DummyAxelarGasService extends BaseContract {
     collectFees(
       receiver: string,
       tokens: string[],
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<PopulatedTransaction>;
 
     contractId(overrides?: CallOverrides): Promise<PopulatedTransaction>;
@@ -555,7 +490,7 @@ export interface DummyAxelarGasService extends BaseContract {
       gasToken: string,
       gasFeeAmount: BigNumberish,
       refundAddress: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<PopulatedTransaction>;
 
     payGasForContractCallWithToken(
@@ -568,7 +503,7 @@ export interface DummyAxelarGasService extends BaseContract {
       gasToken: string,
       gasFeeAmount: BigNumberish,
       refundAddress: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<PopulatedTransaction>;
 
     payNativeGasForContractCall(
@@ -577,7 +512,7 @@ export interface DummyAxelarGasService extends BaseContract {
       destinationAddress: string,
       payload: BytesLike,
       refundAddress: string,
-      overrides?: PayableOverrides & { from?: string | Promise<string> }
+      overrides?: PayableOverrides & { from?: string | Promise<string> },
     ): Promise<PopulatedTransaction>;
 
     payNativeGasForContractCallWithToken(
@@ -588,14 +523,14 @@ export interface DummyAxelarGasService extends BaseContract {
       symbol: string,
       amount: BigNumberish,
       refundAddress: string,
-      overrides?: PayableOverrides & { from?: string | Promise<string> }
+      overrides?: PayableOverrides & { from?: string | Promise<string> },
     ): Promise<PopulatedTransaction>;
 
     refund(
       receiver: string,
       token: string,
       amount: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<PopulatedTransaction>;
   };
 }

@@ -2,12 +2,9 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import { Contract, Signer, utils } from "ethers";
-import { Provider } from "@ethersproject/providers";
-import type {
-  ICrossChainProxy,
-  ICrossChainProxyInterface,
-} from "../ICrossChainProxy";
+import { Contract, Signer, utils } from 'ethers';
+import { Provider } from '@ethersproject/providers';
+import type { ICrossChainProxy, ICrossChainProxyInterface } from '../ICrossChainProxy';
 
 const _abi = [
   {
@@ -15,54 +12,54 @@ const _abi = [
     inputs: [
       {
         indexed: false,
-        internalType: "address",
-        name: "toContract",
-        type: "address",
+        internalType: 'address',
+        name: 'toContract',
+        type: 'address',
       },
       {
         indexed: false,
-        internalType: "uint256",
-        name: "toChainId",
-        type: "uint256",
+        internalType: 'uint256',
+        name: 'toChainId',
+        type: 'uint256',
       },
       {
         indexed: false,
-        internalType: "address",
-        name: "fromContract",
-        type: "address",
+        internalType: 'address',
+        name: 'fromContract',
+        type: 'address',
       },
       {
         indexed: false,
-        internalType: "bytes",
-        name: "message",
-        type: "bytes",
+        internalType: 'bytes',
+        name: 'message',
+        type: 'bytes',
       },
     ],
-    name: "TBridgeCrossChainMessage",
-    type: "event",
+    name: 'TBridgeCrossChainMessage',
+    type: 'event',
   },
   {
     inputs: [
       {
-        internalType: "address",
-        name: "_toContract",
-        type: "address",
+        internalType: 'address',
+        name: '_toContract',
+        type: 'address',
       },
       {
-        internalType: "uint64",
-        name: "_toChainId",
-        type: "uint64",
+        internalType: 'uint64',
+        name: '_toChainId',
+        type: 'uint64',
       },
       {
-        internalType: "bytes",
-        name: "_message",
-        type: "bytes",
+        internalType: 'bytes',
+        name: '_message',
+        type: 'bytes',
       },
     ],
-    name: "sendMessage",
+    name: 'sendMessage',
     outputs: [],
-    stateMutability: "payable",
-    type: "function",
+    stateMutability: 'payable',
+    type: 'function',
   },
 ];
 
@@ -71,10 +68,7 @@ export class ICrossChainProxy__factory {
   static createInterface(): ICrossChainProxyInterface {
     return new utils.Interface(_abi) as ICrossChainProxyInterface;
   }
-  static connect(
-    address: string,
-    signerOrProvider: Signer | Provider
-  ): ICrossChainProxy {
+  static connect(address: string, signerOrProvider: Signer | Provider): ICrossChainProxy {
     return new Contract(address, _abi, signerOrProvider) as ICrossChainProxy;
   }
 }

@@ -12,32 +12,26 @@ import {
   PopulatedTransaction,
   Signer,
   utils,
-} from "ethers";
-import { FunctionFragment, Result } from "@ethersproject/abi";
-import { Listener, Provider } from "@ethersproject/providers";
-import { TypedEventFilter, TypedEvent, TypedListener, OnEvent } from "./common";
+} from 'ethers';
+import { FunctionFragment, Result } from '@ethersproject/abi';
+import { Listener, Provider } from '@ethersproject/providers';
+import { TypedEventFilter, TypedEvent, TypedListener, OnEvent } from './common';
 
 export interface IMessageSenderAppInterface extends utils.Interface {
-  contractName: "IMessageSenderApp";
+  contractName: 'IMessageSenderApp';
   functions: {
-    "sendMessage(address,uint256,bytes)": FunctionFragment;
+    'sendMessage(address,uint256,bytes)': FunctionFragment;
   };
 
-  encodeFunctionData(
-    functionFragment: "sendMessage",
-    values: [string, BigNumberish, BytesLike]
-  ): string;
+  encodeFunctionData(functionFragment: 'sendMessage', values: [string, BigNumberish, BytesLike]): string;
 
-  decodeFunctionResult(
-    functionFragment: "sendMessage",
-    data: BytesLike
-  ): Result;
+  decodeFunctionResult(functionFragment: 'sendMessage', data: BytesLike): Result;
 
   events: {};
 }
 
 export interface IMessageSenderApp extends BaseContract {
-  contractName: "IMessageSenderApp";
+  contractName: 'IMessageSenderApp';
   connect(signerOrProvider: Signer | Provider | string): this;
   attach(addressOrName: string): this;
   deployed(): Promise<this>;
@@ -47,16 +41,12 @@ export interface IMessageSenderApp extends BaseContract {
   queryFilter<TEvent extends TypedEvent>(
     event: TypedEventFilter<TEvent>,
     fromBlockOrBlockhash?: string | number | undefined,
-    toBlock?: string | number | undefined
+    toBlock?: string | number | undefined,
   ): Promise<Array<TEvent>>;
 
-  listeners<TEvent extends TypedEvent>(
-    eventFilter?: TypedEventFilter<TEvent>
-  ): Array<TypedListener<TEvent>>;
+  listeners<TEvent extends TypedEvent>(eventFilter?: TypedEventFilter<TEvent>): Array<TypedListener<TEvent>>;
   listeners(eventName?: string): Array<Listener>;
-  removeAllListeners<TEvent extends TypedEvent>(
-    eventFilter: TypedEventFilter<TEvent>
-  ): this;
+  removeAllListeners<TEvent extends TypedEvent>(eventFilter: TypedEventFilter<TEvent>): this;
   removeAllListeners(eventName?: string): this;
   off: OnEvent<this>;
   on: OnEvent<this>;
@@ -68,7 +58,7 @@ export interface IMessageSenderApp extends BaseContract {
       _receiver: string,
       _dstChainId: BigNumberish,
       _message: BytesLike,
-      overrides?: PayableOverrides & { from?: string | Promise<string> }
+      overrides?: PayableOverrides & { from?: string | Promise<string> },
     ): Promise<ContractTransaction>;
   };
 
@@ -76,7 +66,7 @@ export interface IMessageSenderApp extends BaseContract {
     _receiver: string,
     _dstChainId: BigNumberish,
     _message: BytesLike,
-    overrides?: PayableOverrides & { from?: string | Promise<string> }
+    overrides?: PayableOverrides & { from?: string | Promise<string> },
   ): Promise<ContractTransaction>;
 
   callStatic: {
@@ -84,7 +74,7 @@ export interface IMessageSenderApp extends BaseContract {
       _receiver: string,
       _dstChainId: BigNumberish,
       _message: BytesLike,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<void>;
   };
 
@@ -95,7 +85,7 @@ export interface IMessageSenderApp extends BaseContract {
       _receiver: string,
       _dstChainId: BigNumberish,
       _message: BytesLike,
-      overrides?: PayableOverrides & { from?: string | Promise<string> }
+      overrides?: PayableOverrides & { from?: string | Promise<string> },
     ): Promise<BigNumber>;
   };
 
@@ -104,7 +94,7 @@ export interface IMessageSenderApp extends BaseContract {
       _receiver: string,
       _dstChainId: BigNumberish,
       _message: BytesLike,
-      overrides?: PayableOverrides & { from?: string | Promise<string> }
+      overrides?: PayableOverrides & { from?: string | Promise<string> },
     ): Promise<PopulatedTransaction>;
   };
 }

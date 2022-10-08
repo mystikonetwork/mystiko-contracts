@@ -12,57 +12,38 @@ import {
   PopulatedTransaction,
   Signer,
   utils,
-} from "ethers";
-import { FunctionFragment, Result } from "@ethersproject/abi";
-import { Listener, Provider } from "@ethersproject/providers";
-import { TypedEventFilter, TypedEvent, TypedListener, OnEvent } from "./common";
+} from 'ethers';
+import { FunctionFragment, Result } from '@ethersproject/abi';
+import { Listener, Provider } from '@ethersproject/providers';
+import { TypedEventFilter, TypedEvent, TypedListener, OnEvent } from './common';
 
-export interface ILayerZeroUserApplicationConfigInterface
-  extends utils.Interface {
-  contractName: "ILayerZeroUserApplicationConfig";
+export interface ILayerZeroUserApplicationConfigInterface extends utils.Interface {
+  contractName: 'ILayerZeroUserApplicationConfig';
   functions: {
-    "forceResumeReceive(uint16,bytes)": FunctionFragment;
-    "setConfig(uint16,uint16,uint256,bytes)": FunctionFragment;
-    "setReceiveVersion(uint16)": FunctionFragment;
-    "setSendVersion(uint16)": FunctionFragment;
+    'forceResumeReceive(uint16,bytes)': FunctionFragment;
+    'setConfig(uint16,uint16,uint256,bytes)': FunctionFragment;
+    'setReceiveVersion(uint16)': FunctionFragment;
+    'setSendVersion(uint16)': FunctionFragment;
   };
 
+  encodeFunctionData(functionFragment: 'forceResumeReceive', values: [BigNumberish, BytesLike]): string;
   encodeFunctionData(
-    functionFragment: "forceResumeReceive",
-    values: [BigNumberish, BytesLike]
+    functionFragment: 'setConfig',
+    values: [BigNumberish, BigNumberish, BigNumberish, BytesLike],
   ): string;
-  encodeFunctionData(
-    functionFragment: "setConfig",
-    values: [BigNumberish, BigNumberish, BigNumberish, BytesLike]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "setReceiveVersion",
-    values: [BigNumberish]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "setSendVersion",
-    values: [BigNumberish]
-  ): string;
+  encodeFunctionData(functionFragment: 'setReceiveVersion', values: [BigNumberish]): string;
+  encodeFunctionData(functionFragment: 'setSendVersion', values: [BigNumberish]): string;
 
-  decodeFunctionResult(
-    functionFragment: "forceResumeReceive",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(functionFragment: "setConfig", data: BytesLike): Result;
-  decodeFunctionResult(
-    functionFragment: "setReceiveVersion",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "setSendVersion",
-    data: BytesLike
-  ): Result;
+  decodeFunctionResult(functionFragment: 'forceResumeReceive', data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'setConfig', data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'setReceiveVersion', data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'setSendVersion', data: BytesLike): Result;
 
   events: {};
 }
 
 export interface ILayerZeroUserApplicationConfig extends BaseContract {
-  contractName: "ILayerZeroUserApplicationConfig";
+  contractName: 'ILayerZeroUserApplicationConfig';
   connect(signerOrProvider: Signer | Provider | string): this;
   attach(addressOrName: string): this;
   deployed(): Promise<this>;
@@ -72,16 +53,12 @@ export interface ILayerZeroUserApplicationConfig extends BaseContract {
   queryFilter<TEvent extends TypedEvent>(
     event: TypedEventFilter<TEvent>,
     fromBlockOrBlockhash?: string | number | undefined,
-    toBlock?: string | number | undefined
+    toBlock?: string | number | undefined,
   ): Promise<Array<TEvent>>;
 
-  listeners<TEvent extends TypedEvent>(
-    eventFilter?: TypedEventFilter<TEvent>
-  ): Array<TypedListener<TEvent>>;
+  listeners<TEvent extends TypedEvent>(eventFilter?: TypedEventFilter<TEvent>): Array<TypedListener<TEvent>>;
   listeners(eventName?: string): Array<Listener>;
-  removeAllListeners<TEvent extends TypedEvent>(
-    eventFilter: TypedEventFilter<TEvent>
-  ): this;
+  removeAllListeners<TEvent extends TypedEvent>(eventFilter: TypedEventFilter<TEvent>): this;
   removeAllListeners(eventName?: string): this;
   off: OnEvent<this>;
   on: OnEvent<this>;
@@ -92,7 +69,7 @@ export interface ILayerZeroUserApplicationConfig extends BaseContract {
     forceResumeReceive(
       _srcChainId: BigNumberish,
       _srcAddress: BytesLike,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<ContractTransaction>;
 
     setConfig(
@@ -100,24 +77,24 @@ export interface ILayerZeroUserApplicationConfig extends BaseContract {
       _chainId: BigNumberish,
       _configType: BigNumberish,
       _config: BytesLike,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<ContractTransaction>;
 
     setReceiveVersion(
       _version: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<ContractTransaction>;
 
     setSendVersion(
       _version: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<ContractTransaction>;
   };
 
   forceResumeReceive(
     _srcChainId: BigNumberish,
     _srcAddress: BytesLike,
-    overrides?: Overrides & { from?: string | Promise<string> }
+    overrides?: Overrides & { from?: string | Promise<string> },
   ): Promise<ContractTransaction>;
 
   setConfig(
@@ -125,24 +102,24 @@ export interface ILayerZeroUserApplicationConfig extends BaseContract {
     _chainId: BigNumberish,
     _configType: BigNumberish,
     _config: BytesLike,
-    overrides?: Overrides & { from?: string | Promise<string> }
+    overrides?: Overrides & { from?: string | Promise<string> },
   ): Promise<ContractTransaction>;
 
   setReceiveVersion(
     _version: BigNumberish,
-    overrides?: Overrides & { from?: string | Promise<string> }
+    overrides?: Overrides & { from?: string | Promise<string> },
   ): Promise<ContractTransaction>;
 
   setSendVersion(
     _version: BigNumberish,
-    overrides?: Overrides & { from?: string | Promise<string> }
+    overrides?: Overrides & { from?: string | Promise<string> },
   ): Promise<ContractTransaction>;
 
   callStatic: {
     forceResumeReceive(
       _srcChainId: BigNumberish,
       _srcAddress: BytesLike,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<void>;
 
     setConfig(
@@ -150,18 +127,12 @@ export interface ILayerZeroUserApplicationConfig extends BaseContract {
       _chainId: BigNumberish,
       _configType: BigNumberish,
       _config: BytesLike,
-      overrides?: CallOverrides
+      overrides?: CallOverrides,
     ): Promise<void>;
 
-    setReceiveVersion(
-      _version: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<void>;
+    setReceiveVersion(_version: BigNumberish, overrides?: CallOverrides): Promise<void>;
 
-    setSendVersion(
-      _version: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<void>;
+    setSendVersion(_version: BigNumberish, overrides?: CallOverrides): Promise<void>;
   };
 
   filters: {};
@@ -170,7 +141,7 @@ export interface ILayerZeroUserApplicationConfig extends BaseContract {
     forceResumeReceive(
       _srcChainId: BigNumberish,
       _srcAddress: BytesLike,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<BigNumber>;
 
     setConfig(
@@ -178,17 +149,17 @@ export interface ILayerZeroUserApplicationConfig extends BaseContract {
       _chainId: BigNumberish,
       _configType: BigNumberish,
       _config: BytesLike,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<BigNumber>;
 
     setReceiveVersion(
       _version: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<BigNumber>;
 
     setSendVersion(
       _version: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<BigNumber>;
   };
 
@@ -196,7 +167,7 @@ export interface ILayerZeroUserApplicationConfig extends BaseContract {
     forceResumeReceive(
       _srcChainId: BigNumberish,
       _srcAddress: BytesLike,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<PopulatedTransaction>;
 
     setConfig(
@@ -204,17 +175,17 @@ export interface ILayerZeroUserApplicationConfig extends BaseContract {
       _chainId: BigNumberish,
       _configType: BigNumberish,
       _config: BytesLike,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<PopulatedTransaction>;
 
     setReceiveVersion(
       _version: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<PopulatedTransaction>;
 
     setSendVersion(
       _version: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<PopulatedTransaction>;
   };
 }
