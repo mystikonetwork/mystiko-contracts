@@ -17,12 +17,11 @@
     "prettier": "yarn prettier:fix",
     "lint": "solhint contracts/**/*.sol",
     "clean": "hardhat clean --config hardhat.dev.config.ts && rm -rf artifacts",
-    "build:contract-core": "lerna run build --scope @mystikonetwork/contracts",
     "build:abi": "lerna run generate:verifier --scope @mystikonetwork/contracts-abi",
     "build:contract-dev": "hardhat compile --config hardhat.dev.config.ts",
     "build:contract-prod": "hardhat compile --config hardhat.prod.config.ts",
-    "build:dev": "yarn clean && yarn build:contract-dev && yarn build:contract-core && yarn build:abi",
-    "build:prod": "yarn clean && yarn build:contract-prod && yarn build:contract-core && yarn build:abi",
+    "build:dev": "yarn clean && yarn build:contract-dev && yarn build:abi",
+    "build:prod": "yarn clean && yarn build:contract-prod && yarn build:abi",
     "build": "yarn build:dev"
   },
   "devDependencies": {
