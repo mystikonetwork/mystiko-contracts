@@ -25,7 +25,9 @@
   "license": "MIT",
   "scripts": {
     "pregenerate": "rm -rf ./src/typechain",
-    "generate": "typechain --target ethers-v5 --out-dir src/typechain '../contracts/artifacts/!(build-info)/**/+([a-zA-Z0-9_]).json' '../contracts/artifactsExternal/**/+([a-zA-Z0-9_]).json'",
+    "generate:core": "rm -rf ./src/typechain/core && typechain --target ethers-v5 --out-dir src/typechain/core '../contracts/artifacts/!(build-info)/**/+([a-zA-Z0-9_]).json' '../contracts/artifactsExternal/**/+([a-zA-Z0-9_]).json'",
+    "generate:verifier": "rm -rf ./src/typechain/verifier && typechain --target ethers-v5 --out-dir src/typechain/verifier '../contracts-verifier/artifacts/!(build-info)/**/+([a-zA-Z0-9_]).json'",
+    "generate": "yarn generate:core && yarn generate:verifier",
     "postgenerate": "yarn prettier:fix && yarn build",
     "build:cjs": "tsc -p ./tsconfig.json",
     "build:esm": "tsc -p ./tsconfig.esm.json",

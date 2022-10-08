@@ -114,6 +114,13 @@ export function getArtifact(contract: string): Promise<Artifact> {
   return artifacts.readArtifact(contract);
 }
 
+export function getArtifactVerifier(contract: string): Promise<Artifact> {
+  const artifactsPath: string = '../contracts-verifier/artifacts';
+  // const artifactsPath: string = "./artifacts";
+  const artifacts = new Artifacts(artifactsPath);
+  return artifacts.readArtifact(contract);
+}
+
 export async function deployCommitmentPoolContracts(
   accounts: Wallet[],
   tokenAddress: string,
@@ -450,51 +457,66 @@ export async function deployDependContracts(accounts: Wallet[]): Promise<DependD
   const hasher3 = await hasher3Factory.deploy();
   await hasher3.deployed();
 
-  const transaction1x0VerifierFactory = (await ethers.getContractFactory(
-    'Transaction1x0Verifier',
+  let verifierArtifact = await getArtifactVerifier('Transaction1x0Verifier');
+  const transaction1x0VerifierFactory = (await ethers.getContractFactoryFromArtifact(
+    verifierArtifact,
   )) as Transaction1x0Verifier__factory;
   const transaction1x0Verifier = await transaction1x0VerifierFactory.connect(accounts[0]).deploy();
   await transaction1x0Verifier.deployed();
 
-  const transaction1x1VerifierFactory = (await ethers.getContractFactory(
-    'Transaction1x1Verifier',
+  verifierArtifact = await getArtifactVerifier('Transaction1x1Verifier');
+  const transaction1x1VerifierFactory = (await ethers.getContractFactoryFromArtifact(
+    verifierArtifact,
   )) as Transaction1x1Verifier__factory;
   const transaction1x1Verifier = await transaction1x1VerifierFactory.connect(accounts[0]).deploy();
   await transaction1x1Verifier.deployed();
 
-  const transaction1x2VerifierFactory = (await ethers.getContractFactory(
-    'Transaction1x2Verifier',
+  verifierArtifact = await getArtifactVerifier('Transaction1x2Verifier');
+  const transaction1x2VerifierFactory = (await ethers.getContractFactoryFromArtifact(
+    verifierArtifact,
   )) as Transaction1x2Verifier__factory;
   const transaction1x2Verifier = await transaction1x2VerifierFactory.connect(accounts[0]).deploy();
   await transaction1x2Verifier.deployed();
 
-  const transaction2x0VerifierFactory = (await ethers.getContractFactory(
-    'Transaction2x0Verifier',
+  verifierArtifact = await getArtifactVerifier('Transaction2x0Verifier');
+  const transaction2x0VerifierFactory = (await ethers.getContractFactoryFromArtifact(
+    verifierArtifact,
   )) as Transaction2x0Verifier__factory;
   const transaction2x0Verifier = await transaction2x0VerifierFactory.connect(accounts[0]).deploy();
   await transaction2x0Verifier.deployed();
 
-  const transaction2x1VerifierFactory = (await ethers.getContractFactory(
-    'Transaction2x1Verifier',
+  verifierArtifact = await getArtifactVerifier('Transaction2x1Verifier');
+  const transaction2x1VerifierFactory = (await ethers.getContractFactoryFromArtifact(
+    verifierArtifact,
   )) as Transaction2x1Verifier__factory;
   const transaction2x1Verifier = await transaction2x1VerifierFactory.connect(accounts[0]).deploy();
   await transaction2x1Verifier.deployed();
 
-  const transaction2x2VerifierFactory = (await ethers.getContractFactory(
-    'Transaction2x2Verifier',
+  verifierArtifact = await getArtifactVerifier('Transaction2x2Verifier');
+  const transaction2x2VerifierFactory = (await ethers.getContractFactoryFromArtifact(
+    verifierArtifact,
   )) as Transaction2x2Verifier__factory;
   const transaction2x2Verifier = await transaction2x2VerifierFactory.connect(accounts[0]).deploy();
   await transaction2x2Verifier.deployed();
 
-  const rollup1Factory = (await ethers.getContractFactory('Rollup1Verifier')) as Rollup1Verifier__factory;
+  verifierArtifact = await getArtifactVerifier('Rollup1Verifier');
+  const rollup1Factory = (await ethers.getContractFactoryFromArtifact(
+    verifierArtifact,
+  )) as Rollup1Verifier__factory;
   const rollup1 = await rollup1Factory.connect(accounts[0]).deploy();
   await rollup1.deployed();
 
-  const rollup4Factory = (await ethers.getContractFactory('Rollup4Verifier')) as Rollup4Verifier__factory;
+  verifierArtifact = await getArtifactVerifier('Rollup4Verifier');
+  const rollup4Factory = (await ethers.getContractFactoryFromArtifact(
+    verifierArtifact,
+  )) as Rollup4Verifier__factory;
   const rollup4 = await rollup4Factory.connect(accounts[0]).deploy();
   await rollup4.deployed();
 
-  const rollup16Factory = (await ethers.getContractFactory('Rollup16Verifier')) as Rollup16Verifier__factory;
+  verifierArtifact = await getArtifactVerifier('Rollup16Verifier');
+  const rollup16Factory = (await ethers.getContractFactoryFromArtifact(
+    verifierArtifact,
+  )) as Rollup16Verifier__factory;
   const rollup16 = await rollup16Factory.connect(accounts[0]).deploy();
   await rollup16.deployed();
 

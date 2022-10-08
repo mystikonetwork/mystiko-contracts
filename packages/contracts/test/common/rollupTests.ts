@@ -134,7 +134,7 @@ export function testRollup(
         commitmentPoolContract
           .connect(rollupAccount)
           .rollup([[proof.proofA, proof.proofB, proof.proofC], `${rollupSize}`, fieldSize, proof.leafHash]),
-      ).to.be.revertedWith('InvalidParam()');
+      ).to.be.revertedWith('Transaction reverted without a reason string'); // revertedWith('InvalidParam()');
     });
 
     it('should revert invalid rollup Size', () => {
