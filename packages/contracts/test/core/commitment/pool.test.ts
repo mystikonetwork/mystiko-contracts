@@ -10,9 +10,11 @@ import {
   Transaction2x0Verifier,
   Transaction2x1Verifier,
   Transaction2x2Verifier,
-  Rollup16Verifier,
   Rollup1Verifier,
+  Rollup2Verifier,
   Rollup4Verifier,
+  Rollup8Verifier,
+  Rollup16Verifier,
   TestToken,
   CommitmentPoolMain,
   CommitmentPoolERC20,
@@ -78,7 +80,9 @@ describe('Test Mystiko pool', () => {
       transaction2x1Verifier,
       transaction2x2Verifier,
       rollup1,
+      rollup2,
       rollup4,
+      rollup8,
       rollup16,
       sanctionList,
     } = await deployDependContracts(accounts);
@@ -102,7 +106,9 @@ describe('Test Mystiko pool', () => {
       transaction2x1Verifier,
       transaction2x2Verifier,
       rollup1,
+      rollup2,
       rollup4,
+      rollup8,
       rollup16,
       pool,
       loop,
@@ -124,7 +130,9 @@ describe('Test Mystiko pool', () => {
   let transaction2x1Verifier: Transaction2x1Verifier;
   let transaction2x2Verifier: Transaction2x2Verifier;
   let rollup1: Rollup1Verifier;
+  let rollup2: Rollup2Verifier;
   let rollup4: Rollup4Verifier;
+  let rollup8: Rollup8Verifier;
   let rollup16: Rollup16Verifier;
   let protocol: MystikoProtocolV2;
 
@@ -148,7 +156,9 @@ describe('Test Mystiko pool', () => {
     transaction2x1Verifier = r.transaction2x1Verifier;
     transaction2x2Verifier = r.transaction2x2Verifier;
     rollup1 = r.rollup1;
+    rollup2 = r.rollup2;
     rollup4 = r.rollup4;
+    rollup8 = r.rollup8;
     rollup16 = r.rollup16;
   });
 
@@ -165,7 +175,7 @@ describe('Test Mystiko pool', () => {
   it('test pool main', async () => {
     const depositAmount = toDecimals(40);
 
-    let queueSize = 21;
+    let queueSize = 31;
     let includedCounter = 0;
     const cmInfo = await constructCommitment(protocol, queueSize, depositAmount.toString());
 
@@ -186,19 +196,25 @@ describe('Test Mystiko pool', () => {
       rollupSize: 16,
       includedCount: 0,
     });
-
-    testRollup('CommitmentPoolMain', protocol, poolMain, rollup4, testToken, accounts, cmInfo.commitments, {
-      rollupSize: 4,
+    testRollup('CommitmentPoolMain', protocol, poolMain, rollup8, testToken, accounts, cmInfo.commitments, {
+      rollupSize: 8,
       includedCount: 16,
     });
-
+    testRollup('CommitmentPoolMain', protocol, poolMain, rollup4, testToken, accounts, cmInfo.commitments, {
+      rollupSize: 4,
+      includedCount: 24,
+    });
+    testRollup('CommitmentPoolMain', protocol, poolMain, rollup2, testToken, accounts, cmInfo.commitments, {
+      rollupSize: 2,
+      includedCount: 28,
+    });
     testRollup('CommitmentPoolMain', protocol, poolMain, rollup1, testToken, accounts, cmInfo.commitments, {
       rollupSize: 1,
-      includedCount: 20,
+      includedCount: 30,
     });
 
     queueSize = 0;
-    includedCounter = 21;
+    includedCounter = 31;
     testTransactRevert(
       'CommitmentPoolMain',
       accounts,
@@ -260,11 +276,11 @@ describe('Test Mystiko pool', () => {
     rollup('CommitmentPoolMain', protocol, poolMain, rollup1, testToken, accounts, cmInfo.commitments, {
       rollupSize: 1,
       rollupFee: toDecimals(1).toString(),
-      includedCount: 21,
+      includedCount: 31,
     });
 
     queueSize = 0;
-    includedCounter = 22;
+    includedCounter = 32;
 
     testTransact(
       'CommitmentPoolMain',
@@ -285,7 +301,7 @@ describe('Test Mystiko pool', () => {
       'circuits/dist/zokrates/dev/Transaction1x2.vkey.gz',
     );
     queueSize = 2;
-    includedCounter = 22;
+    includedCounter = 32;
 
     testTransact(
       'CommitmentPoolMain',
@@ -306,7 +322,7 @@ describe('Test Mystiko pool', () => {
       'circuits/dist/zokrates/dev/Transaction2x0.vkey.gz',
     );
     queueSize = 2;
-    includedCounter = 22;
+    includedCounter = 32;
 
     testTransact(
       'CommitmentPoolMain',
@@ -327,7 +343,7 @@ describe('Test Mystiko pool', () => {
       'circuits/dist/zokrates/dev/Transaction2x1.vkey.gz',
     );
     queueSize = 3;
-    includedCounter = 22;
+    includedCounter = 32;
 
     testTransact(
       'CommitmentPoolMain',
@@ -351,7 +367,7 @@ describe('Test Mystiko pool', () => {
 
   it('test pool erc20', async () => {
     const depositAmount = toDecimals(40);
-    let queueSize = 21;
+    let queueSize = 31;
     let includedCounter = 0;
     const cmInfo = await constructCommitment(protocol, queueSize, depositAmount.toString());
 
@@ -373,19 +389,33 @@ describe('Test Mystiko pool', () => {
       rollupSize: 16,
       includedCount: 0,
     });
+
+    rollup('CommitmentPoolERC20', protocol, poolErc20, rollup8, testToken, accounts, cmInfo.commitments, {
+      isMainAsset: false,
+      rollupSize: 8,
+      includedCount: 16,
+    });
+
     rollup('CommitmentPoolERC20', protocol, poolErc20, rollup4, testToken, accounts, cmInfo.commitments, {
       isMainAsset: false,
       rollupSize: 4,
-      includedCount: 16,
+      includedCount: 24,
     });
+
+    rollup('CommitmentPoolERC20', protocol, poolErc20, rollup2, testToken, accounts, cmInfo.commitments, {
+      isMainAsset: false,
+      rollupSize: 2,
+      includedCount: 28,
+    });
+
     rollup('CommitmentPoolERC20', protocol, poolErc20, rollup1, testToken, accounts, cmInfo.commitments, {
       isMainAsset: false,
       rollupSize: 1,
-      includedCount: 20,
+      includedCount: 30,
     });
 
     queueSize = 0;
-    includedCounter = 21;
+    includedCounter = 31;
     testTransact(
       'CommitmentPoolERC20',
       protocol,
@@ -426,7 +456,7 @@ describe('Test Mystiko pool', () => {
       testToken,
     );
     queueSize = 1;
-    includedCounter = 21;
+    includedCounter = 31;
 
     testTransact(
       'CommitmentPoolERC20',
@@ -448,7 +478,7 @@ describe('Test Mystiko pool', () => {
       testToken,
     );
     queueSize = 3;
-    includedCounter = 21;
+    includedCounter = 31;
 
     testTransact(
       'CommitmentPoolERC20',
@@ -490,7 +520,7 @@ describe('Test Mystiko pool', () => {
       testToken,
     );
     queueSize = 4;
-    includedCounter = 21;
+    includedCounter = 31;
 
     testTransact(
       'CommitmentPoolERC20',

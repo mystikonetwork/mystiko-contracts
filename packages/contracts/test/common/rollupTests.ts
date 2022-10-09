@@ -47,6 +47,14 @@ async function generateProof(
       abiFile: 'circuits/dist/zokrates/dev/Rollup1.abi.json',
       provingKeyFile: 'circuits/dist/zokrates/dev/Rollup1.pkey.gz',
     });
+  } else if (rollupSize === 2) {
+    proof = await protocol.zkProveRollup({
+      tree,
+      newLeaves,
+      programFile: 'circuits/dist/zokrates/dev/Rollup2.program.gz',
+      abiFile: 'circuits/dist/zokrates/dev/Rollup2.abi.json',
+      provingKeyFile: 'circuits/dist/zokrates/dev/Rollup2.pkey.gz',
+    });
   } else if (rollupSize === 4) {
     proof = await protocol.zkProveRollup({
       tree,
@@ -54,6 +62,14 @@ async function generateProof(
       programFile: 'circuits/dist/zokrates/dev/Rollup4.program.gz',
       abiFile: 'circuits/dist/zokrates/dev/Rollup4.abi.json',
       provingKeyFile: 'circuits/dist/zokrates/dev/Rollup4.pkey.gz',
+    });
+  } else if (rollupSize === 8) {
+    proof = await protocol.zkProveRollup({
+      tree,
+      newLeaves,
+      programFile: 'circuits/dist/zokrates/dev/Rollup8.program.gz',
+      abiFile: 'circuits/dist/zokrates/dev/Rollup8.abi.json',
+      provingKeyFile: 'circuits/dist/zokrates/dev/Rollup8.pkey.gz',
     });
   } else if (rollupSize === 16) {
     proof = await protocol.zkProveRollup({
@@ -119,25 +135,25 @@ export function testRollup(
       );
     });
 
-    it('should revert when not in white list', async () => {
-      await commitmentPoolContract.setRollupWhitelistDisabled(false);
-      await expect(
+    it('should revert when not in white list', () => {
+      commitmentPoolContract.setRollupWhitelistDisabled(false);
+      expect(
         commitmentPoolContract
           .connect(accounts[0])
           .rollup([[proof.proofA, proof.proofB, proof.proofC], 1234, proof.newRoot, proof.leafHash]),
       ).to.be.revertedWith('OnlyWhitelistedRoller()');
     });
 
-    it('should revert verifier invalid param', async () => {
+    it('should revert verifier invalid param', () => {
       const fieldSize = '21888242871839275222246405745257275088548364400416034343698204186575808495617';
-      await expect(
+      expect(
         commitmentPoolContract
           .connect(rollupAccount)
           .rollup([[proof.proofA, proof.proofB, proof.proofC], `${rollupSize}`, fieldSize, proof.leafHash]),
       ).to.be.revertedWith('Transaction reverted without a reason string'); // revertedWith('InvalidParam()');
     });
 
-    it('should revert invalid rollup Size', () => {
+    it('should revert invalid rollup Size 0 ', () => {
       expect(
         commitmentPoolContract
           .connect(rollupAccount)
@@ -145,7 +161,7 @@ export function testRollup(
       ).to.be.revertedWith('Invalid("rollupSize")');
     });
 
-    it('should revert invalid rollup Size', () => {
+    it('should revert invalid rollup Size 1234', () => {
       expect(
         commitmentPoolContract
           .connect(rollupAccount)
@@ -153,22 +169,19 @@ export function testRollup(
       ).to.be.revertedWith('Invalid("rollupSize")');
     });
 
-    it('should revert invalid rollup Size', async () => {
-      await commitmentPoolContract.disableRollupVerifier(8);
-      expect(
+    it('should revert invalid rollup Size when disable verifier', async () => {
+      await commitmentPoolContract.disableRollupVerifier(rollupSize);
+      await expect(
         commitmentPoolContract
           .connect(rollupAccount)
-          .rollup([[proof.proofA, proof.proofB, proof.proofC], 8, proof.newRoot, proof.leafHash]),
+          .rollup([
+            [proof.proofA, proof.proofB, proof.proofC],
+            `${rollupSize}`,
+            proof.newRoot,
+            proof.leafHash,
+          ]),
       ).to.be.revertedWith('Invalid("rollupSize")');
-    });
-
-    it('should revert invalid rollup Size', async () => {
-      await commitmentPoolContract.enableRollupVerifier(8, rollupVerifierContract.address);
-      expect(
-        commitmentPoolContract
-          .connect(rollupAccount)
-          .rollup([[proof.proofA, proof.proofB, proof.proofC], 8, proof.newRoot, proof.leafHash]),
-      ).to.be.revertedWith('Invalid("rollupSize")');
+      await commitmentPoolContract.enableRollupVerifier(rollupSize, rollupVerifierContract.address);
     });
 
     it('should revert wrong proof', () => {

@@ -13,8 +13,12 @@ import {
   TestToken__factory,
   Rollup1Verifier__factory,
   Rollup1Verifier,
+  Rollup2Verifier__factory,
+  Rollup2Verifier,
   Rollup4Verifier__factory,
   Rollup4Verifier,
+  Rollup8Verifier__factory,
+  Rollup8Verifier,
   Rollup16Verifier__factory,
   Rollup16Verifier,
   Transaction1x0Verifier__factory,
@@ -102,7 +106,9 @@ interface DependDeploymentInfo {
   transaction2x1Verifier: Transaction2x1Verifier;
   transaction2x2Verifier: Transaction2x2Verifier;
   rollup1: Rollup1Verifier;
+  rollup2: Rollup2Verifier;
   rollup4: Rollup4Verifier;
+  rollup8: Rollup8Verifier;
   rollup16: Rollup16Verifier;
   sanctionList: DummySanctionsList;
 }
@@ -506,12 +512,26 @@ export async function deployDependContracts(accounts: Wallet[]): Promise<DependD
   const rollup1 = await rollup1Factory.connect(accounts[0]).deploy();
   await rollup1.deployed();
 
+  verifierArtifact = await getArtifactVerifier('Rollup2Verifier');
+  const rollup2Factory = (await ethers.getContractFactoryFromArtifact(
+    verifierArtifact,
+  )) as Rollup2Verifier__factory;
+  const rollup2 = await rollup2Factory.connect(accounts[0]).deploy();
+  await rollup2.deployed();
+
   verifierArtifact = await getArtifactVerifier('Rollup4Verifier');
   const rollup4Factory = (await ethers.getContractFactoryFromArtifact(
     verifierArtifact,
   )) as Rollup4Verifier__factory;
   const rollup4 = await rollup4Factory.connect(accounts[0]).deploy();
   await rollup4.deployed();
+
+  verifierArtifact = await getArtifactVerifier('Rollup8Verifier');
+  const rollup8Factory = (await ethers.getContractFactoryFromArtifact(
+    verifierArtifact,
+  )) as Rollup8Verifier__factory;
+  const rollup8 = await rollup8Factory.connect(accounts[0]).deploy();
+  await rollup8.deployed();
 
   verifierArtifact = await getArtifactVerifier('Rollup16Verifier');
   const rollup16Factory = (await ethers.getContractFactoryFromArtifact(
@@ -536,7 +556,9 @@ export async function deployDependContracts(accounts: Wallet[]): Promise<DependD
     transaction2x1Verifier,
     transaction2x2Verifier,
     rollup1,
+    rollup2,
     rollup4,
+    rollup8,
     rollup16,
     sanctionList,
   };
