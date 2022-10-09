@@ -13,8 +13,6 @@ library Pairing {
   uint256 internal constant FIELD_MODULUS =
     21888242871839275222246405745257275088696311157297823662689037894645226208583;
   uint256 internal constant BN_N = 3;
-  uint256 internal constant TWISTBX = 0x2b149d40ceb8aaae81be18991be06ac3b5b4c5e559dbefa33267e6dc24a138e5;
-  uint256 internal constant TWISTBY = 0x9713b03af0fed4cd2cafadeed8fdf4a74fa084e52d1852e4a2bd0685c315d2;
 
   struct G1Point {
     uint256 X;
