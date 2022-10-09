@@ -16,7 +16,7 @@ import {
   MystikoV2Loop__factory,
   MystikoV2TBridge,
   MystikoV2TBridge__factory,
-} from './typechain';
+} from './typechain/core';
 
 export type SupportedContractType =
   | ERC20

@@ -1,0 +1,25 @@
+{
+  "extends": "@tsconfig/recommended/tsconfig.json",
+  "include": [
+    "integration/**/*",
+    "deploy/**/*",
+    "test/**/*",
+    "scripts/**/*",
+    "hardhat.config.ts"
+  ],
+  "compilerOptions": {
+    "lib": ["es6"],
+    "allowJs": true,
+    "declaration": true,
+    "declarationMap": true,
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "sourceMap": true,
+    "sourceRoot": "/",
+    "outDir": "./build/cjs",
+    "typeRoots": ["node_modules/@types", "./src/types"]
+  },
+  "ts-node": {
+    "files": true
+  }
+}

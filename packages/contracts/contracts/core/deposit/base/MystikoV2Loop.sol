@@ -3,7 +3,7 @@ pragma solidity ^0.8.7;
 
 import "../../../libs/asset/AssetPool.sol";
 import "../../../libs/common/CustomErrors.sol";
-import "../../../libs/verifiers/Pairing.sol";
+import "../../../libs/common/DataTypes.sol";
 import "../../../interface/IMystikoLoop.sol";
 import "../../../interface/IHasher3.sol";
 import "../../../interface/ICommitmentPool.sol";
@@ -65,7 +65,7 @@ abstract contract MystikoV2Loop is IMystikoLoop, AssetPool, Sanctions {
     uint256 _amount,
     uint128 _randomS
   ) internal view returns (uint256) {
-    uint256 fieldSize = Pairing.FIELD_SIZE;
+    uint256 fieldSize = DataTypes.FIELD_SIZE;
     if (_hashK >= fieldSize) revert CustomErrors.HashKGreaterThanFieldSize();
     if (_randomS >= fieldSize) revert CustomErrors.RandomSGreaterThanFieldSize();
     return hasher3.poseidon([_hashK, _amount, _randomS]);

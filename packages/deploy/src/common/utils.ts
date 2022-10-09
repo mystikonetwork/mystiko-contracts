@@ -70,6 +70,12 @@ export function writeTomlFile(fileName: string, data: string) {
   }
 }
 
+export function getVerifierArtifact(contract: string): Promise<Artifact> {
+  const artifactsPath: string = '../contracts-verifier/artifacts';
+  const artifacts = new Artifacts(artifactsPath);
+  return artifacts.readArtifact(contract);
+}
+
 export function getExternalArtifact(contract: string): Promise<Artifact> {
   const artifactsPath: string = '../contracts/artifactsExternal';
   const artifacts = new Artifacts(artifactsPath);

@@ -3,7 +3,7 @@ pragma solidity ^0.8.7;
 
 import "../../libs/asset/AssetPool.sol";
 import "../../libs/common/CustomErrors.sol";
-import "../../libs/verifiers/Pairing.sol";
+import "../../libs/common/DataTypes.sol";
 import "../../interface/IHasher3.sol";
 import "../../interface/IVerifier.sol";
 import "../../interface/ICommitmentPool.sol";
@@ -145,7 +145,7 @@ abstract contract CommitmentPool is ICommitmentPool, AssetPool, ReentrancyGuard,
       emit CommitmentIncluded(leaf.commitment);
     }
     commitmentQueueSize -= _request.rollupSize;
-    uint256 expectedLeafHash = uint256(keccak256(abi.encodePacked(leaves))) % Pairing.FIELD_SIZE;
+    uint256 expectedLeafHash = uint256(keccak256(abi.encodePacked(leaves))) % DataTypes.FIELD_SIZE;
     if (_request.leafHash != expectedLeafHash) revert CustomErrors.Invalid("leafHash");
     uint256[] memory inputs = new uint256[](4);
     inputs[0] = currentRoot;

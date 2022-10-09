@@ -10,7 +10,7 @@ import {
   Rollup16Verifier__factory,
   Hasher3__factory,
 } from '@mystikonetwork/contracts-abi';
-import { getExternalArtifact } from '../common/utils';
+import { getExternalArtifact, getVerifierArtifact } from '../common/utils';
 import { saveConfig } from '../config/config';
 
 let Transaction1x0Verifier: Transaction1x0Verifier__factory;
@@ -25,16 +25,50 @@ let Rollup16Verifier: Rollup16Verifier__factory;
 let Hasher3: Hasher3__factory;
 
 export async function initBaseContractFactory(ethers: any) {
-  Rollup1Verifier = await ethers.getContractFactory('Rollup1Verifier');
-  Rollup4Verifier = await ethers.getContractFactory('Rollup4Verifier');
-  Rollup16Verifier = await ethers.getContractFactory('Rollup16Verifier');
+  const Rollup1Artifact = await getVerifierArtifact('Rollup1Verifier');
+  Rollup1Verifier = (await ethers.getContractFactoryFromArtifact(
+    Rollup1Artifact,
+  )) as Rollup1Verifier__factory;
 
-  Transaction1x0Verifier = await ethers.getContractFactory('Transaction1x0Verifier');
-  Transaction1x1Verifier = await ethers.getContractFactory('Transaction1x1Verifier');
-  Transaction1x2Verifier = await ethers.getContractFactory('Transaction1x2Verifier');
-  Transaction2x0Verifier = await ethers.getContractFactory('Transaction2x0Verifier');
-  Transaction2x1Verifier = await ethers.getContractFactory('Transaction2x1Verifier');
-  Transaction2x2Verifier = await ethers.getContractFactory('Transaction2x2Verifier');
+  const Rollup4Artifact = await getVerifierArtifact('Rollup4Verifier');
+  Rollup4Verifier = (await ethers.getContractFactoryFromArtifact(
+    Rollup4Artifact,
+  )) as Rollup4Verifier__factory;
+
+  const Rollup16Artifact = await getVerifierArtifact('Rollup16Verifier');
+  Rollup16Verifier = (await ethers.getContractFactoryFromArtifact(
+    Rollup16Artifact,
+  )) as Rollup16Verifier__factory;
+
+  const Transaction1x0Artifact = await getVerifierArtifact('Transaction1x0Verifier');
+  Transaction1x0Verifier = (await ethers.getContractFactoryFromArtifact(
+    Transaction1x0Artifact,
+  )) as Transaction1x0Verifier__factory;
+
+  const Transaction1x1Artifact = await getVerifierArtifact('Transaction1x1Verifier');
+  Transaction1x1Verifier = (await ethers.getContractFactoryFromArtifact(
+    Transaction1x1Artifact,
+  )) as Transaction1x1Verifier__factory;
+
+  const Transaction1x2Artifact = await getVerifierArtifact('Transaction1x2Verifier');
+  Transaction1x2Verifier = (await ethers.getContractFactoryFromArtifact(
+    Transaction1x2Artifact,
+  )) as Transaction1x2Verifier__factory;
+
+  const Transaction2x0Artifact = await getVerifierArtifact('Transaction2x0Verifier');
+  Transaction2x0Verifier = (await ethers.getContractFactoryFromArtifact(
+    Transaction2x0Artifact,
+  )) as Transaction2x0Verifier__factory;
+
+  const Transaction2x1Artifact = await getVerifierArtifact('Transaction2x1Verifier');
+  Transaction2x1Verifier = (await ethers.getContractFactoryFromArtifact(
+    Transaction2x1Artifact,
+  )) as Transaction2x1Verifier__factory;
+
+  const Transaction2x2Artifact = await getVerifierArtifact('Transaction2x2Verifier');
+  Transaction2x2Verifier = (await ethers.getContractFactoryFromArtifact(
+    Transaction2x2Artifact,
+  )) as Transaction2x2Verifier__factory;
 
   const Hasher3Artifact = await getExternalArtifact('Hasher3');
   Hasher3 = (await ethers.getContractFactoryFromArtifact(Hasher3Artifact)) as Hasher3__factory;
