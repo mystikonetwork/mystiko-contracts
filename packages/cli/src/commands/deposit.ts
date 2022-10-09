@@ -55,12 +55,14 @@ export default class Deposit extends Base<typeof Deposit> {
       amount = this.iConfig!.mainAmount;
     }
 
-    return this.iWallet?.deposit(<DepositOptions>{
+    await this.iWallet?.deposit(<DepositOptions>{
       amount: amount,
       assetSymbol: args.token,
       bridge: flags.bridge as BridgeType,
       srcChainId: flags.from,
       dstChainId: flags.to ?? flags.from,
     });
+
+    this.exit();
   }
 }

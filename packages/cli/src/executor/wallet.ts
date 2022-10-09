@@ -25,14 +25,20 @@ export class WalletExecutor extends CommandLineExecutor implements IWallet {
       signer: client.signers!.privateKey,
     };
 
-    client.deposits?.create(depositOption).then(async (resp) => {
-      await resp.depositPromise;
-      this.logger.info(
-        `[srcChainId: ${depositOption.srcChainId} to dstChainId: ${depositOption.dstChainId}]` +
-          `[${depositOption.assetSymbol}][bridge:${depositOption.bridge}] Deposit successful`,
-      );
+    return new Promise((resolve, reject) => {
+      client.deposits?.create(depositOption).then((resp) => {
+        resp.depositPromise
+          .then(() => {
+            this.logger.info(
+              `[srcChainId: ${depositOption.srcChainId} to dstChainId: ${depositOption.dstChainId}]` +
+                `[${depositOption.assetSymbol}][bridge:${depositOption.bridge}] Deposit successful`,
+            );
+            resolve();
+          })
+          .catch((error) => {
+            reject(error);
+          });
+      });
     });
-
-    return Promise.resolve();
   }
 }

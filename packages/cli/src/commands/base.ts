@@ -32,17 +32,17 @@ export abstract class Base<T extends typeof Command> extends Command {
 
     this.iConfig = new ConfigFactory(flags.env).getConfig();
     if (!this.iConfig) {
-      super.error('config is undefined');
+      this.error('config is undefined');
     }
 
     this.iContext = await new DefaultContextFactory(this.iConfig).createCommandLineContext();
     if (!this.iContext) {
-      super.error('context is undefined');
+      this.error('context is undefined');
     }
 
     this.iWallet = new WalletExecutorFactory(this.iContext).getWalletExecutor();
     if (!this.iWallet) {
-      super.error('wallet is undefined');
+      this.error('wallet is undefined');
     }
   }
 }
