@@ -1,34 +1,28 @@
 import { Wallet } from '@ethersproject/wallet';
-import { ZokratesNodeProverFactory } from '@mystikonetwork/zkp-node';
-import { waffle } from 'hardhat';
 import {
+  CommitmentPoolERC20,
+  CommitmentPoolMain,
+  DummySanctionsList,
   MystikoV2LoopERC20,
   MystikoV2LoopMain,
+  Rollup16Verifier,
+  Rollup1Verifier,
+  Rollup2Verifier,
+  Rollup4Verifier,
+  Rollup8Verifier,
+  TestToken,
   Transaction1x0Verifier,
   Transaction1x1Verifier,
   Transaction1x2Verifier,
   Transaction2x0Verifier,
   Transaction2x1Verifier,
   Transaction2x2Verifier,
-  Rollup1Verifier,
-  Rollup2Verifier,
-  Rollup4Verifier,
-  Rollup8Verifier,
-  Rollup16Verifier,
-  TestToken,
-  CommitmentPoolMain,
-  CommitmentPoolERC20,
-  DummySanctionsList,
 } from '@mystikonetwork/contracts-abi';
 import { MystikoProtocolV2, ProtocolFactoryV2 } from '@mystikonetwork/protocol';
 import { toBN, toDecimals } from '@mystikonetwork/utils';
+import { ZokratesNodeProverFactory } from '@mystikonetwork/zkp-node';
 import { expect } from 'chai';
-import {
-  deployLoopContracts,
-  deployDependContracts,
-  loadFixture,
-  deployCommitmentPoolContracts,
-} from '../../util/common';
+import { waffle } from 'hardhat';
 import {
   constructCommitment,
   testCommitmentPoolAdminOperations,
@@ -37,8 +31,15 @@ import {
   testRollup,
   testTransact,
 } from '../../common';
-import { testTransactRevert } from '../../common/transactTests';
 import { rollup } from '../../common/rollupTests';
+import { testTransactRevert } from '../../common/transactTests';
+import {
+  deployCommitmentPoolContracts,
+  deployDependContracts,
+  deployLoopContracts,
+  loadFixture,
+} from '../../util/common';
+import { CircuitsPath } from '../../util/constants';
 
 describe('Test Mystiko pool tree', () => {
   it('test pool tree', async () => {
@@ -230,9 +231,9 @@ describe('Test Mystiko pool', () => {
       toBN(0),
       [],
       [],
-      'circuits/dist/zokrates/dev/Transaction1x0.program.gz',
-      'circuits/dist/zokrates/dev/Transaction1x0.abi.json',
-      'circuits/dist/zokrates/dev/Transaction1x0.pkey.gz',
+      CircuitsPath.concat('Transaction1x0.program.gz'),
+      CircuitsPath.concat('Transaction1x0.abi.json'),
+      CircuitsPath.concat('Transaction1x0.pkey.gz'),
     );
 
     testTransact(
@@ -248,10 +249,10 @@ describe('Test Mystiko pool', () => {
       toBN(0),
       [],
       [],
-      'circuits/dist/zokrates/dev/Transaction1x0.program.gz',
-      'circuits/dist/zokrates/dev/Transaction1x0.abi.json',
-      'circuits/dist/zokrates/dev/Transaction1x0.pkey.gz',
-      'circuits/dist/zokrates/dev/Transaction1x0.vkey.gz',
+      CircuitsPath.concat('Transaction1x0.program.gz'),
+      CircuitsPath.concat('Transaction1x0.abi.json'),
+      CircuitsPath.concat('Transaction1x0.pkey.gz'),
+      CircuitsPath.concat('Transaction1x0.vkey.gz'),
     );
 
     testTransact(
@@ -267,10 +268,10 @@ describe('Test Mystiko pool', () => {
       toDecimals(1),
       [toDecimals(10)],
       [toDecimals(1)],
-      'circuits/dist/zokrates/dev/Transaction1x1.program.gz',
-      'circuits/dist/zokrates/dev/Transaction1x1.abi.json',
-      'circuits/dist/zokrates/dev/Transaction1x1.pkey.gz',
-      'circuits/dist/zokrates/dev/Transaction1x1.vkey.gz',
+      CircuitsPath.concat('Transaction1x1.program.gz'),
+      CircuitsPath.concat('Transaction1x1.abi.json'),
+      CircuitsPath.concat('Transaction1x1.pkey.gz'),
+      CircuitsPath.concat('Transaction1x1.vkey.gz'),
     );
 
     rollup('CommitmentPoolMain', protocol, poolMain, rollup1, testToken, accounts, cmInfo.commitments, {
@@ -295,10 +296,10 @@ describe('Test Mystiko pool', () => {
       toDecimals(1),
       [toDecimals(10), toDecimals(10)],
       [toDecimals(1), toDecimals(1)],
-      'circuits/dist/zokrates/dev/Transaction1x2.program.gz',
-      'circuits/dist/zokrates/dev/Transaction1x2.abi.json',
-      'circuits/dist/zokrates/dev/Transaction1x2.pkey.gz',
-      'circuits/dist/zokrates/dev/Transaction1x2.vkey.gz',
+      CircuitsPath.concat('Transaction1x2.program.gz'),
+      CircuitsPath.concat('Transaction1x2.abi.json'),
+      CircuitsPath.concat('Transaction1x2.pkey.gz'),
+      CircuitsPath.concat('Transaction1x2.vkey.gz'),
     );
     queueSize = 2;
     includedCounter = 32;
@@ -316,10 +317,10 @@ describe('Test Mystiko pool', () => {
       toDecimals(1),
       [],
       [],
-      'circuits/dist/zokrates/dev/Transaction2x0.program.gz',
-      'circuits/dist/zokrates/dev/Transaction2x0.abi.json',
-      'circuits/dist/zokrates/dev/Transaction2x0.pkey.gz',
-      'circuits/dist/zokrates/dev/Transaction2x0.vkey.gz',
+      CircuitsPath.concat('Transaction2x0.program.gz'),
+      CircuitsPath.concat('Transaction2x0.abi.json'),
+      CircuitsPath.concat('Transaction2x0.pkey.gz'),
+      CircuitsPath.concat('Transaction2x0.vkey.gz'),
     );
     queueSize = 2;
     includedCounter = 32;
@@ -337,10 +338,10 @@ describe('Test Mystiko pool', () => {
       toDecimals(1),
       [toDecimals(10)],
       [toDecimals(1)],
-      'circuits/dist/zokrates/dev/Transaction2x1.program.gz',
-      'circuits/dist/zokrates/dev/Transaction2x1.abi.json',
-      'circuits/dist/zokrates/dev/Transaction2x1.pkey.gz',
-      'circuits/dist/zokrates/dev/Transaction2x1.vkey.gz',
+      CircuitsPath.concat('Transaction2x1.program.gz'),
+      CircuitsPath.concat('Transaction2x1.abi.json'),
+      CircuitsPath.concat('Transaction2x1.pkey.gz'),
+      CircuitsPath.concat('Transaction2x1.vkey.gz'),
     );
     queueSize = 3;
     includedCounter = 32;
@@ -358,10 +359,10 @@ describe('Test Mystiko pool', () => {
       toDecimals(1),
       [toDecimals(10), toDecimals(10)],
       [toDecimals(1), toDecimals(1)],
-      'circuits/dist/zokrates/dev/Transaction2x2.program.gz',
-      'circuits/dist/zokrates/dev/Transaction2x2.abi.json',
-      'circuits/dist/zokrates/dev/Transaction2x2.pkey.gz',
-      'circuits/dist/zokrates/dev/Transaction2x2.vkey.gz',
+      CircuitsPath.concat('Transaction2x2.program.gz'),
+      CircuitsPath.concat('Transaction2x2.abi.json'),
+      CircuitsPath.concat('Transaction2x2.pkey.gz'),
+      CircuitsPath.concat('Transaction2x2.vkey.gz'),
     );
   });
 
@@ -429,10 +430,10 @@ describe('Test Mystiko pool', () => {
       toBN(0),
       [],
       [],
-      'circuits/dist/zokrates/dev/Transaction1x0.program.gz',
-      'circuits/dist/zokrates/dev/Transaction1x0.abi.json',
-      'circuits/dist/zokrates/dev/Transaction1x0.pkey.gz',
-      'circuits/dist/zokrates/dev/Transaction1x0.vkey.gz',
+      CircuitsPath.concat('Transaction1x0.program.gz'),
+      CircuitsPath.concat('Transaction1x0.abi.json'),
+      CircuitsPath.concat('Transaction1x0.pkey.gz'),
+      CircuitsPath.concat('Transaction1x0.vkey.gz'),
       testToken,
     );
 
@@ -449,10 +450,10 @@ describe('Test Mystiko pool', () => {
       toDecimals(1),
       [toDecimals(10)],
       [toDecimals(1)],
-      'circuits/dist/zokrates/dev/Transaction1x1.program.gz',
-      'circuits/dist/zokrates/dev/Transaction1x1.abi.json',
-      'circuits/dist/zokrates/dev/Transaction1x1.pkey.gz',
-      'circuits/dist/zokrates/dev/Transaction1x1.vkey.gz',
+      CircuitsPath.concat('Transaction1x1.program.gz'),
+      CircuitsPath.concat('Transaction1x1.abi.json'),
+      CircuitsPath.concat('Transaction1x1.pkey.gz'),
+      CircuitsPath.concat('Transaction1x1.vkey.gz'),
       testToken,
     );
     queueSize = 1;
@@ -471,10 +472,10 @@ describe('Test Mystiko pool', () => {
       toDecimals(1),
       [toDecimals(10), toDecimals(10)],
       [toDecimals(1), toDecimals(1)],
-      'circuits/dist/zokrates/dev/Transaction1x2.program.gz',
-      'circuits/dist/zokrates/dev/Transaction1x2.abi.json',
-      'circuits/dist/zokrates/dev/Transaction1x2.pkey.gz',
-      'circuits/dist/zokrates/dev/Transaction1x2.vkey.gz',
+      CircuitsPath.concat('Transaction1x2.program.gz'),
+      CircuitsPath.concat('Transaction1x2.abi.json'),
+      CircuitsPath.concat('Transaction1x2.pkey.gz'),
+      CircuitsPath.concat('Transaction1x2.vkey.gz'),
       testToken,
     );
     queueSize = 3;
@@ -493,10 +494,10 @@ describe('Test Mystiko pool', () => {
       toDecimals(1),
       [],
       [],
-      'circuits/dist/zokrates/dev/Transaction2x0.program.gz',
-      'circuits/dist/zokrates/dev/Transaction2x0.abi.json',
-      'circuits/dist/zokrates/dev/Transaction2x0.pkey.gz',
-      'circuits/dist/zokrates/dev/Transaction2x0.vkey.gz',
+      CircuitsPath.concat('Transaction2x0.program.gz'),
+      CircuitsPath.concat('Transaction2x0.abi.json'),
+      CircuitsPath.concat('Transaction2x0.pkey.gz'),
+      CircuitsPath.concat('Transaction2x0.vkey.gz'),
       testToken,
     );
 
@@ -513,10 +514,10 @@ describe('Test Mystiko pool', () => {
       toDecimals(1),
       [toDecimals(10)],
       [toDecimals(1)],
-      'circuits/dist/zokrates/dev/Transaction2x1.program.gz',
-      'circuits/dist/zokrates/dev/Transaction2x1.abi.json',
-      'circuits/dist/zokrates/dev/Transaction2x1.pkey.gz',
-      'circuits/dist/zokrates/dev/Transaction2x1.vkey.gz',
+      CircuitsPath.concat('Transaction2x1.program.gz'),
+      CircuitsPath.concat('Transaction2x1.abi.json'),
+      CircuitsPath.concat('Transaction2x1.pkey.gz'),
+      CircuitsPath.concat('Transaction2x1.vkey.gz'),
       testToken,
     );
     queueSize = 4;
@@ -535,10 +536,10 @@ describe('Test Mystiko pool', () => {
       toDecimals(1),
       [toDecimals(10), toDecimals(10)],
       [toDecimals(1), toDecimals(1)],
-      'circuits/dist/zokrates/dev/Transaction2x2.program.gz',
-      'circuits/dist/zokrates/dev/Transaction2x2.abi.json',
-      'circuits/dist/zokrates/dev/Transaction2x2.pkey.gz',
-      'circuits/dist/zokrates/dev/Transaction2x2.vkey.gz',
+      CircuitsPath.concat('Transaction2x2.program.gz'),
+      CircuitsPath.concat('Transaction2x2.abi.json'),
+      CircuitsPath.concat('Transaction2x2.pkey.gz'),
+      CircuitsPath.concat('Transaction2x2.vkey.gz'),
       testToken,
     );
   });

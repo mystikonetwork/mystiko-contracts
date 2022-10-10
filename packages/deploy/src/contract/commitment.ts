@@ -112,6 +112,38 @@ async function setCommitmentPoolRollup1Verifier(
   }
 }
 
+async function setCommitmentPoolRollup2Verifier(
+  c: any,
+  erc20: boolean,
+  inPoolCfg: PoolDeployConfig,
+  chainCfg: ChainConfig,
+) {
+  if (chainCfg.rollup2Address === undefined) {
+    console.error(LOGRED, 'rollup2 address not exist');
+    process.exit(1);
+  }
+
+  if (!inPoolCfg.isRollup2VerifierChange(chainCfg.rollup2Address)) {
+    return;
+  }
+
+  const poolCfg = inPoolCfg;
+
+  console.log('set commitment pool rollup2 verifier');
+  const PoolContractFactory = getMystikoPoolContract(erc20);
+  const poolContract = await PoolContractFactory.attach(poolCfg.address);
+  try {
+    const rsp = await poolContract.enableRollupVerifier(2, chainCfg.rollup2Address);
+    console.log('rsp hash ', rsp.hash);
+    await waitConfirm(rsp, true);
+    poolCfg.updateRollup2Verifier(chainCfg.rollup2Address);
+    saveConfig(c.mystikoNetwork, c.cfg);
+  } catch (err: any) {
+    console.error(LOGRED, err);
+    process.exit(1);
+  }
+}
+
 async function setCommitmentPoolRollup4Verifier(
   c: any,
   erc20: boolean,
@@ -137,6 +169,38 @@ async function setCommitmentPoolRollup4Verifier(
     console.log('rsp hash ', rsp.hash);
     await waitConfirm(rsp, true);
     poolCfg.updateRollup4Verifier(chainCfg.rollup4Address);
+    saveConfig(c.mystikoNetwork, c.cfg);
+  } catch (err: any) {
+    console.error(LOGRED, err);
+    process.exit(1);
+  }
+}
+
+async function setCommitmentPoolRollup8Verifier(
+  c: any,
+  erc20: boolean,
+  inPoolCfg: PoolDeployConfig,
+  chainCfg: ChainConfig,
+) {
+  if (chainCfg.rollup8Address === undefined) {
+    console.error(LOGRED, 'rollup8 address not exist');
+    process.exit(1);
+  }
+
+  if (!inPoolCfg.isRollup8VerifierChange(chainCfg.rollup8Address)) {
+    return;
+  }
+
+  const poolCfg = inPoolCfg;
+
+  console.log('set commitment pool rollup8 verifier');
+  const PoolContractFactory = getMystikoPoolContract(erc20);
+  const poolContract = await PoolContractFactory.attach(poolCfg.address);
+  try {
+    const rsp = await poolContract.enableRollupVerifier(8, chainCfg.rollup8Address);
+    console.log('rsp hash ', rsp.hash);
+    await waitConfirm(rsp, true);
+    poolCfg.updateRollup8Verifier(chainCfg.rollup8Address);
     saveConfig(c.mystikoNetwork, c.cfg);
   } catch (err: any) {
     console.error(LOGRED, err);
@@ -374,7 +438,9 @@ export async function setCommitmentPoolVerifier(
   chainCfg: ChainConfig,
 ) {
   await setCommitmentPoolRollup1Verifier(c, erc20, poolCfg, chainCfg);
+  await setCommitmentPoolRollup2Verifier(c, erc20, poolCfg, chainCfg);
   await setCommitmentPoolRollup4Verifier(c, erc20, poolCfg, chainCfg);
+  await setCommitmentPoolRollup8Verifier(c, erc20, poolCfg, chainCfg);
   await setCommitmentPoolRollup16Verifier(c, erc20, poolCfg, chainCfg);
   await setCommitmentPoolTransact1x0Verifier(c, erc20, poolCfg, chainCfg);
   await setCommitmentPoolTransact1x1Verifier(c, erc20, poolCfg, chainCfg);
@@ -483,6 +549,41 @@ export async function addRollupWhitelist(
   /* eslint-enable no-await-in-loop */
 }
 
+export async function setAuditor(
+  c: any,
+  erc20: boolean,
+  poolCfg: PoolDeployConfig,
+  index: number,
+  auditor: string,
+) {
+  if (poolCfg.isInAuditors(auditor)) {
+    return;
+  }
+
+  console.log('add auditor');
+  const PoolContractFactory = getMystikoPoolContract(erc20);
+  const pool = await PoolContractFactory.attach(poolCfg.address);
+
+  try {
+    const rsp = await pool.updateAuditorPublicKey(index, auditor);
+    console.log('rsp hash ', rsp.hash);
+    await waitConfirm(rsp, true);
+    poolCfg.addAuditor(auditor);
+    saveConfig(c.mystikoNetwork, c.cfg);
+  } catch (err: any) {
+    console.error(LOGRED, err);
+    process.exit(1);
+  }
+}
+
+export async function addAuditors(c: any, erc20: boolean, inPoolCfg: PoolDeployConfig, auditors: string[]) {
+  /* eslint-disable no-await-in-loop */
+  for (let i = 0; i < auditors.length; i += 1) {
+    await setAuditor(c, erc20, inPoolCfg, i, auditors[i]);
+  }
+  /* eslint-enable no-await-in-loop */
+}
+
 export async function addEnqueueWhitelist(
   c: any,
   erc20: boolean,
@@ -551,6 +652,7 @@ export async function doCommitmentPoolConfigure(
   await setCommitmentPoolRollupFee(c, chainTokenCfg.erc20, poolCfg, chainTokenCfg);
   await setCommitmentPoolVerifier(c, chainTokenCfg.erc20, poolCfg, chainCfg);
   await addRollupWhitelist(c, chainTokenCfg.erc20, poolCfg, operatorCfg.rollers);
+  await addAuditors(c, chainTokenCfg.erc20, poolCfg, operatorCfg.auditors);
 
   if (operatorCfg.admin !== '') {
     await changeOperator(c, chainTokenCfg.erc20, poolCfg, operatorCfg.admin);

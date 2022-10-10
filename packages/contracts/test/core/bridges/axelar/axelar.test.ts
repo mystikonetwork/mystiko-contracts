@@ -1,29 +1,29 @@
 import { Wallet } from '@ethersproject/wallet';
-import { ZokratesNodeProverFactory } from '@mystikonetwork/zkp-node';
-import { waffle } from 'hardhat';
-import { toDecimals } from '@mystikonetwork/utils';
 import {
-  TestToken,
   CommitmentPoolMain,
+  DummyAxelarGasService,
+  DummyAxelarGateway,
   DummySanctionsList,
   MystikoV2LayerZeroMain,
-  DummyAxelarGateway,
-  DummyAxelarGasService,
+  TestToken,
 } from '@mystikonetwork/contracts-abi';
 import { MystikoProtocolV2, ProtocolFactoryV2 } from '@mystikonetwork/protocol';
-import {
-  deployDependContracts,
-  loadFixture,
-  deployCommitmentPoolContracts,
-  deployDummyAxelarGateway,
-  deployAxelarContracts,
-  deployDummyAxelarGasService,
-} from '../../../util/common';
+import { toDecimals } from '@mystikonetwork/utils';
+import { ZokratesNodeProverFactory } from '@mystikonetwork/zkp-node';
+import { waffle } from 'hardhat';
 import { constructCommitment, testBridgeConstructor } from '../../../common';
+import { testAxelarDeposit } from '../../../common/depositAxelarTests';
+import {
+  deployAxelarContracts,
+  deployCommitmentPoolContracts,
+  deployDependContracts,
+  deployDummyAxelarGasService,
+  deployDummyAxelarGateway,
+  loadFixture,
+} from '../../../util/common';
 
 // @ts-ignore
 import { MaxAmount, MinAmount, MinBridgeFee, MinRollupFee } from '../../../util/constants';
-import { testAxelarDeposit } from '../../../common/depositAxelarTests';
 
 describe('Test Mystiko axelar', () => {
   async function fixture(accounts: Wallet[]) {

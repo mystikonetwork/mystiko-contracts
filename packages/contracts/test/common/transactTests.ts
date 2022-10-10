@@ -7,8 +7,8 @@ import { ZKProof } from '@mystikonetwork/zkp';
 import BN from 'bn.js';
 import { expect } from 'chai';
 import { ethers } from 'ethers';
-import { CommitmentInfo } from './commitment';
 import { getBalance } from '../util/common';
+import { CommitmentInfo } from './commitment';
 
 function generateSignatureKeys(): { wallet: ethers.Wallet; pk: Buffer; sk: Buffer } {
   const wallet = ethers.Wallet.createRandom();

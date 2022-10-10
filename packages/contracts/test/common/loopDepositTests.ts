@@ -1,11 +1,11 @@
-import { expect } from 'chai';
-import { waffle } from 'hardhat';
 import { Wallet } from '@ethersproject/wallet';
 import { DummySanctionsList, TestToken } from '@mystikonetwork/contracts-abi';
 import { CommitmentOutput, MystikoProtocolV2 } from '@mystikonetwork/protocol';
-import { toHex, toBN } from '@mystikonetwork/utils';
-import { CommitmentInfo } from './commitment';
+import { toBN, toHex } from '@mystikonetwork/utils';
+import { expect } from 'chai';
+import { waffle } from 'hardhat';
 import { MaxAmount, MinAmount } from '../util/constants';
+import { CommitmentInfo } from './commitment';
 
 export function testLoopDeposit(
   contractName: string,

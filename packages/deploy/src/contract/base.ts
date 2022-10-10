@@ -6,7 +6,9 @@ import {
   Transaction2x1Verifier__factory,
   Transaction2x2Verifier__factory,
   Rollup1Verifier__factory,
+  Rollup2Verifier__factory,
   Rollup4Verifier__factory,
+  Rollup8Verifier__factory,
   Rollup16Verifier__factory,
   Hasher3__factory,
 } from '@mystikonetwork/contracts-abi';
@@ -20,7 +22,9 @@ let Transaction2x0Verifier: Transaction2x0Verifier__factory;
 let Transaction2x1Verifier: Transaction2x1Verifier__factory;
 let Transaction2x2Verifier: Transaction2x2Verifier__factory;
 let Rollup1Verifier: Rollup1Verifier__factory;
+let Rollup2Verifier: Rollup2Verifier__factory;
 let Rollup4Verifier: Rollup4Verifier__factory;
+let Rollup8Verifier: Rollup8Verifier__factory;
 let Rollup16Verifier: Rollup16Verifier__factory;
 let Hasher3: Hasher3__factory;
 
@@ -30,10 +34,20 @@ export async function initBaseContractFactory(ethers: any) {
     Rollup1Artifact,
   )) as Rollup1Verifier__factory;
 
+  const Rollup2Artifact = await getVerifierArtifact('Rollup2Verifier');
+  Rollup2Verifier = (await ethers.getContractFactoryFromArtifact(
+    Rollup2Artifact,
+  )) as Rollup2Verifier__factory;
+
   const Rollup4Artifact = await getVerifierArtifact('Rollup4Verifier');
   Rollup4Verifier = (await ethers.getContractFactoryFromArtifact(
     Rollup4Artifact,
   )) as Rollup4Verifier__factory;
+
+  const Rollup8Artifact = await getVerifierArtifact('Rollup8Verifier');
+  Rollup8Verifier = (await ethers.getContractFactoryFromArtifact(
+    Rollup8Artifact,
+  )) as Rollup8Verifier__factory;
 
   const Rollup16Artifact = await getVerifierArtifact('Rollup16Verifier');
   Rollup16Verifier = (await ethers.getContractFactoryFromArtifact(
@@ -102,6 +116,16 @@ export async function deployBaseContract(c: any) {
     saveConfig(c.mystikoNetwork, c.cfg);
   }
 
+  if (chainCfg.rollup2Address === undefined) {
+    console.log('deploy rollup2 verifier');
+    const rollup2 = await Rollup2Verifier.deploy();
+    await rollup2.deployed();
+    const rollup2VerifierAddress = rollup2.address;
+    console.log('rollup2 verifier address: ', rollup2VerifierAddress);
+    chainCfg.rollup2Address = rollup2VerifierAddress;
+    saveConfig(c.mystikoNetwork, c.cfg);
+  }
+
   if (chainCfg.rollup4Address === undefined) {
     console.log('deploy rollup4 verifier');
     const rollup4 = await Rollup4Verifier.deploy();
@@ -109,6 +133,16 @@ export async function deployBaseContract(c: any) {
     const rollup4VerifierAddress = rollup4.address;
     console.log('rollup4 verifier address: ', rollup4VerifierAddress);
     chainCfg.rollup4Address = rollup4VerifierAddress;
+    saveConfig(c.mystikoNetwork, c.cfg);
+  }
+
+  if (chainCfg.rollup8Address === undefined) {
+    console.log('deploy rollup8 verifier');
+    const rollup8 = await Rollup8Verifier.deploy();
+    await rollup8.deployed();
+    const rollup8VerifierAddress = rollup8.address;
+    console.log('rollup8 verifier address: ', rollup8VerifierAddress);
+    chainCfg.rollup8Address = rollup8VerifierAddress;
     saveConfig(c.mystikoNetwork, c.cfg);
   }
 

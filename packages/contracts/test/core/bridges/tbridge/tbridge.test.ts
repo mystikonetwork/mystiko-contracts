@@ -1,37 +1,37 @@
 import { Wallet } from '@ethersproject/wallet';
-import { ZokratesNodeProverFactory } from '@mystikonetwork/zkp-node';
-import { waffle } from 'hardhat';
-import { toDecimals } from '@mystikonetwork/utils';
 import {
+  CommitmentPoolERC20,
+  CommitmentPoolMain,
+  DummySanctionsList,
   MystikoTBridgeProxy,
   MystikoV2TBridgeERC20,
   MystikoV2TBridgeMain,
   TestToken,
-  CommitmentPoolMain,
-  DummySanctionsList,
-  CommitmentPoolERC20,
 } from '@mystikonetwork/contracts-abi';
 import { MystikoProtocolV2, ProtocolFactoryV2 } from '@mystikonetwork/protocol';
+import { toDecimals } from '@mystikonetwork/utils';
+import { ZokratesNodeProverFactory } from '@mystikonetwork/zkp-node';
+import { waffle } from 'hardhat';
+import { constructCommitment, testBridgeAdminOperations, testBridgeConstructor } from '../../../common';
+import { testTBridgeProxyAdminOperations } from '../../../common/adminOperationTests';
+import { testTBridgeDeposit } from '../../../common/depositTBridgeTests';
 import {
-  deployDependContracts,
-  loadFixture,
-  deployTBridgeContracts,
   deployCommitmentPoolContracts,
+  deployDependContracts,
+  deployTBridgeContracts,
   deployTbridgeProxyContracts,
+  loadFixture,
 } from '../../../util/common';
-import { testBridgeConstructor, testBridgeAdminOperations, constructCommitment } from '../../../common';
 
 // @ts-ignore
 import {
   DestinationChainID,
-  MinRollupFee,
+  MaxAmount,
+  MinAmount,
   MinBridgeFee,
   MinExecutorFee,
-  MinAmount,
-  MaxAmount,
+  MinRollupFee,
 } from '../../../util/constants';
-import { testTBridgeDeposit } from '../../../common/depositTBridgeTests';
-import { testTBridgeProxyAdminOperations } from '../../../common/adminOperationTests';
 
 describe('Test Mystiko tbridge', () => {
   async function fixture(accounts: Wallet[]) {

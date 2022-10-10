@@ -1,0 +1,242 @@
+{
+  "version": 1,
+  "poolName": "alpha-20221009",
+  "depositDisable": false,
+  "circuits": [],
+  "chains": [
+    {
+      "name": "Ethereum",
+      "network": "Ethereum",
+      "chainId": 1,
+      "tokens": [
+        {
+          "assetSymbol": "ETH",
+          "assetDecimals": 18,
+          "erc20": false,
+          "minAmount": "100000000000000000",
+          "maxAmount": "1000000000000000000000",
+          "minExecutorFee": "5000000000000000",
+          "minRollupFee": "10000000000000000",
+          "recommendedAmounts": [
+            "100000000000000000",
+            "1000000000000000000",
+            "10000000000000000000",
+            "100000000000000000000"
+          ]
+        },
+        {
+          "assetSymbol": "USDT",
+          "erc20": true,
+          "assetDecimals": 6,
+          "address": "0xdAC17F958D2ee523a2206206994597C13D831ec7",
+          "minAmount": "100000000",
+          "maxAmount": "1000000000000",
+          "minExecutorFee": "7500000",
+          "minRollupFee": "15000000",
+          "recommendedAmounts": [
+            "100000000",
+            "1000000000",
+            "10000000000",
+            "100000000000"
+          ]
+        },
+        {
+          "assetSymbol": "USDC",
+          "erc20": true,
+          "assetDecimals": 6,
+          "address": "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48",
+          "minAmount": "100000000",
+          "maxAmount": "1000000000000",
+          "minExecutorFee": "7500000",
+          "minRollupFee": "15000000",
+          "recommendedAmounts": [
+            "100000000",
+            "1000000000",
+            "10000000000",
+            "100000000000"
+          ]
+        }
+      ],
+      "hasher3Address": "0xD3A2587911A0F65eE9093BAA79972c7834Bded4c",
+      "rollup1Address": "0xBB1aA21E2E4D1b9A7823fbea39C81Cd7e8DD4b4A",
+      "rollup2Address": "0xF489088Aaf52d51a7c576b71a08FcC10063d47BB",
+      "rollup4Address": "0xC9245E442cd9d8738FbB18277a2B2D154212649b",
+      "rollup8Address": "0xc9F71ec396882FDD5A7FB0B2bcfb85082058C635",
+      "rollup16Address": "0xE653948DdC67a467aC5E376a02065E15c1BA5771",
+      "transaction1x0VerifierAddress": "0xdAd144B3a03D166b0f4f3E51E5F90737B8016581",
+      "transaction1x1VerifierAddress": "0xEF853E7d71Eb8D5Be4E49A087084d9bC3EC6AF50",
+      "transaction1x2VerifierAddress": "0x757D952B0Ee462074Ff371568A0887287A442eF8",
+      "transaction2x0VerifierAddress": "0x8da7B592474c6b341B9603176C5E8e748D9A66fa",
+      "transaction2x1VerifierAddress": "0xF95e4a223659AF5E4e267272dFA8b338A05C9B09",
+      "transaction2x2VerifierAddress": "0x8616E75B1633fA66468685c775581DF61f966Abb"
+    }
+  ],
+  "bridges": [
+    {
+      "name": "loop",
+      "contractName": "Loop",
+      "proxys": [],
+      "fees": [],
+      "commitmentPools": [
+        {
+          "network": "Ethereum",
+          "assetSymbol": "ETH",
+          "address": "0xc6b4b0eAAa415c722818EbF55f884e4323a9C832",
+          "syncStart": 15709945,
+          "minRollupFee": "10000000000000000",
+          "rollup1Verifier": "0xBB1aA21E2E4D1b9A7823fbea39C81Cd7e8DD4b4A",
+          "rollup2Verifier": "0xF489088Aaf52d51a7c576b71a08FcC10063d47BB",
+          "rollup4Verifier": "0xC9245E442cd9d8738FbB18277a2B2D154212649b",
+          "rollup8Verifier": "0xc9F71ec396882FDD5A7FB0B2bcfb85082058C635",
+          "rollup16Verifier": "0xE653948DdC67a467aC5E376a02065E15c1BA5771",
+          "transact1x0Verifier": "0xdAd144B3a03D166b0f4f3E51E5F90737B8016581",
+          "transact1x1Verifier": "0xEF853E7d71Eb8D5Be4E49A087084d9bC3EC6AF50",
+          "transact1x2Verifier": "0x757D952B0Ee462074Ff371568A0887287A442eF8",
+          "transact2x0Verifier": "0x8da7B592474c6b341B9603176C5E8e748D9A66fa",
+          "transact2x1Verifier": "0xF95e4a223659AF5E4e267272dFA8b338A05C9B09",
+          "transact2x2Verifier": "0x8616E75B1633fA66468685c775581DF61f966Abb",
+          "rollupWhitelist": [
+            "0x740D5941bf285D6070896aAC9084AE9CF64F5913",
+            "0xD2318B8a8028922BCE5871ea26b74babd9d61Cd5"
+          ],
+          "enqueueWhitelist": [
+            "0xd537F4325BC061bABfD4E4AB5EC9Bae09F6A8005"
+          ],
+          "auditors": [
+            "71974561790665464247604435795065683686381931489528897462330672390776840504073",
+            "4997220442638814810609909752944635265697515387283055012148220746256985615693",
+            "75515112535918662049551479070314526291311940874433203669050730808316017216416",
+            "4399165926720064659492278918356016732258701630472913268891519973370106733079",
+            "3599177946641005400872949722853889080381601925922893369895604853833503632642"
+          ],
+          "operator": "0xBac0d3A77f0528bfce8E610441a39F20dE40EFC8"
+        },
+        {
+          "network": "Ethereum",
+          "assetSymbol": "USDT",
+          "address": "0x2Bc2CfA23851Ea575196E092f506349339f02f86",
+          "syncStart": 15710268,
+          "minRollupFee": "15000000",
+          "rollup1Verifier": "0xBB1aA21E2E4D1b9A7823fbea39C81Cd7e8DD4b4A",
+          "rollup2Verifier": "0xF489088Aaf52d51a7c576b71a08FcC10063d47BB",
+          "rollup4Verifier": "0xC9245E442cd9d8738FbB18277a2B2D154212649b",
+          "rollup8Verifier": "0xc9F71ec396882FDD5A7FB0B2bcfb85082058C635",
+          "rollup16Verifier": "0xE653948DdC67a467aC5E376a02065E15c1BA5771",
+          "transact1x0Verifier": "0xdAd144B3a03D166b0f4f3E51E5F90737B8016581",
+          "transact1x1Verifier": "0xEF853E7d71Eb8D5Be4E49A087084d9bC3EC6AF50",
+          "transact1x2Verifier": "0x757D952B0Ee462074Ff371568A0887287A442eF8",
+          "transact2x0Verifier": "0x8da7B592474c6b341B9603176C5E8e748D9A66fa",
+          "transact2x1Verifier": "0xF95e4a223659AF5E4e267272dFA8b338A05C9B09",
+          "transact2x2Verifier": "0x8616E75B1633fA66468685c775581DF61f966Abb",
+          "rollupWhitelist": [
+            "0x740D5941bf285D6070896aAC9084AE9CF64F5913",
+            "0xD2318B8a8028922BCE5871ea26b74babd9d61Cd5"
+          ],
+          "enqueueWhitelist": [
+            "0xF631879c4e30c6F52d95a0F6f6e200d19dd1e10B"
+          ],
+          "auditors": [
+            "71974561790665464247604435795065683686381931489528897462330672390776840504073",
+            "4997220442638814810609909752944635265697515387283055012148220746256985615693",
+            "75515112535918662049551479070314526291311940874433203669050730808316017216416",
+            "4399165926720064659492278918356016732258701630472913268891519973370106733079",
+            "3599177946641005400872949722853889080381601925922893369895604853833503632642"
+          ],
+          "operator": "0xBac0d3A77f0528bfce8E610441a39F20dE40EFC8"
+        },
+        {
+          "network": "Ethereum",
+          "assetSymbol": "USDC",
+          "address": "0x028097af839E9e247ef51EF71E4e5b79e2C3e2d5",
+          "syncStart": 15710294,
+          "minRollupFee": "15000000",
+          "rollup1Verifier": "0xBB1aA21E2E4D1b9A7823fbea39C81Cd7e8DD4b4A",
+          "rollup2Verifier": "0xF489088Aaf52d51a7c576b71a08FcC10063d47BB",
+          "rollup4Verifier": "0xC9245E442cd9d8738FbB18277a2B2D154212649b",
+          "rollup8Verifier": "0xc9F71ec396882FDD5A7FB0B2bcfb85082058C635",
+          "rollup16Verifier": "0xE653948DdC67a467aC5E376a02065E15c1BA5771",
+          "transact1x0Verifier": "0xdAd144B3a03D166b0f4f3E51E5F90737B8016581",
+          "transact1x1Verifier": "0xEF853E7d71Eb8D5Be4E49A087084d9bC3EC6AF50",
+          "transact1x2Verifier": "0x757D952B0Ee462074Ff371568A0887287A442eF8",
+          "transact2x0Verifier": "0x8da7B592474c6b341B9603176C5E8e748D9A66fa",
+          "transact2x1Verifier": "0xF95e4a223659AF5E4e267272dFA8b338A05C9B09",
+          "transact2x2Verifier": "0x8616E75B1633fA66468685c775581DF61f966Abb",
+          "rollupWhitelist": [
+            "0x740D5941bf285D6070896aAC9084AE9CF64F5913",
+            "0xD2318B8a8028922BCE5871ea26b74babd9d61Cd5"
+          ],
+          "enqueueWhitelist": [
+            "0x4ba0787f37Ea3115B7da6825f92569D980c85983"
+          ],
+          "auditors": [
+            "71974561790665464247604435795065683686381931489528897462330672390776840504073",
+            "4997220442638814810609909752944635265697515387283055012148220746256985615693",
+            "75515112535918662049551479070314526291311940874433203669050730808316017216416",
+            "4399165926720064659492278918356016732258701630472913268891519973370106733079",
+            "3599177946641005400872949722853889080381601925922893369895604853833503632642"
+          ],
+          "operator": "0xBac0d3A77f0528bfce8E610441a39F20dE40EFC8"
+        }
+      ],
+      "pairs": [
+        {
+          "pair": [
+            {
+              "network": "Ethereum",
+              "assetSymbol": "ETH",
+              "address": "0xd537F4325BC061bABfD4E4AB5EC9Bae09F6A8005",
+              "syncStart": 15709967,
+              "minAmount": "100000000000000000",
+              "maxAmount": "1000000000000000000000",
+              "commitmentPool": "0xc6b4b0eAAa415c722818EbF55f884e4323a9C832",
+              "operator": "0xBac0d3A77f0528bfce8E610441a39F20dE40EFC8"
+            }
+          ]
+        },
+        {
+          "pair": [
+            {
+              "network": "Ethereum",
+              "assetSymbol": "USDT",
+              "address": "0xF631879c4e30c6F52d95a0F6f6e200d19dd1e10B",
+              "syncStart": 15710288,
+              "minAmount": "100000000",
+              "maxAmount": "1000000000000",
+              "commitmentPool": "0x2Bc2CfA23851Ea575196E092f506349339f02f86",
+              "operator": "0xBac0d3A77f0528bfce8E610441a39F20dE40EFC8"
+            }
+          ]
+        },
+        {
+          "pair": [
+            {
+              "network": "Ethereum",
+              "assetSymbol": "USDC",
+              "address": "0x4ba0787f37Ea3115B7da6825f92569D980c85983",
+              "syncStart": 15710315,
+              "minAmount": "100000000",
+              "maxAmount": "1000000000000",
+              "commitmentPool": "0x028097af839E9e247ef51EF71E4e5b79e2C3e2d5",
+              "operator": "0xBac0d3A77f0528bfce8E610441a39F20dE40EFC8"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "operator": {
+    "admin": "0xBac0d3A77f0528bfce8E610441a39F20dE40EFC8",
+    "executors": [],
+    "rollers": [
+      "0x740D5941bf285D6070896aAC9084AE9CF64F5913",
+      "0xD2318B8a8028922BCE5871ea26b74babd9d61Cd5"
+    ],
+    "auditors": [
+      "71974561790665464247604435795065683686381931489528897462330672390776840504073",
+      "4997220442638814810609909752944635265697515387283055012148220746256985615693",
+      "75515112535918662049551479070314526291311940874433203669050730808316017216416",
+      "4399165926720064659492278918356016732258701630472913268891519973370106733079",
+      "3599177946641005400872949722853889080381601925922893369895604853833503632642"
+    ]
+  }
+}

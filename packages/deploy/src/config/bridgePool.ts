@@ -8,7 +8,9 @@ export interface RawPoolDeployConfig {
   syncStart?: number;
   minRollupFee?: string;
   rollup1Verifier?: string;
+  rollup2Verifier?: string;
   rollup4Verifier?: string;
+  rollup8Verifier?: string;
   rollup16Verifier?: string;
   transact1x0Verifier?: string;
   transact1x1Verifier?: string;
@@ -21,12 +23,15 @@ export interface RawPoolDeployConfig {
   operator?: string;
   enqueueWhitelist?: string[];
   rollupWhitelist?: string[];
+  auditors?: string[];
 }
 
 export class PoolDeployConfig extends BaseConfig {
   private enqueueWhitelistByAddress: { [key: string]: boolean };
 
   private rollupWhitelistByAddress: { [key: string]: boolean };
+
+  private auditorsByAddress: { [key: string]: boolean };
 
   constructor(rawConfig: any) {
     super(rawConfig);
@@ -46,6 +51,12 @@ export class PoolDeployConfig extends BaseConfig {
     this.asRawContractDeployConfig().rollupWhitelist?.forEach((rollupAddress) => {
       check(this.rollupWhitelistByAddress[rollupAddress] === undefined, 'rollup address duplicate');
       this.rollupWhitelistByAddress[rollupAddress] = true;
+    });
+
+    this.auditorsByAddress = {};
+    this.asRawContractDeployConfig().auditors?.forEach((auditos) => {
+      check(this.auditorsByAddress[auditos] === undefined, 'auditor address duplicate');
+      this.auditorsByAddress[auditos] = true;
     });
   }
 
@@ -107,6 +118,17 @@ export class PoolDeployConfig extends BaseConfig {
     this.asRawContractDeployConfig().rollup1Verifier = address;
   }
 
+  public isRollup2VerifierChange(address: string): boolean {
+    if (this.asRawContractDeployConfig().rollup2Verifier !== address) {
+      return true;
+    }
+    return false;
+  }
+
+  public updateRollup2Verifier(address: string) {
+    this.asRawContractDeployConfig().rollup2Verifier = address;
+  }
+
   public isRollup4VerifierChange(address: string): boolean {
     if (this.asRawContractDeployConfig().rollup4Verifier !== address) {
       return true;
@@ -116,6 +138,17 @@ export class PoolDeployConfig extends BaseConfig {
 
   public updateRollup4Verifier(address: string) {
     this.asRawContractDeployConfig().rollup4Verifier = address;
+  }
+
+  public isRollup8VerifierChange(address: string): boolean {
+    if (this.asRawContractDeployConfig().rollup8Verifier !== address) {
+      return true;
+    }
+    return false;
+  }
+
+  public updateRollup8Verifier(address: string) {
+    this.asRawContractDeployConfig().rollup8Verifier = address;
   }
 
   public isRollup16VerifierChange(address: string): boolean {
@@ -257,6 +290,24 @@ export class PoolDeployConfig extends BaseConfig {
     this.rollupWhitelistByAddress[address] = true;
   }
 
+  public isInAuditors(address: string): boolean {
+    return this.auditorsByAddress[address];
+  }
+
+  public addAuditor(address: string) {
+    if (this.isInAuditors(address)) {
+      return;
+    }
+
+    const raw = this.asRawContractDeployConfig();
+    if (raw.auditors === undefined) {
+      raw.auditors = [];
+    }
+
+    raw.auditors.push(address);
+    this.auditorsByAddress[address] = true;
+  }
+
   public isInEnqueueWhitelist(address: string): boolean {
     return this.enqueueWhitelistByAddress[address];
   }
@@ -280,7 +331,9 @@ export class PoolDeployConfig extends BaseConfig {
     this.asRawContractDeployConfig().syncStart = undefined;
     this.asRawContractDeployConfig().minRollupFee = undefined;
     this.asRawContractDeployConfig().rollup1Verifier = undefined;
+    this.asRawContractDeployConfig().rollup2Verifier = undefined;
     this.asRawContractDeployConfig().rollup4Verifier = undefined;
+    this.asRawContractDeployConfig().rollup8Verifier = undefined;
     this.asRawContractDeployConfig().rollup16Verifier = undefined;
     this.asRawContractDeployConfig().transact1x0Verifier = undefined;
     this.asRawContractDeployConfig().transact1x1Verifier = undefined;

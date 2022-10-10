@@ -1,18 +1,18 @@
 import { Wallet } from '@ethersproject/wallet';
-import { waffle } from 'hardhat';
 import {
   CommitmentPoolERC20,
   CommitmentPoolMain,
   MystikoV2LoopERC20,
   MystikoV2LoopMain,
 } from '@mystikonetwork/contracts-abi';
+import { waffle } from 'hardhat';
+import { testLoopAdminOperations, testLoopConstructor } from '../../common';
 import {
-  deployLoopContracts,
-  deployDependContracts,
-  loadFixture,
   deployCommitmentPoolContracts,
+  deployDependContracts,
+  deployLoopContracts,
+  loadFixture,
 } from '../../util/common';
-import { testLoopConstructor, testLoopAdminOperations } from '../../common';
 import { MaxAmount, MinAmount } from '../../util/constants';
 
 describe('Test Mystiko loop', () => {
