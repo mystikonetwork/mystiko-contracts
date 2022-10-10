@@ -1,6 +1,6 @@
 import { toDecimals } from '@mystikonetwork/utils';
 
-export const CircuitsPath='circuits/dist/zokrates/dev/';
+export const CircuitsPath = 'circuits/dist/zokrates/dev/';
 
 export const MerkleTreeHeight = 20;
 export const MinAmount = toDecimals(0.1).toString();
