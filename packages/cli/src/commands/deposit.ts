@@ -29,7 +29,7 @@ export default class Deposit extends Base<typeof Deposit> {
       char: 'k',
       description: 'Signer private key',
     }),
-    amount: Flags.integer({
+    amount: Flags.string({
       char: 'a',
       description: 'Deposit amount',
     }),
@@ -47,8 +47,9 @@ export default class Deposit extends Base<typeof Deposit> {
   public async run(): Promise<void> {
     const { args, flags } = await this.parse(Deposit);
 
+    let amount = Number(flags.amount);
+
     const isERC20 = Object.values(ERC20_TOKEN).includes(args.token);
-    let amount = flags.amount;
     if (!amount && isERC20) {
       amount = this.iConfig!.erc20Amount;
     } else if (!amount && !isERC20) {
