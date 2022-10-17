@@ -24,7 +24,7 @@ jobs:
       - run: curl -L https://github.com/mystikonetwork/ZoKrates/releases/download/v1.1.0/zokrates-v1.1.0-x86_64-unknown-linux-gnu.tar.gz -o zokrates.tar.gz
       - run: mkdir -p "$HOME/.zokrates/bin" && tar -xvvf zokrates.tar.gz -C "$HOME/.zokrates" && mv "$HOME/.zokrates/zokrates" "$HOME/.zokrates/bin" && chmod 755 "$HOME/.zokrates/bin/zokrates"
       - run: echo "$HOME/.zokrates/bin" >> $GITHUB_PATH
-      - run: npm install --global lerna
+      - run: npm install --global lerna@4.0
       - run: lerna bootstrap
       - run: lerna run build
       - name: Copy env
