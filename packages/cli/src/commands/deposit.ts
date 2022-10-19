@@ -5,7 +5,7 @@ import { ERC20_TOKEN, MAIN_TOKEN } from '../config';
 import { DepositOptions } from '../interface';
 
 export default class Deposit extends Base<typeof Deposit> {
-  static description = 'Deposit token from source chain id (test net)';
+  static description = 'Deposit token from source chain id';
 
   static examples = ['<%= config.bin %> <%= command.id %> BNB --from 97 --to 97'];
 
@@ -24,10 +24,6 @@ export default class Deposit extends Base<typeof Deposit> {
       description: 'Bridge Type',
       default: 'loop',
       options: Object.values(BridgeType),
-    }),
-    privateKey: Flags.string({
-      char: 'k',
-      description: 'Signer private key',
     }),
     amount: Flags.string({
       char: 'a',

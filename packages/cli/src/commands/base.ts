@@ -3,9 +3,7 @@ import { ICommandLineContext, IConfig, IWallet } from '../interface';
 import { ConfigFactory } from '../executor/factory/config';
 import { DefaultContextFactory, WalletExecutorFactory } from '../executor/factory';
 
-export type Flags<T extends typeof Command> = Interfaces.InferredFlags<
-  typeof Base['globalFlags'] & T['flags']
->;
+export type Flags<T extends typeof Command> = Interfaces.InferredFlags<typeof Base['globalFlags'] & T['flags']>;
 
 export abstract class Base<T extends typeof Command> extends Command {
   static globalFlags = {
@@ -13,6 +11,17 @@ export abstract class Base<T extends typeof Command> extends Command {
       char: 'e',
       description: 'Env path',
       default: '.env',
+      required: false,
+    }),
+    main: Flags.boolean({
+      char: 'm',
+      description: 'Is main net',
+      default: false,
+      required: false,
+    }),
+    privateKey: Flags.string({
+      char: 'k',
+      description: 'Signer private key',
       required: false,
     }),
   };
@@ -30,7 +39,7 @@ export abstract class Base<T extends typeof Command> extends Command {
     const { flags } = await this.parse(this.constructor as Interfaces.Command.Class);
     this.flags = flags;
 
-    this.iConfig = new ConfigFactory(flags.env).getConfig();
+    this.iConfig = new ConfigFactory(flags.env, flags.main, flags.privateKey).getConfig();
     if (!this.iConfig) {
       this.error('config is undefined');
     }
