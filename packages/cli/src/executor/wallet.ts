@@ -1,6 +1,9 @@
 import { DepositOptions, IWallet, TransactOptions } from '../interface';
 import { CommandLineExecutor } from './executor';
 import { TransactionEnum } from '@mystikonetwork/database';
+// eslint-disable-next-line node/no-extraneous-import
+import { TransactionOptions } from '@mystikonetwork/core/build/cjs/interface/handler/transaction';
+import { BridgeType, PoolContractConfig } from '@mystikonetwork/config';
 
 export class WalletExecutor extends CommandLineExecutor implements IWallet {
   deposit(param: DepositOptions): Promise<void> {
@@ -45,41 +48,63 @@ export class WalletExecutor extends CommandLineExecutor implements IWallet {
 
   async transact(param: TransactOptions): Promise<void> {
     const client = this.context.nodeClient;
-    // 1. check balances
+    let expectAmount = param.amount;
+
+    // 1. Construct
+    const transactOption: TransactionOptions = {
+      type: param.type,
+      chainId: param.chainId,
+      assetSymbol: param.assetSymbol,
+      bridgeType: param.bridge,
+      publicAddress: param.publicAddress,
+      walletPassword: param.walletPassword,
+      signer: client.signers!.privateKey,
+    };
+
+    if (param.type === TransactionEnum.WITHDRAW) {
+      transactOption.publicAmount = param.amount;
+    } else if (param.type === TransactionEnum.TRANSFER) {
+      transactOption.amount = param.amount;
+      transactOption.shieldedAddress = param.shieldedAddress;
+      const poolConfig = this.getPoolContractConfig(
+        param.chainId,
+        param.assetSymbol,
+        param.bridge,
+        param.version,
+      );
+      if (!poolConfig) {
+        return Promise.reject(new Error('pool contract config not found'));
+      }
+
+      transactOption.rollupFee = poolConfig.minRollupFeeNumber;
+      expectAmount += poolConfig.minRollupFeeNumber;
+    }
+
+    // 2. check balances
     const balance = await client.assets?.balance({ chainId: param.chainId, asset: param.assetSymbol });
+    this.logger.info(balance);
     if (!balance) {
       return Promise.reject(
         new Error(`chainId ${param.chainId} assets ${param.assetSymbol} balances not found`),
       );
     }
 
-    // 1.1 balance unspentTotal must greater than amount
-    if (balance.unspentTotal + balance.pendingTotal < param.amount) {
+    // 1.1 balance unspentTotal must greater than expect amount
+    if (balance.unspentTotal + balance.pendingTotal < expectAmount) {
       return Promise.reject(
         new Error(
-          `chainId ${param.chainId} assets ${param.assetSymbol} balances unspentTotal` +
-            `${balance.unspentTotal} and pendingTotal ${balance.pendingTotal} less than amount ${param.amount}`,
+          `chainId ${param.chainId} assets ${param.assetSymbol} balances unspentTotal ` +
+            `${balance.unspentTotal} and pendingTotal ${balance.pendingTotal} less than expect amount ${expectAmount}`,
         ),
       );
     }
 
     // 1.2 if unspentTotal less than amount，import commitments
     try {
-      await this.waitBalanceEnough(param.amount, param.assetSymbol, param.chainId, param.walletPassword);
+      await this.waitBalanceEnough(expectAmount, param.assetSymbol, param.chainId, param.walletPassword);
     } catch (error) {
       return Promise.reject(error);
     }
-
-    const transactOption = {
-      type: param.type as TransactionEnum,
-      chainId: param.chainId,
-      assetSymbol: param.assetSymbol,
-      bridgeType: param.bridge,
-      publicAddress: param.publicAddress,
-      publicAmount: param.amount,
-      walletPassword: param.walletPassword,
-      signer: client.signers!.privateKey,
-    };
 
     // 2. withdraw
     return new Promise((resolve, reject) => {
@@ -87,8 +112,8 @@ export class WalletExecutor extends CommandLineExecutor implements IWallet {
         resp.transactionPromise
           .then(() => {
             this.logger.info(
-              `[chainId: ${param.chainId}][${param.assetSymbol}][bridge: ${param.bridge}]` +
-                `withdraw ${param.amount} successful`,
+              `[chainId: ${param.chainId}][${param.assetSymbol}][bridge: ${param.bridge}] ` +
+                `${param.type} $${param.amount} successful`,
             );
             resolve();
           })
@@ -111,8 +136,8 @@ export class WalletExecutor extends CommandLineExecutor implements IWallet {
     return client.signers!.privateKey.signer.getAddress();
   }
 
-  async waitBalanceEnough(
-    amount: number,
+  private async waitBalanceEnough(
+    expectAmount: number,
     asset: string,
     chainId: number,
     walletPassword: string,
@@ -125,23 +150,47 @@ export class WalletExecutor extends CommandLineExecutor implements IWallet {
       await this.importCommitments(chainId, walletPassword);
       // eslint-disable-next-line no-await-in-loop
       const balance = await client.assets?.balance({ chainId: chainId, asset: asset });
-      if (balance!.unspentTotal >= amount) {
+      if (balance!.unspentTotal >= expectAmount) {
         return Promise.resolve();
       }
+
+      this.logger.info(
+        `Sync: expect amount: ${expectAmount}, balances: ${balance}, wait 10s will sync again`,
+      );
 
       // eslint-disable-next-line no-await-in-loop
       await this.timeout(10_000);
     }
 
     return Promise.reject(
-      new Error(`importCommitment ${maxRetry} times, but balances insufficient(less than ${amount})`),
+      new Error(`importCommitment ${maxRetry} times, but balances insufficient(less than ${expectAmount})`),
     );
   }
 
-  timeout(ms: number): Promise<void> {
+  private timeout(ms: number): Promise<void> {
     // eslint-disable-next-line no-promise-executor-return
     return new Promise((resolve) => setTimeout(resolve, ms));
   }
 
+  private getPoolContractConfig(
+    chainId: number,
+    assetSymbol: string,
+    bridge: BridgeType,
+    version?: number,
+  ): PoolContractConfig | undefined {
+    let poolContractConfig: PoolContractConfig | undefined;
+    const client = this.context.nodeClient;
 
+    if (version) {
+      poolContractConfig = client.config?.getPoolContractConfig(chainId, assetSymbol, bridge, version);
+    } else {
+      const poolContractsConfigs = client.config!.getPoolContractConfigs(chainId, assetSymbol, bridge);
+      if (poolContractsConfigs.length > 0) {
+        poolContractsConfigs.sort((c1, c2) => c2.version - c1.version);
+        [poolContractConfig] = poolContractsConfigs;
+      }
+    }
+
+    return poolContractConfig;
+  }
 }

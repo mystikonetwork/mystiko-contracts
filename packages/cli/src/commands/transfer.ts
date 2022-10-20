@@ -1,11 +1,11 @@
 import { Base } from './base';
-import { Flags } from '@oclif/core';
 import { ERC20_TOKEN, MAIN_TOKEN } from '../config';
+import { Flags } from '@oclif/core';
 import { BridgeType } from '@mystikonetwork/config';
 import { TransactionEnum } from '@mystikonetwork/database';
 
-export default class Withdraw extends Base<typeof Withdraw> {
-  static description = 'Withdraw token from chain id';
+export default class Transfer extends Base<typeof Transfer> {
+  static description = 'Transfer token from chain id';
 
   static examples = ['<%= config.bin %> <%= command.id %> BNB --from 97'];
 
@@ -27,7 +27,15 @@ export default class Withdraw extends Base<typeof Withdraw> {
     }),
     publicAddress: Flags.string({
       char: 'p',
-      description: 'withdraw public address',
+      description: 'Transfer public address',
+    }),
+    shieldedAddress: Flags.string({
+      char: 's',
+      description: 'Mystiko wallet shielded address',
+    }),
+    version: Flags.integer({
+      char: 'v',
+      description: 'Pool contract version',
     }),
   };
 
@@ -41,7 +49,7 @@ export default class Withdraw extends Base<typeof Withdraw> {
   ];
 
   public async run(): Promise<void> {
-    const { args, flags } = await this.parse(Withdraw);
+    const { args, flags } = await this.parse(Transfer);
 
     let amount = Number(flags.amount);
     const isERC20 = Object.values(ERC20_TOKEN).includes(args.token);
@@ -56,14 +64,21 @@ export default class Withdraw extends Base<typeof Withdraw> {
       this.error('public address undefined');
     }
 
+    const shieldedAddress = flags.shieldedAddress ?? this.iContext?.shieldedAddress;
+    if (!shieldedAddress) {
+      this.error('shielded address undefined');
+    }
+
     await this.iWallet?.transact({
-      type: TransactionEnum.WITHDRAW,
+      type: TransactionEnum.TRANSFER,
       amount: amount,
       assetSymbol: args.token,
       bridge: flags.bridge as BridgeType,
       chainId: flags.from,
       publicAddress: publicAddress,
       walletPassword: this.iConfig!.walletPassword,
+      shieldedAddress: shieldedAddress,
+      version: flags.version,
     });
 
     this.exit();
