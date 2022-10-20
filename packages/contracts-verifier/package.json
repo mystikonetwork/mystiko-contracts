@@ -1,6 +1,6 @@
 {
   "name": "@mystikonetwork/contracts-verifier",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "verifier smart contracts of Mystiko.Network",
   "main": "index.js",
   "repository": {
