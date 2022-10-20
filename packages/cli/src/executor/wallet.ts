@@ -48,7 +48,7 @@ export class WalletExecutor extends CommandLineExecutor implements IWallet {
 
   async transact(param: TransactOptions): Promise<void> {
     const client = this.context.nodeClient;
-    let expectAmount = param.amount;
+    const expectAmount = param.amount;
 
     // 1. Construct
     const transactOption: TransactionOptions = {
@@ -77,7 +77,6 @@ export class WalletExecutor extends CommandLineExecutor implements IWallet {
       }
 
       transactOption.rollupFee = poolConfig.minRollupFeeNumber;
-      expectAmount += poolConfig.minRollupFeeNumber;
     }
 
     // 2. check balances
