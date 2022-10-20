@@ -1,5 +1,5 @@
 export const LOGRED = '\x1b[31m';
-export const MainNetworks = ['bsc', 'ethereum', 'moonbeam'];
+export const MainNetworks = ['Ethereum', 'bsc', 'moonbeam'];
 export const TestNetworks = [
   'bsctestnet',
   'goerli',

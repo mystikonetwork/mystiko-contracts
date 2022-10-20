@@ -1,26 +1,27 @@
 import { Wallet } from '@ethersproject/wallet';
-import { ZokratesNodeProverFactory } from '@mystikonetwork/zkp-node';
-import { waffle } from 'hardhat';
 import {
-  MystikoV2LoopERC20,
-  Transaction1x0Verifier,
-  Transaction1x1Verifier,
-  Rollup1Verifier,
-  TestToken,
   CommitmentPoolERC20,
   DummySanctionsList,
+  MystikoV2LoopERC20,
+  Rollup1Verifier,
+  TestToken,
+  Transaction1x0Verifier,
+  Transaction1x1Verifier,
 } from '@mystikonetwork/contracts-abi';
 import { MystikoProtocolV2, ProtocolFactoryV2 } from '@mystikonetwork/protocol';
 import { toBN, toDecimals } from '@mystikonetwork/utils';
-import {
-  deployLoopContracts,
-  deployDependContracts,
-  loadFixture,
-  deployCommitmentPoolContracts,
-} from '../util/common';
+import { ZokratesNodeProverFactory } from '@mystikonetwork/zkp-node';
+import { waffle } from 'hardhat';
 import { constructCommitment, testTransact } from '../common';
 import { loopDeposit } from '../common/loopDepositTests';
 import { rollup } from '../common/rollupTests';
+import {
+  deployCommitmentPoolContracts,
+  deployDependContracts,
+  deployLoopContracts,
+  loadFixture,
+} from '../util/common';
+import { CircuitsPath } from '../util/constants';
 
 describe('Mystiko combination test R1', () => {
   async function fixture(accounts: Wallet[]) {
@@ -136,10 +137,10 @@ describe('Mystiko combination test R1', () => {
       toBN(0),
       [],
       [],
-      'circuits/dist/zokrates/dev/Transaction1x0.program.gz',
-      'circuits/dist/zokrates/dev/Transaction1x0.abi.json',
-      'circuits/dist/zokrates/dev/Transaction1x0.pkey.gz',
-      'circuits/dist/zokrates/dev/Transaction1x0.vkey.gz',
+      CircuitsPath.concat('Transaction1x0.program.gz'),
+      CircuitsPath.concat('Transaction1x0.abi.json'),
+      CircuitsPath.concat('Transaction1x0.pkey.gz'),
+      CircuitsPath.concat('Transaction1x0.vkey.gz'),
       testToken,
     );
 
@@ -164,10 +165,10 @@ describe('Mystiko combination test R1', () => {
       toDecimals(1),
       [toDecimals(40)],
       [toDecimals(1)],
-      'circuits/dist/zokrates/dev/Transaction1x1.program.gz',
-      'circuits/dist/zokrates/dev/Transaction1x1.abi.json',
-      'circuits/dist/zokrates/dev/Transaction1x1.pkey.gz',
-      'circuits/dist/zokrates/dev/Transaction1x1.vkey.gz',
+      CircuitsPath.concat('Transaction1x1.program.gz'),
+      CircuitsPath.concat('Transaction1x1.abi.json'),
+      CircuitsPath.concat('Transaction1x1.pkey.gz'),
+      CircuitsPath.concat('Transaction1x1.vkey.gz'),
       testToken,
     );
     queueSize += 1;
@@ -194,10 +195,10 @@ describe('Mystiko combination test R1', () => {
       toDecimals(1),
       [toDecimals(10)],
       [toDecimals(1)],
-      'circuits/dist/zokrates/dev/Transaction1x1.program.gz',
-      'circuits/dist/zokrates/dev/Transaction1x1.abi.json',
-      'circuits/dist/zokrates/dev/Transaction1x1.pkey.gz',
-      'circuits/dist/zokrates/dev/Transaction1x1.vkey.gz',
+      CircuitsPath.concat('Transaction1x1.program.gz'),
+      CircuitsPath.concat('Transaction1x1.abi.json'),
+      CircuitsPath.concat('Transaction1x1.pkey.gz'),
+      CircuitsPath.concat('Transaction1x1.vkey.gz'),
       testToken,
     );
     queueSize += 1;
@@ -224,10 +225,10 @@ describe('Mystiko combination test R1', () => {
       toBN(0),
       [],
       [],
-      'circuits/dist/zokrates/dev/Transaction1x0.program.gz',
-      'circuits/dist/zokrates/dev/Transaction1x0.abi.json',
-      'circuits/dist/zokrates/dev/Transaction1x0.pkey.gz',
-      'circuits/dist/zokrates/dev/Transaction1x0.vkey.gz',
+      CircuitsPath.concat('Transaction1x0.program.gz'),
+      CircuitsPath.concat('Transaction1x0.abi.json'),
+      CircuitsPath.concat('Transaction1x0.pkey.gz'),
+      CircuitsPath.concat('Transaction1x0.vkey.gz'),
       testToken,
     );
   });

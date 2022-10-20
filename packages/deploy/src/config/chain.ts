@@ -9,7 +9,9 @@ export interface RawChainConfig {
   wrappedTokens: ChainTokenConfig[];
   hasher3Address?: string;
   rollup1Address?: string;
+  rollup2Address?: string;
   rollup4Address?: string;
+  rollup8Address?: string;
   rollup16Address?: string;
   transaction1x0VerifierAddress?: string;
   transaction1x1VerifierAddress?: string;
@@ -29,7 +31,9 @@ export class ChainConfig extends BaseConfig {
     BaseConfig.checkNumber(this.config, 'chainId');
     BaseConfig.checkEthAddress(this.config, 'hasher3Address', false);
     BaseConfig.checkEthAddress(this.config, 'rollup1Address', false);
+    BaseConfig.checkEthAddress(this.config, 'rollup2Address', false);
     BaseConfig.checkEthAddress(this.config, 'rollup4Address', false);
+    BaseConfig.checkEthAddress(this.config, 'rollup8Address', false);
     BaseConfig.checkEthAddress(this.config, 'rollup16Address', false);
     BaseConfig.checkEthAddress(this.config, 'transaction1x0VerifierAddress', false);
     BaseConfig.checkEthAddress(this.config, 'transaction1x1VerifierAddress', false);
@@ -78,12 +82,28 @@ export class ChainConfig extends BaseConfig {
     this.asRawChainConfig().rollup1Address = address;
   }
 
+  public get rollup2Address(): string | undefined {
+    return this.asRawChainConfig().rollup2Address;
+  }
+
+  public set rollup2Address(address: string | undefined) {
+    this.asRawChainConfig().rollup2Address = address;
+  }
+
   public get rollup4Address(): string | undefined {
     return this.asRawChainConfig().rollup4Address;
   }
 
   public set rollup4Address(address: string | undefined) {
     this.asRawChainConfig().rollup4Address = address;
+  }
+
+  public get rollup8Address(): string | undefined {
+    return this.asRawChainConfig().rollup8Address;
+  }
+
+  public set rollup8Address(address: string | undefined) {
+    this.asRawChainConfig().rollup8Address = address;
   }
 
   public get rollup16Address(): string | undefined {
@@ -149,7 +169,9 @@ export class ChainConfig extends BaseConfig {
 
   public resetVerifier() {
     this.rollup1Address = undefined;
+    this.rollup2Address = undefined;
     this.rollup4Address = undefined;
+    this.rollup8Address = undefined;
     this.rollup16Address = undefined;
     this.transaction1x0VerifierAddress = undefined;
     this.transaction1x1VerifierAddress = undefined;
@@ -165,8 +187,12 @@ export class ChainConfig extends BaseConfig {
       this.asRawChainConfig().hasher3Address === '' ||
       this.asRawChainConfig().rollup1Address === undefined ||
       this.asRawChainConfig().rollup1Address === '' ||
+      this.asRawChainConfig().rollup2Address === undefined ||
+      this.asRawChainConfig().rollup2Address === '' ||
       this.asRawChainConfig().rollup4Address === undefined ||
       this.asRawChainConfig().rollup4Address === '' ||
+      this.asRawChainConfig().rollup8Address === undefined ||
+      this.asRawChainConfig().rollup8Address === '' ||
       this.asRawChainConfig().rollup16Address === undefined ||
       this.asRawChainConfig().rollup16Address === '' ||
       this.asRawChainConfig().transaction1x0VerifierAddress === undefined ||

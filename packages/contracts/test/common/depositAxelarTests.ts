@@ -1,17 +1,17 @@
-import { expect } from 'chai';
-import { waffle } from 'hardhat';
-import { ethers } from 'ethers';
+import { Wallet } from '@ethersproject/wallet';
 import { DummySanctionsList, TestToken } from '@mystikonetwork/contracts-abi';
 import { CommitmentOutput, MystikoProtocolV2 } from '@mystikonetwork/protocol';
-import { toHex, toBN } from '@mystikonetwork/utils';
-import { Wallet } from '@ethersproject/wallet';
-import { CommitmentInfo } from './commitment';
+import { toBN, toHex } from '@mystikonetwork/utils';
+import { expect } from 'chai';
+import { ethers } from 'ethers';
+import { waffle } from 'hardhat';
 import {
   BridgeAccountIndex,
   DefaultPoolAmount,
   DefaultTokenAmount,
   DestinationChainID,
 } from '../util/constants';
+import { CommitmentInfo } from './commitment';
 
 export function testAxelarDeposit(
   contractName: string,

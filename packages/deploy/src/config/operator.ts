@@ -6,6 +6,7 @@ export interface RawOperatorConfig {
   admin: string;
   executors: string[];
   rollers: string[];
+  auditors: string[];
 }
 
 export class OperatorConfig extends BaseConfig {
@@ -21,6 +22,8 @@ export class OperatorConfig extends BaseConfig {
     this.asRawOperatorConfig().rollers.forEach((roller) => {
       check(ethers.utils.isAddress(roller), `${roller} is invalid address`);
     });
+
+    BaseConfig.checkStringArray(this.config, 'auditors');
   }
 
   public get admin(): string {
@@ -33,6 +36,10 @@ export class OperatorConfig extends BaseConfig {
 
   public get rollers(): string[] {
     return this.asRawOperatorConfig().rollers;
+  }
+
+  public get auditors(): string[] {
+    return this.asRawOperatorConfig().auditors;
   }
 
   private asRawOperatorConfig(): RawOperatorConfig {

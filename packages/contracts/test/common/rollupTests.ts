@@ -1,11 +1,17 @@
+import { Wallet } from '@ethersproject/wallet';
 import { TestToken } from '@mystikonetwork/contracts-abi';
 import { MerkleTree } from '@mystikonetwork/merkle';
 import { CommitmentOutput, MystikoProtocolV2 } from '@mystikonetwork/protocol';
 import { toBN } from '@mystikonetwork/utils';
 import { expect } from 'chai';
 import { waffle } from 'hardhat';
-import { Wallet } from '@ethersproject/wallet';
-import { MerkleTreeHeight, MinRollupFee, RollupAccountIndex1, RollupAccountIndex2 } from '../util/constants';
+import {
+  CircuitsPath,
+  MerkleTreeHeight,
+  MinRollupFee,
+  RollupAccountIndex1,
+  RollupAccountIndex2,
+} from '../util/constants';
 
 async function enableRollupVerifier(
   mystikoContract: any,
@@ -43,41 +49,41 @@ async function generateProof(
     proof = await protocol.zkProveRollup({
       tree,
       newLeaves,
-      programFile: 'circuits/dist/zokrates/dev/Rollup1.program.gz',
-      abiFile: 'circuits/dist/zokrates/dev/Rollup1.abi.json',
-      provingKeyFile: 'circuits/dist/zokrates/dev/Rollup1.pkey.gz',
+      programFile: CircuitsPath.concat('Rollup1.program.gz'),
+      abiFile: CircuitsPath.concat('Rollup1.abi.json'),
+      provingKeyFile: CircuitsPath.concat('Rollup1.pkey.gz'),
     });
   } else if (rollupSize === 2) {
     proof = await protocol.zkProveRollup({
       tree,
       newLeaves,
-      programFile: 'circuits/dist/zokrates/dev/Rollup2.program.gz',
-      abiFile: 'circuits/dist/zokrates/dev/Rollup2.abi.json',
-      provingKeyFile: 'circuits/dist/zokrates/dev/Rollup2.pkey.gz',
+      programFile: CircuitsPath.concat('Rollup2.program.gz'),
+      abiFile: CircuitsPath.concat('Rollup2.abi.json'),
+      provingKeyFile: CircuitsPath.concat('Rollup2.pkey.gz'),
     });
   } else if (rollupSize === 4) {
     proof = await protocol.zkProveRollup({
       tree,
       newLeaves,
-      programFile: 'circuits/dist/zokrates/dev/Rollup4.program.gz',
-      abiFile: 'circuits/dist/zokrates/dev/Rollup4.abi.json',
-      provingKeyFile: 'circuits/dist/zokrates/dev/Rollup4.pkey.gz',
+      programFile: CircuitsPath.concat('Rollup4.program.gz'),
+      abiFile: CircuitsPath.concat('Rollup4.abi.json'),
+      provingKeyFile: CircuitsPath.concat('Rollup4.pkey.gz'),
     });
   } else if (rollupSize === 8) {
     proof = await protocol.zkProveRollup({
       tree,
       newLeaves,
-      programFile: 'circuits/dist/zokrates/dev/Rollup8.program.gz',
-      abiFile: 'circuits/dist/zokrates/dev/Rollup8.abi.json',
-      provingKeyFile: 'circuits/dist/zokrates/dev/Rollup8.pkey.gz',
+      programFile: CircuitsPath.concat('Rollup8.program.gz'),
+      abiFile: CircuitsPath.concat('Rollup8.abi.json'),
+      provingKeyFile: CircuitsPath.concat('Rollup8.pkey.gz'),
     });
   } else if (rollupSize === 16) {
     proof = await protocol.zkProveRollup({
       tree,
       newLeaves,
-      programFile: 'circuits/dist/zokrates/dev/Rollup16.program.gz',
-      abiFile: 'circuits/dist/zokrates/dev/Rollup16.abi.json',
-      provingKeyFile: 'circuits/dist/zokrates/dev/Rollup16.pkey.gz',
+      programFile: CircuitsPath.concat('Rollup16.program.gz'),
+      abiFile: CircuitsPath.concat('Rollup16.abi.json'),
+      provingKeyFile: CircuitsPath.concat('Rollup16.pkey.gz'),
     });
   }
   expect(proof).to.not.equal(undefined);

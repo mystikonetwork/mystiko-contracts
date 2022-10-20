@@ -1,34 +1,34 @@
 import { Wallet } from '@ethersproject/wallet';
-import { ZokratesNodeProverFactory } from '@mystikonetwork/zkp-node';
-import { waffle } from 'hardhat';
-import { toDecimals } from '@mystikonetwork/utils';
 import {
-  TestToken,
   CommitmentPoolMain,
-  DummySanctionsList,
   DummyLZEndpoint,
+  DummySanctionsList,
   MystikoV2LayerZeroMain,
+  TestToken,
 } from '@mystikonetwork/contracts-abi';
 import { MystikoProtocolV2, ProtocolFactoryV2 } from '@mystikonetwork/protocol';
+import { toDecimals } from '@mystikonetwork/utils';
+import { ZokratesNodeProverFactory } from '@mystikonetwork/zkp-node';
+import { waffle } from 'hardhat';
+import { constructCommitment, testBridgeConstructor } from '../../../common';
+import { testLayerZeroDeposit } from '../../../common/depositLayerZeroTests';
 import {
-  deployDependContracts,
-  loadFixture,
   deployCommitmentPoolContracts,
+  deployDependContracts,
   deployDummyLayerZeroContracts,
   deployLayerZeroContracts,
+  loadFixture,
 } from '../../../util/common';
-import { constructCommitment, testBridgeConstructor } from '../../../common';
 
 // @ts-ignore
 import {
+  DestinationChainID,
   LzChainID,
+  MaxAmount,
   MinAmount,
   MinBridgeFee,
   MinRollupFee,
-  DestinationChainID,
-  MaxAmount,
 } from '../../../util/constants';
-import { testLayerZeroDeposit } from '../../../common/depositLayerZeroTests';
 
 describe('Test Mystiko layer zero', () => {
   async function fixture(accounts: Wallet[]) {

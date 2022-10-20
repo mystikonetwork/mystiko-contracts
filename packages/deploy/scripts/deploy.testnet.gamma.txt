@@ -1,0 +1,123 @@
+yarn deploy:chain --network goerli --step step2 --bridge loop --dst goerli --token ETH
+yarn deploy:chain --network goerli --step step2 --bridge loop --dst goerli --token MTT
+yarn deploy:chain --network goerli --step step2 --bridge loop --dst goerli --token mUSD
+
+yarn deploy:chain --network bsctestnet --step step2 --bridge loop --dst bsctestnet --token BNB
+yarn deploy:chain --network bsctestnet --step step2 --bridge loop --dst bsctestnet --token MTT
+yarn deploy:chain --network bsctestnet --step step2 --bridge loop --dst bsctestnet --token mUSD
+
+yarn deploy:chain --network polygontestnet --step step2 --bridge loop --dst polygontestnet --token MATIC
+yarn deploy:chain --network polygontestnet --step step2 --bridge loop --dst polygontestnet --token MTT
+yarn deploy:chain --network polygontestnet --step step2 --bridge loop --dst polygontestnet --token mUSD
+
+yarn deploy:chain --network fantomtestnet --step step2 --bridge loop --dst fantomtestnet --token FTM
+yarn deploy:chain --network fantomtestnet --step step2 --bridge loop --dst fantomtestnet --token MTT
+yarn deploy:chain --network fantomtestnet --step step2 --bridge loop --dst fantomtestnet --token mUSD
+
+yarn deploy:chain --network avalanchetestnet --step step2 --bridge loop --dst avalanchetestnet --token AVAX
+yarn deploy:chain --network avalanchetestnet --step step2 --bridge loop --dst avalanchetestnet --token MTT
+yarn deploy:chain --network avalanchetestnet --step step2 --bridge loop --dst avalanchetestnet --token mUSD
+
+yarn deploy:chain --network moonbase --step step2 --bridge loop --dst moonbase --token DEV
+yarn deploy:chain --network moonbase --step step2 --bridge loop --dst moonbase --token MTT
+yarn deploy:chain --network moonbase --step step2 --bridge loop --dst moonbase --token mUSD
+
+yarn deploy:chain --network goerli --step step2 --bridge tbridge --dst bsctestnet --token ETH
+yarn deploy:chain --network goerli --step step2 --bridge tbridge --dst bsctestnet --token mBNB
+yarn deploy:chain --network goerli --step step2 --bridge tbridge --dst bsctestnet --token MTT
+yarn deploy:chain --network goerli --step step2 --bridge tbridge --dst bsctestnet --token mUSD
+
+yarn deploy:chain --network goerli --step step2 --bridge tbridge --dst polygontestnet --token ETH
+yarn deploy:chain --network goerli --step step2 --bridge tbridge --dst polygontestnet --token MATIC
+yarn deploy:chain --network goerli --step step2 --bridge tbridge --dst polygontestnet --token MTT
+yarn deploy:chain --network goerli --step step2 --bridge tbridge --dst polygontestnet --token mUSD
+
+yarn deploy:chain --network goerli --step step2 --bridge tbridge --dst avalanchetestnet --token ETH
+yarn deploy:chain --network goerli --step step2 --bridge tbridge --dst avalanchetestnet --token mAVAX
+yarn deploy:chain --network goerli --step step2 --bridge tbridge --dst avalanchetestnet --token MTT
+yarn deploy:chain --network goerli --step step2 --bridge tbridge --dst avalanchetestnet --token mUSD
+
+yarn deploy:chain --network goerli --step step2 --bridge tbridge --dst fantomtestnet --token ETH
+yarn deploy:chain --network goerli --step step2 --bridge tbridge --dst fantomtestnet --token mFTM
+yarn deploy:chain --network goerli --step step2 --bridge tbridge --dst fantomtestnet --token MTT
+yarn deploy:chain --network goerli --step step2 --bridge tbridge --dst fantomtestnet --token mUSD
+
+yarn deploy:chain --network goerli --step step2 --bridge tbridge --dst moonbase --token ETH
+yarn deploy:chain --network goerli --step step2 --bridge tbridge --dst moonbase --token mDEV
+yarn deploy:chain --network goerli --step step2 --bridge tbridge --dst moonbase --token MTT
+yarn deploy:chain --network goerli --step step2 --bridge tbridge --dst moonbase --token mUSD
+
+yarn deploy:chain --network bsctestnet --step step2 --bridge tbridge --dst goerli --token mETH
+yarn deploy:chain --network bsctestnet --step step2 --bridge tbridge --dst goerli --token BNB
+yarn deploy:chain --network bsctestnet --step step2 --bridge tbridge --dst goerli --token MTT
+yarn deploy:chain --network bsctestnet --step step2 --bridge tbridge --dst goerli --token mUSD
+
+yarn deploy:chain --network polygontestnet --step step2 --bridge tbridge --dst goerli --token mETH
+yarn deploy:chain --network polygontestnet --step step2 --bridge tbridge --dst goerli --token MATIC
+yarn deploy:chain --network polygontestnet --step step2 --bridge tbridge --dst goerli --token MTT
+yarn deploy:chain --network polygontestnet --step step2 --bridge tbridge --dst goerli --token mUSD
+
+yarn deploy:chain --network avalanchetestnet --step step2 --bridge tbridge --dst goerli --token mETH
+yarn deploy:chain --network avalanchetestnet --step step2 --bridge tbridge --dst goerli --token AVAX
+yarn deploy:chain --network avalanchetestnet --step step2 --bridge tbridge --dst goerli --token MTT
+yarn deploy:chain --network avalanchetestnet --step step2 --bridge tbridge --dst goerli --token mUSD
+
+yarn deploy:chain --network fantomtestnet --step step2 --bridge tbridge --dst goerli --token mETH
+yarn deploy:chain --network fantomtestnet --step step2 --bridge tbridge --dst goerli --token FTM
+yarn deploy:chain --network fantomtestnet --step step2 --bridge tbridge --dst goerli --token MTT
+yarn deploy:chain --network fantomtestnet --step step2 --bridge tbridge --dst goerli --token mUSD
+
+yarn deploy:chain --network moonbase --step step2 --bridge tbridge --dst goerli --token mETH
+yarn deploy:chain --network moonbase --step step2 --bridge tbridge --dst goerli --token DEV
+yarn deploy:chain --network moonbase --step step2 --bridge tbridge --dst goerli --token MTT
+yarn deploy:chain --network moonbase --step step2 --bridge tbridge --dst goerli --token mUSD
+
+yarn deploy:chain --network goerli --step step2 --bridge celer --dst bsctestnet --token ETH
+yarn deploy:chain --network goerli --step step2 --bridge celer --dst bsctestnet --token mBNB
+yarn deploy:chain --network goerli --step step2 --bridge celer --dst bsctestnet --token MTT
+yarn deploy:chain --network goerli --step step2 --bridge celer --dst bsctestnet --token mUSD
+
+yarn deploy:chain --network goerli --step step2 --bridge celer --dst polygontestnet --token ETH
+yarn deploy:chain --network goerli --step step2 --bridge celer --dst polygontestnet --token MATIC
+yarn deploy:chain --network goerli --step step2 --bridge celer --dst polygontestnet --token MTT
+yarn deploy:chain --network goerli --step step2 --bridge celer --dst polygontestnet --token mUSD
+
+yarn deploy:chain --network goerli --step step2 --bridge celer --dst avalanchetestnet --token ETH
+yarn deploy:chain --network goerli --step step2 --bridge celer --dst avalanchetestnet --token mAVAX
+yarn deploy:chain --network goerli --step step2 --bridge celer --dst avalanchetestnet --token MTT
+yarn deploy:chain --network goerli --step step2 --bridge celer --dst avalanchetestnet --token mUSD
+
+yarn deploy:chain --network goerli --step step2 --bridge celer --dst fantomtestnet --token ETH
+yarn deploy:chain --network goerli --step step2 --bridge celer --dst fantomtestnet --token mFTM
+yarn deploy:chain --network goerli --step step2 --bridge celer --dst fantomtestnet --token MTT
+yarn deploy:chain --network goerli --step step2 --bridge celer --dst fantomtestnet --token mUSD
+
+yarn deploy:chain --network bsctestnet --step step2 --bridge celer --dst goerli --token mETH
+yarn deploy:chain --network bsctestnet --step step2 --bridge celer --dst goerli --token BNB
+yarn deploy:chain --network bsctestnet --step step2 --bridge celer --dst goerli --token MTT
+yarn deploy:chain --network bsctestnet --step step2 --bridge celer --dst goerli --token mUSD
+
+yarn deploy:chain --network polygontestnet --step step2 --bridge celer --dst goerli --token mETH
+yarn deploy:chain --network polygontestnet --step step2 --bridge celer --dst goerli --token MATIC
+yarn deploy:chain --network polygontestnet --step step2 --bridge celer --dst goerli --token MTT
+yarn deploy:chain --network polygontestnet --step step2 --bridge celer --dst goerli --token mUSD
+
+yarn deploy:chain --network avalanchetestnet --step step2 --bridge celer --dst goerli --token mETH
+yarn deploy:chain --network avalanchetestnet --step step2 --bridge celer --dst goerli --token AVAX
+yarn deploy:chain --network avalanchetestnet --step step2 --bridge celer --dst goerli --token MTT
+yarn deploy:chain --network avalanchetestnet --step step2 --bridge celer --dst goerli --token mUSD
+
+yarn deploy:chain --network fantomtestnet --step step2 --bridge celer --dst goerli --token mETH
+yarn deploy:chain --network fantomtestnet --step step2 --bridge celer --dst goerli --token FTM
+yarn deploy:chain --network fantomtestnet --step step2 --bridge celer --dst goerli --token MTT
+yarn deploy:chain --network fantomtestnet --step step2 --bridge celer --dst goerli --token mUSD
+
+yarn deploy:chain --network bsctestnet --step step2 --bridge layerZero --dst avalanchetestnet --token MTT
+yarn deploy:chain --network bsctestnet --step step2 --bridge layerZero --dst avalanchetestnet --token mUSD
+yarn deploy:chain --network avalanchetestnet --step step2 --bridge layerZero --dst bsctestnet --token MTT
+yarn deploy:chain --network avalanchetestnet --step step2 --bridge layerZero --dst bsctestnet --token mUSD
+
+yarn deploy:chain --network avalanchetestnet --step step2 --bridge axelar --dst fantomtestnet --token MTT
+yarn deploy:chain --network avalanchetestnet --step step2 --bridge axelar --dst polygontestnet --token MTT
+yarn deploy:chain --network fantomtestnet --step step2 --bridge axelar --dst avalanchetestnet --token MTT
+yarn deploy:chain --network polygontestnet --step step2 --bridge axelar --dst avalanchetestnet --token MTT

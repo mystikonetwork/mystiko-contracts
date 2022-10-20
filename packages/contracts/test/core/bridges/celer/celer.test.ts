@@ -1,36 +1,36 @@
 import { Wallet } from '@ethersproject/wallet';
-import { ZokratesNodeProverFactory } from '@mystikonetwork/zkp-node';
-import { waffle } from 'hardhat';
-import { toDecimals } from '@mystikonetwork/utils';
 import {
+  CommitmentPoolERC20,
+  CommitmentPoolMain,
+  DummyCelerMessageBus,
+  DummySanctionsList,
   MystikoV2CelerERC20,
   MystikoV2CelerMain,
   TestToken,
-  CommitmentPoolMain,
-  DummySanctionsList,
-  DummyCelerMessageBus,
-  CommitmentPoolERC20,
 } from '@mystikonetwork/contracts-abi';
 import { MystikoProtocolV2, ProtocolFactoryV2 } from '@mystikonetwork/protocol';
+import { toDecimals } from '@mystikonetwork/utils';
+import { ZokratesNodeProverFactory } from '@mystikonetwork/zkp-node';
+import { waffle } from 'hardhat';
+import { constructCommitment, testBridgeAdminOperations, testBridgeConstructor } from '../../../common';
+import { testCelerDeposit } from '../../../common/depositCelerTests';
 import {
-  deployDependContracts,
-  loadFixture,
-  deployCommitmentPoolContracts,
   deployCelerContracts,
+  deployCommitmentPoolContracts,
+  deployDependContracts,
   deployDummyCelerContracts,
+  loadFixture,
 } from '../../../util/common';
-import { testBridgeConstructor, testBridgeAdminOperations, constructCommitment } from '../../../common';
 
 // @ts-ignore
 import {
   DestinationChainID,
-  MinRollupFee,
+  MaxAmount,
+  MinAmount,
   MinBridgeFee,
   MinExecutorFee,
-  MinAmount,
-  MaxAmount,
+  MinRollupFee,
 } from '../../../util/constants';
-import { testCelerDeposit } from '../../../common/depositCelerTests';
 
 describe('Test Mystiko celer', () => {
   async function fixture(accounts: Wallet[]) {

@@ -51,51 +51,52 @@ task('query', 'update contract configure')
   });
 
 const DEFAULT_ENDPOINT = 'http://localhost:8545';
-const DEFAULT_PRIVATE_KEY = process.env.PRIVATE_KEY;
+const DEFAULT_TESTNET_PRIVATE_KEY = process.env.TESTNET_PRIVATE_KEY;
+const DEFAULT_MAINNET_PRIVATE_KEY = process.env.MAINNET_PRIVATE_KEY;
 
 // Testnets
 const ropstenEndpoint = process.env.ROPSTEN_ENDPOINT || DEFAULT_ENDPOINT;
-const ropstenPrivateKey = process.env.ROPSTEN_PRIVATE_KEY || DEFAULT_PRIVATE_KEY;
+const ropstenPrivateKey = process.env.ROPSTEN_TESTNET_PRIVATE_KEY || DEFAULT_TESTNET_PRIVATE_KEY;
 
 const goerliEndpoint = process.env.GOERLI_ENDPOINT || DEFAULT_ENDPOINT;
-const goerliPrivateKey = process.env.GOERLI_PRIVATE_KEY || DEFAULT_PRIVATE_KEY;
+const goerliPrivateKey = process.env.GOERLI_TESTNET_PRIVATE_KEY || DEFAULT_TESTNET_PRIVATE_KEY;
 
 const bscTestEndpoint = process.env.BSC_TEST_ENDPOINT || DEFAULT_ENDPOINT;
-const bscTestPrivateKey = process.env.BSC_TEST_PRIVATE_KEY || DEFAULT_PRIVATE_KEY;
+const bscTestPrivateKey = process.env.BSC_TESTNET_PRIVATE_KEY || DEFAULT_TESTNET_PRIVATE_KEY;
 
 const fantomTestEndpoint = process.env.FANTOM_TEST_ENDPOINT || DEFAULT_ENDPOINT;
-const fantomTestPrivateKey = process.env.FANTOM_TEST_PRIVATE_KEY || DEFAULT_PRIVATE_KEY;
+const fantomTestPrivateKey = process.env.FANTOM_TESTNET_PRIVATE_KEY || DEFAULT_TESTNET_PRIVATE_KEY;
 
 const avalancheTestEndpoint = process.env.AVALANCHE_TEST_ENDPOINT || DEFAULT_ENDPOINT;
-const avalancheTestPrivateKey = process.env.AVALANCHE_TEST_PRIVATE_KEY || DEFAULT_PRIVATE_KEY;
+const avalancheTestPrivateKey = process.env.AVALANCHE_TESTNET_PRIVATE_KEY || DEFAULT_TESTNET_PRIVATE_KEY;
 
 const auroraTestEndpoint = process.env.AURORA_TEST_ENDPOINT || DEFAULT_ENDPOINT;
-const auroraTestPrivateKey = process.env.AURORA_TEST_PRIVATE_KEY || DEFAULT_PRIVATE_KEY;
+const auroraTestPrivateKey = process.env.AURORA_TESTNET_PRIVATE_KEY || DEFAULT_TESTNET_PRIVATE_KEY;
 
 const polygonTestEndpoint = process.env.POLYGON_TEST_ENDPOINT || DEFAULT_ENDPOINT;
-const polygonTestPrivateKey = process.env.POLYGON_TEST_PRIVATE_KEY || DEFAULT_PRIVATE_KEY;
+const polygonTestPrivateKey = process.env.POLYGON_TESTNET_PRIVATE_KEY || DEFAULT_TESTNET_PRIVATE_KEY;
 
 const moonbaseAlphaTestEndpoint = process.env.MOONBASE_ALPHA_ENDPOINT || DEFAULT_ENDPOINT;
-const moonbaseAlphaTestPrivateKey = process.env.MOONBASE_ALPHA_PRIVATE_KEY || DEFAULT_PRIVATE_KEY;
+const moonbaseAlphaTestPrivateKey = process.env.MOONBASE_ALPHA_PRIVATE_KEY || DEFAULT_TESTNET_PRIVATE_KEY;
 
 // Mainnets
 const ethEndpoint = process.env.ETH_ENDPOINT || DEFAULT_ENDPOINT;
-const ethPrivateKey = process.env.ETH_PRIVATE_KEY || DEFAULT_PRIVATE_KEY;
+const ethPrivateKey = process.env.ETH_MAINNET_PRIVATE_KEY || DEFAULT_MAINNET_PRIVATE_KEY;
 
 const bscEndpoint = process.env.BSC_ENDPOINT || DEFAULT_ENDPOINT;
-const bscPrivateKey = process.env.BSC_PRIVATE_KEY || DEFAULT_PRIVATE_KEY;
+const bscPrivateKey = process.env.BSC_MAINNET_PRIVATE_KEY || DEFAULT_MAINNET_PRIVATE_KEY;
 
 const fantomEndpoint = process.env.FANTOM_ENDPOINT || DEFAULT_ENDPOINT;
-const fantomPrivateKey = process.env.FANTOM_PRIVATE_KEY || DEFAULT_PRIVATE_KEY;
+const fantomPrivateKey = process.env.FANTOM_MAINNET_PRIVATE_KEY || DEFAULT_MAINNET_PRIVATE_KEY;
 
 const avalancheEndpoint = process.env.AVALANCHE_ENDPOINT || DEFAULT_ENDPOINT;
-const avalanchePrivateKey = process.env.AVALANCHE_PRIVATE_KEY || DEFAULT_PRIVATE_KEY;
+const avalanchePrivateKey = process.env.AVALANCHE_MAINNET_PRIVATE_KEY || DEFAULT_MAINNET_PRIVATE_KEY;
 
 const polygonEndpoint = process.env.POLYGON_ENDPOINT || DEFAULT_ENDPOINT;
-const polygonPrivateKey = process.env.POLYGON_PRIVATE_KEY || DEFAULT_PRIVATE_KEY;
+const polygonPrivateKey = process.env.POLYGON_MAINNET_PRIVATE_KEY || DEFAULT_MAINNET_PRIVATE_KEY;
 
 const moonbeamEndpoint = process.env.MOONBEAM_ENDPOINT || DEFAULT_ENDPOINT;
-const moonbeamPrivateKey = process.env.MOONBEAM_PRIVATE_KEY || DEFAULT_PRIVATE_KEY;
+const moonbeamPrivateKey = process.env.MOONBEAM_MAINNET_PRIVATE_KEY || DEFAULT_MAINNET_PRIVATE_KEY;
 
 const config: HardhatUserConfig = {
   defaultNetwork: 'hardhat',
@@ -134,9 +135,10 @@ const config: HardhatUserConfig = {
       url: polygonTestEndpoint,
       accounts: [`0x${polygonTestPrivateKey}`],
     },
-    eth: {
+    Ethereum: {
       url: ethEndpoint,
       accounts: [`0x${ethPrivateKey}`],
+      timeout: 60000000
     },
     bsc: {
       url: bscEndpoint,

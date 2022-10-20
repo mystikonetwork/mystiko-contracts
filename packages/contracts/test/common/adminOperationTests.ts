@@ -1,8 +1,8 @@
-import BN from 'bn.js';
-import { expect } from 'chai';
 import { MystikoTBridgeProxy } from '@mystikonetwork/contracts-abi';
 import { ECIES, KEY_LEN } from '@mystikonetwork/ecies';
 import { toBN, toFixedLenHex } from '@mystikonetwork/utils';
+import BN from 'bn.js';
+import { expect } from 'chai';
 import { MaxAmount, MinAmount } from '../util/constants';
 
 export function testLoopAdminOperations(

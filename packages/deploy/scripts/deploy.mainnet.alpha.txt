@@ -1,0 +1,5 @@
+yarn deploy:chain --network Ethereum --step step3 --bridge loop --dst Ethereum --token ETH
+yarn deploy:chain --network Ethereum --step step3 --bridge loop --dst Ethereum --token USDT
+yarn deploy:chain --network Ethereum --step step3 --bridge loop --dst Ethereum --token USDC
+
+
