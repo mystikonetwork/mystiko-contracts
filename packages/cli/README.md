@@ -10,27 +10,35 @@ oclif example Hello World CLI
 [![License](https://img.shields.io/npm/l/oclif-hello-world.svg)](https://github.com/oclif/hello-world/blob/main/package.json)
 
 <!-- toc -->
+
 * [Usage](#usage)
 * [Commands](#commands)
+
 <!-- tocstop -->
+
 # Usage
+
 <!-- usage -->
+
 ```sh-session
 $ npm install -g @mystikonetwork/command-line
 $ mystiko COMMAND
 running command...
 $ mystiko (--version)
-@mystikonetwork/command-line/0.0.0 darwin-x64 node-v14.19.0
+@mystikonetwork/command-line/0.2.1 darwin-x64 node-v14.19.0
 $ mystiko --help [COMMAND]
 USAGE
   $ mystiko COMMAND
 ...
 ```
+
 <!-- usagestop -->
+
 # Commands
+
 <!-- commands -->
-* [`mystiko hello PERSON`](#mystiko-hello-person)
-* [`mystiko hello world`](#mystiko-hello-world)
+
+* [`mystiko deposit TOKEN`](#mystiko-deposit-token)
 * [`mystiko help [COMMAND]`](#mystiko-help-command)
 * [`mystiko plugins`](#mystiko-plugins)
 * [`mystiko plugins:install PLUGIN...`](#mystiko-pluginsinstall-plugin)
@@ -41,46 +49,55 @@ USAGE
 * [`mystiko plugins:uninstall PLUGIN...`](#mystiko-pluginsuninstall-plugin-1)
 * [`mystiko plugins:uninstall PLUGIN...`](#mystiko-pluginsuninstall-plugin-2)
 * [`mystiko plugins update`](#mystiko-plugins-update)
+* [`mystiko transfer TOKEN`](#mystiko-transfer-token)
+* [`mystiko withdraw TOKEN`](#mystiko-withdraw-token)
 
-## `mystiko hello PERSON`
-
-Say hello
+## `mystiko base`
 
 ```
 USAGE
-  $ mystiko hello [PERSON] -f <value>
-
-ARGUMENTS
-  PERSON  Person to say hello to
+  $ mystiko base [-e <value>] [-m] [-k <value>]
 
 FLAGS
-  -f, --from=<value>  (required) Who is saying hello
-
-DESCRIPTION
-  Say hello
-
-EXAMPLES
-  $ oex hello friend --from oclif
-  hello friend from oclif! (./src/commands/hello/index.ts)
+  -e, --env=<value>         [default: .env] Env path
+  -k, --privateKey=<value>  Signer private key
+  -m, --main                Is main net
 ```
 
-_See code: [dist/commands/hello/index.ts](https://github.com/packages/mystiko-contracts/blob/v0.0.0/dist/commands/hello/index.ts)_
+_See
+code: [dist/commands/base.ts](https://github.com/mystikonetwork/mystiko-contracts/blob/v0.2.1/dist/commands/base.ts)_
 
-## `mystiko hello world`
+## `mystiko deposit TOKEN`
 
-Say hello world
+Deposit token from source chain id
 
 ```
 USAGE
-  $ mystiko hello world
+  $ mystiko deposit [TOKEN] -f <value> [-e <value>] [-m] [-k <value>] [-t <value>] [-b
+    loop|poly|tbridge|celer|layerZero|axelar] [-a <value>]
+
+ARGUMENTS
+  TOKEN  (ETH|BNB|MATIC|AVAX|FTM|DEV|mETH|mBNB|mMATIC|mAVAX|mFTM|mDEV|MTT|mUSD) Deposit token symbol
+
+FLAGS
+  -a, --amount=<value>      Deposit amount
+  -b, --bridge=<option>     [default: loop] Bridge Type
+                            <options: loop|poly|tbridge|celer|layerZero|axelar>
+  -e, --env=<value>         [default: .env] Env path
+  -f, --from=<value>        (required) Token source chain id
+  -k, --privateKey=<value>  Signer private key
+  -m, --main                Is main net
+  -t, --to=<value>          Token dest chain id (default: from)
 
 DESCRIPTION
-  Say hello world
+  Deposit token from source chain id
 
 EXAMPLES
-  $ mystiko hello world
-  hello world! (./src/commands/hello/world.ts)
+  $ mystiko deposit BNB --from 97 --to 97
 ```
+
+_See
+code: [dist/commands/deposit.ts](https://github.com/mystikonetwork/mystiko-contracts/blob/v0.2.1/dist/commands/deposit.ts)_
 
 ## `mystiko help [COMMAND]`
 
@@ -100,7 +117,7 @@ DESCRIPTION
   Display help for mystiko.
 ```
 
-_See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v5.1.12/src/commands/help.ts)_
+_See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v5.1.15/src/commands/help.ts)_
 
 ## `mystiko plugins`
 
@@ -120,7 +137,7 @@ EXAMPLES
   $ mystiko plugins
 ```
 
-_See code: [@oclif/plugin-plugins](https://github.com/oclif/plugin-plugins/blob/v2.0.11/src/commands/plugins/index.ts)_
+_See code: [@oclif/plugin-plugins](https://github.com/oclif/plugin-plugins/blob/v2.1.4/src/commands/plugins/index.ts)_
 
 ## `mystiko plugins:install PLUGIN...`
 
@@ -140,7 +157,6 @@ FLAGS
 
 DESCRIPTION
   Installs a plugin into the CLI.
-
   Can be installed from npm or a git url.
 
   Installation of a user-installed plugin will override a core plugin.
@@ -148,6 +164,7 @@ DESCRIPTION
   e.g. If you have a core plugin that has a 'hello' command, installing a user-installed plugin with a 'hello' command
   will override the core plugin implementation. This is useful if a user needs to update core plugin functionality in
   the CLI without the need to patch and update the whole CLI.
+
 
 ALIASES
   $ mystiko plugins add
@@ -200,7 +217,6 @@ FLAGS
 
 DESCRIPTION
   Installs a plugin into the CLI.
-
   Can be installed from npm or a git url.
 
   Installation of a user-installed plugin will override a core plugin.
@@ -208,6 +224,7 @@ DESCRIPTION
   e.g. If you have a core plugin that has a 'hello' command, installing a user-installed plugin with a 'hello' command
   will override the core plugin implementation. This is useful if a user needs to update core plugin functionality in
   the CLI without the need to patch and update the whole CLI.
+
 
 ALIASES
   $ mystiko plugins add
@@ -237,11 +254,11 @@ FLAGS
 
 DESCRIPTION
   Links a plugin into the CLI for development.
-
   Installation of a linked plugin will override a user-installed or core plugin.
 
   e.g. If you have a user-installed or core plugin that has a 'hello' command, installing a linked plugin with a 'hello'
   command will override the user-installed or core plugin implementation. This is useful for development work.
+
 
 EXAMPLES
   $ mystiko plugins:link myplugin
@@ -331,4 +348,70 @@ FLAGS
 DESCRIPTION
   Update installed plugins.
 ```
+
+## `mystiko transfer TOKEN`
+
+Transfer token from chain id
+
+```
+USAGE
+  $ mystiko transfer [TOKEN] -f <value> [-e <value>] [-m] [-k <value>] [-b
+    loop|poly|tbridge|celer|layerZero|axelar] [-a <value>] [-p <value>] [-s <value>] [-v <value>]
+
+ARGUMENTS
+  TOKEN  (ETH|BNB|MATIC|AVAX|FTM|DEV|mETH|mBNB|mMATIC|mAVAX|mFTM|mDEV|MTT|mUSD) Deposit token symbol
+
+FLAGS
+  -a, --amount=<value>           Deposit amount
+  -b, --bridge=<option>          [default: loop] Bridge Type
+                                 <options: loop|poly|tbridge|celer|layerZero|axelar>
+  -e, --env=<value>              [default: .env] Env path
+  -f, --from=<value>             (required) Token source chain id
+  -k, --privateKey=<value>       Signer private key
+  -m, --main                     Is main net
+  -p, --publicAddress=<value>    Transfer public address
+  -s, --shieldedAddress=<value>  Mystiko wallet shielded address
+  -v, --version=<value>          Pool contract version
+
+DESCRIPTION
+  Transfer token from chain id
+
+EXAMPLES
+  $ mystiko transfer BNB --from 97
+```
+
+_See
+code: [dist/commands/transfer.ts](https://github.com/mystikonetwork/mystiko-contracts/blob/v0.2.1/dist/commands/transfer.ts)_
+
+## `mystiko withdraw TOKEN`
+
+Withdraw token from chain id
+
+```
+USAGE
+  $ mystiko withdraw [TOKEN] -f <value> [-e <value>] [-m] [-k <value>] [-b
+    loop|poly|tbridge|celer|layerZero|axelar] [-a <value>] [-p <value>]
+
+ARGUMENTS
+  TOKEN  (ETH|BNB|MATIC|AVAX|FTM|DEV|mETH|mBNB|mMATIC|mAVAX|mFTM|mDEV|MTT|mUSD) Deposit token symbol
+
+FLAGS
+  -a, --amount=<value>         Deposit amount
+  -b, --bridge=<option>        [default: loop] Bridge Type
+                               <options: loop|poly|tbridge|celer|layerZero|axelar>
+  -e, --env=<value>            [default: .env] Env path
+  -f, --from=<value>           (required) Token source chain id
+  -k, --privateKey=<value>     Signer private key
+  -m, --main                   Is main net
+  -p, --publicAddress=<value>  withdraw public address
+
+DESCRIPTION
+  Withdraw token from chain id
+
+EXAMPLES
+  $ mystiko withdraw BNB --from 97
+```
+
+_See
+code: [dist/commands/withdraw.ts](https://github.com/mystikonetwork/mystiko-contracts/blob/v0.2.1/dist/commands/withdraw.ts)_
 <!-- commandsstop -->

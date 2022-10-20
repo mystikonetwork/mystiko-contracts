@@ -1,6 +1,6 @@
 {
   "name": "mystiko-contracts",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Core smart contracts related code of Mystiko.Network",
   "private": true,
   "repository": "https://github.com/mystikonetwork/mystiko-contracts",
