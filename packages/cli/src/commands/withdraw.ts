@@ -1,23 +1,19 @@
-import { Flags } from '@oclif/core';
 import { Base } from './base';
-import { BridgeType } from '@mystikonetwork/config';
+import { Flags } from '@oclif/core';
 import { ERC20_TOKEN, MAIN_TOKEN } from '../config';
-import { DepositOptions } from '../interface';
+import { BridgeType } from '@mystikonetwork/config';
+import { TransactionEnum } from '@mystikonetwork/database';
 
-export default class Deposit extends Base<typeof Deposit> {
-  static description = 'Deposit token from source chain id';
+export default class Withdraw extends Base<typeof Withdraw> {
+  static description = 'Withdraw token from chain id';
 
-  static examples = ['<%= config.bin %> <%= command.id %> BNB --from 97 --to 97'];
+  static examples = ['<%= config.bin %> <%= command.id %> BNB --from 97'];
 
   static flags = {
     from: Flags.integer({
       char: 'f',
       description: 'Token source chain id',
       required: true,
-    }),
-    to: Flags.integer({
-      char: 't',
-      description: 'Token dest chain id (default: from)',
     }),
     bridge: Flags.string({
       char: 'b',
@@ -28,6 +24,10 @@ export default class Deposit extends Base<typeof Deposit> {
     amount: Flags.string({
       char: 'a',
       description: 'Deposit amount',
+    }),
+    publicAddress: Flags.string({
+      char: 'p',
+      description: 'withdraw public address',
     }),
   };
 
@@ -41,10 +41,9 @@ export default class Deposit extends Base<typeof Deposit> {
   ];
 
   public async run(): Promise<void> {
-    const { args, flags } = await this.parse(Deposit);
+    const { args, flags } = await this.parse(Withdraw);
 
     let amount = Number(flags.amount);
-
     const isERC20 = Object.values(ERC20_TOKEN).includes(args.token);
     if (!amount && isERC20) {
       amount = this.iConfig!.erc20Amount;
@@ -52,12 +51,19 @@ export default class Deposit extends Base<typeof Deposit> {
       amount = this.iConfig!.mainAmount;
     }
 
-    await this.iWallet?.deposit(<DepositOptions>{
+    const publicAddress = flags.publicAddress ?? (await this.iWallet?.address());
+    if (!publicAddress) {
+      this.error('public address undefined');
+    }
+
+    await this.iWallet?.transact({
+      type: TransactionEnum.WITHDRAW,
       amount: amount,
       assetSymbol: args.token,
       bridge: flags.bridge as BridgeType,
-      srcChainId: flags.from,
-      dstChainId: flags.to ?? flags.from,
+      chainId: flags.from,
+      publicAddress: publicAddress,
+      walletPassword: this.iConfig!.walletPassword,
     });
 
     this.exit();

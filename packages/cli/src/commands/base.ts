@@ -15,6 +15,17 @@ export abstract class Base<T extends typeof Command> extends Command {
       default: '.env',
       required: false,
     }),
+    main: Flags.boolean({
+      char: 'm',
+      description: 'Is main net',
+      default: false,
+      required: false,
+    }),
+    privateKey: Flags.string({
+      char: 'k',
+      description: 'Signer private key',
+      required: false,
+    }),
   };
 
   protected flags!: Flags<T>;
@@ -30,7 +41,7 @@ export abstract class Base<T extends typeof Command> extends Command {
     const { flags } = await this.parse(this.constructor as Interfaces.Command.Class);
     this.flags = flags;
 
-    this.iConfig = new ConfigFactory(flags.env).getConfig();
+    this.iConfig = new ConfigFactory(flags.env, flags.main, flags.privateKey).getConfig();
     if (!this.iConfig) {
       this.error('config is undefined');
     }

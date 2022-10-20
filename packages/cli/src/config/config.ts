@@ -7,14 +7,25 @@ const defaultConfig = Object.freeze({
   walletPassword: 'mystiko@psd_12432RDfaf!',
   walletMasterSeed: 'beefbeef',
   accountName: 'mystiko@acc_nmid123',
+  isMainNet: false,
 });
 
 export class EnvConfig implements IConfig {
-  constructor(path: string) {
+  private readonly _isMainNet: boolean;
+
+  private readonly _privateKey: string;
+
+  constructor(path: string, isMainNet: boolean, privateKey: string) {
     dotenv.config({ path: path });
+    this._isMainNet = isMainNet;
+    this._privateKey = privateKey;
   }
 
   public get privateKey(): string {
+    if (this._privateKey) {
+      return this._privateKey;
+    }
+
     if (!process.env.PRIVATE_KEY) {
       return '';
     }
@@ -60,5 +71,17 @@ export class EnvConfig implements IConfig {
     }
 
     return Number(process.env.MAIN_AMOUNT);
+  }
+
+  get isMainNet(): boolean {
+    if (this._isMainNet) {
+      return this._isMainNet;
+    }
+
+    if (!process.env.IS_MAIN_NET) {
+      return defaultConfig.isMainNet;
+    }
+
+    return process.env.IS_MAIN_NET === 'true';
   }
 }

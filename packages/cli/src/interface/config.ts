@@ -10,4 +10,6 @@ export interface IConfig {
   get mainAmount(): number;
 
   get erc20Amount(): number;
+
+  get isMainNet(): boolean;
 }

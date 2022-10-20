@@ -10,7 +10,7 @@ export class DefaultContextFactory implements ICommandLineContextFactory {
   }
 
   async createCommandLineContext(): Promise<ICommandLineContext> {
-    await mystiko.initialize();
+    await mystiko.initialize({ isTestnet: !this.config.isMainNet });
     await mystiko.wallets?.create({
       password: this.config.walletPassword,
       masterSeed: this.config.walletMasterSeed,
