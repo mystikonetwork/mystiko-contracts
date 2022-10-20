@@ -3,7 +3,9 @@ import { ICommandLineContext, IConfig, IWallet } from '../interface';
 import { ConfigFactory } from '../executor/factory/config';
 import { DefaultContextFactory, WalletExecutorFactory } from '../executor/factory';
 
-export type Flags<T extends typeof Command> = Interfaces.InferredFlags<typeof Base['globalFlags'] & T['flags']>;
+export type Flags<T extends typeof Command> = Interfaces.InferredFlags<
+  typeof Base['globalFlags'] & T['flags']
+>;
 
 export abstract class Base<T extends typeof Command> extends Command {
   static globalFlags = {

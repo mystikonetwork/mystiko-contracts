@@ -1,6 +1,5 @@
 import dotenv from 'dotenv';
 import { IConfig } from '../interface';
-import { boolean } from "@oclif/core/lib/parser";
 
 const defaultConfig = Object.freeze({
   erc20Amount: 1,
