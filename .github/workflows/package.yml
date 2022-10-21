@@ -21,7 +21,7 @@ jobs:
           node-version: 14
       - run: echo "@mystikonetwork:registry=https://npm.pkg.github.com" >> $HOME/.npmrc
       - run: echo "//npm.pkg.github.com/:_authToken=${{ secrets.PACKAGES_TOKEN }}" >> $HOME/.npmrc
-      - run: npm install --global lerna
+      - run: npm install --global lerna@4.0
       - run: lerna bootstrap
       - run: lerna run build
       - run: lerna publish from-package --yes
