@@ -18,7 +18,7 @@ export class WalletExecutor extends CommandLineExecutor implements IWallet {
 
     let amount = param.amount;
     if (!amount) {
-      this.logger.info(`amount is undefined, use ${depositConfig!.minAmountNumber}`)
+      this.logger.info(`amount is undefined, use ${depositConfig!.minAmountNumber}`);
       amount = depositConfig!.minAmountNumber;
     }
 
