@@ -58,18 +58,10 @@ export class EnvConfig implements IConfig {
   }
 
   get erc20Amount(): number {
-    if (!process.env.ERC20_AMOUNT) {
-      return defaultConfig.erc20Amount;
-    }
-
     return Number(process.env.ERC20_AMOUNT);
   }
 
   get mainAmount(): number {
-    if (!process.env.MAIN_AMOUNT) {
-      return defaultConfig.mainAmount;
-    }
-
     return Number(process.env.MAIN_AMOUNT);
   }
 

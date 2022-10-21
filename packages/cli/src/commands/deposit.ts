@@ -1,7 +1,7 @@
 import { Flags } from '@oclif/core';
 import { Base } from './base';
 import { BridgeType } from '@mystikonetwork/config';
-import { ERC20_TOKEN, MAIN_TOKEN } from '../config';
+import { MAINNET_ERC20_TOKEN, MAINNET_TOKEN, TESTNET_ERC20_TOKEN, TESTNET_TOKEN } from '../config';
 import { DepositOptions } from '../interface';
 
 export default class Deposit extends Base<typeof Deposit> {
@@ -36,7 +36,12 @@ export default class Deposit extends Base<typeof Deposit> {
       name: 'token',
       description: 'Deposit token symbol',
       required: true,
-      options: Object.values({ ...MAIN_TOKEN, ...ERC20_TOKEN }),
+      options: Object.values({
+        ...TESTNET_TOKEN,
+        ...TESTNET_ERC20_TOKEN,
+        ...MAINNET_TOKEN,
+        ...MAINNET_ERC20_TOKEN,
+      }),
     },
   ];
 
@@ -45,7 +50,7 @@ export default class Deposit extends Base<typeof Deposit> {
 
     let amount = Number(flags.amount);
 
-    const isERC20 = Object.values(ERC20_TOKEN).includes(args.token);
+    const isERC20 = Object.values({ ...TESTNET_ERC20_TOKEN, ...MAINNET_ERC20_TOKEN }).includes(args.token);
     if (!amount && isERC20) {
       amount = this.iConfig!.erc20Amount;
     } else if (!amount && !isERC20) {

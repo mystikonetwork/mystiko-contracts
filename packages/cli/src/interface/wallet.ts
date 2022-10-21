@@ -4,7 +4,7 @@ import { TransactionEnum } from '@mystikonetwork/database';
 export type DepositOptions = {
   assetSymbol: string;
   bridge: BridgeType;
-  amount: number;
+  amount?: number;
   srcChainId: number;
   dstChainId: number;
 };
@@ -16,7 +16,7 @@ export type TransactOptions = {
   walletPassword: string;
   assetSymbol: string;
   bridge: BridgeType;
-  amount: number;
+  amount?: number;
   version?: number;
   shieldedAddress?: string;
 };

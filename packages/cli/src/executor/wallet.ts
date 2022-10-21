@@ -16,12 +16,18 @@ export class WalletExecutor extends CommandLineExecutor implements IWallet {
       param.bridge,
     );
 
+    let amount = param.amount;
+    if (!amount) {
+      this.logger.info(`amount is undefined, use ${depositConfig!.minAmountNumber}`)
+      amount = depositConfig!.minAmountNumber;
+    }
+
     const depositOption = {
       srcChainId: param.srcChainId,
       dstChainId: param.dstChainId,
       assetSymbol: param.assetSymbol,
       bridge: param.bridge,
-      amount: param.amount,
+      amount: amount,
       rollupFee: depositConfig!.minRollupFeeNumber,
       bridgeFee: depositConfig!.minBridgeFeeNumber,
       executorFee: depositConfig!.minExecutorFeeNumber,
@@ -48,44 +54,19 @@ export class WalletExecutor extends CommandLineExecutor implements IWallet {
 
   async transact(param: TransactOptions): Promise<void> {
     const client = this.context.nodeClient;
-    const expectAmount = param.amount;
+    let expectAmount = param.amount;
 
-    // 1. Construct
-    const transactOption: TransactionOptions = {
-      type: param.type,
-      chainId: param.chainId,
-      assetSymbol: param.assetSymbol,
-      bridgeType: param.bridge,
-      publicAddress: param.publicAddress,
-      walletPassword: param.walletPassword,
-      signer: client.signers!.privateKey,
-    };
-
-    if (param.type === TransactionEnum.WITHDRAW) {
-      transactOption.publicAmount = param.amount;
-    } else if (param.type === TransactionEnum.TRANSFER) {
-      transactOption.amount = param.amount;
-      transactOption.shieldedAddress = param.shieldedAddress;
-      const poolConfig = this.getPoolContractConfig(
-        param.chainId,
-        param.assetSymbol,
-        param.bridge,
-        param.version,
-      );
-      if (!poolConfig) {
-        return Promise.reject(new Error('pool contract config not found'));
-      }
-
-      transactOption.rollupFee = poolConfig.minRollupFeeNumber;
-    }
-
-    // 2. check balances
+    // 1. check balances
     const balance = await client.assets?.balance({ chainId: param.chainId, asset: param.assetSymbol });
     this.logger.info(balance);
     if (!balance) {
       return Promise.reject(
         new Error(`chainId ${param.chainId} assets ${param.assetSymbol} balances not found`),
       );
+    }
+
+    if (!expectAmount) {
+      expectAmount = balance.unspentTotal + balance.pendingTotal;
     }
 
     // 1.1 balance unspentTotal must greater than expect amount
@@ -105,7 +86,37 @@ export class WalletExecutor extends CommandLineExecutor implements IWallet {
       return Promise.reject(error);
     }
 
-    // 2. withdraw
+    // 2. Construct
+    const transactOption: TransactionOptions = {
+      type: param.type,
+      chainId: param.chainId,
+      assetSymbol: param.assetSymbol,
+      bridgeType: param.bridge,
+      publicAddress: param.publicAddress,
+      walletPassword: param.walletPassword,
+      signer: client.signers!.privateKey,
+    };
+
+    if (param.type === TransactionEnum.WITHDRAW) {
+      transactOption.publicAmount = expectAmount;
+    } else if (param.type === TransactionEnum.TRANSFER) {
+      transactOption.amount = expectAmount;
+      transactOption.shieldedAddress = param.shieldedAddress;
+    }
+
+    const poolConfig = this.getPoolContractConfig(
+      param.chainId,
+      param.assetSymbol,
+      param.bridge,
+      param.version,
+    );
+    if (!poolConfig) {
+      return Promise.reject(new Error('pool contract config not found'));
+    }
+
+    transactOption.rollupFee = poolConfig.minRollupFeeNumber;
+
+    // 3. withdraw
     return new Promise((resolve, reject) => {
       client.transactions?.create(transactOption).then((resp) => {
         resp.transactionPromise
@@ -154,7 +165,8 @@ export class WalletExecutor extends CommandLineExecutor implements IWallet {
       }
 
       this.logger.info(
-        `Sync: expect amount: ${expectAmount}, balances: ${balance}, wait 10s will sync again`,
+        `Sync: expect amount: ${expectAmount}, balances: pending ${balance!.pendingTotal},` +
+          `unspent ${balance!.unspentTotal}, wait 10s will sync again`,
       );
 
       // eslint-disable-next-line no-await-in-loop
