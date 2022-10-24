@@ -1,6 +1,6 @@
 {
   "name": "@mystikonetwork/command-line",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "description": "Command line tool of Mystiko.Network",
   "author": "Mystiko Network",
   "bin": {
@@ -9,7 +9,11 @@
   "homepage": "https://github.com/mystikonetwork/mystiko-contracts",
   "license": "MIT",
   "main": "dist/index.js",
-  "repository": "mystikonetwork/mystiko-contracts",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mystikonetwork/mystiko-contracts",
+    "directory": "packages/cli"
+  },
   "files": [
     "/bin",
     "/dist",
