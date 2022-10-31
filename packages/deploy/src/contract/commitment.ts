@@ -1,5 +1,5 @@
 import { CommitmentPoolMain__factory, CommitmentPoolERC20__factory } from '@mystikonetwork/contracts-abi';
-import { waitConfirm } from '../common/utils';
+import { checkNonceExpect, waitConfirm } from '../common/utils';
 import { ChainConfig } from '../config/chain';
 import { ChainTokenConfig } from '../config/chainToken';
 import { OperatorConfig } from '../config/operator';
@@ -39,6 +39,8 @@ async function deployCommitmentPool(
   const poolCfg = commitmentPoolCfg;
   const PoolContractFactory = getMystikoPoolContract(chainTokenCfg.erc20);
 
+  const nonce = await checkNonceExpect(ethers, poolCfg.nonce);
+
   console.log('deploy Mystiko commitment pool contract');
   if (chainTokenCfg.erc20) {
     pool = await PoolContractFactory.deploy(MerkleTreeHeight, chainTokenCfg.address);
@@ -51,6 +53,8 @@ async function deployCommitmentPool(
   console.log('commitmentPool address ', pool.address);
   poolCfg.address = pool.address;
   poolCfg.syncStart = syncStart;
+  poolCfg.nonce = nonce;
+
   return pool.address;
 }
 
@@ -628,6 +632,10 @@ export async function getOrDeployCommitmentPool(
 
   if (override === 'true' || poolCfg.address === '' || mystikoNetwork === MystikoDevelopment) {
     poolCfg.reset();
+
+    if (mystikoNetwork === MystikoDevelopment) {
+      poolCfg.nonce = undefined;
+    }
   }
 
   if (poolCfg.address === '') {

@@ -5,6 +5,7 @@ export interface RawPoolDeployConfig {
   network: string;
   assetSymbol: string;
   address?: string;
+  nonce?: number;
   syncStart?: number;
   minRollupFee?: string;
   rollup1Verifier?: string;
@@ -82,6 +83,14 @@ export class PoolDeployConfig extends BaseConfig {
 
   public set address(addr: string) {
     this.asRawContractDeployConfig().address = addr;
+  }
+
+  public get nonce(): number | undefined {
+    return this.asRawContractDeployConfig().nonce;
+  }
+
+  public set nonce(nonce: number | undefined) {
+    this.asRawContractDeployConfig().nonce = nonce;
   }
 
   public get syncStart(): number {

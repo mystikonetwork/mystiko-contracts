@@ -4,6 +4,7 @@ export interface RawDepositDeployConfig {
   network: string;
   assetSymbol: string;
   address?: string;
+  nonce?: number;
   syncStart?: number;
   minAmount?: string;
   maxAmount?: string;
@@ -52,6 +53,14 @@ export class DepositDeployConfig extends BaseConfig {
 
   public set address(addr: string) {
     this.asRawContractDeployConfig().address = addr;
+  }
+
+  public get nonce(): number | undefined {
+    return this.asRawContractDeployConfig().nonce;
+  }
+
+  public set nonce(nonce: number | undefined) {
+    this.asRawContractDeployConfig().nonce = nonce;
   }
 
   public get syncStart(): number {

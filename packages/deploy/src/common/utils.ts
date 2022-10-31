@@ -95,3 +95,22 @@ export async function waitConfirm(rsp: any, force: boolean) {
     await rsp.wait(1);
   }
 }
+
+export async function checkNonceExpect(ethers: any, expectNonce: number | undefined): Promise<number> {
+  const accounts = await ethers.getSigners();
+  return accounts[0]
+    .getTransactionCount('latest')
+    .then((nonce: number) => {
+      if (!expectNonce || nonce === expectNonce) {
+        return Promise.resolve(nonce);
+      }
+
+      console.error(LOGRED, 'nonce ', nonce, ' not meet expect ', expectNonce);
+      process.exit(1);
+      return Promise.resolve(-1);
+    })
+    .catch((err: Error) => {
+      console.error(LOGRED, 'get nonce meet error ', err);
+      process.exit(1);
+    });
+}
