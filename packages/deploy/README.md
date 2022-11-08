@@ -28,6 +28,18 @@ example:
 ```yarn deploy:chain --network ropsten --step step2 --bridge tbridge --dst bsctestnet --token MTT```
 
 #### Deploy Step 3
+do contract configure, parameter
+```
+ step                : step2
+ bridge              : tbridge、celer、poly、loop
+ dst                 : ropsten、bsctestnet ...
+ token               : ETH、MTT、mUSD、BNB...
+```
+example:
+
+```yarn deploy:chain --network ropsten --step step2 --bridge tbridge --dst bsctestnet --token MTT```
+
+#### Deploy Step 4
 configure peer contract address, parameter:
 ```
  step                : step3

@@ -10,7 +10,7 @@ import {
   MystikoV2AxelarERC20__factory,
   MystikoV2AxelarMain__factory,
 } from '@mystikonetwork/contracts-abi';
-import { waitConfirm } from '../common/utils';
+import { checkNonceExpect, waitConfirm } from '../common/utils';
 import { BridgeConfig } from '../config/bridge';
 import { ChainConfig } from '../config/chain';
 import { ChainTokenConfig } from '../config/chainToken';
@@ -157,8 +157,9 @@ export async function deployDepositContract(
     process.exit(-1);
   }
 
-  let coreContract: any;
+  const nonce = await checkNonceExpect(ethers, srcDepositCfg.nonce);
 
+  let coreContract: any;
   if (srcChainTokenCfg.erc20) {
     // @ts-ignore
     coreContract = await DepositContractFactory.deploy(srcChainCfg.hasher3Address, srcChainTokenCfg.address);
@@ -173,6 +174,7 @@ export async function deployDepositContract(
   console.log('mystiko core deposit address ', coreContract.address, ' block height ', syncStart);
   srcDepositCfg.address = coreContract.address;
   srcDepositCfg.syncStart = syncStart;
+  srcDepositCfg.nonce = nonce;
 
   saveConfig(c.mystikoNetwork, c.cfg);
   return srcDepositCfg;

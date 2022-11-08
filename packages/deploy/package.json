@@ -23,13 +23,14 @@
     "build"
   ],
   "license": "MIT",
+  "private": true,
   "scripts": {
     "lint": "eslint --ext .js,.ts .",
     "prettier:check": "prettier --check \"./**/*.{js,ts}\" --config .prettierrc",
     "prettier:fix": "prettier --write \"./**/*.{js,ts}\" --config .prettierrc",
     "prettier": "yarn prettier:fix",
-    "deploy:loop": "yarn deploy:chain --network hardhat --step step1 --bridge loop --dst hardhat --token ETH --override true && yarn deploy:chain --network hardhat --step step2 --bridge loop --dst hardhat --token ETH --override true && yarn deploy:chain --network hardhat --step step3 --bridge loop --dst hardhat --token ETH --override true",
-    "deploy:tbridge": "yarn deploy:chain --network hardhat --step step1 --bridge tbridge --dst hardhat --token MTT && yarn deploy:chain --network hardhat --step step2 --bridge tbridge --dst hardhat --token MTT && yarn deploy:chain --network hardhat --step step2 --bridge tbridge --dst hardhat --token mUSD && yarn deploy:chain --network hardhat --step step3 --bridge tbridge --dst hardhat --token MTT && yarn deploy:chain --network hardhat --step step3 --bridge tbridge --dst hardhat --token mUSD",
+    "deploy:loop": "yarn deploy:chain --network hardhat --step step1 --bridge loop --dst hardhat --token ETH --override true && yarn deploy:chain --network hardhat --step step2 --bridge loop --dst hardhat --token ETH --override true && yarn deploy:chain --network hardhat --step step3 --bridge loop --dst hardhat --token ETH && yarn deploy:chain --network hardhat --step step4 --bridge loop --dst hardhat --token ETH --override true",
+    "deploy:tbridge": "yarn deploy:chain --network hardhat --step step1 --bridge tbridge --dst hardhat --token MTT && yarn deploy:chain --network hardhat --step step2 --bridge tbridge --dst hardhat --token MTT && yarn deploy:chain --network hardhat --step step2 --bridge tbridge --dst hardhat --token mUSD && yarn deploy:chain --network hardhat --step step3 --bridge tbridge --dst hardhat --token MTT && yarn deploy:chain --network hardhat --step step3 --bridge tbridge --dst hardhat --token mUSD && yarn deploy:chain --network hardhat --step step4 --bridge tbridge --dst hardhat --token MTT && yarn deploy:chain --network hardhat --step step4 --bridge tbridge --dst hardhat --token mUSD",
     "deploy": "yarn deploy:loop && yarn deploy:tbridge",
     "deploy:chain": "hardhat migrate",
     "set": "hardhat set",

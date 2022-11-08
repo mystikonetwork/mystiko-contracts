@@ -138,7 +138,7 @@ const config: HardhatUserConfig = {
     Ethereum: {
       url: ethEndpoint,
       accounts: [`0x${ethPrivateKey}`],
-      timeout: 60000000
+      timeout: 60000000,
     },
     bsc: {
       url: bscEndpoint,

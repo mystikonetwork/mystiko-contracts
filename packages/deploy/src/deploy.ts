@@ -54,12 +54,45 @@ function dumpConfig(c: any) {
   }
 }
 
-// deploy mystiko contract and config contract
+// deploy pool contract and deposit contract
 async function deployStep2(taskArgs: any) {
   const c = loadConfig(taskArgs);
 
   if (!c.srcChainCfg.checkBaseAddress()) {
     console.error(LOGRED, 'base address not configure, should do step1 first');
+    process.exit(-1);
+  }
+
+  const poolCfg = await getOrDeployCommitmentPool(
+    c,
+    c.mystikoNetwork,
+    c.bridgeCfg,
+    c.srcChainCfg,
+    c.srcTokenCfg,
+    c.srcPoolCfg,
+    c.operatorCfg,
+    c.override,
+  );
+
+  await deployDepositContract(
+    c,
+    c.mystikoNetwork,
+    c.bridgeCfg,
+    c.srcChainCfg,
+    c.srcTokenCfg,
+    c.dstTokenCfg,
+    c.pairSrcDepositCfg,
+    poolCfg.address,
+    c.override,
+  );
+}
+
+// config contract
+async function deployStep3(taskArgs: any) {
+  const c = loadConfig(taskArgs);
+
+  if (!c.srcPoolCfg || c.srcPoolCfg.address === '' || c.pairSrcDepositCfg.address === '') {
+    console.error(LOGRED, 'core contract not configure, should do step2 first');
     process.exit(-1);
   }
 
@@ -127,7 +160,7 @@ async function deployStep2(taskArgs: any) {
 }
 
 // deploy mystiko contract and config contract
-async function deployStep3(taskArgs: any) {
+async function deployStep4(taskArgs: any) {
   const c = loadConfig(taskArgs);
 
   if (c.pairSrcDepositCfg.address === '' || c.pairDstDepositCfg.address === '') {
@@ -287,6 +320,8 @@ export async function deploy(taskArgs: any, hre: any) {
     await deployStep2(taskArgs);
   } else if (step === 'step3') {
     await deployStep3(taskArgs);
+  } else if (step === 'step4') {
+    await deployStep4(taskArgs);
   } else if (step === 'testToken') {
     await testToken(taskArgs);
   } else if (step === 'dump') {

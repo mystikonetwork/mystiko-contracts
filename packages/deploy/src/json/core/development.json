@@ -33,6 +33,20 @@
           "minBridgeFee": "1000",
           "minExecutorFee": "2000",
           "maxAmount": "2000000"
+        },
+        {
+          "version": 2,
+          "name": "MystikoV2LoopMain",
+          "address": "0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512",
+          "startBlock": 2,
+          "bridgeType": "loop",
+          "poolAddress": "0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0",
+          "minAmount": "2000",
+          "maxAmount": "2000000",
+          "peerChainId": 9999999,
+          "peerContractAddress": "0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512",
+          "minBridgeFee": "1000",
+          "minExecutorFee": "2000"
         }
       ],
       "poolContracts": [
