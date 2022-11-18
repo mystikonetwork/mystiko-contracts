@@ -237,6 +237,10 @@ export class PoolDeployConfig extends BaseConfig {
     this.asRawContractDeployConfig().transact2x2Verifier = address;
   }
 
+  public get sanctionCheck(): boolean | undefined {
+    return this.asRawContractDeployConfig().sanctionCheck;
+  }
+
   public isSanctionCheckChange(bCheck: boolean): boolean {
     if (this.asRawContractDeployConfig().sanctionCheck !== bCheck) {
       return true;
@@ -297,6 +301,15 @@ export class PoolDeployConfig extends BaseConfig {
 
     raw.rollupWhitelist.push(address);
     this.rollupWhitelistByAddress[address] = true;
+  }
+
+  public get auditorsCount(): number {
+    const { auditors } = this.asRawContractDeployConfig();
+    if (auditors === undefined) {
+      return 0;
+    }
+
+    return auditors.length;
   }
 
   public isInAuditors(address: string): boolean {

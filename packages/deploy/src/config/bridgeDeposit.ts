@@ -149,6 +149,10 @@ export class DepositDeployConfig extends BaseConfig {
     return false;
   }
 
+  public get peerMinRollupFee(): string | undefined {
+    return this.asRawContractDeployConfig().peerMinRollupFee;
+  }
+
   public updatePeerMinRollupFee(fee: string) {
     this.asRawContractDeployConfig().peerMinRollupFee = fee;
   }
@@ -195,6 +199,10 @@ export class DepositDeployConfig extends BaseConfig {
 
   public updateTrustedRemote(address: string) {
     this.asRawContractDeployConfig().trustedRemote = address;
+  }
+
+  public get sanctionCheck(): boolean | undefined {
+    return this.asRawContractDeployConfig().sanctionCheck;
   }
 
   public isSanctionCheckChange(bCheck: boolean): boolean {

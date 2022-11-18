@@ -1,7 +1,7 @@
 import { initBaseContractFactory } from './contract/base';
 import { initTestTokenContractFactory, transferToContract } from './contract/token';
 import { initTBridgeContractFactory } from './contract/tbridge';
-import { initPoolContractFactory, setPoolSanctionCheck } from './contract/commitment';
+import { initPoolContractFactory, setPoolSanctionCheck } from './contract/pool';
 import { initDepositContractFactory, setDepositSanctionCheck } from './contract/depsit';
 import { BridgeLoop, LOGRED, MystikoTestnet } from './common/constant';
 import { loadConfig } from './config/config';

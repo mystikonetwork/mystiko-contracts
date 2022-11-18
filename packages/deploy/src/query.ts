@@ -1,12 +1,22 @@
 import { initBaseContractFactory } from './contract/base';
 import { initTestTokenContractFactory } from './contract/token';
 import { initTBridgeContractFactory } from './contract/tbridge';
-import { initPoolContractFactory } from './contract/commitment';
+import { initPoolContractFactory } from './contract/pool';
 import { initDepositContractFactory } from './contract/depsit';
 import { LOGRED } from './common/constant';
 import { loadConfig } from './config/config';
-import { commitmentQueue, poolSanctionQuery } from './contract/commitmentQuery';
-import { depositSanctionQuery } from './contract/depsitQuery';
+import {
+  poolContractInstance,
+  poolIncludedCount,
+  poolMinRollupFee,
+  poolSanctionCheckQuery,
+  poolSanctionListQuery,
+} from './contract/poolQuery';
+import {
+  depositContractInstance,
+  depositSanctionCheckQuery,
+  depositSanctionListQuery,
+} from './contract/depsitQuery';
 
 let ethers: any;
 
@@ -14,22 +24,33 @@ let ethers: any;
 async function commitmentQueueQuery(taskArgs: any) {
   const c = loadConfig(taskArgs);
 
-  // @ts-ignore
-  const poolAddress = c.srcPoolCfg.address;
-  await commitmentQueue(c.srcTokenCfg.erc20, poolAddress);
+  const pool = await poolContractInstance(c.srcTokenCfg.erc20, c.srcPoolCfg?.address);
+  const includedCount = await poolIncludedCount(pool);
+  const minRollupFee = await poolMinRollupFee(pool);
+
+  console.log('included count ', includedCount);
+  console.log('min rollup fee ', minRollupFee);
 }
 
 // deploy mystiko contract and config contract
 async function sanctionQuery(taskArgs: any) {
   const c = loadConfig(taskArgs);
 
-  // @ts-ignore
-  const poolAddress = c.srcPoolCfg.address;
-  await poolSanctionQuery(c.srcTokenCfg.erc20, poolAddress);
+  const pool = await poolContractInstance(c.srcTokenCfg.erc20, c.srcPoolCfg?.address);
+  const poolCheck = await poolSanctionCheckQuery(pool);
+  console.log('pool sanction disabled ', poolCheck);
+  const poolList = await poolSanctionListQuery(pool);
+  console.log('pool sanction address ', poolList);
 
-  // @ts-ignore
-  const depositAddress = c.pairSrcDepositCfg.address;
-  await depositSanctionQuery(c.bridgeCfg.name, c.srcTokenCfg.erc20, depositAddress);
+  const depositContract = await depositContractInstance(
+    c.bridgeCfg.name,
+    c.srcTokenCfg.erc20,
+    c.pairSrcDepositCfg.address,
+  );
+  const depositCheck = await depositSanctionCheckQuery(depositContract);
+  console.log('deposit sanction disabled ', depositCheck);
+  const depositList = await depositSanctionListQuery(depositContract);
+  console.log('deposit sanction address ', depositList);
 }
 
 export async function query(taskArgs: any, hre: any) {

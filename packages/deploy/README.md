@@ -1,13 +1,13 @@
-## @mystikonetwork/contracts
-This package contains the Smart Contract written in Solidity
+## @mystikonetwork/contracts-deploy
+This package contains depoly the Smart Contract
 
 ### Deploy
 #### Deploy Step 1
-deploy verifier contract and rollup contract, parameter:
+deploy verifier contracts (rollup verifier and transaction verifier), parameter:
 
 ```
  step                : step1
- bridge              : tbridge、celer、poly、loop
+ bridge              : tbridge、celer、loop ...
  dst                 : ropsten、bsctestnet ...
  token               : ETH、MTT、mUSD、BNB...
 ```
@@ -16,10 +16,10 @@ example:
 ```yarn deploy:chain --network ropsten --step step1 --bridge tbridge --dst bsctestnet --token MTT```
 
 #### Deploy Step 2
-deploy mystiko core contract, parameter
+deploy mystiko core contract (deposit and commitment pool), parameter
 ```
  step                : step2
- bridge              : tbridge、celer、poly、loop
+ bridge              : tbridge、celer、loop ...
  dst                 : ropsten、bsctestnet ...
  token               : ETH、MTT、mUSD、BNB...
 ```
@@ -28,22 +28,10 @@ example:
 ```yarn deploy:chain --network ropsten --step step2 --bridge tbridge --dst bsctestnet --token MTT```
 
 #### Deploy Step 3
-do contract configure, parameter
-```
- step                : step2
- bridge              : tbridge、celer、poly、loop
- dst                 : ropsten、bsctestnet ...
- token               : ETH、MTT、mUSD、BNB...
-```
-example:
-
-```yarn deploy:chain --network ropsten --step step2 --bridge tbridge --dst bsctestnet --token MTT```
-
-#### Deploy Step 4
-configure peer contract address, parameter:
+do mystiko core contract configure, parameter
 ```
  step                : step3
- bridge              : tbridge、celer、poly、loop
+ bridge              : tbridge、celer、loop ...
  dst                 : ropsten、bsctestnet ...
  token               : ETH、MTT、mUSD、BNB...
 ```
@@ -51,11 +39,23 @@ example:
 
 ```yarn deploy:chain --network ropsten --step step3 --bridge tbridge --dst bsctestnet --token MTT```
 
+#### Deploy Step 4
+do peer configure such as peer contract address, parameter:
+```
+ step                : step4
+ bridge              : tbridge、celer、loop ...
+ dst                 : ropsten、bsctestnet ...
+ token               : ETH、MTT、mUSD、BNB...
+```
+example:
+
+```yarn deploy:chain --network ropsten --step step4 --bridge tbridge --dst bsctestnet --token MTT```
+
 #### Deploy check
-check core json file, parameter:
+check special trade pair configure, parameter:
 ```
  step                : check
- bridge              : tbridge、celer、poly、loop
+ bridge              : tbridge、celer、loop ...
  dst                 : ropsten、bsctestnet ...
  token               : ETH、MTT、mUSD、BNB...
 ```
@@ -64,10 +64,10 @@ example:
 ```yarn deploy:chain --network ropsten --step check --bridge tbridge --dst bsctestnet --token MTT```
 
 #### Deploy dump json
-dump token pair configure to json file, parameter:
+dump special trade pair configure to json file, parameter:
 ```
  step                : dump
- bridge              : tbridge、celer、poly、loop
+ bridge              : tbridge、celer、loop ...
  dst                 : ropsten、bsctestnet ...
  token               : ETH、MTT、mUSD、BNB...
 ```
@@ -88,7 +88,7 @@ example:
 #### transfer token to commitment pool
 transfer token to commitment pool by special token pair:
 ```
- bridge              : tbridge、celer、poly、loop
+ bridge              : tbridge、celer、loop ...
  dst                 : ropsten、bsctestnet ...
  token               : ETH、MTT、mUSD、BNB...
  func               : tokenTransfer...
@@ -103,7 +103,7 @@ example:
 #### query
 
 ```
- bridge              : tbridge、celer、poly、loop
+ bridge              : tbridge、celer、loop ...
  dst                 : ropsten、bsctestnet ...
  token               : ETH、MTT、mUSD、BNB...
  func               : tokenTransfer...
