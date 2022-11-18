@@ -15,7 +15,7 @@ dotenv.config();
 task('migrate', 'deploy contract')
   .addParam(
     'step',
-    'step1、step2、step3、check、dump、dumpMiner、dumpAllMiner、testToken、reset、resetVerifier',
+    'step1、step2、step3、step4、check、dump、dumpMiner、dumpAllMiner、testToken、reset、resetVerifier',
   )
   .addParam('bridge', 'loop、tbridge、celer', 'loop')
   .addParam('dst', 'ropsten、goerli、bsctestnet', 'bsctestnet')

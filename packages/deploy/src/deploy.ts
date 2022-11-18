@@ -1,3 +1,4 @@
+import { check } from './check';
 import {
   BridgeAxelar,
   BridgeCeler,
@@ -16,7 +17,7 @@ import {
   doCommitmentPoolConfigure,
   getOrDeployCommitmentPool,
   initPoolContractFactory,
-} from './contract/commitment';
+} from './contract/pool';
 import { deployChainTestToken, initTestTokenContractFactory, transferOnDeploy } from './contract/token';
 import {
   addRegisterWhitelist,
@@ -171,7 +172,7 @@ async function deployStep4(taskArgs: any) {
   // transfer token to contract
   if (c.bridgeCfg.name !== BridgeLoop && c.mystikoNetwork === MystikoTestnet) {
     // @ts-ignore
-    await transferOnDeploy(ethers, c, c.srcTokenCfg, c.srcPoolCfg);
+    await transferOnDeploy(c, c.srcTokenCfg, c.srcPoolCfg);
   }
 
   if (c.bridgeCfg.name !== BridgeLoop) {
@@ -245,7 +246,7 @@ function dumpAllMiner() {
   dumpAllTBridgeConfig();
 }
 
-async function check(taskArgs: any) {
+async function checkJson(taskArgs: any) {
   const c = loadConfig(taskArgs);
   await checkCoreConfig(c.mystikoNetwork);
 }
@@ -322,6 +323,8 @@ export async function deploy(taskArgs: any, hre: any) {
     await deployStep3(taskArgs);
   } else if (step === 'step4') {
     await deployStep4(taskArgs);
+  } else if (step === 'check') {
+    await check(ethers, taskArgs);
   } else if (step === 'testToken') {
     await testToken(taskArgs);
   } else if (step === 'dump') {
@@ -330,8 +333,8 @@ export async function deploy(taskArgs: any, hre: any) {
     dumpMiner(taskArgs);
   } else if (step === 'dumpAllMiner') {
     dumpAllMiner();
-  } else if (step === 'check') {
-    await check(taskArgs);
+  } else if (step === 'checkJson') {
+    await checkJson(taskArgs);
   } else if (step === 'reset') {
     resetAllDeployConfig(taskArgs);
   } else if (step === 'resetVerifier') {

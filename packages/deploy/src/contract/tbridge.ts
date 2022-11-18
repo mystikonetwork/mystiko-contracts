@@ -16,7 +16,10 @@ import { saveConfig } from '../config/config';
 
 let MystikoTBridgeProxy: MystikoTBridgeProxy__factory;
 
-export async function initTBridgeContractFactory(ethers: any) {
+let ethers: any;
+
+export async function initTBridgeContractFactory(eth: any) {
+  ethers = eth;
   MystikoTBridgeProxy = await ethers.getContractFactory('MystikoTBridgeProxy');
 }
 
@@ -38,7 +41,7 @@ async function setExecutorWhitelist(c: any, bridgeCfg: BridgeProxyConfig, execut
   try {
     const rsp = await proxy.addExecutorWhitelist(executor);
     console.log('rsp hash ', rsp.hash);
-    await waitConfirm(rsp, false);
+    await waitConfirm(ethers, rsp, true);
     bridgeCfg.addExecutorToWhitelist(executor);
     saveConfig(c.mystikoNetwork, c.cfg);
   } catch (err: any) {
@@ -68,7 +71,7 @@ async function changeOperator(c: any, inBridgeProxyCfg: BridgeProxyConfig, opera
   try {
     const rsp = await proxy.changeOperator(operator);
     console.log('rsp hash ', rsp.hash);
-    await waitConfirm(rsp, false);
+    await waitConfirm(ethers, rsp, true);
     bridgeProxyCfg.updateOperator(operator);
     saveConfig(c.mystikoNetwork, c.cfg);
   } catch (err: any) {
@@ -94,7 +97,7 @@ export async function addRegisterWhitelist(
   try {
     const rsp = await proxy.addRegisterWhitelist(depositContractAddress);
     console.log('rsp hash ', rsp.hash);
-    await waitConfirm(rsp, false);
+    await waitConfirm(ethers, rsp, true);
     bridgeProxyConfig.addRegisterToWhitelist(depositContractAddress);
     saveConfig(c.mystikoNetwork, c.cfg);
   } catch (err: any) {

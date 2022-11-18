@@ -1,22 +1,20 @@
 import { TestToken__factory } from '@mystikonetwork/contracts-abi';
 import { toDecimals } from '@mystikonetwork/utils';
 import { LOGRED } from '../common/constant';
+import { waitConfirm } from '../common/utils';
 import { PoolDeployConfig } from '../config/bridgePool';
 import { saveConfig } from '../config/config';
 import { ChainTokenConfig } from '../config/chainToken';
 
 let TestToken: TestToken__factory;
+let ethers: any;
 
-export async function initTestTokenContractFactory(ethers: any) {
+export async function initTestTokenContractFactory(eth: any) {
+  ethers = eth;
   TestToken = await ethers.getContractFactory('TestToken');
 }
 
-async function transferMainToContract(
-  ethers: any,
-  c: any,
-  srcTokenCfg: ChainTokenConfig,
-  inPoolCfg: PoolDeployConfig,
-) {
+async function transferMainToContract(c: any, srcTokenCfg: ChainTokenConfig, inPoolCfg: PoolDeployConfig) {
   const poolCfg = inPoolCfg;
 
   let contractAmount = 0;
@@ -32,11 +30,13 @@ async function transferMainToContract(
       to: inPoolCfg.address,
       value: amountWithDecimals,
     })
-    .then(() => {
-      console.log('transfer main token to pool success, amount ', amount);
-      poolCfg.updateTokenTransfer((amount + contractAmount).toString());
-      saveConfig(c.mystikoNetwork, c.cfg);
-    })
+    .then((rsp: any) =>
+      waitConfirm(ethers, rsp, true).then(() => {
+        console.log('transfer main token to pool success, amount ', amount);
+        poolCfg.updateTokenTransfer((amount + contractAmount).toString());
+        saveConfig(c.mystikoNetwork, c.cfg);
+      }),
+    )
     .catch((err: any) => {
       console.error(LOGRED, err);
       process.exit(1);
@@ -64,41 +64,33 @@ async function transferTokenToContract(c: any, srcTokenCfg: ChainTokenConfig, in
   const amountWithDecimals = toDecimals(amount, srcTokenCfg.assetDecimals);
   await testToken
     .transfer(inPoolCfg.address, amountWithDecimals.toString())
-    .then(() => {
-      console.log('transfer token to pool success, amount ', amount);
-      poolCfg.updateTokenTransfer((amount + contractAmount).toString());
-      saveConfig(c.mystikoNetwork, c.cfg);
-    })
+    .then((rsp) =>
+      waitConfirm(ethers, rsp, true).then(() => {
+        console.log('transfer token to pool success, amount ', amount);
+        poolCfg.updateTokenTransfer((amount + contractAmount).toString());
+        saveConfig(c.mystikoNetwork, c.cfg);
+      }),
+    )
     .catch((err: any) => {
       console.error(LOGRED, err);
       process.exit(1);
     });
 }
 
-export async function transferToContract(
-  ethers: any,
-  c: any,
-  srcTokenCfg: ChainTokenConfig,
-  inPoolCfg: PoolDeployConfig,
-) {
+export async function transferToContract(c: any, srcTokenCfg: ChainTokenConfig, inPoolCfg: PoolDeployConfig) {
   if (srcTokenCfg.erc20) {
     await transferTokenToContract(c, srcTokenCfg, inPoolCfg);
   } else {
-    await transferMainToContract(ethers, c, srcTokenCfg, inPoolCfg);
+    await transferMainToContract(c, srcTokenCfg, inPoolCfg);
   }
 }
 
-export async function transferOnDeploy(
-  ethers: any,
-  c: any,
-  srcTokenCfg: ChainTokenConfig,
-  inPoolCfg: PoolDeployConfig,
-) {
+export async function transferOnDeploy(c: any, srcTokenCfg: ChainTokenConfig, inPoolCfg: PoolDeployConfig) {
   if (inPoolCfg.isTokenTransfer()) {
     return;
   }
 
-  await transferToContract(ethers, c, srcTokenCfg, inPoolCfg);
+  await transferToContract(c, srcTokenCfg, inPoolCfg);
 }
 
 export async function deployChainTestToken(assetSymbol: string) {
@@ -114,13 +106,16 @@ export async function deployChainTestToken(assetSymbol: string) {
     return;
   }
 
+  const ethersInstance = ethers;
   /* eslint-disable no-await-in-loop */
   for (let i = 0; i < holders.length; i += 1) {
     await testToken
       .transfer(holders[i], amount.toString())
-      .then(() => {
-        console.log('transfer token to ', holders[i]);
-      })
+      .then((rsp) =>
+        waitConfirm(ethersInstance, rsp, true).then(() => {
+          console.log('transfer token to ', holders[i]);
+        }),
+      )
       .catch((err: any) => {
         console.error(LOGRED, err);
         process.exit(1);
