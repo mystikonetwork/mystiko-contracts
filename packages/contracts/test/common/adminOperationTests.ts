@@ -15,15 +15,18 @@ export function testLoopAdminOperations(
     before(async () => {});
 
     it('should revert when minAmount greater than maxAmount', async () => {
-      await expect(mystikoContract.setMinAmount(toBN(maxAmount).add(toBN(1)).toString())).to.be.revertedWith(
-        'MinAmountGreaterThanMaxAmount()',
-      );
+      await expect(
+        mystikoContract.updateDepositAmountLimits(
+          maxAmount.toString(),
+          toBN(maxAmount).add(toBN(1)).toString(),
+        ),
+      ).to.be.revertedWith('MinAmountGreaterThanMaxAmount()');
     });
 
-    it('should revert when maxAmount less than minAmount', async () => {
-      await expect(mystikoContract.setMaxAmount(toBN(minAmount).sub(toBN(1)).toString())).to.be.revertedWith(
-        'MaxAmountLessThanMinAmount()',
-      );
+    it('should update deposit amount limits success', async () => {
+      await expect(mystikoContract.updateDepositAmountLimits(maxAmount.toString(), minAmount.toString()))
+        .to.emit(mystikoContract, 'DepositAmountLimits')
+        .withArgs(maxAmount.toString(), minAmount.toString());
     });
 
     it('should toggle isDepositDisabled correctly', async () => {
@@ -61,15 +64,18 @@ export function testBridgeAdminOperations(
     before(async () => {});
 
     it('should revert when minAmount greater than maxAmount', async () => {
-      await expect(mystikoContract.setMinAmount(toBN(maxAmount).add(toBN(1)).toString())).to.be.revertedWith(
-        'MinAmountGreaterThanMaxAmount()',
-      );
+      await expect(
+        mystikoContract.updateDepositAmountLimits(
+          maxAmount.toString(),
+          toBN(maxAmount).add(toBN(1)).toString(),
+        ),
+      ).to.be.revertedWith('MinAmountGreaterThanMaxAmount()');
     });
 
-    it('should revert when maxAmount less than minAmount', async () => {
-      await expect(mystikoContract.setMaxAmount(toBN(minAmount).sub(toBN(1)).toString())).to.be.revertedWith(
-        'MaxAmountLessThanMinAmount()',
-      );
+    it('should update deposit amount limits success', async () => {
+      await expect(mystikoContract.updateDepositAmountLimits(maxAmount.toString(), minAmount.toString()))
+        .to.emit(mystikoContract, 'DepositAmountLimits')
+        .withArgs(maxAmount.toString(), minAmount.toString());
     });
 
     it('should toggle isDepositDisabled correctly', async () => {
@@ -289,7 +295,7 @@ export function testCommitmentPoolAdminOperations(
         const auditorPublicKey = ECIES.publicKey(auditorSecretKey);
         auditorPublicKeys.push(auditorPublicKey);
         await expect(mystikoContract.updateAuditorPublicKey(i, auditorPublicKey.toString()))
-          .to.emit(mystikoContract, 'AuditorPublicKeyChanged')
+          .to.emit(mystikoContract, 'AuditorPublicKey')
           .withArgs(i, auditorPublicKey.toString());
       }
 
@@ -312,7 +318,7 @@ export function testCommitmentPoolAdminOperations(
         mystikoContract.updateAuditorPublicKey(count, auditorPublicKeys[0].toString()),
       ).to.be.revertedWith('AuditorIndexError');
 
-      expect(await mystikoContract.getAuditorPublicKey(count)).to.equal('0');
+      await expect(mystikoContract.getAuditorPublicKey(count)).to.be.revertedWith('AuditorIndexError');
     });
   });
 }

@@ -279,14 +279,22 @@ export function testTransact(
           const id = toBN(i).shln(32).or(toBN(j));
           const auditorPublicKey = auditorPublicKeys[j];
           const encryptedAuditorNote = encryptedAuditorNotes[i * protocol.numOfAuditors + j];
-          const auditingEventIndex = events.findIndex(
-            (event) =>
-              event.name === 'EncryptedAuditorNote' &&
-              event.args.id.toString() === id.toString() &&
-              event.args.auditorPublicKey.toString() === auditorPublicKey.toString() &&
-              event.args.encryptedAuditorNote.toString() === encryptedAuditorNote.toString(),
-          );
-          expect(auditingEventIndex).to.gte(0);
+          const notesIndex = events.findIndex((event) => event.name === 'EncryptedAuditorNoteBatch');
+          expect(notesIndex).to.gt(0);
+          const { notes } = events[notesIndex].args;
+
+          let bFind = false;
+          for (let k = 0; k < notes.length; k += 1) {
+            if (
+              notes[k].id.toString() === id.toString(10) &&
+              notes[k].publicKey.toString() === auditorPublicKey.toString(10) &&
+              notes[k].note.toString() === encryptedAuditorNote.toString(10)
+            ) {
+              bFind = true;
+              break;
+            }
+          }
+          expect(bFind).equal(true);
         }
       }
       for (let i = 0; i < numOutputs; i += 1) {

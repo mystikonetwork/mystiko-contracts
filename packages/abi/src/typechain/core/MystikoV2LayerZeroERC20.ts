@@ -94,8 +94,6 @@ export interface MystikoV2LayerZeroERC20Interface extends utils.Interface {
     'setConfig(uint16,uint16,uint256,bytes)': FunctionFragment;
     'setDepositsDisabled(bool)': FunctionFragment;
     'setEndpoint(uint16,address)': FunctionFragment;
-    'setMaxAmount(uint256)': FunctionFragment;
-    'setMinAmount(uint256)': FunctionFragment;
     'setMinBridgeFee(uint256)': FunctionFragment;
     'setMinExecutorFee(uint256)': FunctionFragment;
     'setPeerContract(uint64,string,address)': FunctionFragment;
@@ -106,6 +104,7 @@ export interface MystikoV2LayerZeroERC20Interface extends utils.Interface {
     'setTrustedRemote(uint16,bytes)': FunctionFragment;
     'transferOwnership(address)': FunctionFragment;
     'trustedRemoteLookup(uint16)': FunctionFragment;
+    'updateDepositAmountLimits(uint256,uint256)': FunctionFragment;
     'updateSanctionsListAddress(address)': FunctionFragment;
   };
 
@@ -167,8 +166,6 @@ export interface MystikoV2LayerZeroERC20Interface extends utils.Interface {
   ): string;
   encodeFunctionData(functionFragment: 'setDepositsDisabled', values: [boolean]): string;
   encodeFunctionData(functionFragment: 'setEndpoint', values: [BigNumberish, string]): string;
-  encodeFunctionData(functionFragment: 'setMaxAmount', values: [BigNumberish]): string;
-  encodeFunctionData(functionFragment: 'setMinAmount', values: [BigNumberish]): string;
   encodeFunctionData(functionFragment: 'setMinBridgeFee', values: [BigNumberish]): string;
   encodeFunctionData(functionFragment: 'setMinExecutorFee', values: [BigNumberish]): string;
   encodeFunctionData(functionFragment: 'setPeerContract', values: [BigNumberish, string, string]): string;
@@ -179,6 +176,10 @@ export interface MystikoV2LayerZeroERC20Interface extends utils.Interface {
   encodeFunctionData(functionFragment: 'setTrustedRemote', values: [BigNumberish, BytesLike]): string;
   encodeFunctionData(functionFragment: 'transferOwnership', values: [string]): string;
   encodeFunctionData(functionFragment: 'trustedRemoteLookup', values: [BigNumberish]): string;
+  encodeFunctionData(
+    functionFragment: 'updateDepositAmountLimits',
+    values: [BigNumberish, BigNumberish],
+  ): string;
   encodeFunctionData(functionFragment: 'updateSanctionsListAddress', values: [string]): string;
 
   decodeFunctionResult(functionFragment: 'assetDecimals', data: BytesLike): Result;
@@ -221,8 +222,6 @@ export interface MystikoV2LayerZeroERC20Interface extends utils.Interface {
   decodeFunctionResult(functionFragment: 'setConfig', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'setDepositsDisabled', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'setEndpoint', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'setMaxAmount', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'setMinAmount', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'setMinBridgeFee', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'setMinExecutorFee', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'setPeerContract', data: BytesLike): Result;
@@ -233,14 +232,14 @@ export interface MystikoV2LayerZeroERC20Interface extends utils.Interface {
   decodeFunctionResult(functionFragment: 'setTrustedRemote', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'transferOwnership', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'trustedRemoteLookup', data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'updateDepositAmountLimits', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'updateSanctionsListAddress', data: BytesLike): Result;
 
   events: {
     'CommitmentCrossChain(uint256)': EventFragment;
+    'DepositAmountLimits(uint256,uint256)': EventFragment;
     'DepositsDisabled(bool)': EventFragment;
-    'MaxAmount(uint256)': EventFragment;
     'MessageFailed(uint16,bytes,uint64,bytes)': EventFragment;
-    'MinAmount(uint256)': EventFragment;
     'MinBridgeFee(uint256)': EventFragment;
     'MinExecutorFee(uint256)': EventFragment;
     'OperatorChanged(address)': EventFragment;
@@ -253,10 +252,9 @@ export interface MystikoV2LayerZeroERC20Interface extends utils.Interface {
   };
 
   getEvent(nameOrSignatureOrTopic: 'CommitmentCrossChain'): EventFragment;
+  getEvent(nameOrSignatureOrTopic: 'DepositAmountLimits'): EventFragment;
   getEvent(nameOrSignatureOrTopic: 'DepositsDisabled'): EventFragment;
-  getEvent(nameOrSignatureOrTopic: 'MaxAmount'): EventFragment;
   getEvent(nameOrSignatureOrTopic: 'MessageFailed'): EventFragment;
-  getEvent(nameOrSignatureOrTopic: 'MinAmount'): EventFragment;
   getEvent(nameOrSignatureOrTopic: 'MinBridgeFee'): EventFragment;
   getEvent(nameOrSignatureOrTopic: 'MinExecutorFee'): EventFragment;
   getEvent(nameOrSignatureOrTopic: 'OperatorChanged'): EventFragment;
@@ -272,13 +270,16 @@ export type CommitmentCrossChainEvent = TypedEvent<[BigNumber], { commitment: Bi
 
 export type CommitmentCrossChainEventFilter = TypedEventFilter<CommitmentCrossChainEvent>;
 
+export type DepositAmountLimitsEvent = TypedEvent<
+  [BigNumber, BigNumber],
+  { maxAmount: BigNumber; minAmount: BigNumber }
+>;
+
+export type DepositAmountLimitsEventFilter = TypedEventFilter<DepositAmountLimitsEvent>;
+
 export type DepositsDisabledEvent = TypedEvent<[boolean], { state: boolean }>;
 
 export type DepositsDisabledEventFilter = TypedEventFilter<DepositsDisabledEvent>;
-
-export type MaxAmountEvent = TypedEvent<[BigNumber], { maxAmount: BigNumber }>;
-
-export type MaxAmountEventFilter = TypedEventFilter<MaxAmountEvent>;
 
 export type MessageFailedEvent = TypedEvent<
   [number, string, BigNumber, string],
@@ -291,10 +292,6 @@ export type MessageFailedEvent = TypedEvent<
 >;
 
 export type MessageFailedEventFilter = TypedEventFilter<MessageFailedEvent>;
-
-export type MinAmountEvent = TypedEvent<[BigNumber], { minAmount: BigNumber }>;
-
-export type MinAmountEventFilter = TypedEventFilter<MinAmountEvent>;
 
 export type MinBridgeFeeEvent = TypedEvent<[BigNumber], { minBridgeFee: BigNumber }>;
 
@@ -510,16 +507,6 @@ export interface MystikoV2LayerZeroERC20 extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<ContractTransaction>;
 
-    setMaxAmount(
-      _maxAmount: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
-    ): Promise<ContractTransaction>;
-
-    setMinAmount(
-      _minAmount: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
-    ): Promise<ContractTransaction>;
-
     setMinBridgeFee(
       _minBridgeFee: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> },
@@ -569,6 +556,12 @@ export interface MystikoV2LayerZeroERC20 extends BaseContract {
     ): Promise<ContractTransaction>;
 
     trustedRemoteLookup(arg0: BigNumberish, overrides?: CallOverrides): Promise<[string]>;
+
+    updateDepositAmountLimits(
+      _maxAmount: BigNumberish,
+      _minAmount: BigNumberish,
+      overrides?: Overrides & { from?: string | Promise<string> },
+    ): Promise<ContractTransaction>;
 
     updateSanctionsListAddress(
       _sanction: string,
@@ -724,16 +717,6 @@ export interface MystikoV2LayerZeroERC20 extends BaseContract {
     overrides?: Overrides & { from?: string | Promise<string> },
   ): Promise<ContractTransaction>;
 
-  setMaxAmount(
-    _maxAmount: BigNumberish,
-    overrides?: Overrides & { from?: string | Promise<string> },
-  ): Promise<ContractTransaction>;
-
-  setMinAmount(
-    _minAmount: BigNumberish,
-    overrides?: Overrides & { from?: string | Promise<string> },
-  ): Promise<ContractTransaction>;
-
   setMinBridgeFee(
     _minBridgeFee: BigNumberish,
     overrides?: Overrides & { from?: string | Promise<string> },
@@ -783,6 +766,12 @@ export interface MystikoV2LayerZeroERC20 extends BaseContract {
   ): Promise<ContractTransaction>;
 
   trustedRemoteLookup(arg0: BigNumberish, overrides?: CallOverrides): Promise<string>;
+
+  updateDepositAmountLimits(
+    _maxAmount: BigNumberish,
+    _minAmount: BigNumberish,
+    overrides?: Overrides & { from?: string | Promise<string> },
+  ): Promise<ContractTransaction>;
 
   updateSanctionsListAddress(
     _sanction: string,
@@ -913,10 +902,6 @@ export interface MystikoV2LayerZeroERC20 extends BaseContract {
 
     setEndpoint(_lzChainId: BigNumberish, _lzEndpoint: string, overrides?: CallOverrides): Promise<void>;
 
-    setMaxAmount(_maxAmount: BigNumberish, overrides?: CallOverrides): Promise<void>;
-
-    setMinAmount(_minAmount: BigNumberish, overrides?: CallOverrides): Promise<void>;
-
     setMinBridgeFee(_minBridgeFee: BigNumberish, overrides?: CallOverrides): Promise<void>;
 
     setMinExecutorFee(_minExecutorFee: BigNumberish, overrides?: CallOverrides): Promise<void>;
@@ -946,6 +931,12 @@ export interface MystikoV2LayerZeroERC20 extends BaseContract {
 
     trustedRemoteLookup(arg0: BigNumberish, overrides?: CallOverrides): Promise<string>;
 
+    updateDepositAmountLimits(
+      _maxAmount: BigNumberish,
+      _minAmount: BigNumberish,
+      overrides?: CallOverrides,
+    ): Promise<void>;
+
     updateSanctionsListAddress(_sanction: string, overrides?: CallOverrides): Promise<void>;
   };
 
@@ -953,11 +944,14 @@ export interface MystikoV2LayerZeroERC20 extends BaseContract {
     'CommitmentCrossChain(uint256)'(commitment?: BigNumberish | null): CommitmentCrossChainEventFilter;
     CommitmentCrossChain(commitment?: BigNumberish | null): CommitmentCrossChainEventFilter;
 
+    'DepositAmountLimits(uint256,uint256)'(
+      maxAmount?: null,
+      minAmount?: null,
+    ): DepositAmountLimitsEventFilter;
+    DepositAmountLimits(maxAmount?: null, minAmount?: null): DepositAmountLimitsEventFilter;
+
     'DepositsDisabled(bool)'(state?: null): DepositsDisabledEventFilter;
     DepositsDisabled(state?: null): DepositsDisabledEventFilter;
-
-    'MaxAmount(uint256)'(maxAmount?: null): MaxAmountEventFilter;
-    MaxAmount(maxAmount?: null): MaxAmountEventFilter;
 
     'MessageFailed(uint16,bytes,uint64,bytes)'(
       _srcChainId?: null,
@@ -971,9 +965,6 @@ export interface MystikoV2LayerZeroERC20 extends BaseContract {
       _nonce?: null,
       _payload?: null,
     ): MessageFailedEventFilter;
-
-    'MinAmount(uint256)'(minAmount?: null): MinAmountEventFilter;
-    MinAmount(minAmount?: null): MinAmountEventFilter;
 
     'MinBridgeFee(uint256)'(minBridgeFee?: null): MinBridgeFeeEventFilter;
     MinBridgeFee(minBridgeFee?: null): MinBridgeFeeEventFilter;
@@ -1152,16 +1143,6 @@ export interface MystikoV2LayerZeroERC20 extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<BigNumber>;
 
-    setMaxAmount(
-      _maxAmount: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
-    ): Promise<BigNumber>;
-
-    setMinAmount(
-      _minAmount: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
-    ): Promise<BigNumber>;
-
     setMinBridgeFee(
       _minBridgeFee: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> },
@@ -1211,6 +1192,12 @@ export interface MystikoV2LayerZeroERC20 extends BaseContract {
     ): Promise<BigNumber>;
 
     trustedRemoteLookup(arg0: BigNumberish, overrides?: CallOverrides): Promise<BigNumber>;
+
+    updateDepositAmountLimits(
+      _maxAmount: BigNumberish,
+      _minAmount: BigNumberish,
+      overrides?: Overrides & { from?: string | Promise<string> },
+    ): Promise<BigNumber>;
 
     updateSanctionsListAddress(
       _sanction: string,
@@ -1367,16 +1354,6 @@ export interface MystikoV2LayerZeroERC20 extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<PopulatedTransaction>;
 
-    setMaxAmount(
-      _maxAmount: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
-    ): Promise<PopulatedTransaction>;
-
-    setMinAmount(
-      _minAmount: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
-    ): Promise<PopulatedTransaction>;
-
     setMinBridgeFee(
       _minBridgeFee: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> },
@@ -1426,6 +1403,12 @@ export interface MystikoV2LayerZeroERC20 extends BaseContract {
     ): Promise<PopulatedTransaction>;
 
     trustedRemoteLookup(arg0: BigNumberish, overrides?: CallOverrides): Promise<PopulatedTransaction>;
+
+    updateDepositAmountLimits(
+      _maxAmount: BigNumberish,
+      _minAmount: BigNumberish,
+      overrides?: Overrides & { from?: string | Promise<string> },
+    ): Promise<PopulatedTransaction>;
 
     updateSanctionsListAddress(
       _sanction: string,

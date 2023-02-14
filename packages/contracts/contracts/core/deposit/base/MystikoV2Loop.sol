@@ -40,24 +40,18 @@ abstract contract MystikoV2Loop is IMystikoLoop, AssetPool, Sanctions {
   }
 
   event OperatorChanged(address indexed operator);
-  event MinAmount(uint256 minAmount);
-  event MaxAmount(uint256 maxAmount);
+  event DepositAmountLimits(uint256 maxAmount, uint256 minAmount);
   event DepositsDisabled(bool state);
 
   function setAssociatedCommitmentPool(address _commitmentPoolAddress) external onlyOperator {
     associatedCommitmentPool = _commitmentPoolAddress;
   }
 
-  function setMinAmount(uint256 _minAmount) external onlyOperator {
-    if (_minAmount > maxAmount) revert CustomErrors.MinAmountGreaterThanMaxAmount();
-    minAmount = _minAmount;
-    emit MinAmount(_minAmount);
-  }
-
-  function setMaxAmount(uint256 _maxAmount) external onlyOperator {
-    if (_maxAmount < minAmount) revert CustomErrors.MaxAmountLessThanMinAmount();
+  function updateDepositAmountLimits(uint256 _maxAmount, uint256 _minAmount) external onlyOperator {
+    if (_minAmount > _maxAmount) revert CustomErrors.MinAmountGreaterThanMaxAmount();
     maxAmount = _maxAmount;
-    emit MaxAmount(_maxAmount);
+    minAmount = _minAmount;
+    emit DepositAmountLimits(_maxAmount, _minAmount);
   }
 
   function _commitmentHash(

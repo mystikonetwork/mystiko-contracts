@@ -8,11 +8,6 @@ import type { IERC20, IERC20Interface } from '../IERC20';
 
 const _abi = [
   {
-    inputs: [],
-    name: 'InvalidAccount',
-    type: 'error',
-  },
-  {
     anonymous: false,
     inputs: [
       {
@@ -146,7 +141,7 @@ const _abi = [
     inputs: [
       {
         internalType: 'address',
-        name: 'recipient',
+        name: 'to',
         type: 'address',
       },
       {
@@ -170,12 +165,12 @@ const _abi = [
     inputs: [
       {
         internalType: 'address',
-        name: 'sender',
+        name: 'from',
         type: 'address',
       },
       {
         internalType: 'address',
-        name: 'recipient',
+        name: 'to',
         type: 'address',
       },
       {

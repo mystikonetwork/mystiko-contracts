@@ -55,8 +55,7 @@ abstract contract MystikoV2Bridge is IMystikoBridge, AssetPool, CrossChainDataSe
   }
 
   event OperatorChanged(address indexed operator);
-  event MinAmount(uint256 minAmount);
-  event MaxAmount(uint256 maxAmount);
+  event DepositAmountLimits(uint256 maxAmount, uint256 minAmount);
   event MinBridgeFee(uint256 minBridgeFee);
   event MinExecutorFee(uint256 minExecutorFee);
   event PeerMinExecutorFee(uint256 peerMinExecutorFee);
@@ -73,16 +72,11 @@ abstract contract MystikoV2Bridge is IMystikoBridge, AssetPool, CrossChainDataSe
     bridgeProxyAddress = _bridgeProxyAddress;
   }
 
-  function setMinAmount(uint256 _minAmount) external onlyOperator {
-    if (_minAmount > maxAmount) revert CustomErrors.MinAmountGreaterThanMaxAmount();
-    minAmount = _minAmount;
-    emit MinAmount(_minAmount);
-  }
-
-  function setMaxAmount(uint256 _maxAmount) external onlyOperator {
-    if (_maxAmount < minAmount) revert CustomErrors.MaxAmountLessThanMinAmount();
+  function updateDepositAmountLimits(uint256 _maxAmount, uint256 _minAmount) external onlyOperator {
+    if (_minAmount > _maxAmount) revert CustomErrors.MinAmountGreaterThanMaxAmount();
     maxAmount = _maxAmount;
-    emit MaxAmount(_maxAmount);
+    minAmount = _minAmount;
+    emit DepositAmountLimits(_maxAmount, _minAmount);
   }
 
   function setMinBridgeFee(uint256 _minBridgeFee) external onlyOperator {
