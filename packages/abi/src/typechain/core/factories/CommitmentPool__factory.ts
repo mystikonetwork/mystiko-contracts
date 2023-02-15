@@ -177,7 +177,7 @@ const _abi = [
         type: 'uint256',
       },
       {
-        indexed: true,
+        indexed: false,
         internalType: 'uint256',
         name: 'leafIndex',
         type: 'uint256',
@@ -215,6 +215,31 @@ const _abi = [
     anonymous: false,
     inputs: [
       {
+        indexed: false,
+        internalType: 'uint64',
+        name: 'id',
+        type: 'uint64',
+      },
+      {
+        indexed: false,
+        internalType: 'uint256',
+        name: 'auditorPublicKey',
+        type: 'uint256',
+      },
+      {
+        indexed: false,
+        internalType: 'uint256',
+        name: 'encryptedAuditorNote',
+        type: 'uint256',
+      },
+    ],
+    name: 'EncryptedAuditorNote',
+    type: 'event',
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
         components: [
           {
             internalType: 'uint64',
@@ -233,12 +258,12 @@ const _abi = [
           },
         ],
         indexed: false,
-        internalType: 'struct CommitmentPool.EncryptedAuditorNote[]',
+        internalType: 'struct CommitmentPool.AuditorNote[]',
         name: 'notes',
         type: 'tuple[]',
       },
     ],
-    name: 'EncryptedAuditorNoteBatch',
+    name: 'EncryptedAuditorNotes',
     type: 'event',
   },
   {
