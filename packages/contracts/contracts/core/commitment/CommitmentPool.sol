@@ -31,6 +31,12 @@ abstract contract CommitmentPool is ICommitmentPool, AssetPool, ReentrancyGuard,
     uint256 y;
   }
 
+  struct EncryptedAuditorNote {
+    uint64 id;
+    uint256 publicKey;
+    uint256 note;
+  }
+
   // Transact proof verifier related contract
   mapping(uint32 => mapping(uint32 => WrappedVerifier)) private transactVerifiers;
   // Rollup proof verifier related contract
@@ -82,15 +88,15 @@ abstract contract CommitmentPool is ICommitmentPool, AssetPool, ReentrancyGuard,
   event CommitmentQueued(
     uint256 indexed commitment,
     uint256 rollupFee,
-    uint256 leafIndex,
+    uint256 indexed leafIndex,
     bytes encryptedNote
   );
   event CommitmentIncluded(uint256 indexed commitment);
   event CommitmentSpent(uint256 indexed rootHash, uint256 indexed serialNumber);
-  event EncryptedAuditorNote(uint64 id, uint256 auditorPublicKey, uint256 encryptedAuditorNote);
+  event EncryptedAuditorNoteBatch(EncryptedAuditorNote[] notes);
   event VerifierUpdateDisabled(bool state);
   event RollupWhitelistDisabled(bool state);
-  event AuditorPublicKeyChanged(uint256 indexed index, uint256 publicKey);
+  event AuditorPublicKey(uint256 indexed index, uint256 publicKey);
 
   constructor(uint8 _treeHeight) {
     if (_treeHeight == 0) revert CustomErrors.TreeHeightLessThanZero();
@@ -338,10 +344,10 @@ abstract contract CommitmentPool is ICommitmentPool, AssetPool, ReentrancyGuard,
   }
 
   function updateAuditorPublicKey(uint256 _index, uint256 _publicKey) external onlyOperator {
-    if (_index + 1 > auditorCount) revert CustomErrors.AuditorIndexError();
+    if (_index >= auditorCount) revert CustomErrors.AuditorIndexError();
     if (auditorPublicKeys[_index] == _publicKey) revert CustomErrors.AuditorPublicKeyNotChanged();
     auditorPublicKeys[_index] = _publicKey;
-    emit AuditorPublicKeyChanged(_index, _publicKey);
+    emit AuditorPublicKey(_index, _publicKey);
   }
 
   function isHistoricCommitment(uint256 _commitment) public view returns (bool) {
@@ -377,9 +383,7 @@ abstract contract CommitmentPool is ICommitmentPool, AssetPool, ReentrancyGuard,
   }
 
   function getAuditorPublicKey(uint256 _index) public view returns (uint256) {
-    if (_index + 1 > auditorCount) {
-      return 0;
-    }
+    if (_index >= auditorCount) revert CustomErrors.AuditorIndexError();
     return auditorPublicKeys[_index];
   }
 
@@ -536,26 +540,35 @@ abstract contract CommitmentPool is ICommitmentPool, AssetPool, ReentrancyGuard,
     UnpackedPublicKey memory unpackedAuditingPublicKey = _unpackPublicKey(_request.randomAuditingPublicKey);
     inputs[previousIndex] = unpackedAuditingPublicKey.xSign;
     inputs[previousIndex + 1] = unpackedAuditingPublicKey.y;
+
+    uint256 nextIndex = previousIndex + 2;
+    uint256 updatedIndex = nextIndex + auditorCount;
+    uint256 adjustedIndex = nextIndex + 2 * auditorCount;
+
     for (uint256 i = 0; i < auditorCount; i++) {
       UnpackedPublicKey memory unpackedAuditorPublicKey = _unpackPublicKey(auditorPublicKeys[i]);
-      inputs[previousIndex + 2 + i] = unpackedAuditorPublicKey.xSign;
-      inputs[previousIndex + 2 + auditorCount + i] = unpackedAuditorPublicKey.y;
+      inputs[nextIndex + i] = unpackedAuditorPublicKey.xSign;
+      inputs[updatedIndex + i] = unpackedAuditorPublicKey.y;
     }
     for (uint256 i = 0; i < _request.encryptedAuditorNotes.length; i++) {
-      inputs[previousIndex + 2 + 2 * auditorCount + i] = _request.encryptedAuditorNotes[i];
+      inputs[adjustedIndex + i] = _request.encryptedAuditorNotes[i];
     }
   }
 
   function _emitAuditingNotes(TransactRequest memory _request) internal {
+    uint256 auditorNoteCount = _request.serialNumbers.length * auditorCount;
+    EncryptedAuditorNote[] memory auditorNotes = new EncryptedAuditorNote[](auditorNoteCount);
+
+    uint256 index = 0;
     for (uint32 i = 0; i < _request.serialNumbers.length; i++) {
       for (uint32 j = 0; j < auditorCount; j++) {
-        uint64 id = (uint64(i) << 32) | uint64(j);
-        emit EncryptedAuditorNote(
-          id,
-          auditorPublicKeys[j],
-          _request.encryptedAuditorNotes[i * auditorCount + j]
-        );
+        auditorNotes[index].id = (uint64(i) << 32) | uint64(j);
+        auditorNotes[index].publicKey = auditorPublicKeys[j];
+        auditorNotes[index].note = _request.encryptedAuditorNotes[i * auditorCount + j];
+        index++;
       }
     }
+
+    emit EncryptedAuditorNoteBatch(auditorNotes);
   }
 }

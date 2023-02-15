@@ -34,11 +34,6 @@ const _abi = [
   },
   {
     inputs: [],
-    name: 'MaxAmountLessThanMinAmount',
-    type: 'error',
-  },
-  {
-    inputs: [],
     name: 'MinAmountGreaterThanMaxAmount',
     type: 'error',
   },
@@ -67,30 +62,10 @@ const _abi = [
     inputs: [
       {
         indexed: false,
-        internalType: 'bool',
-        name: 'state',
-        type: 'bool',
-      },
-    ],
-    name: 'DepositsDisabled',
-    type: 'event',
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: false,
         internalType: 'uint256',
         name: 'maxAmount',
         type: 'uint256',
       },
-    ],
-    name: 'MaxAmount',
-    type: 'event',
-  },
-  {
-    anonymous: false,
-    inputs: [
       {
         indexed: false,
         internalType: 'uint256',
@@ -98,7 +73,20 @@ const _abi = [
         type: 'uint256',
       },
     ],
-    name: 'MinAmount',
+    name: 'DepositAmountLimits',
+    type: 'event',
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: false,
+        internalType: 'bool',
+        name: 'state',
+        type: 'bool',
+      },
+    ],
+    name: 'DepositsDisabled',
     type: 'event',
   },
   {
@@ -349,21 +337,13 @@ const _abi = [
         name: '_maxAmount',
         type: 'uint256',
       },
-    ],
-    name: 'setMaxAmount',
-    outputs: [],
-    stateMutability: 'nonpayable',
-    type: 'function',
-  },
-  {
-    inputs: [
       {
         internalType: 'uint256',
         name: '_minAmount',
         type: 'uint256',
       },
     ],
-    name: 'setMinAmount',
+    name: 'updateDepositAmountLimits',
     outputs: [],
     stateMutability: 'nonpayable',
     type: 'function',

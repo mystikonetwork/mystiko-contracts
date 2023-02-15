@@ -58,8 +58,7 @@ export interface MystikoV2LoopERC20Interface extends utils.Interface {
     'sanctionsList()': FunctionFragment;
     'setAssociatedCommitmentPool(address)': FunctionFragment;
     'setDepositsDisabled(bool)': FunctionFragment;
-    'setMaxAmount(uint256)': FunctionFragment;
-    'setMinAmount(uint256)': FunctionFragment;
+    'updateDepositAmountLimits(uint256,uint256)': FunctionFragment;
     'updateSanctionsListAddress(address)': FunctionFragment;
   };
 
@@ -80,8 +79,10 @@ export interface MystikoV2LoopERC20Interface extends utils.Interface {
   encodeFunctionData(functionFragment: 'sanctionsList', values?: undefined): string;
   encodeFunctionData(functionFragment: 'setAssociatedCommitmentPool', values: [string]): string;
   encodeFunctionData(functionFragment: 'setDepositsDisabled', values: [boolean]): string;
-  encodeFunctionData(functionFragment: 'setMaxAmount', values: [BigNumberish]): string;
-  encodeFunctionData(functionFragment: 'setMinAmount', values: [BigNumberish]): string;
+  encodeFunctionData(
+    functionFragment: 'updateDepositAmountLimits',
+    values: [BigNumberish, BigNumberish],
+  ): string;
   encodeFunctionData(functionFragment: 'updateSanctionsListAddress', values: [string]): string;
 
   decodeFunctionResult(functionFragment: 'assetDecimals', data: BytesLike): Result;
@@ -101,38 +102,34 @@ export interface MystikoV2LoopERC20Interface extends utils.Interface {
   decodeFunctionResult(functionFragment: 'sanctionsList', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'setAssociatedCommitmentPool', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'setDepositsDisabled', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'setMaxAmount', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'setMinAmount', data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'updateDepositAmountLimits', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'updateSanctionsListAddress', data: BytesLike): Result;
 
   events: {
+    'DepositAmountLimits(uint256,uint256)': EventFragment;
     'DepositsDisabled(bool)': EventFragment;
-    'MaxAmount(uint256)': EventFragment;
-    'MinAmount(uint256)': EventFragment;
     'OperatorChanged(address)': EventFragment;
     'SanctionsCheck(bool)': EventFragment;
     'SanctionsList(address)': EventFragment;
   };
 
+  getEvent(nameOrSignatureOrTopic: 'DepositAmountLimits'): EventFragment;
   getEvent(nameOrSignatureOrTopic: 'DepositsDisabled'): EventFragment;
-  getEvent(nameOrSignatureOrTopic: 'MaxAmount'): EventFragment;
-  getEvent(nameOrSignatureOrTopic: 'MinAmount'): EventFragment;
   getEvent(nameOrSignatureOrTopic: 'OperatorChanged'): EventFragment;
   getEvent(nameOrSignatureOrTopic: 'SanctionsCheck'): EventFragment;
   getEvent(nameOrSignatureOrTopic: 'SanctionsList'): EventFragment;
 }
 
+export type DepositAmountLimitsEvent = TypedEvent<
+  [BigNumber, BigNumber],
+  { maxAmount: BigNumber; minAmount: BigNumber }
+>;
+
+export type DepositAmountLimitsEventFilter = TypedEventFilter<DepositAmountLimitsEvent>;
+
 export type DepositsDisabledEvent = TypedEvent<[boolean], { state: boolean }>;
 
 export type DepositsDisabledEventFilter = TypedEventFilter<DepositsDisabledEvent>;
-
-export type MaxAmountEvent = TypedEvent<[BigNumber], { maxAmount: BigNumber }>;
-
-export type MaxAmountEventFilter = TypedEventFilter<MaxAmountEvent>;
-
-export type MinAmountEvent = TypedEvent<[BigNumber], { minAmount: BigNumber }>;
-
-export type MinAmountEventFilter = TypedEventFilter<MinAmountEvent>;
 
 export type OperatorChangedEvent = TypedEvent<[string], { operator: string }>;
 
@@ -220,12 +217,8 @@ export interface MystikoV2LoopERC20 extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<ContractTransaction>;
 
-    setMaxAmount(
+    updateDepositAmountLimits(
       _maxAmount: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
-    ): Promise<ContractTransaction>;
-
-    setMinAmount(
       _minAmount: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<ContractTransaction>;
@@ -286,12 +279,8 @@ export interface MystikoV2LoopERC20 extends BaseContract {
     overrides?: Overrides & { from?: string | Promise<string> },
   ): Promise<ContractTransaction>;
 
-  setMaxAmount(
+  updateDepositAmountLimits(
     _maxAmount: BigNumberish,
-    overrides?: Overrides & { from?: string | Promise<string> },
-  ): Promise<ContractTransaction>;
-
-  setMinAmount(
     _minAmount: BigNumberish,
     overrides?: Overrides & { from?: string | Promise<string> },
   ): Promise<ContractTransaction>;
@@ -336,22 +325,24 @@ export interface MystikoV2LoopERC20 extends BaseContract {
 
     setDepositsDisabled(_state: boolean, overrides?: CallOverrides): Promise<void>;
 
-    setMaxAmount(_maxAmount: BigNumberish, overrides?: CallOverrides): Promise<void>;
-
-    setMinAmount(_minAmount: BigNumberish, overrides?: CallOverrides): Promise<void>;
+    updateDepositAmountLimits(
+      _maxAmount: BigNumberish,
+      _minAmount: BigNumberish,
+      overrides?: CallOverrides,
+    ): Promise<void>;
 
     updateSanctionsListAddress(_sanction: string, overrides?: CallOverrides): Promise<void>;
   };
 
   filters: {
+    'DepositAmountLimits(uint256,uint256)'(
+      maxAmount?: null,
+      minAmount?: null,
+    ): DepositAmountLimitsEventFilter;
+    DepositAmountLimits(maxAmount?: null, minAmount?: null): DepositAmountLimitsEventFilter;
+
     'DepositsDisabled(bool)'(state?: null): DepositsDisabledEventFilter;
     DepositsDisabled(state?: null): DepositsDisabledEventFilter;
-
-    'MaxAmount(uint256)'(maxAmount?: null): MaxAmountEventFilter;
-    MaxAmount(maxAmount?: null): MaxAmountEventFilter;
-
-    'MinAmount(uint256)'(minAmount?: null): MinAmountEventFilter;
-    MinAmount(minAmount?: null): MinAmountEventFilter;
 
     'OperatorChanged(address)'(operator?: string | null): OperatorChangedEventFilter;
     OperatorChanged(operator?: string | null): OperatorChangedEventFilter;
@@ -410,12 +401,8 @@ export interface MystikoV2LoopERC20 extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<BigNumber>;
 
-    setMaxAmount(
+    updateDepositAmountLimits(
       _maxAmount: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
-    ): Promise<BigNumber>;
-
-    setMinAmount(
       _minAmount: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<BigNumber>;
@@ -477,12 +464,8 @@ export interface MystikoV2LoopERC20 extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<PopulatedTransaction>;
 
-    setMaxAmount(
+    updateDepositAmountLimits(
       _maxAmount: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
-    ): Promise<PopulatedTransaction>;
-
-    setMinAmount(
       _minAmount: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<PopulatedTransaction>;

@@ -17,6 +17,20 @@ import { FunctionFragment, Result, EventFragment } from '@ethersproject/abi';
 import { Listener, Provider } from '@ethersproject/providers';
 import { TypedEventFilter, TypedEvent, TypedListener, OnEvent } from './common';
 
+export declare namespace CommitmentPool {
+  export type EncryptedAuditorNoteStruct = {
+    id: BigNumberish;
+    publicKey: BigNumberish;
+    note: BigNumberish;
+  };
+
+  export type EncryptedAuditorNoteStructOutput = [BigNumber, BigNumber, BigNumber] & {
+    id: BigNumber;
+    publicKey: BigNumber;
+    note: BigNumber;
+  };
+}
+
 export declare namespace ICommitmentPool {
   export type CommitmentRequestStruct = {
     amount: BigNumberish;
@@ -258,11 +272,11 @@ export interface CommitmentPoolMainInterface extends utils.Interface {
   decodeFunctionResult(functionFragment: 'updateSanctionsListAddress', data: BytesLike): Result;
 
   events: {
-    'AuditorPublicKeyChanged(uint256,uint256)': EventFragment;
+    'AuditorPublicKey(uint256,uint256)': EventFragment;
     'CommitmentIncluded(uint256)': EventFragment;
     'CommitmentQueued(uint256,uint256,uint256,bytes)': EventFragment;
     'CommitmentSpent(uint256,uint256)': EventFragment;
-    'EncryptedAuditorNote(uint64,uint256,uint256)': EventFragment;
+    'EncryptedAuditorNoteBatch(tuple[])': EventFragment;
     'OperatorChanged(address)': EventFragment;
     'RollupWhitelistDisabled(bool)': EventFragment;
     'SanctionsCheck(bool)': EventFragment;
@@ -270,11 +284,11 @@ export interface CommitmentPoolMainInterface extends utils.Interface {
     'VerifierUpdateDisabled(bool)': EventFragment;
   };
 
-  getEvent(nameOrSignatureOrTopic: 'AuditorPublicKeyChanged'): EventFragment;
+  getEvent(nameOrSignatureOrTopic: 'AuditorPublicKey'): EventFragment;
   getEvent(nameOrSignatureOrTopic: 'CommitmentIncluded'): EventFragment;
   getEvent(nameOrSignatureOrTopic: 'CommitmentQueued'): EventFragment;
   getEvent(nameOrSignatureOrTopic: 'CommitmentSpent'): EventFragment;
-  getEvent(nameOrSignatureOrTopic: 'EncryptedAuditorNote'): EventFragment;
+  getEvent(nameOrSignatureOrTopic: 'EncryptedAuditorNoteBatch'): EventFragment;
   getEvent(nameOrSignatureOrTopic: 'OperatorChanged'): EventFragment;
   getEvent(nameOrSignatureOrTopic: 'RollupWhitelistDisabled'): EventFragment;
   getEvent(nameOrSignatureOrTopic: 'SanctionsCheck'): EventFragment;
@@ -282,12 +296,12 @@ export interface CommitmentPoolMainInterface extends utils.Interface {
   getEvent(nameOrSignatureOrTopic: 'VerifierUpdateDisabled'): EventFragment;
 }
 
-export type AuditorPublicKeyChangedEvent = TypedEvent<
+export type AuditorPublicKeyEvent = TypedEvent<
   [BigNumber, BigNumber],
   { index: BigNumber; publicKey: BigNumber }
 >;
 
-export type AuditorPublicKeyChangedEventFilter = TypedEventFilter<AuditorPublicKeyChangedEvent>;
+export type AuditorPublicKeyEventFilter = TypedEventFilter<AuditorPublicKeyEvent>;
 
 export type CommitmentIncludedEvent = TypedEvent<[BigNumber], { commitment: BigNumber }>;
 
@@ -312,16 +326,12 @@ export type CommitmentSpentEvent = TypedEvent<
 
 export type CommitmentSpentEventFilter = TypedEventFilter<CommitmentSpentEvent>;
 
-export type EncryptedAuditorNoteEvent = TypedEvent<
-  [BigNumber, BigNumber, BigNumber],
-  {
-    id: BigNumber;
-    auditorPublicKey: BigNumber;
-    encryptedAuditorNote: BigNumber;
-  }
+export type EncryptedAuditorNoteBatchEvent = TypedEvent<
+  [CommitmentPool.EncryptedAuditorNoteStructOutput[]],
+  { notes: CommitmentPool.EncryptedAuditorNoteStructOutput[] }
 >;
 
-export type EncryptedAuditorNoteEventFilter = TypedEventFilter<EncryptedAuditorNoteEvent>;
+export type EncryptedAuditorNoteBatchEventFilter = TypedEventFilter<EncryptedAuditorNoteBatchEvent>;
 
 export type OperatorChangedEvent = TypedEvent<[string], { operator: string }>;
 
@@ -736,14 +746,11 @@ export interface CommitmentPoolMain extends BaseContract {
   };
 
   filters: {
-    'AuditorPublicKeyChanged(uint256,uint256)'(
+    'AuditorPublicKey(uint256,uint256)'(
       index?: BigNumberish | null,
       publicKey?: null,
-    ): AuditorPublicKeyChangedEventFilter;
-    AuditorPublicKeyChanged(
-      index?: BigNumberish | null,
-      publicKey?: null,
-    ): AuditorPublicKeyChangedEventFilter;
+    ): AuditorPublicKeyEventFilter;
+    AuditorPublicKey(index?: BigNumberish | null, publicKey?: null): AuditorPublicKeyEventFilter;
 
     'CommitmentIncluded(uint256)'(commitment?: BigNumberish | null): CommitmentIncludedEventFilter;
     CommitmentIncluded(commitment?: BigNumberish | null): CommitmentIncludedEventFilter;
@@ -751,13 +758,13 @@ export interface CommitmentPoolMain extends BaseContract {
     'CommitmentQueued(uint256,uint256,uint256,bytes)'(
       commitment?: BigNumberish | null,
       rollupFee?: null,
-      leafIndex?: null,
+      leafIndex?: BigNumberish | null,
       encryptedNote?: null,
     ): CommitmentQueuedEventFilter;
     CommitmentQueued(
       commitment?: BigNumberish | null,
       rollupFee?: null,
-      leafIndex?: null,
+      leafIndex?: BigNumberish | null,
       encryptedNote?: null,
     ): CommitmentQueuedEventFilter;
 
@@ -770,16 +777,8 @@ export interface CommitmentPoolMain extends BaseContract {
       serialNumber?: BigNumberish | null,
     ): CommitmentSpentEventFilter;
 
-    'EncryptedAuditorNote(uint64,uint256,uint256)'(
-      id?: null,
-      auditorPublicKey?: null,
-      encryptedAuditorNote?: null,
-    ): EncryptedAuditorNoteEventFilter;
-    EncryptedAuditorNote(
-      id?: null,
-      auditorPublicKey?: null,
-      encryptedAuditorNote?: null,
-    ): EncryptedAuditorNoteEventFilter;
+    'EncryptedAuditorNoteBatch(tuple[])'(notes?: null): EncryptedAuditorNoteBatchEventFilter;
+    EncryptedAuditorNoteBatch(notes?: null): EncryptedAuditorNoteBatchEventFilter;
 
     'OperatorChanged(address)'(operator?: string | null): OperatorChangedEventFilter;
     OperatorChanged(operator?: string | null): OperatorChangedEventFilter;
