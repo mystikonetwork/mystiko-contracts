@@ -18,13 +18,13 @@ import { Listener, Provider } from '@ethersproject/providers';
 import { TypedEventFilter, TypedEvent, TypedListener, OnEvent } from './common';
 
 export declare namespace CommitmentPool {
-  export type EncryptedAuditorNoteStruct = {
+  export type AuditorNoteStruct = {
     id: BigNumberish;
     publicKey: BigNumberish;
     note: BigNumberish;
   };
 
-  export type EncryptedAuditorNoteStructOutput = [BigNumber, BigNumber, BigNumber] & {
+  export type AuditorNoteStructOutput = [BigNumber, BigNumber, BigNumber] & {
     id: BigNumber;
     publicKey: BigNumber;
     note: BigNumber;
@@ -276,7 +276,8 @@ export interface CommitmentPoolInterface extends utils.Interface {
     'CommitmentIncluded(uint256)': EventFragment;
     'CommitmentQueued(uint256,uint256,uint256,bytes)': EventFragment;
     'CommitmentSpent(uint256,uint256)': EventFragment;
-    'EncryptedAuditorNoteBatch(tuple[])': EventFragment;
+    'EncryptedAuditorNote(uint64,uint256,uint256)': EventFragment;
+    'EncryptedAuditorNotes(tuple[])': EventFragment;
     'OperatorChanged(address)': EventFragment;
     'RollupWhitelistDisabled(bool)': EventFragment;
     'SanctionsCheck(bool)': EventFragment;
@@ -288,7 +289,8 @@ export interface CommitmentPoolInterface extends utils.Interface {
   getEvent(nameOrSignatureOrTopic: 'CommitmentIncluded'): EventFragment;
   getEvent(nameOrSignatureOrTopic: 'CommitmentQueued'): EventFragment;
   getEvent(nameOrSignatureOrTopic: 'CommitmentSpent'): EventFragment;
-  getEvent(nameOrSignatureOrTopic: 'EncryptedAuditorNoteBatch'): EventFragment;
+  getEvent(nameOrSignatureOrTopic: 'EncryptedAuditorNote'): EventFragment;
+  getEvent(nameOrSignatureOrTopic: 'EncryptedAuditorNotes'): EventFragment;
   getEvent(nameOrSignatureOrTopic: 'OperatorChanged'): EventFragment;
   getEvent(nameOrSignatureOrTopic: 'RollupWhitelistDisabled'): EventFragment;
   getEvent(nameOrSignatureOrTopic: 'SanctionsCheck'): EventFragment;
@@ -326,12 +328,23 @@ export type CommitmentSpentEvent = TypedEvent<
 
 export type CommitmentSpentEventFilter = TypedEventFilter<CommitmentSpentEvent>;
 
-export type EncryptedAuditorNoteBatchEvent = TypedEvent<
-  [CommitmentPool.EncryptedAuditorNoteStructOutput[]],
-  { notes: CommitmentPool.EncryptedAuditorNoteStructOutput[] }
+export type EncryptedAuditorNoteEvent = TypedEvent<
+  [BigNumber, BigNumber, BigNumber],
+  {
+    id: BigNumber;
+    auditorPublicKey: BigNumber;
+    encryptedAuditorNote: BigNumber;
+  }
 >;
 
-export type EncryptedAuditorNoteBatchEventFilter = TypedEventFilter<EncryptedAuditorNoteBatchEvent>;
+export type EncryptedAuditorNoteEventFilter = TypedEventFilter<EncryptedAuditorNoteEvent>;
+
+export type EncryptedAuditorNotesEvent = TypedEvent<
+  [CommitmentPool.AuditorNoteStructOutput[]],
+  { notes: CommitmentPool.AuditorNoteStructOutput[] }
+>;
+
+export type EncryptedAuditorNotesEventFilter = TypedEventFilter<EncryptedAuditorNotesEvent>;
 
 export type OperatorChangedEvent = TypedEvent<[string], { operator: string }>;
 
@@ -758,13 +771,13 @@ export interface CommitmentPool extends BaseContract {
     'CommitmentQueued(uint256,uint256,uint256,bytes)'(
       commitment?: BigNumberish | null,
       rollupFee?: null,
-      leafIndex?: BigNumberish | null,
+      leafIndex?: null,
       encryptedNote?: null,
     ): CommitmentQueuedEventFilter;
     CommitmentQueued(
       commitment?: BigNumberish | null,
       rollupFee?: null,
-      leafIndex?: BigNumberish | null,
+      leafIndex?: null,
       encryptedNote?: null,
     ): CommitmentQueuedEventFilter;
 
@@ -777,8 +790,19 @@ export interface CommitmentPool extends BaseContract {
       serialNumber?: BigNumberish | null,
     ): CommitmentSpentEventFilter;
 
-    'EncryptedAuditorNoteBatch(tuple[])'(notes?: null): EncryptedAuditorNoteBatchEventFilter;
-    EncryptedAuditorNoteBatch(notes?: null): EncryptedAuditorNoteBatchEventFilter;
+    'EncryptedAuditorNote(uint64,uint256,uint256)'(
+      id?: null,
+      auditorPublicKey?: null,
+      encryptedAuditorNote?: null,
+    ): EncryptedAuditorNoteEventFilter;
+    EncryptedAuditorNote(
+      id?: null,
+      auditorPublicKey?: null,
+      encryptedAuditorNote?: null,
+    ): EncryptedAuditorNoteEventFilter;
+
+    'EncryptedAuditorNotes(tuple[])'(notes?: null): EncryptedAuditorNotesEventFilter;
+    EncryptedAuditorNotes(notes?: null): EncryptedAuditorNotesEventFilter;
 
     'OperatorChanged(address)'(operator?: string | null): OperatorChangedEventFilter;
     OperatorChanged(operator?: string | null): OperatorChangedEventFilter;

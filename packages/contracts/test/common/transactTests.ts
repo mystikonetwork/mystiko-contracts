@@ -279,7 +279,7 @@ export function testTransact(
           const id = toBN(i).shln(32).or(toBN(j));
           const auditorPublicKey = auditorPublicKeys[j];
           const encryptedAuditorNote = encryptedAuditorNotes[i * protocol.numOfAuditors + j];
-          const notesIndex = events.findIndex((event) => event.name === 'EncryptedAuditorNoteBatch');
+          const notesIndex = events.findIndex((event) => event.name === 'EncryptedAuditorNotes');
           expect(notesIndex).to.gt(0);
           const { notes } = events[notesIndex].args;
 

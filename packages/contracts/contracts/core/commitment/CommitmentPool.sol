@@ -31,7 +31,7 @@ abstract contract CommitmentPool is ICommitmentPool, AssetPool, ReentrancyGuard,
     uint256 y;
   }
 
-  struct EncryptedAuditorNote {
+  struct AuditorNote {
     uint64 id;
     uint256 publicKey;
     uint256 note;
@@ -88,12 +88,14 @@ abstract contract CommitmentPool is ICommitmentPool, AssetPool, ReentrancyGuard,
   event CommitmentQueued(
     uint256 indexed commitment,
     uint256 rollupFee,
-    uint256 indexed leafIndex,
+    uint256 leafIndex,
     bytes encryptedNote
   );
   event CommitmentIncluded(uint256 indexed commitment);
   event CommitmentSpent(uint256 indexed rootHash, uint256 indexed serialNumber);
-  event EncryptedAuditorNoteBatch(EncryptedAuditorNote[] notes);
+  // event is deprecated， new event is EncryptedAuditorNotes, keep define for backward compatibility
+  event EncryptedAuditorNote(uint64 id, uint256 auditorPublicKey, uint256 encryptedAuditorNote);
+  event EncryptedAuditorNotes(AuditorNote[] notes);
   event VerifierUpdateDisabled(bool state);
   event RollupWhitelistDisabled(bool state);
   event AuditorPublicKey(uint256 indexed index, uint256 publicKey);
@@ -557,7 +559,7 @@ abstract contract CommitmentPool is ICommitmentPool, AssetPool, ReentrancyGuard,
 
   function _emitAuditingNotes(TransactRequest memory _request) internal {
     uint256 auditorNoteCount = _request.serialNumbers.length * auditorCount;
-    EncryptedAuditorNote[] memory auditorNotes = new EncryptedAuditorNote[](auditorNoteCount);
+    AuditorNote[] memory auditorNotes = new AuditorNote[](auditorNoteCount);
 
     uint256 index = 0;
     for (uint32 i = 0; i < _request.serialNumbers.length; i++) {
@@ -569,6 +571,6 @@ abstract contract CommitmentPool is ICommitmentPool, AssetPool, ReentrancyGuard,
       }
     }
 
-    emit EncryptedAuditorNoteBatch(auditorNotes);
+    emit EncryptedAuditorNotes(auditorNotes);
   }
 }
