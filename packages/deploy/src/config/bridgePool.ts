@@ -370,6 +370,9 @@ export class PoolDeployConfig extends BaseConfig {
     this.asRawContractDeployConfig().enqueueWhitelist = undefined;
     this.enqueueWhitelistByAddress = {};
     this.asRawContractDeployConfig().operator = undefined;
+    this.auditorsByAddress = {};
+    this.asRawContractDeployConfig().auditors = undefined;
+    this.asRawContractDeployConfig().nonce = undefined;
   }
 
   private asRawContractDeployConfig(): RawPoolDeployConfig {

@@ -286,7 +286,7 @@ function resetAllDeployConfig(taskArgs: any) {
   saveConfig(mystikoNetwork, cfg);
 }
 
-function resetVerifier(taskArgs: any) {
+function resetAllVerifier(taskArgs: any) {
   const srcNetwork = taskArgs.src;
   const mystikoNetwork = getMystikoNetwork(srcNetwork);
 
@@ -335,10 +335,10 @@ export async function deploy(taskArgs: any, hre: any) {
     dumpAllMiner();
   } else if (step === 'checkJson') {
     await checkJson(taskArgs);
-  } else if (step === 'reset') {
+  } else if (step === 'resetAll') {
     resetAllDeployConfig(taskArgs);
-  } else if (step === 'resetVerifier') {
-    resetVerifier(taskArgs);
+  } else if (step === 'resetAllVerifier') {
+    resetAllVerifier(taskArgs);
   } else {
     console.error(LOGRED, 'wrong step');
   }
