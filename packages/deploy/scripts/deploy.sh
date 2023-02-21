@@ -9,12 +9,9 @@ skipCounter=$1;
 step=$2
 network=$3
 
-if [ ${step} == 'check' ]; then
-  sed -i -e "s/step[0-9]/check/g" ./scripts/deploy.${network}.${version}.txt
-else
-  sed -i -e "s/step[0-9]/step${step}/g" ./scripts/deploy.${network}.${version}.txt
-  sed -i -e "s/check/step${step}/g" ./scripts/deploy.${network}.${version}.txt
-fi
+sed -i -e "s/step[0-9]/${step}/g" ./scripts/deploy.${network}.${version}.txt
+sed -i -e "s/check/${step}/g" ./scripts/deploy.${network}.${version}.txt
+sed -i -e "s/reset/${step}/g" ./scripts/deploy.${network}.${version}.txt
 
 counter=1;
 while read -r line

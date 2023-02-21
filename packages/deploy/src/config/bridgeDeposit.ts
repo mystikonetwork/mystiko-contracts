@@ -258,6 +258,7 @@ export class DepositDeployConfig extends BaseConfig {
     this.asRawContractDeployConfig().sanctionCheck = undefined;
     this.asRawContractDeployConfig().operator = undefined;
     this.asRawContractDeployConfig().disableDeposit = undefined;
+    this.asRawContractDeployConfig().nonce = undefined;
   }
 
   private asRawContractDeployConfig(): RawDepositDeployConfig {

@@ -163,11 +163,12 @@ export class ChainConfig extends BaseConfig {
   }
 
   public reset() {
-    this.hasher3Address = undefined;
     this.resetVerifier();
   }
 
   public resetVerifier() {
+    // deposit contract hasher3 address can't change
+    // this.hasher3Address = undefined;
     this.rollup1Address = undefined;
     this.rollup2Address = undefined;
     this.rollup4Address = undefined;
