@@ -112,6 +112,20 @@ example:
 
 ```yarn query --network bsctestnet --bridge loop --dst bsctestnet --token BNB --func sanction  --param ''```
 
+### update contract verifier
+example of update testnet gamma verifier same with delta version in deploy folder
+```
+1. modify ./src/json/deploy/testnet-gamma.json
+   change all
+       rollup1Address/rollup2Address/rollup4Address/...
+       transaction1x0VerifierAddress/transaction1x1VerifierAddress/....
+   same with delta version
+2. configure .env
+   set POOLNAME=gamma
+3. run deploy script
+   ./scripts/deploy.sh 0 step3 testnet
+```
+
 
 ### Test the deployed contract
 We need to update the config file first and execute the following command
