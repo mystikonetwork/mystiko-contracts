@@ -140,7 +140,7 @@ const config: HardhatUserConfig = {
       accounts: [`0x${ethPrivateKey}`],
       timeout: 60000000,
     },
-    bsc: {
+    BSC: {
       url: bscEndpoint,
       accounts: [`0x${bscPrivateKey}`],
     },
