@@ -1,9 +1,15 @@
-yarn deploy:chain --network Ethereum --step step3 --bridge loop --dst Ethereum --token ETH
-yarn deploy:chain --network Ethereum --step step3 --bridge loop --dst Ethereum --token USDT
-yarn deploy:chain --network Ethereum --step step3 --bridge loop --dst Ethereum --token USDC
+yarn deploy:chain --network Ethereum --step checkJson --bridge loop --dst Ethereum --token ETH
+yarn deploy:chain --network Ethereum --step checkJson --bridge loop --dst Ethereum --token USDT
+yarn deploy:chain --network Ethereum --step checkJson --bridge loop --dst Ethereum --token USDC
 
-yarn deploy:chain --network BSC --step step3 --bridge loop --dst BSC --token BNB
-yarn deploy:chain --network BSC --step step3 --bridge loop --dst BSC --token USDT
-yarn deploy:chain --network BSC --step step3 --bridge loop --dst BSC --token USDC
-yarn deploy:chain --network BSC --step step3 --bridge loop --dst BSC --token BUSD
+yarn deploy:chain --network BSC --step checkJson --bridge loop --dst BSC --token BNB
+yarn deploy:chain --network BSC --step checkJson --bridge loop --dst BSC --token USDT
+yarn deploy:chain --network BSC --step checkJson --bridge loop --dst BSC --token USDC
+yarn deploy:chain --network BSC --step checkJson --bridge loop --dst BSC --token BUSD
+
+yarn deploy:chain --network Polygon --step checkJson --bridge loop --dst Polygon --token MATIC
+yarn deploy:chain --network Polygon --step checkJson --bridge loop --dst Polygon --token USDT
+yarn deploy:chain --network Polygon --step checkJson --bridge loop --dst Polygon --token USDC
+yarn deploy:chain --network Polygon --step checkJson --bridge loop --dst Polygon --token BUSD
+yarn deploy:chain --network Polygon --step checkJson --bridge loop --dst Polygon --token WETH
 

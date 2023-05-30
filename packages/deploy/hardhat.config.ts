@@ -156,9 +156,10 @@ const config: HardhatUserConfig = {
       url: moonbeamEndpoint,
       accounts: [`0x${moonbeamPrivateKey}`],
     },
-    polygon: {
+    Polygon: {
       url: polygonEndpoint,
       accounts: [`0x${polygonPrivateKey}`],
+      gasPrice: 200000000000,
     },
   },
   paths: {

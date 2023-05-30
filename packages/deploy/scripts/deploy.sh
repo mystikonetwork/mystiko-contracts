@@ -12,6 +12,7 @@ network=$3
 sed -i -e "s/step[0-9]/${step}/g" ./scripts/deploy.${network}.${version}.txt
 sed -i -e "s/check/${step}/g" ./scripts/deploy.${network}.${version}.txt
 sed -i -e "s/reset/${step}/g" ./scripts/deploy.${network}.${version}.txt
+sed -i -e "s/dump/${step}/g" ./scripts/deploy.${network}.${version}.txt
 
 counter=1;
 while read -r line
