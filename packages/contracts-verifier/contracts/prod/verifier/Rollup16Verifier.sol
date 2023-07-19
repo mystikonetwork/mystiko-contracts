@@ -11,59 +11,59 @@ import "./VerifierLib.sol";
 contract Rollup16Verifier {
   function verifyingKey() internal pure returns (VerifierLib.VerifyingKey memory vk) {
     vk.alpha = Pairing.G1Point(
-      uint256(0x18e2b4813ce7c5f0c90610c2786aaf5a760166afadd228ef3fe455eba3fee659),
-      uint256(0x2ff8ac9fbc24b5f50069e37c80ecf909b17e71ada49c05775746428aa621869a)
+      uint256(0x0721af3d9a6c748b75963a1a429c4fcd81a2b51d9f79de4fdcba4f3f28850471),
+      uint256(0x05d35ba89c5ed101602d185e796ad186e29e06b02ff9552fd4f7c203acd7dd8d)
     );
     vk.beta = Pairing.G2Point(
       [
-        uint256(0x2d65126b5430b99712bf3d84db90d16540e193ce5e9716120771cff758d75609),
-        uint256(0x053f9595ee30a417288730b18b1dd24c2cf53ada92b9be8ca0b429314d4a9fcd)
+        uint256(0x17d794de2902bb6ae6dd9ca94e42b0746c4b6b5ed92749eea17e0f9887fdce17),
+        uint256(0x1752eabbc97ca9e514bdcfa9984ef5acf4d7d01110da6fa57fde8186d7db2abe)
       ],
       [
-        uint256(0x16e1594c8a53e2aed92a4c6d3a91ca61e5e82b9ea722b8527849ba69fe59fa24),
-        uint256(0x132c2bd57c21999cae7be35dfe357199ce740425532d8b4d648f8c0765cbf527)
+        uint256(0x07ec7b5541895bdc355e4ce27a648c68500ddaa90465ed86ecf04c7d7d3978e3),
+        uint256(0x0267b2a7a16c2b3fec9024d1256e378a2e695c90b22f3e86070491c19277b09f)
       ]
     );
     vk.gamma = Pairing.G2Point(
       [
-        uint256(0x04aad6b536aae008e5136fa4791d67fc967632983b650c2254487b9c6534b857),
-        uint256(0x2db602c4bef21b69ac2206524f5be48b8c999955c34c4cb664f501a89dd8eaa5)
+        uint256(0x0e6ea7ebf9bfa12714061e4c383a68f51c75e7ea065651d0d7a80bcb7cb885a0),
+        uint256(0x099e1c23e7c8380355a99f934501663fe9e79735c193385810c87fa0bca5ebee)
       ],
       [
-        uint256(0x279514401fc344a70d347b1d4299df7ab311ba050019ec8f13090314f23a99f8),
-        uint256(0x1ebe68a1801476727b031257cdae5c65a95c102a4be5cca62c26355924838098)
+        uint256(0x05afba5b04239d73f07110b06ffeb7d3274e7499a26d4778fbc8c4afc56455e3),
+        uint256(0x2327bd20400e11b57b0f94c77e3c03e726144d17d27556714d9bb68c88edfc08)
       ]
     );
     vk.delta = Pairing.G2Point(
       [
-        uint256(0x051eb1d4cb8113c3c597e8e609752352cd0239a94e717ed61e71d9b982aa74e7),
-        uint256(0x177ab8163bd922607ccdbb11b1193ef039d61b2b6c5a904a093f247e76ea3c3b)
+        uint256(0x1b1b520dcea51cd8132cdee529e40386b315fd379d5fa5f22cdb2915cb93a7bc),
+        uint256(0x15279d0691b82c54d11c0ad5b3702b858f75ecb90d17318332ff279ee8f468b7)
       ],
       [
-        uint256(0x1554d27ddfa60de8e9ac72042adbaf991c0df264319f0709d12fb3cdb73f28dd),
-        uint256(0x270b9b1281a2268f14c099c5ecc570e19c19bf5e1bb22e1de5a6f0d54443f4f3)
+        uint256(0x28b732693a772dd67638051aa89b1dd8edb158dad28ab276824f7fc400ebb4d3),
+        uint256(0x15ae3ba6a91c6cf5b71cbac04c498b5814dffdeb0075707ca7e528f6c8b91faa)
       ]
     );
     vk.gamma_abc = new Pairing.G1Point[](5);
     vk.gamma_abc[0] = Pairing.G1Point(
-      uint256(0x0a747a8090bee5d14da41f408de6055b44768100ae7c200f3b39eee3c11e3a46),
-      uint256(0x0dd8d12dc97ffcd8ef749fdcef62598f245914cad400222b22606b4ff4263e7d)
+      uint256(0x21aa3e738fafb0ce9144d5dbcda111e3fe3f54f14dabb0ddb3b10fb3b6c2f6c7),
+      uint256(0x1a52121f4459d0f45de21a4952e3b72d4653b62b12705effa17d892f850286dc)
     );
     vk.gamma_abc[1] = Pairing.G1Point(
-      uint256(0x0aedd47d6f87448fdf937bfbed784afaf609ff95e2187287d58115d5fd04e2f7),
-      uint256(0x14805dc713dac9082d830ec35616e105d2a04bf2b1c8ed73db791b6eaf784e24)
+      uint256(0x2339073ee7354dbacc9a3109d83ceb0317e7c6ade6f55243abadb28d6114ea04),
+      uint256(0x12dc0beaf4fbc1cda4940bfa7120395cf071ab686b55ee9cca73af988ca97820)
     );
     vk.gamma_abc[2] = Pairing.G1Point(
-      uint256(0x01ece154feee68a170b8dbdd12cdb54e95e4fbaf657072226a8334069e09550e),
-      uint256(0x149949cd53606ba6519bcd64d71b9a60ae00343d3b200da2e4e83a36461e03dd)
+      uint256(0x02dbdb3c60d9cd4330ea52cf0c585186304fa515b421fa5d8bfad52eea2b0919),
+      uint256(0x150baaf7f86c425b7eb01e08fd14d6aef475aa87d60634ca73874947528fedda)
     );
     vk.gamma_abc[3] = Pairing.G1Point(
-      uint256(0x1f8d2d8a5ff80a59cec2ca05ed0a0ce2ab2e67d0c051c8f8e159f645bde3b2dd),
-      uint256(0x2682abc3d5e0c644dcd91530a068ff4a1fd38bdfaf1c9c8b2f55c630a28c4004)
+      uint256(0x1f4c77463a61a48fd928e4e5107b6b89d5e36eb3791d6bd1d2d955319c7f96b9),
+      uint256(0x0382b26ebbd5d34b893a19fa0098a3c0e68b49a754bbed0a7172bd82baec3538)
     );
     vk.gamma_abc[4] = Pairing.G1Point(
-      uint256(0x0a6ed8fe2ffe703e422244687094694c1c1f24b993e39afb02029739124be861),
-      uint256(0x0ca79c1105dcbf0d1934204307b8b53fa72df9d5dba0eb91dd5244aa04d04684)
+      uint256(0x1c32ad9e0e74461163cb1cf6543525af4a188c5ac7ff90977300427fd115d1bd),
+      uint256(0x2549c0e814cd5b3ed5090d26383a2daff75e87e61867bd91b396cd24fb155778)
     );
   }
 
