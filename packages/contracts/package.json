@@ -21,7 +21,7 @@
     "clean": "hardhat clean && rm -rf artifacts && rm -rf artifactsExternal",
     "build:hasher": "hardhat compile-hasher",
     "build:contract": "hardhat compile",
-    "build:abi": "lerna run generate:core --scope @mystikonetwork/contracts-abi",
+    "build:abi": "cd ../.. && lerna run generate:core --scope @mystikonetwork/contracts-abi",
     "build": "yarn build:contract && yarn build:hasher && yarn build:abi",
     "test": "hardhat coverage --testfiles \"./test/core/**/*.test.ts\" --solcoverjs ./.solcover.ts",
     "test:all": "hardhat test",
