@@ -1793,10 +1793,10 @@
     ethers "^5.5.3"
     reflect-metadata "^0.1.13"
 
-"@mystikonetwork/ecies@^0.2.2":
-  version "0.2.2"
-  resolved "https://npm.pkg.github.com/download/@mystikonetwork/ecies/0.2.2/d0dd0fcbaa0945b7456a0db1c17daa04ceab33d1#d0dd0fcbaa0945b7456a0db1c17daa04ceab33d1"
-  integrity sha512-rJQ9bIuN1xqplHlzPhgHZ0Dhxp1bnUljlJrAxRtTDDuxy9TjOfZhxbQN4+W5Blv8lgHAtQ+fonzy9t4iUOvcmg==
+"@mystikonetwork/ecies@^0.3.0":
+  version "0.3.0"
+  resolved "https://npm.pkg.github.com/download/@mystikonetwork/ecies/0.3.0/6f3185a11ac0d520fbd91bfa06c292ea0badd630#6f3185a11ac0d520fbd91bfa06c292ea0badd630"
+  integrity sha512-3iSST7lJCssmse6HOMOXgZbcB6N/2oahHqFDwZ0cxYFVfQxgsURQMC1sx9EdASXuE6gBvL7/HaYi3nf++9pf3g==
   dependencies:
     "@mystikonetwork/utils" "^0.1.3"
     bn.js "^5.2.0"
@@ -1809,26 +1809,26 @@
   resolved "https://npm.pkg.github.com/download/@mystikonetwork/fastfile/0.0.21/b3362f8527fa15a2d745c0b516c92d0a5ca0ceef4c2e103aac2d79305f0c4207#069a0d0d6a28a3f002fe97519456bbbd14880f9c"
   integrity sha512-o9vr4WoWEGord8+6ADBSulLO9arM2z0R5bOKj+GGPOFY/Zm8bg7alqRfuTvcxzll9TTk/rv7gDM4GnbBHhvyMA==
 
-"@mystikonetwork/merkle@^0.2.2":
-  version "0.2.2"
-  resolved "https://npm.pkg.github.com/download/@mystikonetwork/merkle/0.2.2/2337f601956c51001e69a6145b406dfb75428a8b#2337f601956c51001e69a6145b406dfb75428a8b"
-  integrity sha512-/FnDfJjv5cyfVmwOhSav5WBS7IAEaLrd0fELgXQTCwAnLi6sVHh8EX+kMz4cdSG04cqu2gQEfDOcan24xrb7rQ==
+"@mystikonetwork/merkle@^0.3.0":
+  version "0.3.0"
+  resolved "https://npm.pkg.github.com/download/@mystikonetwork/merkle/0.3.0/44dea94c04ab4273e935dae5b1a85aa60cbcb765#44dea94c04ab4273e935dae5b1a85aa60cbcb765"
+  integrity sha512-zOToqEUwAMLmvSgSCQybZNp8VS/L7cKoK1YJ6dZWv7gws4zRZ1Db3tlJg9g5q/z8slVutLuGtlFjpFkG0mvOTA==
   dependencies:
     "@mystikonetwork/utils" "^0.1.1"
     bn.js "^5.2.0"
     circomlibjs "^0.0.8"
     ethers "^5.5.3"
 
-"@mystikonetwork/protocol@^0.2.2":
-  version "0.2.2"
-  resolved "https://npm.pkg.github.com/download/@mystikonetwork/protocol/0.2.2/bc07f80314c56ea3fff1068578ea9284a2f8fbe9#bc07f80314c56ea3fff1068578ea9284a2f8fbe9"
-  integrity sha512-ZT2A5rdBlODg/wUk7+CuYv9TQIravJJ7RaYmAoqbxJywIktrVBogqYX81A7jTMnirwk5a06iSDEh2PyRhKWtZA==
+"@mystikonetwork/protocol@^0.3.0":
+  version "0.3.0"
+  resolved "https://npm.pkg.github.com/download/@mystikonetwork/protocol/0.3.0/a872d7ebb3147a4c355b3c3030e192647b219822#a872d7ebb3147a4c355b3c3030e192647b219822"
+  integrity sha512-grYMCO9wAHWr1G805sLL2kdS6ZS84T/+duzctWkMKgfNdhbT2Gb/kEfh8Mz9yoKlktmTkNVpdlgF5REyEXaiIQ==
   dependencies:
-    "@mystikonetwork/ecies" "^0.2.2"
-    "@mystikonetwork/merkle" "^0.2.2"
-    "@mystikonetwork/secret-share" "^0.2.2"
+    "@mystikonetwork/ecies" "^0.3.0"
+    "@mystikonetwork/merkle" "^0.3.0"
+    "@mystikonetwork/secret-share" "^0.3.0"
     "@mystikonetwork/utils" "^0.1.1"
-    "@mystikonetwork/zkp" "^0.2.2"
+    "@mystikonetwork/zkp" "^0.3.0"
     blake-hash "^2.0.0"
     bn.js "^5.2.0"
     bs58 "^4.0.1"
@@ -1840,10 +1840,10 @@
     loglevel "^1.8.0"
     randombytes "^2.1.0"
 
-"@mystikonetwork/secret-share@^0.2.2":
-  version "0.2.2"
-  resolved "https://npm.pkg.github.com/download/@mystikonetwork/secret-share/0.2.2/67907a6f8ec5d791d67a9ae1f5976900ac118bf6#67907a6f8ec5d791d67a9ae1f5976900ac118bf6"
-  integrity sha512-xpI5ZpUMQtLxYMqTzdoJEE6oasty76YiCcejF6TS0jW994bTmr8xmfuEu1vECkl0PgTHgooe9kZVhIUw1cZMvA==
+"@mystikonetwork/secret-share@^0.3.0":
+  version "0.3.0"
+  resolved "https://npm.pkg.github.com/download/@mystikonetwork/secret-share/0.3.0/cc0fd8b235f4964eea84d94c7d5cb96e16581f3d#cc0fd8b235f4964eea84d94c7d5cb96e16581f3d"
+  integrity sha512-DS+0RlyQvu/q+F/75mopYW6FZ8Rt23Ml0YjKYfwSfY9zDtvRj8KiP6/4HJ4PWducG5lZYhrOH4Po9SCCjOiz7Q==
   dependencies:
     "@mystikonetwork/utils" "^0.1.3"
     bn.js "^5.2.0"
@@ -1875,30 +1875,37 @@
     loglevel-plugin-prefix "^0.8.4"
     pako "^2.0.4"
 
-"@mystikonetwork/zkp-node@^0.2.2":
-  version "0.2.2"
-  resolved "https://npm.pkg.github.com/download/@mystikonetwork/zkp-node/0.2.2/c302a414af6e092acaa4a85717048012ea0b96af#c302a414af6e092acaa4a85717048012ea0b96af"
-  integrity sha512-02pQmcwmhY2zMSGN9OWtbCOe9XlUD9y3hgn6jvUJ6GP891R1YV/4YYymJelxJ/lCj64z56+/nhvb5zNDZ877Eg==
+"@mystikonetwork/zkp-node@^0.3.0":
+  version "0.3.0"
+  resolved "https://npm.pkg.github.com/download/@mystikonetwork/zkp-node/0.3.0/0ae8114eb5b235e2f1baa02535fd91f09861aa12#0ae8114eb5b235e2f1baa02535fd91f09861aa12"
+  integrity sha512-JqAMwNZ2us5qixLm8eX/Jx2JNASLQM24KvmQwrOoTJsPMP5UxkrUZyGPmULzjS+KfwGSHRwM56oSirQmTOqa+A==
   dependencies:
     "@mystikonetwork/utils" "^0.1.1"
-    "@mystikonetwork/zkp" "^0.2.2"
-    "@mystikonetwork/zkp-wasm" "^0.2.2"
+    "@mystikonetwork/zkp" "^0.3.0"
+    "@mystikonetwork/zkp-wasm" "^0.3.0"
+    "@mystikonetwork/zokrates-js" "^0.3.0"
     command-exists "^1.2.9"
-    zokrates-js "^1.1.3"
 
-"@mystikonetwork/zkp-wasm@^0.2.2":
-  version "0.2.2"
-  resolved "https://npm.pkg.github.com/download/@mystikonetwork/zkp-wasm/0.2.2/163df1adb2200bd002627e690a4698514a83e894#163df1adb2200bd002627e690a4698514a83e894"
-  integrity sha512-/tcf9oBlcxmBJeEOVK89E/7sb19DHp//6xiHWu7Zj94KOlZ2r7thoC0za8aNK/GhZy8IAHacHSSbOPkET8Nm/g==
+"@mystikonetwork/zkp-wasm@^0.3.0":
+  version "0.3.0"
+  resolved "https://npm.pkg.github.com/download/@mystikonetwork/zkp-wasm/0.3.0/73d6edb2ef3199d5a7cdd403d77abfb609870cc1#73d6edb2ef3199d5a7cdd403d77abfb609870cc1"
+  integrity sha512-tL2ApT5es8eak7hHo26VFSJNWDxjFh76kP+YQieNc37VnvwNhodmXQvpcLEN2m6sPcly9dj3to0LTsc78Uxbpg==
   dependencies:
     "@mystikonetwork/utils" "^0.1.1"
-    "@mystikonetwork/zkp" "^0.2.2"
-    zokrates-js "^1.1.3"
+    "@mystikonetwork/zkp" "^0.3.0"
+    "@mystikonetwork/zokrates-js" "^0.3.0"
 
-"@mystikonetwork/zkp@^0.2.2":
-  version "0.2.2"
-  resolved "https://npm.pkg.github.com/download/@mystikonetwork/zkp/0.2.2/61df17d9d415c867fa184602ce221383dd23fbf9#61df17d9d415c867fa184602ce221383dd23fbf9"
-  integrity sha512-cAsxt+LRl3cBYJs3C4uEyF7rvH022cnzGsVBlAVI6UqAbVrwfW8Jyv5lza2MSphn6+2/KkjPKSjAl22/pPZh9Q==
+"@mystikonetwork/zkp@^0.3.0":
+  version "0.3.0"
+  resolved "https://npm.pkg.github.com/download/@mystikonetwork/zkp/0.3.0/e2607bc7bddf5c8ae58b0e24e48016619c7d07cb#e2607bc7bddf5c8ae58b0e24e48016619c7d07cb"
+  integrity sha512-rvL96NaViFtdax5vrftDwTbOkgkaqAmLanxBsEbUT19KsSoqxQVodU9mB4TORxncdjW+bGKz9njE/VIG6HPfYw==
+
+"@mystikonetwork/zokrates-js@^0.3.0":
+  version "0.3.0"
+  resolved "https://npm.pkg.github.com/download/@mystikonetwork/zokrates-js/0.3.0/2adb28d2b08ebf860be8114133e12852ef9d50eb#2adb28d2b08ebf860be8114133e12852ef9d50eb"
+  integrity sha512-D9uWFP8Nd25tuiDogkHeOsPKjdpoZn6jTXN5+2C8gOLf2gyG+fR3Bp2FLfjiRoXgrRqp1ae3g28//OuDfcWsGQ==
+  dependencies:
+    pako "^2.1.0"
 
 "@nicolo-ribaudo/chokidar-2@2.1.8-no-fsevents.3":
   version "2.1.8-no-fsevents.3"
@@ -9086,6 +9093,11 @@ pako@^2.0.4:
   resolved "https://registry.yarnpkg.com/pako/-/pako-2.0.4.tgz#6cebc4bbb0b6c73b0d5b8d7e8476e2b2fbea576d"
   integrity sha512-v8tweI900AUkZN6heMU/4Uy4cXRc2AYNRggVmTR+dEncawDJgCdLMximOVA2p4qO57WMynangsfGRb5WD6L1Bg==
 
+pako@^2.1.0:
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/pako/-/pako-2.1.0.tgz#266cc37f98c7d883545d11335c00fbd4062c9a86"
+  integrity sha512-w+eufiZ1WuJYgPXbV/PO3NCMEc3xqylkKHzp8bxp1uW4qaSNQUkwmLLEc3kKsfz8lpV1F8Ht3U1Cm+9Srog2ug==
+
 parent-module@^1.0.0:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/parent-module/-/parent-module-1.0.1.tgz#691d2709e78c79fae3a156622452d00762caaaa2"
@@ -12666,8 +12678,3 @@ yocto-queue@^0.1.0:
   version "0.1.0"
   resolved "https://registry.yarnpkg.com/yocto-queue/-/yocto-queue-0.1.0.tgz#0294eb3dee05028d31ee1a5fa2c556a6aaf10a1b"
   integrity sha512-rVksvsnNCdJ/ohGc6xgPwyN8eheCxsiLM8mxuE/t/mOVqJewPuO1miLpTHQiRgTKCLexL4MeAFVagts7HmNZ2Q==
-
-zokrates-js@^1.1.3:
-  version "1.1.3"
-  resolved "https://registry.yarnpkg.com/zokrates-js/-/zokrates-js-1.1.3.tgz#88c04a71cb07d69329b7a4194edd41ecdda04ab1"
-  integrity sha512-FKW2MJR18BSuW2ayoUiaWfbBiArmr+Y5sesF0trMiwcuYyO80IYpwYfhD8uB6Xy5PywR5Rh/XB76Okznoi/WEw==
