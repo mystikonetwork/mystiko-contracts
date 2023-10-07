@@ -207,7 +207,7 @@ export function testLoopDeposit(
           true,
         );
 
-        expect((await commitmentPool.getCommitmentQueueSize()).toNumber()).to.equal(i + 1);
+        expect((await commitmentPool.getCommitmentQueuedCount()).toNumber()).to.equal(i + 1);
         expect((await commitmentPool.getCommitmentCount()).toNumber()).to.equal(i + 1);
         const queued = await commitmentPool.getQueuedCommitments();
         expect(queued.length).to.be.equal(i + 1);

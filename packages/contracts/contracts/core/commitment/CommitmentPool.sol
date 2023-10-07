@@ -382,11 +382,11 @@ abstract contract CommitmentPool is ICommitmentPool, AssetPool, ReentrancyGuard,
     return minRollupFee;
   }
 
-  function getCommitmentQueuedCount() public view returns (uint256) {
+  function getCommitmentIncludedCount() public view returns (uint256) {
     return commitmentIncludedCount;
   }
 
-  function getCommitmentQueueSize() public view returns (uint256) {
+  function getCommitmentQueuedCount() public view returns (uint256) {
     return commitmentQueueSize;
   }
 

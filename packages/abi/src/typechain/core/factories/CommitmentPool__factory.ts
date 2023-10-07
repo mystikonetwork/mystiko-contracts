@@ -598,7 +598,7 @@ const _abi = [
   },
   {
     inputs: [],
-    name: 'getCommitmentQueueSize',
+    name: 'getCommitmentIncludedCount',
     outputs: [
       {
         internalType: 'uint256',
