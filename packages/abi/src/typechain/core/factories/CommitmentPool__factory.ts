@@ -598,7 +598,7 @@ const _abi = [
   },
   {
     inputs: [],
-    name: 'getCommitmentIncludedCount',
+    name: 'getCommitmentQueueSize',
     outputs: [
       {
         internalType: 'uint256',
@@ -611,7 +611,7 @@ const _abi = [
   },
   {
     inputs: [],
-    name: 'getCommitmentQueueSize',
+    name: 'getCommitmentQueuedCount',
     outputs: [
       {
         internalType: 'uint256',
@@ -637,12 +637,12 @@ const _abi = [
   },
   {
     inputs: [],
-    name: 'getQueuedCommitments',
+    name: 'getNullifierCount',
     outputs: [
       {
-        internalType: 'uint256[]',
+        internalType: 'uint256',
         name: '',
-        type: 'uint256[]',
+        type: 'uint256',
       },
     ],
     stateMutability: 'view',
@@ -650,12 +650,12 @@ const _abi = [
   },
   {
     inputs: [],
-    name: 'getSpentSerialNumberCount',
+    name: 'getQueuedCommitments',
     outputs: [
       {
-        internalType: 'uint256',
+        internalType: 'uint256[]',
         name: '',
-        type: 'uint256',
+        type: 'uint256[]',
       },
     ],
     stateMutability: 'view',

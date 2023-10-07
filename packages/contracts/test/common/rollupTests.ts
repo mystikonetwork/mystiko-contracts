@@ -234,7 +234,7 @@ export function testRollup(
         ? await waffle.provider.getBalance(rollupAccount2.address)
         : await testTokenContract.balanceOf(rollupAccount2.address);
       const beforeQueuedSize = (await commitmentPoolContract.getCommitmentQueueSize()).toNumber();
-      const beforeIncludedCount = (await commitmentPoolContract.getCommitmentIncludedCount()).toNumber();
+      const beforeIncludedCount = (await commitmentPoolContract.getCommitmentQueuedCount()).toNumber();
       const beforeCommitmentsCount = (await commitmentPoolContract.getCommitmentCount()).toNumber();
 
       const gasLimit = await commitmentPoolContract
@@ -268,7 +268,7 @@ export function testRollup(
       expect(await commitmentPoolContract.isKnownRoot(proof.newRoot)).to.equal(true);
 
       const afterQueuedSize = (await commitmentPoolContract.getCommitmentQueueSize()).toNumber();
-      const afterIncludedCount = (await commitmentPoolContract.getCommitmentIncludedCount()).toNumber();
+      const afterIncludedCount = (await commitmentPoolContract.getCommitmentQueuedCount()).toNumber();
       const afterCommitmentsCount = (await commitmentPoolContract.getCommitmentCount()).toNumber();
 
       expect(beforeQueuedSize).to.equal(afterQueuedSize + rollupSize);

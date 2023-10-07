@@ -169,11 +169,11 @@ export interface CommitmentPoolERC20Interface extends utils.Interface {
     'getAllAuditorPublicKeys()': FunctionFragment;
     'getAuditorPublicKey(uint256)': FunctionFragment;
     'getCommitmentCount()': FunctionFragment;
-    'getCommitmentIncludedCount()': FunctionFragment;
     'getCommitmentQueueSize()': FunctionFragment;
+    'getCommitmentQueuedCount()': FunctionFragment;
     'getMinRollupFee()': FunctionFragment;
+    'getNullifierCount()': FunctionFragment;
     'getQueuedCommitments()': FunctionFragment;
-    'getSpentSerialNumberCount()': FunctionFragment;
     'getTreeCapacity()': FunctionFragment;
     'isHistoricCommitment(uint256)': FunctionFragment;
     'isKnownRoot(uint256)': FunctionFragment;
@@ -221,11 +221,11 @@ export interface CommitmentPoolERC20Interface extends utils.Interface {
   encodeFunctionData(functionFragment: 'getAllAuditorPublicKeys', values?: undefined): string;
   encodeFunctionData(functionFragment: 'getAuditorPublicKey', values: [BigNumberish]): string;
   encodeFunctionData(functionFragment: 'getCommitmentCount', values?: undefined): string;
-  encodeFunctionData(functionFragment: 'getCommitmentIncludedCount', values?: undefined): string;
   encodeFunctionData(functionFragment: 'getCommitmentQueueSize', values?: undefined): string;
+  encodeFunctionData(functionFragment: 'getCommitmentQueuedCount', values?: undefined): string;
   encodeFunctionData(functionFragment: 'getMinRollupFee', values?: undefined): string;
+  encodeFunctionData(functionFragment: 'getNullifierCount', values?: undefined): string;
   encodeFunctionData(functionFragment: 'getQueuedCommitments', values?: undefined): string;
-  encodeFunctionData(functionFragment: 'getSpentSerialNumberCount', values?: undefined): string;
   encodeFunctionData(functionFragment: 'getTreeCapacity', values?: undefined): string;
   encodeFunctionData(functionFragment: 'isHistoricCommitment', values: [BigNumberish]): string;
   encodeFunctionData(functionFragment: 'isKnownRoot', values: [BigNumberish]): string;
@@ -269,11 +269,11 @@ export interface CommitmentPoolERC20Interface extends utils.Interface {
   decodeFunctionResult(functionFragment: 'getAllAuditorPublicKeys', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'getAuditorPublicKey', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'getCommitmentCount', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'getCommitmentIncludedCount', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'getCommitmentQueueSize', data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'getCommitmentQueuedCount', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'getMinRollupFee', data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'getNullifierCount', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'getQueuedCommitments', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'getSpentSerialNumberCount', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'getTreeCapacity', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'isHistoricCommitment', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'isKnownRoot', data: BytesLike): Result;
@@ -486,15 +486,15 @@ export interface CommitmentPoolERC20 extends BaseContract {
 
     getCommitmentCount(overrides?: CallOverrides): Promise<[BigNumber]>;
 
-    getCommitmentIncludedCount(overrides?: CallOverrides): Promise<[BigNumber]>;
-
     getCommitmentQueueSize(overrides?: CallOverrides): Promise<[BigNumber]>;
+
+    getCommitmentQueuedCount(overrides?: CallOverrides): Promise<[BigNumber]>;
 
     getMinRollupFee(overrides?: CallOverrides): Promise<[BigNumber]>;
 
-    getQueuedCommitments(overrides?: CallOverrides): Promise<[BigNumber[]]>;
+    getNullifierCount(overrides?: CallOverrides): Promise<[BigNumber]>;
 
-    getSpentSerialNumberCount(overrides?: CallOverrides): Promise<[BigNumber]>;
+    getQueuedCommitments(overrides?: CallOverrides): Promise<[BigNumber[]]>;
 
     getTreeCapacity(overrides?: CallOverrides): Promise<[BigNumber]>;
 
@@ -635,15 +635,15 @@ export interface CommitmentPoolERC20 extends BaseContract {
 
   getCommitmentCount(overrides?: CallOverrides): Promise<BigNumber>;
 
-  getCommitmentIncludedCount(overrides?: CallOverrides): Promise<BigNumber>;
-
   getCommitmentQueueSize(overrides?: CallOverrides): Promise<BigNumber>;
+
+  getCommitmentQueuedCount(overrides?: CallOverrides): Promise<BigNumber>;
 
   getMinRollupFee(overrides?: CallOverrides): Promise<BigNumber>;
 
-  getQueuedCommitments(overrides?: CallOverrides): Promise<BigNumber[]>;
+  getNullifierCount(overrides?: CallOverrides): Promise<BigNumber>;
 
-  getSpentSerialNumberCount(overrides?: CallOverrides): Promise<BigNumber>;
+  getQueuedCommitments(overrides?: CallOverrides): Promise<BigNumber[]>;
 
   getTreeCapacity(overrides?: CallOverrides): Promise<BigNumber>;
 
@@ -768,15 +768,15 @@ export interface CommitmentPoolERC20 extends BaseContract {
 
     getCommitmentCount(overrides?: CallOverrides): Promise<BigNumber>;
 
-    getCommitmentIncludedCount(overrides?: CallOverrides): Promise<BigNumber>;
-
     getCommitmentQueueSize(overrides?: CallOverrides): Promise<BigNumber>;
+
+    getCommitmentQueuedCount(overrides?: CallOverrides): Promise<BigNumber>;
 
     getMinRollupFee(overrides?: CallOverrides): Promise<BigNumber>;
 
-    getQueuedCommitments(overrides?: CallOverrides): Promise<BigNumber[]>;
+    getNullifierCount(overrides?: CallOverrides): Promise<BigNumber>;
 
-    getSpentSerialNumberCount(overrides?: CallOverrides): Promise<BigNumber>;
+    getQueuedCommitments(overrides?: CallOverrides): Promise<BigNumber[]>;
 
     getTreeCapacity(overrides?: CallOverrides): Promise<BigNumber>;
 
@@ -955,15 +955,15 @@ export interface CommitmentPoolERC20 extends BaseContract {
 
     getCommitmentCount(overrides?: CallOverrides): Promise<BigNumber>;
 
-    getCommitmentIncludedCount(overrides?: CallOverrides): Promise<BigNumber>;
-
     getCommitmentQueueSize(overrides?: CallOverrides): Promise<BigNumber>;
+
+    getCommitmentQueuedCount(overrides?: CallOverrides): Promise<BigNumber>;
 
     getMinRollupFee(overrides?: CallOverrides): Promise<BigNumber>;
 
-    getQueuedCommitments(overrides?: CallOverrides): Promise<BigNumber>;
+    getNullifierCount(overrides?: CallOverrides): Promise<BigNumber>;
 
-    getSpentSerialNumberCount(overrides?: CallOverrides): Promise<BigNumber>;
+    getQueuedCommitments(overrides?: CallOverrides): Promise<BigNumber>;
 
     getTreeCapacity(overrides?: CallOverrides): Promise<BigNumber>;
 
@@ -1105,15 +1105,15 @@ export interface CommitmentPoolERC20 extends BaseContract {
 
     getCommitmentCount(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
-    getCommitmentIncludedCount(overrides?: CallOverrides): Promise<PopulatedTransaction>;
-
     getCommitmentQueueSize(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+
+    getCommitmentQueuedCount(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     getMinRollupFee(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
-    getQueuedCommitments(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+    getNullifierCount(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
-    getSpentSerialNumberCount(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+    getQueuedCommitments(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     getTreeCapacity(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 

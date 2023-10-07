@@ -234,7 +234,7 @@ export function testTransact(
       encryptedAuditorNotes = proof.inputs
         .slice(proof.inputs.length - numInputs * protocol.numOfAuditors)
         .map((n) => toBN(toHexNoPrefix(n), 16));
-      spendSnNumber = (await commitmentPoolContract.getSpentSerialNumberCount()).toNumber();
+      spendSnNumber = (await commitmentPoolContract.getNullifierCount()).toNumber();
     });
 
     it('should transact successfully', async () => {
@@ -316,7 +316,7 @@ export function testTransact(
     });
 
     it('should have correct spend sn number count', async () => {
-      const newSpendSnNumber = (await commitmentPoolContract.getSpentSerialNumberCount()).toNumber();
+      const newSpendSnNumber = (await commitmentPoolContract.getNullifierCount()).toNumber();
       expect(newSpendSnNumber).to.gte(spendSnNumber + numInputs);
     });
 
