@@ -111,8 +111,20 @@ export function testCommitmentPoolConstructor(
     it('should initialize minRollupFee correctly', async () => {
       expect(await mystikoContract.getMinRollupFee()).to.equal(minRollupFee);
     });
-    it('should initialize commitmentQueue related resources correctly', async () => {
+    it('should initialize commitment included count correctly', async () => {
       expect((await mystikoContract.getCommitmentIncludedCount()).toNumber()).to.equal(0);
+    });
+    it('should initialize commitment queue size correctly', async () => {
+      expect((await mystikoContract.getCommitmentQueueSize()).toNumber()).to.equal(0);
+    });
+    it('should get queued commitments correctly', async () => {
+      expect((await mystikoContract.getQueuedCommitments()).length).to.equal(0);
+    });
+    it('should initialize commitment count correctly', async () => {
+      expect((await mystikoContract.getCommitmentCount()).toNumber()).to.equal(0);
+    });
+    it('should initialize commitment spent serial numbers count correctly', async () => {
+      expect((await mystikoContract.getSpentSerialNumberCount()).toNumber()).to.equal(0);
     });
     it('should initialize tree related resources correctly', async () => {
       // const defaultZero = MerkleTree.calcDefaultZeroElement();

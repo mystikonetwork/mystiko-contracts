@@ -188,6 +188,7 @@ export function testTransact(
   const auditorPublicKeys: BN[] = [];
   let encryptedAuditorNotes: BN[] = [];
   const events: ethers.utils.LogDescription[] = [];
+  let spendSnNumber: number;
 
   describe(`Test ${contractName} transaction${numInputs}x${numOutputs} operations`, () => {
     before(async () => {
@@ -233,6 +234,7 @@ export function testTransact(
       encryptedAuditorNotes = proof.inputs
         .slice(proof.inputs.length - numInputs * protocol.numOfAuditors)
         .map((n) => toBN(toHexNoPrefix(n), 16));
+      spendSnNumber = (await commitmentPoolContract.getSpentSerialNumberCount()).toNumber();
     });
 
     it('should transact successfully', async () => {
@@ -311,6 +313,11 @@ export function testTransact(
         );
         expect(commitmentIndex).to.gte(0);
       }
+    });
+
+    it('should have correct spend sn number count', async () => {
+      const newSpendSnNumber = (await commitmentPoolContract.getSpentSerialNumberCount()).toNumber();
+      expect(newSpendSnNumber).to.gte(spendSnNumber + numInputs);
     });
 
     it('should have correct balance', async () => {

@@ -585,6 +585,19 @@ const _abi = [
   },
   {
     inputs: [],
+    name: 'getCommitmentCount',
+    outputs: [
+      {
+        internalType: 'uint256',
+        name: '',
+        type: 'uint256',
+      },
+    ],
+    stateMutability: 'view',
+    type: 'function',
+  },
+  {
+    inputs: [],
     name: 'getCommitmentIncludedCount',
     outputs: [
       {
@@ -598,7 +611,46 @@ const _abi = [
   },
   {
     inputs: [],
+    name: 'getCommitmentQueueSize',
+    outputs: [
+      {
+        internalType: 'uint256',
+        name: '',
+        type: 'uint256',
+      },
+    ],
+    stateMutability: 'view',
+    type: 'function',
+  },
+  {
+    inputs: [],
     name: 'getMinRollupFee',
+    outputs: [
+      {
+        internalType: 'uint256',
+        name: '',
+        type: 'uint256',
+      },
+    ],
+    stateMutability: 'view',
+    type: 'function',
+  },
+  {
+    inputs: [],
+    name: 'getQueuedCommitments',
+    outputs: [
+      {
+        internalType: 'uint256[]',
+        name: '',
+        type: 'uint256[]',
+      },
+    ],
+    stateMutability: 'view',
+    type: 'function',
+  },
+  {
+    inputs: [],
+    name: 'getSpentSerialNumberCount',
     outputs: [
       {
         internalType: 'uint256',
