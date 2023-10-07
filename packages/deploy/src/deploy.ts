@@ -211,6 +211,7 @@ async function deployStep4(taskArgs: any) {
       c.srcTokenCfg.erc20,
       c.pairSrcDepositCfg,
       proxy.mapChainId,
+      c.pairSrcDepositCfg.address,
       c.pairDstDepositCfg.address,
     );
   }

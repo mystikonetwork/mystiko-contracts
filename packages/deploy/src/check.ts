@@ -33,7 +33,7 @@ export async function checkPool(c: any) {
   }
 
   const auditorKeys = await poolAllAuditorPublicKeys(poolContract);
-  if (auditorKeys.length !== c.srcPoolCfg?.auditorsCount) {
+  if (auditorKeys.length < c.srcPoolCfg?.auditorsCount) {
     console.log(
       LOGRED,
       'pool auditor public address mismatch ',
@@ -43,13 +43,15 @@ export async function checkPool(c: any) {
   }
 
   for (let i = 0; i < auditorKeys.length; i += 1) {
-    if (c.srcPoolCfg?.isInAuditors(auditorKeys[i].toString()) === false) {
-      console.log(
-        LOGRED,
-        'pool auditor public address mismatch ',
-        auditorKeys[i],
-        c.srcPoolCfg?.auditorsByAddress[i],
-      );
+    if (auditorKeys[i].toString() !== '') {
+      if (!c.srcPoolCfg?.isInAuditors(auditorKeys[i].toString())) {
+        console.log(
+          LOGRED,
+          'pool auditor public address mismatch ',
+          auditorKeys[i],
+          c.srcPoolCfg?.auditorsByAddress[i],
+        );
+      }
     }
   }
 }

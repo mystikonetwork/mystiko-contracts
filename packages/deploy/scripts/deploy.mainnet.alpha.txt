@@ -13,3 +13,6 @@ yarn deploy:chain --network Polygon --step checkJson --bridge loop --dst Polygon
 yarn deploy:chain --network Polygon --step checkJson --bridge loop --dst Polygon --token BUSD
 yarn deploy:chain --network Polygon --step checkJson --bridge loop --dst Polygon --token WETH
 
+yarn deploy:chain --network Base --step checkJson --bridge loop --dst Base --token ETH
+yarn deploy:chain --network Base --step checkJson --bridge loop --dst Base --token USDbC
+

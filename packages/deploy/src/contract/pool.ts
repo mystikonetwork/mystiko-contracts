@@ -662,11 +662,11 @@ export async function doCommitmentPoolConfigure(
   await addRollupWhitelist(c, chainTokenCfg.erc20, poolCfg, operatorCfg.rollers);
   await addAuditors(c, chainTokenCfg.erc20, poolCfg, operatorCfg.auditors);
 
-  if (operatorCfg.admin !== '') {
-    await changeOperator(c, chainTokenCfg.erc20, poolCfg, operatorCfg.admin);
-  }
-
   if (mystikoNetwork === MystikoTestnet) {
     await setPoolSanctionCheck(c, chainTokenCfg.erc20, poolCfg, false);
+  }
+
+  if (operatorCfg.admin !== '') {
+    await changeOperator(c, chainTokenCfg.erc20, poolCfg, operatorCfg.admin);
   }
 }

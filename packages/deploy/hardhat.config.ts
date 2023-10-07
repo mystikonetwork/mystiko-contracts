@@ -61,6 +61,9 @@ const ropstenPrivateKey = process.env.ROPSTEN_TESTNET_PRIVATE_KEY || DEFAULT_TES
 const goerliEndpoint = process.env.GOERLI_ENDPOINT || DEFAULT_ENDPOINT;
 const goerliPrivateKey = process.env.GOERLI_TESTNET_PRIVATE_KEY || DEFAULT_TESTNET_PRIVATE_KEY;
 
+const baseGoerliEndpoint = process.env.BASE_GOERLI_ENDPOINT || DEFAULT_ENDPOINT;
+const baseGoerliPrivateKey = process.env.BASE_GOERLI_TESTNET_PRIVATE_KEY || DEFAULT_TESTNET_PRIVATE_KEY;
+
 const bscTestEndpoint = process.env.BSC_TEST_ENDPOINT || DEFAULT_ENDPOINT;
 const bscTestPrivateKey = process.env.BSC_TESTNET_PRIVATE_KEY || DEFAULT_TESTNET_PRIVATE_KEY;
 
@@ -98,6 +101,9 @@ const polygonPrivateKey = process.env.POLYGON_MAINNET_PRIVATE_KEY || DEFAULT_MAI
 const moonbeamEndpoint = process.env.MOONBEAM_ENDPOINT || DEFAULT_ENDPOINT;
 const moonbeamPrivateKey = process.env.MOONBEAM_MAINNET_PRIVATE_KEY || DEFAULT_MAINNET_PRIVATE_KEY;
 
+const baseEndpoint = process.env.BASE_ENDPOINT || DEFAULT_ENDPOINT;
+const basePrivateKey = process.env.BASE_MAINNET_PRIVATE_KEY || DEFAULT_MAINNET_PRIVATE_KEY;
+
 const config: HardhatUserConfig = {
   defaultNetwork: 'hardhat',
   networks: {
@@ -110,6 +116,11 @@ const config: HardhatUserConfig = {
     goerli: {
       url: goerliEndpoint,
       accounts: [`0x${goerliPrivateKey}`],
+    },
+    baseGoerli: {
+      url: baseGoerliEndpoint,
+      accounts: [`0x${baseGoerliPrivateKey}`],
+      gasPrice: 200000000,
     },
     bsctestnet: {
       url: bscTestEndpoint,
@@ -134,6 +145,7 @@ const config: HardhatUserConfig = {
     polygontestnet: {
       url: polygonTestEndpoint,
       accounts: [`0x${polygonTestPrivateKey}`],
+      gasPrice: 20000000000,
     },
     Ethereum: {
       url: ethEndpoint,
@@ -160,6 +172,10 @@ const config: HardhatUserConfig = {
       url: polygonEndpoint,
       accounts: [`0x${polygonPrivateKey}`],
       gasPrice: 200000000000,
+    },
+    Base: {
+      url: baseEndpoint,
+      accounts: [`0x${basePrivateKey}`],
     },
   },
   paths: {

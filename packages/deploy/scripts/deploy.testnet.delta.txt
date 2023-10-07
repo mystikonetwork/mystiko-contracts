@@ -22,6 +22,10 @@ yarn deploy:chain --network moonbase --step check --bridge loop --dst moonbase -
 yarn deploy:chain --network moonbase --step check --bridge loop --dst moonbase --token MTT
 yarn deploy:chain --network moonbase --step check --bridge loop --dst moonbase --token mUSD
 
+
+yarn deploy:chain --network baseGoerli --step check --bridge loop --dst baseGoerli --token ETH
+yarn deploy:chain --network baseGoerli --step check --bridge loop --dst baseGoerli --token mUSD
+
 yarn deploy:chain --network goerli --step check --bridge tbridge --dst bsctestnet --token ETH
 yarn deploy:chain --network goerli --step check --bridge tbridge --dst bsctestnet --token mBNB
 yarn deploy:chain --network goerli --step check --bridge tbridge --dst bsctestnet --token MTT
