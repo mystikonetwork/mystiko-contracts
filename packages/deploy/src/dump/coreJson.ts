@@ -17,7 +17,7 @@ function getCoreConfigFileName(mystikoNetwork: string) {
   return fileNameWithPath;
 }
 
-function loadCoreConfig(mystikoNetwork: string): any {
+export function loadCoreConfig(mystikoNetwork: string): any {
   const fileName = getCoreConfigFileName(mystikoNetwork);
   return readJsonFile(fileName);
 }
@@ -33,7 +33,7 @@ export async function checkCoreConfig(mystikoNetwork: string) {
   await MystikoConfig.createFromFile(fileName);
 }
 
-function getChainConfig(coreConfig: any, chainId: number): any {
+export function getChainConfig(coreConfig: any, chainId: number): any {
   for (let i = 0; i < coreConfig.chains.length; i += 1) {
     if (coreConfig.chains[i].chainId === chainId) {
       return coreConfig.chains[i];

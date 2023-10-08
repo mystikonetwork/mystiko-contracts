@@ -1,5 +1,5 @@
 export const LOGRED = '\x1b[31m';
-export const MainNetworks = ['Ethereum', 'BSC', 'Polygon'];
+export const MainNetworks = ['Ethereum', 'BSC', 'Polygon', 'Base'];
 export const TestNetworks = [
   'bsctestnet',
   'goerli',
@@ -7,6 +7,7 @@ export const TestNetworks = [
   'fantomtestnet',
   'avalanchetestnet',
   'moonbase',
+  'baseGoerli',
 ];
 
 export const MerkleTreeHeight = 20;

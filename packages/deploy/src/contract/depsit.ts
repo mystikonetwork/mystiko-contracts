@@ -106,7 +106,7 @@ export async function setDepositSanctionCheck(
   }
 
   const depositCfg = inDepositCfg;
-  console.log('set deposit sanction check disable ', check);
+  console.log('set deposit sanction check ', check);
   const DepositContractFactoruy = getMystikoDeployContract(bridgeName, erc20);
   const coreContract = await DepositContractFactoruy.attach(depositCfg.address);
 
@@ -628,16 +628,16 @@ export async function doDepositContractConfigure(
     commitmentPoolAddress,
   );
 
-  if (operatorCfg.admin !== '') {
-    await changeOperator(c, bridgeCfg.name, srcChainTokenCfg.erc20, depositCfg, operatorCfg.admin);
-  }
-
   if (c.cfg.depositDisable) {
     await changeDepositDisable(c, bridgeCfg.name, srcChainTokenCfg.erc20, depositCfg, true);
   }
 
   if (mystikoNetwork === MystikoTestnet) {
     await setDepositSanctionCheck(c, bridgeCfg.name, srcChainTokenCfg.erc20, depositCfg, false);
+  }
+
+  if (operatorCfg.admin !== '') {
+    await changeOperator(c, bridgeCfg.name, srcChainTokenCfg.erc20, depositCfg, operatorCfg.admin);
   }
 }
 
@@ -676,9 +676,15 @@ export async function setTrustedRemote(
   erc20: boolean,
   inDepositConfig: DepositDeployConfig,
   peerLayerZeroChainId: number,
+  srcContractAddress: string,
   peerContractAddress: string,
 ) {
-  if (!inDepositConfig.isTrustedRemoteChange(peerContractAddress)) {
+  const lzPeerAddress = ethers.utils.solidityPack(
+    ['address', 'address'],
+    [peerContractAddress, srcContractAddress],
+  );
+  console.log('lzPeerAddress ', lzPeerAddress);
+  if (!inDepositConfig.isTrustedRemoteChange(lzPeerAddress)) {
     return;
   }
   const depositConfig = inDepositConfig;
@@ -687,10 +693,10 @@ export async function setTrustedRemote(
   const coreContract = await DepositContractFactoruy.attach(depositConfig.address);
 
   try {
-    const rsp = await coreContract.setTrustedRemote(peerLayerZeroChainId, peerContractAddress);
+    const rsp = await coreContract.setTrustedRemote(peerLayerZeroChainId, lzPeerAddress);
     console.log('rsp hash ', rsp.hash);
     await waitConfirm(ethers, rsp, true);
-    depositConfig.updateTrustedRemote(peerContractAddress);
+    depositConfig.updateTrustedRemote(lzPeerAddress);
     saveConfig(c.mystikoNetwork, c.cfg);
   } catch (err: any) {
     console.error(LOGRED, err);
