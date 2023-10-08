@@ -50,6 +50,7 @@ abstract contract CommitmentPool is ICommitmentPool, AssetPool, ReentrancyGuard,
   mapping(uint256 => CommitmentLeaf) private commitmentQueue;
   uint256 private commitmentQueueSize = 0;
   uint256 private commitmentIncludedCount = 0;
+  uint256 private spentSerialNumberCount = 0;
 
   // merkle tree roots;
   uint256 private immutable treeCapacity;
@@ -236,6 +237,7 @@ abstract contract CommitmentPool is ICommitmentPool, AssetPool, ReentrancyGuard,
     // set spent flag for serial numbers.
     for (uint256 i = 0; i < numInputs; i++) {
       spentSerialNumbers[_request.serialNumbers[i]] = true;
+      spentSerialNumberCount += 1;
       emit CommitmentSpent(_request.rootHash, _request.serialNumbers[i]);
     }
 
@@ -382,6 +384,27 @@ abstract contract CommitmentPool is ICommitmentPool, AssetPool, ReentrancyGuard,
 
   function getCommitmentIncludedCount() public view returns (uint256) {
     return commitmentIncludedCount;
+  }
+
+  function getCommitmentQueuedCount() public view returns (uint256) {
+    return commitmentQueueSize;
+  }
+
+  function getQueuedCommitments() public view returns (uint256[] memory) {
+    uint256[] memory commitments = new uint256[](commitmentQueueSize);
+    for (uint256 index = 0; index < commitmentQueueSize; index++) {
+      uint256 leaf_index = commitmentIncludedCount + index;
+      commitments[index] = commitmentQueue[leaf_index].commitment;
+    }
+    return commitments;
+  }
+
+  function getCommitmentCount() public view returns (uint256) {
+    return commitmentIncludedCount + commitmentQueueSize;
+  }
+
+  function getNullifierCount() public view returns (uint256) {
+    return spentSerialNumberCount;
   }
 
   function getAuditorPublicKey(uint256 _index) public view returns (uint256) {
