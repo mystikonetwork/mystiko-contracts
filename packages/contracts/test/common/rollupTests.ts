@@ -233,6 +233,9 @@ export function testRollup(
       const balanceBefore = isMainAsset
         ? await waffle.provider.getBalance(rollupAccount2.address)
         : await testTokenContract.balanceOf(rollupAccount2.address);
+      const beforeQueuedSize = (await commitmentPoolContract.getCommitmentQueuedCount()).toNumber();
+      const beforeIncludedCount = (await commitmentPoolContract.getCommitmentIncludedCount()).toNumber();
+      const beforeCommitmentsCount = (await commitmentPoolContract.getCommitmentCount()).toNumber();
 
       const gasLimit = await commitmentPoolContract
         .connect(rollupAccount2)
@@ -263,6 +266,15 @@ export function testRollup(
       const expectRollupFee = toBN(rollupFee).muln(rollupSize).toString();
       expect(totalRollupFee.toString()).to.equal(expectRollupFee.toString());
       expect(await commitmentPoolContract.isKnownRoot(proof.newRoot)).to.equal(true);
+
+      const afterQueuedSize = (await commitmentPoolContract.getCommitmentQueuedCount()).toNumber();
+      const afterIncludedCount = (await commitmentPoolContract.getCommitmentIncludedCount()).toNumber();
+      const afterCommitmentsCount = (await commitmentPoolContract.getCommitmentCount()).toNumber();
+
+      expect(beforeQueuedSize).to.equal(afterQueuedSize + rollupSize);
+      expect(afterIncludedCount).to.equal(beforeIncludedCount + rollupSize);
+      expect(beforeCommitmentsCount).to.equal(afterCommitmentsCount);
+      expect((await commitmentPoolContract.getQueuedCommitments()).length).to.equal(afterQueuedSize);
     });
 
     it('should revert known root', async () => {
