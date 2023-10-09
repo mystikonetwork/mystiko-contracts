@@ -6,6 +6,7 @@ export interface RawDepositDeployConfig {
   address?: string;
   nonce?: number;
   syncStart?: number;
+  disabledAt?: number;
   minAmount?: string;
   maxAmount?: string;
   minBridgeFee?: string;
@@ -27,6 +28,7 @@ export class DepositDeployConfig extends BaseConfig {
     BaseConfig.checkString(this.config, 'network');
     BaseConfig.checkString(this.config, 'assetSymbol');
     BaseConfig.checkNumber(this.config, 'syncStart', false);
+    BaseConfig.checkNumber(this.config, 'disabledAt', false);
     BaseConfig.checkEthAddress(this.config, 'address', false);
     BaseConfig.checkEthAddress(this.config, 'operator', false);
   }
@@ -69,6 +71,18 @@ export class DepositDeployConfig extends BaseConfig {
 
   public set syncStart(start: number) {
     this.asRawContractDeployConfig().syncStart = start;
+  }
+
+  public get disabled(): boolean {
+    return this.asRawContractDeployConfig().disabledAt !== undefined;
+  }
+
+  public get disabledAt(): number | undefined {
+    return this.asRawContractDeployConfig().disabledAt;
+  }
+
+  public set disabledAt(block: number | undefined) {
+    this.asRawContractDeployConfig().disabledAt = block;
   }
 
   public get minAmount(): string | undefined {
@@ -245,6 +259,7 @@ export class DepositDeployConfig extends BaseConfig {
   public reset() {
     this.asRawContractDeployConfig().address = undefined;
     this.asRawContractDeployConfig().syncStart = undefined;
+    this.asRawContractDeployConfig().disabledAt = undefined;
     this.asRawContractDeployConfig().minAmount = undefined;
     this.asRawContractDeployConfig().maxAmount = undefined;
     this.asRawContractDeployConfig().minBridgeFee = undefined;

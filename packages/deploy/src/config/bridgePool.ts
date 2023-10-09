@@ -7,6 +7,7 @@ export interface RawPoolDeployConfig {
   address?: string;
   nonce?: number;
   syncStart?: number;
+  disabledAt?: number;
   minRollupFee?: string;
   rollup1Verifier?: string;
   rollup2Verifier?: string;
@@ -39,6 +40,7 @@ export class PoolDeployConfig extends BaseConfig {
     BaseConfig.checkString(this.config, 'network');
     BaseConfig.checkString(this.config, 'assetSymbol');
     BaseConfig.checkNumber(this.config, 'syncStart', false);
+    BaseConfig.checkNumber(this.config, 'disabledAt', false);
     BaseConfig.checkEthAddress(this.config, 'address', false);
     BaseConfig.checkEthAddress(this.config, 'operator', false);
 
@@ -99,6 +101,18 @@ export class PoolDeployConfig extends BaseConfig {
 
   public set syncStart(start: number) {
     this.asRawContractDeployConfig().syncStart = start;
+  }
+
+  public get disabled(): boolean {
+    return this.asRawContractDeployConfig().disabledAt !== undefined;
+  }
+
+  public get disabledAt(): number | undefined {
+    return this.asRawContractDeployConfig().disabledAt;
+  }
+
+  public set disabledAt(block: number | undefined) {
+    this.asRawContractDeployConfig().disabledAt = block;
   }
 
   public get minRollupFee(): string | undefined {
@@ -237,6 +251,50 @@ export class PoolDeployConfig extends BaseConfig {
     this.asRawContractDeployConfig().transact2x2Verifier = address;
   }
 
+  public isTransact1x1VerifierDisabled(): boolean {
+    if (this.asRawContractDeployConfig().transact1x1Verifier !== 'disabled') {
+      return true;
+    }
+    return false;
+  }
+
+  public setTransact1x1VerifierDisabled() {
+    this.asRawContractDeployConfig().transact1x1Verifier = 'disabled';
+  }
+
+  public isTransact1x2VerifierDisabled(): boolean {
+    if (this.asRawContractDeployConfig().transact1x2Verifier !== 'disabled') {
+      return true;
+    }
+    return false;
+  }
+
+  public setTransact1x2VerifierDisabled() {
+    this.asRawContractDeployConfig().transact1x2Verifier = 'disabled';
+  }
+
+  public isTransact2x1VerifierDisabled(): boolean {
+    if (this.asRawContractDeployConfig().transact2x1Verifier !== 'disabled') {
+      return true;
+    }
+    return false;
+  }
+
+  public setTransact2x1VerifierDisabled() {
+    this.asRawContractDeployConfig().transact2x1Verifier = 'disabled';
+  }
+
+  public isTransact2x2VerifierDisabled(): boolean {
+    if (this.asRawContractDeployConfig().transact2x2Verifier !== 'disabled') {
+      return true;
+    }
+    return false;
+  }
+
+  public setTransact2x2VerifierDisabled() {
+    this.asRawContractDeployConfig().transact2x2Verifier = 'disabled';
+  }
+
   public get sanctionCheck(): boolean | undefined {
     return this.asRawContractDeployConfig().sanctionCheck;
   }
@@ -351,6 +409,7 @@ export class PoolDeployConfig extends BaseConfig {
   public reset() {
     this.asRawContractDeployConfig().address = undefined;
     this.asRawContractDeployConfig().syncStart = undefined;
+    this.asRawContractDeployConfig().disabledAt = undefined;
     this.asRawContractDeployConfig().minRollupFee = undefined;
     this.asRawContractDeployConfig().rollup1Verifier = undefined;
     this.asRawContractDeployConfig().rollup2Verifier = undefined;

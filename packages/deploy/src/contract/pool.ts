@@ -435,6 +435,98 @@ async function setCommitmentPoolTransact2x2Verifier(
   }
 }
 
+async function disableCommitmentPoolTransact1x1Verifier(c: any, erc20: boolean, inPoolCfg: PoolDeployConfig) {
+  if (!inPoolCfg.isTransact1x1VerifierDisabled()) {
+    return;
+  }
+
+  const poolCfg = inPoolCfg;
+
+  console.log('disable commitment pool transact1x1 verifier ');
+  const PoolContractFactory = getMystikoPoolContract(erc20);
+  const poolContract = await PoolContractFactory.attach(poolCfg.address);
+  try {
+    const rsp = await poolContract.disableTransactVerifier(1, 1);
+    console.log('rsp hash ', rsp.hash);
+    const block = await waitConfirm(ethers, rsp, true);
+    poolCfg.setTransact1x1VerifierDisabled();
+    poolCfg.disabledAt = block;
+    saveConfig(c.mystikoNetwork, c.cfg);
+  } catch (err: any) {
+    console.error(LOGRED, err);
+    process.exit(1);
+  }
+}
+
+async function disableCommitmentPoolTransact1x2Verifier(c: any, erc20: boolean, inPoolCfg: PoolDeployConfig) {
+  if (!inPoolCfg.isTransact1x2VerifierDisabled()) {
+    return;
+  }
+
+  const poolCfg = inPoolCfg;
+
+  console.log('disable commitment pool transact1x2 verifier ');
+  const PoolContractFactory = getMystikoPoolContract(erc20);
+  const poolContract = await PoolContractFactory.attach(poolCfg.address);
+  try {
+    const rsp = await poolContract.disableTransactVerifier(1, 2);
+    console.log('rsp hash ', rsp.hash);
+    const block = await waitConfirm(ethers, rsp, true);
+    poolCfg.setTransact1x2VerifierDisabled();
+    poolCfg.disabledAt = block;
+    saveConfig(c.mystikoNetwork, c.cfg);
+  } catch (err: any) {
+    console.error(LOGRED, err);
+    process.exit(1);
+  }
+}
+
+async function disableCommitmentPoolTransact2x1Verifier(c: any, erc20: boolean, inPoolCfg: PoolDeployConfig) {
+  if (!inPoolCfg.isTransact2x1VerifierDisabled()) {
+    return;
+  }
+
+  const poolCfg = inPoolCfg;
+
+  console.log('disable commitment pool transact2x1 verifier ');
+  const PoolContractFactory = getMystikoPoolContract(erc20);
+  const poolContract = await PoolContractFactory.attach(poolCfg.address);
+  try {
+    const rsp = await poolContract.disableTransactVerifier(2, 1);
+    console.log('rsp hash ', rsp.hash);
+    const block = await waitConfirm(ethers, rsp, true);
+    poolCfg.setTransact2x1VerifierDisabled();
+    poolCfg.disabledAt = block;
+    saveConfig(c.mystikoNetwork, c.cfg);
+  } catch (err: any) {
+    console.error(LOGRED, err);
+    process.exit(1);
+  }
+}
+
+async function disableCommitmentPoolTransact2x2Verifier(c: any, erc20: boolean, inPoolCfg: PoolDeployConfig) {
+  if (!inPoolCfg.isTransact2x2VerifierDisabled()) {
+    return;
+  }
+
+  const poolCfg = inPoolCfg;
+
+  console.log('disable commitment pool transact2x2 verifier ');
+  const PoolContractFactory = getMystikoPoolContract(erc20);
+  const poolContract = await PoolContractFactory.attach(poolCfg.address);
+  try {
+    const rsp = await poolContract.disableTransactVerifier(2, 2);
+    console.log('rsp hash ', rsp.hash);
+    const block = await waitConfirm(ethers, rsp, true);
+    poolCfg.setTransact2x2VerifierDisabled();
+    poolCfg.disabledAt = block;
+    saveConfig(c.mystikoNetwork, c.cfg);
+  } catch (err: any) {
+    console.error(LOGRED, err);
+    process.exit(1);
+  }
+}
+
 export async function setCommitmentPoolVerifier(
   c: any,
   erc20: boolean,
@@ -452,6 +544,13 @@ export async function setCommitmentPoolVerifier(
   await setCommitmentPoolTransact2x0Verifier(c, erc20, poolCfg, chainCfg);
   await setCommitmentPoolTransact2x1Verifier(c, erc20, poolCfg, chainCfg);
   await setCommitmentPoolTransact2x2Verifier(c, erc20, poolCfg, chainCfg);
+}
+
+export async function disableCommitmentPool(c: any, erc20: boolean, poolCfg: PoolDeployConfig) {
+  await disableCommitmentPoolTransact1x1Verifier(c, erc20, poolCfg);
+  await disableCommitmentPoolTransact1x2Verifier(c, erc20, poolCfg);
+  await disableCommitmentPoolTransact2x1Verifier(c, erc20, poolCfg);
+  await disableCommitmentPoolTransact2x2Verifier(c, erc20, poolCfg);
 }
 
 export async function setPoolSanctionCheck(
@@ -488,7 +587,12 @@ export async function setPoolSanctionCheck(
   }
 }
 
-export async function changeOperator(c: any, erc20: boolean, inPoolCfg: PoolDeployConfig, operator: string) {
+export async function changePoolOperator(
+  c: any,
+  erc20: boolean,
+  inPoolCfg: PoolDeployConfig,
+  operator: string,
+) {
   if (!inPoolCfg.isOperatorChange(operator)) {
     return;
   }
@@ -655,6 +759,11 @@ export async function doCommitmentPoolConfigure(
   chainTokenCfg: ChainTokenConfig,
   operatorCfg: OperatorConfig,
 ) {
+  if (poolCfg.disabled) {
+    console.error(LOGRED, 'pool contract is disabled');
+    process.exit(1);
+  }
+
   console.log('do commitment pool configure');
 
   await setCommitmentPoolRollupFee(c, chainTokenCfg.erc20, poolCfg, chainTokenCfg);
@@ -667,6 +776,6 @@ export async function doCommitmentPoolConfigure(
   }
 
   if (operatorCfg.admin !== '') {
-    await changeOperator(c, chainTokenCfg.erc20, poolCfg, operatorCfg.admin);
+    await changePoolOperator(c, chainTokenCfg.erc20, poolCfg, operatorCfg.admin);
   }
 }

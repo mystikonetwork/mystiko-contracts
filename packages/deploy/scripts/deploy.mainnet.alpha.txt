@@ -1,18 +1,18 @@
-yarn deploy:chain --network Ethereum --step checkJson --bridge loop --dst Ethereum --token ETH
-yarn deploy:chain --network Ethereum --step checkJson --bridge loop --dst Ethereum --token USDT
-yarn deploy:chain --network Ethereum --step checkJson --bridge loop --dst Ethereum --token USDC
+ --network Ethereum  --bridge loop --dst Ethereum --token ETH
+ --network Ethereum  --bridge loop --dst Ethereum --token USDT
+ --network Ethereum  --bridge loop --dst Ethereum --token USDC
 
-yarn deploy:chain --network BSC --step checkJson --bridge loop --dst BSC --token BNB
-yarn deploy:chain --network BSC --step checkJson --bridge loop --dst BSC --token USDT
-yarn deploy:chain --network BSC --step checkJson --bridge loop --dst BSC --token USDC
-yarn deploy:chain --network BSC --step checkJson --bridge loop --dst BSC --token BUSD
+ --network BSC  --bridge loop --dst BSC --token BNB
+ --network BSC  --bridge loop --dst BSC --token USDT
+ --network BSC  --bridge loop --dst BSC --token USDC
+ --network BSC  --bridge loop --dst BSC --token BUSD
 
-yarn deploy:chain --network Polygon --step checkJson --bridge loop --dst Polygon --token MATIC
-yarn deploy:chain --network Polygon --step checkJson --bridge loop --dst Polygon --token USDT
-yarn deploy:chain --network Polygon --step checkJson --bridge loop --dst Polygon --token USDC
-yarn deploy:chain --network Polygon --step checkJson --bridge loop --dst Polygon --token BUSD
-yarn deploy:chain --network Polygon --step checkJson --bridge loop --dst Polygon --token WETH
+ --network Polygon  --bridge loop --dst Polygon --token MATIC
+ --network Polygon  --bridge loop --dst Polygon --token USDT
+ --network Polygon  --bridge loop --dst Polygon --token USDC
+ --network Polygon  --bridge loop --dst Polygon --token BUSD
+ --network Polygon  --bridge loop --dst Polygon --token WETH
 
-yarn deploy:chain --network Base --step checkJson --bridge loop --dst Base --token ETH
-yarn deploy:chain --network Base --step checkJson --bridge loop --dst Base --token USDbC
+ --network Base  --bridge loop --dst Base --token ETH
+ --network Base  --bridge loop --dst Base --token USDbC
 

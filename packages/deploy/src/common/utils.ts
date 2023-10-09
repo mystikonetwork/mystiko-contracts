@@ -90,17 +90,17 @@ export function delay(timeoutMs: number) {
   }).then(() => {});
 }
 
-export function waitConfirm(ethers: any, rsp: any, force: boolean): Promise<void> {
+export function waitConfirm(ethers: any, rsp: any, force: boolean): Promise<number> {
   if (force) {
     return rsp.wait(1).then((receipt: any) => {
       if (receipt.status === 1) {
-        return Promise.resolve();
+        return Promise.resolve(receipt.blockNumber);
       }
       return Promise.reject(new Error('transaction failed'));
     });
   }
 
-  return Promise.resolve();
+  return Promise.resolve(0);
 }
 
 export async function checkNonceExpect(ethers: any, expectNonce: number | undefined): Promise<number> {

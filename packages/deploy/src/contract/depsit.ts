@@ -463,7 +463,7 @@ export async function updateDepositAmountLimits(
   }
 }
 
-export async function changeOperator(
+export async function changeDepositOperator(
   c: any,
   bridgeName: string,
   erc20: boolean,
@@ -572,8 +572,12 @@ export async function doDepositContractConfigure(
   operatorCfg: OperatorConfig,
   bridgeProxy?: BridgeProxyConfig,
 ) {
-  console.log('do deposit contract configure');
+  if (depositCfg.disabled) {
+    console.error(LOGRED, 'deposit contract is disabled');
+    process.exit(1);
+  }
 
+  console.log('do deposit contract configure');
   if (bridgeCfg.name !== BridgeLoop) {
     if (bridgeProxy === undefined) {
       console.log(' bridge proxy not configure');
@@ -637,7 +641,7 @@ export async function doDepositContractConfigure(
   }
 
   if (operatorCfg.admin !== '') {
-    await changeOperator(c, bridgeCfg.name, srcChainTokenCfg.erc20, depositCfg, operatorCfg.admin);
+    await changeDepositOperator(c, bridgeCfg.name, srcChainTokenCfg.erc20, depositCfg, operatorCfg.admin);
   }
 }
 
@@ -697,6 +701,33 @@ export async function setTrustedRemote(
     console.log('rsp hash ', rsp.hash);
     await waitConfirm(ethers, rsp, true);
     depositConfig.updateTrustedRemote(lzPeerAddress);
+    saveConfig(c.mystikoNetwork, c.cfg);
+  } catch (err: any) {
+    console.error(LOGRED, err);
+    process.exit(1);
+  }
+}
+
+export async function disableDeposit(
+  c: any,
+  bridgeName: string,
+  erc20: boolean,
+  inDepositCfg: DepositDeployConfig,
+) {
+  if (inDepositCfg.disabled) {
+    return;
+  }
+  const depositCfg = inDepositCfg;
+
+  console.log('disable deposit contract');
+  const DepositContractFactoruy = getMystikoDeployContract(bridgeName, erc20);
+  const coreContract = await DepositContractFactoruy.attach(depositCfg.address);
+
+  try {
+    const rsp = await coreContract.setDepositsDisabled(true);
+    console.log('rsp hash ', rsp.hash);
+    const block = await waitConfirm(ethers, rsp, true);
+    depositCfg.disabledAt = block;
     saveConfig(c.mystikoNetwork, c.cfg);
   } catch (err: any) {
     console.error(LOGRED, err);

@@ -5,3 +5,4 @@ coverage
 .idea
 *.log
 .env
+packages/deploy/src/json/core/

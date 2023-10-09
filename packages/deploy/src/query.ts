@@ -6,9 +6,13 @@ import { initDepositContractFactory } from './contract/depsit';
 import { LOGRED } from './common/constant';
 import { loadConfig } from './config/config';
 import {
+  poolCommitmentCount,
   poolContractInstance,
   poolIncludedCount,
   poolMinRollupFee,
+  poolNullifierCount,
+  poolQueuedCommitments,
+  poolQueuedCount,
   poolSanctionCheckQuery,
   poolSanctionListQuery,
 } from './contract/poolQuery';
@@ -26,9 +30,18 @@ async function commitmentQueueQuery(taskArgs: any) {
 
   const pool = await poolContractInstance(c.srcTokenCfg.erc20, c.srcPoolCfg?.address);
   const includedCount = await poolIncludedCount(pool);
-  const minRollupFee = await poolMinRollupFee(pool);
-
   console.log('included count ', includedCount);
+  const queuedCount = await poolQueuedCount(pool);
+  console.log('queued count ', queuedCount);
+  const total = await poolCommitmentCount(pool);
+  console.log('total commitment count ', total);
+  const nullifierCount = await poolNullifierCount(pool);
+  console.log('nullifier count ', nullifierCount);
+
+  const queuedCms = await poolQueuedCommitments(pool);
+  console.log('queued commitments: ', queuedCms);
+
+  const minRollupFee = await poolMinRollupFee(pool);
   console.log('min rollup fee ', minRollupFee);
 }
 
