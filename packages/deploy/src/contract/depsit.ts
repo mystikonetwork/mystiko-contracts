@@ -704,7 +704,7 @@ export async function disableDeposit(
 
 export async function checkOneTx(tx: string | undefined) {
   if (tx === undefined || tx === '') {
-    console.log('ignore tx', tx);
+    console.log('ignore tx ', tx);
     return;
   }
 

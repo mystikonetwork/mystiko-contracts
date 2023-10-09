@@ -1,0 +1,17 @@
+ --network Polygon  --bridge loop --dst Polygon --token MATIC
+ --network Polygon  --bridge loop --dst Polygon --token USDT
+ --network Polygon  --bridge loop --dst Polygon --token USDC
+ --network Polygon  --bridge loop --dst Polygon --token BUSD
+ --network Polygon  --bridge loop --dst Polygon --token WETH
+
+ --network Base  --bridge loop --dst Base --token ETH
+ --network Base  --bridge loop --dst Base --token USDbC
+
+ --network BSC  --bridge loop --dst BSC --token BNB
+ --network BSC  --bridge loop --dst BSC --token USDT
+ --network BSC  --bridge loop --dst BSC --token USDC
+ --network BSC  --bridge loop --dst BSC --token BUSD
+
+ --network Ethereum  --bridge loop --dst Ethereum --token ETH
+ --network Ethereum  --bridge loop --dst Ethereum --token USDT
+ --network Ethereum  --bridge loop --dst Ethereum --token USDC
