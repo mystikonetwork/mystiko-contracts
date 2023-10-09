@@ -7,7 +7,6 @@ import { OperatorConfig, RawOperatorConfig } from './operator';
 export interface RawDeployConfig {
   version: number;
   poolName: string;
-  depositDisable?: boolean;
   circuits: string[];
   chains: RawChainConfig[];
   bridges: RawBridgeConfig[];
@@ -61,14 +60,6 @@ export class DeployConfig extends BaseConfig {
 
   public getOperator(): OperatorConfig | undefined {
     return this.asRawDeployConfig().wrappedOperator;
-  }
-
-  public get depositDisable(): boolean {
-    if (this.asRawDeployConfig().depositDisable === undefined) {
-      return false;
-    }
-    // @ts-ignore
-    return this.asRawDeployConfig().depositDisable;
   }
 
   public clone(): DeployConfig {

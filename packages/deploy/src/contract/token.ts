@@ -67,7 +67,7 @@ async function transferTokenToContract(c: any, srcTokenCfg: ChainTokenConfig, in
     .then((rsp) =>
       waitConfirm(ethers, rsp, true).then(() => {
         console.log('transfer token to pool success, amount ', amount);
-        poolCfg.updateTokenTransfer((amount + contractAmount).toString());
+        poolCfg.updateTokenTransfer((amount + contractAmount).toString(), rsp.hash);
         saveConfig(c.mystikoNetwork, c.cfg);
       }),
     )

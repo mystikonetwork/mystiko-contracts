@@ -109,19 +109,19 @@ export async function setDepositSanctionCheck(
   console.log('set deposit sanction check ', check);
   const DepositContractFactoruy = getMystikoDeployContract(bridgeName, erc20);
   const coreContract = await DepositContractFactoruy.attach(depositCfg.address);
-
+  let rsp: any;
   try {
     if (check) {
-      const rsp = await coreContract.enableSanctionsCheck();
+      rsp = await coreContract.enableSanctionsCheck();
       console.log('deposit rsp hash ', rsp.hash);
       await waitConfirm(ethers, rsp, true);
     } else {
-      const rsp = await coreContract.disableSanctionsCheck();
+      rsp = await coreContract.disableSanctionsCheck();
       console.log('deposit rsp hash ', rsp.hash);
       await waitConfirm(ethers, rsp, true);
     }
 
-    depositCfg.updateSanctionCheck(check);
+    depositCfg.updateSanctionCheck(check, rsp.hash);
     saveConfig(c.mystikoNetwork, c.cfg);
   } catch (err: any) {
     console.error(LOGRED, err);
@@ -195,26 +195,26 @@ export async function setBridgeProxyAddress(
   console.log('set bridge proxy address');
   const DepositContractFactoruy = getMystikoDeployContract(bridgeName, erc20);
   const coreContract = await DepositContractFactoruy.attach(depositCfg.address);
-
+  let rsp: any;
   try {
     if (bridgeName === BridgeTBridge || bridgeName === BridgeCeler) {
-      const rsp = await coreContract.setBridgeProxyAddress(bridgeProxy.address);
+      rsp = await coreContract.setBridgeProxyAddress(bridgeProxy.address);
       console.log('rsp hash ', rsp.hash);
       await waitConfirm(ethers, rsp, true);
     } else if (bridgeName === BridgeAxelar) {
-      const rsp = await coreContract.setBridgeProxyAddress(bridgeProxy.address);
-      console.log('rsp hash ', rsp.hash);
+      const rsp1 = await coreContract.setBridgeProxyAddress(bridgeProxy.address);
+      console.log('rsp hash ', rsp1.hash);
       console.log('set axelar gas receiver address');
+      await waitConfirm(ethers, rsp1, true);
+      rsp = await coreContract.setAxelarGasReceiver(bridgeProxy.gasReceiver);
+      console.log('rsp hash ', rsp.hash);
       await waitConfirm(ethers, rsp, true);
-      const rsp2 = await coreContract.setAxelarGasReceiver(bridgeProxy.gasReceiver);
-      console.log('rsp hash ', rsp2.hash);
-      await waitConfirm(ethers, rsp2, true);
     } else if (bridgeName === BridgeLayerZero) {
-      const rsp = await coreContract.setEndpoint(bridgeProxy.mapChainId, bridgeProxy.address);
+      rsp = await coreContract.setEndpoint(bridgeProxy.mapChainId, bridgeProxy.address);
       console.log('rsp hash ', rsp.hash);
       await waitConfirm(ethers, rsp, true);
     }
-    depositCfg.updateBridgeProxy(bridgeProxy.address);
+    depositCfg.updateBridgeProxy(bridgeProxy.address, rsp.hash);
     saveConfig(c.mystikoNetwork, c.cfg);
   } catch (err: any) {
     console.error(LOGRED, err);
@@ -242,7 +242,7 @@ export async function setLzEndpoint(
     const rsp = await coreContract.setBridgeProxyAddress(bridgeProxyAddress);
     console.log('rsp hash ', rsp.hash);
     await waitConfirm(ethers, rsp, true);
-    depositCfg.updateBridgeProxy(bridgeProxyAddress);
+    depositCfg.updateBridgeProxy(bridgeProxyAddress, rsp.hash);
     saveConfig(c.mystikoNetwork, c.cfg);
   } catch (err: any) {
     console.error(LOGRED, err);
@@ -270,7 +270,7 @@ export async function setMinBridgeFee(
     const rsp = await coreContract.setMinBridgeFee(fee);
     console.log('rsp hash ', rsp.hash);
     await waitConfirm(ethers, rsp, true);
-    depositCfg.updateMinBridgeFee(fee);
+    depositCfg.updateMinBridgeFee(fee, rsp.hash);
     saveConfig(c.mystikoNetwork, c.cfg);
   } catch (err: any) {
     console.error(LOGRED, err);
@@ -304,7 +304,7 @@ export async function setMinExecutorFee(
     const rsp = await coreContract.setMinExecutorFee(fee);
     console.log('rsp hash ', rsp.hash);
     await waitConfirm(ethers, rsp, true);
-    depositCfg.updateMinExecutorFee(fee);
+    depositCfg.updateMinExecutorFee(fee, rsp.hash);
     saveConfig(c.mystikoNetwork, c.cfg);
   } catch (err: any) {
     console.error(LOGRED, err);
@@ -338,7 +338,7 @@ export async function setPeerMinExecutorFee(
     const rsp = await coreContract.setPeerMinExecutorFee(fee);
     console.log('rsp hash ', rsp.hash);
     await waitConfirm(ethers, rsp, true);
-    depositCfg.updatePeerMinExecutorFee(fee);
+    depositCfg.updatePeerMinExecutorFee(fee, rsp.hash);
     saveConfig(c.mystikoNetwork, c.cfg);
   } catch (err: any) {
     console.error(LOGRED, err);
@@ -366,7 +366,7 @@ export async function setPeerMinRollupFee(
     const rsp = await coreContract.setPeerMinRollupFee(fee);
     console.log('rsp hash ', rsp.hash);
     await waitConfirm(ethers, rsp, true);
-    depositCfg.updatePeerMinRollupFee(fee);
+    depositCfg.updatePeerMinRollupFee(fee, rsp.hash);
     saveConfig(c.mystikoNetwork, c.cfg);
   } catch (err: any) {
     console.error(LOGRED, err);
@@ -395,7 +395,7 @@ export async function setMinAmount(
     const rsp = await coreContract.setMinAmount(minAmount);
     console.log('rsp hash ', rsp.hash);
     await waitConfirm(ethers, rsp, true);
-    depositCfg.updateMinAmount(minAmount);
+    depositCfg.updateMinAmount(minAmount, rsp.hash);
     saveConfig(c.mystikoNetwork, c.cfg);
   } catch (err: any) {
     console.error(LOGRED, err);
@@ -424,7 +424,7 @@ export async function setMaxAmount(
     const rsp = await coreContract.setMaxAmount(maxAmount);
     console.log('rsp hash ', rsp.hash);
     await waitConfirm(ethers, rsp, true);
-    depositCfg.updateMaxAmount(maxAmount);
+    depositCfg.updateMaxAmount(maxAmount, rsp.hash);
     saveConfig(c.mystikoNetwork, c.cfg);
   } catch (err: any) {
     console.error(LOGRED, err);
@@ -454,8 +454,8 @@ export async function updateDepositAmountLimits(
     const rsp = await coreContract.updateDepositAmountLimits(maxAmount, minAmount);
     console.log('rsp hash ', rsp.hash);
     await waitConfirm(ethers, rsp, true);
-    depositCfg.updateMaxAmount(maxAmount);
-    depositCfg.updateMinAmount(minAmount);
+    depositCfg.updateMaxAmount(maxAmount, rsp.hash);
+    depositCfg.updateMinAmount(minAmount, rsp.hash);
     saveConfig(c.mystikoNetwork, c.cfg);
   } catch (err: any) {
     console.error(LOGRED, err);
@@ -485,46 +485,17 @@ export async function changeDepositOperator(
     const rsp = await coreContract.changeOperator(operator);
     console.log('rsp hash ', rsp.hash);
     await waitConfirm(ethers, rsp, true);
-    depositCfg.updateOperator(operator);
+    depositCfg.updateOperator(operator, rsp.hash);
     saveConfig(c.mystikoNetwork, c.cfg);
   } catch (err: any) {
     const msg: string = err.message;
     if (msg.includes(RevertNotChanged) || msg.includes('revert')) {
       console.log('operator not changed');
-      depositCfg.updateOperator(operator);
+      depositCfg.updateOperator(operator, '');
       saveConfig(c.mystikoNetwork, c.cfg);
       return;
     }
     console.log('msg ', msg);
-    console.error(LOGRED, err);
-    process.exit(1);
-  }
-}
-
-export async function changeDepositDisable(
-  c: any,
-  bridgeName: string,
-  erc20: boolean,
-  inDepositCfg: DepositDeployConfig,
-  disable: boolean,
-) {
-  if (!inDepositCfg.isDepositDisableChange(disable)) {
-    return;
-  }
-
-  const depositCfg = inDepositCfg;
-
-  console.log('disable deposit ', disable);
-  const DepositContractFactoruy = getMystikoDeployContract(bridgeName, erc20);
-  const coreContract = await DepositContractFactoruy.attach(depositCfg.address);
-
-  try {
-    const rsp = await coreContract.setDepositsDisabled(disable);
-    console.log('rsp hash ', rsp.hash);
-    await waitConfirm(ethers, rsp, true);
-    depositCfg.updateDepositDisable(disable);
-    saveConfig(c.mystikoNetwork, c.cfg);
-  } catch (err: any) {
     console.error(LOGRED, err);
     process.exit(1);
   }
@@ -551,7 +522,7 @@ export async function setAssociatedCommitmentPool(
     const rsp = await coreContract.setAssociatedCommitmentPool(poolAddress);
     console.log('rsp hash ', rsp.hash);
     await waitConfirm(ethers, rsp, true);
-    depositCfg.updateCommitmentPool(poolAddress);
+    depositCfg.updateCommitmentPool(poolAddress, rsp.hash);
     saveConfig(c.mystikoNetwork, c.cfg);
   } catch (err: any) {
     console.error(LOGRED, err);
@@ -632,10 +603,6 @@ export async function doDepositContractConfigure(
     commitmentPoolAddress,
   );
 
-  if (c.cfg.depositDisable) {
-    await changeDepositDisable(c, bridgeCfg.name, srcChainTokenCfg.erc20, depositCfg, true);
-  }
-
   if (mystikoNetwork === MystikoTestnet) {
     await setDepositSanctionCheck(c, bridgeCfg.name, srcChainTokenCfg.erc20, depositCfg, false);
   }
@@ -666,7 +633,7 @@ export async function setPeerContract(
     const rsp = await coreContract.setPeerContract(peerChainId, peerChainMapName, peerContractAddress);
     console.log('rsp hash ', rsp.hash);
     await waitConfirm(ethers, rsp, true);
-    depositConfig.updatePeerContract(peerContractAddress);
+    depositConfig.updatePeerContract(peerContractAddress, rsp.hash);
     saveConfig(c.mystikoNetwork, c.cfg);
   } catch (err: any) {
     console.error(LOGRED, err);
@@ -700,7 +667,7 @@ export async function setTrustedRemote(
     const rsp = await coreContract.setTrustedRemote(peerLayerZeroChainId, lzPeerAddress);
     console.log('rsp hash ', rsp.hash);
     await waitConfirm(ethers, rsp, true);
-    depositConfig.updateTrustedRemote(lzPeerAddress);
+    depositConfig.updateTrustedRemote(lzPeerAddress, rsp.hash);
     saveConfig(c.mystikoNetwork, c.cfg);
   } catch (err: any) {
     console.error(LOGRED, err);
@@ -727,10 +694,28 @@ export async function disableDeposit(
     const rsp = await coreContract.setDepositsDisabled(true);
     console.log('rsp hash ', rsp.hash);
     const block = await waitConfirm(ethers, rsp, true);
-    depositCfg.disabledAt = block;
+    depositCfg.updateDisabledAt(block, rsp.hash);
     saveConfig(c.mystikoNetwork, c.cfg);
   } catch (err: any) {
     console.error(LOGRED, err);
     process.exit(1);
+  }
+}
+
+export async function checkOneTx(tx: string | undefined) {
+  if (tx === undefined || tx === '') {
+    console.log('ignore tx', tx);
+    return;
+  }
+
+  const receipt = await ethers.provider.getTransactionReceipt(tx);
+  if (receipt === null) {
+    console.log(LOGRED, 'tx not confirmed ', tx);
+    process.exit(-1);
+  }
+
+  if (receipt.status !== 1) {
+    console.log(LOGRED, 'tx failed', tx);
+    process.exit(-1);
   }
 }

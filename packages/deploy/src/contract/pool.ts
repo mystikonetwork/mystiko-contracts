@@ -76,7 +76,7 @@ export async function setCommitmentPoolRollupFee(
     const rsp = await poolContract.setMinRollupFee(chainTokenCfg.minRollupFee);
     console.log('rsp hash ', rsp.hash);
     await waitConfirm(ethers, rsp, true);
-    poolCfg.updateMinRollupFee(chainTokenCfg.minRollupFee);
+    poolCfg.updateMinRollupFee(chainTokenCfg.minRollupFee, rsp.hash);
     saveConfig(c.mystikoNetwork, c.cfg);
   } catch (err: any) {
     console.error(LOGRED, err);
@@ -108,7 +108,7 @@ async function setCommitmentPoolRollup1Verifier(
     const rsp = await poolContract.enableRollupVerifier(1, chainCfg.rollup1Address);
     console.log('rsp hash ', rsp.hash);
     await waitConfirm(ethers, rsp, true);
-    poolCfg.updateRollup1Verifier(chainCfg.rollup1Address);
+    poolCfg.updateRollup1Verifier(chainCfg.rollup1Address, rsp.hash);
     saveConfig(c.mystikoNetwork, c.cfg);
   } catch (err: any) {
     console.error(LOGRED, err);
@@ -140,7 +140,7 @@ async function setCommitmentPoolRollup2Verifier(
     const rsp = await poolContract.enableRollupVerifier(2, chainCfg.rollup2Address);
     console.log('rsp hash ', rsp.hash);
     await waitConfirm(ethers, rsp, true);
-    poolCfg.updateRollup2Verifier(chainCfg.rollup2Address);
+    poolCfg.updateRollup2Verifier(chainCfg.rollup2Address, rsp.hash);
     saveConfig(c.mystikoNetwork, c.cfg);
   } catch (err: any) {
     console.error(LOGRED, err);
@@ -172,7 +172,7 @@ async function setCommitmentPoolRollup4Verifier(
     const rsp = await poolContract.enableRollupVerifier(4, chainCfg.rollup4Address);
     console.log('rsp hash ', rsp.hash);
     await waitConfirm(ethers, rsp, true);
-    poolCfg.updateRollup4Verifier(chainCfg.rollup4Address);
+    poolCfg.updateRollup4Verifier(chainCfg.rollup4Address, rsp.hash);
     saveConfig(c.mystikoNetwork, c.cfg);
   } catch (err: any) {
     console.error(LOGRED, err);
@@ -204,7 +204,7 @@ async function setCommitmentPoolRollup8Verifier(
     const rsp = await poolContract.enableRollupVerifier(8, chainCfg.rollup8Address);
     console.log('rsp hash ', rsp.hash);
     await waitConfirm(ethers, rsp, true);
-    poolCfg.updateRollup8Verifier(chainCfg.rollup8Address);
+    poolCfg.updateRollup8Verifier(chainCfg.rollup8Address, rsp.hash);
     saveConfig(c.mystikoNetwork, c.cfg);
   } catch (err: any) {
     console.error(LOGRED, err);
@@ -236,7 +236,7 @@ async function setCommitmentPoolRollup16Verifier(
     const rsp = await poolContract.enableRollupVerifier(16, chainCfg.rollup16Address);
     console.log('rsp hash ', rsp.hash);
     await waitConfirm(ethers, rsp, true);
-    poolCfg.updateRollup16Verifier(chainCfg.rollup16Address);
+    poolCfg.updateRollup16Verifier(chainCfg.rollup16Address, rsp.hash);
     saveConfig(c.mystikoNetwork, c.cfg);
   } catch (err: any) {
     console.error(LOGRED, err);
@@ -268,7 +268,7 @@ async function setCommitmentPoolTransact1x0Verifier(
     const rsp = await poolContract.enableTransactVerifier(1, 0, chainCfg.transaction1x0VerifierAddress);
     console.log('rsp hash ', rsp.hash);
     await waitConfirm(ethers, rsp, true);
-    poolCfg.updateTransact1x0Verifier(chainCfg.transaction1x0VerifierAddress);
+    poolCfg.updateTransact1x0Verifier(chainCfg.transaction1x0VerifierAddress, rsp.hash);
     saveConfig(c.mystikoNetwork, c.cfg);
   } catch (err: any) {
     console.error(LOGRED, err);
@@ -300,7 +300,7 @@ async function setCommitmentPoolTransact1x1Verifier(
     const rsp = await poolContract.enableTransactVerifier(1, 1, chainCfg.transaction1x1VerifierAddress);
     console.log('rsp hash ', rsp.hash);
     await waitConfirm(ethers, rsp, true);
-    poolCfg.updateTransact1x1Verifier(chainCfg.transaction1x1VerifierAddress);
+    poolCfg.updateTransact1x1Verifier(chainCfg.transaction1x1VerifierAddress, rsp.hash);
     saveConfig(c.mystikoNetwork, c.cfg);
   } catch (err: any) {
     console.error(LOGRED, err);
@@ -332,7 +332,7 @@ async function setCommitmentPoolTransact1x2Verifier(
     const rsp = await poolContract.enableTransactVerifier(1, 2, chainCfg.transaction1x2VerifierAddress);
     console.log('rsp hash ', rsp.hash);
     await waitConfirm(ethers, rsp, true);
-    poolCfg.updateTransact1x2Verifier(chainCfg.transaction1x2VerifierAddress);
+    poolCfg.updateTransact1x2Verifier(chainCfg.transaction1x2VerifierAddress, rsp.hash);
     saveConfig(c.mystikoNetwork, c.cfg);
   } catch (err: any) {
     console.error(LOGRED, err);
@@ -364,7 +364,7 @@ async function setCommitmentPoolTransact2x0Verifier(
     const rsp = await poolContract.enableTransactVerifier(2, 0, chainCfg.transaction2x0VerifierAddress);
     console.log('rsp hash ', rsp.hash);
     await waitConfirm(ethers, rsp, true);
-    poolCfg.updateTransact2x0Verifier(chainCfg.transaction2x0VerifierAddress);
+    poolCfg.updateTransact2x0Verifier(chainCfg.transaction2x0VerifierAddress, rsp.hash);
     saveConfig(c.mystikoNetwork, c.cfg);
   } catch (err: any) {
     console.error(LOGRED, err);
@@ -396,7 +396,7 @@ async function setCommitmentPoolTransact2x1Verifier(
     const rsp = await poolContract.enableTransactVerifier(2, 1, chainCfg.transaction2x1VerifierAddress);
     console.log('rsp hash ', rsp.hash);
     await waitConfirm(ethers, rsp, true);
-    poolCfg.updateTransact2x1Verifier(chainCfg.transaction2x1VerifierAddress);
+    poolCfg.updateTransact2x1Verifier(chainCfg.transaction2x1VerifierAddress, rsp.hash);
     saveConfig(c.mystikoNetwork, c.cfg);
   } catch (err: any) {
     console.error(LOGRED, err);
@@ -427,7 +427,7 @@ async function setCommitmentPoolTransact2x2Verifier(
     const rsp = await poolContract.enableTransactVerifier(2, 2, chainCfg.transaction2x2VerifierAddress);
     console.log('rsp hash ', rsp.hash);
     await waitConfirm(ethers, rsp, true);
-    poolCfg.updateTransact2x2Verifier(chainCfg.transaction2x2VerifierAddress);
+    poolCfg.updateTransact2x2Verifier(chainCfg.transaction2x2VerifierAddress, rsp.hash);
     saveConfig(c.mystikoNetwork, c.cfg);
   } catch (err: any) {
     console.error(LOGRED, err);
@@ -448,9 +448,8 @@ async function disableCommitmentPoolTransact1x1Verifier(c: any, erc20: boolean, 
   try {
     const rsp = await poolContract.disableTransactVerifier(1, 1);
     console.log('rsp hash ', rsp.hash);
-    const block = await waitConfirm(ethers, rsp, true);
-    poolCfg.setTransact1x1VerifierDisabled();
-    poolCfg.disabledAt = block;
+    await waitConfirm(ethers, rsp, true);
+    poolCfg.setTransact1x1VerifierDisabled(rsp.hash);
     saveConfig(c.mystikoNetwork, c.cfg);
   } catch (err: any) {
     console.error(LOGRED, err);
@@ -471,9 +470,8 @@ async function disableCommitmentPoolTransact1x2Verifier(c: any, erc20: boolean, 
   try {
     const rsp = await poolContract.disableTransactVerifier(1, 2);
     console.log('rsp hash ', rsp.hash);
-    const block = await waitConfirm(ethers, rsp, true);
-    poolCfg.setTransact1x2VerifierDisabled();
-    poolCfg.disabledAt = block;
+    await waitConfirm(ethers, rsp, true);
+    poolCfg.setTransact1x2VerifierDisabled(rsp.hash);
     saveConfig(c.mystikoNetwork, c.cfg);
   } catch (err: any) {
     console.error(LOGRED, err);
@@ -494,9 +492,8 @@ async function disableCommitmentPoolTransact2x1Verifier(c: any, erc20: boolean, 
   try {
     const rsp = await poolContract.disableTransactVerifier(2, 1);
     console.log('rsp hash ', rsp.hash);
-    const block = await waitConfirm(ethers, rsp, true);
-    poolCfg.setTransact2x1VerifierDisabled();
-    poolCfg.disabledAt = block;
+    await waitConfirm(ethers, rsp, true);
+    poolCfg.setTransact2x1VerifierDisabled(rsp.hash);
     saveConfig(c.mystikoNetwork, c.cfg);
   } catch (err: any) {
     console.error(LOGRED, err);
@@ -518,8 +515,8 @@ async function disableCommitmentPoolTransact2x2Verifier(c: any, erc20: boolean, 
     const rsp = await poolContract.disableTransactVerifier(2, 2);
     console.log('rsp hash ', rsp.hash);
     const block = await waitConfirm(ethers, rsp, true);
-    poolCfg.setTransact2x2VerifierDisabled();
-    poolCfg.disabledAt = block;
+    poolCfg.setTransact2x2VerifierDisabled(rsp.hash);
+    poolCfg.updateDisabledAt(block);
     saveConfig(c.mystikoNetwork, c.cfg);
   } catch (err: any) {
     console.error(LOGRED, err);
@@ -568,18 +565,18 @@ export async function setPoolSanctionCheck(
   console.log('set pool sanction check ', check);
   const PoolContractFactory = getMystikoPoolContract(erc20);
   const poolContract = await PoolContractFactory.attach(poolCfg.address);
-
+  let rsp: any;
   try {
     if (check) {
-      const rsp = await poolContract.enableSanctionsCheck();
+      rsp = await poolContract.enableSanctionsCheck();
       console.log('pool rsp hash ', rsp.hash);
       await waitConfirm(ethers, rsp, true);
     } else {
-      const rsp = await poolContract.disableSanctionsCheck();
+      rsp = await poolContract.disableSanctionsCheck();
       console.log('pool rsp hash ', rsp.hash);
       await waitConfirm(ethers, rsp, true);
     }
-    poolCfg.updateSanctionCheck(check);
+    poolCfg.updateSanctionCheck(check, rsp.hash);
     saveConfig(c.mystikoNetwork, c.cfg);
   } catch (err: any) {
     console.error(LOGRED, err);
@@ -607,13 +604,13 @@ export async function changePoolOperator(
     const rsp = await pool.changeOperator(operator);
     console.log('rsp hash ', rsp.hash);
     await waitConfirm(ethers, rsp, true);
-    poolCfg.updateOperator(operator);
+    poolCfg.updateOperator(operator, rsp.hash);
     saveConfig(c.mystikoNetwork, c.cfg);
   } catch (err: any) {
     const msg: string = err.message;
     if (msg.includes(RevertNotChanged) || msg.includes('revert')) {
       console.log('operator not changed');
-      poolCfg.updateOperator(operator);
+      poolCfg.updateOperator(operator, '');
       saveConfig(c.mystikoNetwork, c.cfg);
       return;
     }
@@ -636,7 +633,7 @@ export async function setRollupWhitelist(c: any, erc20: boolean, poolCfg: PoolDe
     const rsp = await pool.addRollupWhitelist(roller);
     console.log('rsp hash ', rsp.hash);
     await waitConfirm(ethers, rsp, true);
-    poolCfg.addRollupToWhitelist(roller);
+    poolCfg.addRollupToWhitelist(roller, rsp.hash);
     saveConfig(c.mystikoNetwork, c.cfg);
   } catch (err: any) {
     console.error(LOGRED, err);
@@ -671,14 +668,21 @@ export async function setAuditor(
   console.log('add auditor');
   const PoolContractFactory = getMystikoPoolContract(erc20);
   const pool = await PoolContractFactory.attach(poolCfg.address);
-
+  const RevertNotChanged = '0x02538338';
   try {
     const rsp = await pool.updateAuditorPublicKey(index, auditor);
     console.log('rsp hash ', rsp.hash);
     await waitConfirm(ethers, rsp, true);
-    poolCfg.addAuditor(auditor);
+    poolCfg.addAuditor(auditor, rsp.hash);
     saveConfig(c.mystikoNetwork, c.cfg);
   } catch (err: any) {
+    const msg: string = err.message;
+    if (msg.includes(RevertNotChanged) || msg.includes('revert')) {
+      console.log('auditor not changed');
+      poolCfg.addAuditor(auditor, '');
+      saveConfig(c.mystikoNetwork, c.cfg);
+      return;
+    }
     console.error(LOGRED, err);
     process.exit(1);
   }
@@ -711,7 +715,7 @@ export async function addEnqueueWhitelist(
     const rsp = await pool.addEnqueueWhitelist(enqueueContractAddress);
     console.log('rsp hash ', rsp.hash);
     await waitConfirm(ethers, rsp, true);
-    poolCfg.AddEnqueueToWhitelist(enqueueContractAddress);
+    poolCfg.AddEnqueueToWhitelist(enqueueContractAddress, rsp.hash);
     saveConfig(c.mystikoNetwork, c.cfg);
   } catch (err: any) {
     console.error(LOGRED, err);
