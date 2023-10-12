@@ -612,8 +612,6 @@
           "rollup8VerifierTx": "0x27582bfc09c39ddc54376c1200b3da9795fee66fd1d5a5245d73f206c72b2910",
           "rollup16Verifier": "0xbaB90b3c71D0CdD051a0ae15e337c959b44951cF",
           "rollup16VerifierTx": "0xfc1c7ff5c7e1687b4fc3a079b0839925d3659354868535e989d98adbf41fca45",
-          "transact1x0Verifier": "0x9FEDACbA4e6646E3764B6Dab9575867265Bb7e3f",
-          "transact1x0VerifierTx": "0x9f545f81b9bc7855205beb4faf2e657e2da818a1fe63fdc023b4083ae935e364",
           "transact1x1Verifier": "0x9e065E3D7ADaAec9C34AD035a8e0382Fc7b9e838",
           "transact1x1VerifierTx": "0x1772bfc0944f5025773800f58d004042e4dddc56c4be3cd2f2fbec1522134786",
           "transact1x2Verifier": "0x579011D4F25942604442229e144507798451Cd66",
@@ -647,7 +645,11 @@
           ],
           "enqueueWhitelistTx": [
             "0xd5e9f0cfacc5a902e7b06b4c0aff969ace1ea643f799b9b65442cb2e0ca0eee6"
-          ]
+          ],
+          "transact1x0Verifier": "0x9FEDACbA4e6646E3764B6Dab9575867265Bb7e3f",
+          "transact1x0VerifierTx": "0x6aeb0617c476b26b6a18c65ee77e6e110ab94418d8ea88a23b92f22f34c11d54",
+          "sanctionCheck": false,
+          "sanctionCheckTx": "0x210de78de9c8b4980ba444707565875b39a63f6f20ba9458ba23446b75c79712"
         },
         {
           "network": "Base",
@@ -704,7 +706,9 @@
           ],
           "enqueueWhitelistTx": [
             "0xf5d69d5c7515c893db2efd6a0dd860f84344e2792583515a2a5dea84d27f31f7"
-          ]
+          ],
+          "sanctionCheck": false,
+          "sanctionCheckTx": "0xaae2b940963b7bd549744cf793aaad7c4075f0ab4119e0ab2fa1252197010101"
         },
         {
           "network": "BSC",

@@ -43,6 +43,15 @@ export function poolQueuedCommitments(poolContract: any): Promise<number> {
   }
 }
 
+export function poolIsKnowRoot(poolContract: any, rootHash: string): Promise<boolean> {
+  try {
+    return poolContract.isKnownRoot(rootHash);
+  } catch (err: any) {
+    console.error(LOGRED, err);
+    return Promise.resolve(false);
+  }
+}
+
 export function poolNullifierCount(poolContract: any): Promise<number> {
   try {
     return poolContract.getNullifierCount();

@@ -21,6 +21,7 @@ import {
   BridgeLoop,
   BridgeTBridge,
   LOGRED,
+  MystikoMainnet,
   MystikoTestnet,
 } from '../common/constant';
 import { DepositDeployConfig } from '../config/bridgeDeposit';
@@ -101,12 +102,12 @@ export async function setDepositSanctionCheck(
   inDepositCfg: DepositDeployConfig,
   check: boolean,
 ) {
+  console.log('set deposit sanction check ', check);
+
   if (!inDepositCfg.isSanctionCheckChange(check)) {
     return;
   }
-
   const depositCfg = inDepositCfg;
-  console.log('set deposit sanction check ', check);
   const DepositContractFactoruy = getMystikoDeployContract(bridgeName, erc20);
   const coreContract = await DepositContractFactoruy.attach(depositCfg.address);
   let rsp: any;
@@ -603,7 +604,10 @@ export async function doDepositContractConfigure(
     commitmentPoolAddress,
   );
 
-  if (mystikoNetwork === MystikoTestnet) {
+  if (
+    mystikoNetwork === MystikoTestnet ||
+    (mystikoNetwork === MystikoMainnet && c.srcChainCfg.network === 'Base')
+  ) {
     await setDepositSanctionCheck(c, bridgeCfg.name, srcChainTokenCfg.erc20, depositCfg, false);
   }
 

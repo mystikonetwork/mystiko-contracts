@@ -4,7 +4,13 @@ import { ChainConfig } from '../config/chain';
 import { ChainTokenConfig } from '../config/chainToken';
 import { OperatorConfig } from '../config/operator';
 import { PoolDeployConfig } from '../config/bridgePool';
-import { LOGRED, MerkleTreeHeight, MystikoDevelopment, MystikoTestnet } from '../common/constant';
+import {
+  LOGRED,
+  MerkleTreeHeight,
+  MystikoDevelopment,
+  MystikoMainnet,
+  MystikoTestnet,
+} from '../common/constant';
 import { BridgeConfig } from '../config/bridge';
 import { saveConfig } from '../config/config';
 
@@ -556,13 +562,12 @@ export async function setPoolSanctionCheck(
   inPoolCfg: PoolDeployConfig,
   check: boolean,
 ) {
+  console.log('set pool sanction check ', check);
+
   if (!inPoolCfg.isSanctionCheckChange(check)) {
     return;
   }
-
   const poolCfg = inPoolCfg;
-
-  console.log('set pool sanction check ', check);
   const PoolContractFactory = getMystikoPoolContract(erc20);
   const poolContract = await PoolContractFactory.attach(poolCfg.address);
   let rsp: any;
@@ -775,7 +780,10 @@ export async function doCommitmentPoolConfigure(
   await addRollupWhitelist(c, chainTokenCfg.erc20, poolCfg, operatorCfg.rollers);
   await addAuditors(c, chainTokenCfg.erc20, poolCfg, operatorCfg.auditors);
 
-  if (mystikoNetwork === MystikoTestnet) {
+  if (
+    mystikoNetwork === MystikoTestnet ||
+    (mystikoNetwork === MystikoMainnet && c.srcChainCfg.network === 'Base')
+  ) {
     await setPoolSanctionCheck(c, chainTokenCfg.erc20, poolCfg, false);
   }
 
