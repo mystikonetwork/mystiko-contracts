@@ -101,6 +101,7 @@ function addPoolContractConfig(
   bridgeType: string,
   address: string,
   startBlock: number,
+  disabledAt: number | undefined,
   isERC20: boolean,
   assetAddress: string,
   minRollupFee: string,
@@ -116,6 +117,9 @@ function addPoolContractConfig(
       poolContract.poolName = poolName;
       poolContract.bridgeType = bridgeType;
       poolContract.startBlock = startBlock;
+      if (disabledAt) {
+        poolContract.disabledAt = disabledAt;
+      }
       if (isERC20) {
         poolContract.assetAddress = assetAddress;
       }
@@ -140,8 +144,10 @@ function addPoolContractConfig(
     startBlock,
   };
 
-  // @ts-ignore
-  // newPoolContract.type = 'pool';
+  if (disabledAt) {
+    // @ts-ignore
+    newPoolContract.disabledAt = disabledAt;
+  }
 
   if (isERC20) {
     // @ts-ignore
@@ -173,6 +179,7 @@ function addNewDepositContractConfig(
   name: string,
   address: string,
   startBlock: number,
+  disabledAt: number | undefined,
   bridgeType: string,
   poolAddress: string,
   peerChainId: number,
@@ -191,6 +198,9 @@ function addNewDepositContractConfig(
       depositContract.version = version;
       depositContract.poolName = undefined;
       depositContract.startBlock = startBlock;
+      if (disabledAt) {
+        depositContract.disabledAt = disabledAt;
+      }
       depositContract.poolAddress = poolAddress;
 
       if (bridgeType !== BridgeLoop) {
@@ -202,7 +212,9 @@ function addNewDepositContractConfig(
 
       if (bridgeType !== BridgeLoop) {
         depositContract.minBridgeFee = minBridgeFee;
-        depositContract.minExecutorFee = minExecutorFee;
+        if (minExecutorFee !== '0') {
+          depositContract.minExecutorFee = minExecutorFee;
+        }
       }
 
       return coreConfig;
@@ -219,11 +231,10 @@ function addNewDepositContractConfig(
     poolAddress,
   };
 
-  // @ts-ignore
-  // newContract.disabled = false;
-
-  // @ts-ignore
-  // newContract.type = 'deposit';
+  if (disabledAt) {
+    // @ts-ignore
+    newContract.disabledAt = disabledAt;
+  }
 
   if (bridgeType !== BridgeLoop) {
     // @ts-ignore
@@ -242,8 +253,10 @@ function addNewDepositContractConfig(
   if (bridgeType !== BridgeLoop) {
     // @ts-ignore
     newContract.minBridgeFee = minBridgeFee;
-    // @ts-ignore
-    newContract.minExecutorFee = minExecutorFee;
+    if (minExecutorFee !== '0') {
+      // @ts-ignore
+      newContract.minExecutorFee = minExecutorFee;
+    }
   }
 
   chainConfig.depositContracts.push(newContract);
@@ -271,6 +284,7 @@ export function saveCoreContractJson(c: any) {
     c.bridgeCfg.name,
     c.srcPoolCfg.address,
     c.srcPoolCfg.syncStart,
+    c.srcPoolCfg.disabledAt,
     c.srcTokenCfg.erc20,
     c.srcTokenCfg.address,
     c.srcPoolCfg.minRollupFee,
@@ -285,6 +299,7 @@ export function saveCoreContractJson(c: any) {
     contractName,
     c.pairSrcDepositCfg.address,
     c.pairSrcDepositCfg.syncStart,
+    c.pairSrcDepositCfg.disabledAt,
     c.bridgeCfg.name,
     c.srcPoolCfg.address,
     c.dstChainCfg.chainId,

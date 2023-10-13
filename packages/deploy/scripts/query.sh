@@ -1,5 +1,7 @@
 #!/bin/bash
-#cmd  step1/step2/step3/step4/check/checkJson
+
+# example
+#  1. ./scripts/set.sh 0 testnet commitmentQueue
 
 set -a # automatically export all variables
 source .env
@@ -8,8 +10,15 @@ set +a
 version=$POOLNAME
 skipCounter=$1
 network=$2
-step=$3
-max_retries=5
+func=$3
+
+if [ "$4" == '' ]; then
+  param=""
+else
+  param="--param $4"
+fi
+
+max_retries=2
 
 counter=1
 while read -r line
@@ -25,7 +34,7 @@ do
 
   retries=0
   while true; do
-    eval "yarn deploy:chain --step ${step} $line"
+    eval "yarn query --func ${func} ${param} $line"
     result=$?
 
     if [ $result -eq 0 ]; then
@@ -35,7 +44,7 @@ do
       retries=$((retries+1))
       if [ $retries -ge $max_retries ]; then
         echo "Max retries reached for command: $counter $line"
-        break
+        exit 1
       fi
       sleep 5 # Add a delay before retrying
     fi

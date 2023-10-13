@@ -6,6 +6,7 @@ export interface RawDepositDeployConfig {
   address?: string;
   nonce?: number;
   syncStart?: number;
+  disabledAt?: number;
   minAmount?: string;
   maxAmount?: string;
   minBridgeFee?: string;
@@ -18,7 +19,19 @@ export interface RawDepositDeployConfig {
   trustedRemote?: string;
   sanctionCheck?: boolean;
   operator?: string;
-  disableDeposit?: boolean;
+  disabledAtTx?: string;
+  minAmountTx?: string;
+  maxAmountTx?: string;
+  minBridgeFeeTx?: string;
+  minExecutorFeeTx?: string;
+  peerMinExecutorFeeTx?: string;
+  peerMinRollupFeeTx?: string;
+  commitmentPoolTx?: string;
+  bridgeProxyTx?: string;
+  peerContractTx?: string;
+  trustedRemoteTx?: string;
+  sanctionCheckTx?: string;
+  operatorTx?: string;
 }
 
 export class DepositDeployConfig extends BaseConfig {
@@ -27,6 +40,7 @@ export class DepositDeployConfig extends BaseConfig {
     BaseConfig.checkString(this.config, 'network');
     BaseConfig.checkString(this.config, 'assetSymbol');
     BaseConfig.checkNumber(this.config, 'syncStart', false);
+    BaseConfig.checkNumber(this.config, 'disabledAt', false);
     BaseConfig.checkEthAddress(this.config, 'address', false);
     BaseConfig.checkEthAddress(this.config, 'operator', false);
   }
@@ -71,12 +85,29 @@ export class DepositDeployConfig extends BaseConfig {
     this.asRawContractDeployConfig().syncStart = start;
   }
 
+  public get disabled(): boolean {
+    return this.asRawContractDeployConfig().disabledAt !== undefined;
+  }
+
+  public get disabledAt(): number | undefined {
+    return this.asRawContractDeployConfig().disabledAt;
+  }
+
+  public get disabledAtTx(): string | undefined {
+    return this.asRawContractDeployConfig().disabledAtTx;
+  }
+
+  public updateDisabledAt(block: number, tx: string) {
+    this.asRawContractDeployConfig().disabledAt = block;
+    this.asRawContractDeployConfig().disabledAtTx = tx;
+  }
+
   public get minAmount(): string | undefined {
     return this.asRawContractDeployConfig().minAmount;
   }
 
-  public get maxAmount(): string | undefined {
-    return this.asRawContractDeployConfig().maxAmount;
+  public get minAmountTx(): string | undefined {
+    return this.asRawContractDeployConfig().minAmountTx;
   }
 
   public isMinAmountChange(fee: string): boolean {
@@ -86,6 +117,19 @@ export class DepositDeployConfig extends BaseConfig {
     return false;
   }
 
+  public updateMinAmount(amount: string, tx: string) {
+    this.asRawContractDeployConfig().minAmount = amount;
+    this.asRawContractDeployConfig().minAmountTx = tx;
+  }
+
+  public get maxAmount(): string | undefined {
+    return this.asRawContractDeployConfig().maxAmount;
+  }
+
+  public get maxAmountTx(): string | undefined {
+    return this.asRawContractDeployConfig().maxAmountTx;
+  }
+
   public isMaxAmountChange(fee: string): boolean {
     if (this.asRawContractDeployConfig().maxAmount !== fee) {
       return true;
@@ -93,12 +137,17 @@ export class DepositDeployConfig extends BaseConfig {
     return false;
   }
 
-  public updateMinAmount(amount: string) {
-    this.asRawContractDeployConfig().minAmount = amount;
+  public updateMaxAmount(amount: string, tx: string) {
+    this.asRawContractDeployConfig().maxAmount = amount;
+    this.asRawContractDeployConfig().maxAmountTx = tx;
   }
 
-  public updateMaxAmount(amount: string) {
-    this.asRawContractDeployConfig().maxAmount = amount;
+  public get minBridgeFee(): string | undefined {
+    return this.asRawContractDeployConfig().minBridgeFee;
+  }
+
+  public get minBridgeFeeTx(): string | undefined {
+    return this.asRawContractDeployConfig().minBridgeFeeTx;
   }
 
   public isMinBridgeFeeChange(fee: string): boolean {
@@ -108,12 +157,17 @@ export class DepositDeployConfig extends BaseConfig {
     return false;
   }
 
-  public updateMinBridgeFee(fee: string) {
+  public updateMinBridgeFee(fee: string, tx: string) {
     this.asRawContractDeployConfig().minBridgeFee = fee;
+    this.asRawContractDeployConfig().minBridgeFeeTx = tx;
   }
 
   public get minExecutorFee(): string | undefined {
     return this.asRawContractDeployConfig().minExecutorFee;
+  }
+
+  public get minExecutorFeeTx(): string | undefined {
+    return this.asRawContractDeployConfig().minExecutorFeeTx;
   }
 
   public isMinExecutorFeeChange(fee: string): boolean {
@@ -123,8 +177,17 @@ export class DepositDeployConfig extends BaseConfig {
     return false;
   }
 
-  public updateMinExecutorFee(fee: string) {
+  public updateMinExecutorFee(fee: string, tx: string) {
     this.asRawContractDeployConfig().minExecutorFee = fee;
+    this.asRawContractDeployConfig().minExecutorFeeTx = tx;
+  }
+
+  public get peerMinExecutorFee(): string | undefined {
+    return this.asRawContractDeployConfig().peerMinExecutorFee;
+  }
+
+  public get peerMinExecutorFeeTx(): string | undefined {
+    return this.asRawContractDeployConfig().peerMinExecutorFeeTx;
   }
 
   public isPeerMinExecutorFeeChange(fee: string): boolean {
@@ -134,12 +197,17 @@ export class DepositDeployConfig extends BaseConfig {
     return false;
   }
 
-  public get peerMinExecutorFee(): string | undefined {
-    return this.asRawContractDeployConfig().peerMinExecutorFee;
+  public updatePeerMinExecutorFee(fee: string, tx: string) {
+    this.asRawContractDeployConfig().peerMinExecutorFee = fee;
+    this.asRawContractDeployConfig().peerMinExecutorFeeTx = tx;
   }
 
-  public updatePeerMinExecutorFee(fee: string) {
-    this.asRawContractDeployConfig().peerMinExecutorFee = fee;
+  public get peerMinRollupFee(): string | undefined {
+    return this.asRawContractDeployConfig().peerMinRollupFee;
+  }
+
+  public get peerMinRollupFeeTx(): string | undefined {
+    return this.asRawContractDeployConfig().peerMinRollupFeeTx;
   }
 
   public isPeerMinRollupFeeChange(fee: string): boolean {
@@ -149,12 +217,17 @@ export class DepositDeployConfig extends BaseConfig {
     return false;
   }
 
-  public get peerMinRollupFee(): string | undefined {
-    return this.asRawContractDeployConfig().peerMinRollupFee;
+  public updatePeerMinRollupFee(fee: string, tx: string) {
+    this.asRawContractDeployConfig().peerMinRollupFee = fee;
+    this.asRawContractDeployConfig().peerMinRollupFeeTx = tx;
   }
 
-  public updatePeerMinRollupFee(fee: string) {
-    this.asRawContractDeployConfig().peerMinRollupFee = fee;
+  public get commitmentPool(): string | undefined {
+    return this.asRawContractDeployConfig().commitmentPool;
+  }
+
+  public get commitmentPoolTx(): string | undefined {
+    return this.asRawContractDeployConfig().commitmentPoolTx;
   }
 
   public isCommitmentPoolChange(address: string): boolean {
@@ -164,8 +237,17 @@ export class DepositDeployConfig extends BaseConfig {
     return false;
   }
 
-  public updateCommitmentPool(address: string) {
+  public updateCommitmentPool(address: string, tx: string) {
     this.asRawContractDeployConfig().commitmentPool = address;
+    this.asRawContractDeployConfig().commitmentPoolTx = tx;
+  }
+
+  public get bridgeProxy(): string | undefined {
+    return this.asRawContractDeployConfig().bridgeProxy;
+  }
+
+  public get bridgeProxyTx(): string | undefined {
+    return this.asRawContractDeployConfig().bridgeProxyTx;
   }
 
   public isBridgeProxyChange(address: string): boolean {
@@ -175,8 +257,17 @@ export class DepositDeployConfig extends BaseConfig {
     return false;
   }
 
-  public updateBridgeProxy(address: string) {
+  public updateBridgeProxy(address: string, tx: string) {
     this.asRawContractDeployConfig().bridgeProxy = address;
+    this.asRawContractDeployConfig().bridgeProxyTx = tx;
+  }
+
+  public get peerContract(): string | undefined {
+    return this.asRawContractDeployConfig().peerContract;
+  }
+
+  public get peerContractTx(): string | undefined {
+    return this.asRawContractDeployConfig().peerContractTx;
   }
 
   public isPeerContractChange(address: string): boolean {
@@ -186,8 +277,17 @@ export class DepositDeployConfig extends BaseConfig {
     return false;
   }
 
-  public updatePeerContract(address: string) {
+  public updatePeerContract(address: string, tx: string) {
     this.asRawContractDeployConfig().peerContract = address;
+    this.asRawContractDeployConfig().peerContractTx = tx;
+  }
+
+  public get trustedRemote(): string | undefined {
+    return this.asRawContractDeployConfig().trustedRemote;
+  }
+
+  public get trustedRemoteTx(): string | undefined {
+    return this.asRawContractDeployConfig().trustedRemoteTx;
   }
 
   public isTrustedRemoteChange(address: string): boolean {
@@ -197,12 +297,17 @@ export class DepositDeployConfig extends BaseConfig {
     return false;
   }
 
-  public updateTrustedRemote(address: string) {
+  public updateTrustedRemote(address: string, tx: string) {
     this.asRawContractDeployConfig().trustedRemote = address;
+    this.asRawContractDeployConfig().trustedRemoteTx = tx;
   }
 
   public get sanctionCheck(): boolean | undefined {
     return this.asRawContractDeployConfig().sanctionCheck;
+  }
+
+  public get sanctionCheckTx(): string | undefined {
+    return this.asRawContractDeployConfig().sanctionCheckTx;
   }
 
   public isSanctionCheckChange(bCheck: boolean): boolean {
@@ -212,16 +317,17 @@ export class DepositDeployConfig extends BaseConfig {
     return false;
   }
 
-  public updateSanctionCheck(bCheck: boolean) {
+  public updateSanctionCheck(bCheck: boolean, tx: string) {
     this.asRawContractDeployConfig().sanctionCheck = bCheck;
+    this.asRawContractDeployConfig().sanctionCheckTx = tx;
   }
 
   public get operator(): string | undefined {
     return this.asRawContractDeployConfig().operator;
   }
 
-  public updateOperator(addr: string) {
-    this.asRawContractDeployConfig().operator = addr;
+  public get operatorTx(): string | undefined {
+    return this.asRawContractDeployConfig().operatorTx;
   }
 
   public isOperatorChange(address: string): boolean {
@@ -231,20 +337,16 @@ export class DepositDeployConfig extends BaseConfig {
     return false;
   }
 
-  public isDepositDisableChange(disable: boolean): boolean {
-    if (this.asRawContractDeployConfig().disableDeposit !== disable) {
-      return true;
-    }
-    return false;
-  }
-
-  public updateDepositDisable(disable: boolean) {
-    this.asRawContractDeployConfig().disableDeposit = disable;
+  public updateOperator(addr: string, tx: string) {
+    this.asRawContractDeployConfig().operator = addr;
+    this.asRawContractDeployConfig().operatorTx = tx;
   }
 
   public reset() {
     this.asRawContractDeployConfig().address = undefined;
     this.asRawContractDeployConfig().syncStart = undefined;
+    this.asRawContractDeployConfig().nonce = undefined;
+    this.asRawContractDeployConfig().disabledAt = undefined;
     this.asRawContractDeployConfig().minAmount = undefined;
     this.asRawContractDeployConfig().maxAmount = undefined;
     this.asRawContractDeployConfig().minBridgeFee = undefined;
@@ -257,8 +359,19 @@ export class DepositDeployConfig extends BaseConfig {
     this.asRawContractDeployConfig().trustedRemote = undefined;
     this.asRawContractDeployConfig().sanctionCheck = undefined;
     this.asRawContractDeployConfig().operator = undefined;
-    this.asRawContractDeployConfig().disableDeposit = undefined;
-    this.asRawContractDeployConfig().nonce = undefined;
+    this.asRawContractDeployConfig().disabledAtTx = undefined;
+    this.asRawContractDeployConfig().minAmountTx = undefined;
+    this.asRawContractDeployConfig().maxAmountTx = undefined;
+    this.asRawContractDeployConfig().minBridgeFeeTx = undefined;
+    this.asRawContractDeployConfig().minExecutorFeeTx = undefined;
+    this.asRawContractDeployConfig().peerMinExecutorFeeTx = undefined;
+    this.asRawContractDeployConfig().peerMinRollupFeeTx = undefined;
+    this.asRawContractDeployConfig().commitmentPoolTx = undefined;
+    this.asRawContractDeployConfig().bridgeProxyTx = undefined;
+    this.asRawContractDeployConfig().peerContractTx = undefined;
+    this.asRawContractDeployConfig().trustedRemoteTx = undefined;
+    this.asRawContractDeployConfig().sanctionCheckTx = undefined;
+    this.asRawContractDeployConfig().operatorTx = undefined;
   }
 
   private asRawContractDeployConfig(): RawDepositDeployConfig {

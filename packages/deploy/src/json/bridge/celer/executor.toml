@@ -7,339 +7,339 @@ signer_passphrase = "Xmgh9369"
 
   [[service.contracts]]
   chain_id = 5
-  address = "0xb1bDDa694D2ebbcb0a5Cb6c6cFc0a1F0B759b19A"
-  allow_sender_groups = "goerli-bsctestnet-ETH-4"
+  address = "0x122BF2892fDc2304175642802AA53241ad8aAC3e"
+  allow_sender_groups = "goerli-bsctestnet-ETH-6"
 
   [[service.contracts]]
   chain_id = 97
-  address = "0xBA2ec3001f2268C8fdf9D2D4AE98377C9ec1C4B3"
-  allow_sender_groups = "goerli-bsctestnet-ETH-4"
+  address = "0x24Fd8ebc811997E1a362065944CaD87064E44466"
+  allow_sender_groups = "goerli-bsctestnet-ETH-6"
 
   [[service.contracts]]
   chain_id = 5
-  address = "0x6DBcDe05cc1eCF4bB023EF953245C26966bF9B06"
-  allow_sender_groups = "goerli-bsctestnet-mBNB-4"
+  address = "0xA1F81f4ce2C7bc128D4B13070D342B22d3415293"
+  allow_sender_groups = "goerli-bsctestnet-mBNB-6"
 
   [[service.contracts]]
   chain_id = 97
-  address = "0xD3dca9802421F5ffBbc4E8D6cb90BaA1Ec25010e"
-  allow_sender_groups = "goerli-bsctestnet-mBNB-4"
+  address = "0x71559b31F8AB71bfB5F6F4dAB9C24dA2078e80F1"
+  allow_sender_groups = "goerli-bsctestnet-mBNB-6"
 
   [[service.contracts]]
   chain_id = 5
-  address = "0x7224B97833737baB521C8EbF0E706fDCAAF5eA82"
-  allow_sender_groups = "goerli-bsctestnet-MTT-4"
+  address = "0x26b8375Bd8cD77956f0788AAd27933Cc227b2583"
+  allow_sender_groups = "goerli-bsctestnet-MTT-6"
 
   [[service.contracts]]
   chain_id = 97
-  address = "0xc156D1279cdb8574318fc26af0F20dd84Cbf7c2e"
-  allow_sender_groups = "goerli-bsctestnet-MTT-4"
+  address = "0x30B6D3Cb79dc1297F875C501d2b716e04C2c82b4"
+  allow_sender_groups = "goerli-bsctestnet-MTT-6"
 
   [[service.contracts]]
   chain_id = 5
-  address = "0xaa08C8ee7d3104Ea86F952C652813CF831230887"
-  allow_sender_groups = "goerli-bsctestnet-mUSD-4"
+  address = "0x87837a918C7e48DA2f2c98aAE42A8745b4320464"
+  allow_sender_groups = "goerli-bsctestnet-mUSD-6"
 
   [[service.contracts]]
   chain_id = 97
-  address = "0xa3496E53d53080b157c901598D4f230CBb4f0552"
-  allow_sender_groups = "goerli-bsctestnet-mUSD-4"
+  address = "0xD2913fF5DB7B9a26f66eb9999677F9805ac40aFC"
+  allow_sender_groups = "goerli-bsctestnet-mUSD-6"
 
   [[service.contracts]]
   chain_id = 5
-  address = "0x2076f17A512a423B9e034ff8816728064C03cA11"
-  allow_sender_groups = "goerli-polygontestnet-ETH-4"
+  address = "0xc66de4f0df8Ad1a40A8F7A333DcE1e8dF3ffeeaa"
+  allow_sender_groups = "goerli-polygontestnet-ETH-6"
 
   [[service.contracts]]
-  chain_id = 80_001
-  address = "0x91F66531aB71fB3021C163e880fBbf650a258D6E"
-  allow_sender_groups = "goerli-polygontestnet-ETH-4"
-
-  [[service.contracts]]
-  chain_id = 5
-  address = "0x59Ac55E3899CD043FD19fF46189E45838e1cF9b7"
-  allow_sender_groups = "goerli-polygontestnet-MATIC-4"
-
-  [[service.contracts]]
-  chain_id = 80_001
-  address = "0x2EBD101b5BA96FCAC9dDC2b1Ca34A3A08aAc9fa7"
-  allow_sender_groups = "goerli-polygontestnet-MATIC-4"
+  chain_id = 80001
+  address = "0x24Fd8ebc811997E1a362065944CaD87064E44466"
+  allow_sender_groups = "goerli-polygontestnet-ETH-6"
 
   [[service.contracts]]
   chain_id = 5
-  address = "0x3DBa1eD5083b2f1CBb7791fc2c5FEC5061da3379"
-  allow_sender_groups = "goerli-polygontestnet-MTT-4"
+  address = "0xB69B84Db43003B8e50c2f3e90d36E153B18773AD"
+  allow_sender_groups = "goerli-polygontestnet-MATIC-6"
 
   [[service.contracts]]
-  chain_id = 80_001
-  address = "0xcFF9f83Ff6c75e6Eb72B9f9c99a4F064e8AeD207"
-  allow_sender_groups = "goerli-polygontestnet-MTT-4"
-
-  [[service.contracts]]
-  chain_id = 5
-  address = "0xb8ad1Affb5E97d97948fd25385f9987953303D16"
-  allow_sender_groups = "goerli-polygontestnet-mUSD-4"
-
-  [[service.contracts]]
-  chain_id = 80_001
-  address = "0xd17c921527610a547C1E604b16b8583aE493bD1a"
-  allow_sender_groups = "goerli-polygontestnet-mUSD-4"
+  chain_id = 80001
+  address = "0x71559b31F8AB71bfB5F6F4dAB9C24dA2078e80F1"
+  allow_sender_groups = "goerli-polygontestnet-MATIC-6"
 
   [[service.contracts]]
   chain_id = 5
-  address = "0x77e41475D61B2b2fcc04162B09529703072b43d7"
-  allow_sender_groups = "goerli-avalanchetestnet-ETH-4"
+  address = "0xD7341471aC5Ca0d12773069C28fefbA0353eDed1"
+  allow_sender_groups = "goerli-polygontestnet-MTT-6"
 
   [[service.contracts]]
-  chain_id = 43_113
-  address = "0x91919809625B8EDF6A9769ef6eEA62FD159DCfA0"
-  allow_sender_groups = "goerli-avalanchetestnet-ETH-4"
-
-  [[service.contracts]]
-  chain_id = 5
-  address = "0xab9a47Ca1b54C7478dc874cA9d09761f9192E6D8"
-  allow_sender_groups = "goerli-avalanchetestnet-mAVAX-4"
-
-  [[service.contracts]]
-  chain_id = 43_113
-  address = "0x9a9C0dbE132518FbA1DD961BbDb7A0c8C72841Ae"
-  allow_sender_groups = "goerli-avalanchetestnet-mAVAX-4"
+  chain_id = 80001
+  address = "0x30B6D3Cb79dc1297F875C501d2b716e04C2c82b4"
+  allow_sender_groups = "goerli-polygontestnet-MTT-6"
 
   [[service.contracts]]
   chain_id = 5
-  address = "0xc55F56709EF1f80a2a627A5363Fd48b47BE0C551"
-  allow_sender_groups = "goerli-avalanchetestnet-MTT-4"
+  address = "0xeeab9757eaC6bfC7D1915DBd1dB15A562D76B755"
+  allow_sender_groups = "goerli-polygontestnet-mUSD-6"
 
   [[service.contracts]]
-  chain_id = 43_113
-  address = "0x1885F188aCAF875225C28f6fC10D0f3c4Ad8F533"
-  allow_sender_groups = "goerli-avalanchetestnet-MTT-4"
-
-  [[service.contracts]]
-  chain_id = 5
-  address = "0x12c677208A5bF9C040Bc0AF563b886c5af6DAB5D"
-  allow_sender_groups = "goerli-avalanchetestnet-mUSD-4"
-
-  [[service.contracts]]
-  chain_id = 43_113
-  address = "0xF945fD7AbA82eB83195166F6a485c63185Ef878C"
-  allow_sender_groups = "goerli-avalanchetestnet-mUSD-4"
+  chain_id = 80001
+  address = "0xD2913fF5DB7B9a26f66eb9999677F9805ac40aFC"
+  allow_sender_groups = "goerli-polygontestnet-mUSD-6"
 
   [[service.contracts]]
   chain_id = 5
-  address = "0xD4b4fe6B065fC3b29B55a7b8afBf1C18306ffED3"
-  allow_sender_groups = "goerli-fantomtestnet-ETH-4"
+  address = "0x7c7b256a970d486AA8d33BD11B21f5520f9D25d3"
+  allow_sender_groups = "goerli-avalanchetestnet-ETH-6"
 
   [[service.contracts]]
-  chain_id = 4_002
-  address = "0x8367bE9aFC0ebbEf82Fdf4DD0a2Ca8E9b4F244D9"
-  allow_sender_groups = "goerli-fantomtestnet-ETH-4"
-
-  [[service.contracts]]
-  chain_id = 5
-  address = "0xDD6093a1479C31e64c5eC83B6a5AAA79d623D481"
-  allow_sender_groups = "goerli-fantomtestnet-mFTM-4"
-
-  [[service.contracts]]
-  chain_id = 4_002
-  address = "0x5deD1A7A5609b8DE402583c08a40956842E17C3f"
-  allow_sender_groups = "goerli-fantomtestnet-mFTM-4"
+  chain_id = 43113
+  address = "0x24Fd8ebc811997E1a362065944CaD87064E44466"
+  allow_sender_groups = "goerli-avalanchetestnet-ETH-6"
 
   [[service.contracts]]
   chain_id = 5
-  address = "0x62d9Cb213c2173eF6b95F2212cE282D2D866b8D5"
-  allow_sender_groups = "goerli-fantomtestnet-MTT-4"
+  address = "0x1DD1e6D7751885737507ab5Fa9998fc47888D139"
+  allow_sender_groups = "goerli-avalanchetestnet-mAVAX-6"
 
   [[service.contracts]]
-  chain_id = 4_002
-  address = "0x396cD19a619caF2c32908EF7Cb954423fdF4DE20"
-  allow_sender_groups = "goerli-fantomtestnet-MTT-4"
+  chain_id = 43113
+  address = "0x71559b31F8AB71bfB5F6F4dAB9C24dA2078e80F1"
+  allow_sender_groups = "goerli-avalanchetestnet-mAVAX-6"
 
   [[service.contracts]]
   chain_id = 5
-  address = "0xB5ca2f417cD53f176FA77787B05023Ee17aEd342"
-  allow_sender_groups = "goerli-fantomtestnet-mUSD-4"
+  address = "0xcED692508DD2444757c1eFdd3CC4D8500B202b12"
+  allow_sender_groups = "goerli-avalanchetestnet-MTT-6"
 
   [[service.contracts]]
-  chain_id = 4_002
-  address = "0x56E466Bc3d0278c7F1B724A90bfDBA6e86419eB4"
-  allow_sender_groups = "goerli-fantomtestnet-mUSD-4"
+  chain_id = 43113
+  address = "0x30B6D3Cb79dc1297F875C501d2b716e04C2c82b4"
+  allow_sender_groups = "goerli-avalanchetestnet-MTT-6"
+
+  [[service.contracts]]
+  chain_id = 5
+  address = "0xCD78b58A362CE64d48ED7b96C47f5cc7d26D721A"
+  allow_sender_groups = "goerli-avalanchetestnet-mUSD-6"
+
+  [[service.contracts]]
+  chain_id = 43113
+  address = "0xD2913fF5DB7B9a26f66eb9999677F9805ac40aFC"
+  allow_sender_groups = "goerli-avalanchetestnet-mUSD-6"
+
+  [[service.contracts]]
+  chain_id = 5
+  address = "0x55e6592dF28722D71aF807efC86BE530db1dFC0C"
+  allow_sender_groups = "goerli-fantomtestnet-ETH-6"
+
+  [[service.contracts]]
+  chain_id = 4002
+  address = "0x24Fd8ebc811997E1a362065944CaD87064E44466"
+  allow_sender_groups = "goerli-fantomtestnet-ETH-6"
+
+  [[service.contracts]]
+  chain_id = 5
+  address = "0x1a91751a48ae787B3d8b40039b2dC53285B1E2ed"
+  allow_sender_groups = "goerli-fantomtestnet-mFTM-6"
+
+  [[service.contracts]]
+  chain_id = 4002
+  address = "0x71559b31F8AB71bfB5F6F4dAB9C24dA2078e80F1"
+  allow_sender_groups = "goerli-fantomtestnet-mFTM-6"
+
+  [[service.contracts]]
+  chain_id = 5
+  address = "0x26080F7Cc99d7091fc3DEC7950Ecd1c72d641C57"
+  allow_sender_groups = "goerli-fantomtestnet-MTT-6"
+
+  [[service.contracts]]
+  chain_id = 4002
+  address = "0x30B6D3Cb79dc1297F875C501d2b716e04C2c82b4"
+  allow_sender_groups = "goerli-fantomtestnet-MTT-6"
+
+  [[service.contracts]]
+  chain_id = 5
+  address = "0xa5FCC84206B408cfd09c103603D6aD52f0Ea43B6"
+  allow_sender_groups = "goerli-fantomtestnet-mUSD-6"
+
+  [[service.contracts]]
+  chain_id = 4002
+  address = "0xD2913fF5DB7B9a26f66eb9999677F9805ac40aFC"
+  allow_sender_groups = "goerli-fantomtestnet-mUSD-6"
 
   [[service.contract_sender_groups]]
-  name = "goerli-bsctestnet-ETH-4"
+  name = "goerli-bsctestnet-ETH-6"
 
     [[service.contract_sender_groups.allow]]
     chain_id = 5
-    address = "0xb1bDDa694D2ebbcb0a5Cb6c6cFc0a1F0B759b19A"
+    address = "0x122BF2892fDc2304175642802AA53241ad8aAC3e"
 
     [[service.contract_sender_groups.allow]]
     chain_id = 97
-    address = "0xBA2ec3001f2268C8fdf9D2D4AE98377C9ec1C4B3"
+    address = "0x24Fd8ebc811997E1a362065944CaD87064E44466"
 
   [[service.contract_sender_groups]]
-  name = "goerli-bsctestnet-mBNB-4"
+  name = "goerli-bsctestnet-mBNB-6"
 
     [[service.contract_sender_groups.allow]]
     chain_id = 5
-    address = "0x6DBcDe05cc1eCF4bB023EF953245C26966bF9B06"
+    address = "0xA1F81f4ce2C7bc128D4B13070D342B22d3415293"
 
     [[service.contract_sender_groups.allow]]
     chain_id = 97
-    address = "0xD3dca9802421F5ffBbc4E8D6cb90BaA1Ec25010e"
+    address = "0x71559b31F8AB71bfB5F6F4dAB9C24dA2078e80F1"
 
   [[service.contract_sender_groups]]
-  name = "goerli-bsctestnet-MTT-4"
+  name = "goerli-bsctestnet-MTT-6"
 
     [[service.contract_sender_groups.allow]]
     chain_id = 5
-    address = "0x7224B97833737baB521C8EbF0E706fDCAAF5eA82"
+    address = "0x26b8375Bd8cD77956f0788AAd27933Cc227b2583"
 
     [[service.contract_sender_groups.allow]]
     chain_id = 97
-    address = "0xc156D1279cdb8574318fc26af0F20dd84Cbf7c2e"
+    address = "0x30B6D3Cb79dc1297F875C501d2b716e04C2c82b4"
 
   [[service.contract_sender_groups]]
-  name = "goerli-bsctestnet-mUSD-4"
+  name = "goerli-bsctestnet-mUSD-6"
 
     [[service.contract_sender_groups.allow]]
     chain_id = 5
-    address = "0xaa08C8ee7d3104Ea86F952C652813CF831230887"
+    address = "0x87837a918C7e48DA2f2c98aAE42A8745b4320464"
 
     [[service.contract_sender_groups.allow]]
     chain_id = 97
-    address = "0xa3496E53d53080b157c901598D4f230CBb4f0552"
+    address = "0xD2913fF5DB7B9a26f66eb9999677F9805ac40aFC"
 
   [[service.contract_sender_groups]]
-  name = "goerli-polygontestnet-ETH-4"
+  name = "goerli-polygontestnet-ETH-6"
 
     [[service.contract_sender_groups.allow]]
     chain_id = 5
-    address = "0x2076f17A512a423B9e034ff8816728064C03cA11"
+    address = "0xc66de4f0df8Ad1a40A8F7A333DcE1e8dF3ffeeaa"
 
     [[service.contract_sender_groups.allow]]
-    chain_id = 80_001
-    address = "0x91F66531aB71fB3021C163e880fBbf650a258D6E"
+    chain_id = 80001
+    address = "0x24Fd8ebc811997E1a362065944CaD87064E44466"
 
   [[service.contract_sender_groups]]
-  name = "goerli-polygontestnet-MATIC-4"
+  name = "goerli-polygontestnet-MATIC-6"
 
     [[service.contract_sender_groups.allow]]
     chain_id = 5
-    address = "0x59Ac55E3899CD043FD19fF46189E45838e1cF9b7"
+    address = "0xB69B84Db43003B8e50c2f3e90d36E153B18773AD"
 
     [[service.contract_sender_groups.allow]]
-    chain_id = 80_001
-    address = "0x2EBD101b5BA96FCAC9dDC2b1Ca34A3A08aAc9fa7"
+    chain_id = 80001
+    address = "0x71559b31F8AB71bfB5F6F4dAB9C24dA2078e80F1"
 
   [[service.contract_sender_groups]]
-  name = "goerli-polygontestnet-MTT-4"
+  name = "goerli-polygontestnet-MTT-6"
 
     [[service.contract_sender_groups.allow]]
     chain_id = 5
-    address = "0x3DBa1eD5083b2f1CBb7791fc2c5FEC5061da3379"
+    address = "0xD7341471aC5Ca0d12773069C28fefbA0353eDed1"
 
     [[service.contract_sender_groups.allow]]
-    chain_id = 80_001
-    address = "0xcFF9f83Ff6c75e6Eb72B9f9c99a4F064e8AeD207"
+    chain_id = 80001
+    address = "0x30B6D3Cb79dc1297F875C501d2b716e04C2c82b4"
 
   [[service.contract_sender_groups]]
-  name = "goerli-polygontestnet-mUSD-4"
+  name = "goerli-polygontestnet-mUSD-6"
 
     [[service.contract_sender_groups.allow]]
     chain_id = 5
-    address = "0xb8ad1Affb5E97d97948fd25385f9987953303D16"
+    address = "0xeeab9757eaC6bfC7D1915DBd1dB15A562D76B755"
 
     [[service.contract_sender_groups.allow]]
-    chain_id = 80_001
-    address = "0xd17c921527610a547C1E604b16b8583aE493bD1a"
+    chain_id = 80001
+    address = "0xD2913fF5DB7B9a26f66eb9999677F9805ac40aFC"
 
   [[service.contract_sender_groups]]
-  name = "goerli-avalanchetestnet-ETH-4"
+  name = "goerli-avalanchetestnet-ETH-6"
 
     [[service.contract_sender_groups.allow]]
     chain_id = 5
-    address = "0x77e41475D61B2b2fcc04162B09529703072b43d7"
+    address = "0x7c7b256a970d486AA8d33BD11B21f5520f9D25d3"
 
     [[service.contract_sender_groups.allow]]
-    chain_id = 43_113
-    address = "0x91919809625B8EDF6A9769ef6eEA62FD159DCfA0"
+    chain_id = 43113
+    address = "0x24Fd8ebc811997E1a362065944CaD87064E44466"
 
   [[service.contract_sender_groups]]
-  name = "goerli-avalanchetestnet-mAVAX-4"
+  name = "goerli-avalanchetestnet-mAVAX-6"
 
     [[service.contract_sender_groups.allow]]
     chain_id = 5
-    address = "0xab9a47Ca1b54C7478dc874cA9d09761f9192E6D8"
+    address = "0x1DD1e6D7751885737507ab5Fa9998fc47888D139"
 
     [[service.contract_sender_groups.allow]]
-    chain_id = 43_113
-    address = "0x9a9C0dbE132518FbA1DD961BbDb7A0c8C72841Ae"
+    chain_id = 43113
+    address = "0x71559b31F8AB71bfB5F6F4dAB9C24dA2078e80F1"
 
   [[service.contract_sender_groups]]
-  name = "goerli-avalanchetestnet-MTT-4"
+  name = "goerli-avalanchetestnet-MTT-6"
 
     [[service.contract_sender_groups.allow]]
     chain_id = 5
-    address = "0xc55F56709EF1f80a2a627A5363Fd48b47BE0C551"
+    address = "0xcED692508DD2444757c1eFdd3CC4D8500B202b12"
 
     [[service.contract_sender_groups.allow]]
-    chain_id = 43_113
-    address = "0x1885F188aCAF875225C28f6fC10D0f3c4Ad8F533"
+    chain_id = 43113
+    address = "0x30B6D3Cb79dc1297F875C501d2b716e04C2c82b4"
 
   [[service.contract_sender_groups]]
-  name = "goerli-avalanchetestnet-mUSD-4"
+  name = "goerli-avalanchetestnet-mUSD-6"
 
     [[service.contract_sender_groups.allow]]
     chain_id = 5
-    address = "0x12c677208A5bF9C040Bc0AF563b886c5af6DAB5D"
+    address = "0xCD78b58A362CE64d48ED7b96C47f5cc7d26D721A"
 
     [[service.contract_sender_groups.allow]]
-    chain_id = 43_113
-    address = "0xF945fD7AbA82eB83195166F6a485c63185Ef878C"
+    chain_id = 43113
+    address = "0xD2913fF5DB7B9a26f66eb9999677F9805ac40aFC"
 
   [[service.contract_sender_groups]]
-  name = "goerli-fantomtestnet-ETH-4"
+  name = "goerli-fantomtestnet-ETH-6"
 
     [[service.contract_sender_groups.allow]]
     chain_id = 5
-    address = "0xD4b4fe6B065fC3b29B55a7b8afBf1C18306ffED3"
+    address = "0x55e6592dF28722D71aF807efC86BE530db1dFC0C"
 
     [[service.contract_sender_groups.allow]]
-    chain_id = 4_002
-    address = "0x8367bE9aFC0ebbEf82Fdf4DD0a2Ca8E9b4F244D9"
+    chain_id = 4002
+    address = "0x24Fd8ebc811997E1a362065944CaD87064E44466"
 
   [[service.contract_sender_groups]]
-  name = "goerli-fantomtestnet-mFTM-4"
+  name = "goerli-fantomtestnet-mFTM-6"
 
     [[service.contract_sender_groups.allow]]
     chain_id = 5
-    address = "0xDD6093a1479C31e64c5eC83B6a5AAA79d623D481"
+    address = "0x1a91751a48ae787B3d8b40039b2dC53285B1E2ed"
 
     [[service.contract_sender_groups.allow]]
-    chain_id = 4_002
-    address = "0x5deD1A7A5609b8DE402583c08a40956842E17C3f"
+    chain_id = 4002
+    address = "0x71559b31F8AB71bfB5F6F4dAB9C24dA2078e80F1"
 
   [[service.contract_sender_groups]]
-  name = "goerli-fantomtestnet-MTT-4"
+  name = "goerli-fantomtestnet-MTT-6"
 
     [[service.contract_sender_groups.allow]]
     chain_id = 5
-    address = "0x62d9Cb213c2173eF6b95F2212cE282D2D866b8D5"
+    address = "0x26080F7Cc99d7091fc3DEC7950Ecd1c72d641C57"
 
     [[service.contract_sender_groups.allow]]
-    chain_id = 4_002
-    address = "0x396cD19a619caF2c32908EF7Cb954423fdF4DE20"
+    chain_id = 4002
+    address = "0x30B6D3Cb79dc1297F875C501d2b716e04C2c82b4"
 
   [[service.contract_sender_groups]]
-  name = "goerli-fantomtestnet-mUSD-4"
+  name = "goerli-fantomtestnet-mUSD-6"
 
     [[service.contract_sender_groups.allow]]
     chain_id = 5
-    address = "0xB5ca2f417cD53f176FA77787B05023Ee17aEd342"
+    address = "0xa5FCC84206B408cfd09c103603D6aD52f0Ea43B6"
 
     [[service.contract_sender_groups.allow]]
-    chain_id = 4_002
-    address = "0x56E466Bc3d0278c7F1B724A90bfDBA6e86419eB4"
+    chain_id = 4002
+    address = "0xD2913fF5DB7B9a26f66eb9999677F9805ac40aFC"
 
 [sgnd]
 sgn_grpc = "cbridge-v2-test.celer.network:9094"

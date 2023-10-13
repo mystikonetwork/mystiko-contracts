@@ -16,6 +16,51 @@ export function poolIncludedCount(poolContract: any): Promise<number> {
   }
 }
 
+export function poolQueuedCount(poolContract: any): Promise<number> {
+  try {
+    return poolContract.getCommitmentQueuedCount();
+  } catch (err: any) {
+    console.error(LOGRED, err);
+    return Promise.resolve(0);
+  }
+}
+
+export function poolCommitmentCount(poolContract: any): Promise<number> {
+  try {
+    return poolContract.getCommitmentCount();
+  } catch (err: any) {
+    console.error(LOGRED, err);
+    return Promise.resolve(0);
+  }
+}
+
+export function poolQueuedCommitments(poolContract: any): Promise<number> {
+  try {
+    return poolContract.getQueuedCommitments();
+  } catch (err: any) {
+    console.error(LOGRED, err);
+    return Promise.resolve(0);
+  }
+}
+
+export function poolIsKnowRoot(poolContract: any, rootHash: string): Promise<boolean> {
+  try {
+    return poolContract.isKnownRoot(rootHash);
+  } catch (err: any) {
+    console.error(LOGRED, err);
+    return Promise.resolve(false);
+  }
+}
+
+export function poolNullifierCount(poolContract: any): Promise<number> {
+  try {
+    return poolContract.getNullifierCount();
+  } catch (err: any) {
+    console.error(LOGRED, err);
+    return Promise.resolve(0);
+  }
+}
+
 export function poolMinRollupFee(poolContract: any): Promise<number> {
   try {
     return poolContract.getMinRollupFee();

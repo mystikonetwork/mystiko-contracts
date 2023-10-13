@@ -99,13 +99,3 @@ export function depositAssociatedCommitmentPool(depositContract: any): Promise<s
     return Promise.reject(new Error('error'));
   }
 }
-
-export function isDepositsDisabled(depositContract: any): Promise<boolean> {
-  try {
-    return depositContract.isDepositsDisabled();
-  } catch (err: any) {
-    console.error(LOGRED, err);
-    process.exit(1);
-    return Promise.reject(new Error('error'));
-  }
-}

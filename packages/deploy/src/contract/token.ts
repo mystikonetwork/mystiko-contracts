@@ -13,35 +13,35 @@ export async function initTestTokenContractFactory(eth: any) {
   ethers = eth;
   TestToken = await ethers.getContractFactory('TestToken');
 }
-
-async function transferMainToContract(c: any, srcTokenCfg: ChainTokenConfig, inPoolCfg: PoolDeployConfig) {
-  const poolCfg = inPoolCfg;
-
-  let contractAmount = 0;
-  if (inPoolCfg.tokenTransfer !== undefined) {
-    contractAmount = parseInt(inPoolCfg.tokenTransfer, 10);
-  }
-
-  const amount = 1;
-  const amountWithDecimals = ethers.utils.parseEther(amount.toString());
-  const accounts = await ethers.getSigners();
-  await accounts[0]
-    .sendTransaction({
-      to: inPoolCfg.address,
-      value: amountWithDecimals,
-    })
-    .then((rsp: any) =>
-      waitConfirm(ethers, rsp, true).then(() => {
-        console.log('transfer main token to pool success, amount ', amount);
-        poolCfg.updateTokenTransfer((amount + contractAmount).toString());
-        saveConfig(c.mystikoNetwork, c.cfg);
-      }),
-    )
-    .catch((err: any) => {
-      console.error(LOGRED, err);
-      process.exit(1);
-    });
-}
+//
+// async function transferMainToContract(c: any, srcTokenCfg: ChainTokenConfig, inPoolCfg: PoolDeployConfig) {
+//   const poolCfg = inPoolCfg;
+//
+//   let contractAmount = 0;
+//   if (inPoolCfg.tokenTransfer !== undefined) {
+//     contractAmount = parseInt(inPoolCfg.tokenTransfer, 10);
+//   }
+//
+//   const amount = 1;
+//   const amountWithDecimals = ethers.utils.parseEther(amount.toString());
+//   const accounts = await ethers.getSigners();
+//   await accounts[0]
+//     .sendTransaction({
+//       to: inPoolCfg.address,
+//       value: amountWithDecimals,
+//     })
+//     .then((rsp: any) =>
+//       waitConfirm(ethers, rsp, true).then(() => {
+//         console.log('transfer main token to pool success, amount ', amount);
+//         poolCfg.updateTokenTransfer((amount + contractAmount).toString());
+//         saveConfig(c.mystikoNetwork, c.cfg);
+//       }),
+//     )
+//     .catch((err: any) => {
+//       console.error(LOGRED, err);
+//       process.exit(1);
+//     });
+// }
 
 async function transferTokenToContract(c: any, srcTokenCfg: ChainTokenConfig, inPoolCfg: PoolDeployConfig) {
   const poolCfg = inPoolCfg;
@@ -53,12 +53,12 @@ async function transferTokenToContract(c: any, srcTokenCfg: ChainTokenConfig, in
 
   const testToken = await TestToken.attach(srcTokenCfg.address);
 
-  let amount = 10000;
+  let amount = 1000;
   if (process.env.DEFAULT_TOKEN_TRANSFER) {
     console.log('transfer amount ', process.env.DEFAULT_TOKEN_TRANSFER);
     amount = parseInt(process.env.DEFAULT_TOKEN_TRANSFER, 10);
   } else {
-    console.log('transfer default amount 10000');
+    console.log('transfer default amount 1000');
   }
 
   const amountWithDecimals = toDecimals(amount, srcTokenCfg.assetDecimals);
@@ -67,7 +67,7 @@ async function transferTokenToContract(c: any, srcTokenCfg: ChainTokenConfig, in
     .then((rsp) =>
       waitConfirm(ethers, rsp, true).then(() => {
         console.log('transfer token to pool success, amount ', amount);
-        poolCfg.updateTokenTransfer((amount + contractAmount).toString());
+        poolCfg.updateTokenTransfer((amount + contractAmount).toString(), rsp.hash);
         saveConfig(c.mystikoNetwork, c.cfg);
       }),
     )
@@ -78,10 +78,11 @@ async function transferTokenToContract(c: any, srcTokenCfg: ChainTokenConfig, in
 }
 
 export async function transferToContract(c: any, srcTokenCfg: ChainTokenConfig, inPoolCfg: PoolDeployConfig) {
-  if (srcTokenCfg.erc20) {
+  if (srcTokenCfg.erc20 && srcTokenCfg.assetSymbol !== 'MATIC') {
     await transferTokenToContract(c, srcTokenCfg, inPoolCfg);
   } else {
-    await transferMainToContract(c, srcTokenCfg, inPoolCfg);
+    console.log('skip main token transfer');
+    // await transferMainToContract(c, srcTokenCfg, inPoolCfg);
   }
 }
 

@@ -13,17 +13,15 @@ import { query } from './src/query';
 dotenv.config();
 
 task('migrate', 'deploy contract')
+  .addParam('bridge', 'loop、tbridge、celer', 'loop')
+  .addParam('dst', 'ropsten、goerli、bsctestnet', 'bsctestnet')
+  .addParam('token', 'ETH、BNB、MTT、mUSD', 'MTT')
   .addParam(
     'step',
     'step1、step2、step3、step4、check、dump、dumpMiner、dumpAllMiner、testToken、resetAll、resetAllVerifier',
   )
-  .addParam('bridge', 'loop、tbridge、celer', 'loop')
-  .addParam('dst', 'ropsten、goerli、bsctestnet', 'bsctestnet')
-  .addParam('token', 'ETH、BNB、MTT、mUSD', 'MTT')
   .addParam('override', 'true、false', 'false')
   .setAction(async (taskArgs, hre) => {
-    // const accounts = await hre.ethers.getSigners();
-    // const provider = await hre.ethers.getDefaultProvider();
     taskArgs.src = hre.network.name;
     await deploy(taskArgs, hre);
   });
@@ -32,7 +30,10 @@ task('set', 'update contract configure')
   .addParam('bridge', 'loop、tbridge、celer', 'loop')
   .addParam('dst', 'ropsten、goerli、bsctestnet', 'bsctestnet')
   .addParam('token', 'ETH、BNB、MTT、mUSD', 'MTT')
-  .addParam('func', 'sanctionCheck、tokenTransfer')
+  .addParam(
+    'func',
+    'sanctionCheck、tokenTransfer、changeOperator, disablePoolContract, disableDepositContract',
+  )
   .addParam('param', 'parameter', '')
   .setAction(async (taskArgs, hre) => {
     taskArgs.src = hre.network.name;
@@ -145,7 +146,6 @@ const config: HardhatUserConfig = {
     polygontestnet: {
       url: polygonTestEndpoint,
       accounts: [`0x${polygonTestPrivateKey}`],
-      gasPrice: 20000000000,
     },
     Ethereum: {
       url: ethEndpoint,
@@ -171,7 +171,7 @@ const config: HardhatUserConfig = {
     Polygon: {
       url: polygonEndpoint,
       accounts: [`0x${polygonPrivateKey}`],
-      gasPrice: 200000000000,
+      gasPrice: 100000000000,
     },
     Base: {
       url: baseEndpoint,

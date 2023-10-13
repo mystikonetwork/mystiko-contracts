@@ -326,6 +326,8 @@ export async function deploy(taskArgs: any, hre: any) {
     await deployStep4(taskArgs);
   } else if (step === 'check') {
     await check(ethers, taskArgs);
+  } else if (step === 'checkJson') {
+    await checkJson(taskArgs);
   } else if (step === 'testToken') {
     await testToken(taskArgs);
   } else if (step === 'dump') {
@@ -334,8 +336,6 @@ export async function deploy(taskArgs: any, hre: any) {
     dumpMiner(taskArgs);
   } else if (step === 'dumpAllMiner') {
     dumpAllMiner();
-  } else if (step === 'checkJson') {
-    await checkJson(taskArgs);
   } else if (step === 'resetAll') {
     resetAllDeployConfig(taskArgs);
   } else if (step === 'resetAllVerifier') {

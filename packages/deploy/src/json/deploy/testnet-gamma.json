@@ -578,11 +578,11 @@
           "rollup4Verifier": "0x1a8D2c4E0E23c0a0b63DDd21043A96980f9a9559",
           "rollup16Verifier": "0x8f0F8967B092171B8a58d65418C2bdCb2925d38C",
           "transact1x0Verifier": "0x752c9daC3f97aa613aa6D69341A5AB550e434630",
-          "transact1x1Verifier": "0xf8c9FD55A7ed53E72B186F2a2C192B4dF7458a4F",
-          "transact1x2Verifier": "0xd621b81ff3ed6BAb112E08cA9ac1c03A6f507DBF",
+          "transact1x1Verifier": "disabled",
+          "transact1x2Verifier": "disabled",
           "transact2x0Verifier": "0x2E1D692722969ceE4391f1c7E9ee2154DF45249a",
-          "transact2x1Verifier": "0x5587d1016A0F7904C1c46Ddb85db995dF094015D",
-          "transact2x2Verifier": "0x5e54bBcA4af443ac2a3020D46f03C4DF9A16d4ba",
+          "transact2x1Verifier": "disabled",
+          "transact2x2Verifier": "disabled",
           "sanctionCheck": false,
           "rollupWhitelist": [
             "0xE30A04c01224E968EdA56cC92bA1e4F73369A420",
@@ -600,7 +600,8 @@
             "59407850051236456308159312234055817108465803170572499707777425334332899251557"
           ],
           "rollup2Verifier": "0x4b65aB0808bf78Bd5b049cD9885b77EC5d784830",
-          "rollup8Verifier": "0x5Fe4bf3d017613d59640603d50F44cDFb99ED274"
+          "rollup8Verifier": "0x5Fe4bf3d017613d59640603d50F44cDFb99ED274",
+          "disabledAt": 34046351
         },
         {
           "network": "bsctestnet",
@@ -612,11 +613,11 @@
           "rollup4Verifier": "0x1a8D2c4E0E23c0a0b63DDd21043A96980f9a9559",
           "rollup16Verifier": "0x8f0F8967B092171B8a58d65418C2bdCb2925d38C",
           "transact1x0Verifier": "0x752c9daC3f97aa613aa6D69341A5AB550e434630",
-          "transact1x1Verifier": "0xf8c9FD55A7ed53E72B186F2a2C192B4dF7458a4F",
-          "transact1x2Verifier": "0xd621b81ff3ed6BAb112E08cA9ac1c03A6f507DBF",
+          "transact1x1Verifier": "disabled",
+          "transact1x2Verifier": "disabled",
           "transact2x0Verifier": "0x2E1D692722969ceE4391f1c7E9ee2154DF45249a",
-          "transact2x1Verifier": "0x5587d1016A0F7904C1c46Ddb85db995dF094015D",
-          "transact2x2Verifier": "0x5e54bBcA4af443ac2a3020D46f03C4DF9A16d4ba",
+          "transact2x1Verifier": "disabled",
+          "transact2x2Verifier": "disabled",
           "sanctionCheck": false,
           "rollupWhitelist": [
             "0xE30A04c01224E968EdA56cC92bA1e4F73369A420",
@@ -634,7 +635,8 @@
             "59407850051236456308159312234055817108465803170572499707777425334332899251557"
           ],
           "rollup2Verifier": "0x4b65aB0808bf78Bd5b049cD9885b77EC5d784830",
-          "rollup8Verifier": "0x5Fe4bf3d017613d59640603d50F44cDFb99ED274"
+          "rollup8Verifier": "0x5Fe4bf3d017613d59640603d50F44cDFb99ED274",
+          "disabledAt": 34046364
         },
         {
           "network": "bsctestnet",
@@ -646,11 +648,11 @@
           "rollup4Verifier": "0x1a8D2c4E0E23c0a0b63DDd21043A96980f9a9559",
           "rollup16Verifier": "0x8f0F8967B092171B8a58d65418C2bdCb2925d38C",
           "transact1x0Verifier": "0x752c9daC3f97aa613aa6D69341A5AB550e434630",
-          "transact1x1Verifier": "0xf8c9FD55A7ed53E72B186F2a2C192B4dF7458a4F",
-          "transact1x2Verifier": "0xd621b81ff3ed6BAb112E08cA9ac1c03A6f507DBF",
+          "transact1x1Verifier": "disabled",
+          "transact1x2Verifier": "disabled",
           "transact2x0Verifier": "0x2E1D692722969ceE4391f1c7E9ee2154DF45249a",
-          "transact2x1Verifier": "0x5587d1016A0F7904C1c46Ddb85db995dF094015D",
-          "transact2x2Verifier": "0x5e54bBcA4af443ac2a3020D46f03C4DF9A16d4ba",
+          "transact2x1Verifier": "disabled",
+          "transact2x2Verifier": "disabled",
           "sanctionCheck": false,
           "rollupWhitelist": [
             "0xE30A04c01224E968EdA56cC92bA1e4F73369A420",
@@ -668,7 +670,8 @@
             "59407850051236456308159312234055817108465803170572499707777425334332899251557"
           ],
           "rollup2Verifier": "0x4b65aB0808bf78Bd5b049cD9885b77EC5d784830",
-          "rollup8Verifier": "0x5Fe4bf3d017613d59640603d50F44cDFb99ED274"
+          "rollup8Verifier": "0x5Fe4bf3d017613d59640603d50F44cDFb99ED274",
+          "disabledAt": 34046331
         },
         {
           "network": "polygontestnet",
@@ -680,11 +683,11 @@
           "rollup4Verifier": "0x54A62bEFfAae4a65AcC57411A8f8bB2C10D03D3B",
           "rollup16Verifier": "0x894dB60dFC73fE75B8ECE1Fcbc4cac9C686059E6",
           "transact1x0Verifier": "0x60f446aADeBf209aE916FF4d5D1E5cDBEB97f79d",
-          "transact1x1Verifier": "0x237A48FDd46109bE32Bb4F6DA83EC586F8c8AcBc",
-          "transact1x2Verifier": "0x1Af96043957095Ea66482126780E36eBE1581004",
+          "transact1x1Verifier": "disabled",
+          "transact1x2Verifier": "disabled",
           "transact2x0Verifier": "0xE813d8EE0327036CC206102bAe38A17E217f3a74",
-          "transact2x1Verifier": "0xE9c9C0147bFB18F3F0F9e0889fc5c3f8F68f838c",
-          "transact2x2Verifier": "0x2E8C653E6d23b8D63b4e820dbb88850450F916A1",
+          "transact2x1Verifier": "disabled",
+          "transact2x2Verifier": "disabled",
           "sanctionCheck": false,
           "rollupWhitelist": [
             "0xE30A04c01224E968EdA56cC92bA1e4F73369A420",
@@ -702,7 +705,8 @@
             "59407850051236456308159312234055817108465803170572499707777425334332899251557"
           ],
           "rollup2Verifier": "0x4748d7aaeB526c9Cfe747c4B5A0c5b3b7258455F",
-          "rollup8Verifier": "0x3FE27e70745f9C4ec815fe0fe2004256C482d0b7"
+          "rollup8Verifier": "0x3FE27e70745f9C4ec815fe0fe2004256C482d0b7",
+          "disabledAt": 41002755
         },
         {
           "network": "polygontestnet",
@@ -714,11 +718,11 @@
           "rollup4Verifier": "0x54A62bEFfAae4a65AcC57411A8f8bB2C10D03D3B",
           "rollup16Verifier": "0x894dB60dFC73fE75B8ECE1Fcbc4cac9C686059E6",
           "transact1x0Verifier": "0x60f446aADeBf209aE916FF4d5D1E5cDBEB97f79d",
-          "transact1x1Verifier": "0x237A48FDd46109bE32Bb4F6DA83EC586F8c8AcBc",
-          "transact1x2Verifier": "0x1Af96043957095Ea66482126780E36eBE1581004",
+          "transact1x1Verifier": "disabled",
+          "transact1x2Verifier": "disabled",
           "transact2x0Verifier": "0xE813d8EE0327036CC206102bAe38A17E217f3a74",
-          "transact2x1Verifier": "0xE9c9C0147bFB18F3F0F9e0889fc5c3f8F68f838c",
-          "transact2x2Verifier": "0x2E8C653E6d23b8D63b4e820dbb88850450F916A1",
+          "transact2x1Verifier": "disabled",
+          "transact2x2Verifier": "disabled",
           "sanctionCheck": false,
           "rollupWhitelist": [
             "0xE30A04c01224E968EdA56cC92bA1e4F73369A420",
@@ -736,7 +740,8 @@
             "59407850051236456308159312234055817108465803170572499707777425334332899251557"
           ],
           "rollup2Verifier": "0x4748d7aaeB526c9Cfe747c4B5A0c5b3b7258455F",
-          "rollup8Verifier": "0x3FE27e70745f9C4ec815fe0fe2004256C482d0b7"
+          "rollup8Verifier": "0x3FE27e70745f9C4ec815fe0fe2004256C482d0b7",
+          "disabledAt": 41002772
         },
         {
           "network": "polygontestnet",
@@ -748,11 +753,11 @@
           "rollup4Verifier": "0x54A62bEFfAae4a65AcC57411A8f8bB2C10D03D3B",
           "rollup16Verifier": "0x894dB60dFC73fE75B8ECE1Fcbc4cac9C686059E6",
           "transact1x0Verifier": "0x60f446aADeBf209aE916FF4d5D1E5cDBEB97f79d",
-          "transact1x1Verifier": "0x237A48FDd46109bE32Bb4F6DA83EC586F8c8AcBc",
-          "transact1x2Verifier": "0x1Af96043957095Ea66482126780E36eBE1581004",
+          "transact1x1Verifier": "disabled",
+          "transact1x2Verifier": "disabled",
           "transact2x0Verifier": "0xE813d8EE0327036CC206102bAe38A17E217f3a74",
-          "transact2x1Verifier": "0xE9c9C0147bFB18F3F0F9e0889fc5c3f8F68f838c",
-          "transact2x2Verifier": "0x2E8C653E6d23b8D63b4e820dbb88850450F916A1",
+          "transact2x1Verifier": "disabled",
+          "transact2x2Verifier": "disabled",
           "sanctionCheck": false,
           "rollupWhitelist": [
             "0xE30A04c01224E968EdA56cC92bA1e4F73369A420",
@@ -770,7 +775,8 @@
             "59407850051236456308159312234055817108465803170572499707777425334332899251557"
           ],
           "rollup2Verifier": "0x4748d7aaeB526c9Cfe747c4B5A0c5b3b7258455F",
-          "rollup8Verifier": "0x3FE27e70745f9C4ec815fe0fe2004256C482d0b7"
+          "rollup8Verifier": "0x3FE27e70745f9C4ec815fe0fe2004256C482d0b7",
+          "disabledAt": 41002791
         },
         {
           "network": "goerli",
@@ -782,11 +788,11 @@
           "rollup4Verifier": "0xd9f78c187A6d16253a64D2E66C3172D0a4ec82FD",
           "rollup16Verifier": "0x76751e6197Af30050556a082Ebc1Aa84D1980be4",
           "transact1x0Verifier": "0x290362A9458816417F7c0F229FeeA026E23731a4",
-          "transact1x1Verifier": "0x9E0Ca5692E5fA4bB1bdEE799d9D53c3a1D9e2C05",
-          "transact1x2Verifier": "0x3f54E4B3EF26Cc6a3e9eCf83ECA4F832F5469F6d",
+          "transact1x1Verifier": "disabled",
+          "transact1x2Verifier": "disabled",
           "transact2x0Verifier": "0xF2cf42d18ad737B6514c9854e92dA57c90f26821",
-          "transact2x1Verifier": "0x52BB45145e27f813809C88E06b558a225976d9A2",
-          "transact2x2Verifier": "0x61692b542eA36374E23d4CAdF0dDf6FeA1f3A379",
+          "transact2x1Verifier": "disabled",
+          "transact2x2Verifier": "disabled",
           "rollupWhitelist": [
             "0xE30A04c01224E968EdA56cC92bA1e4F73369A420",
             "0x9a17b3284271617FD89eD0eFf9951861B3606474"
@@ -804,7 +810,8 @@
             "59407850051236456308159312234055817108465803170572499707777425334332899251557"
           ],
           "rollup2Verifier": "0x1Df14E80756Dc0D4Bcba98d411899f53f9118402",
-          "rollup8Verifier": "0x62131b656c7304b066C22081b1e00dDc73d968DF"
+          "rollup8Verifier": "0x62131b656c7304b066C22081b1e00dDc73d968DF",
+          "disabledAt": 9835227
         },
         {
           "network": "goerli",
@@ -816,11 +823,11 @@
           "rollup4Verifier": "0xd9f78c187A6d16253a64D2E66C3172D0a4ec82FD",
           "rollup16Verifier": "0x76751e6197Af30050556a082Ebc1Aa84D1980be4",
           "transact1x0Verifier": "0x290362A9458816417F7c0F229FeeA026E23731a4",
-          "transact1x1Verifier": "0x9E0Ca5692E5fA4bB1bdEE799d9D53c3a1D9e2C05",
-          "transact1x2Verifier": "0x3f54E4B3EF26Cc6a3e9eCf83ECA4F832F5469F6d",
+          "transact1x1Verifier": "disabled",
+          "transact1x2Verifier": "disabled",
           "transact2x0Verifier": "0xF2cf42d18ad737B6514c9854e92dA57c90f26821",
-          "transact2x1Verifier": "0x52BB45145e27f813809C88E06b558a225976d9A2",
-          "transact2x2Verifier": "0x61692b542eA36374E23d4CAdF0dDf6FeA1f3A379",
+          "transact2x1Verifier": "disabled",
+          "transact2x2Verifier": "disabled",
           "sanctionCheck": false,
           "rollupWhitelist": [
             "0xE30A04c01224E968EdA56cC92bA1e4F73369A420",
@@ -838,7 +845,8 @@
             "59407850051236456308159312234055817108465803170572499707777425334332899251557"
           ],
           "rollup2Verifier": "0x1Df14E80756Dc0D4Bcba98d411899f53f9118402",
-          "rollup8Verifier": "0x62131b656c7304b066C22081b1e00dDc73d968DF"
+          "rollup8Verifier": "0x62131b656c7304b066C22081b1e00dDc73d968DF",
+          "disabledAt": 9835236
         },
         {
           "network": "goerli",
@@ -850,11 +858,11 @@
           "rollup4Verifier": "0xd9f78c187A6d16253a64D2E66C3172D0a4ec82FD",
           "rollup16Verifier": "0x76751e6197Af30050556a082Ebc1Aa84D1980be4",
           "transact1x0Verifier": "0x290362A9458816417F7c0F229FeeA026E23731a4",
-          "transact1x1Verifier": "0x9E0Ca5692E5fA4bB1bdEE799d9D53c3a1D9e2C05",
-          "transact1x2Verifier": "0x3f54E4B3EF26Cc6a3e9eCf83ECA4F832F5469F6d",
+          "transact1x1Verifier": "disabled",
+          "transact1x2Verifier": "disabled",
           "transact2x0Verifier": "0xF2cf42d18ad737B6514c9854e92dA57c90f26821",
-          "transact2x1Verifier": "0x52BB45145e27f813809C88E06b558a225976d9A2",
-          "transact2x2Verifier": "0x61692b542eA36374E23d4CAdF0dDf6FeA1f3A379",
+          "transact2x1Verifier": "disabled",
+          "transact2x2Verifier": "disabled",
           "sanctionCheck": false,
           "rollupWhitelist": [
             "0xE30A04c01224E968EdA56cC92bA1e4F73369A420",
@@ -872,7 +880,8 @@
             "59407850051236456308159312234055817108465803170572499707777425334332899251557"
           ],
           "rollup2Verifier": "0x1Df14E80756Dc0D4Bcba98d411899f53f9118402",
-          "rollup8Verifier": "0x62131b656c7304b066C22081b1e00dDc73d968DF"
+          "rollup8Verifier": "0x62131b656c7304b066C22081b1e00dDc73d968DF",
+          "disabledAt": 9835232
         },
         {
           "network": "fantomtestnet",
@@ -884,11 +893,11 @@
           "rollup4Verifier": "0xF69721A01Dce998554AFe7D6368510c2d64F473e",
           "rollup16Verifier": "0x3838594C67e8BA8c0E8099B2A7477167082649A7",
           "transact1x0Verifier": "0xD69EC6CB5d19a3256C7d7131B05da9a6B132c937",
-          "transact1x1Verifier": "0xAFD6849A5A03286d6fED2Ce84f07c4c748d74bf8",
-          "transact1x2Verifier": "0xA713e3596C04E7e3FF4731243C75B83c57b6E974",
+          "transact1x1Verifier": "disabled",
+          "transact1x2Verifier": "disabled",
           "transact2x0Verifier": "0x59fAa7069dc34dDA60FF8764B8105C90C85590af",
-          "transact2x1Verifier": "0x5bbC43CfFD76B102E27BED5E906BCaa7D9E9C73f",
-          "transact2x2Verifier": "0x765088F35198bcfB04eb82C00c6A4ED203148C41",
+          "transact2x1Verifier": "disabled",
+          "transact2x2Verifier": "disabled",
           "rollupWhitelist": [
             "0xE30A04c01224E968EdA56cC92bA1e4F73369A420",
             "0x9a17b3284271617FD89eD0eFf9951861B3606474"
@@ -906,7 +915,8 @@
             "59407850051236456308159312234055817108465803170572499707777425334332899251557"
           ],
           "rollup2Verifier": "0xd9f78c187A6d16253a64D2E66C3172D0a4ec82FD",
-          "rollup8Verifier": "0x76751e6197Af30050556a082Ebc1Aa84D1980be4"
+          "rollup8Verifier": "0x76751e6197Af30050556a082Ebc1Aa84D1980be4",
+          "disabledAt": 21330640
         },
         {
           "network": "fantomtestnet",
@@ -918,11 +928,11 @@
           "rollup4Verifier": "0xF69721A01Dce998554AFe7D6368510c2d64F473e",
           "rollup16Verifier": "0x3838594C67e8BA8c0E8099B2A7477167082649A7",
           "transact1x0Verifier": "0xD69EC6CB5d19a3256C7d7131B05da9a6B132c937",
-          "transact1x1Verifier": "0xAFD6849A5A03286d6fED2Ce84f07c4c748d74bf8",
-          "transact1x2Verifier": "0xA713e3596C04E7e3FF4731243C75B83c57b6E974",
+          "transact1x1Verifier": "disabled",
+          "transact1x2Verifier": "disabled",
           "transact2x0Verifier": "0x59fAa7069dc34dDA60FF8764B8105C90C85590af",
-          "transact2x1Verifier": "0x5bbC43CfFD76B102E27BED5E906BCaa7D9E9C73f",
-          "transact2x2Verifier": "0x765088F35198bcfB04eb82C00c6A4ED203148C41",
+          "transact2x1Verifier": "disabled",
+          "transact2x2Verifier": "disabled",
           "sanctionCheck": false,
           "rollupWhitelist": [
             "0xE30A04c01224E968EdA56cC92bA1e4F73369A420",
@@ -940,7 +950,8 @@
             "59407850051236456308159312234055817108465803170572499707777425334332899251557"
           ],
           "rollup2Verifier": "0xd9f78c187A6d16253a64D2E66C3172D0a4ec82FD",
-          "rollup8Verifier": "0x76751e6197Af30050556a082Ebc1Aa84D1980be4"
+          "rollup8Verifier": "0x76751e6197Af30050556a082Ebc1Aa84D1980be4",
+          "disabledAt": 21330663
         },
         {
           "network": "avalanchetestnet",
@@ -952,11 +963,11 @@
           "rollup4Verifier": "0x3FE27e70745f9C4ec815fe0fe2004256C482d0b7",
           "rollup16Verifier": "0x9F6A23Ae022297ce7aD7F22Cc0E9E41FfC2B6E60",
           "transact1x0Verifier": "0x0C3f9DE1B69Dc6F167A4923161ed615875Ca6E54",
-          "transact1x1Verifier": "0xB4DE55474fe6655ebC74A91abE896796EcEb640b",
-          "transact1x2Verifier": "0x70e3472c080A73854Ea42fBF70963c537b042728",
+          "transact1x1Verifier": "disabled",
+          "transact1x2Verifier": "disabled",
           "transact2x0Verifier": "0x90665b8712677367B6b410f00a4C0dbe3C06942e",
-          "transact2x1Verifier": "0x0e252c5440a0B6992af74a340FbaDE354979d2b4",
-          "transact2x2Verifier": "0x8BD0e88Fd5ee9e7860fCb3C5FB68F2099BD04A9e",
+          "transact2x1Verifier": "disabled",
+          "transact2x2Verifier": "disabled",
           "sanctionCheck": false,
           "rollupWhitelist": [
             "0xE30A04c01224E968EdA56cC92bA1e4F73369A420",
@@ -974,7 +985,8 @@
             "59407850051236456308159312234055817108465803170572499707777425334332899251557"
           ],
           "rollup2Verifier": "0x9Dd1C0d03F82ad9bCde145D142e72E63230669D5",
-          "rollup8Verifier": "0x8Fa6bBd890D95696E12F3244e5e171bDF0c50FD4"
+          "rollup8Verifier": "0x8Fa6bBd890D95696E12F3244e5e171bDF0c50FD4",
+          "disabledAt": 26610422
         },
         {
           "network": "avalanchetestnet",
@@ -986,11 +998,11 @@
           "rollup4Verifier": "0x3FE27e70745f9C4ec815fe0fe2004256C482d0b7",
           "rollup16Verifier": "0x9F6A23Ae022297ce7aD7F22Cc0E9E41FfC2B6E60",
           "transact1x0Verifier": "0x0C3f9DE1B69Dc6F167A4923161ed615875Ca6E54",
-          "transact1x1Verifier": "0xB4DE55474fe6655ebC74A91abE896796EcEb640b",
-          "transact1x2Verifier": "0x70e3472c080A73854Ea42fBF70963c537b042728",
+          "transact1x1Verifier": "disabled",
+          "transact1x2Verifier": "disabled",
           "transact2x0Verifier": "0x90665b8712677367B6b410f00a4C0dbe3C06942e",
-          "transact2x1Verifier": "0x0e252c5440a0B6992af74a340FbaDE354979d2b4",
-          "transact2x2Verifier": "0x8BD0e88Fd5ee9e7860fCb3C5FB68F2099BD04A9e",
+          "transact2x1Verifier": "disabled",
+          "transact2x2Verifier": "disabled",
           "sanctionCheck": false,
           "rollupWhitelist": [
             "0xE30A04c01224E968EdA56cC92bA1e4F73369A420",
@@ -1008,7 +1020,8 @@
             "59407850051236456308159312234055817108465803170572499707777425334332899251557"
           ],
           "rollup2Verifier": "0x9Dd1C0d03F82ad9bCde145D142e72E63230669D5",
-          "rollup8Verifier": "0x8Fa6bBd890D95696E12F3244e5e171bDF0c50FD4"
+          "rollup8Verifier": "0x8Fa6bBd890D95696E12F3244e5e171bDF0c50FD4",
+          "disabledAt": 26610451
         },
         {
           "network": "avalanchetestnet",
@@ -1020,11 +1033,11 @@
           "rollup4Verifier": "0x3FE27e70745f9C4ec815fe0fe2004256C482d0b7",
           "rollup16Verifier": "0x9F6A23Ae022297ce7aD7F22Cc0E9E41FfC2B6E60",
           "transact1x0Verifier": "0x0C3f9DE1B69Dc6F167A4923161ed615875Ca6E54",
-          "transact1x1Verifier": "0xB4DE55474fe6655ebC74A91abE896796EcEb640b",
-          "transact1x2Verifier": "0x70e3472c080A73854Ea42fBF70963c537b042728",
+          "transact1x1Verifier": "disabled",
+          "transact1x2Verifier": "disabled",
           "transact2x0Verifier": "0x90665b8712677367B6b410f00a4C0dbe3C06942e",
-          "transact2x1Verifier": "0x0e252c5440a0B6992af74a340FbaDE354979d2b4",
-          "transact2x2Verifier": "0x8BD0e88Fd5ee9e7860fCb3C5FB68F2099BD04A9e",
+          "transact2x1Verifier": "disabled",
+          "transact2x2Verifier": "disabled",
           "sanctionCheck": false,
           "rollupWhitelist": [
             "0xE30A04c01224E968EdA56cC92bA1e4F73369A420",
@@ -1042,7 +1055,8 @@
             "59407850051236456308159312234055817108465803170572499707777425334332899251557"
           ],
           "rollup2Verifier": "0x9Dd1C0d03F82ad9bCde145D142e72E63230669D5",
-          "rollup8Verifier": "0x8Fa6bBd890D95696E12F3244e5e171bDF0c50FD4"
+          "rollup8Verifier": "0x8Fa6bBd890D95696E12F3244e5e171bDF0c50FD4",
+          "disabledAt": 26610441
         },
         {
           "network": "moonbase",
@@ -1054,11 +1068,11 @@
           "rollup4Verifier": "0xCd1c9f9BAB3C996Ed72E4bf27C57d9d8EE6c208a",
           "rollup16Verifier": "0xAd8eFAd43dB5E231B36DC80e64E3eCca93036c2B",
           "transact1x0Verifier": "0x6D350f2BDa8406C0831b9a5d4A89b05feBAE89f2",
-          "transact1x1Verifier": "0xBa47799FEB41957A1af8bD98d19cD54B6a53c4df",
-          "transact1x2Verifier": "0xb8FC73AEb4e40BE2B45f2b40cf20BfA9D422dD47",
+          "transact1x1Verifier": "disabled",
+          "transact1x2Verifier": "disabled",
           "transact2x0Verifier": "0x995b08A34316B1ed6ad756F218e6500dF6a83D34",
-          "transact2x1Verifier": "0xA7299884Bcb5138d6314a023728e8C13A67C42e9",
-          "transact2x2Verifier": "0xc4229EA15bb98a58af8d5EbA76c16DcD6862A609",
+          "transact2x1Verifier": "disabled",
+          "transact2x2Verifier": "disabled",
           "sanctionCheck": false,
           "rollupWhitelist": [
             "0xE30A04c01224E968EdA56cC92bA1e4F73369A420",
@@ -1076,7 +1090,8 @@
             "59407850051236456308159312234055817108465803170572499707777425334332899251557"
           ],
           "rollup2Verifier": "0x5D1DaBd2613F91C293c16A0D4356d007e44f5620",
-          "rollup8Verifier": "0xd7D8c269A35fd039b551b8E8c4F33d27FD6Bf77A"
+          "rollup8Verifier": "0xd7D8c269A35fd039b551b8E8c4F33d27FD6Bf77A",
+          "disabledAt": 5262554
         },
         {
           "network": "moonbase",
@@ -1088,11 +1103,11 @@
           "rollup4Verifier": "0xCd1c9f9BAB3C996Ed72E4bf27C57d9d8EE6c208a",
           "rollup16Verifier": "0xAd8eFAd43dB5E231B36DC80e64E3eCca93036c2B",
           "transact1x0Verifier": "0x6D350f2BDa8406C0831b9a5d4A89b05feBAE89f2",
-          "transact1x1Verifier": "0xBa47799FEB41957A1af8bD98d19cD54B6a53c4df",
-          "transact1x2Verifier": "0xb8FC73AEb4e40BE2B45f2b40cf20BfA9D422dD47",
+          "transact1x1Verifier": "disabled",
+          "transact1x2Verifier": "disabled",
           "transact2x0Verifier": "0x995b08A34316B1ed6ad756F218e6500dF6a83D34",
-          "transact2x1Verifier": "0xA7299884Bcb5138d6314a023728e8C13A67C42e9",
-          "transact2x2Verifier": "0xc4229EA15bb98a58af8d5EbA76c16DcD6862A609",
+          "transact2x1Verifier": "disabled",
+          "transact2x2Verifier": "disabled",
           "rollupWhitelist": [
             "0xE30A04c01224E968EdA56cC92bA1e4F73369A420",
             "0x9a17b3284271617FD89eD0eFf9951861B3606474"
@@ -1110,7 +1125,8 @@
             "59407850051236456308159312234055817108465803170572499707777425334332899251557"
           ],
           "rollup2Verifier": "0x5D1DaBd2613F91C293c16A0D4356d007e44f5620",
-          "rollup8Verifier": "0xd7D8c269A35fd039b551b8E8c4F33d27FD6Bf77A"
+          "rollup8Verifier": "0xd7D8c269A35fd039b551b8E8c4F33d27FD6Bf77A",
+          "disabledAt": 5262546
         },
         {
           "network": "moonbase",
@@ -1122,11 +1138,11 @@
           "rollup4Verifier": "0xCd1c9f9BAB3C996Ed72E4bf27C57d9d8EE6c208a",
           "rollup16Verifier": "0xAd8eFAd43dB5E231B36DC80e64E3eCca93036c2B",
           "transact1x0Verifier": "0x6D350f2BDa8406C0831b9a5d4A89b05feBAE89f2",
-          "transact1x1Verifier": "0xBa47799FEB41957A1af8bD98d19cD54B6a53c4df",
-          "transact1x2Verifier": "0xb8FC73AEb4e40BE2B45f2b40cf20BfA9D422dD47",
+          "transact1x1Verifier": "disabled",
+          "transact1x2Verifier": "disabled",
           "transact2x0Verifier": "0x995b08A34316B1ed6ad756F218e6500dF6a83D34",
-          "transact2x1Verifier": "0xA7299884Bcb5138d6314a023728e8C13A67C42e9",
-          "transact2x2Verifier": "0xc4229EA15bb98a58af8d5EbA76c16DcD6862A609",
+          "transact2x1Verifier": "disabled",
+          "transact2x2Verifier": "disabled",
           "sanctionCheck": false,
           "rollupWhitelist": [
             "0xE30A04c01224E968EdA56cC92bA1e4F73369A420",
@@ -1144,7 +1160,8 @@
             "59407850051236456308159312234055817108465803170572499707777425334332899251557"
           ],
           "rollup2Verifier": "0x5D1DaBd2613F91C293c16A0D4356d007e44f5620",
-          "rollup8Verifier": "0xd7D8c269A35fd039b551b8E8c4F33d27FD6Bf77A"
+          "rollup8Verifier": "0xd7D8c269A35fd039b551b8E8c4F33d27FD6Bf77A",
+          "disabledAt": 5262563
         },
         {
           "network": "fantomtestnet",
@@ -1156,11 +1173,11 @@
           "rollup4Verifier": "0xF69721A01Dce998554AFe7D6368510c2d64F473e",
           "rollup16Verifier": "0x3838594C67e8BA8c0E8099B2A7477167082649A7",
           "transact1x0Verifier": "0xD69EC6CB5d19a3256C7d7131B05da9a6B132c937",
-          "transact1x1Verifier": "0xAFD6849A5A03286d6fED2Ce84f07c4c748d74bf8",
-          "transact1x2Verifier": "0xA713e3596C04E7e3FF4731243C75B83c57b6E974",
+          "transact1x1Verifier": "disabled",
+          "transact1x2Verifier": "disabled",
           "transact2x0Verifier": "0x59fAa7069dc34dDA60FF8764B8105C90C85590af",
-          "transact2x1Verifier": "0x5bbC43CfFD76B102E27BED5E906BCaa7D9E9C73f",
-          "transact2x2Verifier": "0x765088F35198bcfB04eb82C00c6A4ED203148C41",
+          "transact2x1Verifier": "disabled",
+          "transact2x2Verifier": "disabled",
           "sanctionCheck": false,
           "rollupWhitelist": [
             "0xE30A04c01224E968EdA56cC92bA1e4F73369A420",
@@ -1178,7 +1195,8 @@
             "59407850051236456308159312234055817108465803170572499707777425334332899251557"
           ],
           "rollup2Verifier": "0xd9f78c187A6d16253a64D2E66C3172D0a4ec82FD",
-          "rollup8Verifier": "0x76751e6197Af30050556a082Ebc1Aa84D1980be4"
+          "rollup8Verifier": "0x76751e6197Af30050556a082Ebc1Aa84D1980be4",
+          "disabledAt": 21330681
         }
       ],
       "pairs": [
@@ -1522,11 +1540,11 @@
           "rollup4Verifier": "0xd9f78c187A6d16253a64D2E66C3172D0a4ec82FD",
           "rollup16Verifier": "0x76751e6197Af30050556a082Ebc1Aa84D1980be4",
           "transact1x0Verifier": "0x290362A9458816417F7c0F229FeeA026E23731a4",
-          "transact1x1Verifier": "0x9E0Ca5692E5fA4bB1bdEE799d9D53c3a1D9e2C05",
-          "transact1x2Verifier": "0x3f54E4B3EF26Cc6a3e9eCf83ECA4F832F5469F6d",
+          "transact1x1Verifier": "disabled",
+          "transact1x2Verifier": "disabled",
           "transact2x0Verifier": "0xF2cf42d18ad737B6514c9854e92dA57c90f26821",
-          "transact2x1Verifier": "0x52BB45145e27f813809C88E06b558a225976d9A2",
-          "transact2x2Verifier": "0x61692b542eA36374E23d4CAdF0dDf6FeA1f3A379",
+          "transact2x1Verifier": "disabled",
+          "transact2x2Verifier": "disabled",
           "sanctionCheck": false,
           "rollupWhitelist": [
             "0xE30A04c01224E968EdA56cC92bA1e4F73369A420",
@@ -1548,7 +1566,8 @@
             "59407850051236456308159312234055817108465803170572499707777425334332899251557"
           ],
           "rollup2Verifier": "0x1Df14E80756Dc0D4Bcba98d411899f53f9118402",
-          "rollup8Verifier": "0x62131b656c7304b066C22081b1e00dDc73d968DF"
+          "rollup8Verifier": "0x62131b656c7304b066C22081b1e00dDc73d968DF",
+          "disabledAt": 9835415
         },
         {
           "network": "goerli",
@@ -1560,11 +1579,11 @@
           "rollup4Verifier": "0xd9f78c187A6d16253a64D2E66C3172D0a4ec82FD",
           "rollup16Verifier": "0x76751e6197Af30050556a082Ebc1Aa84D1980be4",
           "transact1x0Verifier": "0x290362A9458816417F7c0F229FeeA026E23731a4",
-          "transact1x1Verifier": "0x9E0Ca5692E5fA4bB1bdEE799d9D53c3a1D9e2C05",
-          "transact1x2Verifier": "0x3f54E4B3EF26Cc6a3e9eCf83ECA4F832F5469F6d",
+          "transact1x1Verifier": "disabled",
+          "transact1x2Verifier": "disabled",
           "transact2x0Verifier": "0xF2cf42d18ad737B6514c9854e92dA57c90f26821",
-          "transact2x1Verifier": "0x52BB45145e27f813809C88E06b558a225976d9A2",
-          "transact2x2Verifier": "0x61692b542eA36374E23d4CAdF0dDf6FeA1f3A379",
+          "transact2x1Verifier": "disabled",
+          "transact2x2Verifier": "disabled",
           "sanctionCheck": false,
           "rollupWhitelist": [
             "0xE30A04c01224E968EdA56cC92bA1e4F73369A420",
@@ -1586,7 +1605,8 @@
             "59407850051236456308159312234055817108465803170572499707777425334332899251557"
           ],
           "rollup2Verifier": "0x1Df14E80756Dc0D4Bcba98d411899f53f9118402",
-          "rollup8Verifier": "0x62131b656c7304b066C22081b1e00dDc73d968DF"
+          "rollup8Verifier": "0x62131b656c7304b066C22081b1e00dDc73d968DF",
+          "disabledAt": 9835424
         },
         {
           "network": "goerli",
@@ -1598,11 +1618,11 @@
           "rollup4Verifier": "0xd9f78c187A6d16253a64D2E66C3172D0a4ec82FD",
           "rollup16Verifier": "0x76751e6197Af30050556a082Ebc1Aa84D1980be4",
           "transact1x0Verifier": "0x290362A9458816417F7c0F229FeeA026E23731a4",
-          "transact1x1Verifier": "0x9E0Ca5692E5fA4bB1bdEE799d9D53c3a1D9e2C05",
-          "transact1x2Verifier": "0x3f54E4B3EF26Cc6a3e9eCf83ECA4F832F5469F6d",
+          "transact1x1Verifier": "disabled",
+          "transact1x2Verifier": "disabled",
           "transact2x0Verifier": "0xF2cf42d18ad737B6514c9854e92dA57c90f26821",
-          "transact2x1Verifier": "0x52BB45145e27f813809C88E06b558a225976d9A2",
-          "transact2x2Verifier": "0x61692b542eA36374E23d4CAdF0dDf6FeA1f3A379",
+          "transact2x1Verifier": "disabled",
+          "transact2x2Verifier": "disabled",
           "sanctionCheck": false,
           "rollupWhitelist": [
             "0xE30A04c01224E968EdA56cC92bA1e4F73369A420",
@@ -1624,7 +1644,8 @@
             "59407850051236456308159312234055817108465803170572499707777425334332899251557"
           ],
           "rollup2Verifier": "0x1Df14E80756Dc0D4Bcba98d411899f53f9118402",
-          "rollup8Verifier": "0x62131b656c7304b066C22081b1e00dDc73d968DF"
+          "rollup8Verifier": "0x62131b656c7304b066C22081b1e00dDc73d968DF",
+          "disabledAt": 9835429
         },
         {
           "network": "goerli",
@@ -1636,11 +1657,11 @@
           "rollup4Verifier": "0xd9f78c187A6d16253a64D2E66C3172D0a4ec82FD",
           "rollup16Verifier": "0x76751e6197Af30050556a082Ebc1Aa84D1980be4",
           "transact1x0Verifier": "0x290362A9458816417F7c0F229FeeA026E23731a4",
-          "transact1x1Verifier": "0x9E0Ca5692E5fA4bB1bdEE799d9D53c3a1D9e2C05",
-          "transact1x2Verifier": "0x3f54E4B3EF26Cc6a3e9eCf83ECA4F832F5469F6d",
+          "transact1x1Verifier": "disabled",
+          "transact1x2Verifier": "disabled",
           "transact2x0Verifier": "0xF2cf42d18ad737B6514c9854e92dA57c90f26821",
-          "transact2x1Verifier": "0x52BB45145e27f813809C88E06b558a225976d9A2",
-          "transact2x2Verifier": "0x61692b542eA36374E23d4CAdF0dDf6FeA1f3A379",
+          "transact2x1Verifier": "disabled",
+          "transact2x2Verifier": "disabled",
           "sanctionCheck": false,
           "rollupWhitelist": [
             "0xE30A04c01224E968EdA56cC92bA1e4F73369A420",
@@ -1659,7 +1680,8 @@
             "59407850051236456308159312234055817108465803170572499707777425334332899251557"
           ],
           "rollup2Verifier": "0x1Df14E80756Dc0D4Bcba98d411899f53f9118402",
-          "rollup8Verifier": "0x62131b656c7304b066C22081b1e00dDc73d968DF"
+          "rollup8Verifier": "0x62131b656c7304b066C22081b1e00dDc73d968DF",
+          "disabledAt": 9835419
         },
         {
           "network": "goerli",
@@ -1671,11 +1693,11 @@
           "rollup4Verifier": "0xd9f78c187A6d16253a64D2E66C3172D0a4ec82FD",
           "rollup16Verifier": "0x76751e6197Af30050556a082Ebc1Aa84D1980be4",
           "transact1x0Verifier": "0x290362A9458816417F7c0F229FeeA026E23731a4",
-          "transact1x1Verifier": "0x9E0Ca5692E5fA4bB1bdEE799d9D53c3a1D9e2C05",
-          "transact1x2Verifier": "0x3f54E4B3EF26Cc6a3e9eCf83ECA4F832F5469F6d",
+          "transact1x1Verifier": "disabled",
+          "transact1x2Verifier": "disabled",
           "transact2x0Verifier": "0xF2cf42d18ad737B6514c9854e92dA57c90f26821",
-          "transact2x1Verifier": "0x52BB45145e27f813809C88E06b558a225976d9A2",
-          "transact2x2Verifier": "0x61692b542eA36374E23d4CAdF0dDf6FeA1f3A379",
+          "transact2x1Verifier": "disabled",
+          "transact2x2Verifier": "disabled",
           "sanctionCheck": false,
           "rollupWhitelist": [
             "0xE30A04c01224E968EdA56cC92bA1e4F73369A420",
@@ -1694,7 +1716,8 @@
             "59407850051236456308159312234055817108465803170572499707777425334332899251557"
           ],
           "rollup2Verifier": "0x1Df14E80756Dc0D4Bcba98d411899f53f9118402",
-          "rollup8Verifier": "0x62131b656c7304b066C22081b1e00dDc73d968DF"
+          "rollup8Verifier": "0x62131b656c7304b066C22081b1e00dDc73d968DF",
+          "disabledAt": 9835433
         },
         {
           "network": "goerli",
@@ -1706,11 +1729,11 @@
           "rollup4Verifier": "0xd9f78c187A6d16253a64D2E66C3172D0a4ec82FD",
           "rollup16Verifier": "0x76751e6197Af30050556a082Ebc1Aa84D1980be4",
           "transact1x0Verifier": "0x290362A9458816417F7c0F229FeeA026E23731a4",
-          "transact1x1Verifier": "0x9E0Ca5692E5fA4bB1bdEE799d9D53c3a1D9e2C05",
-          "transact1x2Verifier": "0x3f54E4B3EF26Cc6a3e9eCf83ECA4F832F5469F6d",
+          "transact1x1Verifier": "disabled",
+          "transact1x2Verifier": "disabled",
           "transact2x0Verifier": "0xF2cf42d18ad737B6514c9854e92dA57c90f26821",
-          "transact2x1Verifier": "0x52BB45145e27f813809C88E06b558a225976d9A2",
-          "transact2x2Verifier": "0x61692b542eA36374E23d4CAdF0dDf6FeA1f3A379",
+          "transact2x1Verifier": "disabled",
+          "transact2x2Verifier": "disabled",
           "sanctionCheck": false,
           "rollupWhitelist": [
             "0xE30A04c01224E968EdA56cC92bA1e4F73369A420",
@@ -1729,7 +1752,8 @@
             "59407850051236456308159312234055817108465803170572499707777425334332899251557"
           ],
           "rollup2Verifier": "0x1Df14E80756Dc0D4Bcba98d411899f53f9118402",
-          "rollup8Verifier": "0x62131b656c7304b066C22081b1e00dDc73d968DF"
+          "rollup8Verifier": "0x62131b656c7304b066C22081b1e00dDc73d968DF",
+          "disabledAt": 9835440
         },
         {
           "network": "goerli",
@@ -1741,11 +1765,11 @@
           "rollup4Verifier": "0xd9f78c187A6d16253a64D2E66C3172D0a4ec82FD",
           "rollup16Verifier": "0x76751e6197Af30050556a082Ebc1Aa84D1980be4",
           "transact1x0Verifier": "0x290362A9458816417F7c0F229FeeA026E23731a4",
-          "transact1x1Verifier": "0x9E0Ca5692E5fA4bB1bdEE799d9D53c3a1D9e2C05",
-          "transact1x2Verifier": "0x3f54E4B3EF26Cc6a3e9eCf83ECA4F832F5469F6d",
+          "transact1x1Verifier": "disabled",
+          "transact1x2Verifier": "disabled",
           "transact2x0Verifier": "0xF2cf42d18ad737B6514c9854e92dA57c90f26821",
-          "transact2x1Verifier": "0x52BB45145e27f813809C88E06b558a225976d9A2",
-          "transact2x2Verifier": "0x61692b542eA36374E23d4CAdF0dDf6FeA1f3A379",
+          "transact2x1Verifier": "disabled",
+          "transact2x2Verifier": "disabled",
           "sanctionCheck": false,
           "rollupWhitelist": [
             "0xE30A04c01224E968EdA56cC92bA1e4F73369A420",
@@ -1764,7 +1788,8 @@
             "59407850051236456308159312234055817108465803170572499707777425334332899251557"
           ],
           "rollup2Verifier": "0x1Df14E80756Dc0D4Bcba98d411899f53f9118402",
-          "rollup8Verifier": "0x62131b656c7304b066C22081b1e00dDc73d968DF"
+          "rollup8Verifier": "0x62131b656c7304b066C22081b1e00dDc73d968DF",
+          "disabledAt": 9835446
         },
         {
           "network": "bsctestnet",
@@ -1776,11 +1801,11 @@
           "rollup4Verifier": "0x1a8D2c4E0E23c0a0b63DDd21043A96980f9a9559",
           "rollup16Verifier": "0x8f0F8967B092171B8a58d65418C2bdCb2925d38C",
           "transact1x0Verifier": "0x752c9daC3f97aa613aa6D69341A5AB550e434630",
-          "transact1x1Verifier": "0xf8c9FD55A7ed53E72B186F2a2C192B4dF7458a4F",
-          "transact1x2Verifier": "0xd621b81ff3ed6BAb112E08cA9ac1c03A6f507DBF",
+          "transact1x1Verifier": "disabled",
+          "transact1x2Verifier": "disabled",
           "transact2x0Verifier": "0x2E1D692722969ceE4391f1c7E9ee2154DF45249a",
-          "transact2x1Verifier": "0x5587d1016A0F7904C1c46Ddb85db995dF094015D",
-          "transact2x2Verifier": "0x5e54bBcA4af443ac2a3020D46f03C4DF9A16d4ba",
+          "transact2x1Verifier": "disabled",
+          "transact2x2Verifier": "disabled",
           "sanctionCheck": false,
           "rollupWhitelist": [
             "0xE30A04c01224E968EdA56cC92bA1e4F73369A420",
@@ -1799,7 +1824,8 @@
             "59407850051236456308159312234055817108465803170572499707777425334332899251557"
           ],
           "rollup2Verifier": "0x4b65aB0808bf78Bd5b049cD9885b77EC5d784830",
-          "rollup8Verifier": "0x5Fe4bf3d017613d59640603d50F44cDFb99ED274"
+          "rollup8Verifier": "0x5Fe4bf3d017613d59640603d50F44cDFb99ED274",
+          "disabledAt": 34047350
         },
         {
           "network": "bsctestnet",
@@ -1811,11 +1837,11 @@
           "rollup4Verifier": "0x1a8D2c4E0E23c0a0b63DDd21043A96980f9a9559",
           "rollup16Verifier": "0x8f0F8967B092171B8a58d65418C2bdCb2925d38C",
           "transact1x0Verifier": "0x752c9daC3f97aa613aa6D69341A5AB550e434630",
-          "transact1x1Verifier": "0xf8c9FD55A7ed53E72B186F2a2C192B4dF7458a4F",
-          "transact1x2Verifier": "0xd621b81ff3ed6BAb112E08cA9ac1c03A6f507DBF",
+          "transact1x1Verifier": "disabled",
+          "transact1x2Verifier": "disabled",
           "transact2x0Verifier": "0x2E1D692722969ceE4391f1c7E9ee2154DF45249a",
-          "transact2x1Verifier": "0x5587d1016A0F7904C1c46Ddb85db995dF094015D",
-          "transact2x2Verifier": "0x5e54bBcA4af443ac2a3020D46f03C4DF9A16d4ba",
+          "transact2x1Verifier": "disabled",
+          "transact2x2Verifier": "disabled",
           "rollupWhitelist": [
             "0xE30A04c01224E968EdA56cC92bA1e4F73369A420",
             "0x9a17b3284271617FD89eD0eFf9951861B3606474"
@@ -1834,7 +1860,8 @@
             "59407850051236456308159312234055817108465803170572499707777425334332899251557"
           ],
           "rollup2Verifier": "0x4b65aB0808bf78Bd5b049cD9885b77EC5d784830",
-          "rollup8Verifier": "0x5Fe4bf3d017613d59640603d50F44cDFb99ED274"
+          "rollup8Verifier": "0x5Fe4bf3d017613d59640603d50F44cDFb99ED274",
+          "disabledAt": 34047337
         },
         {
           "network": "bsctestnet",
@@ -1846,11 +1873,11 @@
           "rollup4Verifier": "0x1a8D2c4E0E23c0a0b63DDd21043A96980f9a9559",
           "rollup16Verifier": "0x8f0F8967B092171B8a58d65418C2bdCb2925d38C",
           "transact1x0Verifier": "0x752c9daC3f97aa613aa6D69341A5AB550e434630",
-          "transact1x1Verifier": "0xf8c9FD55A7ed53E72B186F2a2C192B4dF7458a4F",
-          "transact1x2Verifier": "0xd621b81ff3ed6BAb112E08cA9ac1c03A6f507DBF",
+          "transact1x1Verifier": "disabled",
+          "transact1x2Verifier": "disabled",
           "transact2x0Verifier": "0x2E1D692722969ceE4391f1c7E9ee2154DF45249a",
-          "transact2x1Verifier": "0x5587d1016A0F7904C1c46Ddb85db995dF094015D",
-          "transact2x2Verifier": "0x5e54bBcA4af443ac2a3020D46f03C4DF9A16d4ba",
+          "transact2x1Verifier": "disabled",
+          "transact2x2Verifier": "disabled",
           "sanctionCheck": false,
           "rollupWhitelist": [
             "0xE30A04c01224E968EdA56cC92bA1e4F73369A420",
@@ -1869,7 +1896,8 @@
             "59407850051236456308159312234055817108465803170572499707777425334332899251557"
           ],
           "rollup2Verifier": "0x4b65aB0808bf78Bd5b049cD9885b77EC5d784830",
-          "rollup8Verifier": "0x5Fe4bf3d017613d59640603d50F44cDFb99ED274"
+          "rollup8Verifier": "0x5Fe4bf3d017613d59640603d50F44cDFb99ED274",
+          "disabledAt": 34047368
         },
         {
           "network": "bsctestnet",
@@ -1881,11 +1909,11 @@
           "rollup4Verifier": "0x1a8D2c4E0E23c0a0b63DDd21043A96980f9a9559",
           "rollup16Verifier": "0x8f0F8967B092171B8a58d65418C2bdCb2925d38C",
           "transact1x0Verifier": "0x752c9daC3f97aa613aa6D69341A5AB550e434630",
-          "transact1x1Verifier": "0xf8c9FD55A7ed53E72B186F2a2C192B4dF7458a4F",
-          "transact1x2Verifier": "0xd621b81ff3ed6BAb112E08cA9ac1c03A6f507DBF",
+          "transact1x1Verifier": "disabled",
+          "transact1x2Verifier": "disabled",
           "transact2x0Verifier": "0x2E1D692722969ceE4391f1c7E9ee2154DF45249a",
-          "transact2x1Verifier": "0x5587d1016A0F7904C1c46Ddb85db995dF094015D",
-          "transact2x2Verifier": "0x5e54bBcA4af443ac2a3020D46f03C4DF9A16d4ba",
+          "transact2x1Verifier": "disabled",
+          "transact2x2Verifier": "disabled",
           "sanctionCheck": false,
           "rollupWhitelist": [
             "0xE30A04c01224E968EdA56cC92bA1e4F73369A420",
@@ -1904,7 +1932,8 @@
             "59407850051236456308159312234055817108465803170572499707777425334332899251557"
           ],
           "rollup2Verifier": "0x4b65aB0808bf78Bd5b049cD9885b77EC5d784830",
-          "rollup8Verifier": "0x5Fe4bf3d017613d59640603d50F44cDFb99ED274"
+          "rollup8Verifier": "0x5Fe4bf3d017613d59640603d50F44cDFb99ED274",
+          "disabledAt": 34047379
         },
         {
           "network": "polygontestnet",
@@ -1916,11 +1945,11 @@
           "rollup4Verifier": "0x54A62bEFfAae4a65AcC57411A8f8bB2C10D03D3B",
           "rollup16Verifier": "0x894dB60dFC73fE75B8ECE1Fcbc4cac9C686059E6",
           "transact1x0Verifier": "0x60f446aADeBf209aE916FF4d5D1E5cDBEB97f79d",
-          "transact1x1Verifier": "0x237A48FDd46109bE32Bb4F6DA83EC586F8c8AcBc",
-          "transact1x2Verifier": "0x1Af96043957095Ea66482126780E36eBE1581004",
+          "transact1x1Verifier": "disabled",
+          "transact1x2Verifier": "disabled",
           "transact2x0Verifier": "0xE813d8EE0327036CC206102bAe38A17E217f3a74",
-          "transact2x1Verifier": "0xE9c9C0147bFB18F3F0F9e0889fc5c3f8F68f838c",
-          "transact2x2Verifier": "0x2E8C653E6d23b8D63b4e820dbb88850450F916A1",
+          "transact2x1Verifier": "disabled",
+          "transact2x2Verifier": "disabled",
           "sanctionCheck": false,
           "rollupWhitelist": [
             "0xE30A04c01224E968EdA56cC92bA1e4F73369A420",
@@ -1939,7 +1968,8 @@
             "59407850051236456308159312234055817108465803170572499707777425334332899251557"
           ],
           "rollup2Verifier": "0x4748d7aaeB526c9Cfe747c4B5A0c5b3b7258455F",
-          "rollup8Verifier": "0x3FE27e70745f9C4ec815fe0fe2004256C482d0b7"
+          "rollup8Verifier": "0x3FE27e70745f9C4ec815fe0fe2004256C482d0b7",
+          "disabledAt": 41003979
         },
         {
           "network": "polygontestnet",
@@ -1951,11 +1981,11 @@
           "rollup4Verifier": "0x54A62bEFfAae4a65AcC57411A8f8bB2C10D03D3B",
           "rollup16Verifier": "0x894dB60dFC73fE75B8ECE1Fcbc4cac9C686059E6",
           "transact1x0Verifier": "0x60f446aADeBf209aE916FF4d5D1E5cDBEB97f79d",
-          "transact1x1Verifier": "0x237A48FDd46109bE32Bb4F6DA83EC586F8c8AcBc",
-          "transact1x2Verifier": "0x1Af96043957095Ea66482126780E36eBE1581004",
+          "transact1x1Verifier": "disabled",
+          "transact1x2Verifier": "disabled",
           "transact2x0Verifier": "0xE813d8EE0327036CC206102bAe38A17E217f3a74",
-          "transact2x1Verifier": "0xE9c9C0147bFB18F3F0F9e0889fc5c3f8F68f838c",
-          "transact2x2Verifier": "0x2E8C653E6d23b8D63b4e820dbb88850450F916A1",
+          "transact2x1Verifier": "disabled",
+          "transact2x2Verifier": "disabled",
           "sanctionCheck": false,
           "rollupWhitelist": [
             "0xE30A04c01224E968EdA56cC92bA1e4F73369A420",
@@ -1974,7 +2004,8 @@
             "59407850051236456308159312234055817108465803170572499707777425334332899251557"
           ],
           "rollup2Verifier": "0x4748d7aaeB526c9Cfe747c4B5A0c5b3b7258455F",
-          "rollup8Verifier": "0x3FE27e70745f9C4ec815fe0fe2004256C482d0b7"
+          "rollup8Verifier": "0x3FE27e70745f9C4ec815fe0fe2004256C482d0b7",
+          "disabledAt": 41004015
         },
         {
           "network": "polygontestnet",
@@ -1986,11 +2017,11 @@
           "rollup4Verifier": "0x54A62bEFfAae4a65AcC57411A8f8bB2C10D03D3B",
           "rollup16Verifier": "0x894dB60dFC73fE75B8ECE1Fcbc4cac9C686059E6",
           "transact1x0Verifier": "0x60f446aADeBf209aE916FF4d5D1E5cDBEB97f79d",
-          "transact1x1Verifier": "0x237A48FDd46109bE32Bb4F6DA83EC586F8c8AcBc",
-          "transact1x2Verifier": "0x1Af96043957095Ea66482126780E36eBE1581004",
+          "transact1x1Verifier": "disabled",
+          "transact1x2Verifier": "disabled",
           "transact2x0Verifier": "0xE813d8EE0327036CC206102bAe38A17E217f3a74",
-          "transact2x1Verifier": "0xE9c9C0147bFB18F3F0F9e0889fc5c3f8F68f838c",
-          "transact2x2Verifier": "0x2E8C653E6d23b8D63b4e820dbb88850450F916A1",
+          "transact2x1Verifier": "disabled",
+          "transact2x2Verifier": "disabled",
           "sanctionCheck": false,
           "rollupWhitelist": [
             "0xE30A04c01224E968EdA56cC92bA1e4F73369A420",
@@ -2009,7 +2040,8 @@
             "59407850051236456308159312234055817108465803170572499707777425334332899251557"
           ],
           "rollup2Verifier": "0x4748d7aaeB526c9Cfe747c4B5A0c5b3b7258455F",
-          "rollup8Verifier": "0x3FE27e70745f9C4ec815fe0fe2004256C482d0b7"
+          "rollup8Verifier": "0x3FE27e70745f9C4ec815fe0fe2004256C482d0b7",
+          "disabledAt": 41004031
         },
         {
           "network": "polygontestnet",
@@ -2021,11 +2053,11 @@
           "rollup4Verifier": "0x54A62bEFfAae4a65AcC57411A8f8bB2C10D03D3B",
           "rollup16Verifier": "0x894dB60dFC73fE75B8ECE1Fcbc4cac9C686059E6",
           "transact1x0Verifier": "0x60f446aADeBf209aE916FF4d5D1E5cDBEB97f79d",
-          "transact1x1Verifier": "0x237A48FDd46109bE32Bb4F6DA83EC586F8c8AcBc",
-          "transact1x2Verifier": "0x1Af96043957095Ea66482126780E36eBE1581004",
+          "transact1x1Verifier": "disabled",
+          "transact1x2Verifier": "disabled",
           "transact2x0Verifier": "0xE813d8EE0327036CC206102bAe38A17E217f3a74",
-          "transact2x1Verifier": "0xE9c9C0147bFB18F3F0F9e0889fc5c3f8F68f838c",
-          "transact2x2Verifier": "0x2E8C653E6d23b8D63b4e820dbb88850450F916A1",
+          "transact2x1Verifier": "disabled",
+          "transact2x2Verifier": "disabled",
           "sanctionCheck": false,
           "rollupWhitelist": [
             "0xE30A04c01224E968EdA56cC92bA1e4F73369A420",
@@ -2044,7 +2076,8 @@
             "59407850051236456308159312234055817108465803170572499707777425334332899251557"
           ],
           "rollup2Verifier": "0x4748d7aaeB526c9Cfe747c4B5A0c5b3b7258455F",
-          "rollup8Verifier": "0x3FE27e70745f9C4ec815fe0fe2004256C482d0b7"
+          "rollup8Verifier": "0x3FE27e70745f9C4ec815fe0fe2004256C482d0b7",
+          "disabledAt": 41003998
         },
         {
           "network": "fantomtestnet",
@@ -2056,11 +2089,11 @@
           "rollup4Verifier": "0xF69721A01Dce998554AFe7D6368510c2d64F473e",
           "rollup16Verifier": "0x3838594C67e8BA8c0E8099B2A7477167082649A7",
           "transact1x0Verifier": "0xD69EC6CB5d19a3256C7d7131B05da9a6B132c937",
-          "transact1x1Verifier": "0xAFD6849A5A03286d6fED2Ce84f07c4c748d74bf8",
-          "transact1x2Verifier": "0xA713e3596C04E7e3FF4731243C75B83c57b6E974",
+          "transact1x1Verifier": "disabled",
+          "transact1x2Verifier": "disabled",
           "transact2x0Verifier": "0x59fAa7069dc34dDA60FF8764B8105C90C85590af",
-          "transact2x1Verifier": "0x5bbC43CfFD76B102E27BED5E906BCaa7D9E9C73f",
-          "transact2x2Verifier": "0x765088F35198bcfB04eb82C00c6A4ED203148C41",
+          "transact2x1Verifier": "disabled",
+          "transact2x2Verifier": "disabled",
           "sanctionCheck": false,
           "rollupWhitelist": [
             "0xE30A04c01224E968EdA56cC92bA1e4F73369A420",
@@ -2079,7 +2112,8 @@
             "59407850051236456308159312234055817108465803170572499707777425334332899251557"
           ],
           "rollup2Verifier": "0xd9f78c187A6d16253a64D2E66C3172D0a4ec82FD",
-          "rollup8Verifier": "0x76751e6197Af30050556a082Ebc1Aa84D1980be4"
+          "rollup8Verifier": "0x76751e6197Af30050556a082Ebc1Aa84D1980be4",
+          "disabledAt": 21331616
         },
         {
           "network": "fantomtestnet",
@@ -2091,11 +2125,11 @@
           "rollup4Verifier": "0xF69721A01Dce998554AFe7D6368510c2d64F473e",
           "rollup16Verifier": "0x3838594C67e8BA8c0E8099B2A7477167082649A7",
           "transact1x0Verifier": "0xD69EC6CB5d19a3256C7d7131B05da9a6B132c937",
-          "transact1x1Verifier": "0xAFD6849A5A03286d6fED2Ce84f07c4c748d74bf8",
-          "transact1x2Verifier": "0xA713e3596C04E7e3FF4731243C75B83c57b6E974",
+          "transact1x1Verifier": "disabled",
+          "transact1x2Verifier": "disabled",
           "transact2x0Verifier": "0x59fAa7069dc34dDA60FF8764B8105C90C85590af",
-          "transact2x1Verifier": "0x5bbC43CfFD76B102E27BED5E906BCaa7D9E9C73f",
-          "transact2x2Verifier": "0x765088F35198bcfB04eb82C00c6A4ED203148C41",
+          "transact2x1Verifier": "disabled",
+          "transact2x2Verifier": "disabled",
           "sanctionCheck": false,
           "rollupWhitelist": [
             "0xE30A04c01224E968EdA56cC92bA1e4F73369A420",
@@ -2114,7 +2148,8 @@
             "59407850051236456308159312234055817108465803170572499707777425334332899251557"
           ],
           "rollup2Verifier": "0xd9f78c187A6d16253a64D2E66C3172D0a4ec82FD",
-          "rollup8Verifier": "0x76751e6197Af30050556a082Ebc1Aa84D1980be4"
+          "rollup8Verifier": "0x76751e6197Af30050556a082Ebc1Aa84D1980be4",
+          "disabledAt": 21331605
         },
         {
           "network": "fantomtestnet",
@@ -2126,11 +2161,11 @@
           "rollup4Verifier": "0xF69721A01Dce998554AFe7D6368510c2d64F473e",
           "rollup16Verifier": "0x3838594C67e8BA8c0E8099B2A7477167082649A7",
           "transact1x0Verifier": "0xD69EC6CB5d19a3256C7d7131B05da9a6B132c937",
-          "transact1x1Verifier": "0xAFD6849A5A03286d6fED2Ce84f07c4c748d74bf8",
-          "transact1x2Verifier": "0xA713e3596C04E7e3FF4731243C75B83c57b6E974",
+          "transact1x1Verifier": "disabled",
+          "transact1x2Verifier": "disabled",
           "transact2x0Verifier": "0x59fAa7069dc34dDA60FF8764B8105C90C85590af",
-          "transact2x1Verifier": "0x5bbC43CfFD76B102E27BED5E906BCaa7D9E9C73f",
-          "transact2x2Verifier": "0x765088F35198bcfB04eb82C00c6A4ED203148C41",
+          "transact2x1Verifier": "disabled",
+          "transact2x2Verifier": "disabled",
           "sanctionCheck": false,
           "rollupWhitelist": [
             "0xE30A04c01224E968EdA56cC92bA1e4F73369A420",
@@ -2149,7 +2184,8 @@
             "59407850051236456308159312234055817108465803170572499707777425334332899251557"
           ],
           "rollup2Verifier": "0xd9f78c187A6d16253a64D2E66C3172D0a4ec82FD",
-          "rollup8Verifier": "0x76751e6197Af30050556a082Ebc1Aa84D1980be4"
+          "rollup8Verifier": "0x76751e6197Af30050556a082Ebc1Aa84D1980be4",
+          "disabledAt": 21331636
         },
         {
           "network": "fantomtestnet",
@@ -2161,11 +2197,11 @@
           "rollup4Verifier": "0xF69721A01Dce998554AFe7D6368510c2d64F473e",
           "rollup16Verifier": "0x3838594C67e8BA8c0E8099B2A7477167082649A7",
           "transact1x0Verifier": "0xD69EC6CB5d19a3256C7d7131B05da9a6B132c937",
-          "transact1x1Verifier": "0xAFD6849A5A03286d6fED2Ce84f07c4c748d74bf8",
-          "transact1x2Verifier": "0xA713e3596C04E7e3FF4731243C75B83c57b6E974",
+          "transact1x1Verifier": "disabled",
+          "transact1x2Verifier": "disabled",
           "transact2x0Verifier": "0x59fAa7069dc34dDA60FF8764B8105C90C85590af",
-          "transact2x1Verifier": "0x5bbC43CfFD76B102E27BED5E906BCaa7D9E9C73f",
-          "transact2x2Verifier": "0x765088F35198bcfB04eb82C00c6A4ED203148C41",
+          "transact2x1Verifier": "disabled",
+          "transact2x2Verifier": "disabled",
           "sanctionCheck": false,
           "rollupWhitelist": [
             "0xE30A04c01224E968EdA56cC92bA1e4F73369A420",
@@ -2184,7 +2220,8 @@
             "59407850051236456308159312234055817108465803170572499707777425334332899251557"
           ],
           "rollup2Verifier": "0xd9f78c187A6d16253a64D2E66C3172D0a4ec82FD",
-          "rollup8Verifier": "0x76751e6197Af30050556a082Ebc1Aa84D1980be4"
+          "rollup8Verifier": "0x76751e6197Af30050556a082Ebc1Aa84D1980be4",
+          "disabledAt": 21331669
         },
         {
           "network": "avalanchetestnet",
@@ -2196,11 +2233,11 @@
           "rollup4Verifier": "0x3FE27e70745f9C4ec815fe0fe2004256C482d0b7",
           "rollup16Verifier": "0x9F6A23Ae022297ce7aD7F22Cc0E9E41FfC2B6E60",
           "transact1x0Verifier": "0x0C3f9DE1B69Dc6F167A4923161ed615875Ca6E54",
-          "transact1x1Verifier": "0xB4DE55474fe6655ebC74A91abE896796EcEb640b",
-          "transact1x2Verifier": "0x70e3472c080A73854Ea42fBF70963c537b042728",
+          "transact1x1Verifier": "disabled",
+          "transact1x2Verifier": "disabled",
           "transact2x0Verifier": "0x90665b8712677367B6b410f00a4C0dbe3C06942e",
-          "transact2x1Verifier": "0x0e252c5440a0B6992af74a340FbaDE354979d2b4",
-          "transact2x2Verifier": "0x8BD0e88Fd5ee9e7860fCb3C5FB68F2099BD04A9e",
+          "transact2x1Verifier": "disabled",
+          "transact2x2Verifier": "disabled",
           "sanctionCheck": false,
           "rollupWhitelist": [
             "0xE30A04c01224E968EdA56cC92bA1e4F73369A420",
@@ -2219,7 +2256,8 @@
             "59407850051236456308159312234055817108465803170572499707777425334332899251557"
           ],
           "rollup2Verifier": "0x9Dd1C0d03F82ad9bCde145D142e72E63230669D5",
-          "rollup8Verifier": "0x8Fa6bBd890D95696E12F3244e5e171bDF0c50FD4"
+          "rollup8Verifier": "0x8Fa6bBd890D95696E12F3244e5e171bDF0c50FD4",
+          "disabledAt": 26611564
         },
         {
           "network": "avalanchetestnet",
@@ -2231,11 +2269,11 @@
           "rollup4Verifier": "0x3FE27e70745f9C4ec815fe0fe2004256C482d0b7",
           "rollup16Verifier": "0x9F6A23Ae022297ce7aD7F22Cc0E9E41FfC2B6E60",
           "transact1x0Verifier": "0x0C3f9DE1B69Dc6F167A4923161ed615875Ca6E54",
-          "transact1x1Verifier": "0xB4DE55474fe6655ebC74A91abE896796EcEb640b",
-          "transact1x2Verifier": "0x70e3472c080A73854Ea42fBF70963c537b042728",
+          "transact1x1Verifier": "disabled",
+          "transact1x2Verifier": "disabled",
           "transact2x0Verifier": "0x90665b8712677367B6b410f00a4C0dbe3C06942e",
-          "transact2x1Verifier": "0x0e252c5440a0B6992af74a340FbaDE354979d2b4",
-          "transact2x2Verifier": "0x8BD0e88Fd5ee9e7860fCb3C5FB68F2099BD04A9e",
+          "transact2x1Verifier": "disabled",
+          "transact2x2Verifier": "disabled",
           "sanctionCheck": false,
           "rollupWhitelist": [
             "0xE30A04c01224E968EdA56cC92bA1e4F73369A420",
@@ -2254,7 +2292,8 @@
             "59407850051236456308159312234055817108465803170572499707777425334332899251557"
           ],
           "rollup2Verifier": "0x9Dd1C0d03F82ad9bCde145D142e72E63230669D5",
-          "rollup8Verifier": "0x8Fa6bBd890D95696E12F3244e5e171bDF0c50FD4"
+          "rollup8Verifier": "0x8Fa6bBd890D95696E12F3244e5e171bDF0c50FD4",
+          "disabledAt": 26611543
         },
         {
           "network": "avalanchetestnet",
@@ -2266,11 +2305,11 @@
           "rollup4Verifier": "0x3FE27e70745f9C4ec815fe0fe2004256C482d0b7",
           "rollup16Verifier": "0x9F6A23Ae022297ce7aD7F22Cc0E9E41FfC2B6E60",
           "transact1x0Verifier": "0x0C3f9DE1B69Dc6F167A4923161ed615875Ca6E54",
-          "transact1x1Verifier": "0xB4DE55474fe6655ebC74A91abE896796EcEb640b",
-          "transact1x2Verifier": "0x70e3472c080A73854Ea42fBF70963c537b042728",
+          "transact1x1Verifier": "disabled",
+          "transact1x2Verifier": "disabled",
           "transact2x0Verifier": "0x90665b8712677367B6b410f00a4C0dbe3C06942e",
-          "transact2x1Verifier": "0x0e252c5440a0B6992af74a340FbaDE354979d2b4",
-          "transact2x2Verifier": "0x8BD0e88Fd5ee9e7860fCb3C5FB68F2099BD04A9e",
+          "transact2x1Verifier": "disabled",
+          "transact2x2Verifier": "disabled",
           "sanctionCheck": false,
           "rollupWhitelist": [
             "0xE30A04c01224E968EdA56cC92bA1e4F73369A420",
@@ -2289,7 +2328,8 @@
             "59407850051236456308159312234055817108465803170572499707777425334332899251557"
           ],
           "rollup2Verifier": "0x9Dd1C0d03F82ad9bCde145D142e72E63230669D5",
-          "rollup8Verifier": "0x8Fa6bBd890D95696E12F3244e5e171bDF0c50FD4"
+          "rollup8Verifier": "0x8Fa6bBd890D95696E12F3244e5e171bDF0c50FD4",
+          "disabledAt": 26611586
         },
         {
           "network": "avalanchetestnet",
@@ -2301,11 +2341,11 @@
           "rollup4Verifier": "0x3FE27e70745f9C4ec815fe0fe2004256C482d0b7",
           "rollup16Verifier": "0x9F6A23Ae022297ce7aD7F22Cc0E9E41FfC2B6E60",
           "transact1x0Verifier": "0x0C3f9DE1B69Dc6F167A4923161ed615875Ca6E54",
-          "transact1x1Verifier": "0xB4DE55474fe6655ebC74A91abE896796EcEb640b",
-          "transact1x2Verifier": "0x70e3472c080A73854Ea42fBF70963c537b042728",
+          "transact1x1Verifier": "disabled",
+          "transact1x2Verifier": "disabled",
           "transact2x0Verifier": "0x90665b8712677367B6b410f00a4C0dbe3C06942e",
-          "transact2x1Verifier": "0x0e252c5440a0B6992af74a340FbaDE354979d2b4",
-          "transact2x2Verifier": "0x8BD0e88Fd5ee9e7860fCb3C5FB68F2099BD04A9e",
+          "transact2x1Verifier": "disabled",
+          "transact2x2Verifier": "disabled",
           "sanctionCheck": false,
           "rollupWhitelist": [
             "0xE30A04c01224E968EdA56cC92bA1e4F73369A420",
@@ -2324,7 +2364,8 @@
             "59407850051236456308159312234055817108465803170572499707777425334332899251557"
           ],
           "rollup2Verifier": "0x9Dd1C0d03F82ad9bCde145D142e72E63230669D5",
-          "rollup8Verifier": "0x8Fa6bBd890D95696E12F3244e5e171bDF0c50FD4"
+          "rollup8Verifier": "0x8Fa6bBd890D95696E12F3244e5e171bDF0c50FD4",
+          "disabledAt": 26611605
         }
       ],
       "pairs": [
@@ -3010,11 +3051,11 @@
           "rollup4Verifier": "0x1a8D2c4E0E23c0a0b63DDd21043A96980f9a9559",
           "rollup16Verifier": "0x8f0F8967B092171B8a58d65418C2bdCb2925d38C",
           "transact1x0Verifier": "0x752c9daC3f97aa613aa6D69341A5AB550e434630",
-          "transact1x1Verifier": "0xf8c9FD55A7ed53E72B186F2a2C192B4dF7458a4F",
-          "transact1x2Verifier": "0xd621b81ff3ed6BAb112E08cA9ac1c03A6f507DBF",
+          "transact1x1Verifier": "disabled",
+          "transact1x2Verifier": "disabled",
           "transact2x0Verifier": "0x2E1D692722969ceE4391f1c7E9ee2154DF45249a",
-          "transact2x1Verifier": "0x5587d1016A0F7904C1c46Ddb85db995dF094015D",
-          "transact2x2Verifier": "0x5e54bBcA4af443ac2a3020D46f03C4DF9A16d4ba",
+          "transact2x1Verifier": "disabled",
+          "transact2x2Verifier": "disabled",
           "sanctionCheck": false,
           "rollupWhitelist": [
             "0xE30A04c01224E968EdA56cC92bA1e4F73369A420",
@@ -3033,7 +3074,8 @@
             "59407850051236456308159312234055817108465803170572499707777425334332899251557"
           ],
           "rollup2Verifier": "0x4b65aB0808bf78Bd5b049cD9885b77EC5d784830",
-          "rollup8Verifier": "0x5Fe4bf3d017613d59640603d50F44cDFb99ED274"
+          "rollup8Verifier": "0x5Fe4bf3d017613d59640603d50F44cDFb99ED274",
+          "disabledAt": 34047577
         },
         {
           "network": "bsctestnet",
@@ -3045,11 +3087,11 @@
           "rollup4Verifier": "0x1a8D2c4E0E23c0a0b63DDd21043A96980f9a9559",
           "rollup16Verifier": "0x8f0F8967B092171B8a58d65418C2bdCb2925d38C",
           "transact1x0Verifier": "0x752c9daC3f97aa613aa6D69341A5AB550e434630",
-          "transact1x1Verifier": "0xf8c9FD55A7ed53E72B186F2a2C192B4dF7458a4F",
-          "transact1x2Verifier": "0xd621b81ff3ed6BAb112E08cA9ac1c03A6f507DBF",
+          "transact1x1Verifier": "disabled",
+          "transact1x2Verifier": "disabled",
           "transact2x0Verifier": "0x2E1D692722969ceE4391f1c7E9ee2154DF45249a",
-          "transact2x1Verifier": "0x5587d1016A0F7904C1c46Ddb85db995dF094015D",
-          "transact2x2Verifier": "0x5e54bBcA4af443ac2a3020D46f03C4DF9A16d4ba",
+          "transact2x1Verifier": "disabled",
+          "transact2x2Verifier": "disabled",
           "sanctionCheck": false,
           "rollupWhitelist": [
             "0xE30A04c01224E968EdA56cC92bA1e4F73369A420",
@@ -3068,7 +3110,8 @@
             "59407850051236456308159312234055817108465803170572499707777425334332899251557"
           ],
           "rollup2Verifier": "0x4b65aB0808bf78Bd5b049cD9885b77EC5d784830",
-          "rollup8Verifier": "0x5Fe4bf3d017613d59640603d50F44cDFb99ED274"
+          "rollup8Verifier": "0x5Fe4bf3d017613d59640603d50F44cDFb99ED274",
+          "disabledAt": 34047598
         },
         {
           "network": "avalanchetestnet",
@@ -3080,11 +3123,11 @@
           "rollup4Verifier": "0x3FE27e70745f9C4ec815fe0fe2004256C482d0b7",
           "rollup16Verifier": "0x9F6A23Ae022297ce7aD7F22Cc0E9E41FfC2B6E60",
           "transact1x0Verifier": "0x0C3f9DE1B69Dc6F167A4923161ed615875Ca6E54",
-          "transact1x1Verifier": "0xB4DE55474fe6655ebC74A91abE896796EcEb640b",
-          "transact1x2Verifier": "0x70e3472c080A73854Ea42fBF70963c537b042728",
+          "transact1x1Verifier": "disabled",
+          "transact1x2Verifier": "disabled",
           "transact2x0Verifier": "0x90665b8712677367B6b410f00a4C0dbe3C06942e",
-          "transact2x1Verifier": "0x0e252c5440a0B6992af74a340FbaDE354979d2b4",
-          "transact2x2Verifier": "0x8BD0e88Fd5ee9e7860fCb3C5FB68F2099BD04A9e",
+          "transact2x1Verifier": "disabled",
+          "transact2x2Verifier": "disabled",
           "sanctionCheck": false,
           "rollupWhitelist": [
             "0xE30A04c01224E968EdA56cC92bA1e4F73369A420",
@@ -3103,7 +3146,8 @@
             "59407850051236456308159312234055817108465803170572499707777425334332899251557"
           ],
           "rollup2Verifier": "0x9Dd1C0d03F82ad9bCde145D142e72E63230669D5",
-          "rollup8Verifier": "0x8Fa6bBd890D95696E12F3244e5e171bDF0c50FD4"
+          "rollup8Verifier": "0x8Fa6bBd890D95696E12F3244e5e171bDF0c50FD4",
+          "disabledAt": 26611764
         },
         {
           "network": "avalanchetestnet",
@@ -3115,11 +3159,11 @@
           "rollup4Verifier": "0x3FE27e70745f9C4ec815fe0fe2004256C482d0b7",
           "rollup16Verifier": "0x9F6A23Ae022297ce7aD7F22Cc0E9E41FfC2B6E60",
           "transact1x0Verifier": "0x0C3f9DE1B69Dc6F167A4923161ed615875Ca6E54",
-          "transact1x1Verifier": "0xB4DE55474fe6655ebC74A91abE896796EcEb640b",
-          "transact1x2Verifier": "0x70e3472c080A73854Ea42fBF70963c537b042728",
+          "transact1x1Verifier": "disabled",
+          "transact1x2Verifier": "disabled",
           "transact2x0Verifier": "0x90665b8712677367B6b410f00a4C0dbe3C06942e",
-          "transact2x1Verifier": "0x0e252c5440a0B6992af74a340FbaDE354979d2b4",
-          "transact2x2Verifier": "0x8BD0e88Fd5ee9e7860fCb3C5FB68F2099BD04A9e",
+          "transact2x1Verifier": "disabled",
+          "transact2x2Verifier": "disabled",
           "sanctionCheck": false,
           "rollupWhitelist": [
             "0xE30A04c01224E968EdA56cC92bA1e4F73369A420",
@@ -3138,7 +3182,8 @@
             "59407850051236456308159312234055817108465803170572499707777425334332899251557"
           ],
           "rollup2Verifier": "0x9Dd1C0d03F82ad9bCde145D142e72E63230669D5",
-          "rollup8Verifier": "0x8Fa6bBd890D95696E12F3244e5e171bDF0c50FD4"
+          "rollup8Verifier": "0x8Fa6bBd890D95696E12F3244e5e171bDF0c50FD4",
+          "disabledAt": 26611785
         }
       ],
       "pairs": [
@@ -3160,7 +3205,7 @@
               "operator": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
               "maxAmount": "1000000000000000000000",
               "peerContract": "0xDDbF4fB58633a903b890f2C5ec11605063D8bFE1",
-              "trustedRemote": "0xDDbF4fB58633a903b890f2C5ec11605063D8bFE1"
+              "trustedRemote": "0xddbf4fb58633a903b890f2c5ec11605063d8bfe14df89b920b27269fe4eada114104c34ae874b1de"
             },
             {
               "network": "avalanchetestnet",
@@ -3178,7 +3223,7 @@
               "operator": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
               "maxAmount": "1000000000000000000000",
               "peerContract": "0x4DF89b920B27269fE4eAdA114104C34ae874b1dE",
-              "trustedRemote": "0x4DF89b920B27269fE4eAdA114104C34ae874b1dE"
+              "trustedRemote": "0x4df89b920b27269fe4eada114104c34ae874b1deddbf4fb58633a903b890f2c5ec11605063d8bfe1"
             }
           ]
         },
@@ -3200,7 +3245,7 @@
               "operator": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
               "maxAmount": "1000000000",
               "peerContract": "0xF08605C24bE4aB368aC149bCEeaa76763a760F68",
-              "trustedRemote": "0xF08605C24bE4aB368aC149bCEeaa76763a760F68"
+              "trustedRemote": "0xf08605c24be4ab368ac149bceeaa76763a760f6838aa9f98d9bbdb38eb063f37d57a79000ccbc329"
             },
             {
               "network": "avalanchetestnet",
@@ -3218,7 +3263,7 @@
               "operator": "0x0710f785E1835E1713fF6d9ccD0Aca2Ad2013022",
               "maxAmount": "1000000000",
               "peerContract": "0x38aA9F98D9Bbdb38eB063F37d57A79000cCbC329",
-              "trustedRemote": "0x38aA9F98D9Bbdb38eB063F37d57A79000cCbC329"
+              "trustedRemote": "0x38aa9f98d9bbdb38eb063f37d57a79000ccbc329f08605c24be4ab368ac149bceeaa76763a760f68"
             }
           ]
         }
@@ -3286,11 +3331,11 @@
           "rollup4Verifier": "0x3FE27e70745f9C4ec815fe0fe2004256C482d0b7",
           "rollup16Verifier": "0x9F6A23Ae022297ce7aD7F22Cc0E9E41FfC2B6E60",
           "transact1x0Verifier": "0x0C3f9DE1B69Dc6F167A4923161ed615875Ca6E54",
-          "transact1x1Verifier": "0xB4DE55474fe6655ebC74A91abE896796EcEb640b",
-          "transact1x2Verifier": "0x70e3472c080A73854Ea42fBF70963c537b042728",
+          "transact1x1Verifier": "disabled",
+          "transact1x2Verifier": "disabled",
           "transact2x0Verifier": "0x90665b8712677367B6b410f00a4C0dbe3C06942e",
-          "transact2x1Verifier": "0x0e252c5440a0B6992af74a340FbaDE354979d2b4",
-          "transact2x2Verifier": "0x8BD0e88Fd5ee9e7860fCb3C5FB68F2099BD04A9e",
+          "transact2x1Verifier": "disabled",
+          "transact2x2Verifier": "disabled",
           "sanctionCheck": false,
           "rollupWhitelist": [
             "0xE30A04c01224E968EdA56cC92bA1e4F73369A420",
@@ -3310,7 +3355,8 @@
             "59407850051236456308159312234055817108465803170572499707777425334332899251557"
           ],
           "rollup2Verifier": "0x9Dd1C0d03F82ad9bCde145D142e72E63230669D5",
-          "rollup8Verifier": "0x8Fa6bBd890D95696E12F3244e5e171bDF0c50FD4"
+          "rollup8Verifier": "0x8Fa6bBd890D95696E12F3244e5e171bDF0c50FD4",
+          "disabledAt": 26611804
         },
         {
           "network": "fantomtestnet",
@@ -3322,11 +3368,11 @@
           "rollup4Verifier": "0xF69721A01Dce998554AFe7D6368510c2d64F473e",
           "rollup16Verifier": "0x3838594C67e8BA8c0E8099B2A7477167082649A7",
           "transact1x0Verifier": "0xD69EC6CB5d19a3256C7d7131B05da9a6B132c937",
-          "transact1x1Verifier": "0xAFD6849A5A03286d6fED2Ce84f07c4c748d74bf8",
-          "transact1x2Verifier": "0xA713e3596C04E7e3FF4731243C75B83c57b6E974",
+          "transact1x1Verifier": "disabled",
+          "transact1x2Verifier": "disabled",
           "transact2x0Verifier": "0x59fAa7069dc34dDA60FF8764B8105C90C85590af",
-          "transact2x1Verifier": "0x5bbC43CfFD76B102E27BED5E906BCaa7D9E9C73f",
-          "transact2x2Verifier": "0x765088F35198bcfB04eb82C00c6A4ED203148C41",
+          "transact2x1Verifier": "disabled",
+          "transact2x2Verifier": "disabled",
           "sanctionCheck": false,
           "rollupWhitelist": [
             "0xE30A04c01224E968EdA56cC92bA1e4F73369A420",
@@ -3345,7 +3391,8 @@
             "59407850051236456308159312234055817108465803170572499707777425334332899251557"
           ],
           "rollup2Verifier": "0xd9f78c187A6d16253a64D2E66C3172D0a4ec82FD",
-          "rollup8Verifier": "0x76751e6197Af30050556a082Ebc1Aa84D1980be4"
+          "rollup8Verifier": "0x76751e6197Af30050556a082Ebc1Aa84D1980be4",
+          "disabledAt": 21331793
         },
         {
           "network": "polygontestnet",
@@ -3357,11 +3404,11 @@
           "rollup4Verifier": "0x54A62bEFfAae4a65AcC57411A8f8bB2C10D03D3B",
           "rollup16Verifier": "0x894dB60dFC73fE75B8ECE1Fcbc4cac9C686059E6",
           "transact1x0Verifier": "0x60f446aADeBf209aE916FF4d5D1E5cDBEB97f79d",
-          "transact1x1Verifier": "0x237A48FDd46109bE32Bb4F6DA83EC586F8c8AcBc",
-          "transact1x2Verifier": "0x1Af96043957095Ea66482126780E36eBE1581004",
+          "transact1x1Verifier": "disabled",
+          "transact1x2Verifier": "disabled",
           "transact2x0Verifier": "0xE813d8EE0327036CC206102bAe38A17E217f3a74",
-          "transact2x1Verifier": "0xE9c9C0147bFB18F3F0F9e0889fc5c3f8F68f838c",
-          "transact2x2Verifier": "0x2E8C653E6d23b8D63b4e820dbb88850450F916A1",
+          "transact2x1Verifier": "disabled",
+          "transact2x2Verifier": "disabled",
           "sanctionCheck": false,
           "rollupWhitelist": [
             "0xE30A04c01224E968EdA56cC92bA1e4F73369A420",
@@ -3380,7 +3427,8 @@
             "59407850051236456308159312234055817108465803170572499707777425334332899251557"
           ],
           "rollup2Verifier": "0x4748d7aaeB526c9Cfe747c4B5A0c5b3b7258455F",
-          "rollup8Verifier": "0x3FE27e70745f9C4ec815fe0fe2004256C482d0b7"
+          "rollup8Verifier": "0x3FE27e70745f9C4ec815fe0fe2004256C482d0b7",
+          "disabledAt": 41004315
         }
       ],
       "pairs": [
@@ -3664,11 +3712,11 @@
           "rollup4Verifier": "0xd9f78c187A6d16253a64D2E66C3172D0a4ec82FD",
           "rollup16Verifier": "0x76751e6197Af30050556a082Ebc1Aa84D1980be4",
           "transact1x0Verifier": "0x290362A9458816417F7c0F229FeeA026E23731a4",
-          "transact1x1Verifier": "0x9E0Ca5692E5fA4bB1bdEE799d9D53c3a1D9e2C05",
-          "transact1x2Verifier": "0x3f54E4B3EF26Cc6a3e9eCf83ECA4F832F5469F6d",
+          "transact1x1Verifier": "disabled",
+          "transact1x2Verifier": "disabled",
           "transact2x0Verifier": "0xF2cf42d18ad737B6514c9854e92dA57c90f26821",
-          "transact2x1Verifier": "0x52BB45145e27f813809C88E06b558a225976d9A2",
-          "transact2x2Verifier": "0x61692b542eA36374E23d4CAdF0dDf6FeA1f3A379",
+          "transact2x1Verifier": "disabled",
+          "transact2x2Verifier": "disabled",
           "sanctionCheck": false,
           "rollupWhitelist": [
             "0xE30A04c01224E968EdA56cC92bA1e4F73369A420",
@@ -3691,7 +3739,8 @@
             "59407850051236456308159312234055817108465803170572499707777425334332899251557"
           ],
           "rollup2Verifier": "0x1Df14E80756Dc0D4Bcba98d411899f53f9118402",
-          "rollup8Verifier": "0x62131b656c7304b066C22081b1e00dDc73d968DF"
+          "rollup8Verifier": "0x62131b656c7304b066C22081b1e00dDc73d968DF",
+          "disabledAt": 9835300
         },
         {
           "network": "goerli",
@@ -3703,11 +3752,11 @@
           "rollup4Verifier": "0xd9f78c187A6d16253a64D2E66C3172D0a4ec82FD",
           "rollup16Verifier": "0x76751e6197Af30050556a082Ebc1Aa84D1980be4",
           "transact1x0Verifier": "0x290362A9458816417F7c0F229FeeA026E23731a4",
-          "transact1x1Verifier": "0x9E0Ca5692E5fA4bB1bdEE799d9D53c3a1D9e2C05",
-          "transact1x2Verifier": "0x3f54E4B3EF26Cc6a3e9eCf83ECA4F832F5469F6d",
+          "transact1x1Verifier": "disabled",
+          "transact1x2Verifier": "disabled",
           "transact2x0Verifier": "0xF2cf42d18ad737B6514c9854e92dA57c90f26821",
-          "transact2x1Verifier": "0x52BB45145e27f813809C88E06b558a225976d9A2",
-          "transact2x2Verifier": "0x61692b542eA36374E23d4CAdF0dDf6FeA1f3A379",
+          "transact2x1Verifier": "disabled",
+          "transact2x2Verifier": "disabled",
           "sanctionCheck": false,
           "rollupWhitelist": [
             "0xE30A04c01224E968EdA56cC92bA1e4F73369A420",
@@ -3730,7 +3779,8 @@
             "59407850051236456308159312234055817108465803170572499707777425334332899251557"
           ],
           "rollup2Verifier": "0x1Df14E80756Dc0D4Bcba98d411899f53f9118402",
-          "rollup8Verifier": "0x62131b656c7304b066C22081b1e00dDc73d968DF"
+          "rollup8Verifier": "0x62131b656c7304b066C22081b1e00dDc73d968DF",
+          "disabledAt": 9835311
         },
         {
           "network": "goerli",
@@ -3742,11 +3792,11 @@
           "rollup4Verifier": "0xd9f78c187A6d16253a64D2E66C3172D0a4ec82FD",
           "rollup16Verifier": "0x76751e6197Af30050556a082Ebc1Aa84D1980be4",
           "transact1x0Verifier": "0x290362A9458816417F7c0F229FeeA026E23731a4",
-          "transact1x1Verifier": "0x9E0Ca5692E5fA4bB1bdEE799d9D53c3a1D9e2C05",
-          "transact1x2Verifier": "0x3f54E4B3EF26Cc6a3e9eCf83ECA4F832F5469F6d",
+          "transact1x1Verifier": "disabled",
+          "transact1x2Verifier": "disabled",
           "transact2x0Verifier": "0xF2cf42d18ad737B6514c9854e92dA57c90f26821",
-          "transact2x1Verifier": "0x52BB45145e27f813809C88E06b558a225976d9A2",
-          "transact2x2Verifier": "0x61692b542eA36374E23d4CAdF0dDf6FeA1f3A379",
+          "transact2x1Verifier": "disabled",
+          "transact2x2Verifier": "disabled",
           "sanctionCheck": false,
           "rollupWhitelist": [
             "0xE30A04c01224E968EdA56cC92bA1e4F73369A420",
@@ -3769,7 +3819,8 @@
             "59407850051236456308159312234055817108465803170572499707777425334332899251557"
           ],
           "rollup2Verifier": "0x1Df14E80756Dc0D4Bcba98d411899f53f9118402",
-          "rollup8Verifier": "0x62131b656c7304b066C22081b1e00dDc73d968DF"
+          "rollup8Verifier": "0x62131b656c7304b066C22081b1e00dDc73d968DF",
+          "disabledAt": 9835315
         },
         {
           "network": "goerli",
@@ -3781,11 +3832,11 @@
           "rollup4Verifier": "0xd9f78c187A6d16253a64D2E66C3172D0a4ec82FD",
           "rollup16Verifier": "0x76751e6197Af30050556a082Ebc1Aa84D1980be4",
           "transact1x0Verifier": "0x290362A9458816417F7c0F229FeeA026E23731a4",
-          "transact1x1Verifier": "0x9E0Ca5692E5fA4bB1bdEE799d9D53c3a1D9e2C05",
-          "transact1x2Verifier": "0x3f54E4B3EF26Cc6a3e9eCf83ECA4F832F5469F6d",
+          "transact1x1Verifier": "disabled",
+          "transact1x2Verifier": "disabled",
           "transact2x0Verifier": "0xF2cf42d18ad737B6514c9854e92dA57c90f26821",
-          "transact2x1Verifier": "0x52BB45145e27f813809C88E06b558a225976d9A2",
-          "transact2x2Verifier": "0x61692b542eA36374E23d4CAdF0dDf6FeA1f3A379",
+          "transact2x1Verifier": "disabled",
+          "transact2x2Verifier": "disabled",
           "sanctionCheck": false,
           "rollupWhitelist": [
             "0xE30A04c01224E968EdA56cC92bA1e4F73369A420",
@@ -3804,7 +3855,8 @@
             "59407850051236456308159312234055817108465803170572499707777425334332899251557"
           ],
           "rollup2Verifier": "0x1Df14E80756Dc0D4Bcba98d411899f53f9118402",
-          "rollup8Verifier": "0x62131b656c7304b066C22081b1e00dDc73d968DF"
+          "rollup8Verifier": "0x62131b656c7304b066C22081b1e00dDc73d968DF",
+          "disabledAt": 9835305
         },
         {
           "network": "goerli",
@@ -3816,11 +3868,11 @@
           "rollup4Verifier": "0xd9f78c187A6d16253a64D2E66C3172D0a4ec82FD",
           "rollup16Verifier": "0x76751e6197Af30050556a082Ebc1Aa84D1980be4",
           "transact1x0Verifier": "0x290362A9458816417F7c0F229FeeA026E23731a4",
-          "transact1x1Verifier": "0x9E0Ca5692E5fA4bB1bdEE799d9D53c3a1D9e2C05",
-          "transact1x2Verifier": "0x3f54E4B3EF26Cc6a3e9eCf83ECA4F832F5469F6d",
+          "transact1x1Verifier": "disabled",
+          "transact1x2Verifier": "disabled",
           "transact2x0Verifier": "0xF2cf42d18ad737B6514c9854e92dA57c90f26821",
-          "transact2x1Verifier": "0x52BB45145e27f813809C88E06b558a225976d9A2",
-          "transact2x2Verifier": "0x61692b542eA36374E23d4CAdF0dDf6FeA1f3A379",
+          "transact2x1Verifier": "disabled",
+          "transact2x2Verifier": "disabled",
           "sanctionCheck": false,
           "rollupWhitelist": [
             "0xE30A04c01224E968EdA56cC92bA1e4F73369A420",
@@ -3839,7 +3891,8 @@
             "59407850051236456308159312234055817108465803170572499707777425334332899251557"
           ],
           "rollup2Verifier": "0x1Df14E80756Dc0D4Bcba98d411899f53f9118402",
-          "rollup8Verifier": "0x62131b656c7304b066C22081b1e00dDc73d968DF"
+          "rollup8Verifier": "0x62131b656c7304b066C22081b1e00dDc73d968DF",
+          "disabledAt": 9835319
         },
         {
           "network": "goerli",
@@ -3851,11 +3904,11 @@
           "rollup4Verifier": "0xd9f78c187A6d16253a64D2E66C3172D0a4ec82FD",
           "rollup16Verifier": "0x76751e6197Af30050556a082Ebc1Aa84D1980be4",
           "transact1x0Verifier": "0x290362A9458816417F7c0F229FeeA026E23731a4",
-          "transact1x1Verifier": "0x9E0Ca5692E5fA4bB1bdEE799d9D53c3a1D9e2C05",
-          "transact1x2Verifier": "0x3f54E4B3EF26Cc6a3e9eCf83ECA4F832F5469F6d",
+          "transact1x1Verifier": "disabled",
+          "transact1x2Verifier": "disabled",
           "transact2x0Verifier": "0xF2cf42d18ad737B6514c9854e92dA57c90f26821",
-          "transact2x1Verifier": "0x52BB45145e27f813809C88E06b558a225976d9A2",
-          "transact2x2Verifier": "0x61692b542eA36374E23d4CAdF0dDf6FeA1f3A379",
+          "transact2x1Verifier": "disabled",
+          "transact2x2Verifier": "disabled",
           "sanctionCheck": false,
           "rollupWhitelist": [
             "0xE30A04c01224E968EdA56cC92bA1e4F73369A420",
@@ -3874,7 +3927,8 @@
             "59407850051236456308159312234055817108465803170572499707777425334332899251557"
           ],
           "rollup2Verifier": "0x1Df14E80756Dc0D4Bcba98d411899f53f9118402",
-          "rollup8Verifier": "0x62131b656c7304b066C22081b1e00dDc73d968DF"
+          "rollup8Verifier": "0x62131b656c7304b066C22081b1e00dDc73d968DF",
+          "disabledAt": 9835324
         },
         {
           "network": "goerli",
@@ -3886,11 +3940,11 @@
           "rollup4Verifier": "0xd9f78c187A6d16253a64D2E66C3172D0a4ec82FD",
           "rollup16Verifier": "0x76751e6197Af30050556a082Ebc1Aa84D1980be4",
           "transact1x0Verifier": "0x290362A9458816417F7c0F229FeeA026E23731a4",
-          "transact1x1Verifier": "0x9E0Ca5692E5fA4bB1bdEE799d9D53c3a1D9e2C05",
-          "transact1x2Verifier": "0x3f54E4B3EF26Cc6a3e9eCf83ECA4F832F5469F6d",
+          "transact1x1Verifier": "disabled",
+          "transact1x2Verifier": "disabled",
           "transact2x0Verifier": "0xF2cf42d18ad737B6514c9854e92dA57c90f26821",
-          "transact2x1Verifier": "0x52BB45145e27f813809C88E06b558a225976d9A2",
-          "transact2x2Verifier": "0x61692b542eA36374E23d4CAdF0dDf6FeA1f3A379",
+          "transact2x1Verifier": "disabled",
+          "transact2x2Verifier": "disabled",
           "sanctionCheck": false,
           "rollupWhitelist": [
             "0xE30A04c01224E968EdA56cC92bA1e4F73369A420",
@@ -3909,7 +3963,8 @@
             "59407850051236456308159312234055817108465803170572499707777425334332899251557"
           ],
           "rollup2Verifier": "0x1Df14E80756Dc0D4Bcba98d411899f53f9118402",
-          "rollup8Verifier": "0x62131b656c7304b066C22081b1e00dDc73d968DF"
+          "rollup8Verifier": "0x62131b656c7304b066C22081b1e00dDc73d968DF",
+          "disabledAt": 9835331
         },
         {
           "network": "goerli",
@@ -3921,11 +3976,11 @@
           "rollup4Verifier": "0xd9f78c187A6d16253a64D2E66C3172D0a4ec82FD",
           "rollup16Verifier": "0x76751e6197Af30050556a082Ebc1Aa84D1980be4",
           "transact1x0Verifier": "0x290362A9458816417F7c0F229FeeA026E23731a4",
-          "transact1x1Verifier": "0x9E0Ca5692E5fA4bB1bdEE799d9D53c3a1D9e2C05",
-          "transact1x2Verifier": "0x3f54E4B3EF26Cc6a3e9eCf83ECA4F832F5469F6d",
+          "transact1x1Verifier": "disabled",
+          "transact1x2Verifier": "disabled",
           "transact2x0Verifier": "0xF2cf42d18ad737B6514c9854e92dA57c90f26821",
-          "transact2x1Verifier": "0x52BB45145e27f813809C88E06b558a225976d9A2",
-          "transact2x2Verifier": "0x61692b542eA36374E23d4CAdF0dDf6FeA1f3A379",
+          "transact2x1Verifier": "disabled",
+          "transact2x2Verifier": "disabled",
           "sanctionCheck": false,
           "rollupWhitelist": [
             "0xE30A04c01224E968EdA56cC92bA1e4F73369A420",
@@ -3944,7 +3999,8 @@
             "59407850051236456308159312234055817108465803170572499707777425334332899251557"
           ],
           "rollup2Verifier": "0x1Df14E80756Dc0D4Bcba98d411899f53f9118402",
-          "rollup8Verifier": "0x62131b656c7304b066C22081b1e00dDc73d968DF"
+          "rollup8Verifier": "0x62131b656c7304b066C22081b1e00dDc73d968DF",
+          "disabledAt": 9835336
         },
         {
           "network": "bsctestnet",
@@ -3956,11 +4012,11 @@
           "rollup4Verifier": "0x1a8D2c4E0E23c0a0b63DDd21043A96980f9a9559",
           "rollup16Verifier": "0x8f0F8967B092171B8a58d65418C2bdCb2925d38C",
           "transact1x0Verifier": "0x752c9daC3f97aa613aa6D69341A5AB550e434630",
-          "transact1x1Verifier": "0xf8c9FD55A7ed53E72B186F2a2C192B4dF7458a4F",
-          "transact1x2Verifier": "0xd621b81ff3ed6BAb112E08cA9ac1c03A6f507DBF",
+          "transact1x1Verifier": "disabled",
+          "transact1x2Verifier": "disabled",
           "transact2x0Verifier": "0x2E1D692722969ceE4391f1c7E9ee2154DF45249a",
-          "transact2x1Verifier": "0x5587d1016A0F7904C1c46Ddb85db995dF094015D",
-          "transact2x2Verifier": "0x5e54bBcA4af443ac2a3020D46f03C4DF9A16d4ba",
+          "transact2x1Verifier": "disabled",
+          "transact2x2Verifier": "disabled",
           "sanctionCheck": false,
           "rollupWhitelist": [
             "0xE30A04c01224E968EdA56cC92bA1e4F73369A420",
@@ -3979,7 +4035,8 @@
             "59407850051236456308159312234055817108465803170572499707777425334332899251557"
           ],
           "rollup2Verifier": "0x4b65aB0808bf78Bd5b049cD9885b77EC5d784830",
-          "rollup8Verifier": "0x5Fe4bf3d017613d59640603d50F44cDFb99ED274"
+          "rollup8Verifier": "0x5Fe4bf3d017613d59640603d50F44cDFb99ED274",
+          "disabledAt": 34046842
         },
         {
           "network": "bsctestnet",
@@ -3991,11 +4048,11 @@
           "rollup4Verifier": "0x1a8D2c4E0E23c0a0b63DDd21043A96980f9a9559",
           "rollup16Verifier": "0x8f0F8967B092171B8a58d65418C2bdCb2925d38C",
           "transact1x0Verifier": "0x752c9daC3f97aa613aa6D69341A5AB550e434630",
-          "transact1x1Verifier": "0xf8c9FD55A7ed53E72B186F2a2C192B4dF7458a4F",
-          "transact1x2Verifier": "0xd621b81ff3ed6BAb112E08cA9ac1c03A6f507DBF",
+          "transact1x1Verifier": "disabled",
+          "transact1x2Verifier": "disabled",
           "transact2x0Verifier": "0x2E1D692722969ceE4391f1c7E9ee2154DF45249a",
-          "transact2x1Verifier": "0x5587d1016A0F7904C1c46Ddb85db995dF094015D",
-          "transact2x2Verifier": "0x5e54bBcA4af443ac2a3020D46f03C4DF9A16d4ba",
+          "transact2x1Verifier": "disabled",
+          "transact2x2Verifier": "disabled",
           "sanctionCheck": false,
           "rollupWhitelist": [
             "0xE30A04c01224E968EdA56cC92bA1e4F73369A420",
@@ -4014,7 +4071,8 @@
             "59407850051236456308159312234055817108465803170572499707777425334332899251557"
           ],
           "rollup2Verifier": "0x4b65aB0808bf78Bd5b049cD9885b77EC5d784830",
-          "rollup8Verifier": "0x5Fe4bf3d017613d59640603d50F44cDFb99ED274"
+          "rollup8Verifier": "0x5Fe4bf3d017613d59640603d50F44cDFb99ED274",
+          "disabledAt": 34046831
         },
         {
           "network": "bsctestnet",
@@ -4026,11 +4084,11 @@
           "rollup4Verifier": "0x1a8D2c4E0E23c0a0b63DDd21043A96980f9a9559",
           "rollup16Verifier": "0x8f0F8967B092171B8a58d65418C2bdCb2925d38C",
           "transact1x0Verifier": "0x752c9daC3f97aa613aa6D69341A5AB550e434630",
-          "transact1x1Verifier": "0xf8c9FD55A7ed53E72B186F2a2C192B4dF7458a4F",
-          "transact1x2Verifier": "0xd621b81ff3ed6BAb112E08cA9ac1c03A6f507DBF",
+          "transact1x1Verifier": "disabled",
+          "transact1x2Verifier": "disabled",
           "transact2x0Verifier": "0x2E1D692722969ceE4391f1c7E9ee2154DF45249a",
-          "transact2x1Verifier": "0x5587d1016A0F7904C1c46Ddb85db995dF094015D",
-          "transact2x2Verifier": "0x5e54bBcA4af443ac2a3020D46f03C4DF9A16d4ba",
+          "transact2x1Verifier": "disabled",
+          "transact2x2Verifier": "disabled",
           "sanctionCheck": false,
           "rollupWhitelist": [
             "0xE30A04c01224E968EdA56cC92bA1e4F73369A420",
@@ -4049,7 +4107,8 @@
             "59407850051236456308159312234055817108465803170572499707777425334332899251557"
           ],
           "rollup2Verifier": "0x4b65aB0808bf78Bd5b049cD9885b77EC5d784830",
-          "rollup8Verifier": "0x5Fe4bf3d017613d59640603d50F44cDFb99ED274"
+          "rollup8Verifier": "0x5Fe4bf3d017613d59640603d50F44cDFb99ED274",
+          "disabledAt": 34046854
         },
         {
           "network": "bsctestnet",
@@ -4061,11 +4120,11 @@
           "rollup4Verifier": "0x1a8D2c4E0E23c0a0b63DDd21043A96980f9a9559",
           "rollup16Verifier": "0x8f0F8967B092171B8a58d65418C2bdCb2925d38C",
           "transact1x0Verifier": "0x752c9daC3f97aa613aa6D69341A5AB550e434630",
-          "transact1x1Verifier": "0xf8c9FD55A7ed53E72B186F2a2C192B4dF7458a4F",
-          "transact1x2Verifier": "0xd621b81ff3ed6BAb112E08cA9ac1c03A6f507DBF",
+          "transact1x1Verifier": "disabled",
+          "transact1x2Verifier": "disabled",
           "transact2x0Verifier": "0x2E1D692722969ceE4391f1c7E9ee2154DF45249a",
-          "transact2x1Verifier": "0x5587d1016A0F7904C1c46Ddb85db995dF094015D",
-          "transact2x2Verifier": "0x5e54bBcA4af443ac2a3020D46f03C4DF9A16d4ba",
+          "transact2x1Verifier": "disabled",
+          "transact2x2Verifier": "disabled",
           "sanctionCheck": false,
           "rollupWhitelist": [
             "0xE30A04c01224E968EdA56cC92bA1e4F73369A420",
@@ -4084,7 +4143,8 @@
             "59407850051236456308159312234055817108465803170572499707777425334332899251557"
           ],
           "rollup2Verifier": "0x4b65aB0808bf78Bd5b049cD9885b77EC5d784830",
-          "rollup8Verifier": "0x5Fe4bf3d017613d59640603d50F44cDFb99ED274"
+          "rollup8Verifier": "0x5Fe4bf3d017613d59640603d50F44cDFb99ED274",
+          "disabledAt": 34046870
         },
         {
           "network": "polygontestnet",
@@ -4096,11 +4156,11 @@
           "rollup4Verifier": "0x54A62bEFfAae4a65AcC57411A8f8bB2C10D03D3B",
           "rollup16Verifier": "0x894dB60dFC73fE75B8ECE1Fcbc4cac9C686059E6",
           "transact1x0Verifier": "0x60f446aADeBf209aE916FF4d5D1E5cDBEB97f79d",
-          "transact1x1Verifier": "0x237A48FDd46109bE32Bb4F6DA83EC586F8c8AcBc",
-          "transact1x2Verifier": "0x1Af96043957095Ea66482126780E36eBE1581004",
+          "transact1x1Verifier": "disabled",
+          "transact1x2Verifier": "disabled",
           "transact2x0Verifier": "0xE813d8EE0327036CC206102bAe38A17E217f3a74",
-          "transact2x1Verifier": "0xE9c9C0147bFB18F3F0F9e0889fc5c3f8F68f838c",
-          "transact2x2Verifier": "0x2E8C653E6d23b8D63b4e820dbb88850450F916A1",
+          "transact2x1Verifier": "disabled",
+          "transact2x2Verifier": "disabled",
           "sanctionCheck": false,
           "rollupWhitelist": [
             "0xE30A04c01224E968EdA56cC92bA1e4F73369A420",
@@ -4119,7 +4179,8 @@
             "59407850051236456308159312234055817108465803170572499707777425334332899251557"
           ],
           "rollup2Verifier": "0x4748d7aaeB526c9Cfe747c4B5A0c5b3b7258455F",
-          "rollup8Verifier": "0x3FE27e70745f9C4ec815fe0fe2004256C482d0b7"
+          "rollup8Verifier": "0x3FE27e70745f9C4ec815fe0fe2004256C482d0b7",
+          "disabledAt": 41003382
         },
         {
           "network": "polygontestnet",
@@ -4131,11 +4192,11 @@
           "rollup4Verifier": "0x54A62bEFfAae4a65AcC57411A8f8bB2C10D03D3B",
           "rollup16Verifier": "0x894dB60dFC73fE75B8ECE1Fcbc4cac9C686059E6",
           "transact1x0Verifier": "0x60f446aADeBf209aE916FF4d5D1E5cDBEB97f79d",
-          "transact1x1Verifier": "0x237A48FDd46109bE32Bb4F6DA83EC586F8c8AcBc",
-          "transact1x2Verifier": "0x1Af96043957095Ea66482126780E36eBE1581004",
+          "transact1x1Verifier": "disabled",
+          "transact1x2Verifier": "disabled",
           "transact2x0Verifier": "0xE813d8EE0327036CC206102bAe38A17E217f3a74",
-          "transact2x1Verifier": "0xE9c9C0147bFB18F3F0F9e0889fc5c3f8F68f838c",
-          "transact2x2Verifier": "0x2E8C653E6d23b8D63b4e820dbb88850450F916A1",
+          "transact2x1Verifier": "disabled",
+          "transact2x2Verifier": "disabled",
           "sanctionCheck": false,
           "rollupWhitelist": [
             "0xE30A04c01224E968EdA56cC92bA1e4F73369A420",
@@ -4154,7 +4215,8 @@
             "59407850051236456308159312234055817108465803170572499707777425334332899251557"
           ],
           "rollup2Verifier": "0x4748d7aaeB526c9Cfe747c4B5A0c5b3b7258455F",
-          "rollup8Verifier": "0x3FE27e70745f9C4ec815fe0fe2004256C482d0b7"
+          "rollup8Verifier": "0x3FE27e70745f9C4ec815fe0fe2004256C482d0b7",
+          "disabledAt": 41003364
         },
         {
           "network": "polygontestnet",
@@ -4166,11 +4228,11 @@
           "rollup4Verifier": "0x54A62bEFfAae4a65AcC57411A8f8bB2C10D03D3B",
           "rollup16Verifier": "0x894dB60dFC73fE75B8ECE1Fcbc4cac9C686059E6",
           "transact1x0Verifier": "0x60f446aADeBf209aE916FF4d5D1E5cDBEB97f79d",
-          "transact1x1Verifier": "0x237A48FDd46109bE32Bb4F6DA83EC586F8c8AcBc",
-          "transact1x2Verifier": "0x1Af96043957095Ea66482126780E36eBE1581004",
+          "transact1x1Verifier": "disabled",
+          "transact1x2Verifier": "disabled",
           "transact2x0Verifier": "0xE813d8EE0327036CC206102bAe38A17E217f3a74",
-          "transact2x1Verifier": "0xE9c9C0147bFB18F3F0F9e0889fc5c3f8F68f838c",
-          "transact2x2Verifier": "0x2E8C653E6d23b8D63b4e820dbb88850450F916A1",
+          "transact2x1Verifier": "disabled",
+          "transact2x2Verifier": "disabled",
           "sanctionCheck": false,
           "rollupWhitelist": [
             "0xE30A04c01224E968EdA56cC92bA1e4F73369A420",
@@ -4189,7 +4251,8 @@
             "59407850051236456308159312234055817108465803170572499707777425334332899251557"
           ],
           "rollup2Verifier": "0x4748d7aaeB526c9Cfe747c4B5A0c5b3b7258455F",
-          "rollup8Verifier": "0x3FE27e70745f9C4ec815fe0fe2004256C482d0b7"
+          "rollup8Verifier": "0x3FE27e70745f9C4ec815fe0fe2004256C482d0b7",
+          "disabledAt": 41003400
         },
         {
           "network": "polygontestnet",
@@ -4201,11 +4264,11 @@
           "rollup4Verifier": "0x54A62bEFfAae4a65AcC57411A8f8bB2C10D03D3B",
           "rollup16Verifier": "0x894dB60dFC73fE75B8ECE1Fcbc4cac9C686059E6",
           "transact1x0Verifier": "0x60f446aADeBf209aE916FF4d5D1E5cDBEB97f79d",
-          "transact1x1Verifier": "0x237A48FDd46109bE32Bb4F6DA83EC586F8c8AcBc",
-          "transact1x2Verifier": "0x1Af96043957095Ea66482126780E36eBE1581004",
+          "transact1x1Verifier": "disabled",
+          "transact1x2Verifier": "disabled",
           "transact2x0Verifier": "0xE813d8EE0327036CC206102bAe38A17E217f3a74",
-          "transact2x1Verifier": "0xE9c9C0147bFB18F3F0F9e0889fc5c3f8F68f838c",
-          "transact2x2Verifier": "0x2E8C653E6d23b8D63b4e820dbb88850450F916A1",
+          "transact2x1Verifier": "disabled",
+          "transact2x2Verifier": "disabled",
           "sanctionCheck": false,
           "rollupWhitelist": [
             "0xE30A04c01224E968EdA56cC92bA1e4F73369A420",
@@ -4224,7 +4287,8 @@
             "59407850051236456308159312234055817108465803170572499707777425334332899251557"
           ],
           "rollup2Verifier": "0x4748d7aaeB526c9Cfe747c4B5A0c5b3b7258455F",
-          "rollup8Verifier": "0x3FE27e70745f9C4ec815fe0fe2004256C482d0b7"
+          "rollup8Verifier": "0x3FE27e70745f9C4ec815fe0fe2004256C482d0b7",
+          "disabledAt": 41003418
         },
         {
           "network": "avalanchetestnet",
@@ -4236,11 +4300,11 @@
           "rollup4Verifier": "0x3FE27e70745f9C4ec815fe0fe2004256C482d0b7",
           "rollup16Verifier": "0x9F6A23Ae022297ce7aD7F22Cc0E9E41FfC2B6E60",
           "transact1x0Verifier": "0x0C3f9DE1B69Dc6F167A4923161ed615875Ca6E54",
-          "transact1x1Verifier": "0xB4DE55474fe6655ebC74A91abE896796EcEb640b",
-          "transact1x2Verifier": "0x70e3472c080A73854Ea42fBF70963c537b042728",
+          "transact1x1Verifier": "disabled",
+          "transact1x2Verifier": "disabled",
           "transact2x0Verifier": "0x90665b8712677367B6b410f00a4C0dbe3C06942e",
-          "transact2x1Verifier": "0x0e252c5440a0B6992af74a340FbaDE354979d2b4",
-          "transact2x2Verifier": "0x8BD0e88Fd5ee9e7860fCb3C5FB68F2099BD04A9e",
+          "transact2x1Verifier": "disabled",
+          "transact2x2Verifier": "disabled",
           "sanctionCheck": false,
           "rollupWhitelist": [
             "0xE30A04c01224E968EdA56cC92bA1e4F73369A420",
@@ -4259,7 +4323,8 @@
             "59407850051236456308159312234055817108465803170572499707777425334332899251557"
           ],
           "rollup2Verifier": "0x9Dd1C0d03F82ad9bCde145D142e72E63230669D5",
-          "rollup8Verifier": "0x8Fa6bBd890D95696E12F3244e5e171bDF0c50FD4"
+          "rollup8Verifier": "0x8Fa6bBd890D95696E12F3244e5e171bDF0c50FD4",
+          "disabledAt": 26610940
         },
         {
           "network": "avalanchetestnet",
@@ -4271,11 +4336,11 @@
           "rollup4Verifier": "0x3FE27e70745f9C4ec815fe0fe2004256C482d0b7",
           "rollup16Verifier": "0x9F6A23Ae022297ce7aD7F22Cc0E9E41FfC2B6E60",
           "transact1x0Verifier": "0x0C3f9DE1B69Dc6F167A4923161ed615875Ca6E54",
-          "transact1x1Verifier": "0xB4DE55474fe6655ebC74A91abE896796EcEb640b",
-          "transact1x2Verifier": "0x70e3472c080A73854Ea42fBF70963c537b042728",
+          "transact1x1Verifier": "disabled",
+          "transact1x2Verifier": "disabled",
           "transact2x0Verifier": "0x90665b8712677367B6b410f00a4C0dbe3C06942e",
-          "transact2x1Verifier": "0x0e252c5440a0B6992af74a340FbaDE354979d2b4",
-          "transact2x2Verifier": "0x8BD0e88Fd5ee9e7860fCb3C5FB68F2099BD04A9e",
+          "transact2x1Verifier": "disabled",
+          "transact2x2Verifier": "disabled",
           "sanctionCheck": false,
           "rollupWhitelist": [
             "0xE30A04c01224E968EdA56cC92bA1e4F73369A420",
@@ -4294,7 +4359,8 @@
             "59407850051236456308159312234055817108465803170572499707777425334332899251557"
           ],
           "rollup2Verifier": "0x9Dd1C0d03F82ad9bCde145D142e72E63230669D5",
-          "rollup8Verifier": "0x8Fa6bBd890D95696E12F3244e5e171bDF0c50FD4"
+          "rollup8Verifier": "0x8Fa6bBd890D95696E12F3244e5e171bDF0c50FD4",
+          "disabledAt": 26610921
         },
         {
           "network": "avalanchetestnet",
@@ -4306,11 +4372,11 @@
           "rollup4Verifier": "0x3FE27e70745f9C4ec815fe0fe2004256C482d0b7",
           "rollup16Verifier": "0x9F6A23Ae022297ce7aD7F22Cc0E9E41FfC2B6E60",
           "transact1x0Verifier": "0x0C3f9DE1B69Dc6F167A4923161ed615875Ca6E54",
-          "transact1x1Verifier": "0xB4DE55474fe6655ebC74A91abE896796EcEb640b",
-          "transact1x2Verifier": "0x70e3472c080A73854Ea42fBF70963c537b042728",
+          "transact1x1Verifier": "disabled",
+          "transact1x2Verifier": "disabled",
           "transact2x0Verifier": "0x90665b8712677367B6b410f00a4C0dbe3C06942e",
-          "transact2x1Verifier": "0x0e252c5440a0B6992af74a340FbaDE354979d2b4",
-          "transact2x2Verifier": "0x8BD0e88Fd5ee9e7860fCb3C5FB68F2099BD04A9e",
+          "transact2x1Verifier": "disabled",
+          "transact2x2Verifier": "disabled",
           "sanctionCheck": false,
           "rollupWhitelist": [
             "0xE30A04c01224E968EdA56cC92bA1e4F73369A420",
@@ -4329,7 +4395,8 @@
             "59407850051236456308159312234055817108465803170572499707777425334332899251557"
           ],
           "rollup2Verifier": "0x9Dd1C0d03F82ad9bCde145D142e72E63230669D5",
-          "rollup8Verifier": "0x8Fa6bBd890D95696E12F3244e5e171bDF0c50FD4"
+          "rollup8Verifier": "0x8Fa6bBd890D95696E12F3244e5e171bDF0c50FD4",
+          "disabledAt": 26610955
         },
         {
           "network": "avalanchetestnet",
@@ -4341,11 +4408,11 @@
           "rollup4Verifier": "0x3FE27e70745f9C4ec815fe0fe2004256C482d0b7",
           "rollup16Verifier": "0x9F6A23Ae022297ce7aD7F22Cc0E9E41FfC2B6E60",
           "transact1x0Verifier": "0x0C3f9DE1B69Dc6F167A4923161ed615875Ca6E54",
-          "transact1x1Verifier": "0xB4DE55474fe6655ebC74A91abE896796EcEb640b",
-          "transact1x2Verifier": "0x70e3472c080A73854Ea42fBF70963c537b042728",
+          "transact1x1Verifier": "disabled",
+          "transact1x2Verifier": "disabled",
           "transact2x0Verifier": "0x90665b8712677367B6b410f00a4C0dbe3C06942e",
-          "transact2x1Verifier": "0x0e252c5440a0B6992af74a340FbaDE354979d2b4",
-          "transact2x2Verifier": "0x8BD0e88Fd5ee9e7860fCb3C5FB68F2099BD04A9e",
+          "transact2x1Verifier": "disabled",
+          "transact2x2Verifier": "disabled",
           "sanctionCheck": false,
           "rollupWhitelist": [
             "0xE30A04c01224E968EdA56cC92bA1e4F73369A420",
@@ -4364,7 +4431,8 @@
             "59407850051236456308159312234055817108465803170572499707777425334332899251557"
           ],
           "rollup2Verifier": "0x9Dd1C0d03F82ad9bCde145D142e72E63230669D5",
-          "rollup8Verifier": "0x8Fa6bBd890D95696E12F3244e5e171bDF0c50FD4"
+          "rollup8Verifier": "0x8Fa6bBd890D95696E12F3244e5e171bDF0c50FD4",
+          "disabledAt": 26610969
         },
         {
           "network": "fantomtestnet",
@@ -4376,11 +4444,11 @@
           "rollup4Verifier": "0xF69721A01Dce998554AFe7D6368510c2d64F473e",
           "rollup16Verifier": "0x3838594C67e8BA8c0E8099B2A7477167082649A7",
           "transact1x0Verifier": "0xD69EC6CB5d19a3256C7d7131B05da9a6B132c937",
-          "transact1x1Verifier": "0xAFD6849A5A03286d6fED2Ce84f07c4c748d74bf8",
-          "transact1x2Verifier": "0xA713e3596C04E7e3FF4731243C75B83c57b6E974",
+          "transact1x1Verifier": "disabled",
+          "transact1x2Verifier": "disabled",
           "transact2x0Verifier": "0x59fAa7069dc34dDA60FF8764B8105C90C85590af",
-          "transact2x1Verifier": "0x5bbC43CfFD76B102E27BED5E906BCaa7D9E9C73f",
-          "transact2x2Verifier": "0x765088F35198bcfB04eb82C00c6A4ED203148C41",
+          "transact2x1Verifier": "disabled",
+          "transact2x2Verifier": "disabled",
           "sanctionCheck": false,
           "rollupWhitelist": [
             "0xE30A04c01224E968EdA56cC92bA1e4F73369A420",
@@ -4399,7 +4467,8 @@
             "59407850051236456308159312234055817108465803170572499707777425334332899251557"
           ],
           "rollup2Verifier": "0xd9f78c187A6d16253a64D2E66C3172D0a4ec82FD",
-          "rollup8Verifier": "0x76751e6197Af30050556a082Ebc1Aa84D1980be4"
+          "rollup8Verifier": "0x76751e6197Af30050556a082Ebc1Aa84D1980be4",
+          "disabledAt": 21331210
         },
         {
           "network": "fantomtestnet",
@@ -4411,11 +4480,11 @@
           "rollup4Verifier": "0xF69721A01Dce998554AFe7D6368510c2d64F473e",
           "rollup16Verifier": "0x3838594C67e8BA8c0E8099B2A7477167082649A7",
           "transact1x0Verifier": "0xD69EC6CB5d19a3256C7d7131B05da9a6B132c937",
-          "transact1x1Verifier": "0xAFD6849A5A03286d6fED2Ce84f07c4c748d74bf8",
-          "transact1x2Verifier": "0xA713e3596C04E7e3FF4731243C75B83c57b6E974",
+          "transact1x1Verifier": "disabled",
+          "transact1x2Verifier": "disabled",
           "transact2x0Verifier": "0x59fAa7069dc34dDA60FF8764B8105C90C85590af",
-          "transact2x1Verifier": "0x5bbC43CfFD76B102E27BED5E906BCaa7D9E9C73f",
-          "transact2x2Verifier": "0x765088F35198bcfB04eb82C00c6A4ED203148C41",
+          "transact2x1Verifier": "disabled",
+          "transact2x2Verifier": "disabled",
           "sanctionCheck": false,
           "rollupWhitelist": [
             "0xE30A04c01224E968EdA56cC92bA1e4F73369A420",
@@ -4434,7 +4503,8 @@
             "59407850051236456308159312234055817108465803170572499707777425334332899251557"
           ],
           "rollup2Verifier": "0xd9f78c187A6d16253a64D2E66C3172D0a4ec82FD",
-          "rollup8Verifier": "0x76751e6197Af30050556a082Ebc1Aa84D1980be4"
+          "rollup8Verifier": "0x76751e6197Af30050556a082Ebc1Aa84D1980be4",
+          "disabledAt": 21331232
         },
         {
           "network": "fantomtestnet",
@@ -4446,11 +4516,11 @@
           "rollup4Verifier": "0xF69721A01Dce998554AFe7D6368510c2d64F473e",
           "rollup16Verifier": "0x3838594C67e8BA8c0E8099B2A7477167082649A7",
           "transact1x0Verifier": "0xD69EC6CB5d19a3256C7d7131B05da9a6B132c937",
-          "transact1x1Verifier": "0xAFD6849A5A03286d6fED2Ce84f07c4c748d74bf8",
-          "transact1x2Verifier": "0xA713e3596C04E7e3FF4731243C75B83c57b6E974",
+          "transact1x1Verifier": "disabled",
+          "transact1x2Verifier": "disabled",
           "transact2x0Verifier": "0x59fAa7069dc34dDA60FF8764B8105C90C85590af",
-          "transact2x1Verifier": "0x5bbC43CfFD76B102E27BED5E906BCaa7D9E9C73f",
-          "transact2x2Verifier": "0x765088F35198bcfB04eb82C00c6A4ED203148C41",
+          "transact2x1Verifier": "disabled",
+          "transact2x2Verifier": "disabled",
           "sanctionCheck": false,
           "rollupWhitelist": [
             "0xE30A04c01224E968EdA56cC92bA1e4F73369A420",
@@ -4469,7 +4539,8 @@
             "59407850051236456308159312234055817108465803170572499707777425334332899251557"
           ],
           "rollup2Verifier": "0xd9f78c187A6d16253a64D2E66C3172D0a4ec82FD",
-          "rollup8Verifier": "0x76751e6197Af30050556a082Ebc1Aa84D1980be4"
+          "rollup8Verifier": "0x76751e6197Af30050556a082Ebc1Aa84D1980be4",
+          "disabledAt": 21331204
         },
         {
           "network": "fantomtestnet",
@@ -4481,11 +4552,11 @@
           "rollup4Verifier": "0xF69721A01Dce998554AFe7D6368510c2d64F473e",
           "rollup16Verifier": "0x3838594C67e8BA8c0E8099B2A7477167082649A7",
           "transact1x0Verifier": "0xD69EC6CB5d19a3256C7d7131B05da9a6B132c937",
-          "transact1x1Verifier": "0xAFD6849A5A03286d6fED2Ce84f07c4c748d74bf8",
-          "transact1x2Verifier": "0xA713e3596C04E7e3FF4731243C75B83c57b6E974",
+          "transact1x1Verifier": "disabled",
+          "transact1x2Verifier": "disabled",
           "transact2x0Verifier": "0x59fAa7069dc34dDA60FF8764B8105C90C85590af",
-          "transact2x1Verifier": "0x5bbC43CfFD76B102E27BED5E906BCaa7D9E9C73f",
-          "transact2x2Verifier": "0x765088F35198bcfB04eb82C00c6A4ED203148C41",
+          "transact2x1Verifier": "disabled",
+          "transact2x2Verifier": "disabled",
           "sanctionCheck": false,
           "rollupWhitelist": [
             "0xE30A04c01224E968EdA56cC92bA1e4F73369A420",
@@ -4504,7 +4575,8 @@
             "59407850051236456308159312234055817108465803170572499707777425334332899251557"
           ],
           "rollup2Verifier": "0xd9f78c187A6d16253a64D2E66C3172D0a4ec82FD",
-          "rollup8Verifier": "0x76751e6197Af30050556a082Ebc1Aa84D1980be4"
+          "rollup8Verifier": "0x76751e6197Af30050556a082Ebc1Aa84D1980be4",
+          "disabledAt": 21331191
         },
         {
           "network": "moonbase",
@@ -4516,11 +4588,11 @@
           "rollup4Verifier": "0xCd1c9f9BAB3C996Ed72E4bf27C57d9d8EE6c208a",
           "rollup16Verifier": "0xAd8eFAd43dB5E231B36DC80e64E3eCca93036c2B",
           "transact1x0Verifier": "0x6D350f2BDa8406C0831b9a5d4A89b05feBAE89f2",
-          "transact1x1Verifier": "0xBa47799FEB41957A1af8bD98d19cD54B6a53c4df",
-          "transact1x2Verifier": "0xb8FC73AEb4e40BE2B45f2b40cf20BfA9D422dD47",
+          "transact1x1Verifier": "disabled",
+          "transact1x2Verifier": "disabled",
           "transact2x0Verifier": "0x995b08A34316B1ed6ad756F218e6500dF6a83D34",
-          "transact2x1Verifier": "0xA7299884Bcb5138d6314a023728e8C13A67C42e9",
-          "transact2x2Verifier": "0xc4229EA15bb98a58af8d5EbA76c16DcD6862A609",
+          "transact2x1Verifier": "disabled",
+          "transact2x2Verifier": "disabled",
           "sanctionCheck": false,
           "rollupWhitelist": [
             "0xE30A04c01224E968EdA56cC92bA1e4F73369A420",
@@ -4539,7 +4611,8 @@
             "59407850051236456308159312234055817108465803170572499707777425334332899251557"
           ],
           "rollup2Verifier": "0x5D1DaBd2613F91C293c16A0D4356d007e44f5620",
-          "rollup8Verifier": "0xd7D8c269A35fd039b551b8E8c4F33d27FD6Bf77A"
+          "rollup8Verifier": "0xd7D8c269A35fd039b551b8E8c4F33d27FD6Bf77A",
+          "disabledAt": 5262668
         },
         {
           "network": "moonbase",
@@ -4551,11 +4624,11 @@
           "rollup4Verifier": "0xCd1c9f9BAB3C996Ed72E4bf27C57d9d8EE6c208a",
           "rollup16Verifier": "0xAd8eFAd43dB5E231B36DC80e64E3eCca93036c2B",
           "transact1x0Verifier": "0x6D350f2BDa8406C0831b9a5d4A89b05feBAE89f2",
-          "transact1x1Verifier": "0xBa47799FEB41957A1af8bD98d19cD54B6a53c4df",
-          "transact1x2Verifier": "0xb8FC73AEb4e40BE2B45f2b40cf20BfA9D422dD47",
+          "transact1x1Verifier": "disabled",
+          "transact1x2Verifier": "disabled",
           "transact2x0Verifier": "0x995b08A34316B1ed6ad756F218e6500dF6a83D34",
-          "transact2x1Verifier": "0xA7299884Bcb5138d6314a023728e8C13A67C42e9",
-          "transact2x2Verifier": "0xc4229EA15bb98a58af8d5EbA76c16DcD6862A609",
+          "transact2x1Verifier": "disabled",
+          "transact2x2Verifier": "disabled",
           "sanctionCheck": false,
           "rollupWhitelist": [
             "0xE30A04c01224E968EdA56cC92bA1e4F73369A420",
@@ -4574,7 +4647,8 @@
             "59407850051236456308159312234055817108465803170572499707777425334332899251557"
           ],
           "rollup2Verifier": "0x5D1DaBd2613F91C293c16A0D4356d007e44f5620",
-          "rollup8Verifier": "0xd7D8c269A35fd039b551b8E8c4F33d27FD6Bf77A"
+          "rollup8Verifier": "0xd7D8c269A35fd039b551b8E8c4F33d27FD6Bf77A",
+          "disabledAt": 5262675
         },
         {
           "network": "moonbase",
@@ -4586,11 +4660,11 @@
           "rollup4Verifier": "0xCd1c9f9BAB3C996Ed72E4bf27C57d9d8EE6c208a",
           "rollup16Verifier": "0xAd8eFAd43dB5E231B36DC80e64E3eCca93036c2B",
           "transact1x0Verifier": "0x6D350f2BDa8406C0831b9a5d4A89b05feBAE89f2",
-          "transact1x1Verifier": "0xBa47799FEB41957A1af8bD98d19cD54B6a53c4df",
-          "transact1x2Verifier": "0xb8FC73AEb4e40BE2B45f2b40cf20BfA9D422dD47",
+          "transact1x1Verifier": "disabled",
+          "transact1x2Verifier": "disabled",
           "transact2x0Verifier": "0x995b08A34316B1ed6ad756F218e6500dF6a83D34",
-          "transact2x1Verifier": "0xA7299884Bcb5138d6314a023728e8C13A67C42e9",
-          "transact2x2Verifier": "0xc4229EA15bb98a58af8d5EbA76c16DcD6862A609",
+          "transact2x1Verifier": "disabled",
+          "transact2x2Verifier": "disabled",
           "sanctionCheck": false,
           "rollupWhitelist": [
             "0xE30A04c01224E968EdA56cC92bA1e4F73369A420",
@@ -4609,7 +4683,8 @@
             "59407850051236456308159312234055817108465803170572499707777425334332899251557"
           ],
           "rollup2Verifier": "0x5D1DaBd2613F91C293c16A0D4356d007e44f5620",
-          "rollup8Verifier": "0xd7D8c269A35fd039b551b8E8c4F33d27FD6Bf77A"
+          "rollup8Verifier": "0xd7D8c269A35fd039b551b8E8c4F33d27FD6Bf77A",
+          "disabledAt": 5262662
         },
         {
           "network": "moonbase",
@@ -4621,11 +4696,11 @@
           "rollup4Verifier": "0xCd1c9f9BAB3C996Ed72E4bf27C57d9d8EE6c208a",
           "rollup16Verifier": "0xAd8eFAd43dB5E231B36DC80e64E3eCca93036c2B",
           "transact1x0Verifier": "0x6D350f2BDa8406C0831b9a5d4A89b05feBAE89f2",
-          "transact1x1Verifier": "0xBa47799FEB41957A1af8bD98d19cD54B6a53c4df",
-          "transact1x2Verifier": "0xb8FC73AEb4e40BE2B45f2b40cf20BfA9D422dD47",
+          "transact1x1Verifier": "disabled",
+          "transact1x2Verifier": "disabled",
           "transact2x0Verifier": "0x995b08A34316B1ed6ad756F218e6500dF6a83D34",
-          "transact2x1Verifier": "0xA7299884Bcb5138d6314a023728e8C13A67C42e9",
-          "transact2x2Verifier": "0xc4229EA15bb98a58af8d5EbA76c16DcD6862A609",
+          "transact2x1Verifier": "disabled",
+          "transact2x2Verifier": "disabled",
           "sanctionCheck": false,
           "rollupWhitelist": [
             "0xE30A04c01224E968EdA56cC92bA1e4F73369A420",
@@ -4644,7 +4719,8 @@
             "59407850051236456308159312234055817108465803170572499707777425334332899251557"
           ],
           "rollup2Verifier": "0x5D1DaBd2613F91C293c16A0D4356d007e44f5620",
-          "rollup8Verifier": "0xd7D8c269A35fd039b551b8E8c4F33d27FD6Bf77A"
+          "rollup8Verifier": "0xd7D8c269A35fd039b551b8E8c4F33d27FD6Bf77A",
+          "disabledAt": 5262655
         }
       ],
       "pairs": [

@@ -1,6 +1,7 @@
 // deploy mystiko contract and config contract
 import { LOGRED } from './common/constant';
 import { loadConfig } from './config/config';
+import { checkOneTx } from './contract/depsit';
 import {
   depositAssociatedCommitmentPool,
   depositContractInstance,
@@ -10,7 +11,6 @@ import {
   depositPeerMinExecutorFee,
   depositPeerMinRollupFee,
   depositSanctionCheckQuery,
-  isDepositsDisabled,
 } from './contract/depsitQuery';
 import {
   poolAllAuditorPublicKeys,
@@ -54,6 +54,66 @@ export async function checkPool(c: any) {
       }
     }
   }
+}
+
+async function checkPoolTx(c: any) {
+  let tx = c.srcPoolCfg?.disabledAtTx;
+  await checkOneTx(tx);
+  tx = c.srcPoolCfg?.minRollupFeeTx;
+  await checkOneTx(tx);
+  tx = c.srcPoolCfg?.rollup1VerifierTx;
+  await checkOneTx(tx);
+  tx = c.srcPoolCfg?.rollup2VerifierTx;
+  await checkOneTx(tx);
+  tx = c.srcPoolCfg?.rollup4VerifierTx;
+  await checkOneTx(tx);
+  tx = c.srcPoolCfg?.rollup8VerifierTx;
+  await checkOneTx(tx);
+  tx = c.srcPoolCfg?.rollup16VerifierTx;
+  await checkOneTx(tx);
+  tx = c.srcPoolCfg?.transact1x0VerifierTx;
+  await checkOneTx(tx);
+  tx = c.srcPoolCfg?.transact1x1VerifierTx;
+  await checkOneTx(tx);
+  tx = c.srcPoolCfg?.transact1x2VerifierTx;
+  await checkOneTx(tx);
+  tx = c.srcPoolCfg?.transact2x0VerifierTx;
+  await checkOneTx(tx);
+  tx = c.srcPoolCfg?.transact2x1VerifierTx;
+  await checkOneTx(tx);
+  tx = c.srcPoolCfg?.transact2x2VerifierTx;
+  await checkOneTx(tx);
+  tx = c.srcPoolCfg?.sanctionCheckTx;
+  await checkOneTx(tx);
+  tx = c.srcPoolCfg?.tokenTransferTx;
+  await checkOneTx(tx);
+  tx = c.srcPoolCfg?.operatorTx;
+  await checkOneTx(tx);
+
+  /* eslint-disable no-await-in-loop */
+  /* eslint-disable no-restricted-syntax */
+  let txs = c.srcPoolCfg?.enqueueWhitelistTx;
+  if (txs) {
+    for (const enqueueTx of txs) {
+      await checkOneTx(enqueueTx);
+    }
+  }
+
+  txs = c.srcPoolCfg?.rollupWhitelistTx;
+  if (txs) {
+    for (const rollupTx of txs) {
+      await checkOneTx(rollupTx);
+    }
+  }
+
+  txs = c.srcPoolCfg?.auditorsTx;
+  if (txs) {
+    for (const auditorTx of txs) {
+      await checkOneTx(auditorTx);
+    }
+  }
+  /* eslint-enable no-await-in-loop */
+  /* eslint-enable no-restricted-syntax */
 }
 
 export async function checkDeposit(c: any) {
@@ -109,19 +169,45 @@ export async function checkDeposit(c: any) {
     console.log(LOGRED, 'deposit sanction mismatch', sactionCheck, c.pairSrcDepositCfg.sanctionCheck);
   }
 
-  const depositEnable = await isDepositsDisabled(depositContract);
-  if (depositEnable) {
-    console.log(LOGRED, 'deposit disable');
-  }
-
   const poolAddress = await depositAssociatedCommitmentPool(depositContract);
   if (poolAddress.toString() !== c.srcPoolCfg.address) {
     console.log(LOGRED, 'deposit pool address mismatch ', poolAddress, c.srcPoolCfg.address);
   }
 }
 
+async function checkDepositTx(c: any) {
+  let tx = c.srcPoolCfg?.disabledAtTx;
+  await checkOneTx(tx);
+  tx = c.srcPoolCfg?.minAmountTx;
+  await checkOneTx(tx);
+  tx = c.srcPoolCfg?.maxAmountTx;
+  await checkOneTx(tx);
+  tx = c.srcPoolCfg?.minBridgeFeeTx;
+  await checkOneTx(tx);
+  tx = c.srcPoolCfg?.minExecutorFeeTx;
+  await checkOneTx(tx);
+  tx = c.srcPoolCfg?.peerMinExecutorFeeTx;
+  await checkOneTx(tx);
+  tx = c.srcPoolCfg?.peerMinRollupFeeTx;
+  await checkOneTx(tx);
+  tx = c.srcPoolCfg?.commitmentPoolTx;
+  await checkOneTx(tx);
+  tx = c.srcPoolCfg?.bridgeProxyTx;
+  await checkOneTx(tx);
+  tx = c.srcPoolCfg?.peerContractTx;
+  await checkOneTx(tx);
+  tx = c.srcPoolCfg?.trustedRemoteTx;
+  await checkOneTx(tx);
+  tx = c.srcPoolCfg?.sanctionCheckTx;
+  await checkOneTx(tx);
+  tx = c.srcPoolCfg?.operatorTx;
+  await checkOneTx(tx);
+}
+
 export async function check(eth: any, taskArgs: any) {
   const c = loadConfig(taskArgs);
   await checkPool(c);
+  await checkPoolTx(c);
   await checkDeposit(c);
+  await checkDepositTx(c);
 }

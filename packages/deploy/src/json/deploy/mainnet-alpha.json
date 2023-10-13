@@ -1,5 +1,5 @@
 {
-  "version": 1,
+  "version": 5,
   "poolName": "alpha-20230223",
   "depositDisable": false,
   "circuits": [],
@@ -321,11 +321,11 @@
           "rollup8Verifier": "0x7dc9242a1220bAF92901c2FbC42BA5bEAfb3641e",
           "rollup16Verifier": "0xFd6e126A5dc6CdeC08e101cA6Bfe5dc1e5c5369f",
           "transact1x0Verifier": "0xE1Fb407510B50A318a38Cd38c7EF67DdCe17BF01",
-          "transact1x1Verifier": "0x2f8bC6f7b010d672BABf2c2dcb7300A88aE2c50C",
-          "transact1x2Verifier": "0xd02c62789D0A5b79D1f0C41500c8382ee8076a2C",
+          "transact1x1Verifier": "disabled",
+          "transact1x2Verifier": "disabled",
           "transact2x0Verifier": "0x00dD8C49Cd45B12A23928eD4203eD44758f457bc",
-          "transact2x1Verifier": "0x42D8D7082Ada7E497dBc3e36F074086893eD3EF6",
-          "transact2x2Verifier": "0x4b4136Af5e1D81657bE5cDdc2F24dDb1424204fB",
+          "transact2x1Verifier": "disabled",
+          "transact2x2Verifier": "disabled",
           "rollupWhitelist": [
             "0x740D5941bf285D6070896aAC9084AE9CF64F5913",
             "0xD2318B8a8028922BCE5871ea26b74babd9d61Cd5"
@@ -338,7 +338,12 @@
           "operator": "0xB1362DE09607A7f19C3510Ef355E129C44ee6190",
           "enqueueWhitelist": [
             "0x7F88F2A3Cf18E96844E14CaE59EC97B908734C01"
-          ]
+          ],
+          "transact1x1VerifierTx": "0xb917415df1ce403172e60874954e46ff2ae15459437ace921b4cc87119395630",
+          "transact1x2VerifierTx": "0x669490652b7e58697e36096669b253d1efa16a3a0411fed44648df6d3d6971f1",
+          "transact2x1VerifierTx": "0x9b1c8ddf9e24f9c2a2360056153c37969267259bbc874ed3b4f2fbd71b19015e",
+          "transact2x2VerifierTx": "0x39c94078ed275a0d62a4adaf9cf82aa5bb0e34b5edd5aac5353b5f8952bb2bf1",
+          "disabledAt": 18313636
         },
         {
           "network": "Ethereum",
@@ -353,11 +358,11 @@
           "rollup8Verifier": "0x7dc9242a1220bAF92901c2FbC42BA5bEAfb3641e",
           "rollup16Verifier": "0xFd6e126A5dc6CdeC08e101cA6Bfe5dc1e5c5369f",
           "transact1x0Verifier": "0xE1Fb407510B50A318a38Cd38c7EF67DdCe17BF01",
-          "transact1x1Verifier": "0x2f8bC6f7b010d672BABf2c2dcb7300A88aE2c50C",
-          "transact1x2Verifier": "0xd02c62789D0A5b79D1f0C41500c8382ee8076a2C",
+          "transact1x1Verifier": "disabled",
+          "transact1x2Verifier": "disabled",
           "transact2x0Verifier": "0x00dD8C49Cd45B12A23928eD4203eD44758f457bc",
-          "transact2x1Verifier": "0x42D8D7082Ada7E497dBc3e36F074086893eD3EF6",
-          "transact2x2Verifier": "0x4b4136Af5e1D81657bE5cDdc2F24dDb1424204fB",
+          "transact2x1Verifier": "disabled",
+          "transact2x2Verifier": "disabled",
           "rollupWhitelist": [
             "0x740D5941bf285D6070896aAC9084AE9CF64F5913",
             "0xD2318B8a8028922BCE5871ea26b74babd9d61Cd5"
@@ -370,7 +375,12 @@
           "operator": "0xB1362DE09607A7f19C3510Ef355E129C44ee6190",
           "enqueueWhitelist": [
             "0x01BC19b166986431F3f2A348497C4634defb4C29"
-          ]
+          ],
+          "transact1x1VerifierTx": "0xcbd2351dd11bf8f2e50bd30530af66c99450dbd37c7ac47975bab969e577150d",
+          "transact1x2VerifierTx": "0xb2c63e14de6e42c0726baf770dd09f7dcb0918dadd6d65b78ac09a131a6ae551",
+          "transact2x1VerifierTx": "0x6b4441f8220a4b6b9aa4635a2708ffb122acd4afc24dd3158cc3984413bb2c28",
+          "transact2x2VerifierTx": "0x4955e32f18c84ca3643735d1147349a85edc20a5928742c19b0b36550fd0c359",
+          "disabledAt": 18313641
         },
         {
           "network": "Ethereum",
@@ -385,11 +395,11 @@
           "rollup8Verifier": "0x7dc9242a1220bAF92901c2FbC42BA5bEAfb3641e",
           "rollup16Verifier": "0xFd6e126A5dc6CdeC08e101cA6Bfe5dc1e5c5369f",
           "transact1x0Verifier": "0xE1Fb407510B50A318a38Cd38c7EF67DdCe17BF01",
-          "transact1x1Verifier": "0x2f8bC6f7b010d672BABf2c2dcb7300A88aE2c50C",
-          "transact1x2Verifier": "0xd02c62789D0A5b79D1f0C41500c8382ee8076a2C",
+          "transact1x1Verifier": "disabled",
+          "transact1x2Verifier": "disabled",
           "transact2x0Verifier": "0x00dD8C49Cd45B12A23928eD4203eD44758f457bc",
-          "transact2x1Verifier": "0x42D8D7082Ada7E497dBc3e36F074086893eD3EF6",
-          "transact2x2Verifier": "0x4b4136Af5e1D81657bE5cDdc2F24dDb1424204fB",
+          "transact2x1Verifier": "disabled",
+          "transact2x2Verifier": "disabled",
           "rollupWhitelist": [
             "0x740D5941bf285D6070896aAC9084AE9CF64F5913",
             "0xD2318B8a8028922BCE5871ea26b74babd9d61Cd5"
@@ -402,7 +412,12 @@
           "operator": "0xB1362DE09607A7f19C3510Ef355E129C44ee6190",
           "enqueueWhitelist": [
             "0x53DFAB04453EF45bc637c2687020990c7C8C16bc"
-          ]
+          ],
+          "transact1x1VerifierTx": "0x82cfabc6d5defd8c6e98e4beb78a98d69976ab0080e0d18da34157f1578c98d0",
+          "transact1x2VerifierTx": "0xe7903b752bacd96aa6622791ff6ca1be23a6dd3ca259c7acb74fcf6c9be06049",
+          "transact2x1VerifierTx": "0xa796cce30f3c04ea5f0a6537a608989dfe2ebdffe0f9c477fccf6acda25741d3",
+          "transact2x2VerifierTx": "0x34a61aedb91801943850d7bbf852b81c29626657616833370b03a74932fa523d",
+          "disabledAt": 18313646
         },
         {
           "network": "BSC",
@@ -417,11 +432,11 @@
           "rollup8Verifier": "0x3c015FD0716cb82cFeEe0976e2d25E6e545A00cD",
           "rollup16Verifier": "0x40bDB50eebA618DEA9FB8dd37ffC3D8111fA2826",
           "transact1x0Verifier": "0x57Fbd29A381B09d0f0c94E5622F62aacF9e1B295",
-          "transact1x1Verifier": "0x422d151d8aa5c9F8AD75dC8Dff2dcd648B8b4e59",
-          "transact1x2Verifier": "0x8A21c3a4527611aB5CD8d926b33d3DfE539eb3EE",
+          "transact1x1Verifier": "disabled",
+          "transact1x2Verifier": "disabled",
           "transact2x0Verifier": "0x506BCf537698214e8F69B9e96E7f7aBA4F9A9A63",
-          "transact2x1Verifier": "0x90B78efbF17C7fA8eB9BBb6cca7fcDEA65b516d3",
-          "transact2x2Verifier": "0x53FDc92C3CAc3A50eb5967c54Add616F3810B1b2",
+          "transact2x1Verifier": "disabled",
+          "transact2x2Verifier": "disabled",
           "rollupWhitelist": [
             "0x740D5941bf285D6070896aAC9084AE9CF64F5913",
             "0xD2318B8a8028922BCE5871ea26b74babd9d61Cd5"
@@ -434,7 +449,12 @@
           "operator": "0xB1362DE09607A7f19C3510Ef355E129C44ee6190",
           "enqueueWhitelist": [
             "0x7F88F2A3Cf18E96844E14CaE59EC97B908734C01"
-          ]
+          ],
+          "transact1x1VerifierTx": "0x784d6bf8f056a05f247b0d709df6a87aa42bb8f61df763792dfb84abb8c51d49",
+          "transact1x2VerifierTx": "0xe56ae2ec2b0a7a1058bb52d85bb42a19b712a645739529a0ca209bfbe98cda1c",
+          "transact2x1VerifierTx": "0xff7012c6f896a5949a921cdc6be79961e4e62134fdfb01cdf9bffe60ff162ebb",
+          "transact2x2VerifierTx": "0xda0338acc0ceadd6d6bca07c9a657e2b109858510463992491dcd37b89d5476f",
+          "disabledAt": 32455593
         },
         {
           "network": "BSC",
@@ -449,11 +469,11 @@
           "rollup8Verifier": "0x3c015FD0716cb82cFeEe0976e2d25E6e545A00cD",
           "rollup16Verifier": "0x40bDB50eebA618DEA9FB8dd37ffC3D8111fA2826",
           "transact1x0Verifier": "0x57Fbd29A381B09d0f0c94E5622F62aacF9e1B295",
-          "transact1x1Verifier": "0x422d151d8aa5c9F8AD75dC8Dff2dcd648B8b4e59",
-          "transact1x2Verifier": "0x8A21c3a4527611aB5CD8d926b33d3DfE539eb3EE",
+          "transact1x1Verifier": "disabled",
+          "transact1x2Verifier": "disabled",
           "transact2x0Verifier": "0x506BCf537698214e8F69B9e96E7f7aBA4F9A9A63",
-          "transact2x1Verifier": "0x90B78efbF17C7fA8eB9BBb6cca7fcDEA65b516d3",
-          "transact2x2Verifier": "0x53FDc92C3CAc3A50eb5967c54Add616F3810B1b2",
+          "transact2x1Verifier": "disabled",
+          "transact2x2Verifier": "disabled",
           "rollupWhitelist": [
             "0x740D5941bf285D6070896aAC9084AE9CF64F5913",
             "0xD2318B8a8028922BCE5871ea26b74babd9d61Cd5"
@@ -466,7 +486,12 @@
           "operator": "0xB1362DE09607A7f19C3510Ef355E129C44ee6190",
           "enqueueWhitelist": [
             "0x01BC19b166986431F3f2A348497C4634defb4C29"
-          ]
+          ],
+          "transact1x1VerifierTx": "0xb008f9bd4529aad7168e087fb5a9d7e6de4663e4d85c489cfab58de7444a682f",
+          "transact1x2VerifierTx": "0xc36b141072ea2c1c14f1fa96a9cf2251636394a0a4c7595190d04cf6e8c73ca6",
+          "transact2x1VerifierTx": "0x9b5038be2d5e4000ce1b7230721728ff3630e18c1b6a1cf7cd128e3d158e0ef4",
+          "transact2x2VerifierTx": "0xdbf9d06aaf2bfa854475fbbe411b6bc56ebefd75581d24135aa11415679c948e",
+          "disabledAt": 32455606
         },
         {
           "network": "BSC",
@@ -481,11 +506,11 @@
           "rollup8Verifier": "0x3c015FD0716cb82cFeEe0976e2d25E6e545A00cD",
           "rollup16Verifier": "0x40bDB50eebA618DEA9FB8dd37ffC3D8111fA2826",
           "transact1x0Verifier": "0x57Fbd29A381B09d0f0c94E5622F62aacF9e1B295",
-          "transact1x1Verifier": "0x422d151d8aa5c9F8AD75dC8Dff2dcd648B8b4e59",
-          "transact1x2Verifier": "0x8A21c3a4527611aB5CD8d926b33d3DfE539eb3EE",
+          "transact1x1Verifier": "disabled",
+          "transact1x2Verifier": "disabled",
           "transact2x0Verifier": "0x506BCf537698214e8F69B9e96E7f7aBA4F9A9A63",
-          "transact2x1Verifier": "0x90B78efbF17C7fA8eB9BBb6cca7fcDEA65b516d3",
-          "transact2x2Verifier": "0x53FDc92C3CAc3A50eb5967c54Add616F3810B1b2",
+          "transact2x1Verifier": "disabled",
+          "transact2x2Verifier": "disabled",
           "rollupWhitelist": [
             "0x740D5941bf285D6070896aAC9084AE9CF64F5913",
             "0xD2318B8a8028922BCE5871ea26b74babd9d61Cd5"
@@ -498,7 +523,12 @@
           "operator": "0xB1362DE09607A7f19C3510Ef355E129C44ee6190",
           "enqueueWhitelist": [
             "0x53DFAB04453EF45bc637c2687020990c7C8C16bc"
-          ]
+          ],
+          "transact1x1VerifierTx": "0xea4bb7ee8d7f60bd7a8863b715a3f7f8da8ad25465d13ee9ebc83fe01f7f5433",
+          "transact1x2VerifierTx": "0xce84ff11b86225addaa0ba0071291790f440a6770f573a1237e8ea0dbda3ad81",
+          "transact2x1VerifierTx": "0x3e8a83e945d63a85858d3e0bf391729422fd0c76547cd409bd3e60d5e1d891d2",
+          "transact2x2VerifierTx": "0xfd9fdb8eaca2756503e533025a632328da917db6a3199ff734e85fb93f913cf8",
+          "disabledAt": 32455625
         },
         {
           "network": "BSC",
@@ -513,11 +543,11 @@
           "rollup8Verifier": "0x3c015FD0716cb82cFeEe0976e2d25E6e545A00cD",
           "rollup16Verifier": "0x40bDB50eebA618DEA9FB8dd37ffC3D8111fA2826",
           "transact1x0Verifier": "0x57Fbd29A381B09d0f0c94E5622F62aacF9e1B295",
-          "transact1x1Verifier": "0x422d151d8aa5c9F8AD75dC8Dff2dcd648B8b4e59",
-          "transact1x2Verifier": "0x8A21c3a4527611aB5CD8d926b33d3DfE539eb3EE",
+          "transact1x1Verifier": "disabled",
+          "transact1x2Verifier": "disabled",
           "transact2x0Verifier": "0x506BCf537698214e8F69B9e96E7f7aBA4F9A9A63",
-          "transact2x1Verifier": "0x90B78efbF17C7fA8eB9BBb6cca7fcDEA65b516d3",
-          "transact2x2Verifier": "0x53FDc92C3CAc3A50eb5967c54Add616F3810B1b2",
+          "transact2x1Verifier": "disabled",
+          "transact2x2Verifier": "disabled",
           "rollupWhitelist": [
             "0x740D5941bf285D6070896aAC9084AE9CF64F5913",
             "0xD2318B8a8028922BCE5871ea26b74babd9d61Cd5"
@@ -530,7 +560,12 @@
           "operator": "0xB1362DE09607A7f19C3510Ef355E129C44ee6190",
           "enqueueWhitelist": [
             "0x4a6caE179dCb4423F548c2D1F48589374FbC6c67"
-          ]
+          ],
+          "transact1x1VerifierTx": "0x1e3ab01543b40fd10f200522046c6fa2abb1131e135ddfc39d9ffff5de3ba748",
+          "transact1x2VerifierTx": "0xa91b198a22f7d08fccb4e6ba54debb73edc10b73739bca5376a70283b3eaa381",
+          "transact2x1VerifierTx": "0xdfa5676ea89b81d8c03258e922c48a867425298519d50b2ecbd4f6690dac67f5",
+          "transact2x2VerifierTx": "0x7d5696bc75f2f596f0e36bdcbeee04a23d90bb49b2eb9b2e929d5d858284f627",
+          "disabledAt": 32455639
         },
         {
           "network": "Polygon",
@@ -545,11 +580,11 @@
           "rollup8Verifier": "0xc30dE5380E370FD3FE74b8E855DA515195086fa5",
           "rollup16Verifier": "0x7318AF46Ca9c7aD9845d66f322656335037B1EaC",
           "transact1x0Verifier": "0xda84f860B57639B1F04Bb2C9Ef081260A3Da6F0a",
-          "transact1x1Verifier": "0x84DbE5d8B42d344C8f852d580B0474a96D296186",
-          "transact1x2Verifier": "0xF2DC0AfE64b26E144F373638298C26D42c654b10",
+          "transact1x1Verifier": "disabled",
+          "transact1x2Verifier": "disabled",
           "transact2x0Verifier": "0x93b21B203d2B5906482030f6fD241dd88D4789f1",
-          "transact2x1Verifier": "0xb7E99ADFD81F51c031dE82e7A9DBB1E35aC153f5",
-          "transact2x2Verifier": "0x67d3B78E01b1357241281057B25f856d3b6aAdee",
+          "transact2x1Verifier": "disabled",
+          "transact2x2Verifier": "disabled",
           "rollupWhitelist": [
             "0x740D5941bf285D6070896aAC9084AE9CF64F5913",
             "0xD2318B8a8028922BCE5871ea26b74babd9d61Cd5"
@@ -562,7 +597,12 @@
           "operator": "0xB1362DE09607A7f19C3510Ef355E129C44ee6190",
           "enqueueWhitelist": [
             "0xFC13449Eb0327482aeD64c648fA9b44aBE3bC939"
-          ]
+          ],
+          "transact1x1VerifierTx": "0x1c44550b5540474c4100719381045ff0d2718573dfd44d93cd95d3bf90378675",
+          "transact1x2VerifierTx": "0x28b35e271ca397b2952a62f50b9e73782428800e639d364d46da5ea451d8c25c",
+          "transact2x1VerifierTx": "0x9ab2bdf782ac4854d537265b16ef44a46ff5795eb1570132250140ca2f86d496",
+          "transact2x2VerifierTx": "0xc69f60c432552461b67768edfe2ab031e5e2f68edda8bd20034e27a496bf2ee9",
+          "disabledAt": 48516137
         },
         {
           "network": "Polygon",
@@ -577,11 +617,11 @@
           "rollup8Verifier": "0xc30dE5380E370FD3FE74b8E855DA515195086fa5",
           "rollup16Verifier": "0x7318AF46Ca9c7aD9845d66f322656335037B1EaC",
           "transact1x0Verifier": "0xda84f860B57639B1F04Bb2C9Ef081260A3Da6F0a",
-          "transact1x1Verifier": "0x84DbE5d8B42d344C8f852d580B0474a96D296186",
-          "transact1x2Verifier": "0xF2DC0AfE64b26E144F373638298C26D42c654b10",
+          "transact1x1Verifier": "disabled",
+          "transact1x2Verifier": "disabled",
           "transact2x0Verifier": "0x93b21B203d2B5906482030f6fD241dd88D4789f1",
-          "transact2x1Verifier": "0xb7E99ADFD81F51c031dE82e7A9DBB1E35aC153f5",
-          "transact2x2Verifier": "0x67d3B78E01b1357241281057B25f856d3b6aAdee",
+          "transact2x1Verifier": "disabled",
+          "transact2x2Verifier": "disabled",
           "rollupWhitelist": [
             "0x740D5941bf285D6070896aAC9084AE9CF64F5913",
             "0xD2318B8a8028922BCE5871ea26b74babd9d61Cd5"
@@ -594,7 +634,12 @@
           "operator": "0xB1362DE09607A7f19C3510Ef355E129C44ee6190",
           "enqueueWhitelist": [
             "0xd1F34693Dd4163DF2e610C83E4BE79A4E175062F"
-          ]
+          ],
+          "transact1x1VerifierTx": "0x750471b9afdab841ede040cbb829e4ea08036f714fe57e07005eff70373a5c2c",
+          "transact1x2VerifierTx": "0xfe31437cb327c0c34cf40c3a59575a24102ce7937fb6db264b12535a504288fe",
+          "transact2x1VerifierTx": "0x9e7443d82080ada948257617766ad07afa01568c43397bd113aa09e32afdc691",
+          "transact2x2VerifierTx": "0x780495d8dce48093b301e557ff7912aab05df9b523bce466603b2835e98167f8",
+          "disabledAt": 48516222
         },
         {
           "network": "Polygon",
@@ -609,11 +654,11 @@
           "rollup8Verifier": "0xc30dE5380E370FD3FE74b8E855DA515195086fa5",
           "rollup16Verifier": "0x7318AF46Ca9c7aD9845d66f322656335037B1EaC",
           "transact1x0Verifier": "0xda84f860B57639B1F04Bb2C9Ef081260A3Da6F0a",
-          "transact1x1Verifier": "0x84DbE5d8B42d344C8f852d580B0474a96D296186",
-          "transact1x2Verifier": "0xF2DC0AfE64b26E144F373638298C26D42c654b10",
+          "transact1x1Verifier": "disabled",
+          "transact1x2Verifier": "disabled",
           "transact2x0Verifier": "0x93b21B203d2B5906482030f6fD241dd88D4789f1",
-          "transact2x1Verifier": "0xb7E99ADFD81F51c031dE82e7A9DBB1E35aC153f5",
-          "transact2x2Verifier": "0x67d3B78E01b1357241281057B25f856d3b6aAdee",
+          "transact2x1Verifier": "disabled",
+          "transact2x2Verifier": "disabled",
           "rollupWhitelist": [
             "0x740D5941bf285D6070896aAC9084AE9CF64F5913",
             "0xD2318B8a8028922BCE5871ea26b74babd9d61Cd5"
@@ -626,7 +671,12 @@
           "operator": "0xB1362DE09607A7f19C3510Ef355E129C44ee6190",
           "enqueueWhitelist": [
             "0xc220B8aeee7b1bB5a296aB6C183930a8fC1B3d92"
-          ]
+          ],
+          "transact1x1VerifierTx": "0xdd3a6807203980e97af5baaa7a5db6660a9b508f8381f21b8633db521bd2d092",
+          "transact1x2VerifierTx": "0xf9925fd30164ba608ccfdb863953f769d3521bb5a3347b032e8f9b1e7d61fbde",
+          "transact2x1VerifierTx": "0x5085249a6aeff7f2c54751aea0ace6bbdf56422f2200ad5116c1e76417c1d068",
+          "transact2x2VerifierTx": "0x575eff72f9877ec393835def220514133cb4bb769b15746f0bf455e8ab0c581d",
+          "disabledAt": 48516245
         },
         {
           "network": "Polygon",
@@ -641,11 +691,11 @@
           "rollup8Verifier": "0xc30dE5380E370FD3FE74b8E855DA515195086fa5",
           "rollup16Verifier": "0x7318AF46Ca9c7aD9845d66f322656335037B1EaC",
           "transact1x0Verifier": "0xda84f860B57639B1F04Bb2C9Ef081260A3Da6F0a",
-          "transact1x1Verifier": "0x84DbE5d8B42d344C8f852d580B0474a96D296186",
-          "transact1x2Verifier": "0xF2DC0AfE64b26E144F373638298C26D42c654b10",
+          "transact1x1Verifier": "disabled",
+          "transact1x2Verifier": "disabled",
           "transact2x0Verifier": "0x93b21B203d2B5906482030f6fD241dd88D4789f1",
-          "transact2x1Verifier": "0xb7E99ADFD81F51c031dE82e7A9DBB1E35aC153f5",
-          "transact2x2Verifier": "0x67d3B78E01b1357241281057B25f856d3b6aAdee",
+          "transact2x1Verifier": "disabled",
+          "transact2x2Verifier": "disabled",
           "rollupWhitelist": [
             "0x740D5941bf285D6070896aAC9084AE9CF64F5913",
             "0xD2318B8a8028922BCE5871ea26b74babd9d61Cd5"
@@ -658,7 +708,12 @@
           "operator": "0xB1362DE09607A7f19C3510Ef355E129C44ee6190",
           "enqueueWhitelist": [
             "0x13Bc9031d85F4632ec37CF12Ca621E24b4b0F72f"
-          ]
+          ],
+          "transact1x1VerifierTx": "0xd05b8be0201a3ee59feb93d0981e3a54251467257954fe30362244b9d40a119a",
+          "transact1x2VerifierTx": "0x5305b6b4852c6ca22c38b06b935b28dd5123d6d0ce66d97742313ecf5ea105ad",
+          "transact2x1VerifierTx": "0x6ef99ccbe76aa8024a720117deaa8c37cf5620321d690fd90a513fbcf73fdc42",
+          "transact2x2VerifierTx": "0x7267cd92600f1fff3ececfe5ea38dfc6071016e652bb228003f8807783aab49e",
+          "disabledAt": 48516372
         },
         {
           "network": "Polygon",
@@ -673,11 +728,11 @@
           "rollup8Verifier": "0xc30dE5380E370FD3FE74b8E855DA515195086fa5",
           "rollup16Verifier": "0x7318AF46Ca9c7aD9845d66f322656335037B1EaC",
           "transact1x0Verifier": "0xda84f860B57639B1F04Bb2C9Ef081260A3Da6F0a",
-          "transact1x1Verifier": "0x84DbE5d8B42d344C8f852d580B0474a96D296186",
-          "transact1x2Verifier": "0xF2DC0AfE64b26E144F373638298C26D42c654b10",
+          "transact1x1Verifier": "disabled",
+          "transact1x2Verifier": "disabled",
           "transact2x0Verifier": "0x93b21B203d2B5906482030f6fD241dd88D4789f1",
-          "transact2x1Verifier": "0xb7E99ADFD81F51c031dE82e7A9DBB1E35aC153f5",
-          "transact2x2Verifier": "0x67d3B78E01b1357241281057B25f856d3b6aAdee",
+          "transact2x1Verifier": "disabled",
+          "transact2x2Verifier": "disabled",
           "rollupWhitelist": [
             "0x740D5941bf285D6070896aAC9084AE9CF64F5913",
             "0xD2318B8a8028922BCE5871ea26b74babd9d61Cd5"
@@ -690,7 +745,12 @@
           "operator": "0xB1362DE09607A7f19C3510Ef355E129C44ee6190",
           "enqueueWhitelist": [
             "0x03A6D2f3990C26827279Bae13bbFb6e0B5f13185"
-          ]
+          ],
+          "transact1x1VerifierTx": "0x71a6cb7f1849a39eb6732a7a082b150af843527a6db84e3fe65c7ba59e486eac",
+          "transact1x2VerifierTx": "0xa87e94796b351aefb94f5686db96e6ff68f9273ae2e3c8dace3dc2b5f5ee8575",
+          "transact2x1VerifierTx": "0x93fa754feaa1e6ecca31f075ae32ad5380e8d35795eb3605887622e1eb782959",
+          "transact2x2VerifierTx": "0xd6e5c8f02cc0a599e3d4db4d6efff83ca431e37de51d5ba60b879a42ab1aa559",
+          "disabledAt": 48516418
         },
         {
           "network": "Base",
@@ -705,11 +765,11 @@
           "rollup8Verifier": "0x94c7219c779C72e917E55D747B377FA409Be2150",
           "rollup16Verifier": "0xbaB90b3c71D0CdD051a0ae15e337c959b44951cF",
           "transact1x0Verifier": "0x9FEDACbA4e6646E3764B6Dab9575867265Bb7e3f",
-          "transact1x1Verifier": "0x9e065E3D7ADaAec9C34AD035a8e0382Fc7b9e838",
-          "transact1x2Verifier": "0x579011D4F25942604442229e144507798451Cd66",
+          "transact1x1Verifier": "disabled",
+          "transact1x2Verifier": "disabled",
           "transact2x0Verifier": "0xD0b4CE9c55498DD59Ec47F1E699aDE5588fA622d",
-          "transact2x1Verifier": "0x775175965755FF315a9BC96614988c5EF5fA3d42",
-          "transact2x2Verifier": "0x932f3DD5b6C0F5fe1aEc31Cb38B7a57d01496411",
+          "transact2x1Verifier": "disabled",
+          "transact2x2Verifier": "disabled",
           "rollupWhitelist": [
             "0x740D5941bf285D6070896aAC9084AE9CF64F5913",
             "0xD2318B8a8028922BCE5871ea26b74babd9d61Cd5"
@@ -723,7 +783,12 @@
           "enqueueWhitelist": [
             "0x62121886c954d7e23077f52217b51c26ad26bE9e"
           ],
-          "sanctionCheck": false
+          "sanctionCheck": false,
+          "transact1x1VerifierTx": "0xca89b6d893d1caee5862badc75566c8e8eb7016de62f2506460ee85952df805b",
+          "transact1x2VerifierTx": "0x4dcd6aead70d5e7fde9f0c0b7af02724cc956497a4127fcc87a45dea5a8fd386",
+          "transact2x1VerifierTx": "0xd130841c3572bad743524930ae29d60bb027f12da29e3f1081f84447427717d5",
+          "transact2x2VerifierTx": "0xca3b094e9e66cd4c9c4ec4a765a57ee7b47d4a8c20ccead7e0428a898acdddf7",
+          "disabledAt": 5037436
         },
         {
           "network": "Base",
@@ -738,11 +803,11 @@
           "rollup8Verifier": "0x94c7219c779C72e917E55D747B377FA409Be2150",
           "rollup16Verifier": "0xbaB90b3c71D0CdD051a0ae15e337c959b44951cF",
           "transact1x0Verifier": "0x9FEDACbA4e6646E3764B6Dab9575867265Bb7e3f",
-          "transact1x1Verifier": "0x9e065E3D7ADaAec9C34AD035a8e0382Fc7b9e838",
-          "transact1x2Verifier": "0x579011D4F25942604442229e144507798451Cd66",
+          "transact1x1Verifier": "disabled",
+          "transact1x2Verifier": "disabled",
           "transact2x0Verifier": "0xD0b4CE9c55498DD59Ec47F1E699aDE5588fA622d",
-          "transact2x1Verifier": "0x775175965755FF315a9BC96614988c5EF5fA3d42",
-          "transact2x2Verifier": "0x932f3DD5b6C0F5fe1aEc31Cb38B7a57d01496411",
+          "transact2x1Verifier": "disabled",
+          "transact2x2Verifier": "disabled",
           "rollupWhitelist": [
             "0x740D5941bf285D6070896aAC9084AE9CF64F5913",
             "0xD2318B8a8028922BCE5871ea26b74babd9d61Cd5"
@@ -756,7 +821,12 @@
           "enqueueWhitelist": [
             "0x4333Ab5682Cd4589330BD9CFcedd5E054A0e9d8D"
           ],
-          "sanctionCheck": false
+          "sanctionCheck": false,
+          "transact1x1VerifierTx": "0x27772a3727dd2bdd908d50100545a783176172adbef82b2e0cf02988c8ead577",
+          "transact1x2VerifierTx": "0xb444fb6383df0b2ce19f4bab0231c708790ab607dc57ffe26ef74586756b1866",
+          "transact2x1VerifierTx": "0x6470a9852bee00e8819ddc65b6a8f240d938ec3e07fa451e022be9fde4ec145b",
+          "transact2x2VerifierTx": "0x0e9f7d09b74f7f385bc452de5542f0b7a376adddeaa34727c4f14b0c68130f39",
+          "disabledAt": 5037459
         }
       ],
       "pairs": [
