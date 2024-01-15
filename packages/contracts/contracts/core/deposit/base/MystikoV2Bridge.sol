@@ -41,6 +41,11 @@ abstract contract MystikoV2Bridge is IMystikoBridge, AssetPool, CrossChainDataSe
   // Admin related.
   address private operator;
 
+  // service fee related.
+  address private serviceFeePool;
+  uint256 private serviceFeeRate;
+  uint256 private serviceFeeBase;
+
   // Some switches.
   bool private depositsDisabled;
 
@@ -61,11 +66,16 @@ abstract contract MystikoV2Bridge is IMystikoBridge, AssetPool, CrossChainDataSe
   event PeerMinExecutorFee(uint256 peerMinExecutorFee);
   event PeerMinRollupFee(uint256 peerMinRollupFee);
   event DepositsDisabled(bool state);
+  event ServiceFeePoolChanged(address indexed feePool);
+  event ServiceFeeRateChanged(uint256 feeRate);
+  event ServiceFeeBaseChanged(uint256 feeBase);
   event CommitmentCrossChain(uint256 indexed commitment);
 
   constructor(IHasher3 _hasher3) {
     operator = msg.sender;
     hasher3 = _hasher3;
+    serviceFeeRate = 10;
+    serviceFeeBase = 10000;
   }
 
   function setBridgeProxyAddress(address _bridgeProxyAddress) external onlyOperator {
@@ -136,7 +146,6 @@ abstract contract MystikoV2Bridge is IMystikoBridge, AssetPool, CrossChainDataSe
     if (_request.commitment != calculatedCommitment) revert CustomErrors.CommitmentHashIncorrect();
     if (isSanctioned(msg.sender)) revert CustomErrors.SanctionedAddress();
 
-    // todo check commitment ?
     ICommitmentPool.CommitmentRequest memory cmRequest = ICommitmentPool.CommitmentRequest({
       amount: _request.amount,
       commitment: _request.commitment,
@@ -149,7 +158,9 @@ abstract contract MystikoV2Bridge is IMystikoBridge, AssetPool, CrossChainDataSe
     _processDeposit(_request.bridgeFee, cmRequestBytes);
     _processDepositTransfer(
       associatedCommitmentPool,
+      serviceFeePool,
       _request.amount + _request.executorFee + _request.rollupFee,
+      serviceFeeRate.mul(_request.amount).div(serviceFeeBase),
       _request.bridgeFee
     );
     emit CommitmentCrossChain(_request.commitment);
@@ -178,6 +189,37 @@ abstract contract MystikoV2Bridge is IMystikoBridge, AssetPool, CrossChainDataSe
     if (operator == _newOperator) revert CustomErrors.NotChanged();
     operator = _newOperator;
     emit OperatorChanged(_newOperator);
+  }
+
+  function getServiceFeePool() public view returns (address) {
+    return serviceFeePool;
+  }
+
+  function changeServiceFeePool(address _newServiceFeePool) external onlyOperator {
+    if (serviceFeePool == _newServiceFeePool) revert CustomErrors.NotChanged();
+    serviceFeePool = _newServiceFeePool;
+    emit ServiceFeePoolChanged(serviceFeePool);
+  }
+
+  function getServiceFeeRate() public view returns (uint256) {
+    return serviceFeeRate;
+  }
+
+  function setServiceFeeRate(uint256 _newFeeRate) external onlyOperator {
+    if (serviceFeeRate == _newFeeRate) revert CustomErrors.NotChanged();
+    serviceFeeRate = _newFeeRate;
+    emit ServiceFeeRateChanged(_newFeeRate);
+  }
+
+  function getServiceFeeBase() public view returns (uint256) {
+    return serviceFeeBase;
+  }
+
+  function setServiceFeeBase(uint256 __newFeeBase) external onlyOperator {
+    if (serviceFeeBase == __newFeeBase) revert CustomErrors.NotChanged();
+    if (__newFeeBase == 0) revert CustomErrors.ServiceFeeBaseTooSmall();
+    serviceFeeBase = __newFeeBase;
+    emit ServiceFeeBaseChanged(__newFeeBase);
   }
 
   function enableSanctionsCheck() external onlyOperator {

@@ -26,6 +26,11 @@ abstract contract MystikoV2Loop is IMystikoLoop, AssetPool, Sanctions {
   // Admin related.
   address private operator;
 
+  // service fee related.
+  address private serviceFeePool;
+  uint256 private serviceFeeRate;
+  uint256 private serviceFeeBase;
+
   // Some switches.
   bool private depositsDisabled;
 
@@ -37,11 +42,16 @@ abstract contract MystikoV2Loop is IMystikoLoop, AssetPool, Sanctions {
   constructor(IHasher3 _hasher3) {
     operator = msg.sender;
     hasher3 = _hasher3;
+    serviceFeeRate = 10;
+    serviceFeeBase = 10000;
   }
 
   event OperatorChanged(address indexed operator);
   event DepositAmountLimits(uint256 maxAmount, uint256 minAmount);
   event DepositsDisabled(bool state);
+  event ServiceFeePoolChanged(address indexed feePool);
+  event ServiceFeeRateChanged(uint256 feeRate);
+  event ServiceFeeBaseChanged(uint256 feeBase);
 
   function setAssociatedCommitmentPool(address _commitmentPoolAddress) external onlyOperator {
     associatedCommitmentPool = _commitmentPoolAddress;
@@ -94,7 +104,13 @@ abstract contract MystikoV2Loop is IMystikoLoop, AssetPool, Sanctions {
     });
 
     ICommitmentPool(associatedCommitmentPool).enqueue(cmRequest, address(0));
-    _processDepositTransfer(associatedCommitmentPool, _amount + _rollupFee, 0);
+    _processDepositTransfer(
+      associatedCommitmentPool,
+      serviceFeePool,
+      _amount + _rollupFee,
+      serviceFeeRate.mul(_amount).div(serviceFeeBase),
+      0
+    );
   }
 
   function setDepositsDisabled(bool _state) external onlyOperator {
@@ -106,6 +122,37 @@ abstract contract MystikoV2Loop is IMystikoLoop, AssetPool, Sanctions {
     if (operator == _newOperator) revert CustomErrors.NotChanged();
     operator = _newOperator;
     emit OperatorChanged(_newOperator);
+  }
+
+  function getServiceFeePool() public view returns (address) {
+    return serviceFeePool;
+  }
+
+  function changeServiceFeePool(address _newServiceFeePool) external onlyOperator {
+    if (serviceFeePool == _newServiceFeePool) revert CustomErrors.NotChanged();
+    serviceFeePool = _newServiceFeePool;
+    emit ServiceFeePoolChanged(serviceFeePool);
+  }
+
+  function getServiceFeeRate() public view returns (uint256) {
+    return serviceFeeRate;
+  }
+
+  function setServiceFeeRate(uint256 _newServiceFeeRate) external onlyOperator {
+    if (serviceFeeRate == _newServiceFeeRate) revert CustomErrors.NotChanged();
+    serviceFeeRate = _newServiceFeeRate;
+    emit ServiceFeeRateChanged(serviceFeeRate);
+  }
+
+  function getServiceFeeBase() public view returns (uint256) {
+    return serviceFeeBase;
+  }
+
+  function setServiceFeeBase(uint256 _newServiceFeeBase) external onlyOperator {
+    if (serviceFeeBase == _newServiceFeeBase) revert CustomErrors.NotChanged();
+    if (_newServiceFeeBase == 0) revert CustomErrors.ServiceFeeBaseTooSmall();
+    serviceFeeBase = _newServiceFeeBase;
+    emit ServiceFeeBaseChanged(serviceFeeBase);
   }
 
   function enableSanctionsCheck() external onlyOperator {

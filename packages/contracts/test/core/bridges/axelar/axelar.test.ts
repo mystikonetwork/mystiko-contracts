@@ -23,7 +23,13 @@ import {
 } from '../../../util/common';
 
 // @ts-ignore
-import { MaxAmount, MinAmount, MinBridgeFee, MinRollupFee } from '../../../util/constants';
+import {
+  MaxAmount,
+  MinAmount,
+  MinBridgeFee,
+  MinRollupFee,
+  ServiceFeeAccountIndex,
+} from '../../../util/constants';
 
 describe('Test Mystiko axelar', () => {
   async function fixture(accounts: Wallet[]) {
@@ -141,6 +147,7 @@ describe('Test Mystiko axelar', () => {
       MinBridgeFee,
       '0',
       MinRollupFee,
+      accounts[ServiceFeeAccountIndex].address,
     );
   });
 

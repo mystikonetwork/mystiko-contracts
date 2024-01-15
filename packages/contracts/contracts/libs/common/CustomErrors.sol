@@ -27,6 +27,7 @@ library CustomErrors {
   error DepositsDisabled();
   error AmountTooSmall();
   error AmountTooLarge();
+  error ServiceFeeBaseTooSmall();
   error MaxAmountLessThanMinAmount();
   error MinAmountGreaterThanMaxAmount();
   error BridgeFeeTooFew();

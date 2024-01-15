@@ -28,6 +28,7 @@ import {
   MinAmount,
   MinBridgeFee,
   MinRollupFee,
+  ServiceFeeAccountIndex,
 } from '../../../util/constants';
 
 describe('Test Mystiko layer zero', () => {
@@ -140,6 +141,7 @@ describe('Test Mystiko layer zero', () => {
       MinBridgeFee,
       '0',
       MinRollupFee,
+      accounts[ServiceFeeAccountIndex].address,
     );
   });
 

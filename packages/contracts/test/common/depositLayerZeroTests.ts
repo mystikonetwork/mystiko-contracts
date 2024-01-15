@@ -5,7 +5,12 @@ import { toBN, toHex } from '@mystikonetwork/utils';
 import { expect } from 'chai';
 import { ethers } from 'ethers';
 import { waffle } from 'hardhat';
-import { BridgeAccountIndex, DefaultPoolAmount, DefaultTokenAmount } from '../util/constants';
+import {
+  BridgeAccountIndex,
+  DefaultPoolAmount,
+  DefaultTokenAmount,
+  ServiceFeeAccountIndex,
+} from '../util/constants';
 import { CommitmentInfo } from './commitment';
 
 export function testLayerZeroDeposit(
@@ -27,6 +32,7 @@ export function testLayerZeroDeposit(
   let minRollupFee: string;
   let minExecutorFee: string;
   let minTotalAmount: string;
+  let serviceFeeAmount: string;
   let minTotalValue: string;
   const { commitments } = cmInfo;
   const numOfCommitments = commitments.length;
@@ -38,8 +44,12 @@ export function testLayerZeroDeposit(
       minBridgeFee = (await mystikoContract.getMinBridgeFee()).toString();
       minExecutorFee = (await mystikoContract.getMinExecutorFee()).toString();
       minRollupFee = (await commitmentPool.getMinRollupFee()).toString();
-      const amount = toBN(depositAmount).add(toBN(minExecutorFee)).add(toBN(minRollupFee));
+      const serviceFeeRate = (await mystikoContract.getServiceFeeRate()).toString();
+      const serviceFeeBase = (await mystikoContract.getServiceFeeBase()).toString();
+      const fee = toBN(depositAmount).mul(toBN(serviceFeeRate)).div(toBN(serviceFeeBase));
+      const amount = toBN(depositAmount).add(toBN(minExecutorFee)).add(toBN(minRollupFee)).add(fee);
       minTotalAmount = amount.toString();
+      serviceFeeAmount = fee.toString();
       if (isMainAsset) {
         minTotalValue = amount.add(toBN(minBridgeFee)).toString();
       } else {
@@ -68,6 +78,10 @@ export function testLayerZeroDeposit(
     it('should deposit successfully', async () => {
       await sanctionList.addToSanctionsList(bridgeAccount.address);
       await mystikoContract.disableSanctionsCheck();
+
+      const serviceFeeBefore = isDstMainAsset
+        ? await waffle.provider.getBalance(accounts[ServiceFeeAccountIndex].address)
+        : await await testTokenContract.balanceOf(accounts[ServiceFeeAccountIndex].address);
 
       for (let i = 0; i < numOfCommitments; i += 1) {
         const balanceBefore = isDstMainAsset
@@ -102,13 +116,27 @@ export function testLayerZeroDeposit(
         if (isMainAsset) {
           expect(await waffle.provider.getBalance(commitmentPool.address)).to.be.equal(
             toBN(minTotalAmount)
+              .sub(toBN(serviceFeeAmount))
               .muln(i + 1)
+              .toString(),
+          );
+          expect(await waffle.provider.getBalance(accounts[ServiceFeeAccountIndex].address)).to.be.equal(
+            toBN(serviceFeeAmount)
+              .muln(i + 1)
+              .add(toBN(serviceFeeBefore.toString()))
               .toString(),
           );
         } else {
           expect(await testTokenContract.balanceOf(commitmentPool.address)).to.be.equal(
             toBN(minTotalAmount)
+              .sub(toBN(serviceFeeAmount))
               .muln(i + 1)
+              .toString(),
+          );
+          expect(await testTokenContract.balanceOf(accounts[ServiceFeeAccountIndex].address)).to.be.equal(
+            toBN(serviceFeeAmount)
+              .muln(i + 1)
+              .add(toBN(serviceFeeBefore.toString()))
               .toString(),
           );
         }
@@ -168,7 +196,10 @@ export function testLayerZeroDeposit(
     });
 
     it('should source contract have correct balance', async () => {
-      const expectBalance = toBN(minTotalAmount).muln(numOfCommitments).toString();
+      const expectBalance = toBN(minTotalAmount)
+        .sub(toBN(serviceFeeAmount))
+        .muln(numOfCommitments)
+        .toString();
       expect(await waffle.provider.getBalance(bridgeContract.address)).to.be.equal(
         toBN(minBridgeFee).muln(numOfCommitments).toString(),
       );

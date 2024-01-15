@@ -114,6 +114,11 @@ const _abi = [
     type: 'error',
   },
   {
+    inputs: [],
+    name: 'ServiceFeeBaseTooSmall',
+    type: 'error',
+  },
+  {
     anonymous: false,
     inputs: [
       {
@@ -304,6 +309,45 @@ const _abi = [
     inputs: [
       {
         indexed: false,
+        internalType: 'uint256',
+        name: 'feeBase',
+        type: 'uint256',
+      },
+    ],
+    name: 'ServiceFeeBaseChanged',
+    type: 'event',
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: true,
+        internalType: 'address',
+        name: 'feePool',
+        type: 'address',
+      },
+    ],
+    name: 'ServiceFeePoolChanged',
+    type: 'event',
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: false,
+        internalType: 'uint256',
+        name: 'feeRate',
+        type: 'uint256',
+      },
+    ],
+    name: 'ServiceFeeRateChanged',
+    type: 'event',
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: false,
         internalType: 'uint16',
         name: '_srcChainId',
         type: 'uint16',
@@ -366,6 +410,19 @@ const _abi = [
       },
     ],
     name: 'changeOperator',
+    outputs: [],
+    stateMutability: 'nonpayable',
+    type: 'function',
+  },
+  {
+    inputs: [
+      {
+        internalType: 'address',
+        name: '_newServiceFeePool',
+        type: 'address',
+      },
+    ],
+    name: 'changeServiceFeePool',
     outputs: [],
     stateMutability: 'nonpayable',
     type: 'function',
@@ -601,6 +658,45 @@ const _abi = [
   {
     inputs: [],
     name: 'getPeerMinRollupFee',
+    outputs: [
+      {
+        internalType: 'uint256',
+        name: '',
+        type: 'uint256',
+      },
+    ],
+    stateMutability: 'view',
+    type: 'function',
+  },
+  {
+    inputs: [],
+    name: 'getServiceFeeBase',
+    outputs: [
+      {
+        internalType: 'uint256',
+        name: '',
+        type: 'uint256',
+      },
+    ],
+    stateMutability: 'view',
+    type: 'function',
+  },
+  {
+    inputs: [],
+    name: 'getServiceFeePool',
+    outputs: [
+      {
+        internalType: 'address',
+        name: '',
+        type: 'address',
+      },
+    ],
+    stateMutability: 'view',
+    type: 'function',
+  },
+  {
+    inputs: [],
+    name: 'getServiceFeeRate',
     outputs: [
       {
         internalType: 'uint256',
@@ -1038,6 +1134,32 @@ const _abi = [
       },
     ],
     name: 'setSendVersion',
+    outputs: [],
+    stateMutability: 'nonpayable',
+    type: 'function',
+  },
+  {
+    inputs: [
+      {
+        internalType: 'uint256',
+        name: '__newFeeBase',
+        type: 'uint256',
+      },
+    ],
+    name: 'setServiceFeeBase',
+    outputs: [],
+    stateMutability: 'nonpayable',
+    type: 'function',
+  },
+  {
+    inputs: [
+      {
+        internalType: 'uint256',
+        name: '_newFeeRate',
+        type: 'uint256',
+      },
+    ],
+    name: 'setServiceFeeRate',
     outputs: [],
     stateMutability: 'nonpayable',
     type: 'function',
