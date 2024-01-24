@@ -463,61 +463,61 @@ export function testTransactRevert(
       );
     });
 
-    // it('should revert when verifier disabled', async () => {
-    //   await commitmentPoolContract.disableTransactVerifier(numInputs, numOutputs);
-    //   const request = buildRequest(
-    //     numInputs,
-    //     numOutputs,
-    //     proof,
-    //     publicRecipientAddress,
-    //     relayerAddress,
-    //     outEncryptedNotes,
-    //     randomAuditingSecretKey,
-    //     encryptedAuditorNotes,
-    //   );
-    //   await expect(commitmentPoolContract.transact(request, signature)).to.be.revertedWith(
-    //     'Invalid("i/o length")',
-    //   );
-    //   await commitmentPoolContract.enableTransactVerifier(numInputs, numOutputs, transactVerifier.address);
-    // });
-    //
-    // it('should revert when sender in sanction list', async () => {
-    //   await sanctionList.addToSanctionsList(accounts[0].address);
-    //   const request = buildRequest(
-    //     numInputs,
-    //     numOutputs,
-    //     proof,
-    //     publicRecipientAddress,
-    //     relayerAddress,
-    //     outEncryptedNotes,
-    //     randomAuditingSecretKey,
-    //     encryptedAuditorNotes,
-    //   );
-    //
-    //   await expect(commitmentPoolContract.transact(request, signature)).to.be.revertedWith(
-    //     'SanctionedAddress()',
-    //   );
-    //   await sanctionList.removeFromSanctionsList(accounts[0].address);
-    // });
-    //
-    // it('should revert when recipient in sanction list', async () => {
-    //   await sanctionList.addToSanctionsList(publicRecipientAddress);
-    //   const request = buildRequest(
-    //     numInputs,
-    //     numOutputs,
-    //     proof,
-    //     publicRecipientAddress,
-    //     relayerAddress,
-    //     outEncryptedNotes,
-    //     randomAuditingSecretKey,
-    //     encryptedAuditorNotes,
-    //   );
-    //
-    //   await expect(commitmentPoolContract.transact(request, signature)).to.be.revertedWith(
-    //     'SanctionedAddress()',
-    //   );
-    //   await sanctionList.removeFromSanctionsList(publicRecipientAddress);
-    // });
+    it('should revert when verifier disabled', async () => {
+      await commitmentPoolContract.disableTransactVerifier(numInputs, numOutputs);
+      const request = buildRequest(
+        numInputs,
+        numOutputs,
+        proof,
+        publicRecipientAddress,
+        relayerAddress,
+        outEncryptedNotes,
+        randomAuditingSecretKey,
+        encryptedAuditorNotes,
+      );
+      await expect(commitmentPoolContract.transact(request, signature)).to.be.revertedWith(
+        'Invalid("i/o length")',
+      );
+      await commitmentPoolContract.enableTransactVerifier(numInputs, numOutputs, transactVerifier.address);
+    });
+
+    it('should revert when sender in sanction list', async () => {
+      await sanctionList.addToSanctionsList(accounts[0].address);
+      const request = buildRequest(
+        numInputs,
+        numOutputs,
+        proof,
+        publicRecipientAddress,
+        relayerAddress,
+        outEncryptedNotes,
+        randomAuditingSecretKey,
+        encryptedAuditorNotes,
+      );
+
+      await expect(commitmentPoolContract.transact(request, signature)).to.be.revertedWith(
+        'SanctionedAddress()',
+      );
+      await sanctionList.removeFromSanctionsList(accounts[0].address);
+    });
+
+    it('should revert when recipient in sanction list', async () => {
+      await sanctionList.addToSanctionsList(publicRecipientAddress);
+      const request = buildRequest(
+        numInputs,
+        numOutputs,
+        proof,
+        publicRecipientAddress,
+        relayerAddress,
+        outEncryptedNotes,
+        randomAuditingSecretKey,
+        encryptedAuditorNotes,
+      );
+
+      await expect(commitmentPoolContract.transact(request, signature)).to.be.revertedWith(
+        'SanctionedAddress()',
+      );
+      await sanctionList.removeFromSanctionsList(publicRecipientAddress);
+    });
 
     it('should have correct balance', async () => {
       const newRecipientBalance = await getBalance(publicRecipientAddress, testToken);
