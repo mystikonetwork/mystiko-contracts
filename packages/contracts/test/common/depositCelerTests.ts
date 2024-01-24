@@ -331,6 +331,7 @@ export function testCelerDeposit(
           }
         }
       }
+      await sanctionList.removeFromSanctionsList(bridgeAccount.address);
     });
 
     it('should emit correct events', () => {

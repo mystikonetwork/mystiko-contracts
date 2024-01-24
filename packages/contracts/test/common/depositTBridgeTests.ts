@@ -300,6 +300,7 @@ export function testTBridgeDeposit(
           );
         }
       }
+      await sanctionList.removeFromSanctionsList(accounts[0].address);
     });
 
     it('should revert sendMessage not register white list', async () => {

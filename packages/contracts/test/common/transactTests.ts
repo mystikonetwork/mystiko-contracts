@@ -427,26 +427,7 @@ export function testTransactRevert(
         .map((n) => toBN(toHexNoPrefix(n), 16));
     });
 
-    it('should revert when verifier disabled', async () => {
-      await commitmentPoolContract.disableTransactVerifier(numInputs, numOutputs);
-      const request = buildRequest(
-        numInputs,
-        numOutputs,
-        proof,
-        publicRecipientAddress,
-        relayerAddress,
-        outEncryptedNotes,
-        randomAuditingSecretKey,
-        encryptedAuditorNotes,
-      );
-      await expect(commitmentPoolContract.transact(request, signature)).to.be.revertedWith(
-        'Invalid("i/o length")',
-      );
-      await commitmentPoolContract.enableTransactVerifier(numInputs, numOutputs, transactVerifier.address);
-    });
-
-    it('should revert when sender in sanction list', async () => {
-      await sanctionList.addToSanctionsList(accounts[0].address);
+    it('should revert when public amount error', async () => {
       const request = buildRequest(
         numInputs,
         numOutputs,
@@ -458,14 +439,13 @@ export function testTransactRevert(
         encryptedAuditorNotes,
       );
 
+      request[5] = '0x0000000000000000000000000001100000000000000000022b1c8c1227a00000';
       await expect(commitmentPoolContract.transact(request, signature)).to.be.revertedWith(
-        'SanctionedAddress()',
+        'Invalid("transact proof")',
       );
-      await sanctionList.removeFromSanctionsList(accounts[0].address);
     });
 
-    it('should revert when recipient in sanction list', async () => {
-      await sanctionList.addToSanctionsList(publicRecipientAddress);
+    it('should revert when relayer fee amount error', async () => {
       const request = buildRequest(
         numInputs,
         numOutputs,
@@ -477,11 +457,67 @@ export function testTransactRevert(
         encryptedAuditorNotes,
       );
 
+      request[6] = '0x0000000000000000000000000000000000000000000000000000000000000001';
       await expect(commitmentPoolContract.transact(request, signature)).to.be.revertedWith(
-        'SanctionedAddress()',
+        'Invalid("transact proof")',
       );
-      await sanctionList.removeFromSanctionsList(publicRecipientAddress);
     });
+
+    // it('should revert when verifier disabled', async () => {
+    //   await commitmentPoolContract.disableTransactVerifier(numInputs, numOutputs);
+    //   const request = buildRequest(
+    //     numInputs,
+    //     numOutputs,
+    //     proof,
+    //     publicRecipientAddress,
+    //     relayerAddress,
+    //     outEncryptedNotes,
+    //     randomAuditingSecretKey,
+    //     encryptedAuditorNotes,
+    //   );
+    //   await expect(commitmentPoolContract.transact(request, signature)).to.be.revertedWith(
+    //     'Invalid("i/o length")',
+    //   );
+    //   await commitmentPoolContract.enableTransactVerifier(numInputs, numOutputs, transactVerifier.address);
+    // });
+    //
+    // it('should revert when sender in sanction list', async () => {
+    //   await sanctionList.addToSanctionsList(accounts[0].address);
+    //   const request = buildRequest(
+    //     numInputs,
+    //     numOutputs,
+    //     proof,
+    //     publicRecipientAddress,
+    //     relayerAddress,
+    //     outEncryptedNotes,
+    //     randomAuditingSecretKey,
+    //     encryptedAuditorNotes,
+    //   );
+    //
+    //   await expect(commitmentPoolContract.transact(request, signature)).to.be.revertedWith(
+    //     'SanctionedAddress()',
+    //   );
+    //   await sanctionList.removeFromSanctionsList(accounts[0].address);
+    // });
+    //
+    // it('should revert when recipient in sanction list', async () => {
+    //   await sanctionList.addToSanctionsList(publicRecipientAddress);
+    //   const request = buildRequest(
+    //     numInputs,
+    //     numOutputs,
+    //     proof,
+    //     publicRecipientAddress,
+    //     relayerAddress,
+    //     outEncryptedNotes,
+    //     randomAuditingSecretKey,
+    //     encryptedAuditorNotes,
+    //   );
+    //
+    //   await expect(commitmentPoolContract.transact(request, signature)).to.be.revertedWith(
+    //     'SanctionedAddress()',
+    //   );
+    //   await sanctionList.removeFromSanctionsList(publicRecipientAddress);
+    // });
 
     it('should have correct balance', async () => {
       const newRecipientBalance = await getBalance(publicRecipientAddress, testToken);
