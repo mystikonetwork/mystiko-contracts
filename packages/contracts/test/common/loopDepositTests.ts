@@ -213,6 +213,7 @@ export function testLoopDeposit(
         expect(queued.length).to.be.equal(i + 1);
         expect(queued[i].toString()).to.be.equal(commitments[i].commitmentHash.toString());
       }
+      await sanctionList.removeFromSanctionsList(accounts[0].address);
     });
 
     it('should have correct balance', async () => {
@@ -322,6 +323,7 @@ export function loopDepositRevert(
         expect(await commitmentPool.isHistoricCommitment(commitments[i].commitmentHash.toString())).to.equal(
           false,
         );
+        await sanctionList.removeFromSanctionsList(accounts[0].address);
       }
     });
   });
@@ -387,6 +389,7 @@ export function loopDeposit(
         expect(await commitmentPool.isHistoricCommitment(commitments[i].commitmentHash.toString())).to.equal(
           true,
         );
+        await sanctionList.removeFromSanctionsList(accounts[0].address);
       }
     });
 
