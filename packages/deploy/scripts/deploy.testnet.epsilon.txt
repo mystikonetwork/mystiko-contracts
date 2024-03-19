@@ -1,6 +1,7 @@
---network goerli  --bridge loop --dst goerli --token ETH
---network goerli  --bridge loop --dst goerli --token MTT
---network goerli  --bridge loop --dst goerli --token mUSD
+--network sepolia  --bridge loop --dst sepolia --token ETH
+--network sepolia  --bridge loop --dst sepolia --token MTT
+--network sepolia  --bridge loop --dst sepolia --token mUSD
+--network sepolia  --bridge loop --dst sepolia --token XZK
 
 --network bsctestnet  --bridge loop --dst bsctestnet --token BNB
 --network bsctestnet  --bridge loop --dst bsctestnet --token MTT
@@ -22,99 +23,19 @@
 --network moonbase  --bridge loop --dst moonbase --token MTT
 --network moonbase  --bridge loop --dst moonbase --token mUSD
 
+--network baseSepolia  --bridge loop --dst baseSepolia --token ETH
+--network baseSepolia  --bridge loop --dst baseSepolia --token MTT
+--network baseSepolia  --bridge loop --dst baseSepolia --token mUSD
 
---network baseGoerli  --bridge loop --dst baseGoerli --token ETH
---network baseGoerli  --bridge loop --dst baseGoerli --token mUSD
+--network sepolia  --bridge tbridge --dst bsctestnet --token MTT
+--network sepolia  --bridge tbridge --dst bsctestnet --token mUSD
+--network bsctestnet  --bridge tbridge --dst sepolia --token MTT
+--network bsctestnet  --bridge tbridge --dst sepolia --token mUSD
 
---network goerli  --bridge tbridge --dst bsctestnet --token ETH
---network goerli  --bridge tbridge --dst bsctestnet --token mBNB
---network goerli  --bridge tbridge --dst bsctestnet --token MTT
---network goerli  --bridge tbridge --dst bsctestnet --token mUSD
-
---network goerli  --bridge tbridge --dst polygontestnet --token ETH
---network goerli  --bridge tbridge --dst polygontestnet --token MATIC
---network goerli  --bridge tbridge --dst polygontestnet --token MTT
---network goerli  --bridge tbridge --dst polygontestnet --token mUSD
-
---network goerli  --bridge tbridge --dst avalanchetestnet --token ETH
---network goerli  --bridge tbridge --dst avalanchetestnet --token mAVAX
---network goerli  --bridge tbridge --dst avalanchetestnet --token MTT
---network goerli  --bridge tbridge --dst avalanchetestnet --token mUSD
-
---network goerli  --bridge tbridge --dst fantomtestnet --token ETH
---network goerli  --bridge tbridge --dst fantomtestnet --token mFTM
---network goerli  --bridge tbridge --dst fantomtestnet --token MTT
---network goerli  --bridge tbridge --dst fantomtestnet --token mUSD
-
---network goerli  --bridge tbridge --dst moonbase --token ETH
---network goerli  --bridge tbridge --dst moonbase --token mDEV
---network goerli  --bridge tbridge --dst moonbase --token MTT
---network goerli  --bridge tbridge --dst moonbase --token mUSD
-
---network bsctestnet  --bridge tbridge --dst goerli --token mETH
---network bsctestnet  --bridge tbridge --dst goerli --token BNB
---network bsctestnet  --bridge tbridge --dst goerli --token MTT
---network bsctestnet  --bridge tbridge --dst goerli --token mUSD
-
---network polygontestnet  --bridge tbridge --dst goerli --token mETH
---network polygontestnet  --bridge tbridge --dst goerli --token MATIC
---network polygontestnet  --bridge tbridge --dst goerli --token MTT
---network polygontestnet  --bridge tbridge --dst goerli --token mUSD
-
---network avalanchetestnet  --bridge tbridge --dst goerli --token mETH
---network avalanchetestnet  --bridge tbridge --dst goerli --token AVAX
---network avalanchetestnet  --bridge tbridge --dst goerli --token MTT
---network avalanchetestnet  --bridge tbridge --dst goerli --token mUSD
-
---network fantomtestnet  --bridge tbridge --dst goerli --token mETH
---network fantomtestnet  --bridge tbridge --dst goerli --token FTM
---network fantomtestnet  --bridge tbridge --dst goerli --token MTT
---network fantomtestnet  --bridge tbridge --dst goerli --token mUSD
-
---network moonbase  --bridge tbridge --dst goerli --token mETH
---network moonbase  --bridge tbridge --dst goerli --token DEV
---network moonbase  --bridge tbridge --dst goerli --token MTT
---network moonbase  --bridge tbridge --dst goerli --token mUSD
-
---network goerli  --bridge celer --dst bsctestnet --token ETH
---network goerli  --bridge celer --dst bsctestnet --token mBNB
---network goerli  --bridge celer --dst bsctestnet --token MTT
---network goerli  --bridge celer --dst bsctestnet --token mUSD
-
---network goerli  --bridge celer --dst polygontestnet --token ETH
---network goerli  --bridge celer --dst polygontestnet --token MATIC
---network goerli  --bridge celer --dst polygontestnet --token MTT
---network goerli  --bridge celer --dst polygontestnet --token mUSD
-
---network goerli  --bridge celer --dst avalanchetestnet --token ETH
---network goerli  --bridge celer --dst avalanchetestnet --token mAVAX
---network goerli  --bridge celer --dst avalanchetestnet --token MTT
---network goerli  --bridge celer --dst avalanchetestnet --token mUSD
-
---network goerli  --bridge celer --dst fantomtestnet --token ETH
---network goerli  --bridge celer --dst fantomtestnet --token mFTM
---network goerli  --bridge celer --dst fantomtestnet --token MTT
---network goerli  --bridge celer --dst fantomtestnet --token mUSD
-
---network bsctestnet  --bridge celer --dst goerli --token mETH
---network bsctestnet  --bridge celer --dst goerli --token BNB
---network bsctestnet  --bridge celer --dst goerli --token MTT
---network bsctestnet  --bridge celer --dst goerli --token mUSD
-
---network polygontestnet  --bridge celer --dst goerli --token mETH
---network polygontestnet  --bridge celer --dst goerli --token MATIC
---network polygontestnet  --bridge celer --dst goerli --token MTT
---network polygontestnet  --bridge celer --dst goerli --token mUSD
-
---network avalanchetestnet  --bridge celer --dst goerli --token mETH
---network avalanchetestnet  --bridge celer --dst goerli --token AVAX
---network avalanchetestnet  --bridge celer --dst goerli --token MTT
---network avalanchetestnet  --bridge celer --dst goerli --token mUSD
-
---network fantomtestnet  --bridge celer --dst goerli --token mETH
---network fantomtestnet  --bridge celer --dst goerli --token FTM
---network fantomtestnet  --bridge celer --dst goerli --token MTT
---network fantomtestnet  --bridge celer --dst goerli --token mUSD
+--network polygontestnet  --bridge celer --dst bsctestnet --token MTT
+--network polygontestnet  --bridge celer --dst bsctestnet --token mUSD
+--network bsctestnet  --bridge celer --dst polygontestnet --token MTT
+--network bsctestnet  --bridge celer --dst polygontestnet --token mUSD
 
 --network bsctestnet  --bridge layerZero --dst avalanchetestnet --token MTT
 --network bsctestnet  --bridge layerZero --dst avalanchetestnet --token mUSD

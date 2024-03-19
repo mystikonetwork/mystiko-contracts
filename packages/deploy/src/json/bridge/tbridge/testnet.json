@@ -2,50 +2,34 @@
   "chains": [
     {
       "network": "bsctestnet",
-      "privateKey": "",
       "providers": [
-        "https://data-seed-prebsc-1-s1.binance.org:8545",
-        "https://data-seed-prebsc-2-s1.binance.org:8545",
-        "https://data-seed-prebsc-1-s2.binance.org:8545",
-        "https://data-seed-prebsc-2-s2.binance.org:8545",
-        "https://data-seed-prebsc-1-s3.binance.org:8545",
-        "https://data-seed-prebsc-2-s3.binance.org:8545",
+        "https://bsc-testnet.blockpi.network/v1/rpc/public",
+        "https://bsc-testnet.blastapi.io/443f931f-a291-450f-956b-62a57fa8f758",
         "https://nd-302-890-317.p2pify.com/430c98aabb1fe49ec6517602e1e40f01",
         "https://speedy-nodes-nyc.moralis.io/d90e3898aa487ee11a6957b9/bsc/testnet"
       ],
       "gasPriceGweiStatic": "0",
       "maxGasPriceGweiDynamic": "200",
-      "confirmBlocks": 5
-    },
-    {
-      "network": "ropsten",
-      "privateKey": "",
-      "providers": [
-        "https://ropsten.infura.io/v3/9aa3d95b3bc440fa88ea12eaa4456161",
-        "https://eth-ropsten.alchemyapi.io/v2/LPkA3Wlc-6tR-ZMGJLBgEhi-HTNo7H1j"
-      ],
-      "gasPriceGweiStatic": "0",
-      "maxGasPriceGweiDynamic": "200",
       "confirmBlocks": 10
     },
     {
-      "network": "goerli",
-      "privateKey": "",
+      "network": "sepolia",
       "providers": [
-        "https://goerli.infura.io/v3/9aa3d95b3bc440fa88ea12eaa4456161",
-        "https://eth-goerli.alchemyapi.io/v2/LPkA3Wlc-6tR-ZMGJLBgEhi-HTNo7H1j"
+        "https://ethereum-sepolia.blockpi.network/v1/rpc/public",
+        "https://1rpc.io/sepolia",
+        "https://rpc.sepolia.org"
       ],
       "gasPriceGweiStatic": "0",
       "maxGasPriceGweiDynamic": "200",
-      "confirmBlocks": 10
+      "confirmBlocks": 3
     },
     {
       "network": "polygontestnet",
-      "privateKey": "",
       "providers": [
-        "https://nd-448-055-606.p2pify.com/235d7c0709c9a00b39395cd0bfbf4948",
         "https://polygon-mumbai.g.alchemy.com/v2/JhuCQTtuNFg365zQ0WLKtrAf9AbfreOS",
-        "https://rpc-mumbai.matic.today"
+        "https://rpc.ankr.com/polygon_mumbai",
+        "https://matic-mumbai.chainstacklabs.com",
+        "https://polygon-mumbai.blockpi.network/v1/rpc/public"
       ],
       "gasPriceGweiStatic": "0",
       "maxGasPriceGweiDynamic": "200",
@@ -53,8 +37,9 @@
     },
     {
       "network": "avalanchetestnet",
-      "privateKey": "",
       "providers": [
+        "https://api.avax-test.network/ext/bc/C/rpc",
+        "https://rpc.ankr.com/avalanche_fuji",
         "https://nd-238-781-681.p2pify.com/796ca43c7ddc3121534c97e104d7a369/ext/bc/C/rpc",
         "https://avax.getblock.io/testnet/ext/bc/C/rpc?api_key=71722c7c-f748-4ea3-bacd-6edc2900c4f0"
       ],
@@ -64,20 +49,11 @@
     },
     {
       "network": "fantomtestnet",
-      "privateKey": "",
       "providers": [
+        "https://rpc.testnet.fantom.network",
+        "https://rpc.ankr.com/fantom_testnet",
         "https://nd-214-128-719.p2pify.com/601ca0e7925b0eabdc7bbd7e220604af",
-        "https://rpc.testnet.fantom.network"
-      ],
-      "gasPriceGweiStatic": "0",
-      "maxGasPriceGweiDynamic": "200",
-      "confirmBlocks": 10
-    },
-    {
-      "network": "auroratestnet",
-      "privateKey": "",
-      "providers": [
-        "https://aurora-testnet.infura.io/v3/908e7e8a95ba42a9aea33300a8a743cd"
+        "https://endpoints.omniatech.io/v1/fantom/testnet/public"
       ],
       "gasPriceGweiStatic": "0",
       "maxGasPriceGweiDynamic": "200",
@@ -85,9 +61,10 @@
     },
     {
       "network": "moonbase",
-      "privateKey": "",
       "providers": [
-        "https://moonbeam-alpha.api.onfinality.io/rpc?apikey=493402f8-6d11-4a9b-a6f7-3428181f5910",
+        "https://moonbeam-alpha.api.onfinality.io/public",
+        "https://rpc.testnet.moonbeam.network",
+        "https://moonbase.unitedbloc.com:1000",
         "https://rpc.api.moonbase.moonbeam.network"
       ],
       "gasPriceGweiStatic": "0",
@@ -99,89 +76,33 @@
     "pairs": [
       {
         "local": {
-          "network": "goerli",
-          "chainId": 5,
-          "relayProxyAddress": "0x1ab3117143144a2fDC27B45e239F8516a44e0CFd",
-          "bridgeEnalbe": true
-        },
-        "remote": {
           "network": "bsctestnet",
           "chainId": 97,
-          "relayProxyAddress": "0xb69206Bb4fdB07552Ec7F927F932298DBb4cfe41",
-          "bridgeEnalbe": true
-        }
-      },
-      {
-        "local": {
-          "network": "goerli",
-          "chainId": 5,
-          "relayProxyAddress": "0xf199b2b099ff0605faEd4dbd7050ffBce3fc13dc",
+          "relayProxyAddress": "0x25A4A2880cb2CCc4Cc237d1B252977d3b325eD02",
           "bridgeEnalbe": true
         },
         "remote": {
-          "network": "polygontestnet",
-          "chainId": 80001,
-          "relayProxyAddress": "0xd033A44471061131029E2FF362AD7Fd05bd2E63f",
-          "bridgeEnalbe": true
-        }
-      },
-      {
-        "local": {
-          "network": "goerli",
-          "chainId": 5,
-          "relayProxyAddress": "0xe62E2c19f602F37E025D991E98390c9de8FeA189",
-          "bridgeEnalbe": true
-        },
-        "remote": {
-          "network": "avalanchetestnet",
-          "chainId": 43113,
-          "relayProxyAddress": "0x6F4B9fC28910Cd3D96f5C4281df33B6236F91aE9",
-          "bridgeEnalbe": true
-        }
-      },
-      {
-        "local": {
-          "network": "goerli",
-          "chainId": 5,
-          "relayProxyAddress": "0xe6BeF4fA3c689c2cFd0b4a44e05AC4f34E3Baef4",
-          "bridgeEnalbe": true
-        },
-        "remote": {
-          "network": "fantomtestnet",
-          "chainId": 4002,
-          "relayProxyAddress": "0xd033A44471061131029E2FF362AD7Fd05bd2E63f",
-          "bridgeEnalbe": true
-        }
-      },
-      {
-        "local": {
-          "network": "goerli",
-          "chainId": 5,
-          "relayProxyAddress": "0xB54467ba9274eD067AcCBa0cA0426E2B34AF3A51",
-          "bridgeEnalbe": true
-        },
-        "remote": {
-          "network": "moonbase",
-          "chainId": 1287,
-          "relayProxyAddress": "0x9c0d9De9667A884e575F4a053165a31aae83624A",
+          "network": "sepolia",
+          "chainId": 11155111,
+          "relayProxyAddress": "0xbcE2A81BfC7cFf29943407f8D4D550448AC3760c",
           "bridgeEnalbe": true
         }
       }
     ]
   },
   "monitor": {
-    "checkTimer": 20,
-    "blockStuckCounter": 20,
+    "checkTimer": 30,
+    "blockStuckCounter": 100,
     "retryTimer": 20,
     "transactionMaxBatch": 1,
     "transactionTimeout": 240,
-    "transactionMaxRetryCounter": 20,
+    "transactionMaxRetryCounter": 2,
     "transactionRetryDelay": 5,
     "transactionCheckCounter": 120,
     "getEventTimeout": 30,
-    "getEventMaxBatchNumber": 2000,
-    "blockGapMax": 5,
-    "blockGapToDelay": 2,
+    "getEventMaxBatchNumber": 1024,
+    "blockGapMax": 30,
+    "blockGapToDelay": 10,
     "gasPricePercent": 200
   }
 }
