@@ -149,6 +149,7 @@ export function testLayerZeroDeposit(
           }
         }
       }
+      await sanctionList.removeFromSanctionsList(bridgeAccount.address);
     });
 
     it('should emit correct events', () => {

@@ -160,6 +160,7 @@ export function testAxelarDeposit(
             // do nothing
           }
         }
+        await sanctionList.removeFromSanctionsList(bridgeAccount.address);
       }
     });
 

@@ -7,7 +7,7 @@
   "author": "Fitch",
   "license": "MIT",
   "scripts": {
-    "bootstrap": "lerna bootstrap",
+    "bootstrap": "lerna run bootstrap",
     "build": "lerna run build",
     "lint": "lerna run lint",
     "test": "lerna run test",

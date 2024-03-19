@@ -14,7 +14,7 @@ dotenv.config();
 
 task('migrate', 'deploy contract')
   .addParam('bridge', 'loop、tbridge、celer', 'loop')
-  .addParam('dst', 'ropsten、goerli、bsctestnet', 'bsctestnet')
+  .addParam('dst', 'sepolia、bsctestnet', 'bsctestnet')
   .addParam('token', 'ETH、BNB、MTT、mUSD', 'MTT')
   .addParam(
     'step',
@@ -28,7 +28,7 @@ task('migrate', 'deploy contract')
 
 task('set', 'update contract configure')
   .addParam('bridge', 'loop、tbridge、celer', 'loop')
-  .addParam('dst', 'ropsten、goerli、bsctestnet', 'bsctestnet')
+  .addParam('dst', 'sepolia、bsctestnet', 'bsctestnet')
   .addParam('token', 'ETH、BNB、MTT、mUSD', 'MTT')
   .addParam(
     'func',
@@ -42,7 +42,7 @@ task('set', 'update contract configure')
 
 task('query', 'update contract configure')
   .addParam('bridge', 'loop、tbridge、celer', 'loop')
-  .addParam('dst', 'ropsten、goerli、bsctestnet', 'bsctestnet')
+  .addParam('dst', 'sepolia、bsctestnet', 'bsctestnet')
   .addParam('token', 'ETH、BNB、MTT、mUSD', 'MTT')
   .addParam('func', 'commitmentQueue、sanction')
   .addParam('param', 'parameter', '')
@@ -56,14 +56,11 @@ const DEFAULT_TESTNET_PRIVATE_KEY = process.env.TESTNET_PRIVATE_KEY;
 const DEFAULT_MAINNET_PRIVATE_KEY = process.env.MAINNET_PRIVATE_KEY;
 
 // Testnets
-const ropstenEndpoint = process.env.ROPSTEN_ENDPOINT || DEFAULT_ENDPOINT;
-const ropstenPrivateKey = process.env.ROPSTEN_TESTNET_PRIVATE_KEY || DEFAULT_TESTNET_PRIVATE_KEY;
+const sepoliaEndpoint = process.env.SEPOLIA_ENDPOINT || DEFAULT_ENDPOINT;
+const sepoliaPrivateKey = process.env.SEPOLIA_TESTNET_PRIVATE_KEY || DEFAULT_TESTNET_PRIVATE_KEY;
 
-const goerliEndpoint = process.env.GOERLI_ENDPOINT || DEFAULT_ENDPOINT;
-const goerliPrivateKey = process.env.GOERLI_TESTNET_PRIVATE_KEY || DEFAULT_TESTNET_PRIVATE_KEY;
-
-const baseGoerliEndpoint = process.env.BASE_GOERLI_ENDPOINT || DEFAULT_ENDPOINT;
-const baseGoerliPrivateKey = process.env.BASE_GOERLI_TESTNET_PRIVATE_KEY || DEFAULT_TESTNET_PRIVATE_KEY;
+const baseSepoliaEndpoint = process.env.BASE_SEPOLIA_ENDPOINT || DEFAULT_ENDPOINT;
+const baseSepoliaPrivateKey = process.env.BASE_SEPOLIA_TESTNET_PRIVATE_KEY || DEFAULT_TESTNET_PRIVATE_KEY;
 
 const bscTestEndpoint = process.env.BSC_TEST_ENDPOINT || DEFAULT_ENDPOINT;
 const bscTestPrivateKey = process.env.BSC_TESTNET_PRIVATE_KEY || DEFAULT_TESTNET_PRIVATE_KEY;
@@ -110,17 +107,13 @@ const config: HardhatUserConfig = {
   networks: {
     hardhat: {},
     localhost: { timeout: 600000 },
-    ropsten: {
-      url: ropstenEndpoint,
-      accounts: [`0x${ropstenPrivateKey}`],
+    sepolia: {
+      url: sepoliaEndpoint,
+      accounts: [`0x${sepoliaPrivateKey}`],
     },
-    goerli: {
-      url: goerliEndpoint,
-      accounts: [`0x${goerliPrivateKey}`],
-    },
-    baseGoerli: {
-      url: baseGoerliEndpoint,
-      accounts: [`0x${baseGoerliPrivateKey}`],
+    baseSepolia: {
+      url: baseSepoliaEndpoint,
+      accounts: [`0x${baseSepoliaPrivateKey}`],
       gasPrice: 200000000,
     },
     bsctestnet: {
