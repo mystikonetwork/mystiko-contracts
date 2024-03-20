@@ -12,8 +12,9 @@ import "../rule/Sanctions.sol";
 import "@openzeppelin/contracts/security/ReentrancyGuard.sol";
 import "@openzeppelin/contracts/utils/cryptography/ECDSA.sol";
 import "@openzeppelin/contracts/utils/math/SafeCast.sol";
+import {MystikoDAOGoverned} from "@mystikonetwork/governance/contracts/governance/MystikoDAOGoverned.sol";
 
-abstract contract CommitmentPool is ICommitmentPool, AssetPool, ReentrancyGuard, Sanctions {
+abstract contract CommitmentPool is ICommitmentPool, AssetPool, ReentrancyGuard, Sanctions,MystikoDAOGoverned {
   uint256 public constant auditorCount = 5;
 
   struct CommitmentLeaf {
@@ -58,22 +59,13 @@ abstract contract CommitmentPool is ICommitmentPool, AssetPool, ReentrancyGuard,
   uint256 private currentRoot;
 
   // Admin related.
-  address private operator;
   uint256 private minRollupFee;
-  mapping(address => bool) private rollupWhitelist;
   mapping(address => bool) private enqueueWhitelist;
 
   // Some switches.
   bool private verifierUpdateDisabled;
-  bool private rollupWhitelistDisabled;
 
-  // auditor public keys
-  uint256[auditorCount] private auditorPublicKeys;
 
-  modifier onlyOperator() {
-    if (msg.sender != operator) revert CustomErrors.OnlyOperator();
-    _;
-  }
 
   modifier onlyRollupWhitelisted() {
     if (!rollupWhitelistDisabled && !rollupWhitelist[msg.sender]) revert CustomErrors.OnlyWhitelistedRoller();
