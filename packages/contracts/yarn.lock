@@ -1809,6 +1809,11 @@
   resolved "https://npm.pkg.github.com/download/@mystikonetwork/fastfile/0.0.21/b3362f8527fa15a2d745c0b516c92d0a5ca0ceef4c2e103aac2d79305f0c4207#069a0d0d6a28a3f002fe97519456bbbd14880f9c"
   integrity sha512-o9vr4WoWEGord8+6ADBSulLO9arM2z0R5bOKj+GGPOFY/Zm8bg7alqRfuTvcxzll9TTk/rv7gDM4GnbBHhvyMA==
 
+"@mystikonetwork/governance@^0.1.2":
+  version "0.1.2"
+  resolved "https://npm.pkg.github.com/download/@mystikonetwork/governance/0.1.2/738977cf5f5081609f391debd17b330c9b3769b7#738977cf5f5081609f391debd17b330c9b3769b7"
+  integrity sha512-ow5Z8etvUVVpIgs5NmQJxmUC1dMB5I7wXqmu+Gu4XcD3ufITMk5M8OCK88WhRAY8Pyjh5jjcsgODSrkN/irflw==
+
 "@mystikonetwork/merkle@^0.3.0":
   version "0.3.0"
   resolved "https://npm.pkg.github.com/download/@mystikonetwork/merkle/0.3.0/44dea94c04ab4273e935dae5b1a85aa60cbcb765#44dea94c04ab4273e935dae5b1a85aa60cbcb765"
@@ -1848,6 +1853,11 @@
     "@mystikonetwork/utils" "^0.1.3"
     bn.js "^5.2.0"
     randombytes "^2.1.0"
+
+"@mystikonetwork/tx-fee@^0.1.0":
+  version "0.1.0"
+  resolved "https://npm.pkg.github.com/download/@mystikonetwork/tx-fee/0.1.0/32efb603d735a6dda6e3d8084c1e4723636b7892#32efb603d735a6dda6e3d8084c1e4723636b7892"
+  integrity sha512-/gC1IxPJZYc+VWiCTPs9oSWE1xo46TjcE9W6Z9H9+U4xCONvWckP0dKps5DrEatYcBaOgLiGXKRxAMeN9wO/Cg==
 
 "@mystikonetwork/utils@^0.1.1":
   version "0.1.1"

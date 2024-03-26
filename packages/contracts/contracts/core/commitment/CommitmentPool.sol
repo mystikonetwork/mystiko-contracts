@@ -15,16 +15,9 @@ import "@openzeppelin/contracts/utils/math/SafeCast.sol";
 import {MystikoDAOGoverned} from "@mystikonetwork/governance/contracts/governance/MystikoDAOGoverned.sol";
 
 abstract contract CommitmentPool is ICommitmentPool, AssetPool, ReentrancyGuard, Sanctions,MystikoDAOGoverned {
-  uint256 public constant auditorCount = 5;
-
   struct CommitmentLeaf {
     uint256 commitment;
     uint256 rollupFee;
-  }
-
-  struct WrappedVerifier {
-    IVerifier verifier;
-    bool enabled;
   }
 
   struct UnpackedPublicKey {
@@ -37,11 +30,6 @@ abstract contract CommitmentPool is ICommitmentPool, AssetPool, ReentrancyGuard,
     uint256 publicKey;
     uint256 note;
   }
-
-  // Transact proof verifier related contract
-  mapping(uint32 => mapping(uint32 => WrappedVerifier)) private transactVerifiers;
-  // Rollup proof verifier related contract
-  mapping(uint32 => WrappedVerifier) private rollupVerifiers;
 
   // For checking duplicates.
   mapping(uint256 => bool) private historicCommitments;
@@ -63,21 +51,13 @@ abstract contract CommitmentPool is ICommitmentPool, AssetPool, ReentrancyGuard,
   mapping(address => bool) private enqueueWhitelist;
 
   // Some switches.
-  bool private verifierUpdateDisabled;
-
-
-
-  modifier onlyRollupWhitelisted() {
-    if (!rollupWhitelistDisabled && !rollupWhitelist[msg.sender]) revert CustomErrors.OnlyWhitelistedRoller();
-    _;
-  }
+  bool private transferDisabled;
 
   modifier onlyEnqueueWhitelisted() {
     if (!enqueueWhitelist[msg.sender]) revert CustomErrors.OnlyWhitelistedSender();
     _;
   }
 
-  event OperatorChanged(address indexed operator);
   event CommitmentQueued(
     uint256 indexed commitment,
     uint256 rollupFee,
@@ -89,13 +69,9 @@ abstract contract CommitmentPool is ICommitmentPool, AssetPool, ReentrancyGuard,
   // event is deprecated， new event is EncryptedAuditorNotes, keep define for backward compatibility
   event EncryptedAuditorNote(uint64 id, uint256 auditorPublicKey, uint256 encryptedAuditorNote);
   event EncryptedAuditorNotes(AuditorNote[] notes);
-  event VerifierUpdateDisabled(bool state);
-  event RollupWhitelistDisabled(bool state);
-  event AuditorPublicKey(uint256 indexed index, uint256 publicKey);
 
   constructor(uint8 _treeHeight) {
     if (_treeHeight == 0) revert CustomErrors.TreeHeightLessThanZero();
-    operator = msg.sender;
     treeCapacity = 1 << _treeHeight;
     currentRoot = _zeros(_treeHeight);
     rootHistory[currentRoot] = true;

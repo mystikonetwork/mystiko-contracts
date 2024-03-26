@@ -7,3 +7,4 @@ coverage
 .env
 packages/deploy/src/json/core/
 .yarn
+.yarnrc
