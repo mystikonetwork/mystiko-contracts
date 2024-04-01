@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.7;
+pragma solidity ^0.8.20;
 
 import "../base/MystikoV2Bridge.sol";
 import "./relay/interface/ICrossChainProxy.sol";

@@ -1,9 +1,11 @@
-pragma solidity ^0.8.7;
+pragma solidity ^0.8.20;
 
 library CustomErrors {
   error NotChanged();
-  error OnlyWhitelistedRoller();
-  error OnlyWhitelistedSender();
+  error RejectRollup();
+  error RejectRelay();
+  error RollupDisabled(uint256 rollupSize);
+  error TransactDisabled(uint32 inputNumber, uint32 outputNumber);
   error OnlyWhitelistedExecutor();
   error TreeHeightLessThanZero();
   error RollupFeeToFew();

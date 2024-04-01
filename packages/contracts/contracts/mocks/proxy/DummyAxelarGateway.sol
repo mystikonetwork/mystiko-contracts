@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.7;
+pragma solidity ^0.8.20;
 
 import "../../core/deposit/axelar/relay/IAxelarGateway.sol";
 import "../../core/deposit/axelar/MystikoV2Axelar.sol";

@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.7;
+pragma solidity ^0.8.20;
 
 import "./relay/IAxelarExecutable.sol";
 import "./relay/IAxelarGasService.sol";
