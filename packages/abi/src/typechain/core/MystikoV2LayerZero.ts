@@ -18,6 +18,16 @@ import { FunctionFragment, Result, EventFragment } from '@ethersproject/abi';
 import { Listener, Provider } from '@ethersproject/providers';
 import { TypedEventFilter, TypedEvent, TypedListener, OnEvent } from './common';
 
+export type QueryFeeResponseStruct = {
+  feeAmount: BigNumberish;
+  feePool: string;
+};
+
+export type QueryFeeResponseStructOutput = [BigNumber, string] & {
+  feeAmount: BigNumber;
+  feePool: string;
+};
+
 export declare namespace IMystikoBridge {
   export type DepositRequestStruct = {
     amount: BigNumberish;
@@ -83,6 +93,7 @@ export interface MystikoV2LayerZeroInterface extends utils.Interface {
     'peerChainName()': FunctionFragment;
     'peerContract()': FunctionFragment;
     'peerLayerZeroChainId()': FunctionFragment;
+    'queryDepositFee(uint256)': FunctionFragment;
     'renounceOwnership()': FunctionFragment;
     'retryMessage(uint16,bytes,uint64,bytes)': FunctionFragment;
     'sanctionsCheck()': FunctionFragment;
@@ -148,6 +159,7 @@ export interface MystikoV2LayerZeroInterface extends utils.Interface {
   encodeFunctionData(functionFragment: 'peerChainName', values?: undefined): string;
   encodeFunctionData(functionFragment: 'peerContract', values?: undefined): string;
   encodeFunctionData(functionFragment: 'peerLayerZeroChainId', values?: undefined): string;
+  encodeFunctionData(functionFragment: 'queryDepositFee', values: [BigNumberish]): string;
   encodeFunctionData(functionFragment: 'renounceOwnership', values?: undefined): string;
   encodeFunctionData(
     functionFragment: 'retryMessage',
@@ -209,6 +221,7 @@ export interface MystikoV2LayerZeroInterface extends utils.Interface {
   decodeFunctionResult(functionFragment: 'peerChainName', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'peerContract', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'peerLayerZeroChainId', data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'queryDepositFee', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'renounceOwnership', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'retryMessage', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'sanctionsCheck', data: BytesLike): Result;
@@ -446,6 +459,11 @@ export interface MystikoV2LayerZero extends BaseContract {
 
     peerLayerZeroChainId(overrides?: CallOverrides): Promise<[number]>;
 
+    queryDepositFee(
+      _amount: BigNumberish,
+      overrides?: CallOverrides,
+    ): Promise<[QueryFeeResponseStructOutput]>;
+
     renounceOwnership(
       overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<ContractTransaction>;
@@ -651,6 +669,8 @@ export interface MystikoV2LayerZero extends BaseContract {
 
   peerLayerZeroChainId(overrides?: CallOverrides): Promise<number>;
 
+  queryDepositFee(_amount: BigNumberish, overrides?: CallOverrides): Promise<QueryFeeResponseStructOutput>;
+
   renounceOwnership(
     overrides?: Overrides & { from?: string | Promise<string> },
   ): Promise<ContractTransaction>;
@@ -848,6 +868,8 @@ export interface MystikoV2LayerZero extends BaseContract {
     peerContract(overrides?: CallOverrides): Promise<string>;
 
     peerLayerZeroChainId(overrides?: CallOverrides): Promise<number>;
+
+    queryDepositFee(_amount: BigNumberish, overrides?: CallOverrides): Promise<QueryFeeResponseStructOutput>;
 
     renounceOwnership(overrides?: CallOverrides): Promise<void>;
 
@@ -1069,6 +1091,8 @@ export interface MystikoV2LayerZero extends BaseContract {
 
     peerLayerZeroChainId(overrides?: CallOverrides): Promise<BigNumber>;
 
+    queryDepositFee(_amount: BigNumberish, overrides?: CallOverrides): Promise<BigNumber>;
+
     renounceOwnership(overrides?: Overrides & { from?: string | Promise<string> }): Promise<BigNumber>;
 
     retryMessage(
@@ -1272,6 +1296,8 @@ export interface MystikoV2LayerZero extends BaseContract {
     peerContract(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     peerLayerZeroChainId(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+
+    queryDepositFee(_amount: BigNumberish, overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     renounceOwnership(
       overrides?: Overrides & { from?: string | Promise<string> },

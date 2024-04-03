@@ -18,6 +18,16 @@ import { FunctionFragment, Result, EventFragment } from '@ethersproject/abi';
 import { Listener, Provider } from '@ethersproject/providers';
 import { TypedEventFilter, TypedEvent, TypedListener, OnEvent } from './common';
 
+export type QueryFeeResponseStruct = {
+  feeAmount: BigNumberish;
+  feePool: string;
+};
+
+export type QueryFeeResponseStructOutput = [BigNumber, string] & {
+  feeAmount: BigNumber;
+  feePool: string;
+};
+
 export declare namespace IMystikoBridge {
   export type DepositRequestStruct = {
     amount: BigNumberish;
@@ -77,6 +87,7 @@ export interface MystikoV2CelerERC20Interface extends utils.Interface {
     'peerChainId()': FunctionFragment;
     'peerChainName()': FunctionFragment;
     'peerContract()': FunctionFragment;
+    'queryDepositFee(uint256)': FunctionFragment;
     'sanctionsCheck()': FunctionFragment;
     'sanctionsList()': FunctionFragment;
     'setAssociatedCommitmentPool(address)': FunctionFragment;
@@ -118,6 +129,7 @@ export interface MystikoV2CelerERC20Interface extends utils.Interface {
   encodeFunctionData(functionFragment: 'peerChainId', values?: undefined): string;
   encodeFunctionData(functionFragment: 'peerChainName', values?: undefined): string;
   encodeFunctionData(functionFragment: 'peerContract', values?: undefined): string;
+  encodeFunctionData(functionFragment: 'queryDepositFee', values: [BigNumberish]): string;
   encodeFunctionData(functionFragment: 'sanctionsCheck', values?: undefined): string;
   encodeFunctionData(functionFragment: 'sanctionsList', values?: undefined): string;
   encodeFunctionData(functionFragment: 'setAssociatedCommitmentPool', values: [string]): string;
@@ -158,6 +170,7 @@ export interface MystikoV2CelerERC20Interface extends utils.Interface {
   decodeFunctionResult(functionFragment: 'peerChainId', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'peerChainName', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'peerContract', data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'queryDepositFee', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'sanctionsCheck', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'sanctionsList', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'setAssociatedCommitmentPool', data: BytesLike): Result;
@@ -317,6 +330,11 @@ export interface MystikoV2CelerERC20 extends BaseContract {
 
     peerContract(overrides?: CallOverrides): Promise<[string]>;
 
+    queryDepositFee(
+      _amount: BigNumberish,
+      overrides?: CallOverrides,
+    ): Promise<[QueryFeeResponseStructOutput]>;
+
     sanctionsCheck(overrides?: CallOverrides): Promise<[boolean]>;
 
     sanctionsList(overrides?: CallOverrides): Promise<[string]>;
@@ -436,6 +454,8 @@ export interface MystikoV2CelerERC20 extends BaseContract {
 
   peerContract(overrides?: CallOverrides): Promise<string>;
 
+  queryDepositFee(_amount: BigNumberish, overrides?: CallOverrides): Promise<QueryFeeResponseStructOutput>;
+
   sanctionsCheck(overrides?: CallOverrides): Promise<boolean>;
 
   sanctionsList(overrides?: CallOverrides): Promise<string>;
@@ -547,6 +567,8 @@ export interface MystikoV2CelerERC20 extends BaseContract {
     peerChainName(overrides?: CallOverrides): Promise<string>;
 
     peerContract(overrides?: CallOverrides): Promise<string>;
+
+    queryDepositFee(_amount: BigNumberish, overrides?: CallOverrides): Promise<QueryFeeResponseStructOutput>;
 
     sanctionsCheck(overrides?: CallOverrides): Promise<boolean>;
 
@@ -672,6 +694,8 @@ export interface MystikoV2CelerERC20 extends BaseContract {
 
     peerContract(overrides?: CallOverrides): Promise<BigNumber>;
 
+    queryDepositFee(_amount: BigNumberish, overrides?: CallOverrides): Promise<BigNumber>;
+
     sanctionsCheck(overrides?: CallOverrides): Promise<BigNumber>;
 
     sanctionsList(overrides?: CallOverrides): Promise<BigNumber>;
@@ -791,6 +815,8 @@ export interface MystikoV2CelerERC20 extends BaseContract {
     peerChainName(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     peerContract(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+
+    queryDepositFee(_amount: BigNumberish, overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     sanctionsCheck(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 

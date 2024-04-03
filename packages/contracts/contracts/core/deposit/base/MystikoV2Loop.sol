@@ -94,13 +94,12 @@ abstract contract MystikoV2Loop is IMystikoLoop, AssetPool, Sanctions, MystikoDA
     });
 
     ICommitmentPool(associatedCommitmentPool).enqueue(cmRequest, address(0));
-    QueryFeeParams memory txFeeParams = QueryFeeParams({assetAddress: assetAddress(), amount: _amount});
-    QueryFeeResponse memory txFeeResponse = txFeeProxy.queryFee(txFeeParams);
+    QueryFeeResponse memory depositFee = queryDepositFee(_amount);
     _processDepositTransfer(
       associatedCommitmentPool,
-      txFeeResponse.feePool,
+      depositFee.feePool,
       _amount + _rollupFee,
-      txFeeResponse.feeAmount,
+      depositFee.feeAmount,
       0
     );
   }
@@ -123,6 +122,11 @@ abstract contract MystikoV2Loop is IMystikoLoop, AssetPool, Sanctions, MystikoDA
   function updateSanctionsListAddress(ISanctionsList _sanction) external onlyMystikoDAO {
     sanctionsList = _sanction;
     emit SanctionsList(_sanction);
+  }
+
+  function queryDepositFee(uint256 _amount) public view returns (QueryFeeResponse memory) {
+    QueryFeeParams memory txFeeParams = QueryFeeParams({assetAddress: assetAddress(), amount: _amount});
+    return txFeeProxy.queryFee(txFeeParams);
   }
 
   function bridgeType() public pure returns (string memory) {

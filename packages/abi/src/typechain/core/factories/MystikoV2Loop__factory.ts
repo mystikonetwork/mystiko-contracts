@@ -274,6 +274,37 @@ const _abi = [
     type: 'function',
   },
   {
+    inputs: [
+      {
+        internalType: 'uint256',
+        name: '_amount',
+        type: 'uint256',
+      },
+    ],
+    name: 'queryDepositFee',
+    outputs: [
+      {
+        components: [
+          {
+            internalType: 'uint256',
+            name: 'feeAmount',
+            type: 'uint256',
+          },
+          {
+            internalType: 'address',
+            name: 'feePool',
+            type: 'address',
+          },
+        ],
+        internalType: 'struct QueryFeeResponse',
+        name: '',
+        type: 'tuple',
+      },
+    ],
+    stateMutability: 'view',
+    type: 'function',
+  },
+  {
     inputs: [],
     name: 'sanctionsCheck',
     outputs: [

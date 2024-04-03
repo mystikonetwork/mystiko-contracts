@@ -141,13 +141,6 @@ abstract contract MystikoV2Bridge is
     if (_request.commitment != calculatedCommitment) revert CustomErrors.CommitmentHashIncorrect();
     if (isSanctioned(msg.sender)) revert CustomErrors.SanctionedAddress();
 
-    QueryFeeParams memory txFeeParams = QueryFeeParams({
-      assetAddress: assetAddress(),
-      amount: _request.amount
-    });
-    QueryFeeResponse memory txFeeResponse = txFeeProxy.queryFee(txFeeParams);
-
-    // todo check commitment ?
     ICommitmentPool.CommitmentRequest memory cmRequest = ICommitmentPool.CommitmentRequest({
       amount: _request.amount,
       commitment: _request.commitment,
@@ -158,11 +151,12 @@ abstract contract MystikoV2Bridge is
 
     bytes memory cmRequestBytes = serializeTxData(cmRequest);
     _processDeposit(_request.bridgeFee, cmRequestBytes);
+    QueryFeeResponse memory depositFee = queryDepositFee(_request.amount);
     _processDepositTransfer(
       associatedCommitmentPool,
-      txFeeResponse.feePool,
+      depositFee.feePool,
       _request.amount + _request.executorFee + _request.rollupFee,
-      txFeeResponse.feeAmount,
+      depositFee.feeAmount,
       _request.bridgeFee
     );
     emit CommitmentCrossChain(_request.commitment);
@@ -200,6 +194,11 @@ abstract contract MystikoV2Bridge is
   function updateSanctionsListAddress(ISanctionsList _sanction) external onlyMystikoDAO {
     sanctionsList = _sanction;
     emit SanctionsList(_sanction);
+  }
+
+  function queryDepositFee(uint256 _amount) public view returns (QueryFeeResponse memory) {
+    QueryFeeParams memory txFeeParams = QueryFeeParams({assetAddress: assetAddress(), amount: _amount});
+    return txFeeProxy.queryFee(txFeeParams);
   }
 
   function bridgeType() public pure virtual returns (string memory);
