@@ -13,8 +13,16 @@ import "../../rule/Sanctions.sol";
 import "@openzeppelin/contracts/security/ReentrancyGuard.sol";
 import "@openzeppelin/contracts/utils/cryptography/ECDSA.sol";
 import "@openzeppelin/contracts/utils/math/SafeMath.sol";
+import {MystikoDAOGoverned} from "@mystikonetwork/governance/contracts/governance/MystikoDAOGoverned.sol";
+import {IFeeQuery, QueryFeeParams, QueryFeeResponse} from "@mystikonetwork/tx-fee/contracts/fee/interfaces/iFeeQuery.sol";
 
-abstract contract MystikoV2Bridge is IMystikoBridge, AssetPool, CrossChainDataSerializable, Sanctions {
+abstract contract MystikoV2Bridge is
+  IMystikoBridge,
+  AssetPool,
+  CrossChainDataSerializable,
+  Sanctions,
+  MystikoDAOGoverned
+{
   using SafeMath for uint256;
 
   // Hasher related.
@@ -27,6 +35,8 @@ abstract contract MystikoV2Bridge is IMystikoBridge, AssetPool, CrossChainDataSe
 
   //bridge proxy address
   address public bridgeProxyAddress;
+  //tx fee proxy address
+  IFeeQuery public txFeeProxy;
 
   //local chain fee
   uint256 private minAmount;
@@ -38,23 +48,14 @@ abstract contract MystikoV2Bridge is IMystikoBridge, AssetPool, CrossChainDataSe
   uint256 private peerMinExecutorFee;
   uint256 private peerMinRollupFee;
 
-  // Admin related.
-  address private operator;
-
   // Some switches.
   bool private depositsDisabled;
-
-  modifier onlyOperator() {
-    if (msg.sender != operator) revert CustomErrors.OnlyOperator();
-    _;
-  }
 
   modifier onlyBridgeProxy() {
     if (msg.sender != bridgeProxyAddress) revert CustomErrors.SenderIsNotBridgeProxy();
     _;
   }
 
-  event OperatorChanged(address indexed operator);
   event DepositAmountLimits(uint256 maxAmount, uint256 minAmount);
   event MinBridgeFee(uint256 minBridgeFee);
   event MinExecutorFee(uint256 minExecutorFee);
@@ -63,44 +64,48 @@ abstract contract MystikoV2Bridge is IMystikoBridge, AssetPool, CrossChainDataSe
   event DepositsDisabled(bool state);
   event CommitmentCrossChain(uint256 indexed commitment);
 
-  constructor(IHasher3 _hasher3) {
-    operator = msg.sender;
+  constructor(
+    IHasher3 _hasher3,
+    address _daoCenter,
+    address _txFeeProxy
+  ) MystikoDAOGoverned(_daoCenter) {
     hasher3 = _hasher3;
+    txFeeProxy = IFeeQuery(_txFeeProxy);
   }
 
-  function setBridgeProxyAddress(address _bridgeProxyAddress) external onlyOperator {
+  function setBridgeProxyAddress(address _bridgeProxyAddress) external onlyMystikoDAO {
     bridgeProxyAddress = _bridgeProxyAddress;
   }
 
-  function updateDepositAmountLimits(uint256 _maxAmount, uint256 _minAmount) external onlyOperator {
+  function updateDepositAmountLimits(uint256 _maxAmount, uint256 _minAmount) external onlyMystikoDAO {
     if (_minAmount > _maxAmount) revert CustomErrors.MinAmountGreaterThanMaxAmount();
     maxAmount = _maxAmount;
     minAmount = _minAmount;
     emit DepositAmountLimits(_maxAmount, _minAmount);
   }
 
-  function setMinBridgeFee(uint256 _minBridgeFee) external onlyOperator {
+  function setMinBridgeFee(uint256 _minBridgeFee) external onlyMystikoDAO {
     minBridgeFee = _minBridgeFee;
     emit MinBridgeFee(_minBridgeFee);
   }
 
-  function setMinExecutorFee(uint256 _minExecutorFee) external onlyOperator {
+  function setMinExecutorFee(uint256 _minExecutorFee) external onlyMystikoDAO {
     minExecutorFee = _minExecutorFee;
     emit MinExecutorFee(_minExecutorFee);
   }
 
-  function setPeerMinExecutorFee(uint256 _peerMinExecutorFee) external onlyOperator {
+  function setPeerMinExecutorFee(uint256 _peerMinExecutorFee) external onlyMystikoDAO {
     peerMinExecutorFee = _peerMinExecutorFee;
     emit PeerMinExecutorFee(_peerMinExecutorFee);
   }
 
-  function setPeerMinRollupFee(uint256 _peerMinRollupFee) external onlyOperator {
+  function setPeerMinRollupFee(uint256 _peerMinRollupFee) external onlyMystikoDAO {
     if (_peerMinRollupFee == 0) revert CustomErrors.Invalid("peer minimal rollup fee");
     peerMinRollupFee = _peerMinRollupFee;
     emit PeerMinRollupFee(_peerMinRollupFee);
   }
 
-  function setAssociatedCommitmentPool(address _commitmentPoolAddress) external onlyOperator {
+  function setAssociatedCommitmentPool(address _commitmentPoolAddress) external onlyMystikoDAO {
     associatedCommitmentPool = _commitmentPoolAddress;
   }
 
@@ -108,7 +113,7 @@ abstract contract MystikoV2Bridge is IMystikoBridge, AssetPool, CrossChainDataSe
     uint64 _peerChainId,
     string memory _peerChainName,
     address _peerContract
-  ) external onlyOperator {
+  ) external onlyMystikoDAO {
     peerChainId = _peerChainId;
     peerChainName = _peerChainName;
     peerContract = _peerContract;
@@ -136,6 +141,12 @@ abstract contract MystikoV2Bridge is IMystikoBridge, AssetPool, CrossChainDataSe
     if (_request.commitment != calculatedCommitment) revert CustomErrors.CommitmentHashIncorrect();
     if (isSanctioned(msg.sender)) revert CustomErrors.SanctionedAddress();
 
+    QueryFeeParams memory txFeeParams = QueryFeeParams({
+      assetAddress: assetAddress(),
+      amount: _request.amount
+    });
+    QueryFeeResponse memory txFeeResponse = txFeeProxy.queryFee(txFeeParams);
+
     // todo check commitment ?
     ICommitmentPool.CommitmentRequest memory cmRequest = ICommitmentPool.CommitmentRequest({
       amount: _request.amount,
@@ -149,7 +160,9 @@ abstract contract MystikoV2Bridge is IMystikoBridge, AssetPool, CrossChainDataSe
     _processDeposit(_request.bridgeFee, cmRequestBytes);
     _processDepositTransfer(
       associatedCommitmentPool,
+      txFeeResponse.feePool,
       _request.amount + _request.executorFee + _request.rollupFee,
+      txFeeResponse.feeAmount,
       _request.bridgeFee
     );
     emit CommitmentCrossChain(_request.commitment);
@@ -169,28 +182,22 @@ abstract contract MystikoV2Bridge is IMystikoBridge, AssetPool, CrossChainDataSe
     ICommitmentPool(associatedCommitmentPool).enqueue(_request, _executor);
   }
 
-  function setDepositsDisabled(bool _state) external onlyOperator {
+  function setDepositsDisabled(bool _state) external onlyMystikoDAO {
     depositsDisabled = _state;
     emit DepositsDisabled(_state);
   }
 
-  function changeOperator(address _newOperator) external onlyOperator {
-    if (operator == _newOperator) revert CustomErrors.NotChanged();
-    operator = _newOperator;
-    emit OperatorChanged(_newOperator);
-  }
-
-  function enableSanctionsCheck() external onlyOperator {
+  function enableSanctionsCheck() external onlyMystikoDAO {
     sanctionsCheck = true;
     emit SanctionsCheck(sanctionsCheck);
   }
 
-  function disableSanctionsCheck() external onlyOperator {
+  function disableSanctionsCheck() external onlyMystikoDAO {
     sanctionsCheck = false;
     emit SanctionsCheck(sanctionsCheck);
   }
 
-  function updateSanctionsListAddress(ISanctionsList _sanction) external onlyOperator {
+  function updateSanctionsListAddress(ISanctionsList _sanction) external onlyMystikoDAO {
     sanctionsList = _sanction;
     emit SanctionsList(_sanction);
   }

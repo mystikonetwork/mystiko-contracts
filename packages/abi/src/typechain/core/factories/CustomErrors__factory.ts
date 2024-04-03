@@ -155,11 +155,6 @@ const _abi = [
   },
   {
     inputs: [],
-    name: 'OnlyOperator',
-    type: 'error',
-  },
-  {
-    inputs: [],
     name: 'OnlyRegister',
     type: 'error',
   },
@@ -170,22 +165,33 @@ const _abi = [
   },
   {
     inputs: [],
-    name: 'OnlyWhitelistedRoller',
-    type: 'error',
-  },
-  {
-    inputs: [],
-    name: 'OnlyWhitelistedSender',
-    type: 'error',
-  },
-  {
-    inputs: [],
     name: 'OutputNotesLessThanThree',
     type: 'error',
   },
   {
     inputs: [],
     name: 'RandomSGreaterThanFieldSize',
+    type: 'error',
+  },
+  {
+    inputs: [],
+    name: 'RejectRelay',
+    type: 'error',
+  },
+  {
+    inputs: [],
+    name: 'RejectRollup',
+    type: 'error',
+  },
+  {
+    inputs: [
+      {
+        internalType: 'uint256',
+        name: 'rollupSize',
+        type: 'uint256',
+      },
+    ],
+    name: 'RollupDisabled',
     type: 'error',
   },
   {
@@ -206,6 +212,22 @@ const _abi = [
   {
     inputs: [],
     name: 'SenderIsNotBridgeProxy',
+    type: 'error',
+  },
+  {
+    inputs: [
+      {
+        internalType: 'uint32',
+        name: 'inputNumber',
+        type: 'uint32',
+      },
+      {
+        internalType: 'uint32',
+        name: 'outputNumber',
+        type: 'uint32',
+      },
+    ],
+    name: 'TransactDisabled',
     type: 'error',
   },
   {
@@ -236,7 +258,7 @@ const _abi = [
 ];
 
 const _bytecode =
-  '0x60566037600b82828239805160001a607314602a57634e487b7160e01b600052600060045260246000fd5b30600052607381538281f3fe73000000000000000000000000000000000000000030146080604052600080fdfea2646970667358221220d3d3cdd15227a451d0e4793b136830fbe97a7a240b5cc87735c17372a79a079864736f6c63430008070033';
+  '0x60556032600b8282823980515f1a607314602657634e487b7160e01b5f525f60045260245ffd5b305f52607381538281f3fe730000000000000000000000000000000000000000301460806040525f80fdfea2646970667358221220d28f1052b6d436893636777680a1e7ab7a5cbac36659cf056c95d8c4115c9f8464736f6c63430008140033';
 
 type CustomErrorsConstructorParams = [signer?: Signer] | ConstructorParameters<typeof ContractFactory>;
 

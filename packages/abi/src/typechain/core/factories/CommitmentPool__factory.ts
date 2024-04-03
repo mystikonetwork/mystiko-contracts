@@ -9,17 +9,7 @@ import type { CommitmentPool, CommitmentPoolInterface } from '../CommitmentPool'
 const _abi = [
   {
     inputs: [],
-    name: 'AuditorIndexError',
-    type: 'error',
-  },
-  {
-    inputs: [],
     name: 'AuditorNotesLengthError',
-    type: 'error',
-  },
-  {
-    inputs: [],
-    name: 'AuditorPublicKeyNotChanged',
     type: 'error',
   },
   {
@@ -61,32 +51,12 @@ const _abi = [
   },
   {
     inputs: [],
-    name: 'NotChanged',
-    type: 'error',
-  },
-  {
-    inputs: [],
     name: 'NoteHasBeenSpent',
     type: 'error',
   },
   {
     inputs: [],
-    name: 'NumInputsGreaterThanZero',
-    type: 'error',
-  },
-  {
-    inputs: [],
-    name: 'OnlyOperator',
-    type: 'error',
-  },
-  {
-    inputs: [],
-    name: 'OnlyWhitelistedRoller',
-    type: 'error',
-  },
-  {
-    inputs: [],
-    name: 'OnlyWhitelistedSender',
+    name: 'OnlyMystikoDAO',
     type: 'error',
   },
   {
@@ -96,17 +66,49 @@ const _abi = [
   },
   {
     inputs: [],
+    name: 'RejectRelay',
+    type: 'error',
+  },
+  {
+    inputs: [],
+    name: 'RejectRollup',
+    type: 'error',
+  },
+  {
+    inputs: [
+      {
+        internalType: 'uint256',
+        name: 'rollupSize',
+        type: 'uint256',
+      },
+    ],
+    name: 'RollupDisabled',
+    type: 'error',
+  },
+  {
+    inputs: [],
     name: 'RollupFeeToFew',
     type: 'error',
   },
   {
     inputs: [],
-    name: 'RollupSizeNotPowerOfTwo',
+    name: 'SanctionedAddress',
     type: 'error',
   },
   {
-    inputs: [],
-    name: 'SanctionedAddress',
+    inputs: [
+      {
+        internalType: 'uint32',
+        name: 'inputNumber',
+        type: 'uint32',
+      },
+      {
+        internalType: 'uint32',
+        name: 'outputNumber',
+        type: 'uint32',
+      },
+    ],
+    name: 'TransactDisabled',
     type: 'error',
   },
   {
@@ -126,27 +128,8 @@ const _abi = [
   },
   {
     inputs: [],
-    name: 'VerifierUpdatesHasBeenDisabled',
+    name: 'UnauthorizedRole',
     type: 'error',
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: true,
-        internalType: 'uint256',
-        name: 'index',
-        type: 'uint256',
-      },
-      {
-        indexed: false,
-        internalType: 'uint256',
-        name: 'publicKey',
-        type: 'uint256',
-      },
-    ],
-    name: 'AuditorPublicKey',
-    type: 'event',
   },
   {
     anonymous: false,
@@ -272,24 +255,24 @@ const _abi = [
       {
         indexed: true,
         internalType: 'address',
-        name: 'operator',
+        name: 'account',
         type: 'address',
       },
     ],
-    name: 'OperatorChanged',
+    name: 'RoleGranted',
     type: 'event',
   },
   {
     anonymous: false,
     inputs: [
       {
-        indexed: false,
-        internalType: 'bool',
-        name: 'state',
-        type: 'bool',
+        indexed: true,
+        internalType: 'address',
+        name: 'account',
+        type: 'address',
       },
     ],
-    name: 'RollupWhitelistDisabled',
+    name: 'RoleRevoked',
     type: 'event',
   },
   {
@@ -319,19 +302,6 @@ const _abi = [
     type: 'event',
   },
   {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: false,
-        internalType: 'bool',
-        name: 'state',
-        type: 'bool',
-      },
-    ],
-    name: 'VerifierUpdateDisabled',
-    type: 'event',
-  },
-  {
     inputs: [
       {
         internalType: 'uint256',
@@ -356,29 +326,16 @@ const _abi = [
     type: 'function',
   },
   {
-    inputs: [
+    inputs: [],
+    name: 'assetAddress',
+    outputs: [
       {
         internalType: 'address',
-        name: '_actor',
+        name: '',
         type: 'address',
       },
     ],
-    name: 'addEnqueueWhitelist',
-    outputs: [],
-    stateMutability: 'nonpayable',
-    type: 'function',
-  },
-  {
-    inputs: [
-      {
-        internalType: 'address',
-        name: '_roller',
-        type: 'address',
-      },
-    ],
-    name: 'addRollupWhitelist',
-    outputs: [],
-    stateMutability: 'nonpayable',
+    stateMutability: 'view',
     type: 'function',
   },
   {
@@ -396,41 +353,15 @@ const _abi = [
   },
   {
     inputs: [],
-    name: 'auditorCount',
+    name: 'center',
     outputs: [
       {
-        internalType: 'uint256',
+        internalType: 'contract IMystikoGovernorCenter',
         name: '',
-        type: 'uint256',
-      },
-    ],
-    stateMutability: 'view',
-    type: 'function',
-  },
-  {
-    inputs: [
-      {
-        internalType: 'address',
-        name: '_newOperator',
         type: 'address',
       },
     ],
-    name: 'changeOperator',
-    outputs: [],
-    stateMutability: 'nonpayable',
-    type: 'function',
-  },
-  {
-    inputs: [
-      {
-        internalType: 'uint32',
-        name: '_rollupSize',
-        type: 'uint32',
-      },
-    ],
-    name: 'disableRollupVerifier',
-    outputs: [],
-    stateMutability: 'nonpayable',
+    stateMutability: 'view',
     type: 'function',
   },
   {
@@ -441,67 +372,8 @@ const _abi = [
     type: 'function',
   },
   {
-    inputs: [
-      {
-        internalType: 'uint32',
-        name: '_numInputs',
-        type: 'uint32',
-      },
-      {
-        internalType: 'uint32',
-        name: '_numOutputs',
-        type: 'uint32',
-      },
-    ],
-    name: 'disableTransactVerifier',
-    outputs: [],
-    stateMutability: 'nonpayable',
-    type: 'function',
-  },
-  {
-    inputs: [
-      {
-        internalType: 'uint32',
-        name: '_rollupSize',
-        type: 'uint32',
-      },
-      {
-        internalType: 'contract IVerifier',
-        name: '_rollupVerifier',
-        type: 'address',
-      },
-    ],
-    name: 'enableRollupVerifier',
-    outputs: [],
-    stateMutability: 'nonpayable',
-    type: 'function',
-  },
-  {
     inputs: [],
     name: 'enableSanctionsCheck',
-    outputs: [],
-    stateMutability: 'nonpayable',
-    type: 'function',
-  },
-  {
-    inputs: [
-      {
-        internalType: 'uint32',
-        name: '_numInputs',
-        type: 'uint32',
-      },
-      {
-        internalType: 'uint32',
-        name: '_numOutputs',
-        type: 'uint32',
-      },
-      {
-        internalType: 'contract IVerifier',
-        name: '_transactVerifier',
-        type: 'address',
-      },
-    ],
-    name: 'enableTransactVerifier',
     outputs: [],
     stateMutability: 'nonpayable',
     type: 'function',
@@ -677,6 +549,51 @@ const _abi = [
   {
     inputs: [
       {
+        internalType: 'address',
+        name: '_account',
+        type: 'address',
+      },
+    ],
+    name: 'grantRole',
+    outputs: [],
+    stateMutability: 'nonpayable',
+    type: 'function',
+  },
+  {
+    inputs: [
+      {
+        internalType: 'address[]',
+        name: '_accounts',
+        type: 'address[]',
+      },
+    ],
+    name: 'grantRoles',
+    outputs: [],
+    stateMutability: 'nonpayable',
+    type: 'function',
+  },
+  {
+    inputs: [
+      {
+        internalType: 'address',
+        name: '_account',
+        type: 'address',
+      },
+    ],
+    name: 'hasRole',
+    outputs: [
+      {
+        internalType: 'bool',
+        name: '',
+        type: 'bool',
+      },
+    ],
+    stateMutability: 'view',
+    type: 'function',
+  },
+  {
+    inputs: [
+      {
         internalType: 'uint256',
         name: '_commitment',
         type: 'uint256',
@@ -713,19 +630,6 @@ const _abi = [
     type: 'function',
   },
   {
-    inputs: [],
-    name: 'isRollupWhitelistDisabled',
-    outputs: [
-      {
-        internalType: 'bool',
-        name: '',
-        type: 'bool',
-      },
-    ],
-    stateMutability: 'view',
-    type: 'function',
-  },
-  {
     inputs: [
       {
         internalType: 'uint256',
@@ -745,27 +649,14 @@ const _abi = [
     type: 'function',
   },
   {
-    inputs: [],
-    name: 'isVerifierUpdateDisabled',
-    outputs: [
-      {
-        internalType: 'bool',
-        name: '',
-        type: 'bool',
-      },
-    ],
-    stateMutability: 'view',
-    type: 'function',
-  },
-  {
     inputs: [
       {
         internalType: 'address',
-        name: '_actor',
+        name: '_account',
         type: 'address',
       },
     ],
-    name: 'removeEnqueueWhitelist',
+    name: 'revokeRole',
     outputs: [],
     stateMutability: 'nonpayable',
     type: 'function',
@@ -773,12 +664,12 @@ const _abi = [
   {
     inputs: [
       {
-        internalType: 'address',
-        name: '_roller',
-        type: 'address',
+        internalType: 'address[]',
+        name: '_accounts',
+        type: 'address[]',
       },
     ],
-    name: 'removeRollupWhitelist',
+    name: 'revokeRoles',
     outputs: [],
     stateMutability: 'nonpayable',
     type: 'function',
@@ -906,32 +797,6 @@ const _abi = [
       },
     ],
     name: 'setMinRollupFee',
-    outputs: [],
-    stateMutability: 'nonpayable',
-    type: 'function',
-  },
-  {
-    inputs: [
-      {
-        internalType: 'bool',
-        name: '_state',
-        type: 'bool',
-      },
-    ],
-    name: 'setRollupWhitelistDisabled',
-    outputs: [],
-    stateMutability: 'nonpayable',
-    type: 'function',
-  },
-  {
-    inputs: [
-      {
-        internalType: 'bool',
-        name: '_state',
-        type: 'bool',
-      },
-    ],
-    name: 'setVerifierUpdateDisabled',
     outputs: [],
     stateMutability: 'nonpayable',
     type: 'function',
@@ -1075,24 +940,6 @@ const _abi = [
       },
     ],
     name: 'transact',
-    outputs: [],
-    stateMutability: 'nonpayable',
-    type: 'function',
-  },
-  {
-    inputs: [
-      {
-        internalType: 'uint256',
-        name: '_index',
-        type: 'uint256',
-      },
-      {
-        internalType: 'uint256',
-        name: '_publicKey',
-        type: 'uint256',
-      },
-    ],
-    name: 'updateAuditorPublicKey',
     outputs: [],
     stateMutability: 'nonpayable',
     type: 'function',

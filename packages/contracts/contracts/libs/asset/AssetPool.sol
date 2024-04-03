@@ -9,7 +9,9 @@ abstract contract AssetPool {
 
   function _processDepositTransfer(
     address commitmentPool,
+    address txFeePool,
     uint256 amount,
+    uint256 txFeeAmount,
     uint256 bridgeFee
   ) internal virtual;
 
@@ -20,4 +22,6 @@ abstract contract AssetPool {
   function _processWithdrawTransfer(address recipient, uint256 amount) internal virtual;
 
   function assetType() public view virtual returns (AssetType);
+
+  function assetAddress() public view virtual returns (address);
 }

@@ -8,7 +8,11 @@ import "../../../libs/utils/Utils.sol";
 import "../../../interface/IHasher3.sol";
 
 abstract contract MystikoV2LayerZero is MystikoV2Bridge, NonblockingLzApp {
-  constructor(IHasher3 _hasher3) MystikoV2Bridge(_hasher3) NonblockingLzApp() {
+  constructor(
+    IHasher3 _hasher3,
+    address _daoCenter,
+    address _txFeeProxy
+  ) MystikoV2Bridge(_hasher3, _daoCenter, _txFeeProxy) NonblockingLzApp() {
     // implemented in MystikoV2Bridge
   }
 

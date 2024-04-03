@@ -90,12 +90,7 @@ const _abi = [
   },
   {
     inputs: [],
-    name: 'NotChanged',
-    type: 'error',
-  },
-  {
-    inputs: [],
-    name: 'OnlyOperator',
+    name: 'OnlyMystikoDAO',
     type: 'error',
   },
   {
@@ -221,19 +216,6 @@ const _abi = [
       {
         indexed: true,
         internalType: 'address',
-        name: 'operator',
-        type: 'address',
-      },
-    ],
-    name: 'OperatorChanged',
-    type: 'event',
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: true,
-        internalType: 'address',
         name: 'previousOwner',
         type: 'address',
       },
@@ -320,6 +302,19 @@ const _abi = [
   },
   {
     inputs: [],
+    name: 'assetAddress',
+    outputs: [
+      {
+        internalType: 'address',
+        name: '',
+        type: 'address',
+      },
+    ],
+    stateMutability: 'view',
+    type: 'function',
+  },
+  {
+    inputs: [],
     name: 'assetType',
     outputs: [
       {
@@ -358,16 +353,16 @@ const _abi = [
     type: 'function',
   },
   {
-    inputs: [
+    inputs: [],
+    name: 'center',
+    outputs: [
       {
-        internalType: 'address',
-        name: '_newOperator',
+        internalType: 'contract IMystikoGovernorCenter',
+        name: '',
         type: 'address',
       },
     ],
-    name: 'changeOperator',
-    outputs: [],
-    stateMutability: 'nonpayable',
+    stateMutability: 'view',
     type: 'function',
   },
   {
@@ -1087,6 +1082,19 @@ const _abi = [
         internalType: 'bytes',
         name: '',
         type: 'bytes',
+      },
+    ],
+    stateMutability: 'view',
+    type: 'function',
+  },
+  {
+    inputs: [],
+    name: 'txFeeProxy',
+    outputs: [
+      {
+        internalType: 'contract IFeeQuery',
+        name: '',
+        type: 'address',
       },
     ],
     stateMutability: 'view',

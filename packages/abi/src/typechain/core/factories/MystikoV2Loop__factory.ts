@@ -39,12 +39,7 @@ const _abi = [
   },
   {
     inputs: [],
-    name: 'NotChanged',
-    type: 'error',
-  },
-  {
-    inputs: [],
-    name: 'OnlyOperator',
+    name: 'OnlyMystikoDAO',
     type: 'error',
   },
   {
@@ -93,19 +88,6 @@ const _abi = [
     anonymous: false,
     inputs: [
       {
-        indexed: true,
-        internalType: 'address',
-        name: 'operator',
-        type: 'address',
-      },
-    ],
-    name: 'OperatorChanged',
-    type: 'event',
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
         indexed: false,
         internalType: 'bool',
         name: 'state',
@@ -127,6 +109,19 @@ const _abi = [
     ],
     name: 'SanctionsList',
     type: 'event',
+  },
+  {
+    inputs: [],
+    name: 'assetAddress',
+    outputs: [
+      {
+        internalType: 'address',
+        name: '',
+        type: 'address',
+      },
+    ],
+    stateMutability: 'view',
+    type: 'function',
   },
   {
     inputs: [],
@@ -155,16 +150,16 @@ const _abi = [
     type: 'function',
   },
   {
-    inputs: [
+    inputs: [],
+    name: 'center',
+    outputs: [
       {
-        internalType: 'address',
-        name: '_newOperator',
+        internalType: 'contract IMystikoGovernorCenter',
+        name: '',
         type: 'address',
       },
     ],
-    name: 'changeOperator',
-    outputs: [],
-    stateMutability: 'nonpayable',
+    stateMutability: 'view',
     type: 'function',
   },
   {
@@ -328,6 +323,19 @@ const _abi = [
     name: 'setDepositsDisabled',
     outputs: [],
     stateMutability: 'nonpayable',
+    type: 'function',
+  },
+  {
+    inputs: [],
+    name: 'txFeeProxy',
+    outputs: [
+      {
+        internalType: 'contract IFeeQuery',
+        name: '',
+        type: 'address',
+      },
+    ],
+    stateMutability: 'view',
     type: 'function',
   },
   {

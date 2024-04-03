@@ -5,19 +5,15 @@ import "./interface/ICrossChainProxy.sol";
 import "../../base/CrossChainDataSerializable.sol";
 import "../MystikoV2TBridge.sol";
 import "../../../../libs/common/CustomErrors.sol";
+import {MystikoDAOGoverned} from "@mystikonetwork/governance/contracts/governance/MystikoDAOGoverned.sol";
 
-contract MystikoTBridgeProxy is ICrossChainProxy {
+contract MystikoTBridgeProxy is ICrossChainProxy, MystikoDAOGoverned {
   address operator;
   mapping(address => bool) executorWhitelist;
   mapping(address => bool) registerWhitelist;
 
-  constructor() {
+  constructor(address _daoCenter) MystikoDAOGoverned(_daoCenter) {
     operator = msg.sender;
-  }
-
-  modifier onlyOperator() {
-    if (msg.sender != operator) revert CustomErrors.OnlyOperator();
-    _;
   }
 
   modifier onlyExecutorWhitelisted() {
@@ -50,27 +46,27 @@ contract MystikoTBridgeProxy is ICrossChainProxy {
     return true;
   }
 
-  function changeOperator(address _newOperator) external onlyOperator {
+  function changeOperator(address _newOperator) external onlyMystikoDAO {
     operator = _newOperator;
   }
 
-  function addExecutorWhitelist(address _executor) external onlyOperator {
+  function addExecutorWhitelist(address _executor) external onlyMystikoDAO {
     executorWhitelist[_executor] = true;
   }
 
-  function removeExecutorWhitelist(address _executor) external onlyOperator {
+  function removeExecutorWhitelist(address _executor) external onlyMystikoDAO {
     executorWhitelist[_executor] = false;
   }
 
-  function addRegisterWhitelist(address _register) external onlyOperator {
+  function addRegisterWhitelist(address _register) external onlyMystikoDAO {
     registerWhitelist[_register] = true;
   }
 
-  function removeRegisterWhitelist(address _register) external onlyOperator {
+  function removeRegisterWhitelist(address _register) external onlyMystikoDAO {
     registerWhitelist[_register] = false;
   }
 
-  function withdraw(address _recipient) external payable onlyOperator {
+  function withdraw(address _recipient) external payable onlyMystikoDAO {
     (bool success, ) = _recipient.call{value: address(this).balance}("");
     if (!success) revert CustomErrors.WithdrawFailed();
   }

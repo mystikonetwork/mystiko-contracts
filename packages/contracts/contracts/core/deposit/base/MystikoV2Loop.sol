@@ -12,9 +12,14 @@ import "../../rule/Sanctions.sol";
 import "@openzeppelin/contracts/security/ReentrancyGuard.sol";
 import "@openzeppelin/contracts/utils/cryptography/ECDSA.sol";
 import "@openzeppelin/contracts/utils/math/SafeMath.sol";
+import {MystikoDAOGoverned} from "@mystikonetwork/governance/contracts/governance/MystikoDAOGoverned.sol";
+import {IFeeQuery, QueryFeeParams, QueryFeeResponse} from "@mystikonetwork/tx-fee/contracts/fee/interfaces/iFeeQuery.sol";
 
-abstract contract MystikoV2Loop is IMystikoLoop, AssetPool, Sanctions {
+abstract contract MystikoV2Loop is IMystikoLoop, AssetPool, Sanctions, MystikoDAOGoverned {
   using SafeMath for uint256;
+
+  //tx fee proxy address
+  IFeeQuery public txFeeProxy;
 
   // Hasher related.
   IHasher3 private hasher3;
@@ -23,31 +28,26 @@ abstract contract MystikoV2Loop is IMystikoLoop, AssetPool, Sanctions {
   uint256 private minAmount;
   uint256 private maxAmount;
 
-  // Admin related.
-  address private operator;
-
   // Some switches.
   bool private depositsDisabled;
 
-  modifier onlyOperator() {
-    if (msg.sender != operator) revert CustomErrors.OnlyOperator();
-    _;
-  }
-
-  constructor(IHasher3 _hasher3) {
-    operator = msg.sender;
+  constructor(
+    IHasher3 _hasher3,
+    address _daoCenter,
+    address _txFeeProxy
+  ) MystikoDAOGoverned(_daoCenter) {
     hasher3 = _hasher3;
+    txFeeProxy = IFeeQuery(_txFeeProxy);
   }
 
-  event OperatorChanged(address indexed operator);
   event DepositAmountLimits(uint256 maxAmount, uint256 minAmount);
   event DepositsDisabled(bool state);
 
-  function setAssociatedCommitmentPool(address _commitmentPoolAddress) external onlyOperator {
+  function setAssociatedCommitmentPool(address _commitmentPoolAddress) external onlyMystikoDAO {
     associatedCommitmentPool = _commitmentPoolAddress;
   }
 
-  function updateDepositAmountLimits(uint256 _maxAmount, uint256 _minAmount) external onlyOperator {
+  function updateDepositAmountLimits(uint256 _maxAmount, uint256 _minAmount) external onlyMystikoDAO {
     if (_minAmount > _maxAmount) revert CustomErrors.MinAmountGreaterThanMaxAmount();
     maxAmount = _maxAmount;
     minAmount = _minAmount;
@@ -94,31 +94,33 @@ abstract contract MystikoV2Loop is IMystikoLoop, AssetPool, Sanctions {
     });
 
     ICommitmentPool(associatedCommitmentPool).enqueue(cmRequest, address(0));
-    _processDepositTransfer(associatedCommitmentPool, _amount + _rollupFee, 0);
+    QueryFeeParams memory txFeeParams = QueryFeeParams({assetAddress: assetAddress(), amount: _amount});
+    QueryFeeResponse memory txFeeResponse = txFeeProxy.queryFee(txFeeParams);
+    _processDepositTransfer(
+      associatedCommitmentPool,
+      txFeeResponse.feePool,
+      _amount + _rollupFee,
+      txFeeResponse.feeAmount,
+      0
+    );
   }
 
-  function setDepositsDisabled(bool _state) external onlyOperator {
+  function setDepositsDisabled(bool _state) external onlyMystikoDAO {
     depositsDisabled = _state;
     emit DepositsDisabled(_state);
   }
 
-  function changeOperator(address _newOperator) external onlyOperator {
-    if (operator == _newOperator) revert CustomErrors.NotChanged();
-    operator = _newOperator;
-    emit OperatorChanged(_newOperator);
-  }
-
-  function enableSanctionsCheck() external onlyOperator {
+  function enableSanctionsCheck() external onlyMystikoDAO {
     sanctionsCheck = true;
     emit SanctionsCheck(sanctionsCheck);
   }
 
-  function disableSanctionsCheck() external onlyOperator {
+  function disableSanctionsCheck() external onlyMystikoDAO {
     sanctionsCheck = false;
     emit SanctionsCheck(sanctionsCheck);
   }
 
-  function updateSanctionsListAddress(ISanctionsList _sanction) external onlyOperator {
+  function updateSanctionsListAddress(ISanctionsList _sanction) external onlyMystikoDAO {
     sanctionsList = _sanction;
     emit SanctionsList(_sanction);
   }

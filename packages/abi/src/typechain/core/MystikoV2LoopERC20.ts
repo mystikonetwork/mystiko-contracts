@@ -41,12 +41,13 @@ export declare namespace IMystikoLoop {
 export interface MystikoV2LoopERC20Interface extends utils.Interface {
   contractName: 'MystikoV2LoopERC20';
   functions: {
+    'assetAddress()': FunctionFragment;
     'assetDecimals()': FunctionFragment;
     'assetName()': FunctionFragment;
     'assetSymbol()': FunctionFragment;
     'assetType()': FunctionFragment;
     'bridgeType()': FunctionFragment;
-    'changeOperator(address)': FunctionFragment;
+    'center()': FunctionFragment;
     'deposit((uint256,uint256,uint256,uint128,bytes,uint256))': FunctionFragment;
     'disableSanctionsCheck()': FunctionFragment;
     'enableSanctionsCheck()': FunctionFragment;
@@ -58,16 +59,18 @@ export interface MystikoV2LoopERC20Interface extends utils.Interface {
     'sanctionsList()': FunctionFragment;
     'setAssociatedCommitmentPool(address)': FunctionFragment;
     'setDepositsDisabled(bool)': FunctionFragment;
+    'txFeeProxy()': FunctionFragment;
     'updateDepositAmountLimits(uint256,uint256)': FunctionFragment;
     'updateSanctionsListAddress(address)': FunctionFragment;
   };
 
+  encodeFunctionData(functionFragment: 'assetAddress', values?: undefined): string;
   encodeFunctionData(functionFragment: 'assetDecimals', values?: undefined): string;
   encodeFunctionData(functionFragment: 'assetName', values?: undefined): string;
   encodeFunctionData(functionFragment: 'assetSymbol', values?: undefined): string;
   encodeFunctionData(functionFragment: 'assetType', values?: undefined): string;
   encodeFunctionData(functionFragment: 'bridgeType', values?: undefined): string;
-  encodeFunctionData(functionFragment: 'changeOperator', values: [string]): string;
+  encodeFunctionData(functionFragment: 'center', values?: undefined): string;
   encodeFunctionData(functionFragment: 'deposit', values: [IMystikoLoop.DepositRequestStruct]): string;
   encodeFunctionData(functionFragment: 'disableSanctionsCheck', values?: undefined): string;
   encodeFunctionData(functionFragment: 'enableSanctionsCheck', values?: undefined): string;
@@ -79,18 +82,20 @@ export interface MystikoV2LoopERC20Interface extends utils.Interface {
   encodeFunctionData(functionFragment: 'sanctionsList', values?: undefined): string;
   encodeFunctionData(functionFragment: 'setAssociatedCommitmentPool', values: [string]): string;
   encodeFunctionData(functionFragment: 'setDepositsDisabled', values: [boolean]): string;
+  encodeFunctionData(functionFragment: 'txFeeProxy', values?: undefined): string;
   encodeFunctionData(
     functionFragment: 'updateDepositAmountLimits',
     values: [BigNumberish, BigNumberish],
   ): string;
   encodeFunctionData(functionFragment: 'updateSanctionsListAddress', values: [string]): string;
 
+  decodeFunctionResult(functionFragment: 'assetAddress', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'assetDecimals', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'assetName', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'assetSymbol', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'assetType', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'bridgeType', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'changeOperator', data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'center', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'deposit', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'disableSanctionsCheck', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'enableSanctionsCheck', data: BytesLike): Result;
@@ -102,20 +107,19 @@ export interface MystikoV2LoopERC20Interface extends utils.Interface {
   decodeFunctionResult(functionFragment: 'sanctionsList', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'setAssociatedCommitmentPool', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'setDepositsDisabled', data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'txFeeProxy', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'updateDepositAmountLimits', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'updateSanctionsListAddress', data: BytesLike): Result;
 
   events: {
     'DepositAmountLimits(uint256,uint256)': EventFragment;
     'DepositsDisabled(bool)': EventFragment;
-    'OperatorChanged(address)': EventFragment;
     'SanctionsCheck(bool)': EventFragment;
     'SanctionsList(address)': EventFragment;
   };
 
   getEvent(nameOrSignatureOrTopic: 'DepositAmountLimits'): EventFragment;
   getEvent(nameOrSignatureOrTopic: 'DepositsDisabled'): EventFragment;
-  getEvent(nameOrSignatureOrTopic: 'OperatorChanged'): EventFragment;
   getEvent(nameOrSignatureOrTopic: 'SanctionsCheck'): EventFragment;
   getEvent(nameOrSignatureOrTopic: 'SanctionsList'): EventFragment;
 }
@@ -130,10 +134,6 @@ export type DepositAmountLimitsEventFilter = TypedEventFilter<DepositAmountLimit
 export type DepositsDisabledEvent = TypedEvent<[boolean], { state: boolean }>;
 
 export type DepositsDisabledEventFilter = TypedEventFilter<DepositsDisabledEvent>;
-
-export type OperatorChangedEvent = TypedEvent<[string], { operator: string }>;
-
-export type OperatorChangedEventFilter = TypedEventFilter<OperatorChangedEvent>;
 
 export type SanctionsCheckEvent = TypedEvent<[boolean], { state: boolean }>;
 
@@ -167,6 +167,8 @@ export interface MystikoV2LoopERC20 extends BaseContract {
   removeListener: OnEvent<this>;
 
   functions: {
+    assetAddress(overrides?: CallOverrides): Promise<[string]>;
+
     assetDecimals(overrides?: CallOverrides): Promise<[number]>;
 
     assetName(overrides?: CallOverrides): Promise<[string]>;
@@ -177,10 +179,7 @@ export interface MystikoV2LoopERC20 extends BaseContract {
 
     bridgeType(overrides?: CallOverrides): Promise<[string]>;
 
-    changeOperator(
-      _newOperator: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
-    ): Promise<ContractTransaction>;
+    center(overrides?: CallOverrides): Promise<[string]>;
 
     deposit(
       _request: IMystikoLoop.DepositRequestStruct,
@@ -217,6 +216,8 @@ export interface MystikoV2LoopERC20 extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<ContractTransaction>;
 
+    txFeeProxy(overrides?: CallOverrides): Promise<[string]>;
+
     updateDepositAmountLimits(
       _maxAmount: BigNumberish,
       _minAmount: BigNumberish,
@@ -229,6 +230,8 @@ export interface MystikoV2LoopERC20 extends BaseContract {
     ): Promise<ContractTransaction>;
   };
 
+  assetAddress(overrides?: CallOverrides): Promise<string>;
+
   assetDecimals(overrides?: CallOverrides): Promise<number>;
 
   assetName(overrides?: CallOverrides): Promise<string>;
@@ -239,10 +242,7 @@ export interface MystikoV2LoopERC20 extends BaseContract {
 
   bridgeType(overrides?: CallOverrides): Promise<string>;
 
-  changeOperator(
-    _newOperator: string,
-    overrides?: Overrides & { from?: string | Promise<string> },
-  ): Promise<ContractTransaction>;
+  center(overrides?: CallOverrides): Promise<string>;
 
   deposit(
     _request: IMystikoLoop.DepositRequestStruct,
@@ -279,6 +279,8 @@ export interface MystikoV2LoopERC20 extends BaseContract {
     overrides?: Overrides & { from?: string | Promise<string> },
   ): Promise<ContractTransaction>;
 
+  txFeeProxy(overrides?: CallOverrides): Promise<string>;
+
   updateDepositAmountLimits(
     _maxAmount: BigNumberish,
     _minAmount: BigNumberish,
@@ -291,6 +293,8 @@ export interface MystikoV2LoopERC20 extends BaseContract {
   ): Promise<ContractTransaction>;
 
   callStatic: {
+    assetAddress(overrides?: CallOverrides): Promise<string>;
+
     assetDecimals(overrides?: CallOverrides): Promise<number>;
 
     assetName(overrides?: CallOverrides): Promise<string>;
@@ -301,7 +305,7 @@ export interface MystikoV2LoopERC20 extends BaseContract {
 
     bridgeType(overrides?: CallOverrides): Promise<string>;
 
-    changeOperator(_newOperator: string, overrides?: CallOverrides): Promise<void>;
+    center(overrides?: CallOverrides): Promise<string>;
 
     deposit(_request: IMystikoLoop.DepositRequestStruct, overrides?: CallOverrides): Promise<void>;
 
@@ -325,6 +329,8 @@ export interface MystikoV2LoopERC20 extends BaseContract {
 
     setDepositsDisabled(_state: boolean, overrides?: CallOverrides): Promise<void>;
 
+    txFeeProxy(overrides?: CallOverrides): Promise<string>;
+
     updateDepositAmountLimits(
       _maxAmount: BigNumberish,
       _minAmount: BigNumberish,
@@ -344,9 +350,6 @@ export interface MystikoV2LoopERC20 extends BaseContract {
     'DepositsDisabled(bool)'(state?: null): DepositsDisabledEventFilter;
     DepositsDisabled(state?: null): DepositsDisabledEventFilter;
 
-    'OperatorChanged(address)'(operator?: string | null): OperatorChangedEventFilter;
-    OperatorChanged(operator?: string | null): OperatorChangedEventFilter;
-
     'SanctionsCheck(bool)'(state?: null): SanctionsCheckEventFilter;
     SanctionsCheck(state?: null): SanctionsCheckEventFilter;
 
@@ -355,6 +358,8 @@ export interface MystikoV2LoopERC20 extends BaseContract {
   };
 
   estimateGas: {
+    assetAddress(overrides?: CallOverrides): Promise<BigNumber>;
+
     assetDecimals(overrides?: CallOverrides): Promise<BigNumber>;
 
     assetName(overrides?: CallOverrides): Promise<BigNumber>;
@@ -365,10 +370,7 @@ export interface MystikoV2LoopERC20 extends BaseContract {
 
     bridgeType(overrides?: CallOverrides): Promise<BigNumber>;
 
-    changeOperator(
-      _newOperator: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
-    ): Promise<BigNumber>;
+    center(overrides?: CallOverrides): Promise<BigNumber>;
 
     deposit(
       _request: IMystikoLoop.DepositRequestStruct,
@@ -401,6 +403,8 @@ export interface MystikoV2LoopERC20 extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<BigNumber>;
 
+    txFeeProxy(overrides?: CallOverrides): Promise<BigNumber>;
+
     updateDepositAmountLimits(
       _maxAmount: BigNumberish,
       _minAmount: BigNumberish,
@@ -414,6 +418,8 @@ export interface MystikoV2LoopERC20 extends BaseContract {
   };
 
   populateTransaction: {
+    assetAddress(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+
     assetDecimals(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     assetName(overrides?: CallOverrides): Promise<PopulatedTransaction>;
@@ -424,10 +430,7 @@ export interface MystikoV2LoopERC20 extends BaseContract {
 
     bridgeType(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
-    changeOperator(
-      _newOperator: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
-    ): Promise<PopulatedTransaction>;
+    center(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     deposit(
       _request: IMystikoLoop.DepositRequestStruct,
@@ -463,6 +466,8 @@ export interface MystikoV2LoopERC20 extends BaseContract {
       _state: boolean,
       overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<PopulatedTransaction>;
+
+    txFeeProxy(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     updateDepositAmountLimits(
       _maxAmount: BigNumberish,

@@ -14,11 +14,15 @@ abstract contract MystikoV2Axelar is MystikoV2Bridge, IAxelarExecutable {
 
   IAxelarGasService gasReceiver;
 
-  constructor(IHasher3 _hasher3) MystikoV2Bridge(_hasher3) IAxelarExecutable() {
+  constructor(
+    IHasher3 _hasher3,
+    address _daoCenter,
+    address _txFeeProxy
+  ) MystikoV2Bridge(_hasher3, _daoCenter, _txFeeProxy) IAxelarExecutable() {
     // implemented in MystikoV2Bridge
   }
 
-  function setAxelarGasReceiver(address _gasReceiver) external onlyOperator {
+  function setAxelarGasReceiver(address _gasReceiver) external onlyMystikoDAO {
     gasReceiver = IAxelarGasService(_gasReceiver);
   }
 

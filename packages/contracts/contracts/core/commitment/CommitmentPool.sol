@@ -148,7 +148,7 @@ abstract contract CommitmentPool is
     inputs[1] = _request.newRoot;
     inputs[2] = expectedLeafHash;
     inputs[3] = pathIndices;
-    bool verified = wVerifier.verifier.verifyTx(_request.proof, inputs);
+    bool verified = IVerifier(wVerifier.verifier).verifyTx(_request.proof, inputs);
     if (!verified) revert CustomErrors.Invalid("proof");
     commitmentIncludedCount += _request.rollupSize;
     currentRoot = _request.newRoot;
@@ -165,13 +165,10 @@ abstract contract CommitmentPool is
     uint32 numOutputs = SafeCast.toUint32(_request.outCommitments.length);
     if (transferDisabled && numOutputs != 0) revert CustomErrors.TransactDisabled(numInputs, numOutputs);
     if (_request.relayerFeeAmount > 0) {
-      CanDoRelayParams memory _params = CanDoRelayParams({
-        pool: address(this),
-        relayer: _request.relayerAddress
-      });
+      CanDoRelayParams memory _params = CanDoRelayParams({pool: address(this), relayer: msg.sender});
       if (!settingsCenter.canDoRelay(_params)) revert CustomErrors.RejectRelay();
     }
-    WrappedVerifier memory wVerifier = settingsCenter.queryRelayerVerifier(numInputs, numOutputs);
+    WrappedVerifier memory wVerifier = settingsCenter.queryTransactVerifier(numInputs, numOutputs);
     if (!wVerifier.enabled) revert CustomErrors.TransactDisabled(numInputs, numOutputs);
     if (_request.sigHashes.length != numInputs) revert CustomErrors.Invalid("sigHashes length");
     if (_request.outRollupFees.length != numOutputs) revert CustomErrors.Invalid("outRollupFees length");
@@ -181,7 +178,7 @@ abstract contract CommitmentPool is
       revert CustomErrors.TreeIsFull();
     if (isSanctioned(tx.origin)) revert CustomErrors.SanctionedAddress();
     if (isSanctioned(_request.publicRecipient)) revert CustomErrors.SanctionedAddress();
-    if (_request.encryptedAuditorNotes.length != numInputs * auditorCount)
+    if (_request.encryptedAuditorNotes.length != numInputs * settingsCenter.AUDITOR_COUNT())
       revert CustomErrors.AuditorNotesLengthError();
 
     // check signature
@@ -193,7 +190,9 @@ abstract contract CommitmentPool is
     uint256 totalInput = 2 * numInputs;
     uint256 allInput = 2 * numInputs + 4;
     uint256 allInputAndOutput = allInput + 2 * numOutputs;
-    uint256[] memory inputs = new uint256[](allInputAndOutput + 2 + (2 + numInputs) * auditorCount);
+    uint256[] memory inputs = new uint256[](
+      allInputAndOutput + 2 + (2 + numInputs) * settingsCenter.AUDITOR_COUNT()
+    );
 
     // check whether valid root.
     if (!rootHistory[_request.rootHash]) revert CustomErrors.Invalid("root");
@@ -225,8 +224,8 @@ abstract contract CommitmentPool is
     _setAuditingInputs(_request, inputs, allInputAndOutput);
 
     // verify proof.
-    bool verified = wVerifier.verifier.verifyTx(_request.proof, inputs);
-    if (!verified) revert CustomErrors.Invalid("transact proof");
+    if (!IVerifier(wVerifier.verifier).verifyTx(_request.proof, inputs))
+      revert CustomErrors.Invalid("transact proof");
 
     // set spent flag for serial numbers.
     for (uint256 i = 0; i < numInputs; i++) {
@@ -325,16 +324,11 @@ abstract contract CommitmentPool is
   }
 
   function getAuditorPublicKey(uint256 _index) public view returns (uint256) {
-    if (_index >= auditorCount) revert CustomErrors.AuditorIndexError();
-    return auditorPublicKeys[_index];
+    return settingsCenter.queryAuditorPublicKey(_index);
   }
 
   function getAllAuditorPublicKeys() public view returns (uint256[] memory) {
-    uint256[] memory publicKeys = new uint256[](auditorCount);
-    for (uint256 i = 0; i < auditorCount; i++) {
-      publicKeys[i] = auditorPublicKeys[i];
-    }
-    return publicKeys;
+    return settingsCenter.queryAllAuditorPublicKeys();
   }
 
   function _enqueueCommitment(
@@ -483,6 +477,8 @@ abstract contract CommitmentPool is
     inputs[previousIndex] = unpackedAuditingPublicKey.xSign;
     inputs[previousIndex + 1] = unpackedAuditingPublicKey.y;
 
+    uint256 auditorCount = settingsCenter.AUDITOR_COUNT();
+    uint256[] memory auditorPublicKeys = settingsCenter.queryAllAuditorPublicKeys();
     uint256 nextIndex = previousIndex + 2;
     uint256 updatedIndex = nextIndex + auditorCount;
     uint256 adjustedIndex = nextIndex + 2 * auditorCount;
@@ -498,6 +494,8 @@ abstract contract CommitmentPool is
   }
 
   function _emitAuditingNotes(TransactRequest memory _request) internal {
+    uint256 auditorCount = settingsCenter.AUDITOR_COUNT();
+    uint256[] memory auditorPublicKeys = settingsCenter.queryAllAuditorPublicKeys();
     uint256 auditorNoteCount = _request.serialNumbers.length * auditorCount;
     AuditorNote[] memory auditorNotes = new AuditorNote[](auditorNoteCount);
 
