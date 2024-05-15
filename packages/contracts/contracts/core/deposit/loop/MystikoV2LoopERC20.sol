@@ -9,9 +9,8 @@ contract MystikoV2LoopERC20 is MystikoV2Loop, ERC20AssetPool {
   constructor(
     IHasher3 _hasher3,
     IERC20Metadata _token,
-    address _daoCenter,
-    address _txFeeProxy
-  ) MystikoV2Loop(_hasher3, _daoCenter, _txFeeProxy) ERC20AssetPool(_token) {
+    address _daoCenter
+  ) MystikoV2Loop(_hasher3, _daoCenter) ERC20AssetPool(_token) {
     // implemented in MystikoV2Loop
   }
 }

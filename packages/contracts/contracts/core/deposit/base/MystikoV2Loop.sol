@@ -13,13 +13,9 @@ import "@openzeppelin/contracts/security/ReentrancyGuard.sol";
 import "@openzeppelin/contracts/utils/cryptography/ECDSA.sol";
 import "@openzeppelin/contracts/utils/math/SafeMath.sol";
 import {MystikoDAOGoverned} from "@mystikonetwork/governance/contracts/governance/MystikoDAOGoverned.sol";
-import {IFeeQuery, QueryFeeParams, QueryFeeResponse} from "@mystikonetwork/tx-fee/contracts/fee/interfaces/iFeeQuery.sol";
 
 abstract contract MystikoV2Loop is IMystikoLoop, AssetPool, Sanctions, MystikoDAOGoverned {
   using SafeMath for uint256;
-
-  //tx fee proxy address
-  IFeeQuery public txFeeProxy;
 
   // Hasher related.
   IHasher3 private hasher3;
@@ -33,11 +29,9 @@ abstract contract MystikoV2Loop is IMystikoLoop, AssetPool, Sanctions, MystikoDA
 
   constructor(
     IHasher3 _hasher3,
-    address _daoCenter,
-    address _txFeeProxy
+    address _daoCenter
   ) MystikoDAOGoverned(_daoCenter) {
     hasher3 = _hasher3;
-    txFeeProxy = IFeeQuery(_txFeeProxy);
   }
 
   event DepositAmountLimits(uint256 maxAmount, uint256 minAmount);
@@ -94,12 +88,9 @@ abstract contract MystikoV2Loop is IMystikoLoop, AssetPool, Sanctions, MystikoDA
     });
 
     ICommitmentPool(associatedCommitmentPool).enqueue(cmRequest, address(0));
-    QueryFeeResponse memory depositFee = queryDepositFee(_amount);
     _processDepositTransfer(
       associatedCommitmentPool,
-      depositFee.feePool,
       _amount + _rollupFee,
-      depositFee.feeAmount,
       0
     );
   }
@@ -122,11 +113,6 @@ abstract contract MystikoV2Loop is IMystikoLoop, AssetPool, Sanctions, MystikoDA
   function updateSanctionsListAddress(ISanctionsList _sanction) external onlyMystikoDAO {
     sanctionsList = _sanction;
     emit SanctionsList(_sanction);
-  }
-
-  function queryDepositFee(uint256 _amount) public view returns (QueryFeeResponse memory) {
-    QueryFeeParams memory txFeeParams = QueryFeeParams({assetAddress: assetAddress(), amount: _amount});
-    return txFeeProxy.queryFee(txFeeParams);
   }
 
   function bridgeType() public pure returns (string memory) {

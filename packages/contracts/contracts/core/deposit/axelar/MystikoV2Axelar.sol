@@ -16,9 +16,8 @@ abstract contract MystikoV2Axelar is MystikoV2Bridge, IAxelarExecutable {
 
   constructor(
     IHasher3 _hasher3,
-    address _daoCenter,
-    address _txFeeProxy
-  ) MystikoV2Bridge(_hasher3, _daoCenter, _txFeeProxy) IAxelarExecutable() {
+    address _daoCenter
+  ) MystikoV2Bridge(_hasher3, _daoCenter) IAxelarExecutable() {
     // implemented in MystikoV2Bridge
   }
 

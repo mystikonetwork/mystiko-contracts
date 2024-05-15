@@ -18,16 +18,6 @@ import { FunctionFragment, Result, EventFragment } from '@ethersproject/abi';
 import { Listener, Provider } from '@ethersproject/providers';
 import { TypedEventFilter, TypedEvent, TypedListener, OnEvent } from './common';
 
-export type QueryFeeResponseStruct = {
-  feeAmount: BigNumberish;
-  feePool: string;
-};
-
-export type QueryFeeResponseStructOutput = [BigNumber, string] & {
-  feeAmount: BigNumber;
-  feePool: string;
-};
-
 export declare namespace IMystikoLoop {
   export type DepositRequestStruct = {
     amount: BigNumberish;
@@ -65,12 +55,10 @@ export interface MystikoV2LoopERC20Interface extends utils.Interface {
     'getMaxAmount()': FunctionFragment;
     'getMinAmount()': FunctionFragment;
     'isDepositsDisabled()': FunctionFragment;
-    'queryDepositFee(uint256)': FunctionFragment;
     'sanctionsCheck()': FunctionFragment;
     'sanctionsList()': FunctionFragment;
     'setAssociatedCommitmentPool(address)': FunctionFragment;
     'setDepositsDisabled(bool)': FunctionFragment;
-    'txFeeProxy()': FunctionFragment;
     'updateDepositAmountLimits(uint256,uint256)': FunctionFragment;
     'updateSanctionsListAddress(address)': FunctionFragment;
   };
@@ -89,12 +77,10 @@ export interface MystikoV2LoopERC20Interface extends utils.Interface {
   encodeFunctionData(functionFragment: 'getMaxAmount', values?: undefined): string;
   encodeFunctionData(functionFragment: 'getMinAmount', values?: undefined): string;
   encodeFunctionData(functionFragment: 'isDepositsDisabled', values?: undefined): string;
-  encodeFunctionData(functionFragment: 'queryDepositFee', values: [BigNumberish]): string;
   encodeFunctionData(functionFragment: 'sanctionsCheck', values?: undefined): string;
   encodeFunctionData(functionFragment: 'sanctionsList', values?: undefined): string;
   encodeFunctionData(functionFragment: 'setAssociatedCommitmentPool', values: [string]): string;
   encodeFunctionData(functionFragment: 'setDepositsDisabled', values: [boolean]): string;
-  encodeFunctionData(functionFragment: 'txFeeProxy', values?: undefined): string;
   encodeFunctionData(
     functionFragment: 'updateDepositAmountLimits',
     values: [BigNumberish, BigNumberish],
@@ -115,12 +101,10 @@ export interface MystikoV2LoopERC20Interface extends utils.Interface {
   decodeFunctionResult(functionFragment: 'getMaxAmount', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'getMinAmount', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'isDepositsDisabled', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'queryDepositFee', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'sanctionsCheck', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'sanctionsList', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'setAssociatedCommitmentPool', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'setDepositsDisabled', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'txFeeProxy', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'updateDepositAmountLimits', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'updateSanctionsListAddress', data: BytesLike): Result;
 
@@ -215,11 +199,6 @@ export interface MystikoV2LoopERC20 extends BaseContract {
 
     isDepositsDisabled(overrides?: CallOverrides): Promise<[boolean]>;
 
-    queryDepositFee(
-      _amount: BigNumberish,
-      overrides?: CallOverrides,
-    ): Promise<[QueryFeeResponseStructOutput]>;
-
     sanctionsCheck(overrides?: CallOverrides): Promise<[boolean]>;
 
     sanctionsList(overrides?: CallOverrides): Promise<[string]>;
@@ -233,8 +212,6 @@ export interface MystikoV2LoopERC20 extends BaseContract {
       _state: boolean,
       overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<ContractTransaction>;
-
-    txFeeProxy(overrides?: CallOverrides): Promise<[string]>;
 
     updateDepositAmountLimits(
       _maxAmount: BigNumberish,
@@ -283,8 +260,6 @@ export interface MystikoV2LoopERC20 extends BaseContract {
 
   isDepositsDisabled(overrides?: CallOverrides): Promise<boolean>;
 
-  queryDepositFee(_amount: BigNumberish, overrides?: CallOverrides): Promise<QueryFeeResponseStructOutput>;
-
   sanctionsCheck(overrides?: CallOverrides): Promise<boolean>;
 
   sanctionsList(overrides?: CallOverrides): Promise<string>;
@@ -298,8 +273,6 @@ export interface MystikoV2LoopERC20 extends BaseContract {
     _state: boolean,
     overrides?: Overrides & { from?: string | Promise<string> },
   ): Promise<ContractTransaction>;
-
-  txFeeProxy(overrides?: CallOverrides): Promise<string>;
 
   updateDepositAmountLimits(
     _maxAmount: BigNumberish,
@@ -341,8 +314,6 @@ export interface MystikoV2LoopERC20 extends BaseContract {
 
     isDepositsDisabled(overrides?: CallOverrides): Promise<boolean>;
 
-    queryDepositFee(_amount: BigNumberish, overrides?: CallOverrides): Promise<QueryFeeResponseStructOutput>;
-
     sanctionsCheck(overrides?: CallOverrides): Promise<boolean>;
 
     sanctionsList(overrides?: CallOverrides): Promise<string>;
@@ -350,8 +321,6 @@ export interface MystikoV2LoopERC20 extends BaseContract {
     setAssociatedCommitmentPool(_commitmentPoolAddress: string, overrides?: CallOverrides): Promise<void>;
 
     setDepositsDisabled(_state: boolean, overrides?: CallOverrides): Promise<void>;
-
-    txFeeProxy(overrides?: CallOverrides): Promise<string>;
 
     updateDepositAmountLimits(
       _maxAmount: BigNumberish,
@@ -411,8 +380,6 @@ export interface MystikoV2LoopERC20 extends BaseContract {
 
     isDepositsDisabled(overrides?: CallOverrides): Promise<BigNumber>;
 
-    queryDepositFee(_amount: BigNumberish, overrides?: CallOverrides): Promise<BigNumber>;
-
     sanctionsCheck(overrides?: CallOverrides): Promise<BigNumber>;
 
     sanctionsList(overrides?: CallOverrides): Promise<BigNumber>;
@@ -426,8 +393,6 @@ export interface MystikoV2LoopERC20 extends BaseContract {
       _state: boolean,
       overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<BigNumber>;
-
-    txFeeProxy(overrides?: CallOverrides): Promise<BigNumber>;
 
     updateDepositAmountLimits(
       _maxAmount: BigNumberish,
@@ -477,8 +442,6 @@ export interface MystikoV2LoopERC20 extends BaseContract {
 
     isDepositsDisabled(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
-    queryDepositFee(_amount: BigNumberish, overrides?: CallOverrides): Promise<PopulatedTransaction>;
-
     sanctionsCheck(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     sanctionsList(overrides?: CallOverrides): Promise<PopulatedTransaction>;
@@ -492,8 +455,6 @@ export interface MystikoV2LoopERC20 extends BaseContract {
       _state: boolean,
       overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<PopulatedTransaction>;
-
-    txFeeProxy(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     updateDepositAmountLimits(
       _maxAmount: BigNumberish,

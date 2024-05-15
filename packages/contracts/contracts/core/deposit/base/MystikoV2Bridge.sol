@@ -14,7 +14,6 @@ import "@openzeppelin/contracts/security/ReentrancyGuard.sol";
 import "@openzeppelin/contracts/utils/cryptography/ECDSA.sol";
 import "@openzeppelin/contracts/utils/math/SafeMath.sol";
 import {MystikoDAOGoverned} from "@mystikonetwork/governance/contracts/governance/MystikoDAOGoverned.sol";
-import {IFeeQuery, QueryFeeParams, QueryFeeResponse} from "@mystikonetwork/tx-fee/contracts/fee/interfaces/iFeeQuery.sol";
 
 abstract contract MystikoV2Bridge is
   IMystikoBridge,
@@ -35,8 +34,6 @@ abstract contract MystikoV2Bridge is
 
   //bridge proxy address
   address public bridgeProxyAddress;
-  //tx fee proxy address
-  IFeeQuery public txFeeProxy;
 
   //local chain fee
   uint256 private minAmount;
@@ -66,11 +63,9 @@ abstract contract MystikoV2Bridge is
 
   constructor(
     IHasher3 _hasher3,
-    address _daoCenter,
-    address _txFeeProxy
+    address _daoCenter
   ) MystikoDAOGoverned(_daoCenter) {
     hasher3 = _hasher3;
-    txFeeProxy = IFeeQuery(_txFeeProxy);
   }
 
   function setBridgeProxyAddress(address _bridgeProxyAddress) external onlyMystikoDAO {
@@ -151,12 +146,9 @@ abstract contract MystikoV2Bridge is
 
     bytes memory cmRequestBytes = serializeTxData(cmRequest);
     _processDeposit(_request.bridgeFee, cmRequestBytes);
-    QueryFeeResponse memory depositFee = queryDepositFee(_request.amount);
     _processDepositTransfer(
       associatedCommitmentPool,
-      depositFee.feePool,
       _request.amount + _request.executorFee + _request.rollupFee,
-      depositFee.feeAmount,
       _request.bridgeFee
     );
     emit CommitmentCrossChain(_request.commitment);
@@ -194,11 +186,6 @@ abstract contract MystikoV2Bridge is
   function updateSanctionsListAddress(ISanctionsList _sanction) external onlyMystikoDAO {
     sanctionsList = _sanction;
     emit SanctionsList(_sanction);
-  }
-
-  function queryDepositFee(uint256 _amount) public view returns (QueryFeeResponse memory) {
-    QueryFeeParams memory txFeeParams = QueryFeeParams({assetAddress: assetAddress(), amount: _amount});
-    return txFeeProxy.queryFee(txFeeParams);
   }
 
   function bridgeType() public pure virtual returns (string memory);

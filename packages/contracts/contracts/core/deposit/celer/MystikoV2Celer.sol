@@ -10,9 +10,8 @@ import "../../../interface/IHasher3.sol";
 abstract contract MystikoV2Celer is MystikoV2Bridge, IMessageReceiverApp {
   constructor(
     IHasher3 _hasher3,
-    address _daoCenter,
-    address _txFeeProxy
-  ) MystikoV2Bridge(_hasher3, _daoCenter, _txFeeProxy) {
+    address _daoCenter
+  ) MystikoV2Bridge(_hasher3, _daoCenter) {
     // implemented in MystikoV2Bridge
   }
 

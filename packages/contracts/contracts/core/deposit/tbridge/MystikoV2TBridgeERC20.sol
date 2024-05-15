@@ -9,9 +9,8 @@ contract MystikoV2TBridgeERC20 is MystikoV2TBridge, ERC20AssetPool {
   constructor(
     IHasher3 _hasher3,
     IERC20Metadata _token,
-    address _daoCenter,
-    address _txFeeProxy
-  ) MystikoV2TBridge(_hasher3, _daoCenter, _txFeeProxy) ERC20AssetPool(_token) {
+    address _daoCenter
+  ) MystikoV2TBridge(_hasher3, _daoCenter) ERC20AssetPool(_token) {
     // implemented in MystikoV2TBridge
   }
 }

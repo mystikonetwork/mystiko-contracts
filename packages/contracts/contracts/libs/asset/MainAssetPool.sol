@@ -6,16 +6,12 @@ import "./AssetPool.sol";
 abstract contract MainAssetPool is AssetPool {
   function _processDepositTransfer(
     address commitmentPool,
-    address txFeePool,
     uint256 amount,
-    uint256 txFeeAmount,
     uint256 bridgeFee
   ) internal virtual override {
-    require(msg.value == amount + txFeeAmount + bridgeFee, "insufficient token");
+    require(msg.value == amount + bridgeFee, "insufficient token");
     (bool bc, ) = commitmentPool.call{value: amount}("");
     require(bc, "amount transfer failed");
-    (bool bp, ) = txFeePool.call{value: txFeeAmount}("");
-    require(bp, "tx fee transfer failed");
   }
 
   function _processExecutorFeeTransfer(address executor, uint256 amount) internal override {

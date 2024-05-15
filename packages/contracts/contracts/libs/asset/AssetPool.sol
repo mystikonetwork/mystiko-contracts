@@ -9,9 +9,7 @@ abstract contract AssetPool {
 
   function _processDepositTransfer(
     address commitmentPool,
-    address txFeePool,
     uint256 amount,
-    uint256 txFeeAmount,
     uint256 bridgeFee
   ) internal virtual;
 

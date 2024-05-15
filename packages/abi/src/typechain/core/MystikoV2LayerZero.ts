@@ -18,16 +18,6 @@ import { FunctionFragment, Result, EventFragment } from '@ethersproject/abi';
 import { Listener, Provider } from '@ethersproject/providers';
 import { TypedEventFilter, TypedEvent, TypedListener, OnEvent } from './common';
 
-export type QueryFeeResponseStruct = {
-  feeAmount: BigNumberish;
-  feePool: string;
-};
-
-export type QueryFeeResponseStructOutput = [BigNumber, string] & {
-  feeAmount: BigNumber;
-  feePool: string;
-};
-
 export declare namespace IMystikoBridge {
   export type DepositRequestStruct = {
     amount: BigNumberish;
@@ -93,7 +83,6 @@ export interface MystikoV2LayerZeroInterface extends utils.Interface {
     'peerChainName()': FunctionFragment;
     'peerContract()': FunctionFragment;
     'peerLayerZeroChainId()': FunctionFragment;
-    'queryDepositFee(uint256)': FunctionFragment;
     'renounceOwnership()': FunctionFragment;
     'retryMessage(uint16,bytes,uint64,bytes)': FunctionFragment;
     'sanctionsCheck()': FunctionFragment;
@@ -113,7 +102,6 @@ export interface MystikoV2LayerZeroInterface extends utils.Interface {
     'setTrustedRemote(uint16,bytes)': FunctionFragment;
     'transferOwnership(address)': FunctionFragment;
     'trustedRemoteLookup(uint16)': FunctionFragment;
-    'txFeeProxy()': FunctionFragment;
     'updateDepositAmountLimits(uint256,uint256)': FunctionFragment;
     'updateSanctionsListAddress(address)': FunctionFragment;
   };
@@ -159,7 +147,6 @@ export interface MystikoV2LayerZeroInterface extends utils.Interface {
   encodeFunctionData(functionFragment: 'peerChainName', values?: undefined): string;
   encodeFunctionData(functionFragment: 'peerContract', values?: undefined): string;
   encodeFunctionData(functionFragment: 'peerLayerZeroChainId', values?: undefined): string;
-  encodeFunctionData(functionFragment: 'queryDepositFee', values: [BigNumberish]): string;
   encodeFunctionData(functionFragment: 'renounceOwnership', values?: undefined): string;
   encodeFunctionData(
     functionFragment: 'retryMessage',
@@ -185,7 +172,6 @@ export interface MystikoV2LayerZeroInterface extends utils.Interface {
   encodeFunctionData(functionFragment: 'setTrustedRemote', values: [BigNumberish, BytesLike]): string;
   encodeFunctionData(functionFragment: 'transferOwnership', values: [string]): string;
   encodeFunctionData(functionFragment: 'trustedRemoteLookup', values: [BigNumberish]): string;
-  encodeFunctionData(functionFragment: 'txFeeProxy', values?: undefined): string;
   encodeFunctionData(
     functionFragment: 'updateDepositAmountLimits',
     values: [BigNumberish, BigNumberish],
@@ -221,7 +207,6 @@ export interface MystikoV2LayerZeroInterface extends utils.Interface {
   decodeFunctionResult(functionFragment: 'peerChainName', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'peerContract', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'peerLayerZeroChainId', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'queryDepositFee', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'renounceOwnership', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'retryMessage', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'sanctionsCheck', data: BytesLike): Result;
@@ -241,7 +226,6 @@ export interface MystikoV2LayerZeroInterface extends utils.Interface {
   decodeFunctionResult(functionFragment: 'setTrustedRemote', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'transferOwnership', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'trustedRemoteLookup', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'txFeeProxy', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'updateDepositAmountLimits', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'updateSanctionsListAddress', data: BytesLike): Result;
 
@@ -459,11 +443,6 @@ export interface MystikoV2LayerZero extends BaseContract {
 
     peerLayerZeroChainId(overrides?: CallOverrides): Promise<[number]>;
 
-    queryDepositFee(
-      _amount: BigNumberish,
-      overrides?: CallOverrides,
-    ): Promise<[QueryFeeResponseStructOutput]>;
-
     renounceOwnership(
       overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<ContractTransaction>;
@@ -558,8 +537,6 @@ export interface MystikoV2LayerZero extends BaseContract {
     ): Promise<ContractTransaction>;
 
     trustedRemoteLookup(arg0: BigNumberish, overrides?: CallOverrides): Promise<[string]>;
-
-    txFeeProxy(overrides?: CallOverrides): Promise<[string]>;
 
     updateDepositAmountLimits(
       _maxAmount: BigNumberish,
@@ -669,8 +646,6 @@ export interface MystikoV2LayerZero extends BaseContract {
 
   peerLayerZeroChainId(overrides?: CallOverrides): Promise<number>;
 
-  queryDepositFee(_amount: BigNumberish, overrides?: CallOverrides): Promise<QueryFeeResponseStructOutput>;
-
   renounceOwnership(
     overrides?: Overrides & { from?: string | Promise<string> },
   ): Promise<ContractTransaction>;
@@ -765,8 +740,6 @@ export interface MystikoV2LayerZero extends BaseContract {
   ): Promise<ContractTransaction>;
 
   trustedRemoteLookup(arg0: BigNumberish, overrides?: CallOverrides): Promise<string>;
-
-  txFeeProxy(overrides?: CallOverrides): Promise<string>;
 
   updateDepositAmountLimits(
     _maxAmount: BigNumberish,
@@ -869,8 +842,6 @@ export interface MystikoV2LayerZero extends BaseContract {
 
     peerLayerZeroChainId(overrides?: CallOverrides): Promise<number>;
 
-    queryDepositFee(_amount: BigNumberish, overrides?: CallOverrides): Promise<QueryFeeResponseStructOutput>;
-
     renounceOwnership(overrides?: CallOverrides): Promise<void>;
 
     retryMessage(
@@ -929,8 +900,6 @@ export interface MystikoV2LayerZero extends BaseContract {
     transferOwnership(newOwner: string, overrides?: CallOverrides): Promise<void>;
 
     trustedRemoteLookup(arg0: BigNumberish, overrides?: CallOverrides): Promise<string>;
-
-    txFeeProxy(overrides?: CallOverrides): Promise<string>;
 
     updateDepositAmountLimits(
       _maxAmount: BigNumberish,
@@ -1091,8 +1060,6 @@ export interface MystikoV2LayerZero extends BaseContract {
 
     peerLayerZeroChainId(overrides?: CallOverrides): Promise<BigNumber>;
 
-    queryDepositFee(_amount: BigNumberish, overrides?: CallOverrides): Promise<BigNumber>;
-
     renounceOwnership(overrides?: Overrides & { from?: string | Promise<string> }): Promise<BigNumber>;
 
     retryMessage(
@@ -1185,8 +1152,6 @@ export interface MystikoV2LayerZero extends BaseContract {
     ): Promise<BigNumber>;
 
     trustedRemoteLookup(arg0: BigNumberish, overrides?: CallOverrides): Promise<BigNumber>;
-
-    txFeeProxy(overrides?: CallOverrides): Promise<BigNumber>;
 
     updateDepositAmountLimits(
       _maxAmount: BigNumberish,
@@ -1297,8 +1262,6 @@ export interface MystikoV2LayerZero extends BaseContract {
 
     peerLayerZeroChainId(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
-    queryDepositFee(_amount: BigNumberish, overrides?: CallOverrides): Promise<PopulatedTransaction>;
-
     renounceOwnership(
       overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<PopulatedTransaction>;
@@ -1393,8 +1356,6 @@ export interface MystikoV2LayerZero extends BaseContract {
     ): Promise<PopulatedTransaction>;
 
     trustedRemoteLookup(arg0: BigNumberish, overrides?: CallOverrides): Promise<PopulatedTransaction>;
-
-    txFeeProxy(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     updateDepositAmountLimits(
       _maxAmount: BigNumberish,

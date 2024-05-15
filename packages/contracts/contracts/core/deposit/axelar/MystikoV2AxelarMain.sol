@@ -8,9 +8,8 @@ import "../../../interface/IHasher3.sol";
 contract MystikoV2AxelarMain is MystikoV2Axelar, MainAssetPool {
   constructor(
     IHasher3 _hasher3,
-    address _daoCenter,
-    address _txFeeProxy
-  ) MystikoV2Axelar(_hasher3, _daoCenter, _txFeeProxy) {
+    address _daoCenter
+  ) MystikoV2Axelar(_hasher3, _daoCenter) {
     // implemented in MystikoV2Axelar
   }
 }

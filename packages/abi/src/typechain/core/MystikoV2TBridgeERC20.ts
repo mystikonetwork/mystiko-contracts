@@ -18,16 +18,6 @@ import { FunctionFragment, Result, EventFragment } from '@ethersproject/abi';
 import { Listener, Provider } from '@ethersproject/providers';
 import { TypedEventFilter, TypedEvent, TypedListener, OnEvent } from './common';
 
-export type QueryFeeResponseStruct = {
-  feeAmount: BigNumberish;
-  feePool: string;
-};
-
-export type QueryFeeResponseStructOutput = [BigNumber, string] & {
-  feeAmount: BigNumber;
-  feePool: string;
-};
-
 export declare namespace IMystikoBridge {
   export type DepositRequestStruct = {
     amount: BigNumberish;
@@ -87,7 +77,6 @@ export interface MystikoV2TBridgeERC20Interface extends utils.Interface {
     'peerChainId()': FunctionFragment;
     'peerChainName()': FunctionFragment;
     'peerContract()': FunctionFragment;
-    'queryDepositFee(uint256)': FunctionFragment;
     'sanctionsCheck()': FunctionFragment;
     'sanctionsList()': FunctionFragment;
     'setAssociatedCommitmentPool(address)': FunctionFragment;
@@ -98,7 +87,6 @@ export interface MystikoV2TBridgeERC20Interface extends utils.Interface {
     'setPeerContract(uint64,string,address)': FunctionFragment;
     'setPeerMinExecutorFee(uint256)': FunctionFragment;
     'setPeerMinRollupFee(uint256)': FunctionFragment;
-    'txFeeProxy()': FunctionFragment;
     'updateDepositAmountLimits(uint256,uint256)': FunctionFragment;
     'updateSanctionsListAddress(address)': FunctionFragment;
   };
@@ -129,7 +117,6 @@ export interface MystikoV2TBridgeERC20Interface extends utils.Interface {
   encodeFunctionData(functionFragment: 'peerChainId', values?: undefined): string;
   encodeFunctionData(functionFragment: 'peerChainName', values?: undefined): string;
   encodeFunctionData(functionFragment: 'peerContract', values?: undefined): string;
-  encodeFunctionData(functionFragment: 'queryDepositFee', values: [BigNumberish]): string;
   encodeFunctionData(functionFragment: 'sanctionsCheck', values?: undefined): string;
   encodeFunctionData(functionFragment: 'sanctionsList', values?: undefined): string;
   encodeFunctionData(functionFragment: 'setAssociatedCommitmentPool', values: [string]): string;
@@ -140,7 +127,6 @@ export interface MystikoV2TBridgeERC20Interface extends utils.Interface {
   encodeFunctionData(functionFragment: 'setPeerContract', values: [BigNumberish, string, string]): string;
   encodeFunctionData(functionFragment: 'setPeerMinExecutorFee', values: [BigNumberish]): string;
   encodeFunctionData(functionFragment: 'setPeerMinRollupFee', values: [BigNumberish]): string;
-  encodeFunctionData(functionFragment: 'txFeeProxy', values?: undefined): string;
   encodeFunctionData(
     functionFragment: 'updateDepositAmountLimits',
     values: [BigNumberish, BigNumberish],
@@ -170,7 +156,6 @@ export interface MystikoV2TBridgeERC20Interface extends utils.Interface {
   decodeFunctionResult(functionFragment: 'peerChainId', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'peerChainName', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'peerContract', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'queryDepositFee', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'sanctionsCheck', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'sanctionsList', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'setAssociatedCommitmentPool', data: BytesLike): Result;
@@ -181,7 +166,6 @@ export interface MystikoV2TBridgeERC20Interface extends utils.Interface {
   decodeFunctionResult(functionFragment: 'setPeerContract', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'setPeerMinExecutorFee', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'setPeerMinRollupFee', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'txFeeProxy', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'updateDepositAmountLimits', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'updateSanctionsListAddress', data: BytesLike): Result;
 
@@ -330,11 +314,6 @@ export interface MystikoV2TBridgeERC20 extends BaseContract {
 
     peerContract(overrides?: CallOverrides): Promise<[string]>;
 
-    queryDepositFee(
-      _amount: BigNumberish,
-      overrides?: CallOverrides,
-    ): Promise<[QueryFeeResponseStructOutput]>;
-
     sanctionsCheck(overrides?: CallOverrides): Promise<[boolean]>;
 
     sanctionsList(overrides?: CallOverrides): Promise<[string]>;
@@ -380,8 +359,6 @@ export interface MystikoV2TBridgeERC20 extends BaseContract {
       _peerMinRollupFee: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<ContractTransaction>;
-
-    txFeeProxy(overrides?: CallOverrides): Promise<[string]>;
 
     updateDepositAmountLimits(
       _maxAmount: BigNumberish,
@@ -454,8 +431,6 @@ export interface MystikoV2TBridgeERC20 extends BaseContract {
 
   peerContract(overrides?: CallOverrides): Promise<string>;
 
-  queryDepositFee(_amount: BigNumberish, overrides?: CallOverrides): Promise<QueryFeeResponseStructOutput>;
-
   sanctionsCheck(overrides?: CallOverrides): Promise<boolean>;
 
   sanctionsList(overrides?: CallOverrides): Promise<string>;
@@ -501,8 +476,6 @@ export interface MystikoV2TBridgeERC20 extends BaseContract {
     _peerMinRollupFee: BigNumberish,
     overrides?: Overrides & { from?: string | Promise<string> },
   ): Promise<ContractTransaction>;
-
-  txFeeProxy(overrides?: CallOverrides): Promise<string>;
 
   updateDepositAmountLimits(
     _maxAmount: BigNumberish,
@@ -568,8 +541,6 @@ export interface MystikoV2TBridgeERC20 extends BaseContract {
 
     peerContract(overrides?: CallOverrides): Promise<string>;
 
-    queryDepositFee(_amount: BigNumberish, overrides?: CallOverrides): Promise<QueryFeeResponseStructOutput>;
-
     sanctionsCheck(overrides?: CallOverrides): Promise<boolean>;
 
     sanctionsList(overrides?: CallOverrides): Promise<string>;
@@ -594,8 +565,6 @@ export interface MystikoV2TBridgeERC20 extends BaseContract {
     setPeerMinExecutorFee(_peerMinExecutorFee: BigNumberish, overrides?: CallOverrides): Promise<void>;
 
     setPeerMinRollupFee(_peerMinRollupFee: BigNumberish, overrides?: CallOverrides): Promise<void>;
-
-    txFeeProxy(overrides?: CallOverrides): Promise<string>;
 
     updateDepositAmountLimits(
       _maxAmount: BigNumberish,
@@ -694,8 +663,6 @@ export interface MystikoV2TBridgeERC20 extends BaseContract {
 
     peerContract(overrides?: CallOverrides): Promise<BigNumber>;
 
-    queryDepositFee(_amount: BigNumberish, overrides?: CallOverrides): Promise<BigNumber>;
-
     sanctionsCheck(overrides?: CallOverrides): Promise<BigNumber>;
 
     sanctionsList(overrides?: CallOverrides): Promise<BigNumber>;
@@ -741,8 +708,6 @@ export interface MystikoV2TBridgeERC20 extends BaseContract {
       _peerMinRollupFee: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<BigNumber>;
-
-    txFeeProxy(overrides?: CallOverrides): Promise<BigNumber>;
 
     updateDepositAmountLimits(
       _maxAmount: BigNumberish,
@@ -816,8 +781,6 @@ export interface MystikoV2TBridgeERC20 extends BaseContract {
 
     peerContract(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
-    queryDepositFee(_amount: BigNumberish, overrides?: CallOverrides): Promise<PopulatedTransaction>;
-
     sanctionsCheck(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     sanctionsList(overrides?: CallOverrides): Promise<PopulatedTransaction>;
@@ -863,8 +826,6 @@ export interface MystikoV2TBridgeERC20 extends BaseContract {
       _peerMinRollupFee: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<PopulatedTransaction>;
-
-    txFeeProxy(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     updateDepositAmountLimits(
       _maxAmount: BigNumberish,
