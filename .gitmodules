@@ -1,3 +1,6 @@
 [submodule "packages/contracts/circuits"]
 	path = packages/contracts/circuits
 	url = git@github.com:mystikonetwork/mystiko-circuits.git
+[submodule "packages/contracts-settings/foundry/lib/forge-std"]
+	path = packages/contracts-settings/foundry/lib/forge-std
+	url = https://github.com/foundry-rs/forge-std

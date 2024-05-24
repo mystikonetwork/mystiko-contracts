@@ -3,8 +3,8 @@
 pragma solidity ^0.8.20;
 pragma abicoder v2;
 
-import "../../core/deposit/layerzero/relay/interface/ILayerZeroReceiver.sol";
-import "../../core/deposit/layerzero/relay/interface/ILayerZeroEndpoint.sol";
+import "../../core/deposit/layerzero/relay/interfaces/ILayerZeroReceiver.sol";
+import "../../core/deposit/layerzero/relay/interfaces/ILayerZeroEndpoint.sol";
 
 /*
 mocking multi endpoint connection.

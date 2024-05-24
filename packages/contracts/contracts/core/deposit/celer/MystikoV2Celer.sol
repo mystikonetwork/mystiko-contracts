@@ -1,17 +1,14 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.20;
 
-import "./relay/interface/IMessageSenderApp.sol";
-import "./relay/interface/IMessageReceiverApp.sol";
+import "./relay/interfaces/IMessageSenderApp.sol";
+import "./relay/interfaces/IMessageReceiverApp.sol";
 import "../base/CrossChainDataSerializable.sol";
 import "../base/MystikoV2Bridge.sol";
-import "../../../interface/IHasher3.sol";
+import "../../../interfaces/IHasher3.sol";
 
 abstract contract MystikoV2Celer is MystikoV2Bridge, IMessageReceiverApp {
-  constructor(
-    IHasher3 _hasher3,
-    address _daoCenter
-  ) MystikoV2Bridge(_hasher3, _daoCenter) {
+  constructor(IHasher3 _hasher3, address _daoRegistry) MystikoV2Bridge(_hasher3, _daoRegistry) {
     // implemented in MystikoV2Bridge
   }
 

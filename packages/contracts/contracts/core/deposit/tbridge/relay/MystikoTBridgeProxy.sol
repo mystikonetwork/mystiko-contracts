@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.20;
 
-import "./interface/ICrossChainProxy.sol";
+import "./interfaces/ICrossChainProxy.sol";
 import "../../base/CrossChainDataSerializable.sol";
 import "../MystikoV2TBridge.sol";
 import "../../../../libs/common/CustomErrors.sol";
@@ -12,7 +12,7 @@ contract MystikoTBridgeProxy is ICrossChainProxy, MystikoDAOGoverned {
   mapping(address => bool) executorWhitelist;
   mapping(address => bool) registerWhitelist;
 
-  constructor(address _daoCenter) MystikoDAOGoverned(_daoCenter) {
+  constructor(address _daoRegistry) MystikoDAOGoverned(_daoRegistry) {
     operator = msg.sender;
   }
 

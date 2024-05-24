@@ -2,7 +2,7 @@
 pragma solidity ^0.8.20;
 
 import "./AssetPool.sol";
-import "../../interface/IERC20Metadata.sol";
+import "../../interfaces/IERC20Metadata.sol";
 import "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol";
 
 abstract contract ERC20AssetPool is AssetPool {

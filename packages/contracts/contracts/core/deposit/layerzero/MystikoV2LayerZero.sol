@@ -5,13 +5,13 @@ import "./relay/lzApp/NonblockingLzApp.sol";
 import "../base/CrossChainDataSerializable.sol";
 import "../base/MystikoV2Bridge.sol";
 import "../../../libs/utils/Utils.sol";
-import "../../../interface/IHasher3.sol";
+import "../../../interfaces/IHasher3.sol";
 
 abstract contract MystikoV2LayerZero is MystikoV2Bridge, NonblockingLzApp {
-  constructor(
-    IHasher3 _hasher3,
-    address _daoCenter
-  ) MystikoV2Bridge(_hasher3, _daoCenter) NonblockingLzApp() {
+  constructor(IHasher3 _hasher3, address _daoRegistry)
+    MystikoV2Bridge(_hasher3, _daoRegistry)
+    NonblockingLzApp()
+  {
     // implemented in MystikoV2Bridge
   }
 

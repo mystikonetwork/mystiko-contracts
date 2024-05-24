@@ -8,9 +8,9 @@ contract CommitmentPoolERC20 is CommitmentPool, ERC20AssetPool {
   constructor(
     uint8 _treeHeight,
     IERC20Metadata _token,
-    address _daoCenter,
+    address _daoRegistry,
     address _settingsCenter
-  ) CommitmentPool(_treeHeight, _daoCenter, _settingsCenter) ERC20AssetPool(_token) {
+  ) CommitmentPool(_treeHeight, _daoRegistry, _settingsCenter) ERC20AssetPool(_token) {
     // implemented in CommitmentPool
   }
 }

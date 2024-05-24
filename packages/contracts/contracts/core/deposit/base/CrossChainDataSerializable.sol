@@ -4,7 +4,7 @@ pragma solidity ^0.8.20;
 import "../../../libs/utils/Utils.sol";
 import "../../../libs/utils/ZeroCopySink.sol";
 import "../../../libs/utils/ZeroCopySource.sol";
-import "../../../interface/ICommitmentPool.sol";
+import "../../../interfaces/ICommitmentPool.sol";
 
 abstract contract CrossChainDataSerializable {
   function serializeTxData(ICommitmentPool.CommitmentRequest memory _data)

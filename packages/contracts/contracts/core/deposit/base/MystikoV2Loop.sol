@@ -4,17 +4,17 @@ pragma solidity ^0.8.20;
 import "../../../libs/asset/AssetPool.sol";
 import "../../../libs/common/CustomErrors.sol";
 import "../../../libs/common/DataTypes.sol";
-import "../../../interface/IMystikoLoop.sol";
-import "../../../interface/IHasher3.sol";
-import "../../../interface/ICommitmentPool.sol";
-import "../../../interface/ISanctionsList.sol";
+import "../../../interfaces/IMystikoLoop.sol";
+import "../../../interfaces/IHasher3.sol";
+import "../../../interfaces/ICommitmentPool.sol";
+import "../../../interfaces/ISanctionsList.sol";
 import "../../rule/Sanctions.sol";
 import "@openzeppelin/contracts/security/ReentrancyGuard.sol";
 import "@openzeppelin/contracts/utils/cryptography/ECDSA.sol";
 import "@openzeppelin/contracts/utils/math/SafeMath.sol";
 import {MystikoDAOGoverned} from "@mystikonetwork/governance/contracts/governance/MystikoDAOGoverned.sol";
 
-abstract contract MystikoV2Loop is IMystikoLoop, AssetPool, Sanctions, MystikoDAOGoverned {
+abstract contract MystikoV2Loop is IMystikoLoop, AssetPool, MystikoDAOGoverned, Sanctions {
   using SafeMath for uint256;
 
   // Hasher related.
@@ -27,10 +27,7 @@ abstract contract MystikoV2Loop is IMystikoLoop, AssetPool, Sanctions, MystikoDA
   // Some switches.
   bool private depositsDisabled;
 
-  constructor(
-    IHasher3 _hasher3,
-    address _daoCenter
-  ) MystikoDAOGoverned(_daoCenter) {
+  constructor(IHasher3 _hasher3, address _daoRegistry) MystikoDAOGoverned(_daoRegistry) Sanctions() {
     hasher3 = _hasher3;
   }
 
@@ -68,7 +65,7 @@ abstract contract MystikoV2Loop is IMystikoLoop, AssetPool, Sanctions, MystikoDA
     if (_request.amount > maxAmount) revert CustomErrors.AmountTooLarge();
     uint256 calculatedCommitment = _commitmentHash(_request.hashK, _request.amount, _request.randomS);
     if (_request.commitment != calculatedCommitment) revert CustomErrors.CommitmentHashIncorrect();
-    if (isSanctioned(msg.sender)) revert CustomErrors.SanctionedAddress();
+    if (isSanctioned(tx.origin)) revert CustomErrors.SanctionedAddress();
 
     _processDeposit(_request.amount, _request.commitment, _request.rollupFee, _request.encryptedNote);
   }
@@ -88,31 +85,12 @@ abstract contract MystikoV2Loop is IMystikoLoop, AssetPool, Sanctions, MystikoDA
     });
 
     ICommitmentPool(associatedCommitmentPool).enqueue(cmRequest, address(0));
-    _processDepositTransfer(
-      associatedCommitmentPool,
-      _amount + _rollupFee,
-      0
-    );
+    _processDepositTransfer(associatedCommitmentPool, _amount + _rollupFee, 0);
   }
 
   function setDepositsDisabled(bool _state) external onlyMystikoDAO {
     depositsDisabled = _state;
     emit DepositsDisabled(_state);
-  }
-
-  function enableSanctionsCheck() external onlyMystikoDAO {
-    sanctionsCheck = true;
-    emit SanctionsCheck(sanctionsCheck);
-  }
-
-  function disableSanctionsCheck() external onlyMystikoDAO {
-    sanctionsCheck = false;
-    emit SanctionsCheck(sanctionsCheck);
-  }
-
-  function updateSanctionsListAddress(ISanctionsList _sanction) external onlyMystikoDAO {
-    sanctionsList = _sanction;
-    emit SanctionsList(_sanction);
   }
 
   function bridgeType() public pure returns (string memory) {

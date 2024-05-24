@@ -4,10 +4,10 @@ pragma solidity ^0.8.20;
 import "../../../libs/asset/AssetPool.sol";
 import "../../../libs/common/CustomErrors.sol";
 import "../../../libs/common/DataTypes.sol";
-import "../../../interface/IMystikoBridge.sol";
-import "../../../interface/IHasher3.sol";
-import "../../../interface/ICommitmentPool.sol";
-import "../../../interface/ISanctionsList.sol";
+import "../../../interfaces/IMystikoBridge.sol";
+import "../../../interfaces/IHasher3.sol";
+import "../../../interfaces/ICommitmentPool.sol";
+import "../../../interfaces/ISanctionsList.sol";
 import "./CrossChainDataSerializable.sol";
 import "../../rule/Sanctions.sol";
 import "@openzeppelin/contracts/security/ReentrancyGuard.sol";
@@ -19,8 +19,8 @@ abstract contract MystikoV2Bridge is
   IMystikoBridge,
   AssetPool,
   CrossChainDataSerializable,
-  Sanctions,
-  MystikoDAOGoverned
+  MystikoDAOGoverned,
+  Sanctions
 {
   using SafeMath for uint256;
 
@@ -61,10 +61,7 @@ abstract contract MystikoV2Bridge is
   event DepositsDisabled(bool state);
   event CommitmentCrossChain(uint256 indexed commitment);
 
-  constructor(
-    IHasher3 _hasher3,
-    address _daoCenter
-  ) MystikoDAOGoverned(_daoCenter) {
+  constructor(IHasher3 _hasher3, address _daoRegistry) MystikoDAOGoverned(_daoRegistry) {
     hasher3 = _hasher3;
   }
 
@@ -134,7 +131,7 @@ abstract contract MystikoV2Bridge is
     if (_request.rollupFee < peerMinRollupFee) revert CustomErrors.RollupFeeToFew();
     uint256 calculatedCommitment = _commitmentHash(_request.hashK, _request.amount, _request.randomS);
     if (_request.commitment != calculatedCommitment) revert CustomErrors.CommitmentHashIncorrect();
-    if (isSanctioned(msg.sender)) revert CustomErrors.SanctionedAddress();
+    if (isSanctioned(tx.origin)) revert CustomErrors.SanctionedAddress();
 
     ICommitmentPool.CommitmentRequest memory cmRequest = ICommitmentPool.CommitmentRequest({
       amount: _request.amount,
@@ -171,21 +168,6 @@ abstract contract MystikoV2Bridge is
   function setDepositsDisabled(bool _state) external onlyMystikoDAO {
     depositsDisabled = _state;
     emit DepositsDisabled(_state);
-  }
-
-  function enableSanctionsCheck() external onlyMystikoDAO {
-    sanctionsCheck = true;
-    emit SanctionsCheck(sanctionsCheck);
-  }
-
-  function disableSanctionsCheck() external onlyMystikoDAO {
-    sanctionsCheck = false;
-    emit SanctionsCheck(sanctionsCheck);
-  }
-
-  function updateSanctionsListAddress(ISanctionsList _sanction) external onlyMystikoDAO {
-    sanctionsList = _sanction;
-    emit SanctionsList(_sanction);
   }
 
   function bridgeType() public pure virtual returns (string memory);

@@ -7,9 +7,9 @@ import "../../libs/asset/MainAssetPool.sol";
 contract CommitmentPoolMain is CommitmentPool, MainAssetPool {
   constructor(
     uint8 _treeHeight,
-    address _daoCenter,
+    address _daoRegistry,
     address _settingsCenter
-  ) CommitmentPool(_treeHeight, _daoCenter, _settingsCenter) {
+  ) CommitmentPool(_treeHeight, _daoRegistry, _settingsCenter) {
     // implemented in CommitmentPool
   }
 

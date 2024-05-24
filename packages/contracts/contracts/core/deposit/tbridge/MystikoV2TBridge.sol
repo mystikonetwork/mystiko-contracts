@@ -2,15 +2,12 @@
 pragma solidity ^0.8.20;
 
 import "../base/MystikoV2Bridge.sol";
-import "./relay/interface/ICrossChainProxy.sol";
-import "../../../interface/ICommitmentPool.sol";
-import "../../../interface/IHasher3.sol";
+import "./relay/interfaces/ICrossChainProxy.sol";
+import "../../../interfaces/ICommitmentPool.sol";
+import "../../../interfaces/IHasher3.sol";
 
 abstract contract MystikoV2TBridge is MystikoV2Bridge {
-  constructor(
-    IHasher3 _hasher3,
-    address _daoCenter
-  ) MystikoV2Bridge(_hasher3, _daoCenter) {
+  constructor(IHasher3 _hasher3, address _daoRegistry) MystikoV2Bridge(_hasher3, _daoRegistry) {
     // implemented in MystikoV2Bridge
   }
 

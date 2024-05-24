@@ -45,4 +45,6 @@ library CustomErrors {
   error AuditorIndexError();
   error AuditorPublicKeyNotChanged();
   error AuditorNotesLengthError();
+  error ExpiredCert(uint256 deadline);
+  error InvalidIssuer();
 }

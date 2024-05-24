@@ -1,8 +1,8 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.20;
 
-import "../../core/deposit/celer/relay/interface/IMessageReceiverApp.sol";
-import "../../core/deposit/celer/relay/interface/IMessageSenderApp.sol";
+import "../../core/deposit/celer/relay/interfaces/IMessageReceiverApp.sol";
+import "../../core/deposit/celer/relay/interfaces/IMessageSenderApp.sol";
 import "../../core/deposit/celer/MystikoV2Celer.sol";
 import "../../libs/utils/Utils.sol";
 

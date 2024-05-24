@@ -4,10 +4,10 @@ pragma solidity ^0.8.20;
 import "../../libs/asset/AssetPool.sol";
 import "../../libs/common/CustomErrors.sol";
 import "../../libs/common/DataTypes.sol";
-import "../../interface/IHasher3.sol";
-import "../../interface/IVerifier.sol";
-import "../../interface/ICommitmentPool.sol";
-import "../../interface/ISanctionsList.sol";
+import "../../interfaces/IHasher3.sol";
+import "../../interfaces/IVerifier.sol";
+import "../../interfaces/ICommitmentPool.sol";
+import "../../interfaces/ISanctionsList.sol";
 import "../rule/Sanctions.sol";
 import "@openzeppelin/contracts/security/ReentrancyGuard.sol";
 import "@openzeppelin/contracts/utils/cryptography/ECDSA.sol";
@@ -23,9 +23,9 @@ abstract contract CommitmentPool is
   ICommitmentPool,
   AssetPool,
   ReentrancyGuard,
-  Sanctions,
   MystikoDAOGoverned,
-  MystikoDAOAccessControl
+  MystikoDAOAccessControl,
+  Sanctions
 {
   struct CommitmentLeaf {
     uint256 commitment;
@@ -79,9 +79,9 @@ abstract contract CommitmentPool is
 
   constructor(
     uint8 _treeHeight,
-    address _daoCenter,
+    address _daoRegistry,
     address _settingsCenter
-  ) MystikoDAOGoverned(_daoCenter) MystikoDAOAccessControl() {
+  ) MystikoDAOGoverned(_daoRegistry) MystikoDAOAccessControl() {
     if (_treeHeight == 0) revert CustomErrors.TreeHeightLessThanZero();
     treeCapacity = 1 << _treeHeight;
     currentRoot = _zeros(_treeHeight);
@@ -261,21 +261,6 @@ abstract contract CommitmentPool is
   function setMinRollupFee(uint256 _minRollupFee) external onlyMystikoDAO {
     if (_minRollupFee == 0) revert CustomErrors.Invalid("_minRollupFee");
     minRollupFee = _minRollupFee;
-  }
-
-  function enableSanctionsCheck() external onlyMystikoDAO {
-    sanctionsCheck = true;
-    emit SanctionsCheck(sanctionsCheck);
-  }
-
-  function disableSanctionsCheck() external onlyMystikoDAO {
-    sanctionsCheck = false;
-    emit SanctionsCheck(sanctionsCheck);
-  }
-
-  function updateSanctionsListAddress(ISanctionsList _sanction) external onlyMystikoDAO {
-    sanctionsList = _sanction;
-    emit SanctionsList(_sanction);
   }
 
   function isHistoricCommitment(uint256 _commitment) public view returns (bool) {
