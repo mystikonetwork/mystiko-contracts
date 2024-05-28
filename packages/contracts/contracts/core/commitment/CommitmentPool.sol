@@ -114,11 +114,10 @@ abstract contract CommitmentPool is ICommitmentPool, AssetPool, ReentrancyGuard,
    *  @param _executor    Specific address that send enqueue transaction, only be valid address when do cross chain transaction
    *  @return             True means commitment success insert into commitment queue , or exception and return false.
    */
-  function enqueue(CommitmentRequest memory _request, address _executor)
-    external
-    override
-    onlyEnqueueWhitelisted
-  {
+  function enqueue(
+    CommitmentRequest memory _request,
+    address _executor
+  ) external override onlyEnqueueWhitelisted {
     // todo should do check in upper layer call
     if (_request.rollupFee < minRollupFee) revert CustomErrors.RollupFeeToFew();
     if (commitmentIncludedCount + commitmentQueueSize >= treeCapacity) revert CustomErrors.TreeIsFull();
@@ -420,11 +419,7 @@ abstract contract CommitmentPool is ICommitmentPool, AssetPool, ReentrancyGuard,
     return publicKeys;
   }
 
-  function _enqueueCommitment(
-    uint256 _commitment,
-    uint256 _rollupFee,
-    bytes memory _encryptedNote
-  ) internal {
+  function _enqueueCommitment(uint256 _commitment, uint256 _rollupFee, bytes memory _encryptedNote) internal {
     uint256 leafIndex = commitmentQueueSize + commitmentIncludedCount;
     commitmentQueue[leafIndex] = CommitmentLeaf(_commitment, _rollupFee);
     commitmentQueueSize += 1;

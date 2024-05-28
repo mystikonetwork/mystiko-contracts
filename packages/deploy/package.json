@@ -61,9 +61,9 @@
   },
   "dependencies": {
     "@iarna/toml": "^2.2.5",
-    "@mystikonetwork/config": "^0.1.16",
+    "@mystikonetwork/config": "^0.10.5",
     "@mystikonetwork/contracts-abi": "^0.2.3",
-    "@mystikonetwork/utils": "^0.1.1",
+    "@mystikonetwork/utils": "^0.3.4",
     "ethers": "^5.5.3",
     "hardhat": "^2.9.0",
     "hardhat-contract-sizer": "^2.5.0",

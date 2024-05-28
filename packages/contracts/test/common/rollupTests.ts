@@ -2,7 +2,7 @@ import { Wallet } from '@ethersproject/wallet';
 import { TestToken } from '@mystikonetwork/contracts-abi';
 import { MerkleTree } from '@mystikonetwork/merkle';
 import { CommitmentOutput, MystikoProtocolV2 } from '@mystikonetwork/protocol';
-import { toBN } from '@mystikonetwork/utils';
+import { readCompressedFile, readFile, toBN } from '@mystikonetwork/utils';
 import { expect } from 'chai';
 import { waffle } from 'hardhat';
 import {
@@ -43,47 +43,47 @@ async function generateProof(
   for (; i < includedCount + rollupSize; i += 1) {
     newLeaves.push(commitments[i].commitmentHash);
   }
-  const tree = new MerkleTree(oldLeaves, { maxLevels: treeHeight });
+  const tree = MerkleTree.fromLeaves(oldLeaves, { maxLevels: treeHeight });
   let proof: any;
   if (rollupSize === 1) {
     proof = await protocol.zkProveRollup({
       tree,
       newLeaves,
-      programFile: CircuitsPath.concat('Rollup1.program.gz'),
-      abiFile: CircuitsPath.concat('Rollup1.abi.json'),
-      provingKeyFile: CircuitsPath.concat('Rollup1.pkey.gz'),
+      program: await readCompressedFile(CircuitsPath.concat('Rollup1.program.gz')),
+      abi: (await readFile(CircuitsPath.concat('Rollup1.program.gz'))).toString(),
+      provingKey: await readCompressedFile(CircuitsPath.concat('Rollup1.pkey.gz')),
     });
   } else if (rollupSize === 2) {
     proof = await protocol.zkProveRollup({
       tree,
       newLeaves,
-      programFile: CircuitsPath.concat('Rollup2.program.gz'),
-      abiFile: CircuitsPath.concat('Rollup2.abi.json'),
-      provingKeyFile: CircuitsPath.concat('Rollup2.pkey.gz'),
+      program: await readCompressedFile(CircuitsPath.concat('Rollup2.program.gz')),
+      abi: (await readFile(CircuitsPath.concat('Rollup2.program.gz'))).toString(),
+      provingKey: await readCompressedFile(CircuitsPath.concat('Rollup2.pkey.gz')),
     });
   } else if (rollupSize === 4) {
     proof = await protocol.zkProveRollup({
       tree,
       newLeaves,
-      programFile: CircuitsPath.concat('Rollup4.program.gz'),
-      abiFile: CircuitsPath.concat('Rollup4.abi.json'),
-      provingKeyFile: CircuitsPath.concat('Rollup4.pkey.gz'),
+      program: await readCompressedFile(CircuitsPath.concat('Rollup4.program.gz')),
+      abi: (await readFile(CircuitsPath.concat('Rollup4.program.gz'))).toString(),
+      provingKey: await readCompressedFile(CircuitsPath.concat('Rollup4.pkey.gz')),
     });
   } else if (rollupSize === 8) {
     proof = await protocol.zkProveRollup({
       tree,
       newLeaves,
-      programFile: CircuitsPath.concat('Rollup8.program.gz'),
-      abiFile: CircuitsPath.concat('Rollup8.abi.json'),
-      provingKeyFile: CircuitsPath.concat('Rollup8.pkey.gz'),
+      program: await readCompressedFile(CircuitsPath.concat('Rollup8.program.gz')),
+      abi: (await readFile(CircuitsPath.concat('Rollup8.program.gz'))).toString(),
+      provingKey: await readCompressedFile(CircuitsPath.concat('Rollup8.pkey.gz')),
     });
   } else if (rollupSize === 16) {
     proof = await protocol.zkProveRollup({
       tree,
       newLeaves,
-      programFile: CircuitsPath.concat('Rollup16.program.gz'),
-      abiFile: CircuitsPath.concat('Rollup16.abi.json'),
-      provingKeyFile: CircuitsPath.concat('Rollup16.pkey.gz'),
+      program: await readCompressedFile(CircuitsPath.concat('Rollup16.program.gz')),
+      abi: (await readFile(CircuitsPath.concat('Rollup16.program.gz'))).toString(),
+      provingKey: await readCompressedFile(CircuitsPath.concat('Rollup16.pkey.gz')),
     });
   }
   expect(proof).to.not.equal(undefined);

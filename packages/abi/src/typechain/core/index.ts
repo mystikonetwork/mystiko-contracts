@@ -4,6 +4,7 @@
 export type { Ownable } from './Ownable';
 export type { ERC20 } from './ERC20';
 export type { IERC20Metadata } from './IERC20Metadata';
+export type { IERC20Permit } from './IERC20Permit';
 export type { IERC20 } from './IERC20';
 export type { CommitmentPool } from './CommitmentPool';
 export type { CommitmentPoolERC20 } from './CommitmentPoolERC20';
@@ -59,6 +60,7 @@ export type { Hasher3 } from './Hasher3';
 export { Ownable__factory } from './factories/Ownable__factory';
 export { ERC20__factory } from './factories/ERC20__factory';
 export { IERC20Metadata__factory } from './factories/IERC20Metadata__factory';
+export { IERC20Permit__factory } from './factories/IERC20Permit__factory';
 export { IERC20__factory } from './factories/IERC20__factory';
 export { CommitmentPool__factory } from './factories/CommitmentPool__factory';
 export { CommitmentPoolERC20__factory } from './factories/CommitmentPoolERC20__factory';

@@ -214,20 +214,11 @@ library Pairing {
     return pairing(input);
   }
 
-  function submod(
-    uint256 a,
-    uint256 b,
-    uint256 n
-  ) internal pure returns (uint256) {
+  function submod(uint256 a, uint256 b, uint256 n) internal pure returns (uint256) {
     return addmod(a, n - b, n);
   }
 
-  function _FQ2Mul(
-    uint256 xx,
-    uint256 xy,
-    uint256 yx,
-    uint256 yy
-  ) internal pure returns (uint256, uint256) {
+  function _FQ2Mul(uint256 xx, uint256 xy, uint256 yx, uint256 yy) internal pure returns (uint256, uint256) {
     uint256 fieldModulus = FIELD_MODULUS;
     return (
       submod(mulmod(xx, yx, fieldModulus), mulmod(xy, yy, fieldModulus), fieldModulus),
