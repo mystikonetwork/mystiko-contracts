@@ -41,6 +41,10 @@ jobs:
       - name: Build
         run: lerna run build
 
+      - name: Copy env
+        working-directory: packages/deploy
+        run: cp .env.example .env
+
       - name: Run Deploy
         run: lerna run deploy
 
