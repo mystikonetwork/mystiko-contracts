@@ -2,7 +2,7 @@ import { DummySanctionsList, TestToken } from '@mystikonetwork/contracts-abi';
 import { ECIES } from '@mystikonetwork/ecies';
 import { MerkleTree } from '@mystikonetwork/merkle';
 import { CommitmentOutput, MystikoProtocolV2 } from '@mystikonetwork/protocol';
-import { toBN, toBuff, toHex, toHexNoPrefix } from '@mystikonetwork/utils';
+import { readCompressedFile, readFile, toBN, toBuff, toHex, toHexNoPrefix } from '@mystikonetwork/utils';
 import { ZKProof } from '@mystikonetwork/zkp';
 import BN from 'bn.js';
 import { expect } from 'chai';
@@ -34,7 +34,7 @@ async function generateProof(
   provingKeyFile: string,
 ): Promise<{ proof: ZKProof; outCommitments: CommitmentOutput[] }> {
   const commitments = commitmentInfo.commitments.slice(0, includedCount);
-  const merkleTree = new MerkleTree(
+  const merkleTree = MerkleTree.fromLeaves(
     commitments.map((c) => c.commitmentHash),
     { maxLevels: protocol.merkleTreeLevels },
   );
@@ -105,9 +105,9 @@ async function generateProof(
       outRandomSs,
       randomAuditingSecretKey,
       auditorPublicKeys,
-      programFile,
-      abiFile,
-      provingKeyFile,
+      program: await readCompressedFile(programFile),
+      abi: (await readFile(abiFile)).toString(),
+      provingKey: await readCompressedFile(provingKeyFile),
     })
     .then((proof) => ({ proof, outCommitments: outFullCommitments }));
 }
@@ -240,7 +240,7 @@ export function testTransact(
     it('should transact successfully', async () => {
       await commitmentPoolContract.disableSanctionsCheck();
 
-      expect(await protocol.zkVerify(proof, vkeyFile)).to.equal(true);
+      expect(await protocol.zkVerify(proof, (await readCompressedFile(vkeyFile)).toString())).to.equal(true);
       const request = buildRequest(
         numInputs,
         numOutputs,

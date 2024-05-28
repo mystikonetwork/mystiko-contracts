@@ -187,11 +187,7 @@ library Utils {
     *  @param _length       The index of _bytes for the end of sliced bytes
     *  @return              The sliced bytes
     */
-  function slice(
-    bytes memory _bytes,
-    uint256 _start,
-    uint256 _length
-  ) internal pure returns (bytes memory) {
+  function slice(bytes memory _bytes, uint256 _start, uint256 _length) internal pure returns (bytes memory) {
     require(_bytes.length >= (_start + _length));
 
     bytes memory tempBytes;

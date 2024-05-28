@@ -11,40 +11,65 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
         with:
           token: ${{ secrets.PACKAGES_TOKEN }}
           lfs: true
           submodules: recursive
-      - uses: actions/setup-node@v2
+
+      - uses: actions/setup-node@v4
         with:
-          node-version: 14
-      - run: echo "@mystikonetwork:registry=https://npm.pkg.github.com" >> $HOME/.npmrc
-      - run: echo "//npm.pkg.github.com/:_authToken=${{ secrets.PACKAGES_TOKEN }}" >> $HOME/.npmrc
-      - run: curl -L https://github.com/Zokrates/ZoKrates/releases/download/0.8.7/zokrates-0.8.7-x86_64-unknown-linux-gnu.tar.gz -o zokrates.tar.gz
-      - run: mkdir -p "$HOME/.zokrates/bin" && tar -xvvf zokrates.tar.gz -C "$HOME/.zokrates" && mv "$HOME/.zokrates/zokrates" "$HOME/.zokrates/bin" && chmod 755 "$HOME/.zokrates/bin/zokrates"
-      - run: echo "$HOME/.zokrates/bin" >> $GITHUB_PATH
-      - run: npm install --global lerna@6.6.2
-      - run: lerna bootstrap
-      - run: lerna run build
+          node-version: 18
+
+      - name: Setup Registry
+        run: |
+          echo "@mystikonetwork:registry=https://npm.pkg.github.com" >> $HOME/.npmrc
+          echo "//npm.pkg.github.com/:_authToken=${{ secrets.PACKAGES_TOKEN }}" >> $HOME/.npmrc
+
+      - name: Setup Zokrates
+        run: |
+          curl -L https://github.com/Zokrates/ZoKrates/releases/download/0.8.7/zokrates-0.8.7-x86_64-unknown-linux-gnu.tar.gz -o zokrates.tar.gz
+          mkdir -p "$HOME/.zokrates/bin" && tar -xvvf zokrates.tar.gz -C "$HOME/.zokrates" && mv "$HOME/.zokrates/zokrates" "$HOME/.zokrates/bin" && chmod 755 "$HOME/.zokrates/bin/zokrates"
+          echo "$HOME/.zokrates/bin" >> $GITHUB_PATH
+
+      - name: Install Lerna
+        run: npm install -g lerna
+
+      - name: Install Dependencies
+        run: yarn install
+
+      - name: Build
+        run: lerna run build
+
       - name: Copy env
         working-directory: packages/deploy
         run: cp .env.example .env
-      - run: lerna run deploy
-      - name: Delete env and deploy temp file
+
+      - name: Run Deploy
+        run: lerna run deploy
+
+      - name: Delete Temp Files
         working-directory: packages/deploy
         run: |
           rm .env
           git checkout -- src/json/bridge/tbridge/development.json
           git checkout -- src/json/core/development.json
           git checkout -- src/json/deploy/development.json
-      - run: lerna run lint
-      - run: lerna run test
-      - run: git diff --quiet || (echo "some generated files are not included in repo" && exit 1)
-      - uses: codecov/codecov-action@v2
+
+      - name: Lint
+        run: lerna run lint
+
+      - name: Test
+        run: lerna run test
+
+      - name: Check Dirty Files
+        run: git diff --quiet || (echo "some generated files are not included in repo" && exit 1)
+
+      - uses: codecov/codecov-action@v4
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
           fail_ci_if_error: true
+
       - name: Telegram Failure Notification
         uses: appleboy/telegram-action@master
         if: failure()
@@ -53,6 +78,7 @@ jobs:
           format: markdown
           to: ${{ secrets.TELEGRAM_CHAT_ID }}
           token: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+
       - name: Telegram Success Notification
         uses: appleboy/telegram-action@master
         if: success()

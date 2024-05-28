@@ -2,7 +2,7 @@ import { Wallet } from '@ethersproject/wallet';
 import { TestToken } from '@mystikonetwork/contracts-abi';
 import { MerkleTree } from '@mystikonetwork/merkle';
 import { CommitmentOutput, MystikoProtocolV2 } from '@mystikonetwork/protocol';
-import { toBN } from '@mystikonetwork/utils';
+import { readCompressedFile, readFile, toBN } from '@mystikonetwork/utils';
 import { expect } from 'chai';
 import { waffle } from 'hardhat';
 import {
@@ -43,47 +43,47 @@ async function generateProof(
   for (; i < includedCount + rollupSize; i += 1) {
     newLeaves.push(commitments[i].commitmentHash);
   }
-  const tree = new MerkleTree(oldLeaves, { maxLevels: treeHeight });
+  const tree = MerkleTree.fromLeaves(oldLeaves, { maxLevels: treeHeight });
   let proof: any;
   if (rollupSize === 1) {
     proof = await protocol.zkProveRollup({
       tree,
       newLeaves,
-      programFile: CircuitsPath.concat('Rollup1.program.gz'),
-      abiFile: CircuitsPath.concat('Rollup1.abi.json'),
-      provingKeyFile: CircuitsPath.concat('Rollup1.pkey.gz'),
+      program: await readCompressedFile(CircuitsPath.concat('Rollup1.program.gz')),
+      abi: (await readFile(CircuitsPath.concat('Rollup1.program.gz'))).toString(),
+      provingKey: await readCompressedFile(CircuitsPath.concat('Rollup1.pkey.gz')),
     });
   } else if (rollupSize === 2) {
     proof = await protocol.zkProveRollup({
       tree,
       newLeaves,
-      programFile: CircuitsPath.concat('Rollup2.program.gz'),
-      abiFile: CircuitsPath.concat('Rollup2.abi.json'),
-      provingKeyFile: CircuitsPath.concat('Rollup2.pkey.gz'),
+      program: await readCompressedFile(CircuitsPath.concat('Rollup2.program.gz')),
+      abi: (await readFile(CircuitsPath.concat('Rollup2.program.gz'))).toString(),
+      provingKey: await readCompressedFile(CircuitsPath.concat('Rollup2.pkey.gz')),
     });
   } else if (rollupSize === 4) {
     proof = await protocol.zkProveRollup({
       tree,
       newLeaves,
-      programFile: CircuitsPath.concat('Rollup4.program.gz'),
-      abiFile: CircuitsPath.concat('Rollup4.abi.json'),
-      provingKeyFile: CircuitsPath.concat('Rollup4.pkey.gz'),
+      program: await readCompressedFile(CircuitsPath.concat('Rollup4.program.gz')),
+      abi: (await readFile(CircuitsPath.concat('Rollup4.program.gz'))).toString(),
+      provingKey: await readCompressedFile(CircuitsPath.concat('Rollup4.pkey.gz')),
     });
   } else if (rollupSize === 8) {
     proof = await protocol.zkProveRollup({
       tree,
       newLeaves,
-      programFile: CircuitsPath.concat('Rollup8.program.gz'),
-      abiFile: CircuitsPath.concat('Rollup8.abi.json'),
-      provingKeyFile: CircuitsPath.concat('Rollup8.pkey.gz'),
+      program: await readCompressedFile(CircuitsPath.concat('Rollup8.program.gz')),
+      abi: (await readFile(CircuitsPath.concat('Rollup8.program.gz'))).toString(),
+      provingKey: await readCompressedFile(CircuitsPath.concat('Rollup8.pkey.gz')),
     });
   } else if (rollupSize === 16) {
     proof = await protocol.zkProveRollup({
       tree,
       newLeaves,
-      programFile: CircuitsPath.concat('Rollup16.program.gz'),
-      abiFile: CircuitsPath.concat('Rollup16.abi.json'),
-      provingKeyFile: CircuitsPath.concat('Rollup16.pkey.gz'),
+      program: await readCompressedFile(CircuitsPath.concat('Rollup16.program.gz')),
+      abi: (await readFile(CircuitsPath.concat('Rollup16.program.gz'))).toString(),
+      provingKey: await readCompressedFile(CircuitsPath.concat('Rollup16.pkey.gz')),
     });
   }
   expect(proof).to.not.equal(undefined);
@@ -141,34 +141,34 @@ export function testRollup(
       );
     });
 
-    it('should revert when not in white list', () => {
-      commitmentPoolContract.setRollupWhitelistDisabled(false);
-      expect(
+    it('should revert when not in white list', async () => {
+      await commitmentPoolContract.setRollupWhitelistDisabled(false);
+      await expect(
         commitmentPoolContract
           .connect(accounts[0])
           .rollup([[proof.proofA, proof.proofB, proof.proofC], 1234, proof.newRoot, proof.leafHash]),
       ).to.be.revertedWith('OnlyWhitelistedRoller()');
     });
 
-    it('should revert verifier invalid param', () => {
-      const fieldSize = '21888242871839275222246405745257275088548364400416034343698204186575808495617';
-      expect(
+    it('should revert verifier invalid param', async () => {
+      const fieldSize = '31888242871839275222246405745257275088548364400416034343698204186575808495617';
+      await expect(
         commitmentPoolContract
           .connect(rollupAccount)
           .rollup([[proof.proofA, proof.proofB, proof.proofC], `${rollupSize}`, fieldSize, proof.leafHash]),
-      ).to.be.revertedWith('Transaction reverted without a reason string'); // revertedWith('InvalidParam()');
+      ).to.be.revertedWith('0xd2529034'); // revertedWith('InvalidParam()');
     });
 
-    it('should revert invalid rollup Size 0 ', () => {
-      expect(
+    it('should revert invalid rollup Size 0 ', async () => {
+      await expect(
         commitmentPoolContract
           .connect(rollupAccount)
           .rollup([[proof.proofA, proof.proofB, proof.proofC], 0, proof.newRoot, proof.leafHash]),
       ).to.be.revertedWith('Invalid("rollupSize")');
     });
 
-    it('should revert invalid rollup Size 1234', () => {
-      expect(
+    it('should revert invalid rollup Size 1234', async () => {
+      await expect(
         commitmentPoolContract
           .connect(rollupAccount)
           .rollup([[proof.proofA, proof.proofB, proof.proofC], 1234, proof.newRoot, proof.leafHash]),
@@ -190,8 +190,8 @@ export function testRollup(
       await commitmentPoolContract.enableRollupVerifier(rollupSize, rollupVerifierContract.address);
     });
 
-    it('should revert wrong proof', () => {
-      expect(
+    it('should revert wrong proof', async () => {
+      await expect(
         commitmentPoolContract
           .connect(rollupAccount)
           .rollup([
@@ -203,8 +203,8 @@ export function testRollup(
       ).to.be.revertedWith('Invalid("proof")');
     });
 
-    it('should revert wrong newRoot', () => {
-      expect(
+    it('should revert wrong newRoot', async () => {
+      await expect(
         commitmentPoolContract
           .connect(rollupAccount)
           .rollup([
@@ -216,8 +216,8 @@ export function testRollup(
       ).to.be.revertedWith('Invalid("proof")');
     });
 
-    it('should revert wrong leaf hash', () => {
-      expect(
+    it('should revert wrong leaf hash', async () => {
+      await expect(
         commitmentPoolContract
           .connect(rollupAccount)
           .rollup([
@@ -229,7 +229,7 @@ export function testRollup(
       ).to.be.revertedWith('Invalid("leafHash")');
     });
 
-    it('should rollup successfully', async () => {
+    it('test rollup should rollup successfully', async () => {
       const balanceBefore = isMainAsset
         ? await waffle.provider.getBalance(rollupAccount2.address)
         : await testTokenContract.balanceOf(rollupAccount2.address);
@@ -332,7 +332,7 @@ export function rollup(
       );
     });
 
-    it('should rollup successfully', async () => {
+    it('rollup should rollup successfully', async () => {
       const balanceBefore = isMainAsset
         ? await waffle.provider.getBalance(rollupAccount2.address)
         : await testTokenContract.balanceOf(rollupAccount2.address);

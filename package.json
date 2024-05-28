@@ -6,14 +6,7 @@
   "repository": "https://github.com/mystikonetwork/mystiko-contracts",
   "author": "Fitch",
   "license": "MIT",
-  "scripts": {
-    "bootstrap": "lerna run bootstrap",
-    "build": "lerna run build",
-    "lint": "lerna run lint",
-    "test": "lerna run test",
-    "deploy": "lerna run deploy"
-  },
-  "devDependencies": {
-    "lerna": "^3.20.2"
-  }
+  "workspaces": [
+    "packages/*"
+  ]
 }

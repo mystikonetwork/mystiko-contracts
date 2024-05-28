@@ -8,8 +8,7 @@
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "sourceMap": true,
-    "outDir": "./build/cjs",
-    "typeRoots": ["node_modules/@types", "./src/types"]
+    "outDir": "./build/cjs"
   },
   "ts-node": {
     "files": true

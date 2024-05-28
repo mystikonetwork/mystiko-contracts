@@ -11,20 +11,33 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
         with:
           token: ${{ secrets.PACKAGES_TOKEN }}
           lfs: true
           submodules: recursive
-      - uses: actions/setup-node@v2
+
+      - uses: actions/setup-node@v4
         with:
-          node-version: 14
-      - run: echo "@mystikonetwork:registry=https://npm.pkg.github.com" >> $HOME/.npmrc
-      - run: echo "//npm.pkg.github.com/:_authToken=${{ secrets.PACKAGES_TOKEN }}" >> $HOME/.npmrc
-      - run: npm install --global lerna@6.6.2
-      - run: lerna bootstrap
-      - run: lerna run build
-      - run: lerna publish from-package --yes
+          node-version: 18
+
+      - name: Setup Registry
+        run: |
+          echo "@mystikonetwork:registry=https://npm.pkg.github.com" >> $HOME/.npmrc
+          echo "//npm.pkg.github.com/:_authToken=${{ secrets.PACKAGES_TOKEN }}" >> $HOME/.npmrc
+
+      - name: Install Lerna
+        run: npm install -g lerna
+
+      - name: Install Dependencies
+        run: yarn install
+
+      - name: Build
+        run: lerna run build
+
+      - name: Publish
+        run: lerna publish from-package --yes
+
       - name: Telegram Failure Notification
         uses: appleboy/telegram-action@master
         if: failure()
