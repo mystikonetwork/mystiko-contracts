@@ -141,34 +141,34 @@ export function testRollup(
       );
     });
 
-    it('should revert when not in white list', () => {
-      commitmentPoolContract.setRollupWhitelistDisabled(false);
-      expect(
+    it('should revert when not in white list', async () => {
+      await commitmentPoolContract.setRollupWhitelistDisabled(false);
+      await expect(
         commitmentPoolContract
           .connect(accounts[0])
           .rollup([[proof.proofA, proof.proofB, proof.proofC], 1234, proof.newRoot, proof.leafHash]),
       ).to.be.revertedWith('OnlyWhitelistedRoller()');
     });
 
-    it('should revert verifier invalid param', () => {
-      const fieldSize = '21888242871839275222246405745257275088548364400416034343698204186575808495617';
-      expect(
+    it('should revert verifier invalid param', async () => {
+      const fieldSize = '31888242871839275222246405745257275088548364400416034343698204186575808495617';
+      await expect(
         commitmentPoolContract
           .connect(rollupAccount)
           .rollup([[proof.proofA, proof.proofB, proof.proofC], `${rollupSize}`, fieldSize, proof.leafHash]),
-      ).to.be.revertedWith('Transaction reverted without a reason string'); // revertedWith('InvalidParam()');
+      ).to.be.revertedWith('0xd2529034'); // revertedWith('InvalidParam()');
     });
 
-    it('should revert invalid rollup Size 0 ', () => {
-      expect(
+    it('should revert invalid rollup Size 0 ', async () => {
+      await expect(
         commitmentPoolContract
           .connect(rollupAccount)
           .rollup([[proof.proofA, proof.proofB, proof.proofC], 0, proof.newRoot, proof.leafHash]),
       ).to.be.revertedWith('Invalid("rollupSize")');
     });
 
-    it('should revert invalid rollup Size 1234', () => {
-      expect(
+    it('should revert invalid rollup Size 1234', async () => {
+      await expect(
         commitmentPoolContract
           .connect(rollupAccount)
           .rollup([[proof.proofA, proof.proofB, proof.proofC], 1234, proof.newRoot, proof.leafHash]),
@@ -190,8 +190,8 @@ export function testRollup(
       await commitmentPoolContract.enableRollupVerifier(rollupSize, rollupVerifierContract.address);
     });
 
-    it('should revert wrong proof', () => {
-      expect(
+    it('should revert wrong proof', async () => {
+      await expect(
         commitmentPoolContract
           .connect(rollupAccount)
           .rollup([
@@ -203,8 +203,8 @@ export function testRollup(
       ).to.be.revertedWith('Invalid("proof")');
     });
 
-    it('should revert wrong newRoot', () => {
-      expect(
+    it('should revert wrong newRoot', async () => {
+      await expect(
         commitmentPoolContract
           .connect(rollupAccount)
           .rollup([
@@ -216,8 +216,8 @@ export function testRollup(
       ).to.be.revertedWith('Invalid("proof")');
     });
 
-    it('should revert wrong leaf hash', () => {
-      expect(
+    it('should revert wrong leaf hash', async () => {
+      await expect(
         commitmentPoolContract
           .connect(rollupAccount)
           .rollup([
@@ -229,7 +229,7 @@ export function testRollup(
       ).to.be.revertedWith('Invalid("leafHash")');
     });
 
-    it('should rollup successfully', async () => {
+    it('test rollup should rollup successfully', async () => {
       const balanceBefore = isMainAsset
         ? await waffle.provider.getBalance(rollupAccount2.address)
         : await testTokenContract.balanceOf(rollupAccount2.address);
@@ -332,7 +332,7 @@ export function rollup(
       );
     });
 
-    it('should rollup successfully', async () => {
+    it('rollup should rollup successfully', async () => {
       const balanceBefore = isMainAsset
         ? await waffle.provider.getBalance(rollupAccount2.address)
         : await testTokenContract.balanceOf(rollupAccount2.address);
