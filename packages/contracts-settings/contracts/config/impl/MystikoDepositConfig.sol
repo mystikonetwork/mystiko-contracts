@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.20;
 
-import {SettingsCenterErrors} from "../../SettingsCenterErrors.sol";
+import {MystikoSettingsErrors} from "../../MystikoSettingsErrors.sol";
 import {MystikoDAOAccessControl} from "@mystikonetwork/governance/contracts/MystikoDAOAccessControl.sol";
 
 abstract contract MystikoDepositConfig is MystikoDAOAccessControl {
@@ -22,8 +22,8 @@ abstract contract MystikoDepositConfig is MystikoDAOAccessControl {
   function updateMinDepositAmount(address _pool, uint256 _minDepositAmount) external onlyMystikoDAO {
     uint256 currentMaxDepositAmount = maxDepositAmountMap[_pool];
     if (_minDepositAmount == 0 || _minDepositAmount > currentMaxDepositAmount)
-      revert SettingsCenterErrors.InvalidDepositAmount();
-    if (minDepositAmountMap[_pool] == _minDepositAmount) revert SettingsCenterErrors.NotChanged();
+      revert MystikoSettingsErrors.InvalidDepositAmount();
+    if (minDepositAmountMap[_pool] == _minDepositAmount) revert MystikoSettingsErrors.NotChanged();
     minDepositAmountMap[_pool] = _minDepositAmount;
     emit MinDepositAmountUpdated(_pool, _minDepositAmount);
   }
@@ -35,8 +35,8 @@ abstract contract MystikoDepositConfig is MystikoDAOAccessControl {
   function updateMaxDepositAmount(address _pool, uint256 _maxDepositAmount) external onlyMystikoDAO {
     uint256 currentMinDepositAmount = minDepositAmountMap[_pool];
     if (_maxDepositAmount == 0 || _maxDepositAmount < currentMinDepositAmount)
-      revert SettingsCenterErrors.InvalidDepositAmount();
-    if (maxDepositAmountMap[_pool] == _maxDepositAmount) revert SettingsCenterErrors.NotChanged();
+      revert MystikoSettingsErrors.InvalidDepositAmount();
+    if (maxDepositAmountMap[_pool] == _maxDepositAmount) revert MystikoSettingsErrors.NotChanged();
     maxDepositAmountMap[_pool] = _maxDepositAmount;
     emit MaxDepositAmountUpdated(_pool, _maxDepositAmount);
   }
@@ -46,7 +46,7 @@ abstract contract MystikoDepositConfig is MystikoDAOAccessControl {
   }
 
   function updateAssociatedPool(address _depositAddress, address _poolAddress) external onlyMystikoDAO {
-    if (associatedPool[_depositAddress] == _poolAddress) revert SettingsCenterErrors.NotChanged();
+    if (associatedPool[_depositAddress] == _poolAddress) revert MystikoSettingsErrors.NotChanged();
     associatedPool[_depositAddress] = _poolAddress;
     emit AssociatedPoolUpdated(_depositAddress, _poolAddress);
   }
@@ -56,7 +56,7 @@ abstract contract MystikoDepositConfig is MystikoDAOAccessControl {
   }
 
   function updateDepositDisable(address _depositAddress, bool _disable) external onlyMystikoDAO {
-    if (depositDisableMap[_depositAddress] == _disable) revert SettingsCenterErrors.NotChanged();
+    if (depositDisableMap[_depositAddress] == _disable) revert MystikoSettingsErrors.NotChanged();
     depositDisableMap[_depositAddress] = _disable;
     emit DepositDisableUpdated(_depositAddress, _disable);
   }

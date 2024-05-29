@@ -202,7 +202,7 @@ export interface MystikoDepositConfig extends BaseContract {
 
     renounceRole(
       role: BytesLike,
-      account: string,
+      callerConfirmation: string,
       overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<ContractTransaction>;
 
@@ -271,7 +271,7 @@ export interface MystikoDepositConfig extends BaseContract {
 
   renounceRole(
     role: BytesLike,
-    account: string,
+    callerConfirmation: string,
     overrides?: Overrides & { from?: string | Promise<string> },
   ): Promise<ContractTransaction>;
 
@@ -334,7 +334,7 @@ export interface MystikoDepositConfig extends BaseContract {
 
     queryMinDepositAmount(_pool: string, overrides?: CallOverrides): Promise<BigNumber>;
 
-    renounceRole(role: BytesLike, account: string, overrides?: CallOverrides): Promise<void>;
+    renounceRole(role: BytesLike, callerConfirmation: string, overrides?: CallOverrides): Promise<void>;
 
     revokeRole(role: BytesLike, account: string, overrides?: CallOverrides): Promise<void>;
 
@@ -463,7 +463,7 @@ export interface MystikoDepositConfig extends BaseContract {
 
     renounceRole(
       role: BytesLike,
-      account: string,
+      callerConfirmation: string,
       overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<BigNumber>;
 
@@ -533,7 +533,7 @@ export interface MystikoDepositConfig extends BaseContract {
 
     renounceRole(
       role: BytesLike,
-      account: string,
+      callerConfirmation: string,
       overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<PopulatedTransaction>;
 

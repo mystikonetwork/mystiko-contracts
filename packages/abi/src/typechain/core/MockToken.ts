@@ -24,8 +24,6 @@ export interface MockTokenInterface extends utils.Interface {
     'approve(address,uint256)': FunctionFragment;
     'balanceOf(address)': FunctionFragment;
     'decimals()': FunctionFragment;
-    'decreaseAllowance(address,uint256)': FunctionFragment;
-    'increaseAllowance(address,uint256)': FunctionFragment;
     'name()': FunctionFragment;
     'symbol()': FunctionFragment;
     'totalSupply()': FunctionFragment;
@@ -37,8 +35,6 @@ export interface MockTokenInterface extends utils.Interface {
   encodeFunctionData(functionFragment: 'approve', values: [string, BigNumberish]): string;
   encodeFunctionData(functionFragment: 'balanceOf', values: [string]): string;
   encodeFunctionData(functionFragment: 'decimals', values?: undefined): string;
-  encodeFunctionData(functionFragment: 'decreaseAllowance', values: [string, BigNumberish]): string;
-  encodeFunctionData(functionFragment: 'increaseAllowance', values: [string, BigNumberish]): string;
   encodeFunctionData(functionFragment: 'name', values?: undefined): string;
   encodeFunctionData(functionFragment: 'symbol', values?: undefined): string;
   encodeFunctionData(functionFragment: 'totalSupply', values?: undefined): string;
@@ -49,8 +45,6 @@ export interface MockTokenInterface extends utils.Interface {
   decodeFunctionResult(functionFragment: 'approve', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'balanceOf', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'decimals', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'decreaseAllowance', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'increaseAllowance', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'name', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'symbol', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'totalSupply', data: BytesLike): Result;
@@ -108,25 +102,13 @@ export interface MockToken extends BaseContract {
 
     approve(
       spender: string,
-      amount: BigNumberish,
+      value: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<ContractTransaction>;
 
     balanceOf(account: string, overrides?: CallOverrides): Promise<[BigNumber]>;
 
     decimals(overrides?: CallOverrides): Promise<[number]>;
-
-    decreaseAllowance(
-      spender: string,
-      subtractedValue: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
-    ): Promise<ContractTransaction>;
-
-    increaseAllowance(
-      spender: string,
-      addedValue: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
-    ): Promise<ContractTransaction>;
 
     name(overrides?: CallOverrides): Promise<[string]>;
 
@@ -136,14 +118,14 @@ export interface MockToken extends BaseContract {
 
     transfer(
       to: string,
-      amount: BigNumberish,
+      value: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<ContractTransaction>;
 
     transferFrom(
       from: string,
       to: string,
-      amount: BigNumberish,
+      value: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<ContractTransaction>;
   };
@@ -152,25 +134,13 @@ export interface MockToken extends BaseContract {
 
   approve(
     spender: string,
-    amount: BigNumberish,
+    value: BigNumberish,
     overrides?: Overrides & { from?: string | Promise<string> },
   ): Promise<ContractTransaction>;
 
   balanceOf(account: string, overrides?: CallOverrides): Promise<BigNumber>;
 
   decimals(overrides?: CallOverrides): Promise<number>;
-
-  decreaseAllowance(
-    spender: string,
-    subtractedValue: BigNumberish,
-    overrides?: Overrides & { from?: string | Promise<string> },
-  ): Promise<ContractTransaction>;
-
-  increaseAllowance(
-    spender: string,
-    addedValue: BigNumberish,
-    overrides?: Overrides & { from?: string | Promise<string> },
-  ): Promise<ContractTransaction>;
 
   name(overrides?: CallOverrides): Promise<string>;
 
@@ -180,33 +150,25 @@ export interface MockToken extends BaseContract {
 
   transfer(
     to: string,
-    amount: BigNumberish,
+    value: BigNumberish,
     overrides?: Overrides & { from?: string | Promise<string> },
   ): Promise<ContractTransaction>;
 
   transferFrom(
     from: string,
     to: string,
-    amount: BigNumberish,
+    value: BigNumberish,
     overrides?: Overrides & { from?: string | Promise<string> },
   ): Promise<ContractTransaction>;
 
   callStatic: {
     allowance(owner: string, spender: string, overrides?: CallOverrides): Promise<BigNumber>;
 
-    approve(spender: string, amount: BigNumberish, overrides?: CallOverrides): Promise<boolean>;
+    approve(spender: string, value: BigNumberish, overrides?: CallOverrides): Promise<boolean>;
 
     balanceOf(account: string, overrides?: CallOverrides): Promise<BigNumber>;
 
     decimals(overrides?: CallOverrides): Promise<number>;
-
-    decreaseAllowance(
-      spender: string,
-      subtractedValue: BigNumberish,
-      overrides?: CallOverrides,
-    ): Promise<boolean>;
-
-    increaseAllowance(spender: string, addedValue: BigNumberish, overrides?: CallOverrides): Promise<boolean>;
 
     name(overrides?: CallOverrides): Promise<string>;
 
@@ -214,9 +176,9 @@ export interface MockToken extends BaseContract {
 
     totalSupply(overrides?: CallOverrides): Promise<BigNumber>;
 
-    transfer(to: string, amount: BigNumberish, overrides?: CallOverrides): Promise<boolean>;
+    transfer(to: string, value: BigNumberish, overrides?: CallOverrides): Promise<boolean>;
 
-    transferFrom(from: string, to: string, amount: BigNumberish, overrides?: CallOverrides): Promise<boolean>;
+    transferFrom(from: string, to: string, value: BigNumberish, overrides?: CallOverrides): Promise<boolean>;
   };
 
   filters: {
@@ -240,25 +202,13 @@ export interface MockToken extends BaseContract {
 
     approve(
       spender: string,
-      amount: BigNumberish,
+      value: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<BigNumber>;
 
     balanceOf(account: string, overrides?: CallOverrides): Promise<BigNumber>;
 
     decimals(overrides?: CallOverrides): Promise<BigNumber>;
-
-    decreaseAllowance(
-      spender: string,
-      subtractedValue: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
-    ): Promise<BigNumber>;
-
-    increaseAllowance(
-      spender: string,
-      addedValue: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
-    ): Promise<BigNumber>;
 
     name(overrides?: CallOverrides): Promise<BigNumber>;
 
@@ -268,14 +218,14 @@ export interface MockToken extends BaseContract {
 
     transfer(
       to: string,
-      amount: BigNumberish,
+      value: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<BigNumber>;
 
     transferFrom(
       from: string,
       to: string,
-      amount: BigNumberish,
+      value: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<BigNumber>;
   };
@@ -285,25 +235,13 @@ export interface MockToken extends BaseContract {
 
     approve(
       spender: string,
-      amount: BigNumberish,
+      value: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<PopulatedTransaction>;
 
     balanceOf(account: string, overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     decimals(overrides?: CallOverrides): Promise<PopulatedTransaction>;
-
-    decreaseAllowance(
-      spender: string,
-      subtractedValue: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
-    ): Promise<PopulatedTransaction>;
-
-    increaseAllowance(
-      spender: string,
-      addedValue: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
-    ): Promise<PopulatedTransaction>;
 
     name(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
@@ -313,14 +251,14 @@ export interface MockToken extends BaseContract {
 
     transfer(
       to: string,
-      amount: BigNumberish,
+      value: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<PopulatedTransaction>;
 
     transferFrom(
       from: string,
       to: string,
-      amount: BigNumberish,
+      value: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<PopulatedTransaction>;
   };

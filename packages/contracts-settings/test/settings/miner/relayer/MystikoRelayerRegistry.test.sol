@@ -5,9 +5,9 @@ import {Test} from "forge-std/Test.sol";
 import "@mystikonetwork/governance/contracts/token/MystikoVoteToken.sol";
 import "../../../mock/MockMystikoToken.sol";
 import "@mystikonetwork/governance/contracts/impl/MystikoGovernorRegistry.sol";
-import "../../../../contracts/miner/impl/MystikoRelayerRegistry.sol";
-import "../../../../contracts/miner/interfaces/IMystikoRelayer.sol";
-import "../../../../contracts/SettingsCenterErrors.sol";
+import "../../../../contracts/miner/impl/MystikoRelayerPool.sol";
+import "../../../../contracts/miner/interfaces/IMystikoRelayerPool.sol";
+import "../../../../contracts/MystikoSettingsErrors.sol";
 import "../../../utils/Random.sol";
 
 contract MystikoRelayerRegistryTest is Test, Random {
@@ -17,7 +17,7 @@ contract MystikoRelayerRegistryTest is Test, Random {
   MystikoGovernorRegistry public daoRegistry;
   MockMystikoToken public XZK;
   MystikoVoteToken public vXZK;
-  MystikoRelayerRegistry public registry;
+  MystikoRelayerPool public registry;
 
   event RelayerMinVoteTokenAmountChanged(uint256 _amount);
   event RoleGranted(address indexed account);
@@ -28,24 +28,24 @@ contract MystikoRelayerRegistryTest is Test, Random {
     vXZK = new MystikoVoteToken(XZK);
     dao = address(uint160(uint256(keccak256(abi.encodePacked(_random())))));
     daoRegistry = new MystikoGovernorRegistry(dao);
-    registry = new MystikoRelayerRegistry(address(daoRegistry), address(vXZK), 100_000e18);
+    registry = new MystikoRelayerPool(address(daoRegistry), address(vXZK), 100_000e18);
   }
 
   function test_canDoRelay() public {
     address relayer = address(uint160(uint256(keccak256(abi.encodePacked(_random())))));
     address pool = address(uint160(uint256(keccak256(abi.encodePacked(_random())))));
 
-    CanDoRelayParams memory p1 = CanDoRelayParams({pool: pool, relayer: relayer});
-    vm.expectRevert(SettingsCenterErrors.UnauthorizedRole.selector);
+    RelayerValidateParams memory p1 = RelayerValidateParams({pool: pool, relayer: relayer});
+    vm.expectRevert(MystikoSettingsErrors.UnauthorizedRole.selector);
     vm.prank(pool);
-    registry.canDoRelay(p1);
+    registry.validate(p1);
 
     vm.prank(dao);
     registry.grantRole(RELAYER_ROLE, relayer);
 
-    vm.expectRevert(SettingsCenterErrors.InsufficientBalanceForAction.selector);
+    vm.expectRevert(MystikoSettingsErrors.InsufficientBalanceForAction.selector);
     vm.prank(pool);
-    registry.canDoRelay(p1);
+    registry.validate(p1);
 
     uint256 voteAmount = 100_000e18;
     XZK.transfer(relayer, voteAmount);
@@ -54,38 +54,38 @@ contract MystikoRelayerRegistryTest is Test, Random {
     vm.prank(relayer);
     vXZK.depositFor(relayer, voteAmount);
     vm.prank(pool);
-    bool canDo = registry.canDoRelay(p1);
+    bool canDo = registry.validate(p1);
     assertTrue(canDo);
 
     vm.prank(dao);
     registry.revokeRole(RELAYER_ROLE, relayer);
 
-    vm.expectRevert(SettingsCenterErrors.UnauthorizedRole.selector);
+    vm.expectRevert(MystikoSettingsErrors.UnauthorizedRole.selector);
     vm.prank(pool);
-    registry.canDoRelay(p1);
+    registry.validate(p1);
 
     vm.prank(dao);
     registry.grantRole(RELAYER_ROLE, address(0));
 
-    bool canDo2 = registry.canDoRelay(p1);
+    bool canDo2 = registry.validate(p1);
     assertTrue(canDo2);
   }
 
   function test_canDoRelay_with_zero_token() public {
-    MystikoRelayerRegistry registryZero = new MystikoRelayerRegistry(address(daoRegistry), address(vXZK), 0);
+    MystikoRelayerPool registryZero = new MystikoRelayerPool(address(daoRegistry), address(vXZK), 0);
     address relayer = address(uint160(uint256(keccak256(abi.encodePacked(_random())))));
     address pool = address(uint160(uint256(keccak256(abi.encodePacked(_random())))));
 
-    CanDoRelayParams memory p1 = CanDoRelayParams({pool: pool, relayer: relayer});
-    vm.expectRevert(SettingsCenterErrors.UnauthorizedRole.selector);
+    RelayerValidateParams memory p1 = RelayerValidateParams({pool: pool, relayer: relayer});
+    vm.expectRevert(MystikoSettingsErrors.UnauthorizedRole.selector);
     vm.prank(pool);
-    registryZero.canDoRelay(p1);
+    registryZero.validate(p1);
 
     vm.prank(dao);
     registryZero.grantRole(RELAYER_ROLE, relayer);
 
     vm.prank(pool);
-    bool canDo = registryZero.canDoRelay(p1);
+    bool canDo = registryZero.validate(p1);
     assertTrue(canDo);
   }
 
@@ -95,7 +95,7 @@ contract MystikoRelayerRegistryTest is Test, Random {
     vm.prank(operator);
     registry.changeRelayerMinVoteTokenAmount(100_000e18);
 
-    vm.expectRevert(SettingsCenterErrors.NotChanged.selector);
+    vm.expectRevert(MystikoSettingsErrors.NotChanged.selector);
     vm.prank(dao);
     registry.changeRelayerMinVoteTokenAmount(100_000e18);
 

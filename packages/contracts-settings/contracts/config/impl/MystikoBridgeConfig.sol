@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.20;
 
-import {SettingsCenterErrors} from "../../SettingsCenterErrors.sol";
+import {MystikoSettingsErrors} from "../../MystikoSettingsErrors.sol";
 import {MystikoDAOAccessControl} from "@mystikonetwork/governance/contracts/MystikoDAOAccessControl.sol";
 
 abstract contract MystikoBridgeConfig is MystikoDAOAccessControl {
@@ -18,7 +18,7 @@ abstract contract MystikoBridgeConfig is MystikoDAOAccessControl {
   }
 
   function updateMinBridgeFee(address _pool, uint256 _minBridgeFee) external onlyMystikoDAO {
-    if (minBridgeFeeAmount[_pool] == _minBridgeFee) revert SettingsCenterErrors.NotChanged();
+    if (minBridgeFeeAmount[_pool] == _minBridgeFee) revert MystikoSettingsErrors.NotChanged();
     minBridgeFeeAmount[_pool] = _minBridgeFee;
     emit MinBridgeFeeUpdated(_pool, _minBridgeFee);
   }
@@ -28,7 +28,7 @@ abstract contract MystikoBridgeConfig is MystikoDAOAccessControl {
   }
 
   function updateMinPeerExecutorFee(address _pool, uint256 _minPeerExecutorFee) external onlyMystikoDAO {
-    if (minPeerExecutorFeeAmount[_pool] == _minPeerExecutorFee) revert SettingsCenterErrors.NotChanged();
+    if (minPeerExecutorFeeAmount[_pool] == _minPeerExecutorFee) revert MystikoSettingsErrors.NotChanged();
     minPeerExecutorFeeAmount[_pool] = _minPeerExecutorFee;
     emit MinPeerExecutorFeeUpdated(_pool, _minPeerExecutorFee);
   }
@@ -38,7 +38,7 @@ abstract contract MystikoBridgeConfig is MystikoDAOAccessControl {
   }
 
   function updateMinPeerRollupFee(address _pool, uint256 _minPeerRollupFee) external onlyMystikoDAO {
-    if (minPeerRollupFeeAmount[_pool] == _minPeerRollupFee) revert SettingsCenterErrors.NotChanged();
+    if (minPeerRollupFeeAmount[_pool] == _minPeerRollupFee) revert MystikoSettingsErrors.NotChanged();
     minPeerRollupFeeAmount[_pool] = _minPeerRollupFee;
     emit MinPeerRollupFeeUpdated(_pool, _minPeerRollupFee);
   }

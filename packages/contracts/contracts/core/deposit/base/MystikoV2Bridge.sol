@@ -8,13 +8,14 @@ import "../../../interfaces/IMystikoBridge.sol";
 import "../../../interfaces/IHasher3.sol";
 import "../../../interfaces/ICommitmentPool.sol";
 import "./CrossChainDataSerializable.sol";
-import "@openzeppelin/contracts/security/ReentrancyGuard.sol";
-import "@openzeppelin/contracts/utils/cryptography/ECDSA.sol";
-import "@openzeppelin/contracts/utils/math/SafeMath.sol";
-import {MystikoSettingsCenter} from "@mystikonetwork/contracts-settings/contracts/MystikoSettingsCenter.sol";
+import {ReentrancyGuard} from "@openzeppelin/contracts/utils/ReentrancyGuard.sol";
+import {ECDSA} from "@openzeppelin/contracts/utils/cryptography/ECDSA.sol";
+import {SafeCast} from "@openzeppelin/contracts/utils/math/SafeCast.sol";
+import {MystikoSettings} from "@mystikonetwork/contracts-settings/contracts/MystikoSettings.sol";
+import {CertificateParams} from "@mystikonetwork/contracts-settings/contracts/screen/interfaces/IMystikoCertificate.sol";
 
 abstract contract MystikoV2Bridge is IMystikoBridge, AssetPool, CrossChainDataSerializable {
-  using SafeMath for uint256;
+  using SafeCast for uint256;
 
   // Hasher related.
   IHasher3 private hasher3;
@@ -34,7 +35,7 @@ abstract contract MystikoV2Bridge is IMystikoBridge, AssetPool, CrossChainDataSe
   //bridge proxy address
   address public bridgeProxyAddress;
   // configure related.
-  MystikoSettingsCenter public settingsCenter;
+  MystikoSettings public settingsCenter;
 
   modifier onlySetPeerContractOnce() {
     if (isPeerContractSet) revert CustomErrors.PeerContractAlreadySet();
@@ -62,7 +63,7 @@ abstract contract MystikoV2Bridge is IMystikoBridge, AssetPool, CrossChainDataSe
     defaultMinBridgeFee = _localConfig.minBridgeFee;
     defaultPeerMinExecutorFee = _peerConfig.peerMinExecutorFee;
     defaultPeerMinRollupFee = _peerConfig.peerMinRollupFee;
-    settingsCenter = MystikoSettingsCenter(_settingsCenter);
+    settingsCenter = MystikoSettings(_settingsCenter);
   }
 
   function setPeerContract(PeerContract memory _peerContract) external onlySetPeerContractOnce {
@@ -84,7 +85,24 @@ abstract contract MystikoV2Bridge is IMystikoBridge, AssetPool, CrossChainDataSe
   }
 
   function deposit(DepositRequest memory _request) external payable override {
+    revert CustomErrors.NotSupport();
+  }
+
+  function certDeposit(
+    DepositRequest memory _request,
+    uint256 _certificateDeadline,
+    bytes memory _certificateSignature
+  ) external payable {
     if (settingsCenter.queryDepositDisable(address(this))) revert CustomErrors.DepositsDisabled();
+    if(settingsCenter.checkEnabled()){
+      CertificateParams memory params = CertificateParams({
+        account: tx.origin,
+        asset: assetAddress(),
+        deadline: _certificateDeadline,
+        signature: _certificateSignature
+      });
+      if (!settingsCenter.verifyCertificate(params)) revert CustomErrors.CertificateInvalid();
+    }
     if (_request.amount < getMinAmount()) revert CustomErrors.AmountTooSmall();
     if (_request.amount > getMaxAmount()) revert CustomErrors.AmountTooLarge();
     if (_request.bridgeFee < getMinBridgeFee()) revert CustomErrors.BridgeFeeTooFew();
@@ -110,14 +128,6 @@ abstract contract MystikoV2Bridge is IMystikoBridge, AssetPool, CrossChainDataSe
       _request.bridgeFee
     );
     emit CommitmentCrossChain(_request.commitment);
-  }
-
-  function depositWithCertificate(
-    DepositRequest memory _request,
-    uint256 _certificateDeadline,
-    bytes memory _certificateSignature
-  ) external payable {
-    revert CustomErrors.NotSupport();
   }
 
   function _processDeposit(uint256 _bridgeFee, bytes memory _requestBytes) internal virtual;

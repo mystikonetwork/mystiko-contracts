@@ -95,13 +95,13 @@ export interface MystikoV2AxelarERC20Interface extends utils.Interface {
     'assetType()': FunctionFragment;
     'bridgeProxyAddress()': FunctionFragment;
     'bridgeType()': FunctionFragment;
+    'certDeposit((uint256,uint256,uint256,uint128,bytes,uint256,uint256,uint256),uint256,bytes)': FunctionFragment;
     'defaultMaxAmount()': FunctionFragment;
     'defaultMinAmount()': FunctionFragment;
     'defaultMinBridgeFee()': FunctionFragment;
     'defaultPeerMinExecutorFee()': FunctionFragment;
     'defaultPeerMinRollupFee()': FunctionFragment;
     'deposit((uint256,uint256,uint256,uint128,bytes,uint256,uint256,uint256))': FunctionFragment;
-    'depositWithCertificate((uint256,uint256,uint256,uint128,bytes,uint256,uint256,uint256),uint256,bytes)': FunctionFragment;
     'execute(bytes32,string,string,bytes)': FunctionFragment;
     'executeWithToken(bytes32,string,string,bytes,string,uint256)': FunctionFragment;
     'gateway()': FunctionFragment;
@@ -126,16 +126,16 @@ export interface MystikoV2AxelarERC20Interface extends utils.Interface {
   encodeFunctionData(functionFragment: 'assetType', values?: undefined): string;
   encodeFunctionData(functionFragment: 'bridgeProxyAddress', values?: undefined): string;
   encodeFunctionData(functionFragment: 'bridgeType', values?: undefined): string;
+  encodeFunctionData(
+    functionFragment: 'certDeposit',
+    values: [IMystikoBridge.DepositRequestStruct, BigNumberish, BytesLike],
+  ): string;
   encodeFunctionData(functionFragment: 'defaultMaxAmount', values?: undefined): string;
   encodeFunctionData(functionFragment: 'defaultMinAmount', values?: undefined): string;
   encodeFunctionData(functionFragment: 'defaultMinBridgeFee', values?: undefined): string;
   encodeFunctionData(functionFragment: 'defaultPeerMinExecutorFee', values?: undefined): string;
   encodeFunctionData(functionFragment: 'defaultPeerMinRollupFee', values?: undefined): string;
   encodeFunctionData(functionFragment: 'deposit', values: [IMystikoBridge.DepositRequestStruct]): string;
-  encodeFunctionData(
-    functionFragment: 'depositWithCertificate',
-    values: [IMystikoBridge.DepositRequestStruct, BigNumberish, BytesLike],
-  ): string;
   encodeFunctionData(functionFragment: 'execute', values: [BytesLike, string, string, BytesLike]): string;
   encodeFunctionData(
     functionFragment: 'executeWithToken',
@@ -165,13 +165,13 @@ export interface MystikoV2AxelarERC20Interface extends utils.Interface {
   decodeFunctionResult(functionFragment: 'assetType', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'bridgeProxyAddress', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'bridgeType', data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'certDeposit', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'defaultMaxAmount', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'defaultMinAmount', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'defaultMinBridgeFee', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'defaultPeerMinExecutorFee', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'defaultPeerMinRollupFee', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'deposit', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'depositWithCertificate', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'execute', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'executeWithToken', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'gateway', data: BytesLike): Result;
@@ -246,6 +246,13 @@ export interface MystikoV2AxelarERC20 extends BaseContract {
 
     bridgeType(overrides?: CallOverrides): Promise<[string]>;
 
+    certDeposit(
+      _request: IMystikoBridge.DepositRequestStruct,
+      _certificateDeadline: BigNumberish,
+      _certificateSignature: BytesLike,
+      overrides?: PayableOverrides & { from?: string | Promise<string> },
+    ): Promise<ContractTransaction>;
+
     defaultMaxAmount(overrides?: CallOverrides): Promise<[BigNumber]>;
 
     defaultMinAmount(overrides?: CallOverrides): Promise<[BigNumber]>;
@@ -258,13 +265,6 @@ export interface MystikoV2AxelarERC20 extends BaseContract {
 
     deposit(
       _request: IMystikoBridge.DepositRequestStruct,
-      overrides?: PayableOverrides & { from?: string | Promise<string> },
-    ): Promise<ContractTransaction>;
-
-    depositWithCertificate(
-      _request: IMystikoBridge.DepositRequestStruct,
-      _certificateDeadline: BigNumberish,
-      _certificateSignature: BytesLike,
       overrides?: PayableOverrides & { from?: string | Promise<string> },
     ): Promise<ContractTransaction>;
 
@@ -330,6 +330,13 @@ export interface MystikoV2AxelarERC20 extends BaseContract {
 
   bridgeType(overrides?: CallOverrides): Promise<string>;
 
+  certDeposit(
+    _request: IMystikoBridge.DepositRequestStruct,
+    _certificateDeadline: BigNumberish,
+    _certificateSignature: BytesLike,
+    overrides?: PayableOverrides & { from?: string | Promise<string> },
+  ): Promise<ContractTransaction>;
+
   defaultMaxAmount(overrides?: CallOverrides): Promise<BigNumber>;
 
   defaultMinAmount(overrides?: CallOverrides): Promise<BigNumber>;
@@ -342,13 +349,6 @@ export interface MystikoV2AxelarERC20 extends BaseContract {
 
   deposit(
     _request: IMystikoBridge.DepositRequestStruct,
-    overrides?: PayableOverrides & { from?: string | Promise<string> },
-  ): Promise<ContractTransaction>;
-
-  depositWithCertificate(
-    _request: IMystikoBridge.DepositRequestStruct,
-    _certificateDeadline: BigNumberish,
-    _certificateSignature: BytesLike,
     overrides?: PayableOverrides & { from?: string | Promise<string> },
   ): Promise<ContractTransaction>;
 
@@ -414,6 +414,13 @@ export interface MystikoV2AxelarERC20 extends BaseContract {
 
     bridgeType(overrides?: CallOverrides): Promise<string>;
 
+    certDeposit(
+      _request: IMystikoBridge.DepositRequestStruct,
+      _certificateDeadline: BigNumberish,
+      _certificateSignature: BytesLike,
+      overrides?: CallOverrides,
+    ): Promise<void>;
+
     defaultMaxAmount(overrides?: CallOverrides): Promise<BigNumber>;
 
     defaultMinAmount(overrides?: CallOverrides): Promise<BigNumber>;
@@ -425,13 +432,6 @@ export interface MystikoV2AxelarERC20 extends BaseContract {
     defaultPeerMinRollupFee(overrides?: CallOverrides): Promise<BigNumber>;
 
     deposit(_request: IMystikoBridge.DepositRequestStruct, overrides?: CallOverrides): Promise<void>;
-
-    depositWithCertificate(
-      _request: IMystikoBridge.DepositRequestStruct,
-      _certificateDeadline: BigNumberish,
-      _certificateSignature: BytesLike,
-      overrides?: CallOverrides,
-    ): Promise<void>;
 
     execute(
       commandId: BytesLike,
@@ -507,6 +507,13 @@ export interface MystikoV2AxelarERC20 extends BaseContract {
 
     bridgeType(overrides?: CallOverrides): Promise<BigNumber>;
 
+    certDeposit(
+      _request: IMystikoBridge.DepositRequestStruct,
+      _certificateDeadline: BigNumberish,
+      _certificateSignature: BytesLike,
+      overrides?: PayableOverrides & { from?: string | Promise<string> },
+    ): Promise<BigNumber>;
+
     defaultMaxAmount(overrides?: CallOverrides): Promise<BigNumber>;
 
     defaultMinAmount(overrides?: CallOverrides): Promise<BigNumber>;
@@ -519,13 +526,6 @@ export interface MystikoV2AxelarERC20 extends BaseContract {
 
     deposit(
       _request: IMystikoBridge.DepositRequestStruct,
-      overrides?: PayableOverrides & { from?: string | Promise<string> },
-    ): Promise<BigNumber>;
-
-    depositWithCertificate(
-      _request: IMystikoBridge.DepositRequestStruct,
-      _certificateDeadline: BigNumberish,
-      _certificateSignature: BytesLike,
       overrides?: PayableOverrides & { from?: string | Promise<string> },
     ): Promise<BigNumber>;
 
@@ -592,6 +592,13 @@ export interface MystikoV2AxelarERC20 extends BaseContract {
 
     bridgeType(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
+    certDeposit(
+      _request: IMystikoBridge.DepositRequestStruct,
+      _certificateDeadline: BigNumberish,
+      _certificateSignature: BytesLike,
+      overrides?: PayableOverrides & { from?: string | Promise<string> },
+    ): Promise<PopulatedTransaction>;
+
     defaultMaxAmount(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     defaultMinAmount(overrides?: CallOverrides): Promise<PopulatedTransaction>;
@@ -604,13 +611,6 @@ export interface MystikoV2AxelarERC20 extends BaseContract {
 
     deposit(
       _request: IMystikoBridge.DepositRequestStruct,
-      overrides?: PayableOverrides & { from?: string | Promise<string> },
-    ): Promise<PopulatedTransaction>;
-
-    depositWithCertificate(
-      _request: IMystikoBridge.DepositRequestStruct,
-      _certificateDeadline: BigNumberish,
-      _certificateSignature: BytesLike,
       overrides?: PayableOverrides & { from?: string | Promise<string> },
     ): Promise<PopulatedTransaction>;
 

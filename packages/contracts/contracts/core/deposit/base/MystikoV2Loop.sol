@@ -7,14 +7,14 @@ import "../../../libs/common/DataTypes.sol";
 import "../../../interfaces/IMystikoLoop.sol";
 import "../../../interfaces/IHasher3.sol";
 import "../../../interfaces/ICommitmentPool.sol";
-import {ReentrancyGuard} from "@openzeppelin/contracts/security/ReentrancyGuard.sol";
+import {ReentrancyGuard} from "@openzeppelin/contracts/utils/ReentrancyGuard.sol";
 import {ECDSA} from "@openzeppelin/contracts/utils/cryptography/ECDSA.sol";
-import {SafeMath} from "@openzeppelin/contracts/utils/math/SafeMath.sol";
-import {MystikoSettingsCenter} from "@mystikonetwork/contracts-settings/contracts/MystikoSettingsCenter.sol";
-import {CertificateParams} from "@mystikonetwork/contracts-settings/contracts/rule/interfaces/ICertificate.sol";
+import {SafeCast} from "@openzeppelin/contracts/utils/math/SafeCast.sol";
+import {MystikoSettings} from "@mystikonetwork/contracts-settings/contracts/MystikoSettings.sol";
+import {CertificateParams} from "@mystikonetwork/contracts-settings/contracts/screen/interfaces/IMystikoCertificate.sol";
 
 abstract contract MystikoV2Loop is IMystikoLoop, AssetPool {
-  using SafeMath for uint256;
+  using SafeCast for uint256;
 
   // Hasher related.
   IHasher3 private hasher3;
@@ -23,7 +23,7 @@ abstract contract MystikoV2Loop is IMystikoLoop, AssetPool {
   uint256 private defaultMaxAmount;
 
   // configure related.
-  MystikoSettingsCenter public settingsCenter;
+  MystikoSettings public settingsCenter;
 
   constructor(
     IHasher3 _hasher3,
@@ -33,7 +33,7 @@ abstract contract MystikoV2Loop is IMystikoLoop, AssetPool {
     hasher3 = _hasher3;
     defaultMinAmount = _localConfig.minAmount;
     defaultMaxAmount = _localConfig.maxAmount;
-    settingsCenter = MystikoSettingsCenter(_settingsCenter);
+    settingsCenter = MystikoSettings(_settingsCenter);
   }
 
   function _commitmentHash(
@@ -54,24 +54,27 @@ abstract contract MystikoV2Loop is IMystikoLoop, AssetPool {
     revert CustomErrors.NotSupport();
   }
 
-  function depositWithCertificate(
+  function certDeposit(
     DepositRequest memory _request,
-    uint256 certificateDeadline,
-    bytes memory certificateSignature
+    uint256 _certificateDeadline,
+    bytes memory _certificateSignature
   ) external payable {
     if (settingsCenter.queryDepositDisable(address(this))) revert CustomErrors.DepositsDisabled();
+    if(settingsCenter.checkEnabled()){
+      CertificateParams memory params = CertificateParams({
+        account: tx.origin,
+        asset: assetAddress(),
+        deadline: _certificateDeadline,
+        signature: _certificateSignature
+      });
+      if (!settingsCenter.verifyCertificate(params)) revert CustomErrors.CertificateInvalid();
+    }
     if (_request.amount < getMinAmount()) revert CustomErrors.AmountTooSmall();
     if (_request.amount > getMaxAmount()) revert CustomErrors.AmountTooLarge();
     uint256 calculatedCommitment = _commitmentHash(_request.hashK, _request.amount, _request.randomS);
     if (_request.commitment != calculatedCommitment) revert CustomErrors.CommitmentHashIncorrect();
     if (settingsCenter.isSanctioned(tx.origin)) revert CustomErrors.SanctionedAddress();
-    CertificateParams memory params = CertificateParams({
-      account: tx.origin,
-      asset: assetAddress(),
-      deadline: certificateDeadline,
-      signature: certificateSignature
-    });
-    if (!settingsCenter.verifyCertificate(params)) revert CustomErrors.CertificateInvalid();
+
     _processDeposit(_request.amount, _request.commitment, _request.rollupFee, _request.encryptedNote);
   }
 

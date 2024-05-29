@@ -39,6 +39,11 @@ const _abi = [
   },
   {
     inputs: [],
+    name: 'CertificateInvalid',
+    type: 'error',
+  },
+  {
+    inputs: [],
     name: 'CommitmentHashIncorrect',
     type: 'error',
   },
@@ -91,6 +96,28 @@ const _abi = [
   {
     inputs: [],
     name: 'NotSupport',
+    type: 'error',
+  },
+  {
+    inputs: [
+      {
+        internalType: 'address',
+        name: 'owner',
+        type: 'address',
+      },
+    ],
+    name: 'OwnableInvalidOwner',
+    type: 'error',
+  },
+  {
+    inputs: [
+      {
+        internalType: 'address',
+        name: 'account',
+        type: 'address',
+      },
+    ],
+    name: 'OwnableUnauthorizedAccount',
     type: 'error',
   },
   {
@@ -248,6 +275,71 @@ const _abi = [
     type: 'function',
   },
   {
+    inputs: [
+      {
+        components: [
+          {
+            internalType: 'uint256',
+            name: 'amount',
+            type: 'uint256',
+          },
+          {
+            internalType: 'uint256',
+            name: 'commitment',
+            type: 'uint256',
+          },
+          {
+            internalType: 'uint256',
+            name: 'hashK',
+            type: 'uint256',
+          },
+          {
+            internalType: 'uint128',
+            name: 'randomS',
+            type: 'uint128',
+          },
+          {
+            internalType: 'bytes',
+            name: 'encryptedNote',
+            type: 'bytes',
+          },
+          {
+            internalType: 'uint256',
+            name: 'bridgeFee',
+            type: 'uint256',
+          },
+          {
+            internalType: 'uint256',
+            name: 'executorFee',
+            type: 'uint256',
+          },
+          {
+            internalType: 'uint256',
+            name: 'rollupFee',
+            type: 'uint256',
+          },
+        ],
+        internalType: 'struct IMystikoBridge.DepositRequest',
+        name: '_request',
+        type: 'tuple',
+      },
+      {
+        internalType: 'uint256',
+        name: '_certificateDeadline',
+        type: 'uint256',
+      },
+      {
+        internalType: 'bytes',
+        name: '_certificateSignature',
+        type: 'bytes',
+      },
+    ],
+    name: 'certDeposit',
+    outputs: [],
+    stateMutability: 'payable',
+    type: 'function',
+  },
+  {
     inputs: [],
     name: 'defaultMaxAmount',
     outputs: [
@@ -363,71 +455,6 @@ const _abi = [
       },
     ],
     name: 'deposit',
-    outputs: [],
-    stateMutability: 'payable',
-    type: 'function',
-  },
-  {
-    inputs: [
-      {
-        components: [
-          {
-            internalType: 'uint256',
-            name: 'amount',
-            type: 'uint256',
-          },
-          {
-            internalType: 'uint256',
-            name: 'commitment',
-            type: 'uint256',
-          },
-          {
-            internalType: 'uint256',
-            name: 'hashK',
-            type: 'uint256',
-          },
-          {
-            internalType: 'uint128',
-            name: 'randomS',
-            type: 'uint128',
-          },
-          {
-            internalType: 'bytes',
-            name: 'encryptedNote',
-            type: 'bytes',
-          },
-          {
-            internalType: 'uint256',
-            name: 'bridgeFee',
-            type: 'uint256',
-          },
-          {
-            internalType: 'uint256',
-            name: 'executorFee',
-            type: 'uint256',
-          },
-          {
-            internalType: 'uint256',
-            name: 'rollupFee',
-            type: 'uint256',
-          },
-        ],
-        internalType: 'struct IMystikoBridge.DepositRequest',
-        name: '_request',
-        type: 'tuple',
-      },
-      {
-        internalType: 'uint256',
-        name: '_certificateDeadline',
-        type: 'uint256',
-      },
-      {
-        internalType: 'bytes',
-        name: '_certificateSignature',
-        type: 'bytes',
-      },
-    ],
-    name: 'depositWithCertificate',
     outputs: [],
     stateMutability: 'payable',
     type: 'function',
@@ -935,7 +962,7 @@ const _abi = [
     name: 'settingsCenter',
     outputs: [
       {
-        internalType: 'contract MystikoSettingsCenter',
+        internalType: 'contract MystikoSettings',
         name: '',
         type: 'address',
       },

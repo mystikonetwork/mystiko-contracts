@@ -114,7 +114,7 @@ export interface AccessControl extends BaseContract {
 
     renounceRole(
       role: BytesLike,
-      account: string,
+      callerConfirmation: string,
       overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<ContractTransaction>;
 
@@ -141,7 +141,7 @@ export interface AccessControl extends BaseContract {
 
   renounceRole(
     role: BytesLike,
-    account: string,
+    callerConfirmation: string,
     overrides?: Overrides & { from?: string | Promise<string> },
   ): Promise<ContractTransaction>;
 
@@ -162,7 +162,7 @@ export interface AccessControl extends BaseContract {
 
     hasRole(role: BytesLike, account: string, overrides?: CallOverrides): Promise<boolean>;
 
-    renounceRole(role: BytesLike, account: string, overrides?: CallOverrides): Promise<void>;
+    renounceRole(role: BytesLike, callerConfirmation: string, overrides?: CallOverrides): Promise<void>;
 
     revokeRole(role: BytesLike, account: string, overrides?: CallOverrides): Promise<void>;
 
@@ -219,7 +219,7 @@ export interface AccessControl extends BaseContract {
 
     renounceRole(
       role: BytesLike,
-      account: string,
+      callerConfirmation: string,
       overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<BigNumber>;
 
@@ -247,7 +247,7 @@ export interface AccessControl extends BaseContract {
 
     renounceRole(
       role: BytesLike,
-      account: string,
+      callerConfirmation: string,
       overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<PopulatedTransaction>;
 

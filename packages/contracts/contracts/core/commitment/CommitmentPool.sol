@@ -7,13 +7,14 @@ import "../../libs/common/DataTypes.sol";
 import "../../interfaces/IHasher3.sol";
 import "../../interfaces/IVerifier.sol";
 import "../../interfaces/ICommitmentPool.sol";
-import {ReentrancyGuard} from "@openzeppelin/contracts/security/ReentrancyGuard.sol";
+import {ReentrancyGuard} from "@openzeppelin/contracts/utils/ReentrancyGuard.sol";
+import {MessageHashUtils} from "@openzeppelin/contracts/utils/cryptography/MessageHashUtils.sol";
 import {ECDSA} from "@openzeppelin/contracts/utils/cryptography/ECDSA.sol";
 import {SafeCast} from "@openzeppelin/contracts/utils/math/SafeCast.sol";
-import {CanDoRollupParams} from "@mystikonetwork/contracts-settings/contracts/miner/interfaces/IMystikoRoller.sol";
-import {CanDoRelayParams} from "@mystikonetwork/contracts-settings/contracts/miner/interfaces/IMystikoRelayer.sol";
-import {WrappedVerifier} from "@mystikonetwork/contracts-settings/contracts/pool/interfaces/IMystikoVerifier.sol";
-import {MystikoSettingsCenter} from "@mystikonetwork/contracts-settings/contracts/MystikoSettingsCenter.sol";
+import {RollerValidateParams} from "@mystikonetwork/contracts-settings/contracts/miner/interfaces/IMystikoRollerPool.sol";
+import {RelayerValidateParams} from "@mystikonetwork/contracts-settings/contracts/miner/interfaces/IMystikoRelayerPool.sol";
+import {WrappedVerifier} from "@mystikonetwork/contracts-settings/contracts/pool/interfaces/IMystikoVerifierPool.sol";
+import {MystikoSettings} from "@mystikonetwork/contracts-settings/contracts/MystikoSettings.sol";
 
 abstract contract CommitmentPool is ICommitmentPool, AssetPool, ReentrancyGuard {
   uint256 public constant AUDITOR_COUNT = 5;
@@ -52,7 +53,7 @@ abstract contract CommitmentPool is ICommitmentPool, AssetPool, ReentrancyGuard 
   uint256 public defaultMinRollupFee;
 
   // configure related.
-  MystikoSettingsCenter public settingsCenter;
+  MystikoSettings public settingsCenter;
 
   event CommitmentQueued(
     uint256 indexed commitment,
@@ -76,7 +77,7 @@ abstract contract CommitmentPool is ICommitmentPool, AssetPool, ReentrancyGuard 
     currentRoot = _zeros(_treeHeight);
     rootHistory[currentRoot] = true;
     defaultMinRollupFee = _minRollupFee;
-    settingsCenter = MystikoSettingsCenter(_settingsCenter);
+    settingsCenter = MystikoSettings(_settingsCenter);
   }
 
   /* @notice              Check commitment request parameter and insert commitment into commitment queue
@@ -106,14 +107,14 @@ abstract contract CommitmentPool is ICommitmentPool, AssetPool, ReentrancyGuard 
   function rollup(RollupRequest memory _request) external override {
     uint256 queueCount = commitmentQueueSize;
     uint256 includedCount = commitmentIncludedCount;
-    CanDoRollupParams memory _params = CanDoRollupParams({
+    RollerValidateParams memory _params = RollerValidateParams({
       pool: address(this),
       roller: msg.sender,
       rollupSize: _request.rollupSize,
       queueCount: queueCount,
       includedCount: includedCount
     });
-    if (!settingsCenter.canDoRollup(_params)) revert CustomErrors.RejectRollup();
+    if (!settingsCenter.validate(_params)) revert CustomErrors.RejectRollup();
     if (rootHistory[_request.newRoot]) revert CustomErrors.NewRootIsDuplicated();
     WrappedVerifier memory wVerifier = settingsCenter.queryRollupVerifier(_request.rollupSize);
     if (!wVerifier.enabled) revert CustomErrors.RollupDisabled(_request.rollupSize);
@@ -157,8 +158,8 @@ abstract contract CommitmentPool is ICommitmentPool, AssetPool, ReentrancyGuard 
     if (settingsCenter.queryTransferDisable(address(this)) && numOutputs != 0)
       revert CustomErrors.TransactDisabled(numInputs, numOutputs);
     if (_request.relayerFeeAmount > 0) {
-      CanDoRelayParams memory _params = CanDoRelayParams({pool: address(this), relayer: msg.sender});
-      if (!settingsCenter.canDoRelay(_params)) revert CustomErrors.RejectRelay();
+      RelayerValidateParams memory _params = RelayerValidateParams({pool: address(this), relayer: msg.sender});
+      if (!settingsCenter.validate(_params)) revert CustomErrors.RejectRelay();
     }
     WrappedVerifier memory wVerifier = settingsCenter.queryTransactVerifier(numInputs, numOutputs);
     if (!wVerifier.enabled) revert CustomErrors.TransactDisabled(numInputs, numOutputs);
@@ -428,7 +429,7 @@ abstract contract CommitmentPool is ICommitmentPool, AssetPool, ReentrancyGuard 
       );
     }
 
-    bytes32 hash = ECDSA.toEthSignedMessageHash(keccak256(requestBytes));
+    bytes32 hash = MessageHashUtils.toEthSignedMessageHash(keccak256(requestBytes));
     if (_request.sigPk != bytes32(uint256(uint160(ECDSA.recover(hash, _signature)))))
       revert CustomErrors.Invalid("signature");
   }

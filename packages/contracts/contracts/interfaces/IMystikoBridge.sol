@@ -34,7 +34,7 @@ interface IMystikoBridge {
 
   function deposit(DepositRequest memory _request) external payable;
 
-  function depositWithCertificate(
+  function certDeposit(
     DepositRequest memory _request,
     uint256 certificateDeadline,
     bytes memory certificateSignature

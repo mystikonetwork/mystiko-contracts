@@ -35,6 +35,33 @@ const _abi = [
   },
   {
     inputs: [],
+    name: 'ECDSAInvalidSignature',
+    type: 'error',
+  },
+  {
+    inputs: [
+      {
+        internalType: 'uint256',
+        name: 'length',
+        type: 'uint256',
+      },
+    ],
+    name: 'ECDSAInvalidSignatureLength',
+    type: 'error',
+  },
+  {
+    inputs: [
+      {
+        internalType: 'bytes32',
+        name: 's',
+        type: 'bytes32',
+      },
+    ],
+    name: 'ECDSAInvalidSignatureS',
+    type: 'error',
+  },
+  {
+    inputs: [],
     name: 'IndexOutOfBound',
     type: 'error',
   },
@@ -66,6 +93,11 @@ const _abi = [
   },
   {
     inputs: [],
+    name: 'ReentrancyGuardReentrantCall',
+    type: 'error',
+  },
+  {
+    inputs: [],
     name: 'RejectRelay',
     type: 'error',
   },
@@ -88,6 +120,22 @@ const _abi = [
   {
     inputs: [],
     name: 'RollupFeeToFew',
+    type: 'error',
+  },
+  {
+    inputs: [
+      {
+        internalType: 'uint8',
+        name: 'bits',
+        type: 'uint8',
+      },
+      {
+        internalType: 'uint256',
+        name: 'value',
+        type: 'uint256',
+      },
+    ],
+    name: 'SafeCastOverflowedUintDowncast',
     type: 'error',
   },
   {
@@ -638,7 +686,7 @@ const _abi = [
     name: 'settingsCenter',
     outputs: [
       {
-        internalType: 'contract MystikoSettingsCenter',
+        internalType: 'contract MystikoSettings',
         name: '',
         type: 'address',
       },

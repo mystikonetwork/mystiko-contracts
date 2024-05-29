@@ -92,6 +92,7 @@ export interface MystikoV2TBridgeMainInterface extends utils.Interface {
     'assetType()': FunctionFragment;
     'bridgeProxyAddress()': FunctionFragment;
     'bridgeType()': FunctionFragment;
+    'certDeposit((uint256,uint256,uint256,uint128,bytes,uint256,uint256,uint256),uint256,bytes)': FunctionFragment;
     'crossChainSyncTx(uint64,address,bytes,address)': FunctionFragment;
     'defaultMaxAmount()': FunctionFragment;
     'defaultMinAmount()': FunctionFragment;
@@ -99,7 +100,6 @@ export interface MystikoV2TBridgeMainInterface extends utils.Interface {
     'defaultPeerMinExecutorFee()': FunctionFragment;
     'defaultPeerMinRollupFee()': FunctionFragment;
     'deposit((uint256,uint256,uint256,uint128,bytes,uint256,uint256,uint256))': FunctionFragment;
-    'depositWithCertificate((uint256,uint256,uint256,uint128,bytes,uint256,uint256,uint256),uint256,bytes)': FunctionFragment;
     'getAssociatedCommitmentPool()': FunctionFragment;
     'getMaxAmount()': FunctionFragment;
     'getMinAmount()': FunctionFragment;
@@ -119,6 +119,10 @@ export interface MystikoV2TBridgeMainInterface extends utils.Interface {
   encodeFunctionData(functionFragment: 'bridgeProxyAddress', values?: undefined): string;
   encodeFunctionData(functionFragment: 'bridgeType', values?: undefined): string;
   encodeFunctionData(
+    functionFragment: 'certDeposit',
+    values: [IMystikoBridge.DepositRequestStruct, BigNumberish, BytesLike],
+  ): string;
+  encodeFunctionData(
     functionFragment: 'crossChainSyncTx',
     values: [BigNumberish, string, BytesLike, string],
   ): string;
@@ -128,10 +132,6 @@ export interface MystikoV2TBridgeMainInterface extends utils.Interface {
   encodeFunctionData(functionFragment: 'defaultPeerMinExecutorFee', values?: undefined): string;
   encodeFunctionData(functionFragment: 'defaultPeerMinRollupFee', values?: undefined): string;
   encodeFunctionData(functionFragment: 'deposit', values: [IMystikoBridge.DepositRequestStruct]): string;
-  encodeFunctionData(
-    functionFragment: 'depositWithCertificate',
-    values: [IMystikoBridge.DepositRequestStruct, BigNumberish, BytesLike],
-  ): string;
   encodeFunctionData(functionFragment: 'getAssociatedCommitmentPool', values?: undefined): string;
   encodeFunctionData(functionFragment: 'getMaxAmount', values?: undefined): string;
   encodeFunctionData(functionFragment: 'getMinAmount', values?: undefined): string;
@@ -152,6 +152,7 @@ export interface MystikoV2TBridgeMainInterface extends utils.Interface {
   decodeFunctionResult(functionFragment: 'assetType', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'bridgeProxyAddress', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'bridgeType', data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'certDeposit', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'crossChainSyncTx', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'defaultMaxAmount', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'defaultMinAmount', data: BytesLike): Result;
@@ -159,7 +160,6 @@ export interface MystikoV2TBridgeMainInterface extends utils.Interface {
   decodeFunctionResult(functionFragment: 'defaultPeerMinExecutorFee', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'defaultPeerMinRollupFee', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'deposit', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'depositWithCertificate', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'getAssociatedCommitmentPool', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'getMaxAmount', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'getMinAmount', data: BytesLike): Result;
@@ -216,6 +216,13 @@ export interface MystikoV2TBridgeMain extends BaseContract {
 
     bridgeType(overrides?: CallOverrides): Promise<[string]>;
 
+    certDeposit(
+      _request: IMystikoBridge.DepositRequestStruct,
+      _certificateDeadline: BigNumberish,
+      _certificateSignature: BytesLike,
+      overrides?: PayableOverrides & { from?: string | Promise<string> },
+    ): Promise<ContractTransaction>;
+
     crossChainSyncTx(
       _fromChainId: BigNumberish,
       _fromContract: string,
@@ -236,13 +243,6 @@ export interface MystikoV2TBridgeMain extends BaseContract {
 
     deposit(
       _request: IMystikoBridge.DepositRequestStruct,
-      overrides?: PayableOverrides & { from?: string | Promise<string> },
-    ): Promise<ContractTransaction>;
-
-    depositWithCertificate(
-      _request: IMystikoBridge.DepositRequestStruct,
-      _certificateDeadline: BigNumberish,
-      _certificateSignature: BytesLike,
       overrides?: PayableOverrides & { from?: string | Promise<string> },
     ): Promise<ContractTransaction>;
 
@@ -282,6 +282,13 @@ export interface MystikoV2TBridgeMain extends BaseContract {
 
   bridgeType(overrides?: CallOverrides): Promise<string>;
 
+  certDeposit(
+    _request: IMystikoBridge.DepositRequestStruct,
+    _certificateDeadline: BigNumberish,
+    _certificateSignature: BytesLike,
+    overrides?: PayableOverrides & { from?: string | Promise<string> },
+  ): Promise<ContractTransaction>;
+
   crossChainSyncTx(
     _fromChainId: BigNumberish,
     _fromContract: string,
@@ -302,13 +309,6 @@ export interface MystikoV2TBridgeMain extends BaseContract {
 
   deposit(
     _request: IMystikoBridge.DepositRequestStruct,
-    overrides?: PayableOverrides & { from?: string | Promise<string> },
-  ): Promise<ContractTransaction>;
-
-  depositWithCertificate(
-    _request: IMystikoBridge.DepositRequestStruct,
-    _certificateDeadline: BigNumberish,
-    _certificateSignature: BytesLike,
     overrides?: PayableOverrides & { from?: string | Promise<string> },
   ): Promise<ContractTransaction>;
 
@@ -348,6 +348,13 @@ export interface MystikoV2TBridgeMain extends BaseContract {
 
     bridgeType(overrides?: CallOverrides): Promise<string>;
 
+    certDeposit(
+      _request: IMystikoBridge.DepositRequestStruct,
+      _certificateDeadline: BigNumberish,
+      _certificateSignature: BytesLike,
+      overrides?: CallOverrides,
+    ): Promise<void>;
+
     crossChainSyncTx(
       _fromChainId: BigNumberish,
       _fromContract: string,
@@ -367,13 +374,6 @@ export interface MystikoV2TBridgeMain extends BaseContract {
     defaultPeerMinRollupFee(overrides?: CallOverrides): Promise<BigNumber>;
 
     deposit(_request: IMystikoBridge.DepositRequestStruct, overrides?: CallOverrides): Promise<void>;
-
-    depositWithCertificate(
-      _request: IMystikoBridge.DepositRequestStruct,
-      _certificateDeadline: BigNumberish,
-      _certificateSignature: BytesLike,
-      overrides?: CallOverrides,
-    ): Promise<void>;
 
     getAssociatedCommitmentPool(overrides?: CallOverrides): Promise<string>;
 
@@ -417,6 +417,13 @@ export interface MystikoV2TBridgeMain extends BaseContract {
 
     bridgeType(overrides?: CallOverrides): Promise<BigNumber>;
 
+    certDeposit(
+      _request: IMystikoBridge.DepositRequestStruct,
+      _certificateDeadline: BigNumberish,
+      _certificateSignature: BytesLike,
+      overrides?: PayableOverrides & { from?: string | Promise<string> },
+    ): Promise<BigNumber>;
+
     crossChainSyncTx(
       _fromChainId: BigNumberish,
       _fromContract: string,
@@ -437,13 +444,6 @@ export interface MystikoV2TBridgeMain extends BaseContract {
 
     deposit(
       _request: IMystikoBridge.DepositRequestStruct,
-      overrides?: PayableOverrides & { from?: string | Promise<string> },
-    ): Promise<BigNumber>;
-
-    depositWithCertificate(
-      _request: IMystikoBridge.DepositRequestStruct,
-      _certificateDeadline: BigNumberish,
-      _certificateSignature: BytesLike,
       overrides?: PayableOverrides & { from?: string | Promise<string> },
     ): Promise<BigNumber>;
 
@@ -484,6 +484,13 @@ export interface MystikoV2TBridgeMain extends BaseContract {
 
     bridgeType(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
+    certDeposit(
+      _request: IMystikoBridge.DepositRequestStruct,
+      _certificateDeadline: BigNumberish,
+      _certificateSignature: BytesLike,
+      overrides?: PayableOverrides & { from?: string | Promise<string> },
+    ): Promise<PopulatedTransaction>;
+
     crossChainSyncTx(
       _fromChainId: BigNumberish,
       _fromContract: string,
@@ -504,13 +511,6 @@ export interface MystikoV2TBridgeMain extends BaseContract {
 
     deposit(
       _request: IMystikoBridge.DepositRequestStruct,
-      overrides?: PayableOverrides & { from?: string | Promise<string> },
-    ): Promise<PopulatedTransaction>;
-
-    depositWithCertificate(
-      _request: IMystikoBridge.DepositRequestStruct,
-      _certificateDeadline: BigNumberish,
-      _certificateSignature: BytesLike,
       overrides?: PayableOverrides & { from?: string | Promise<string> },
     ): Promise<PopulatedTransaction>;
 

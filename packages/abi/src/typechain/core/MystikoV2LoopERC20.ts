@@ -56,8 +56,8 @@ export interface MystikoV2LoopERC20Interface extends utils.Interface {
     'assetSymbol()': FunctionFragment;
     'assetType()': FunctionFragment;
     'bridgeType()': FunctionFragment;
+    'certDeposit((uint256,uint256,uint256,uint128,bytes,uint256),uint256,bytes)': FunctionFragment;
     'deposit((uint256,uint256,uint256,uint128,bytes,uint256))': FunctionFragment;
-    'depositWithCertificate((uint256,uint256,uint256,uint128,bytes,uint256),uint256,bytes)': FunctionFragment;
     'getAssociatedCommitmentPool()': FunctionFragment;
     'getMaxAmount()': FunctionFragment;
     'getMinAmount()': FunctionFragment;
@@ -71,11 +71,11 @@ export interface MystikoV2LoopERC20Interface extends utils.Interface {
   encodeFunctionData(functionFragment: 'assetSymbol', values?: undefined): string;
   encodeFunctionData(functionFragment: 'assetType', values?: undefined): string;
   encodeFunctionData(functionFragment: 'bridgeType', values?: undefined): string;
-  encodeFunctionData(functionFragment: 'deposit', values: [IMystikoLoop.DepositRequestStruct]): string;
   encodeFunctionData(
-    functionFragment: 'depositWithCertificate',
+    functionFragment: 'certDeposit',
     values: [IMystikoLoop.DepositRequestStruct, BigNumberish, BytesLike],
   ): string;
+  encodeFunctionData(functionFragment: 'deposit', values: [IMystikoLoop.DepositRequestStruct]): string;
   encodeFunctionData(functionFragment: 'getAssociatedCommitmentPool', values?: undefined): string;
   encodeFunctionData(functionFragment: 'getMaxAmount', values?: undefined): string;
   encodeFunctionData(functionFragment: 'getMinAmount', values?: undefined): string;
@@ -88,8 +88,8 @@ export interface MystikoV2LoopERC20Interface extends utils.Interface {
   decodeFunctionResult(functionFragment: 'assetSymbol', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'assetType', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'bridgeType', data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'certDeposit', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'deposit', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'depositWithCertificate', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'getAssociatedCommitmentPool', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'getMaxAmount', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'getMinAmount', data: BytesLike): Result;
@@ -135,15 +135,15 @@ export interface MystikoV2LoopERC20 extends BaseContract {
 
     bridgeType(overrides?: CallOverrides): Promise<[string]>;
 
-    deposit(
+    certDeposit(
       _request: IMystikoLoop.DepositRequestStruct,
+      _certificateDeadline: BigNumberish,
+      _certificateSignature: BytesLike,
       overrides?: PayableOverrides & { from?: string | Promise<string> },
     ): Promise<ContractTransaction>;
 
-    depositWithCertificate(
+    deposit(
       _request: IMystikoLoop.DepositRequestStruct,
-      certificateDeadline: BigNumberish,
-      certificateSignature: BytesLike,
       overrides?: PayableOverrides & { from?: string | Promise<string> },
     ): Promise<ContractTransaction>;
 
@@ -170,15 +170,15 @@ export interface MystikoV2LoopERC20 extends BaseContract {
 
   bridgeType(overrides?: CallOverrides): Promise<string>;
 
-  deposit(
+  certDeposit(
     _request: IMystikoLoop.DepositRequestStruct,
+    _certificateDeadline: BigNumberish,
+    _certificateSignature: BytesLike,
     overrides?: PayableOverrides & { from?: string | Promise<string> },
   ): Promise<ContractTransaction>;
 
-  depositWithCertificate(
+  deposit(
     _request: IMystikoLoop.DepositRequestStruct,
-    certificateDeadline: BigNumberish,
-    certificateSignature: BytesLike,
     overrides?: PayableOverrides & { from?: string | Promise<string> },
   ): Promise<ContractTransaction>;
 
@@ -205,14 +205,14 @@ export interface MystikoV2LoopERC20 extends BaseContract {
 
     bridgeType(overrides?: CallOverrides): Promise<string>;
 
-    deposit(_request: IMystikoLoop.DepositRequestStruct, overrides?: CallOverrides): Promise<void>;
-
-    depositWithCertificate(
+    certDeposit(
       _request: IMystikoLoop.DepositRequestStruct,
-      certificateDeadline: BigNumberish,
-      certificateSignature: BytesLike,
+      _certificateDeadline: BigNumberish,
+      _certificateSignature: BytesLike,
       overrides?: CallOverrides,
     ): Promise<void>;
+
+    deposit(_request: IMystikoLoop.DepositRequestStruct, overrides?: CallOverrides): Promise<void>;
 
     getAssociatedCommitmentPool(overrides?: CallOverrides): Promise<string>;
 
@@ -240,15 +240,15 @@ export interface MystikoV2LoopERC20 extends BaseContract {
 
     bridgeType(overrides?: CallOverrides): Promise<BigNumber>;
 
-    deposit(
+    certDeposit(
       _request: IMystikoLoop.DepositRequestStruct,
+      _certificateDeadline: BigNumberish,
+      _certificateSignature: BytesLike,
       overrides?: PayableOverrides & { from?: string | Promise<string> },
     ): Promise<BigNumber>;
 
-    depositWithCertificate(
+    deposit(
       _request: IMystikoLoop.DepositRequestStruct,
-      certificateDeadline: BigNumberish,
-      certificateSignature: BytesLike,
       overrides?: PayableOverrides & { from?: string | Promise<string> },
     ): Promise<BigNumber>;
 
@@ -276,15 +276,15 @@ export interface MystikoV2LoopERC20 extends BaseContract {
 
     bridgeType(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
-    deposit(
+    certDeposit(
       _request: IMystikoLoop.DepositRequestStruct,
+      _certificateDeadline: BigNumberish,
+      _certificateSignature: BytesLike,
       overrides?: PayableOverrides & { from?: string | Promise<string> },
     ): Promise<PopulatedTransaction>;
 
-    depositWithCertificate(
+    deposit(
       _request: IMystikoLoop.DepositRequestStruct,
-      certificateDeadline: BigNumberish,
-      certificateSignature: BytesLike,
       overrides?: PayableOverrides & { from?: string | Promise<string> },
     ): Promise<PopulatedTransaction>;
 

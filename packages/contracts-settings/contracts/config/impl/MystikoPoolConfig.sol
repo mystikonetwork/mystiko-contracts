@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.20;
 
-import {SettingsCenterErrors} from "../../SettingsCenterErrors.sol";
+import {MystikoSettingsErrors} from "../../MystikoSettingsErrors.sol";
 import {MystikoDAOAccessControl} from "@mystikonetwork/governance/contracts/MystikoDAOAccessControl.sol";
 
 abstract contract MystikoPoolConfig is MystikoDAOAccessControl {
@@ -16,7 +16,7 @@ abstract contract MystikoPoolConfig is MystikoDAOAccessControl {
   }
 
   function updateMinRollupFee(address _pool, uint256 _minRollupFee) external onlyMystikoDAO {
-    if (minRollupFeeMap[_pool] == _minRollupFee) revert SettingsCenterErrors.NotChanged();
+    if (minRollupFeeMap[_pool] == _minRollupFee) revert MystikoSettingsErrors.NotChanged();
     minRollupFeeMap[_pool] = _minRollupFee;
     emit MinRollupFeeUpdated(_pool, _minRollupFee);
   }
@@ -26,7 +26,7 @@ abstract contract MystikoPoolConfig is MystikoDAOAccessControl {
   }
 
   function updateTransferDisable(address _pool, bool _disable) external onlyMystikoDAO {
-    if (transferDisableMap[_pool] == _disable) revert SettingsCenterErrors.NotChanged();
+    if (transferDisableMap[_pool] == _disable) revert MystikoSettingsErrors.NotChanged();
     transferDisableMap[_pool] = _disable;
     emit TransferDisableUpdated(_pool, _disable);
   }

@@ -9,6 +9,27 @@ import type { MystikoPoolConfig, MystikoPoolConfigInterface } from '../MystikoPo
 const _abi = [
   {
     inputs: [],
+    name: 'AccessControlBadConfirmation',
+    type: 'error',
+  },
+  {
+    inputs: [
+      {
+        internalType: 'address',
+        name: 'account',
+        type: 'address',
+      },
+      {
+        internalType: 'bytes32',
+        name: 'neededRole',
+        type: 'bytes32',
+      },
+    ],
+    name: 'AccessControlUnauthorizedAccount',
+    type: 'error',
+  },
+  {
+    inputs: [],
     name: 'NotChanged',
     type: 'error',
   },
@@ -283,7 +304,7 @@ const _abi = [
       },
       {
         internalType: 'address',
-        name: 'account',
+        name: 'callerConfirmation',
         type: 'address',
       },
     ],

@@ -34,6 +34,11 @@ const _abi = [
   },
   {
     inputs: [],
+    name: 'CertificateInvalid',
+    type: 'error',
+  },
+  {
+    inputs: [],
     name: 'CommitmentHashIncorrect',
     type: 'error',
   },
@@ -90,6 +95,22 @@ const _abi = [
   {
     inputs: [],
     name: 'SanctionedAddress',
+    type: 'error',
+  },
+  {
+    inputs: [
+      {
+        internalType: 'uint256',
+        name: 'value',
+        type: 'uint256',
+      },
+      {
+        internalType: 'uint256',
+        name: 'length',
+        type: 'uint256',
+      },
+    ],
+    name: 'StringsInsufficientHexLength',
     type: 'error',
   },
   {
@@ -174,6 +195,71 @@ const _abi = [
       },
     ],
     stateMutability: 'pure',
+    type: 'function',
+  },
+  {
+    inputs: [
+      {
+        components: [
+          {
+            internalType: 'uint256',
+            name: 'amount',
+            type: 'uint256',
+          },
+          {
+            internalType: 'uint256',
+            name: 'commitment',
+            type: 'uint256',
+          },
+          {
+            internalType: 'uint256',
+            name: 'hashK',
+            type: 'uint256',
+          },
+          {
+            internalType: 'uint128',
+            name: 'randomS',
+            type: 'uint128',
+          },
+          {
+            internalType: 'bytes',
+            name: 'encryptedNote',
+            type: 'bytes',
+          },
+          {
+            internalType: 'uint256',
+            name: 'bridgeFee',
+            type: 'uint256',
+          },
+          {
+            internalType: 'uint256',
+            name: 'executorFee',
+            type: 'uint256',
+          },
+          {
+            internalType: 'uint256',
+            name: 'rollupFee',
+            type: 'uint256',
+          },
+        ],
+        internalType: 'struct IMystikoBridge.DepositRequest',
+        name: '_request',
+        type: 'tuple',
+      },
+      {
+        internalType: 'uint256',
+        name: '_certificateDeadline',
+        type: 'uint256',
+      },
+      {
+        internalType: 'bytes',
+        name: '_certificateSignature',
+        type: 'bytes',
+      },
+    ],
+    name: 'certDeposit',
+    outputs: [],
+    stateMutability: 'payable',
     type: 'function',
   },
   {
@@ -292,71 +378,6 @@ const _abi = [
       },
     ],
     name: 'deposit',
-    outputs: [],
-    stateMutability: 'payable',
-    type: 'function',
-  },
-  {
-    inputs: [
-      {
-        components: [
-          {
-            internalType: 'uint256',
-            name: 'amount',
-            type: 'uint256',
-          },
-          {
-            internalType: 'uint256',
-            name: 'commitment',
-            type: 'uint256',
-          },
-          {
-            internalType: 'uint256',
-            name: 'hashK',
-            type: 'uint256',
-          },
-          {
-            internalType: 'uint128',
-            name: 'randomS',
-            type: 'uint128',
-          },
-          {
-            internalType: 'bytes',
-            name: 'encryptedNote',
-            type: 'bytes',
-          },
-          {
-            internalType: 'uint256',
-            name: 'bridgeFee',
-            type: 'uint256',
-          },
-          {
-            internalType: 'uint256',
-            name: 'executorFee',
-            type: 'uint256',
-          },
-          {
-            internalType: 'uint256',
-            name: 'rollupFee',
-            type: 'uint256',
-          },
-        ],
-        internalType: 'struct IMystikoBridge.DepositRequest',
-        name: '_request',
-        type: 'tuple',
-      },
-      {
-        internalType: 'uint256',
-        name: '_certificateDeadline',
-        type: 'uint256',
-      },
-      {
-        internalType: 'bytes',
-        name: '_certificateSignature',
-        type: 'bytes',
-      },
-    ],
-    name: 'depositWithCertificate',
     outputs: [],
     stateMutability: 'payable',
     type: 'function',
@@ -605,7 +626,7 @@ const _abi = [
     name: 'settingsCenter',
     outputs: [
       {
-        internalType: 'contract MystikoSettingsCenter',
+        internalType: 'contract MystikoSettings',
         name: '',
         type: 'address',
       },

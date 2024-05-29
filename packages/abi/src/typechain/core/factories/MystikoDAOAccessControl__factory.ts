@@ -8,6 +8,27 @@ import type { MystikoDAOAccessControl, MystikoDAOAccessControlInterface } from '
 
 const _abi = [
   {
+    inputs: [],
+    name: 'AccessControlBadConfirmation',
+    type: 'error',
+  },
+  {
+    inputs: [
+      {
+        internalType: 'address',
+        name: 'account',
+        type: 'address',
+      },
+      {
+        internalType: 'bytes32',
+        name: 'neededRole',
+        type: 'bytes32',
+      },
+    ],
+    name: 'AccessControlUnauthorizedAccount',
+    type: 'error',
+  },
+  {
     anonymous: false,
     inputs: [
       {
@@ -178,7 +199,7 @@ const _abi = [
       },
       {
         internalType: 'address',
-        name: 'account',
+        name: 'callerConfirmation',
         type: 'address',
       },
     ],

@@ -135,8 +135,18 @@ const _abi = [
         name: '_request',
         type: 'tuple',
       },
+      {
+        internalType: 'uint256',
+        name: '_certificateDeadline',
+        type: 'uint256',
+      },
+      {
+        internalType: 'bytes',
+        name: '_certificateSignature',
+        type: 'bytes',
+      },
     ],
-    name: 'deposit',
+    name: 'certDeposit',
     outputs: [],
     stateMutability: 'payable',
     type: 'function',
@@ -180,18 +190,8 @@ const _abi = [
         name: '_request',
         type: 'tuple',
       },
-      {
-        internalType: 'uint256',
-        name: 'certificateDeadline',
-        type: 'uint256',
-      },
-      {
-        internalType: 'bytes',
-        name: 'certificateSignature',
-        type: 'bytes',
-      },
     ],
-    name: 'depositWithCertificate',
+    name: 'deposit',
     outputs: [],
     stateMutability: 'payable',
     type: 'function',
@@ -253,7 +253,7 @@ const _abi = [
     name: 'settingsCenter',
     outputs: [
       {
-        internalType: 'contract MystikoSettingsCenter',
+        internalType: 'contract MystikoSettings',
         name: '',
         type: 'address',
       },
