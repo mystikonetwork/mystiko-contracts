@@ -1,0 +1,9 @@
+[profile.default]
+src = 'contracts'
+out = 'foundry/out'
+libs = ['../node_modules', 'foundry/lib']
+test = 'test'
+cache = true
+cache_path  = 'foundry/cache'
+match_path = '**/test/**/*.test.sol'
+solc = "0.8.20"
