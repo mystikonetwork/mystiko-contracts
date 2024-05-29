@@ -17,17 +17,20 @@ import { TypedEventFilter, TypedEvent, TypedListener, OnEvent } from './common';
 export interface ERC20AssetPoolInterface extends utils.Interface {
   contractName: 'ERC20AssetPool';
   functions: {
+    'assetAddress()': FunctionFragment;
     'assetDecimals()': FunctionFragment;
     'assetName()': FunctionFragment;
     'assetSymbol()': FunctionFragment;
     'assetType()': FunctionFragment;
   };
 
+  encodeFunctionData(functionFragment: 'assetAddress', values?: undefined): string;
   encodeFunctionData(functionFragment: 'assetDecimals', values?: undefined): string;
   encodeFunctionData(functionFragment: 'assetName', values?: undefined): string;
   encodeFunctionData(functionFragment: 'assetSymbol', values?: undefined): string;
   encodeFunctionData(functionFragment: 'assetType', values?: undefined): string;
 
+  decodeFunctionResult(functionFragment: 'assetAddress', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'assetDecimals', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'assetName', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'assetSymbol', data: BytesLike): Result;
@@ -60,6 +63,8 @@ export interface ERC20AssetPool extends BaseContract {
   removeListener: OnEvent<this>;
 
   functions: {
+    assetAddress(overrides?: CallOverrides): Promise<[string]>;
+
     assetDecimals(overrides?: CallOverrides): Promise<[number]>;
 
     assetName(overrides?: CallOverrides): Promise<[string]>;
@@ -68,6 +73,8 @@ export interface ERC20AssetPool extends BaseContract {
 
     assetType(overrides?: CallOverrides): Promise<[number]>;
   };
+
+  assetAddress(overrides?: CallOverrides): Promise<string>;
 
   assetDecimals(overrides?: CallOverrides): Promise<number>;
 
@@ -78,6 +85,8 @@ export interface ERC20AssetPool extends BaseContract {
   assetType(overrides?: CallOverrides): Promise<number>;
 
   callStatic: {
+    assetAddress(overrides?: CallOverrides): Promise<string>;
+
     assetDecimals(overrides?: CallOverrides): Promise<number>;
 
     assetName(overrides?: CallOverrides): Promise<string>;
@@ -90,6 +99,8 @@ export interface ERC20AssetPool extends BaseContract {
   filters: {};
 
   estimateGas: {
+    assetAddress(overrides?: CallOverrides): Promise<BigNumber>;
+
     assetDecimals(overrides?: CallOverrides): Promise<BigNumber>;
 
     assetName(overrides?: CallOverrides): Promise<BigNumber>;
@@ -100,6 +111,8 @@ export interface ERC20AssetPool extends BaseContract {
   };
 
   populateTransaction: {
+    assetAddress(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+
     assetDecimals(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     assetName(overrides?: CallOverrides): Promise<PopulatedTransaction>;

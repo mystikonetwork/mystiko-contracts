@@ -23,17 +23,22 @@ const _abi = [
   },
   {
     inputs: [],
+    name: 'AssociatedPoolNotMatched',
+    type: 'error',
+  },
+  {
+    inputs: [],
+    name: 'AssociatedPoolNotSet',
+    type: 'error',
+  },
+  {
+    inputs: [],
     name: 'AuditorIndexError',
     type: 'error',
   },
   {
     inputs: [],
     name: 'AuditorNotesLengthError',
-    type: 'error',
-  },
-  {
-    inputs: [],
-    name: 'AuditorPublicKeyNotChanged',
     type: 'error',
   },
   {
@@ -49,6 +54,11 @@ const _abi = [
   {
     inputs: [],
     name: 'CallIsNotLzApp',
+    type: 'error',
+  },
+  {
+    inputs: [],
+    name: 'CertificateInvalid',
     type: 'error',
   },
   {
@@ -120,16 +130,6 @@ const _abi = [
   },
   {
     inputs: [],
-    name: 'MaxAmountLessThanMinAmount',
-    type: 'error',
-  },
-  {
-    inputs: [],
-    name: 'MinAmountGreaterThanMaxAmount',
-    type: 'error',
-  },
-  {
-    inputs: [],
     name: 'NewRootIsDuplicated',
     type: 'error',
   },
@@ -140,22 +140,12 @@ const _abi = [
   },
   {
     inputs: [],
-    name: 'NotChanged',
+    name: 'NotSupport',
     type: 'error',
   },
   {
     inputs: [],
     name: 'NoteHasBeenSpent',
-    type: 'error',
-  },
-  {
-    inputs: [],
-    name: 'NumInputsGreaterThanZero',
-    type: 'error',
-  },
-  {
-    inputs: [],
-    name: 'OnlyOperator',
     type: 'error',
   },
   {
@@ -170,17 +160,12 @@ const _abi = [
   },
   {
     inputs: [],
-    name: 'OnlyWhitelistedRoller',
-    type: 'error',
-  },
-  {
-    inputs: [],
-    name: 'OnlyWhitelistedSender',
-    type: 'error',
-  },
-  {
-    inputs: [],
     name: 'OutputNotesLessThanThree',
+    type: 'error',
+  },
+  {
+    inputs: [],
+    name: 'PeerContractAlreadySet',
     type: 'error',
   },
   {
@@ -190,12 +175,28 @@ const _abi = [
   },
   {
     inputs: [],
-    name: 'RollupFeeToFew',
+    name: 'RejectRelay',
     type: 'error',
   },
   {
     inputs: [],
-    name: 'RollupSizeNotPowerOfTwo',
+    name: 'RejectRollup',
+    type: 'error',
+  },
+  {
+    inputs: [
+      {
+        internalType: 'uint256',
+        name: 'rollupSize',
+        type: 'uint256',
+      },
+    ],
+    name: 'RollupDisabled',
+    type: 'error',
+  },
+  {
+    inputs: [],
+    name: 'RollupFeeToFew',
     type: 'error',
   },
   {
@@ -206,6 +207,22 @@ const _abi = [
   {
     inputs: [],
     name: 'SenderIsNotBridgeProxy',
+    type: 'error',
+  },
+  {
+    inputs: [
+      {
+        internalType: 'uint32',
+        name: 'inputNumber',
+        type: 'uint32',
+      },
+      {
+        internalType: 'uint32',
+        name: 'outputNumber',
+        type: 'uint32',
+      },
+    ],
+    name: 'TransactDisabled',
     type: 'error',
   },
   {
@@ -225,18 +242,13 @@ const _abi = [
   },
   {
     inputs: [],
-    name: 'VerifierUpdatesHasBeenDisabled',
-    type: 'error',
-  },
-  {
-    inputs: [],
     name: 'WithdrawFailed',
     type: 'error',
   },
 ];
 
 const _bytecode =
-  '0x60566037600b82828239805160001a607314602a57634e487b7160e01b600052600060045260246000fd5b30600052607381538281f3fe73000000000000000000000000000000000000000030146080604052600080fdfea2646970667358221220d3d3cdd15227a451d0e4793b136830fbe97a7a240b5cc87735c17372a79a079864736f6c63430008070033';
+  '0x60566037600b82828239805160001a607314602a57634e487b7160e01b600052600060045260246000fd5b30600052607381538281f3fe73000000000000000000000000000000000000000030146080604052600080fdfea26469706673582212208158dcc24023355e47f9974cf5a40d724c86337b676aefee7ea4ce9a77f775be64736f6c63430008140033';
 
 type CustomErrorsConstructorParams = [signer?: Signer] | ConstructorParameters<typeof ContractFactory>;
 

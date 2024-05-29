@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.7;
+pragma solidity ^0.8.20;
 
 import "./AssetPool.sol";
 
@@ -10,8 +10,8 @@ abstract contract MainAssetPool is AssetPool {
     uint256 bridgeFee
   ) internal virtual override {
     require(msg.value == amount + bridgeFee, "insufficient token");
-    (bool ba, ) = commitmentPool.call{value: amount}("");
-    require(ba, "amount transfer failed");
+    (bool bc, ) = commitmentPool.call{value: amount}("");
+    require(bc, "amount transfer failed");
   }
 
   function _processExecutorFeeTransfer(address executor, uint256 amount) internal override {
@@ -27,6 +27,10 @@ abstract contract MainAssetPool is AssetPool {
   function _processWithdrawTransfer(address recipient, uint256 amount) internal override {
     (bool success, ) = recipient.call{value: amount}("");
     require(success, "withdraw failed");
+  }
+
+  function assetAddress() public pure override returns (address) {
+    return address(0);
   }
 
   function assetType() public pure override returns (AssetType) {

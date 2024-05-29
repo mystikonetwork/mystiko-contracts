@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.7;
+pragma solidity ^0.8.20;
 
 import "./relay/IAxelarExecutable.sol";
 import "./relay/IAxelarGasService.sol";
@@ -7,18 +7,24 @@ import "./relay/IAxelarGateway.sol";
 import "../base/CrossChainDataSerializable.sol";
 import "../base/MystikoV2Bridge.sol";
 import "../../../libs/utils/Utils.sol";
-import "../../../interface/IHasher3.sol";
+import "../../../interfaces/IHasher3.sol";
 
 abstract contract MystikoV2Axelar is MystikoV2Bridge, IAxelarExecutable {
   event CallContractMessage(string peerChainName, string destinationAddress);
 
   IAxelarGasService gasReceiver;
 
-  constructor(IHasher3 _hasher3) MystikoV2Bridge(_hasher3) IAxelarExecutable() {
-    // implemented in MystikoV2Bridge
-  }
-
-  function setAxelarGasReceiver(address _gasReceiver) external onlyOperator {
+  constructor(
+    IHasher3 _hasher3,
+    address _bridgeProxyAddress,
+    address _settingsCenter,
+    LocalConfig memory _localConfig,
+    PeerConfig memory _peerConfig,
+    address _gasReceiver
+  )
+    MystikoV2Bridge(_hasher3, _bridgeProxyAddress, _settingsCenter, _localConfig, _peerConfig)
+    IAxelarExecutable()
+  {
     gasReceiver = IAxelarGasService(_gasReceiver);
   }
 

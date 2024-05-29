@@ -1,8 +1,8 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.7;
+pragma solidity ^0.8.20;
 
 import "./AssetPool.sol";
-import "../../interface/IERC20Metadata.sol";
+import "../../interfaces/IERC20Metadata.sol";
 import "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol";
 
 abstract contract ERC20AssetPool is AssetPool {
@@ -32,6 +32,10 @@ abstract contract ERC20AssetPool is AssetPool {
 
   function _processWithdrawTransfer(address recipient, uint256 amount) internal override {
     asset.safeTransfer(recipient, amount);
+  }
+
+  function assetAddress() public view override returns (address) {
+    return address(asset);
   }
 
   function assetType() public pure override returns (AssetType) {

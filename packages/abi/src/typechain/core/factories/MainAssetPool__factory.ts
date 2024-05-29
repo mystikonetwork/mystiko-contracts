@@ -9,6 +9,19 @@ import type { MainAssetPool, MainAssetPoolInterface } from '../MainAssetPool';
 const _abi = [
   {
     inputs: [],
+    name: 'assetAddress',
+    outputs: [
+      {
+        internalType: 'address',
+        name: '',
+        type: 'address',
+      },
+    ],
+    stateMutability: 'pure',
+    type: 'function',
+  },
+  {
+    inputs: [],
     name: 'assetType',
     outputs: [
       {

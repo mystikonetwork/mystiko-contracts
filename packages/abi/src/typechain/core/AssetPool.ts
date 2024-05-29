@@ -17,11 +17,14 @@ import { TypedEventFilter, TypedEvent, TypedListener, OnEvent } from './common';
 export interface AssetPoolInterface extends utils.Interface {
   contractName: 'AssetPool';
   functions: {
+    'assetAddress()': FunctionFragment;
     'assetType()': FunctionFragment;
   };
 
+  encodeFunctionData(functionFragment: 'assetAddress', values?: undefined): string;
   encodeFunctionData(functionFragment: 'assetType', values?: undefined): string;
 
+  decodeFunctionResult(functionFragment: 'assetAddress', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'assetType', data: BytesLike): Result;
 
   events: {};
@@ -51,22 +54,32 @@ export interface AssetPool extends BaseContract {
   removeListener: OnEvent<this>;
 
   functions: {
+    assetAddress(overrides?: CallOverrides): Promise<[string]>;
+
     assetType(overrides?: CallOverrides): Promise<[number]>;
   };
+
+  assetAddress(overrides?: CallOverrides): Promise<string>;
 
   assetType(overrides?: CallOverrides): Promise<number>;
 
   callStatic: {
+    assetAddress(overrides?: CallOverrides): Promise<string>;
+
     assetType(overrides?: CallOverrides): Promise<number>;
   };
 
   filters: {};
 
   estimateGas: {
+    assetAddress(overrides?: CallOverrides): Promise<BigNumber>;
+
     assetType(overrides?: CallOverrides): Promise<BigNumber>;
   };
 
   populateTransaction: {
+    assetAddress(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+
     assetType(overrides?: CallOverrides): Promise<PopulatedTransaction>;
   };
 }

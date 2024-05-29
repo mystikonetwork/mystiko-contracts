@@ -1,11 +1,11 @@
 // SPDX-License-Identifier: MIT
 
-pragma solidity ^0.8.7;
+pragma solidity ^0.8.20;
 
 import "@openzeppelin/contracts/access/Ownable.sol";
-import "../interface/ILayerZeroReceiver.sol";
-import "../interface/ILayerZeroUserApplicationConfig.sol";
-import "../interface/ILayerZeroEndpoint.sol";
+import "../interfaces/ILayerZeroReceiver.sol";
+import "../interfaces/ILayerZeroUserApplicationConfig.sol";
+import "../interfaces/ILayerZeroEndpoint.sol";
 import "../../../../../libs/common/CustomErrors.sol";
 
 /*

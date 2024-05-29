@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.7;
+pragma solidity ^0.8.20;
 
 abstract contract AssetPool {
   enum AssetType {
@@ -20,4 +20,6 @@ abstract contract AssetPool {
   function _processWithdrawTransfer(address recipient, uint256 amount) internal virtual;
 
   function assetType() public view virtual returns (AssetType);
+
+  function assetAddress() public view virtual returns (address);
 }

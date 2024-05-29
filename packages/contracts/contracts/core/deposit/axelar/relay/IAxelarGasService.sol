@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: MIT
 
-pragma solidity ^0.8.7;
+pragma solidity ^0.8.20;
 
 //import "./IUpgradable.sol";
 
@@ -97,5 +97,9 @@ interface IAxelarGasService {
 
   function collectFees(address payable receiver, address[] calldata tokens) external;
 
-  function refund(address payable receiver, address token, uint256 amount) external;
+  function refund(
+    address payable receiver,
+    address token,
+    uint256 amount
+  ) external;
 }

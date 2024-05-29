@@ -150,21 +150,14 @@ export declare namespace IVerifier {
 export interface CommitmentPoolERC20Interface extends utils.Interface {
   contractName: 'CommitmentPoolERC20';
   functions: {
+    'AUDITOR_COUNT()': FunctionFragment;
     '_pathIndices(uint256,uint32)': FunctionFragment;
-    'addEnqueueWhitelist(address)': FunctionFragment;
-    'addRollupWhitelist(address)': FunctionFragment;
+    'assetAddress()': FunctionFragment;
     'assetDecimals()': FunctionFragment;
     'assetName()': FunctionFragment;
     'assetSymbol()': FunctionFragment;
     'assetType()': FunctionFragment;
-    'auditorCount()': FunctionFragment;
-    'changeOperator(address)': FunctionFragment;
-    'disableRollupVerifier(uint32)': FunctionFragment;
-    'disableSanctionsCheck()': FunctionFragment;
-    'disableTransactVerifier(uint32,uint32)': FunctionFragment;
-    'enableRollupVerifier(uint32,address)': FunctionFragment;
-    'enableSanctionsCheck()': FunctionFragment;
-    'enableTransactVerifier(uint32,uint32,address)': FunctionFragment;
+    'defaultMinRollupFee()': FunctionFragment;
     'enqueue((uint256,uint256,uint256,uint256,bytes),address)': FunctionFragment;
     'getAllAuditorPublicKeys()': FunctionFragment;
     'getAuditorPublicKey(uint256)': FunctionFragment;
@@ -177,43 +170,20 @@ export interface CommitmentPoolERC20Interface extends utils.Interface {
     'getTreeCapacity()': FunctionFragment;
     'isHistoricCommitment(uint256)': FunctionFragment;
     'isKnownRoot(uint256)': FunctionFragment;
-    'isRollupWhitelistDisabled()': FunctionFragment;
     'isSpentSerialNumber(uint256)': FunctionFragment;
-    'isVerifierUpdateDisabled()': FunctionFragment;
-    'removeEnqueueWhitelist(address)': FunctionFragment;
-    'removeRollupWhitelist(address)': FunctionFragment;
     'rollup((((uint256,uint256),(uint256[2],uint256[2]),(uint256,uint256)),uint32,uint256,uint256))': FunctionFragment;
-    'sanctionsCheck()': FunctionFragment;
-    'sanctionsList()': FunctionFragment;
-    'setMinRollupFee(uint256)': FunctionFragment;
-    'setRollupWhitelistDisabled(bool)': FunctionFragment;
-    'setVerifierUpdateDisabled(bool)': FunctionFragment;
+    'settingsCenter()': FunctionFragment;
     'transact((((uint256,uint256),(uint256[2],uint256[2]),(uint256,uint256)),uint256,uint256[],uint256[],bytes32,uint256,uint256,uint256[],uint256[],address,address,bytes[],uint256,uint256[]),bytes)': FunctionFragment;
-    'updateAuditorPublicKey(uint256,uint256)': FunctionFragment;
-    'updateSanctionsListAddress(address)': FunctionFragment;
   };
 
+  encodeFunctionData(functionFragment: 'AUDITOR_COUNT', values?: undefined): string;
   encodeFunctionData(functionFragment: '_pathIndices', values: [BigNumberish, BigNumberish]): string;
-  encodeFunctionData(functionFragment: 'addEnqueueWhitelist', values: [string]): string;
-  encodeFunctionData(functionFragment: 'addRollupWhitelist', values: [string]): string;
+  encodeFunctionData(functionFragment: 'assetAddress', values?: undefined): string;
   encodeFunctionData(functionFragment: 'assetDecimals', values?: undefined): string;
   encodeFunctionData(functionFragment: 'assetName', values?: undefined): string;
   encodeFunctionData(functionFragment: 'assetSymbol', values?: undefined): string;
   encodeFunctionData(functionFragment: 'assetType', values?: undefined): string;
-  encodeFunctionData(functionFragment: 'auditorCount', values?: undefined): string;
-  encodeFunctionData(functionFragment: 'changeOperator', values: [string]): string;
-  encodeFunctionData(functionFragment: 'disableRollupVerifier', values: [BigNumberish]): string;
-  encodeFunctionData(functionFragment: 'disableSanctionsCheck', values?: undefined): string;
-  encodeFunctionData(
-    functionFragment: 'disableTransactVerifier',
-    values: [BigNumberish, BigNumberish],
-  ): string;
-  encodeFunctionData(functionFragment: 'enableRollupVerifier', values: [BigNumberish, string]): string;
-  encodeFunctionData(functionFragment: 'enableSanctionsCheck', values?: undefined): string;
-  encodeFunctionData(
-    functionFragment: 'enableTransactVerifier',
-    values: [BigNumberish, BigNumberish, string],
-  ): string;
+  encodeFunctionData(functionFragment: 'defaultMinRollupFee', values?: undefined): string;
   encodeFunctionData(
     functionFragment: 'enqueue',
     values: [ICommitmentPool.CommitmentRequestStruct, string],
@@ -229,42 +199,22 @@ export interface CommitmentPoolERC20Interface extends utils.Interface {
   encodeFunctionData(functionFragment: 'getTreeCapacity', values?: undefined): string;
   encodeFunctionData(functionFragment: 'isHistoricCommitment', values: [BigNumberish]): string;
   encodeFunctionData(functionFragment: 'isKnownRoot', values: [BigNumberish]): string;
-  encodeFunctionData(functionFragment: 'isRollupWhitelistDisabled', values?: undefined): string;
   encodeFunctionData(functionFragment: 'isSpentSerialNumber', values: [BigNumberish]): string;
-  encodeFunctionData(functionFragment: 'isVerifierUpdateDisabled', values?: undefined): string;
-  encodeFunctionData(functionFragment: 'removeEnqueueWhitelist', values: [string]): string;
-  encodeFunctionData(functionFragment: 'removeRollupWhitelist', values: [string]): string;
   encodeFunctionData(functionFragment: 'rollup', values: [ICommitmentPool.RollupRequestStruct]): string;
-  encodeFunctionData(functionFragment: 'sanctionsCheck', values?: undefined): string;
-  encodeFunctionData(functionFragment: 'sanctionsList', values?: undefined): string;
-  encodeFunctionData(functionFragment: 'setMinRollupFee', values: [BigNumberish]): string;
-  encodeFunctionData(functionFragment: 'setRollupWhitelistDisabled', values: [boolean]): string;
-  encodeFunctionData(functionFragment: 'setVerifierUpdateDisabled', values: [boolean]): string;
+  encodeFunctionData(functionFragment: 'settingsCenter', values?: undefined): string;
   encodeFunctionData(
     functionFragment: 'transact',
     values: [ICommitmentPool.TransactRequestStruct, BytesLike],
   ): string;
-  encodeFunctionData(
-    functionFragment: 'updateAuditorPublicKey',
-    values: [BigNumberish, BigNumberish],
-  ): string;
-  encodeFunctionData(functionFragment: 'updateSanctionsListAddress', values: [string]): string;
 
+  decodeFunctionResult(functionFragment: 'AUDITOR_COUNT', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: '_pathIndices', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'addEnqueueWhitelist', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'addRollupWhitelist', data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'assetAddress', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'assetDecimals', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'assetName', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'assetSymbol', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'assetType', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'auditorCount', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'changeOperator', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'disableRollupVerifier', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'disableSanctionsCheck', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'disableTransactVerifier', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'enableRollupVerifier', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'enableSanctionsCheck', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'enableTransactVerifier', data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'defaultMinRollupFee', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'enqueue', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'getAllAuditorPublicKeys', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'getAuditorPublicKey', data: BytesLike): Result;
@@ -277,54 +227,25 @@ export interface CommitmentPoolERC20Interface extends utils.Interface {
   decodeFunctionResult(functionFragment: 'getTreeCapacity', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'isHistoricCommitment', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'isKnownRoot', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'isRollupWhitelistDisabled', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'isSpentSerialNumber', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'isVerifierUpdateDisabled', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'removeEnqueueWhitelist', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'removeRollupWhitelist', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'rollup', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'sanctionsCheck', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'sanctionsList', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'setMinRollupFee', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'setRollupWhitelistDisabled', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'setVerifierUpdateDisabled', data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'settingsCenter', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'transact', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'updateAuditorPublicKey', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'updateSanctionsListAddress', data: BytesLike): Result;
 
   events: {
-    'AuditorPublicKey(uint256,uint256)': EventFragment;
     'CommitmentIncluded(uint256)': EventFragment;
     'CommitmentQueued(uint256,uint256,uint256,bytes)': EventFragment;
     'CommitmentSpent(uint256,uint256)': EventFragment;
     'EncryptedAuditorNote(uint64,uint256,uint256)': EventFragment;
     'EncryptedAuditorNotes(tuple[])': EventFragment;
-    'OperatorChanged(address)': EventFragment;
-    'RollupWhitelistDisabled(bool)': EventFragment;
-    'SanctionsCheck(bool)': EventFragment;
-    'SanctionsList(address)': EventFragment;
-    'VerifierUpdateDisabled(bool)': EventFragment;
   };
 
-  getEvent(nameOrSignatureOrTopic: 'AuditorPublicKey'): EventFragment;
   getEvent(nameOrSignatureOrTopic: 'CommitmentIncluded'): EventFragment;
   getEvent(nameOrSignatureOrTopic: 'CommitmentQueued'): EventFragment;
   getEvent(nameOrSignatureOrTopic: 'CommitmentSpent'): EventFragment;
   getEvent(nameOrSignatureOrTopic: 'EncryptedAuditorNote'): EventFragment;
   getEvent(nameOrSignatureOrTopic: 'EncryptedAuditorNotes'): EventFragment;
-  getEvent(nameOrSignatureOrTopic: 'OperatorChanged'): EventFragment;
-  getEvent(nameOrSignatureOrTopic: 'RollupWhitelistDisabled'): EventFragment;
-  getEvent(nameOrSignatureOrTopic: 'SanctionsCheck'): EventFragment;
-  getEvent(nameOrSignatureOrTopic: 'SanctionsList'): EventFragment;
-  getEvent(nameOrSignatureOrTopic: 'VerifierUpdateDisabled'): EventFragment;
 }
-
-export type AuditorPublicKeyEvent = TypedEvent<
-  [BigNumber, BigNumber],
-  { index: BigNumber; publicKey: BigNumber }
->;
-
-export type AuditorPublicKeyEventFilter = TypedEventFilter<AuditorPublicKeyEvent>;
 
 export type CommitmentIncludedEvent = TypedEvent<[BigNumber], { commitment: BigNumber }>;
 
@@ -367,26 +288,6 @@ export type EncryptedAuditorNotesEvent = TypedEvent<
 
 export type EncryptedAuditorNotesEventFilter = TypedEventFilter<EncryptedAuditorNotesEvent>;
 
-export type OperatorChangedEvent = TypedEvent<[string], { operator: string }>;
-
-export type OperatorChangedEventFilter = TypedEventFilter<OperatorChangedEvent>;
-
-export type RollupWhitelistDisabledEvent = TypedEvent<[boolean], { state: boolean }>;
-
-export type RollupWhitelistDisabledEventFilter = TypedEventFilter<RollupWhitelistDisabledEvent>;
-
-export type SanctionsCheckEvent = TypedEvent<[boolean], { state: boolean }>;
-
-export type SanctionsCheckEventFilter = TypedEventFilter<SanctionsCheckEvent>;
-
-export type SanctionsListEvent = TypedEvent<[string], { sanctions: string }>;
-
-export type SanctionsListEventFilter = TypedEventFilter<SanctionsListEvent>;
-
-export type VerifierUpdateDisabledEvent = TypedEvent<[boolean], { state: boolean }>;
-
-export type VerifierUpdateDisabledEventFilter = TypedEventFilter<VerifierUpdateDisabledEvent>;
-
 export interface CommitmentPoolERC20 extends BaseContract {
   contractName: 'CommitmentPoolERC20';
   connect(signerOrProvider: Signer | Provider | string): this;
@@ -411,21 +312,15 @@ export interface CommitmentPoolERC20 extends BaseContract {
   removeListener: OnEvent<this>;
 
   functions: {
+    AUDITOR_COUNT(overrides?: CallOverrides): Promise<[BigNumber]>;
+
     _pathIndices(
       _fullPath: BigNumberish,
       _rollupSize: BigNumberish,
       overrides?: CallOverrides,
     ): Promise<[BigNumber]>;
 
-    addEnqueueWhitelist(
-      _actor: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
-    ): Promise<ContractTransaction>;
-
-    addRollupWhitelist(
-      _roller: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
-    ): Promise<ContractTransaction>;
+    assetAddress(overrides?: CallOverrides): Promise<[string]>;
 
     assetDecimals(overrides?: CallOverrides): Promise<[number]>;
 
@@ -435,44 +330,7 @@ export interface CommitmentPoolERC20 extends BaseContract {
 
     assetType(overrides?: CallOverrides): Promise<[number]>;
 
-    auditorCount(overrides?: CallOverrides): Promise<[BigNumber]>;
-
-    changeOperator(
-      _newOperator: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
-    ): Promise<ContractTransaction>;
-
-    disableRollupVerifier(
-      _rollupSize: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
-    ): Promise<ContractTransaction>;
-
-    disableSanctionsCheck(
-      overrides?: Overrides & { from?: string | Promise<string> },
-    ): Promise<ContractTransaction>;
-
-    disableTransactVerifier(
-      _numInputs: BigNumberish,
-      _numOutputs: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
-    ): Promise<ContractTransaction>;
-
-    enableRollupVerifier(
-      _rollupSize: BigNumberish,
-      _rollupVerifier: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
-    ): Promise<ContractTransaction>;
-
-    enableSanctionsCheck(
-      overrides?: Overrides & { from?: string | Promise<string> },
-    ): Promise<ContractTransaction>;
-
-    enableTransactVerifier(
-      _numInputs: BigNumberish,
-      _numOutputs: BigNumberish,
-      _transactVerifier: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
-    ): Promise<ContractTransaction>;
+    defaultMinRollupFee(overrides?: CallOverrides): Promise<[BigNumber]>;
 
     enqueue(
       _request: ICommitmentPool.CommitmentRequestStruct,
@@ -502,63 +360,23 @@ export interface CommitmentPoolERC20 extends BaseContract {
 
     isKnownRoot(root: BigNumberish, overrides?: CallOverrides): Promise<[boolean]>;
 
-    isRollupWhitelistDisabled(overrides?: CallOverrides): Promise<[boolean]>;
-
     isSpentSerialNumber(_serialNumber: BigNumberish, overrides?: CallOverrides): Promise<[boolean]>;
-
-    isVerifierUpdateDisabled(overrides?: CallOverrides): Promise<[boolean]>;
-
-    removeEnqueueWhitelist(
-      _actor: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
-    ): Promise<ContractTransaction>;
-
-    removeRollupWhitelist(
-      _roller: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
-    ): Promise<ContractTransaction>;
 
     rollup(
       _request: ICommitmentPool.RollupRequestStruct,
       overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<ContractTransaction>;
 
-    sanctionsCheck(overrides?: CallOverrides): Promise<[boolean]>;
-
-    sanctionsList(overrides?: CallOverrides): Promise<[string]>;
-
-    setMinRollupFee(
-      _minRollupFee: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
-    ): Promise<ContractTransaction>;
-
-    setRollupWhitelistDisabled(
-      _state: boolean,
-      overrides?: Overrides & { from?: string | Promise<string> },
-    ): Promise<ContractTransaction>;
-
-    setVerifierUpdateDisabled(
-      _state: boolean,
-      overrides?: Overrides & { from?: string | Promise<string> },
-    ): Promise<ContractTransaction>;
+    settingsCenter(overrides?: CallOverrides): Promise<[string]>;
 
     transact(
       _request: ICommitmentPool.TransactRequestStruct,
       _signature: BytesLike,
       overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<ContractTransaction>;
-
-    updateAuditorPublicKey(
-      _index: BigNumberish,
-      _publicKey: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
-    ): Promise<ContractTransaction>;
-
-    updateSanctionsListAddress(
-      _sanction: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
-    ): Promise<ContractTransaction>;
   };
+
+  AUDITOR_COUNT(overrides?: CallOverrides): Promise<BigNumber>;
 
   _pathIndices(
     _fullPath: BigNumberish,
@@ -566,15 +384,7 @@ export interface CommitmentPoolERC20 extends BaseContract {
     overrides?: CallOverrides,
   ): Promise<BigNumber>;
 
-  addEnqueueWhitelist(
-    _actor: string,
-    overrides?: Overrides & { from?: string | Promise<string> },
-  ): Promise<ContractTransaction>;
-
-  addRollupWhitelist(
-    _roller: string,
-    overrides?: Overrides & { from?: string | Promise<string> },
-  ): Promise<ContractTransaction>;
+  assetAddress(overrides?: CallOverrides): Promise<string>;
 
   assetDecimals(overrides?: CallOverrides): Promise<number>;
 
@@ -584,44 +394,7 @@ export interface CommitmentPoolERC20 extends BaseContract {
 
   assetType(overrides?: CallOverrides): Promise<number>;
 
-  auditorCount(overrides?: CallOverrides): Promise<BigNumber>;
-
-  changeOperator(
-    _newOperator: string,
-    overrides?: Overrides & { from?: string | Promise<string> },
-  ): Promise<ContractTransaction>;
-
-  disableRollupVerifier(
-    _rollupSize: BigNumberish,
-    overrides?: Overrides & { from?: string | Promise<string> },
-  ): Promise<ContractTransaction>;
-
-  disableSanctionsCheck(
-    overrides?: Overrides & { from?: string | Promise<string> },
-  ): Promise<ContractTransaction>;
-
-  disableTransactVerifier(
-    _numInputs: BigNumberish,
-    _numOutputs: BigNumberish,
-    overrides?: Overrides & { from?: string | Promise<string> },
-  ): Promise<ContractTransaction>;
-
-  enableRollupVerifier(
-    _rollupSize: BigNumberish,
-    _rollupVerifier: string,
-    overrides?: Overrides & { from?: string | Promise<string> },
-  ): Promise<ContractTransaction>;
-
-  enableSanctionsCheck(
-    overrides?: Overrides & { from?: string | Promise<string> },
-  ): Promise<ContractTransaction>;
-
-  enableTransactVerifier(
-    _numInputs: BigNumberish,
-    _numOutputs: BigNumberish,
-    _transactVerifier: string,
-    overrides?: Overrides & { from?: string | Promise<string> },
-  ): Promise<ContractTransaction>;
+  defaultMinRollupFee(overrides?: CallOverrides): Promise<BigNumber>;
 
   enqueue(
     _request: ICommitmentPool.CommitmentRequestStruct,
@@ -651,45 +424,14 @@ export interface CommitmentPoolERC20 extends BaseContract {
 
   isKnownRoot(root: BigNumberish, overrides?: CallOverrides): Promise<boolean>;
 
-  isRollupWhitelistDisabled(overrides?: CallOverrides): Promise<boolean>;
-
   isSpentSerialNumber(_serialNumber: BigNumberish, overrides?: CallOverrides): Promise<boolean>;
-
-  isVerifierUpdateDisabled(overrides?: CallOverrides): Promise<boolean>;
-
-  removeEnqueueWhitelist(
-    _actor: string,
-    overrides?: Overrides & { from?: string | Promise<string> },
-  ): Promise<ContractTransaction>;
-
-  removeRollupWhitelist(
-    _roller: string,
-    overrides?: Overrides & { from?: string | Promise<string> },
-  ): Promise<ContractTransaction>;
 
   rollup(
     _request: ICommitmentPool.RollupRequestStruct,
     overrides?: Overrides & { from?: string | Promise<string> },
   ): Promise<ContractTransaction>;
 
-  sanctionsCheck(overrides?: CallOverrides): Promise<boolean>;
-
-  sanctionsList(overrides?: CallOverrides): Promise<string>;
-
-  setMinRollupFee(
-    _minRollupFee: BigNumberish,
-    overrides?: Overrides & { from?: string | Promise<string> },
-  ): Promise<ContractTransaction>;
-
-  setRollupWhitelistDisabled(
-    _state: boolean,
-    overrides?: Overrides & { from?: string | Promise<string> },
-  ): Promise<ContractTransaction>;
-
-  setVerifierUpdateDisabled(
-    _state: boolean,
-    overrides?: Overrides & { from?: string | Promise<string> },
-  ): Promise<ContractTransaction>;
+  settingsCenter(overrides?: CallOverrides): Promise<string>;
 
   transact(
     _request: ICommitmentPool.TransactRequestStruct,
@@ -697,27 +439,16 @@ export interface CommitmentPoolERC20 extends BaseContract {
     overrides?: Overrides & { from?: string | Promise<string> },
   ): Promise<ContractTransaction>;
 
-  updateAuditorPublicKey(
-    _index: BigNumberish,
-    _publicKey: BigNumberish,
-    overrides?: Overrides & { from?: string | Promise<string> },
-  ): Promise<ContractTransaction>;
-
-  updateSanctionsListAddress(
-    _sanction: string,
-    overrides?: Overrides & { from?: string | Promise<string> },
-  ): Promise<ContractTransaction>;
-
   callStatic: {
+    AUDITOR_COUNT(overrides?: CallOverrides): Promise<BigNumber>;
+
     _pathIndices(
       _fullPath: BigNumberish,
       _rollupSize: BigNumberish,
       overrides?: CallOverrides,
     ): Promise<BigNumber>;
 
-    addEnqueueWhitelist(_actor: string, overrides?: CallOverrides): Promise<void>;
-
-    addRollupWhitelist(_roller: string, overrides?: CallOverrides): Promise<void>;
+    assetAddress(overrides?: CallOverrides): Promise<string>;
 
     assetDecimals(overrides?: CallOverrides): Promise<number>;
 
@@ -727,34 +458,7 @@ export interface CommitmentPoolERC20 extends BaseContract {
 
     assetType(overrides?: CallOverrides): Promise<number>;
 
-    auditorCount(overrides?: CallOverrides): Promise<BigNumber>;
-
-    changeOperator(_newOperator: string, overrides?: CallOverrides): Promise<void>;
-
-    disableRollupVerifier(_rollupSize: BigNumberish, overrides?: CallOverrides): Promise<void>;
-
-    disableSanctionsCheck(overrides?: CallOverrides): Promise<void>;
-
-    disableTransactVerifier(
-      _numInputs: BigNumberish,
-      _numOutputs: BigNumberish,
-      overrides?: CallOverrides,
-    ): Promise<void>;
-
-    enableRollupVerifier(
-      _rollupSize: BigNumberish,
-      _rollupVerifier: string,
-      overrides?: CallOverrides,
-    ): Promise<void>;
-
-    enableSanctionsCheck(overrides?: CallOverrides): Promise<void>;
-
-    enableTransactVerifier(
-      _numInputs: BigNumberish,
-      _numOutputs: BigNumberish,
-      _transactVerifier: string,
-      overrides?: CallOverrides,
-    ): Promise<void>;
+    defaultMinRollupFee(overrides?: CallOverrides): Promise<BigNumber>;
 
     enqueue(
       _request: ICommitmentPool.CommitmentRequestStruct,
@@ -784,50 +488,20 @@ export interface CommitmentPoolERC20 extends BaseContract {
 
     isKnownRoot(root: BigNumberish, overrides?: CallOverrides): Promise<boolean>;
 
-    isRollupWhitelistDisabled(overrides?: CallOverrides): Promise<boolean>;
-
     isSpentSerialNumber(_serialNumber: BigNumberish, overrides?: CallOverrides): Promise<boolean>;
-
-    isVerifierUpdateDisabled(overrides?: CallOverrides): Promise<boolean>;
-
-    removeEnqueueWhitelist(_actor: string, overrides?: CallOverrides): Promise<void>;
-
-    removeRollupWhitelist(_roller: string, overrides?: CallOverrides): Promise<void>;
 
     rollup(_request: ICommitmentPool.RollupRequestStruct, overrides?: CallOverrides): Promise<void>;
 
-    sanctionsCheck(overrides?: CallOverrides): Promise<boolean>;
-
-    sanctionsList(overrides?: CallOverrides): Promise<string>;
-
-    setMinRollupFee(_minRollupFee: BigNumberish, overrides?: CallOverrides): Promise<void>;
-
-    setRollupWhitelistDisabled(_state: boolean, overrides?: CallOverrides): Promise<void>;
-
-    setVerifierUpdateDisabled(_state: boolean, overrides?: CallOverrides): Promise<void>;
+    settingsCenter(overrides?: CallOverrides): Promise<string>;
 
     transact(
       _request: ICommitmentPool.TransactRequestStruct,
       _signature: BytesLike,
       overrides?: CallOverrides,
     ): Promise<void>;
-
-    updateAuditorPublicKey(
-      _index: BigNumberish,
-      _publicKey: BigNumberish,
-      overrides?: CallOverrides,
-    ): Promise<void>;
-
-    updateSanctionsListAddress(_sanction: string, overrides?: CallOverrides): Promise<void>;
   };
 
   filters: {
-    'AuditorPublicKey(uint256,uint256)'(
-      index?: BigNumberish | null,
-      publicKey?: null,
-    ): AuditorPublicKeyEventFilter;
-    AuditorPublicKey(index?: BigNumberish | null, publicKey?: null): AuditorPublicKeyEventFilter;
-
     'CommitmentIncluded(uint256)'(commitment?: BigNumberish | null): CommitmentIncludedEventFilter;
     CommitmentIncluded(commitment?: BigNumberish | null): CommitmentIncludedEventFilter;
 
@@ -866,39 +540,18 @@ export interface CommitmentPoolERC20 extends BaseContract {
 
     'EncryptedAuditorNotes(tuple[])'(notes?: null): EncryptedAuditorNotesEventFilter;
     EncryptedAuditorNotes(notes?: null): EncryptedAuditorNotesEventFilter;
-
-    'OperatorChanged(address)'(operator?: string | null): OperatorChangedEventFilter;
-    OperatorChanged(operator?: string | null): OperatorChangedEventFilter;
-
-    'RollupWhitelistDisabled(bool)'(state?: null): RollupWhitelistDisabledEventFilter;
-    RollupWhitelistDisabled(state?: null): RollupWhitelistDisabledEventFilter;
-
-    'SanctionsCheck(bool)'(state?: null): SanctionsCheckEventFilter;
-    SanctionsCheck(state?: null): SanctionsCheckEventFilter;
-
-    'SanctionsList(address)'(sanctions?: null): SanctionsListEventFilter;
-    SanctionsList(sanctions?: null): SanctionsListEventFilter;
-
-    'VerifierUpdateDisabled(bool)'(state?: null): VerifierUpdateDisabledEventFilter;
-    VerifierUpdateDisabled(state?: null): VerifierUpdateDisabledEventFilter;
   };
 
   estimateGas: {
+    AUDITOR_COUNT(overrides?: CallOverrides): Promise<BigNumber>;
+
     _pathIndices(
       _fullPath: BigNumberish,
       _rollupSize: BigNumberish,
       overrides?: CallOverrides,
     ): Promise<BigNumber>;
 
-    addEnqueueWhitelist(
-      _actor: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
-    ): Promise<BigNumber>;
-
-    addRollupWhitelist(
-      _roller: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
-    ): Promise<BigNumber>;
+    assetAddress(overrides?: CallOverrides): Promise<BigNumber>;
 
     assetDecimals(overrides?: CallOverrides): Promise<BigNumber>;
 
@@ -908,40 +561,7 @@ export interface CommitmentPoolERC20 extends BaseContract {
 
     assetType(overrides?: CallOverrides): Promise<BigNumber>;
 
-    auditorCount(overrides?: CallOverrides): Promise<BigNumber>;
-
-    changeOperator(
-      _newOperator: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
-    ): Promise<BigNumber>;
-
-    disableRollupVerifier(
-      _rollupSize: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
-    ): Promise<BigNumber>;
-
-    disableSanctionsCheck(overrides?: Overrides & { from?: string | Promise<string> }): Promise<BigNumber>;
-
-    disableTransactVerifier(
-      _numInputs: BigNumberish,
-      _numOutputs: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
-    ): Promise<BigNumber>;
-
-    enableRollupVerifier(
-      _rollupSize: BigNumberish,
-      _rollupVerifier: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
-    ): Promise<BigNumber>;
-
-    enableSanctionsCheck(overrides?: Overrides & { from?: string | Promise<string> }): Promise<BigNumber>;
-
-    enableTransactVerifier(
-      _numInputs: BigNumberish,
-      _numOutputs: BigNumberish,
-      _transactVerifier: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
-    ): Promise<BigNumber>;
+    defaultMinRollupFee(overrides?: CallOverrides): Promise<BigNumber>;
 
     enqueue(
       _request: ICommitmentPool.CommitmentRequestStruct,
@@ -971,80 +591,32 @@ export interface CommitmentPoolERC20 extends BaseContract {
 
     isKnownRoot(root: BigNumberish, overrides?: CallOverrides): Promise<BigNumber>;
 
-    isRollupWhitelistDisabled(overrides?: CallOverrides): Promise<BigNumber>;
-
     isSpentSerialNumber(_serialNumber: BigNumberish, overrides?: CallOverrides): Promise<BigNumber>;
-
-    isVerifierUpdateDisabled(overrides?: CallOverrides): Promise<BigNumber>;
-
-    removeEnqueueWhitelist(
-      _actor: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
-    ): Promise<BigNumber>;
-
-    removeRollupWhitelist(
-      _roller: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
-    ): Promise<BigNumber>;
 
     rollup(
       _request: ICommitmentPool.RollupRequestStruct,
       overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<BigNumber>;
 
-    sanctionsCheck(overrides?: CallOverrides): Promise<BigNumber>;
-
-    sanctionsList(overrides?: CallOverrides): Promise<BigNumber>;
-
-    setMinRollupFee(
-      _minRollupFee: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
-    ): Promise<BigNumber>;
-
-    setRollupWhitelistDisabled(
-      _state: boolean,
-      overrides?: Overrides & { from?: string | Promise<string> },
-    ): Promise<BigNumber>;
-
-    setVerifierUpdateDisabled(
-      _state: boolean,
-      overrides?: Overrides & { from?: string | Promise<string> },
-    ): Promise<BigNumber>;
+    settingsCenter(overrides?: CallOverrides): Promise<BigNumber>;
 
     transact(
       _request: ICommitmentPool.TransactRequestStruct,
       _signature: BytesLike,
       overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<BigNumber>;
-
-    updateAuditorPublicKey(
-      _index: BigNumberish,
-      _publicKey: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
-    ): Promise<BigNumber>;
-
-    updateSanctionsListAddress(
-      _sanction: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
-    ): Promise<BigNumber>;
   };
 
   populateTransaction: {
+    AUDITOR_COUNT(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+
     _pathIndices(
       _fullPath: BigNumberish,
       _rollupSize: BigNumberish,
       overrides?: CallOverrides,
     ): Promise<PopulatedTransaction>;
 
-    addEnqueueWhitelist(
-      _actor: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
-    ): Promise<PopulatedTransaction>;
-
-    addRollupWhitelist(
-      _roller: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
-    ): Promise<PopulatedTransaction>;
+    assetAddress(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     assetDecimals(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
@@ -1054,44 +626,7 @@ export interface CommitmentPoolERC20 extends BaseContract {
 
     assetType(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
-    auditorCount(overrides?: CallOverrides): Promise<PopulatedTransaction>;
-
-    changeOperator(
-      _newOperator: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
-    ): Promise<PopulatedTransaction>;
-
-    disableRollupVerifier(
-      _rollupSize: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
-    ): Promise<PopulatedTransaction>;
-
-    disableSanctionsCheck(
-      overrides?: Overrides & { from?: string | Promise<string> },
-    ): Promise<PopulatedTransaction>;
-
-    disableTransactVerifier(
-      _numInputs: BigNumberish,
-      _numOutputs: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
-    ): Promise<PopulatedTransaction>;
-
-    enableRollupVerifier(
-      _rollupSize: BigNumberish,
-      _rollupVerifier: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
-    ): Promise<PopulatedTransaction>;
-
-    enableSanctionsCheck(
-      overrides?: Overrides & { from?: string | Promise<string> },
-    ): Promise<PopulatedTransaction>;
-
-    enableTransactVerifier(
-      _numInputs: BigNumberish,
-      _numOutputs: BigNumberish,
-      _transactVerifier: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
-    ): Promise<PopulatedTransaction>;
+    defaultMinRollupFee(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     enqueue(
       _request: ICommitmentPool.CommitmentRequestStruct,
@@ -1121,23 +656,9 @@ export interface CommitmentPoolERC20 extends BaseContract {
 
     isKnownRoot(root: BigNumberish, overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
-    isRollupWhitelistDisabled(overrides?: CallOverrides): Promise<PopulatedTransaction>;
-
     isSpentSerialNumber(
       _serialNumber: BigNumberish,
       overrides?: CallOverrides,
-    ): Promise<PopulatedTransaction>;
-
-    isVerifierUpdateDisabled(overrides?: CallOverrides): Promise<PopulatedTransaction>;
-
-    removeEnqueueWhitelist(
-      _actor: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
-    ): Promise<PopulatedTransaction>;
-
-    removeRollupWhitelist(
-      _roller: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<PopulatedTransaction>;
 
     rollup(
@@ -1145,39 +666,11 @@ export interface CommitmentPoolERC20 extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<PopulatedTransaction>;
 
-    sanctionsCheck(overrides?: CallOverrides): Promise<PopulatedTransaction>;
-
-    sanctionsList(overrides?: CallOverrides): Promise<PopulatedTransaction>;
-
-    setMinRollupFee(
-      _minRollupFee: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
-    ): Promise<PopulatedTransaction>;
-
-    setRollupWhitelistDisabled(
-      _state: boolean,
-      overrides?: Overrides & { from?: string | Promise<string> },
-    ): Promise<PopulatedTransaction>;
-
-    setVerifierUpdateDisabled(
-      _state: boolean,
-      overrides?: Overrides & { from?: string | Promise<string> },
-    ): Promise<PopulatedTransaction>;
+    settingsCenter(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     transact(
       _request: ICommitmentPool.TransactRequestStruct,
       _signature: BytesLike,
-      overrides?: Overrides & { from?: string | Promise<string> },
-    ): Promise<PopulatedTransaction>;
-
-    updateAuditorPublicKey(
-      _index: BigNumberish,
-      _publicKey: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
-    ): Promise<PopulatedTransaction>;
-
-    updateSanctionsListAddress(
-      _sanction: string,
       overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<PopulatedTransaction>;
   };

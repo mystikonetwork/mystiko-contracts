@@ -54,11 +54,17 @@ export interface IMystikoBridgeInterface extends utils.Interface {
   contractName: 'IMystikoBridge';
   functions: {
     'deposit((uint256,uint256,uint256,uint128,bytes,uint256,uint256,uint256))': FunctionFragment;
+    'depositWithCertificate((uint256,uint256,uint256,uint128,bytes,uint256,uint256,uint256),uint256,bytes)': FunctionFragment;
   };
 
   encodeFunctionData(functionFragment: 'deposit', values: [IMystikoBridge.DepositRequestStruct]): string;
+  encodeFunctionData(
+    functionFragment: 'depositWithCertificate',
+    values: [IMystikoBridge.DepositRequestStruct, BigNumberish, BytesLike],
+  ): string;
 
   decodeFunctionResult(functionFragment: 'deposit', data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'depositWithCertificate', data: BytesLike): Result;
 
   events: {};
 }
@@ -91,6 +97,13 @@ export interface IMystikoBridge extends BaseContract {
       _request: IMystikoBridge.DepositRequestStruct,
       overrides?: PayableOverrides & { from?: string | Promise<string> },
     ): Promise<ContractTransaction>;
+
+    depositWithCertificate(
+      _request: IMystikoBridge.DepositRequestStruct,
+      certificateDeadline: BigNumberish,
+      certificateSignature: BytesLike,
+      overrides?: PayableOverrides & { from?: string | Promise<string> },
+    ): Promise<ContractTransaction>;
   };
 
   deposit(
@@ -98,8 +111,22 @@ export interface IMystikoBridge extends BaseContract {
     overrides?: PayableOverrides & { from?: string | Promise<string> },
   ): Promise<ContractTransaction>;
 
+  depositWithCertificate(
+    _request: IMystikoBridge.DepositRequestStruct,
+    certificateDeadline: BigNumberish,
+    certificateSignature: BytesLike,
+    overrides?: PayableOverrides & { from?: string | Promise<string> },
+  ): Promise<ContractTransaction>;
+
   callStatic: {
     deposit(_request: IMystikoBridge.DepositRequestStruct, overrides?: CallOverrides): Promise<void>;
+
+    depositWithCertificate(
+      _request: IMystikoBridge.DepositRequestStruct,
+      certificateDeadline: BigNumberish,
+      certificateSignature: BytesLike,
+      overrides?: CallOverrides,
+    ): Promise<void>;
   };
 
   filters: {};
@@ -109,11 +136,25 @@ export interface IMystikoBridge extends BaseContract {
       _request: IMystikoBridge.DepositRequestStruct,
       overrides?: PayableOverrides & { from?: string | Promise<string> },
     ): Promise<BigNumber>;
+
+    depositWithCertificate(
+      _request: IMystikoBridge.DepositRequestStruct,
+      certificateDeadline: BigNumberish,
+      certificateSignature: BytesLike,
+      overrides?: PayableOverrides & { from?: string | Promise<string> },
+    ): Promise<BigNumber>;
   };
 
   populateTransaction: {
     deposit(
       _request: IMystikoBridge.DepositRequestStruct,
+      overrides?: PayableOverrides & { from?: string | Promise<string> },
+    ): Promise<PopulatedTransaction>;
+
+    depositWithCertificate(
+      _request: IMystikoBridge.DepositRequestStruct,
+      certificateDeadline: BigNumberish,
+      certificateSignature: BytesLike,
       overrides?: PayableOverrides & { from?: string | Promise<string> },
     ): Promise<PopulatedTransaction>;
   };

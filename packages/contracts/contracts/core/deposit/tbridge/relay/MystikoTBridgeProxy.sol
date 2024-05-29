@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.7;
+pragma solidity ^0.8.20;
 
-import "./interface/ICrossChainProxy.sol";
+import "./interfaces/ICrossChainProxy.sol";
 import "../../base/CrossChainDataSerializable.sol";
 import "../MystikoV2TBridge.sol";
 import "../../../../libs/common/CustomErrors.sol";
@@ -11,12 +11,14 @@ contract MystikoTBridgeProxy is ICrossChainProxy {
   mapping(address => bool) executorWhitelist;
   mapping(address => bool) registerWhitelist;
 
+  error OnlyOperator();
+
   constructor() {
     operator = msg.sender;
   }
 
   modifier onlyOperator() {
-    if (msg.sender != operator) revert CustomErrors.OnlyOperator();
+    if (msg.sender != operator) revert OnlyOperator();
     _;
   }
 

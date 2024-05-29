@@ -1,14 +1,23 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.7;
+pragma solidity ^0.8.20;
 
 import "./relay/lzApp/NonblockingLzApp.sol";
 import "../base/CrossChainDataSerializable.sol";
 import "../base/MystikoV2Bridge.sol";
 import "../../../libs/utils/Utils.sol";
-import "../../../interface/IHasher3.sol";
+import "../../../interfaces/IHasher3.sol";
 
 abstract contract MystikoV2LayerZero is MystikoV2Bridge, NonblockingLzApp {
-  constructor(IHasher3 _hasher3) MystikoV2Bridge(_hasher3) NonblockingLzApp() {
+  constructor(
+    IHasher3 _hasher3,
+    address _bridgeProxyAddress,
+    address _settingsCenter,
+    LocalConfig memory _localConfig,
+    PeerConfig memory _peerConfig
+  )
+    MystikoV2Bridge(_hasher3, _bridgeProxyAddress, _settingsCenter, _localConfig, _peerConfig)
+    NonblockingLzApp()
+  {
     // implemented in MystikoV2Bridge
   }
 

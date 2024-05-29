@@ -52,6 +52,61 @@ const _abi = [
     stateMutability: 'payable',
     type: 'function',
   },
+  {
+    inputs: [
+      {
+        components: [
+          {
+            internalType: 'uint256',
+            name: 'amount',
+            type: 'uint256',
+          },
+          {
+            internalType: 'uint256',
+            name: 'commitment',
+            type: 'uint256',
+          },
+          {
+            internalType: 'uint256',
+            name: 'hashK',
+            type: 'uint256',
+          },
+          {
+            internalType: 'uint128',
+            name: 'randomS',
+            type: 'uint128',
+          },
+          {
+            internalType: 'bytes',
+            name: 'encryptedNote',
+            type: 'bytes',
+          },
+          {
+            internalType: 'uint256',
+            name: 'rollupFee',
+            type: 'uint256',
+          },
+        ],
+        internalType: 'struct IMystikoLoop.DepositRequest',
+        name: '_request',
+        type: 'tuple',
+      },
+      {
+        internalType: 'uint256',
+        name: 'certificateDeadline',
+        type: 'uint256',
+      },
+      {
+        internalType: 'bytes',
+        name: 'certificateSignature',
+        type: 'bytes',
+      },
+    ],
+    name: 'depositWithCertificate',
+    outputs: [],
+    stateMutability: 'payable',
+    type: 'function',
+  },
 ];
 
 export class IMystikoLoop__factory {
