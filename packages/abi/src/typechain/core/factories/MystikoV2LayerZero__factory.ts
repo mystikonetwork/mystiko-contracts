@@ -64,16 +64,6 @@ const _abi = [
   },
   {
     inputs: [],
-    name: 'FromChainIdNotMatched',
-    type: 'error',
-  },
-  {
-    inputs: [],
-    name: 'FromProxyAddressNotMatched',
-    type: 'error',
-  },
-  {
-    inputs: [],
     name: 'HashKGreaterThanFieldSize',
     type: 'error',
   },
@@ -122,7 +112,17 @@ const _abi = [
   },
   {
     inputs: [],
+    name: 'PeerChainIdNotMatched',
+    type: 'error',
+  },
+  {
+    inputs: [],
     name: 'PeerContractAlreadySet',
+    type: 'error',
+  },
+  {
+    inputs: [],
+    name: 'PeerContractNotMatched',
     type: 'error',
   },
   {
@@ -632,6 +632,19 @@ const _abi = [
     type: 'function',
   },
   {
+    inputs: [],
+    name: 'isPeerContractSet',
+    outputs: [
+      {
+        internalType: 'bool',
+        name: '',
+        type: 'bool',
+      },
+    ],
+    stateMutability: 'view',
+    type: 'function',
+  },
+  {
     inputs: [
       {
         internalType: 'uint16',
@@ -959,7 +972,7 @@ const _abi = [
   },
   {
     inputs: [],
-    name: 'settingsCenter',
+    name: 'settings',
     outputs: [
       {
         internalType: 'contract MystikoSettings',

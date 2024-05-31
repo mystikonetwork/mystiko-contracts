@@ -23,6 +23,11 @@ const _abi = [
   },
   {
     inputs: [],
+    name: 'InvalidInputsNumber',
+    type: 'error',
+  },
+  {
+    inputs: [],
     name: 'InvalidRollupFee',
     type: 'error',
   },
@@ -34,11 +39,6 @@ const _abi = [
   {
     inputs: [],
     name: 'NotChanged',
-    type: 'error',
-  },
-  {
-    inputs: [],
-    name: 'NumInputsGreaterThanZero',
     type: 'error',
   },
   {
@@ -59,7 +59,7 @@ const _abi = [
 ];
 
 const _bytecode =
-  '0x60566037600b82828239805160001a607314602a57634e487b7160e01b600052600060045260246000fd5b30600052607381538281f3fe73000000000000000000000000000000000000000030146080604052600080fdfea26469706673582212207ec7a0fc2e2a60afbbf886e32acd48043681aaa4926864c2aa95a454a0fa346f64736f6c63430008140033';
+  '0x60566037600b82828239805160001a607314602a57634e487b7160e01b600052600060045260246000fd5b30600052607381538281f3fe73000000000000000000000000000000000000000030146080604052600080fdfea2646970667358221220ad9afa34c5d3eedd0d314d43c7c6e456a1de3338dc061554dcd3ea41e49c7dab64736f6c63430008140033';
 
 type MystikoSettingsErrorsConstructorParams =
   | [signer?: Signer]

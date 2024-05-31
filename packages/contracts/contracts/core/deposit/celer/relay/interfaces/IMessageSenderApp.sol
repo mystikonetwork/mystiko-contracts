@@ -18,11 +18,7 @@ interface IMessageSenderApp {
    * @param _dstChainId The destination chain ID.
    * @param _message Arbitrary message bytes to be decoded by the destination app contract.
    */
-  function sendMessage(
-    address _receiver,
-    uint256 _dstChainId,
-    bytes memory _message
-  ) external payable;
+  function sendMessage(address _receiver, uint256 _dstChainId, bytes memory _message) external payable;
 
   /**
    * @notice Sends a message associated with a transfer to a contract on another chain.

@@ -23,17 +23,13 @@ abstract contract MystikoV2Loop is IMystikoLoop, AssetPool {
   uint256 private defaultMaxAmount;
 
   // configure related.
-  MystikoSettings public settingsCenter;
+  MystikoSettings public settings;
 
-  constructor(
-    IHasher3 _hasher3,
-    address _settingsCenter,
-    LocalConfig memory _localConfig
-  ) {
+  constructor(IHasher3 _hasher3, address _settingsCenter, LocalConfig memory _localConfig) {
     hasher3 = _hasher3;
     defaultMinAmount = _localConfig.minAmount;
     defaultMaxAmount = _localConfig.maxAmount;
-    settingsCenter = MystikoSettings(_settingsCenter);
+    settings = MystikoSettings(_settingsCenter);
   }
 
   function _commitmentHash(
@@ -59,21 +55,21 @@ abstract contract MystikoV2Loop is IMystikoLoop, AssetPool {
     uint256 _certificateDeadline,
     bytes memory _certificateSignature
   ) external payable {
-    if (settingsCenter.queryDepositDisable(address(this))) revert CustomErrors.DepositsDisabled();
-    if(settingsCenter.checkEnabled()){
+    if (settings.queryDepositDisable(address(this))) revert CustomErrors.DepositsDisabled();
+    if (settings.checkEnabled()) {
       CertificateParams memory params = CertificateParams({
         account: tx.origin,
         asset: assetAddress(),
         deadline: _certificateDeadline,
         signature: _certificateSignature
       });
-      if (!settingsCenter.verifyCertificate(params)) revert CustomErrors.CertificateInvalid();
+      if (!settings.verifyCertificate(params)) revert CustomErrors.CertificateInvalid();
     }
     if (_request.amount < getMinAmount()) revert CustomErrors.AmountTooSmall();
     if (_request.amount > getMaxAmount()) revert CustomErrors.AmountTooLarge();
     uint256 calculatedCommitment = _commitmentHash(_request.hashK, _request.amount, _request.randomS);
     if (_request.commitment != calculatedCommitment) revert CustomErrors.CommitmentHashIncorrect();
-    if (settingsCenter.isSanctioned(tx.origin)) revert CustomErrors.SanctionedAddress();
+    if (settings.isSanctioned(tx.origin)) revert CustomErrors.SanctionedAddress();
 
     _processDeposit(_request.amount, _request.commitment, _request.rollupFee, _request.encryptedNote);
   }
@@ -101,22 +97,22 @@ abstract contract MystikoV2Loop is IMystikoLoop, AssetPool {
   }
 
   function getMinAmount() public view returns (uint256) {
-    uint256 minAmount = settingsCenter.queryMinDepositAmount(address(this));
+    uint256 minAmount = settings.queryMinDepositAmount(address(this));
     return minAmount == 0 ? defaultMinAmount : minAmount;
   }
 
   function getMaxAmount() public view returns (uint256) {
-    uint256 maxAmount = settingsCenter.queryMaxDepositAmount(address(this));
+    uint256 maxAmount = settings.queryMaxDepositAmount(address(this));
     return maxAmount == 0 ? defaultMaxAmount : maxAmount;
   }
 
   function getAssociatedCommitmentPool() public view returns (address) {
-    address pool = settingsCenter.queryAssociatedPool(address(this));
+    address pool = settings.queryAssociatedPool(address(this));
     if (pool == address(0)) revert CustomErrors.AssociatedPoolNotSet();
     return pool;
   }
 
   function isDepositsDisabled() public view returns (bool) {
-    return settingsCenter.queryDepositDisable(address(this));
+    return settings.queryDepositDisable(address(this));
   }
 }

@@ -11,7 +11,7 @@ import "@mystikonetwork/governance/contracts/token/MystikoVoteToken.sol";
 import "@mystikonetwork/governance/contracts/impl/MystikoGovernorRegistry.sol";
 import "@mystikonetwork/governance/contracts/GovernanceErrors.sol";
 import "../utils/Random.sol";
-import "../../contracts/pool/interfaces/IMystikoVerifierPool.sol";
+import "../../contracts/verifier/interfaces/IMystikoVerifierPool.sol";
 
 contract MystikoSettingsCenterTest is Test, Random {
   address public dao;
@@ -154,7 +154,7 @@ contract MystikoSettingsCenterTest is Test, Random {
     }
 
     vm.prank(dao);
-    vm.expectRevert(MystikoSettingsErrors.NumInputsGreaterThanZero.selector);
+    vm.expectRevert(MystikoSettingsErrors.InvalidInputsNumber.selector);
     settings.enableTransactVerifier(0, 0);
   }
 
@@ -179,7 +179,7 @@ contract MystikoSettingsCenterTest is Test, Random {
       }
     }
 
-    vm.expectRevert(MystikoSettingsErrors.NumInputsGreaterThanZero.selector);
+    vm.expectRevert(MystikoSettingsErrors.InvalidInputsNumber.selector);
     vm.prank(dao);
     settings.disableTransactVerifier(0, 0);
   }

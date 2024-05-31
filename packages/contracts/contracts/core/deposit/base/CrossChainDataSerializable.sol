@@ -7,11 +7,9 @@ import "../../../libs/utils/ZeroCopySource.sol";
 import "../../../interfaces/ICommitmentPool.sol";
 
 abstract contract CrossChainDataSerializable {
-  function serializeTxData(ICommitmentPool.CommitmentRequest memory _data)
-    internal
-    pure
-    returns (bytes memory)
-  {
+  function serializeTxData(
+    ICommitmentPool.CommitmentRequest memory _data
+  ) internal pure returns (bytes memory) {
     bytes memory buff;
     buff = abi.encodePacked(
       ZeroCopySink.WriteUint255(_data.amount),
@@ -23,11 +21,9 @@ abstract contract CrossChainDataSerializable {
     return buff;
   }
 
-  function deserializeTxData(bytes memory _rawData)
-    internal
-    pure
-    returns (ICommitmentPool.CommitmentRequest memory)
-  {
+  function deserializeTxData(
+    bytes memory _rawData
+  ) internal pure returns (ICommitmentPool.CommitmentRequest memory) {
     ICommitmentPool.CommitmentRequest memory data;
     uint256 off = 0;
     (data.amount, off) = ZeroCopySource.NextUint255(_rawData, off);

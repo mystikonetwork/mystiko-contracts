@@ -13,7 +13,7 @@ import {Strings} from "@openzeppelin/contracts/utils/Strings.sol";
 abstract contract MystikoV2Axelar is MystikoV2Bridge, IAxelarExecutable {
   event CallContractMessage(string peerChainName, string destinationAddress);
 
-  IAxelarGasService gasReceiver;
+  IAxelarGasService private gasReceiver;
 
   constructor(
     IHasher3 _hasher3,

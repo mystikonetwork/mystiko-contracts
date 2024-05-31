@@ -2,20 +2,20 @@ import { Wallet } from '@ethersproject/wallet';
 import {
   CommitmentPoolERC20,
   CommitmentPoolMain,
-  DummySanctionsList,
+  MockSanctionList,
   MystikoTBridgeProxy,
   MystikoV2TBridgeERC20,
   MystikoV2TBridgeMain,
-  TestToken,
+  MockToken,
 } from '@mystikonetwork/contracts-abi';
 import { MystikoProtocolV2, ProtocolFactoryV2 } from '@mystikonetwork/protocol';
 import { toDecimals } from '@mystikonetwork/utils';
 import { ZokratesNodeProverFactory } from '@mystikonetwork/zkp-node';
 import { waffle } from 'hardhat';
-import { constructCommitment, testBridgeAdminOperations, testBridgeConstructor } from '../../../common';
-import { testTBridgeProxyAdminOperations } from '../../../common/adminOperationTests';
+import { constructCommitment, testBridgeConstructor } from '../../../common';
 import { testTBridgeDeposit } from '../../../common/depositTBridgeTests';
 import {
+  associateContract,
   deployCommitmentPoolContracts,
   deployDependContracts,
   deployTBridgeContracts,
@@ -29,88 +29,59 @@ import {
   MaxAmount,
   MinAmount,
   MinBridgeFee,
-  MinExecutorFee,
-  MinRollupFee,
+  PeerMinExecutorFee,
+  PeerMinRollupFee,
+  SourceChainID,
 } from '../../../util/constants';
+import { expect } from 'chai';
+import { BigNumberish } from 'ethers';
+import { MystikoSettings } from '@mystikonetwork/contracts-abi-settings';
 
 describe('Test Mystiko tbridge', () => {
   async function fixture(accounts: Wallet[]) {
-    const {
-      testToken,
-      hasher3,
-      transaction1x0Verifier,
-      transaction1x1Verifier,
-      transaction1x2Verifier,
-      transaction2x0Verifier,
-      transaction2x1Verifier,
-      transaction2x2Verifier,
-      rollup1,
-      rollup4,
-      rollup16,
-      sanctionList,
-    } = await deployDependContracts(accounts);
+    const { mockToken, hasher3, mockSanctionList, settings } = await deployDependContracts(accounts);
 
-    const tbridge = await deployTbridgeProxyContracts(accounts);
+    const tbridgeProxy = await deployTbridgeProxyContracts(accounts);
 
-    const poolLocal = await deployCommitmentPoolContracts(
-      accounts,
-      testToken.address,
-      sanctionList.address,
-      {},
-    );
-    const poolRemote = await deployCommitmentPoolContracts(
-      accounts,
-      testToken.address,
-      sanctionList.address,
-      {},
-    );
+    const poolLocal = await deployCommitmentPoolContracts(accounts, mockToken.address, settings.address, {});
+    const poolRemote = await deployCommitmentPoolContracts(accounts, mockToken.address, settings.address, {});
 
     const local = await deployTBridgeContracts(
       accounts,
       hasher3.address,
-      testToken.address,
-      sanctionList.address,
-      tbridge,
-      poolLocal.poolMain,
-      poolLocal.poolERC20,
+      mockToken.address,
+      tbridgeProxy,
+      settings.address,
       {},
     );
 
     const remote = await deployTBridgeContracts(
       accounts,
       hasher3.address,
-      testToken.address,
-      sanctionList.address,
-      tbridge,
-      poolRemote.poolMain,
-      poolRemote.poolERC20,
+      mockToken.address,
+      tbridgeProxy,
+      settings.address,
       {},
     );
 
+    await associateContract(settings, local, remote, poolLocal, poolRemote);
+
     return {
-      testToken,
+      mockToken: mockToken,
       hasher3,
-      transaction1x0Verifier,
-      transaction1x1Verifier,
-      transaction1x2Verifier,
-      transaction2x0Verifier,
-      transaction2x1Verifier,
-      transaction2x2Verifier,
-      rollup1,
-      rollup4,
-      rollup16,
       poolLocal,
       poolRemote,
       local,
       remote,
-      tbridge,
-      sanctionList,
+      tbridgeProxy,
+      mockSanctionList,
+      settings,
     };
   }
 
   let accounts: Wallet[];
-  let testToken: TestToken;
-  let sanctionList: DummySanctionsList;
+  let mockToken: MockToken;
+  let mockSanctionList: MockSanctionList;
   let tbridgeProxy: MystikoTBridgeProxy;
   let localPoolMain: CommitmentPoolMain;
   let remotePoolMain: CommitmentPoolMain;
@@ -121,6 +92,7 @@ describe('Test Mystiko tbridge', () => {
   let remoteERC20: MystikoV2TBridgeERC20;
   let remoteMain: MystikoV2TBridgeMain;
   let protocol: MystikoProtocolV2;
+  let settings: MystikoSettings;
 
   beforeEach(async () => {
     accounts = waffle.provider.getWallets();
@@ -128,7 +100,8 @@ describe('Test Mystiko tbridge', () => {
     protocol = await protocolFactory.create();
 
     const r = await loadFixture(fixture);
-    testToken = r.testToken;
+
+    mockToken = r.mockToken;
     localPoolMain = r.poolLocal.poolMain;
     localPoolERC20 = r.poolLocal.poolERC20;
     remotePoolMain = r.poolRemote.poolMain;
@@ -137,12 +110,12 @@ describe('Test Mystiko tbridge', () => {
     localERC20 = r.local.coreERC20;
     remoteMain = r.remote.coreMain;
     remoteERC20 = r.remote.coreERC20;
-    sanctionList = r.sanctionList;
-    tbridgeProxy = r.tbridge;
+    mockSanctionList = r.mockSanctionList;
+    tbridgeProxy = r.tbridgeProxy;
+    settings = r.settings;
   });
 
   it('test constructor', async () => {
-    await localMain.setPeerContract(DestinationChainID, '', remoteMain.address);
     testBridgeConstructor(
       'MystikoV2TBridgeMain',
       localMain,
@@ -150,11 +123,12 @@ describe('Test Mystiko tbridge', () => {
       MinAmount,
       MaxAmount,
       MinBridgeFee,
-      MinExecutorFee,
-      MinRollupFee,
+      PeerMinExecutorFee,
+      PeerMinRollupFee,
+      DestinationChainID,
+      remoteMain.address,
     );
 
-    await localERC20.setPeerContract(DestinationChainID, '', remoteERC20.address);
     testBridgeConstructor(
       'MystikoV2TBridgeERC20',
       localERC20,
@@ -162,14 +136,14 @@ describe('Test Mystiko tbridge', () => {
       MinAmount,
       MaxAmount,
       MinBridgeFee,
-      MinExecutorFee,
-      MinRollupFee,
+      PeerMinExecutorFee,
+      PeerMinRollupFee,
+      DestinationChainID,
+      remoteERC20.address,
     );
   });
 
   it('test admin operation', () => {
-    testBridgeAdminOperations('MystikoV2TBridgeMain', localMain, accounts, {});
-    testBridgeAdminOperations('MystikoV2TBridgeERC20', localERC20, accounts, {});
     testTBridgeProxyAdminOperations('MystikoTBridgeProxy', tbridgeProxy, accounts);
   });
 
@@ -184,9 +158,10 @@ describe('Test Mystiko tbridge', () => {
       localPoolMain,
       remoteMain,
       remotePoolMain,
-      sanctionList,
+      mockSanctionList,
       tbridgeProxy,
-      testToken,
+      mockToken,
+      settings,
       accounts,
       depositAmount.toString(),
       true,
@@ -205,7 +180,7 @@ describe('Test Mystiko tbridge', () => {
   //     localMain,
   //     remoteERC20,
   //     proxy,
-  //     testToken,
+  //     mockToken,
   //     accounts,
   //     depositAmount.toString(),
   //     true,
@@ -224,7 +199,7 @@ describe('Test Mystiko tbridge', () => {
   //     localERC20,
   //     remoteMain,
   //     proxy,
-  //     testToken,
+  //     mockToken,
   //     accounts,
   //     depositAmount.toString(),
   //     false,
@@ -244,9 +219,10 @@ describe('Test Mystiko tbridge', () => {
       localPoolERC20,
       remoteERC20,
       remotePoolERC20,
-      sanctionList,
+      mockSanctionList,
       tbridgeProxy,
-      testToken,
+      mockToken,
+      settings,
       accounts,
       depositAmount.toString(),
       false,
@@ -255,3 +231,32 @@ describe('Test Mystiko tbridge', () => {
     );
   });
 });
+
+function testTBridgeProxyAdminOperations(
+  contractName: string,
+  tbridgeProxy: MystikoTBridgeProxy,
+  accounts: any[],
+) {
+  describe(`Test ${contractName} admin operations`, () => {
+    before(async () => {});
+
+    it('should changeOperator correctly', async () => {
+      await expect(tbridgeProxy.connect(accounts[1]).changeOperator(accounts[1].address)).to.be.revertedWith(
+        'OnlyOperator()',
+      );
+    });
+
+    // todo check executor/register/withdraw
+    it('should remove executor whitelist correctly', async () => {
+      await tbridgeProxy.removeExecutorWhitelist(accounts[1].address);
+    });
+
+    it('should remove register whitelist correctly', async () => {
+      await tbridgeProxy.removeRegisterWhitelist(accounts[1].address);
+    });
+
+    it('should remove executor whitelist correctly', async () => {
+      await tbridgeProxy.withdraw(accounts[1].address);
+    });
+  });
+}

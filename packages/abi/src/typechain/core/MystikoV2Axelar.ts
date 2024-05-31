@@ -87,11 +87,12 @@ export interface MystikoV2AxelarInterface extends utils.Interface {
     'getPeerMinExecutorFee()': FunctionFragment;
     'getPeerMinRollupFee()': FunctionFragment;
     'isDepositsDisabled()': FunctionFragment;
+    'isPeerContractSet()': FunctionFragment;
     'peerChainId()': FunctionFragment;
     'peerChainName()': FunctionFragment;
     'peerContract()': FunctionFragment;
     'setPeerContract((uint64,string,address))': FunctionFragment;
-    'settingsCenter()': FunctionFragment;
+    'settings()': FunctionFragment;
   };
 
   encodeFunctionData(functionFragment: 'assetAddress', values?: undefined): string;
@@ -121,6 +122,7 @@ export interface MystikoV2AxelarInterface extends utils.Interface {
   encodeFunctionData(functionFragment: 'getPeerMinExecutorFee', values?: undefined): string;
   encodeFunctionData(functionFragment: 'getPeerMinRollupFee', values?: undefined): string;
   encodeFunctionData(functionFragment: 'isDepositsDisabled', values?: undefined): string;
+  encodeFunctionData(functionFragment: 'isPeerContractSet', values?: undefined): string;
   encodeFunctionData(functionFragment: 'peerChainId', values?: undefined): string;
   encodeFunctionData(functionFragment: 'peerChainName', values?: undefined): string;
   encodeFunctionData(functionFragment: 'peerContract', values?: undefined): string;
@@ -128,7 +130,7 @@ export interface MystikoV2AxelarInterface extends utils.Interface {
     functionFragment: 'setPeerContract',
     values: [IMystikoBridge.PeerContractStruct],
   ): string;
-  encodeFunctionData(functionFragment: 'settingsCenter', values?: undefined): string;
+  encodeFunctionData(functionFragment: 'settings', values?: undefined): string;
 
   decodeFunctionResult(functionFragment: 'assetAddress', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'assetType', data: BytesLike): Result;
@@ -151,11 +153,12 @@ export interface MystikoV2AxelarInterface extends utils.Interface {
   decodeFunctionResult(functionFragment: 'getPeerMinExecutorFee', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'getPeerMinRollupFee', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'isDepositsDisabled', data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'isPeerContractSet', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'peerChainId', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'peerChainName', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'peerContract', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'setPeerContract', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'settingsCenter', data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'settings', data: BytesLike): Result;
 
   events: {
     'CallContractMessage(string,string)': EventFragment;
@@ -265,6 +268,8 @@ export interface MystikoV2Axelar extends BaseContract {
 
     isDepositsDisabled(overrides?: CallOverrides): Promise<[boolean]>;
 
+    isPeerContractSet(overrides?: CallOverrides): Promise<[boolean]>;
+
     peerChainId(overrides?: CallOverrides): Promise<[BigNumber]>;
 
     peerChainName(overrides?: CallOverrides): Promise<[string]>;
@@ -276,7 +281,7 @@ export interface MystikoV2Axelar extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<ContractTransaction>;
 
-    settingsCenter(overrides?: CallOverrides): Promise<[string]>;
+    settings(overrides?: CallOverrides): Promise<[string]>;
   };
 
   assetAddress(overrides?: CallOverrides): Promise<string>;
@@ -343,6 +348,8 @@ export interface MystikoV2Axelar extends BaseContract {
 
   isDepositsDisabled(overrides?: CallOverrides): Promise<boolean>;
 
+  isPeerContractSet(overrides?: CallOverrides): Promise<boolean>;
+
   peerChainId(overrides?: CallOverrides): Promise<BigNumber>;
 
   peerChainName(overrides?: CallOverrides): Promise<string>;
@@ -354,7 +361,7 @@ export interface MystikoV2Axelar extends BaseContract {
     overrides?: Overrides & { from?: string | Promise<string> },
   ): Promise<ContractTransaction>;
 
-  settingsCenter(overrides?: CallOverrides): Promise<string>;
+  settings(overrides?: CallOverrides): Promise<string>;
 
   callStatic: {
     assetAddress(overrides?: CallOverrides): Promise<string>;
@@ -418,6 +425,8 @@ export interface MystikoV2Axelar extends BaseContract {
 
     isDepositsDisabled(overrides?: CallOverrides): Promise<boolean>;
 
+    isPeerContractSet(overrides?: CallOverrides): Promise<boolean>;
+
     peerChainId(overrides?: CallOverrides): Promise<BigNumber>;
 
     peerChainName(overrides?: CallOverrides): Promise<string>;
@@ -429,7 +438,7 @@ export interface MystikoV2Axelar extends BaseContract {
       overrides?: CallOverrides,
     ): Promise<void>;
 
-    settingsCenter(overrides?: CallOverrides): Promise<string>;
+    settings(overrides?: CallOverrides): Promise<string>;
   };
 
   filters: {
@@ -508,6 +517,8 @@ export interface MystikoV2Axelar extends BaseContract {
 
     isDepositsDisabled(overrides?: CallOverrides): Promise<BigNumber>;
 
+    isPeerContractSet(overrides?: CallOverrides): Promise<BigNumber>;
+
     peerChainId(overrides?: CallOverrides): Promise<BigNumber>;
 
     peerChainName(overrides?: CallOverrides): Promise<BigNumber>;
@@ -519,7 +530,7 @@ export interface MystikoV2Axelar extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<BigNumber>;
 
-    settingsCenter(overrides?: CallOverrides): Promise<BigNumber>;
+    settings(overrides?: CallOverrides): Promise<BigNumber>;
   };
 
   populateTransaction: {
@@ -587,6 +598,8 @@ export interface MystikoV2Axelar extends BaseContract {
 
     isDepositsDisabled(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
+    isPeerContractSet(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+
     peerChainId(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     peerChainName(overrides?: CallOverrides): Promise<PopulatedTransaction>;
@@ -598,6 +611,6 @@ export interface MystikoV2Axelar extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<PopulatedTransaction>;
 
-    settingsCenter(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+    settings(overrides?: CallOverrides): Promise<PopulatedTransaction>;
   };
 }

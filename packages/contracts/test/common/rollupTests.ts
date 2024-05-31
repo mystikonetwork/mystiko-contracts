@@ -1,5 +1,5 @@
 import { Wallet } from '@ethersproject/wallet';
-import { TestToken } from '@mystikonetwork/contracts-abi';
+import { MockToken } from '@mystikonetwork/contracts-abi';
 import { MerkleTree } from '@mystikonetwork/merkle';
 import { CommitmentOutput, MystikoProtocolV2 } from '@mystikonetwork/protocol';
 import { readCompressedFile, readFile, toBN } from '@mystikonetwork/utils';
@@ -9,26 +9,16 @@ import {
   CircuitsPath,
   MerkleTreeHeight,
   MinRollupFee,
+  PeerMinRollupFee,
   RollupAccountIndex1,
   RollupAccountIndex2,
 } from '../util/constants';
-
-async function enableRollupVerifier(
-  mystikoContract: any,
-  rollupVerifierContract: any,
-  rollupSize: number,
-  rollupAccount1: Wallet,
-  rollupAccount2: Wallet,
-) {
-  await mystikoContract.enableRollupVerifier(rollupSize, rollupVerifierContract.address);
-  await mystikoContract.addRollupWhitelist(rollupAccount1.address);
-  await mystikoContract.addRollupWhitelist(rollupAccount2.address);
-}
+import { MystikoRollerPool, MystikoSettings } from '@mystikonetwork/contracts-abi-settings';
 
 async function generateProof(
   protocol: MystikoProtocolV2,
   commitments: CommitmentOutput[],
-  mystikoContract: any,
+  depositContract: any,
   treeHeight: number,
   rollupSize: number,
   includedCount: number,
@@ -105,8 +95,9 @@ export function testRollup(
   contractName: string,
   protocol: MystikoProtocolV2,
   commitmentPoolContract: any,
-  rollupVerifierContract: any,
-  testTokenContract: TestToken,
+  mockToken: MockToken,
+  settings: MystikoSettings,
+  rollerPool: MystikoRollerPool,
   accounts: Wallet[],
   commitments: any[],
   {
@@ -123,14 +114,9 @@ export function testRollup(
 
   describe(`Test ${contractName} rollup${rollupSize} operation`, () => {
     before(async () => {
-      await enableRollupVerifier(
-        commitmentPoolContract,
-        rollupVerifierContract,
-        rollupSize,
-        rollupAccount,
-        rollupAccount2,
-      );
-
+      const rollerRole = await rollerPool.ROLLER_ROLE();
+      await rollerPool.grantRole(rollerRole, rollupAccount.address);
+      await rollerPool.grantRole(rollerRole, rollupAccount2.address);
       proof = await generateProof(
         protocol,
         commitments,
@@ -141,13 +127,12 @@ export function testRollup(
       );
     });
 
-    it('should revert when not in white list', async () => {
-      await commitmentPoolContract.setRollupWhitelistDisabled(false);
+    it('should revert when not roller role', async () => {
       await expect(
         commitmentPoolContract
           .connect(accounts[0])
           .rollup([[proof.proofA, proof.proofB, proof.proofC], 1234, proof.newRoot, proof.leafHash]),
-      ).to.be.revertedWith('OnlyWhitelistedRoller()');
+      ).to.be.revertedWith('0x2bb7f0d4'); // GovernanceErrors.UnauthorizedRole();
     });
 
     it('should revert verifier invalid param', async () => {
@@ -164,7 +149,7 @@ export function testRollup(
         commitmentPoolContract
           .connect(rollupAccount)
           .rollup([[proof.proofA, proof.proofB, proof.proofC], 0, proof.newRoot, proof.leafHash]),
-      ).to.be.revertedWith('Invalid("rollupSize")');
+      ).to.be.revertedWith('0xa8530bd8'); //RollupSizeTooSmall();
     });
 
     it('should revert invalid rollup Size 1234', async () => {
@@ -176,7 +161,8 @@ export function testRollup(
     });
 
     it('should revert invalid rollup Size when disable verifier', async () => {
-      await commitmentPoolContract.disableRollupVerifier(rollupSize);
+      await settings.disableRollupVerifier(rollupSize);
+      const expectRevertError = `RollupVerifierDisabled(${rollupSize})`;
       await expect(
         commitmentPoolContract
           .connect(rollupAccount)
@@ -186,8 +172,8 @@ export function testRollup(
             proof.newRoot,
             proof.leafHash,
           ]),
-      ).to.be.revertedWith('Invalid("rollupSize")');
-      await commitmentPoolContract.enableRollupVerifier(rollupSize, rollupVerifierContract.address);
+      ).to.be.revertedWith(expectRevertError);
+      await settings.enableRollupVerifier(rollupSize);
     });
 
     it('should revert wrong proof', async () => {
@@ -232,7 +218,7 @@ export function testRollup(
     it('test rollup should rollup successfully', async () => {
       const balanceBefore = isMainAsset
         ? await waffle.provider.getBalance(rollupAccount2.address)
-        : await testTokenContract.balanceOf(rollupAccount2.address);
+        : await mockToken.balanceOf(rollupAccount2.address);
       const beforeQueuedSize = (await commitmentPoolContract.getCommitmentQueuedCount()).toNumber();
       const beforeIncludedCount = (await commitmentPoolContract.getCommitmentIncludedCount()).toNumber();
       const beforeCommitmentsCount = (await commitmentPoolContract.getCommitmentCount()).toNumber();
@@ -258,7 +244,7 @@ export function testRollup(
 
       const balanceAfter = isMainAsset
         ? await waffle.provider.getBalance(rollupAccount2.address)
-        : await testTokenContract.balanceOf(rollupAccount2.address);
+        : await mockToken.balanceOf(rollupAccount2.address);
 
       const totalRollupFee = isMainAsset
         ? balanceAfter.add(totalGasFee).sub(balanceBefore)
@@ -281,12 +267,7 @@ export function testRollup(
       await expect(
         commitmentPoolContract
           .connect(rollupAccount)
-          .rollup([
-            [proof.proofA, proof.proofB, proof.proofC],
-            `${rollupSize}`,
-            proof.newRoot,
-            proof.leafHash,
-          ]),
+          .rollup([[proof.proofA, proof.proofB, proof.proofC], 1, proof.newRoot, proof.leafHash]),
       ).to.be.revertedWith('NewRootIsDuplicated()');
     });
   });
@@ -296,13 +277,13 @@ export function rollup(
   contractName: string,
   protocol: MystikoProtocolV2,
   commitmentPoolContract: any,
-  rollupVerifierContract: any,
-  testTokenContract: TestToken,
+  mockToken: MockToken,
+  rollerPool: MystikoRollerPool,
   accounts: Wallet[],
   commitments: any[],
   {
     isMainAsset = true,
-    rollupFee = MinRollupFee,
+    rollupFee = PeerMinRollupFee,
     rollupSize = 4,
     includedCount = 0,
     treeHeight = MerkleTreeHeight,
@@ -314,14 +295,9 @@ export function rollup(
 
   describe(`${contractName} rollup${rollupSize} operation`, () => {
     before(async () => {
-      await enableRollupVerifier(
-        commitmentPoolContract,
-        rollupVerifierContract,
-        rollupSize,
-        rollupAccount,
-        rollupAccount2,
-      );
-
+      const rollerRole = await rollerPool.ROLLER_ROLE();
+      await rollerPool.grantRole(rollerRole, rollupAccount.address);
+      await rollerPool.grantRole(rollerRole, rollupAccount2.address);
       proof = await generateProof(
         protocol,
         commitments,
@@ -335,7 +311,7 @@ export function rollup(
     it('rollup should rollup successfully', async () => {
       const balanceBefore = isMainAsset
         ? await waffle.provider.getBalance(rollupAccount2.address)
-        : await testTokenContract.balanceOf(rollupAccount2.address);
+        : await mockToken.balanceOf(rollupAccount2.address);
 
       const rollupTx = await commitmentPoolContract
         .connect(rollupAccount2)
@@ -346,7 +322,7 @@ export function rollup(
 
       const balanceAfter = isMainAsset
         ? await waffle.provider.getBalance(rollupAccount2.address)
-        : await testTokenContract.balanceOf(rollupAccount2.address);
+        : await mockToken.balanceOf(rollupAccount2.address);
 
       const totalRollupFee = isMainAsset
         ? balanceAfter.add(totalGasFee).sub(balanceBefore)

@@ -13,7 +13,7 @@ import {ECDSA} from "@openzeppelin/contracts/utils/cryptography/ECDSA.sol";
 import {SafeCast} from "@openzeppelin/contracts/utils/math/SafeCast.sol";
 import {RollerValidateParams} from "@mystikonetwork/contracts-settings/contracts/miner/interfaces/IMystikoRollerPool.sol";
 import {RelayerValidateParams} from "@mystikonetwork/contracts-settings/contracts/miner/interfaces/IMystikoRelayerPool.sol";
-import {WrappedVerifier} from "@mystikonetwork/contracts-settings/contracts/pool/interfaces/IMystikoVerifierPool.sol";
+import {WrappedVerifier} from "@mystikonetwork/contracts-settings/contracts/verifier/interfaces/IMystikoVerifierPool.sol";
 import {MystikoSettings} from "@mystikonetwork/contracts-settings/contracts/MystikoSettings.sol";
 
 abstract contract CommitmentPool is ICommitmentPool, AssetPool, ReentrancyGuard {
@@ -53,7 +53,7 @@ abstract contract CommitmentPool is ICommitmentPool, AssetPool, ReentrancyGuard 
   uint256 public defaultMinRollupFee;
 
   // configure related.
-  MystikoSettings public settingsCenter;
+  MystikoSettings public settings;
 
   event CommitmentQueued(
     uint256 indexed commitment,
@@ -67,17 +67,13 @@ abstract contract CommitmentPool is ICommitmentPool, AssetPool, ReentrancyGuard 
   event EncryptedAuditorNote(uint64 id, uint256 auditorPublicKey, uint256 encryptedAuditorNote);
   event EncryptedAuditorNotes(AuditorNote[] notes);
 
-  constructor(
-    uint8 _treeHeight,
-    uint256 _minRollupFee,
-    address _settingsCenter
-  ) {
+  constructor(uint8 _treeHeight, uint256 _minRollupFee, address _settingsCenter) {
     if (_treeHeight == 0) revert CustomErrors.TreeHeightLessThanZero();
     treeCapacity = 1 << _treeHeight;
     currentRoot = _zeros(_treeHeight);
     rootHistory[currentRoot] = true;
     defaultMinRollupFee = _minRollupFee;
-    settingsCenter = MystikoSettings(_settingsCenter);
+    settings = MystikoSettings(_settingsCenter);
   }
 
   /* @notice              Check commitment request parameter and insert commitment into commitment queue
@@ -86,7 +82,7 @@ abstract contract CommitmentPool is ICommitmentPool, AssetPool, ReentrancyGuard 
    *  @return             True means commitment success insert into commitment queue , or exception and return false.
    */
   function enqueue(CommitmentRequest memory _request, address _executor) external override {
-    address associatePool = settingsCenter.queryAssociatedPool(msg.sender);
+    address associatePool = settings.queryAssociatedPool(msg.sender);
     if (associatePool != address(this)) revert CustomErrors.AssociatedPoolNotMatched();
     uint256 minRollupFee = getMinRollupFee();
     if (_request.rollupFee < minRollupFee) revert CustomErrors.RollupFeeToFew();
@@ -114,12 +110,12 @@ abstract contract CommitmentPool is ICommitmentPool, AssetPool, ReentrancyGuard 
       queueCount: queueCount,
       includedCount: includedCount
     });
-    if (!settingsCenter.validate(_params)) revert CustomErrors.RejectRollup();
+    if (!settings.validate(_params)) revert CustomErrors.RejectRollup();
     if (rootHistory[_request.newRoot]) revert CustomErrors.NewRootIsDuplicated();
-    WrappedVerifier memory wVerifier = settingsCenter.queryRollupVerifier(_request.rollupSize);
-    if (!wVerifier.enabled) revert CustomErrors.RollupDisabled(_request.rollupSize);
     if (_request.rollupSize > queueCount) revert CustomErrors.Invalid("rollupSize");
     if (includedCount % _request.rollupSize != 0) revert CustomErrors.Invalid("rollupSize");
+    WrappedVerifier memory wVerifier = settings.queryRollupVerifier(_request.rollupSize);
+    if (!wVerifier.enabled) revert CustomErrors.RollupVerifierDisabled(_request.rollupSize);
     uint256 pathIndices = _pathIndices(includedCount, _request.rollupSize);
     uint256[] memory leaves = new uint256[](_request.rollupSize);
     uint256 totalRollupFee = 0;
@@ -155,22 +151,25 @@ abstract contract CommitmentPool is ICommitmentPool, AssetPool, ReentrancyGuard 
   function transact(TransactRequest memory _request, bytes memory _signature) external override nonReentrant {
     uint32 numInputs = SafeCast.toUint32(_request.serialNumbers.length);
     uint32 numOutputs = SafeCast.toUint32(_request.outCommitments.length);
-    if (settingsCenter.queryTransferDisable(address(this)) && numOutputs != 0)
-      revert CustomErrors.TransactDisabled(numInputs, numOutputs);
+    if (settings.queryTransferDisable(address(this)) && numOutputs != 0)
+      revert CustomErrors.TransactVerifierDisabled(numInputs, numOutputs);
     if (_request.relayerFeeAmount > 0) {
-      RelayerValidateParams memory _params = RelayerValidateParams({pool: address(this), relayer: msg.sender});
-      if (!settingsCenter.validate(_params)) revert CustomErrors.RejectRelay();
+      RelayerValidateParams memory _params = RelayerValidateParams({
+        pool: address(this),
+        relayer: msg.sender
+      });
+      if (!settings.validate(_params)) revert CustomErrors.RejectRelay();
     }
-    WrappedVerifier memory wVerifier = settingsCenter.queryTransactVerifier(numInputs, numOutputs);
-    if (!wVerifier.enabled) revert CustomErrors.TransactDisabled(numInputs, numOutputs);
+    WrappedVerifier memory wVerifier = settings.queryTransactVerifier(numInputs, numOutputs);
+    if (!wVerifier.enabled) revert CustomErrors.TransactVerifierDisabled(numInputs, numOutputs);
     if (_request.sigHashes.length != numInputs) revert CustomErrors.Invalid("sigHashes length");
     if (_request.outRollupFees.length != numOutputs) revert CustomErrors.Invalid("outRollupFees length");
     if (_request.outEncryptedNotes.length != numOutputs)
       revert CustomErrors.Invalid("outEncryptedNotes length");
     if (commitmentIncludedCount + commitmentQueueSize + numOutputs > treeCapacity)
       revert CustomErrors.TreeIsFull();
-    if (settingsCenter.isSanctioned(tx.origin)) revert CustomErrors.SanctionedAddress();
-    if (settingsCenter.isSanctioned(_request.publicRecipient)) revert CustomErrors.SanctionedAddress();
+    if (settings.isSanctioned(tx.origin)) revert CustomErrors.SanctionedAddress();
+    if (settings.isSanctioned(_request.publicRecipient)) revert CustomErrors.SanctionedAddress();
     if (_request.encryptedAuditorNotes.length != numInputs * AUDITOR_COUNT)
       revert CustomErrors.AuditorNotesLengthError();
 
@@ -265,7 +264,7 @@ abstract contract CommitmentPool is ICommitmentPool, AssetPool, ReentrancyGuard 
   }
 
   function getMinRollupFee() public view returns (uint256) {
-    uint256 minRollupFee = settingsCenter.queryMinRollupFee(address(this));
+    uint256 minRollupFee = settings.queryMinRollupFee(address(this));
     return minRollupFee == 0 ? defaultMinRollupFee : minRollupFee;
   }
 
@@ -295,18 +294,14 @@ abstract contract CommitmentPool is ICommitmentPool, AssetPool, ReentrancyGuard 
   }
 
   function getAuditorPublicKey(uint256 _index) public view returns (uint256) {
-    return settingsCenter.queryAuditorPublicKey(_index);
+    return settings.queryAuditorPublicKey(_index);
   }
 
   function getAllAuditorPublicKeys() public view returns (uint256[] memory) {
-    return settingsCenter.queryAllAuditorPublicKeys();
+    return settings.queryAllAuditorPublicKeys();
   }
 
-  function _enqueueCommitment(
-    uint256 _commitment,
-    uint256 _rollupFee,
-    bytes memory _encryptedNote
-  ) internal {
+  function _enqueueCommitment(uint256 _commitment, uint256 _rollupFee, bytes memory _encryptedNote) internal {
     uint256 leafIndex = commitmentQueueSize + commitmentIncludedCount;
     commitmentQueue[leafIndex] = CommitmentLeaf(_commitment, _rollupFee);
     commitmentQueueSize += 1;
@@ -451,7 +446,7 @@ abstract contract CommitmentPool is ICommitmentPool, AssetPool, ReentrancyGuard 
     inputs[previousIndex + 1] = unpackedAuditingPublicKey.y;
 
     uint256 auditorCount = AUDITOR_COUNT;
-    uint256[] memory auditorPublicKeys = settingsCenter.queryAllAuditorPublicKeys();
+    uint256[] memory auditorPublicKeys = settings.queryAllAuditorPublicKeys();
     uint256 nextIndex = previousIndex + 2;
     uint256 updatedIndex = nextIndex + auditorCount;
     uint256 adjustedIndex = nextIndex + 2 * auditorCount;
@@ -468,7 +463,7 @@ abstract contract CommitmentPool is ICommitmentPool, AssetPool, ReentrancyGuard 
 
   function _emitAuditingNotes(TransactRequest memory _request) internal {
     uint256 auditorCount = AUDITOR_COUNT;
-    uint256[] memory auditorPublicKeys = settingsCenter.queryAllAuditorPublicKeys();
+    uint256[] memory auditorPublicKeys = settings.queryAllAuditorPublicKeys();
     uint256 auditorNoteCount = _request.serialNumbers.length * auditorCount;
     AuditorNote[] memory auditorNotes = new AuditorNote[](auditorNoteCount);
 

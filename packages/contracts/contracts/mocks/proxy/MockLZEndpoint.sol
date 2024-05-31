@@ -132,7 +132,7 @@ contract MockLZEndpoint is ILayerZeroEndpoint {
     bytes calldata _srcAddress,
     address _dstAddress,
     uint64 _nonce,
-    uint256, /*_gasLimit*/
+    uint256 /*_gasLimit*/,
     bytes calldata _payload
   ) external override {
     StoredPayload storage sp = storedPayload[_srcChainId][_srcAddress];
@@ -221,47 +221,37 @@ contract MockLZEndpoint is ILayerZeroEndpoint {
   }
 
   function setConfig(
-    uint16, /*_version*/
-    uint16, /*_chainId*/
-    uint256, /*_configType*/
+    uint16 /*_version*/,
+    uint16 /*_chainId*/,
+    uint256 /*_configType*/,
     bytes memory /*_config*/
   ) external override {}
 
   function getConfig(
-    uint16, /*_version*/
-    uint16, /*_chainId*/
-    address, /*_ua*/
+    uint16 /*_version*/,
+    uint16 /*_chainId*/,
+    address /*_ua*/,
     uint256 /*_configType*/
   ) external pure override returns (bytes memory) {
     return "";
   }
 
-  function setSendVersion(
-    uint16 /*version*/
-  ) external override {}
+  function setSendVersion(uint16 /*version*/) external override {}
 
-  function setReceiveVersion(
-    uint16 /*version*/
-  ) external override {}
+  function setReceiveVersion(uint16 /*version*/) external override {}
 
-  function getSendVersion(
-    address /*_userApplication*/
-  ) external pure override returns (uint16) {
+  function getSendVersion(address /*_userApplication*/) external pure override returns (uint16) {
     return 1;
   }
 
-  function getReceiveVersion(
-    address /*_userApplication*/
-  ) external pure override returns (uint16) {
+  function getReceiveVersion(address /*_userApplication*/) external pure override returns (uint16) {
     return 1;
   }
 
-  function getInboundNonce(uint16 _chainID, bytes calldata _srcAddress)
-    external
-    view
-    override
-    returns (uint64)
-  {
+  function getInboundNonce(
+    uint16 _chainID,
+    bytes calldata _srcAddress
+  ) external view override returns (uint64) {
     return inboundNonce[_chainID][_srcAddress];
   }
 
@@ -327,12 +317,10 @@ contract MockLZEndpoint is ILayerZeroEndpoint {
     emit PayloadCleared(_srcChainId, _srcAddress, nonce, dstAddress);
   }
 
-  function hasStoredPayload(uint16 _srcChainId, bytes calldata _srcAddress)
-    external
-    view
-    override
-    returns (bool)
-  {
+  function hasStoredPayload(
+    uint16 _srcChainId,
+    bytes calldata _srcAddress
+  ) external view override returns (bool) {
     StoredPayload storage sp = storedPayload[_srcChainId][_srcAddress];
     return sp.payloadHash != bytes32(0);
   }

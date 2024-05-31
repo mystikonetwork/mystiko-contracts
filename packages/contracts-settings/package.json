@@ -27,7 +27,7 @@
     "build:abi": "cd ../.. && lerna run generate --scope @mystikonetwork/contracts-abi-settings",
     "build:contract": "hardhat compile",
     "test": "yarn test:forge && yarn test:unit",
-    "test:forge": "forge test -vvv --lib-paths=../../node_modules",
+    "test:forge": "forge test -vvv --lib-paths=../../node_modules --lib-paths=../../foundry",
     "test:unit": "hardhat test --parallel --network hardhat"
   },
   "devDependencies": {

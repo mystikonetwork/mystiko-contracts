@@ -97,9 +97,5 @@ interface IAxelarGasService {
 
   function collectFees(address payable receiver, address[] calldata tokens) external;
 
-  function refund(
-    address payable receiver,
-    address token,
-    uint256 amount
-  ) external;
+  function refund(address payable receiver, address token, uint256 amount) external;
 }

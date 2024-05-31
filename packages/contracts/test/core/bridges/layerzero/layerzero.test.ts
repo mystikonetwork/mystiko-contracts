@@ -1,10 +1,10 @@
 import { Wallet } from '@ethersproject/wallet';
 import {
   CommitmentPoolMain,
-  DummyLZEndpoint,
-  DummySanctionsList,
+  MockLZEndpoint,
+  MockSanctionList,
   MystikoV2LayerZeroMain,
-  TestToken,
+  MockToken,
 } from '@mystikonetwork/contracts-abi';
 import { MystikoProtocolV2, ProtocolFactoryV2 } from '@mystikonetwork/protocol';
 import { toDecimals } from '@mystikonetwork/utils';
@@ -15,9 +15,10 @@ import { testLayerZeroDeposit } from '../../../common/depositLayerZeroTests';
 import {
   deployCommitmentPoolContracts,
   deployDependContracts,
-  deployDummyLayerZeroContracts,
+  deployMockLayerZeroContracts,
   deployLayerZeroContracts,
   loadFixture,
+  associateContract,
 } from '../../../util/common';
 
 // @ts-ignore
@@ -27,93 +28,62 @@ import {
   MaxAmount,
   MinAmount,
   MinBridgeFee,
-  MinRollupFee,
+  PeerMinRollupFee,
 } from '../../../util/constants';
+import { MystikoSettings } from '@mystikonetwork/contracts-abi-settings';
 
 describe('Test Mystiko layer zero', () => {
   async function fixture(accounts: Wallet[]) {
-    const {
-      testToken,
-      hasher3,
-      transaction1x0Verifier,
-      transaction1x1Verifier,
-      transaction1x2Verifier,
-      transaction2x0Verifier,
-      transaction2x1Verifier,
-      transaction2x2Verifier,
-      rollup1,
-      rollup4,
-      rollup16,
-      sanctionList,
-    } = await deployDependContracts(accounts);
+    const { mockToken, hasher3, mockSanctionList, settings } = await deployDependContracts(accounts);
 
-    const dummyLZEndpoint = await deployDummyLayerZeroContracts(accounts);
+    const dummyLZEndpoint = await deployMockLayerZeroContracts(accounts);
 
-    const poolLocal = await deployCommitmentPoolContracts(
-      accounts,
-      testToken.address,
-      sanctionList.address,
-      {},
-    );
-    const poolRemote = await deployCommitmentPoolContracts(
-      accounts,
-      testToken.address,
-      sanctionList.address,
-      {},
-    );
+    const poolLocal = await deployCommitmentPoolContracts(accounts, mockToken.address, settings.address, {});
+    const poolRemote = await deployCommitmentPoolContracts(accounts, mockToken.address, settings.address, {});
 
     const local = await deployLayerZeroContracts(
       accounts,
       hasher3.address,
-      testToken.address,
-      sanctionList.address,
+      mockToken.address,
       dummyLZEndpoint,
-      poolLocal.poolMain,
-      poolLocal.poolERC20,
-      { minExecutorFee: '0' },
+      settings.address,
+      { peerMinExecutorFee: '0' },
     );
 
     const remote = await deployLayerZeroContracts(
       accounts,
       hasher3.address,
-      testToken.address,
-      sanctionList.address,
+      mockToken.address,
       dummyLZEndpoint,
-      poolRemote.poolMain,
-      poolRemote.poolERC20,
-      { minExecutorFee: '0' },
+      settings.address,
+      { peerMinExecutorFee: '0' },
     );
 
+    await associateContract(settings, local, remote, poolLocal, poolRemote);
+
     return {
-      testToken,
+      mockToken: mockToken,
       hasher3,
-      transaction1x0Verifier,
-      transaction1x1Verifier,
-      transaction1x2Verifier,
-      transaction2x0Verifier,
-      transaction2x1Verifier,
-      transaction2x2Verifier,
-      rollup1,
-      rollup4,
-      rollup16,
       poolLocal,
       poolRemote,
       local,
       remote,
-      sanctionList,
+      mockSanctionList,
       dummyLZEndpoint,
+      settings,
     };
   }
 
   let accounts: Wallet[];
-  let testToken: TestToken;
-  let sanctionList: DummySanctionsList;
+  let mockToken: MockToken;
+  let mockSanctionList: MockSanctionList;
   let localPoolMain: CommitmentPoolMain;
   let remotePoolMain: CommitmentPoolMain;
   let localMain: MystikoV2LayerZeroMain;
   let remoteMain: MystikoV2LayerZeroMain;
   let protocol: MystikoProtocolV2;
-  let dummyLZEndpoint: DummyLZEndpoint;
+  let dummyLZEndpoint: MockLZEndpoint;
+  let settings: MystikoSettings;
 
   beforeEach(async () => {
     accounts = waffle.provider.getWallets();
@@ -121,13 +91,14 @@ describe('Test Mystiko layer zero', () => {
     protocol = await protocolFactory.create();
 
     const r = await loadFixture(fixture);
-    testToken = r.testToken;
+    mockToken = r.mockToken;
     localPoolMain = r.poolLocal.poolMain;
     remotePoolMain = r.poolRemote.poolMain;
     localMain = r.local.coreMain;
     remoteMain = r.remote.coreMain;
-    sanctionList = r.sanctionList;
+    mockSanctionList = r.mockSanctionList;
     dummyLZEndpoint = r.dummyLZEndpoint;
+    settings = r.settings;
   });
 
   it('test constructor', () => {
@@ -139,7 +110,9 @@ describe('Test Mystiko layer zero', () => {
       MaxAmount,
       MinBridgeFee,
       '0',
-      MinRollupFee,
+      PeerMinRollupFee,
+      DestinationChainID,
+      remoteMain.address,
     );
   });
 
@@ -150,7 +123,6 @@ describe('Test Mystiko layer zero', () => {
     // layer zero test with same chain id
     await localMain.setTrustedRemote(LzChainID, remoteMain.address);
     await remoteMain.setTrustedRemote(LzChainID, localMain.address);
-    await localMain.setPeerContract(DestinationChainID, '', remoteMain.address);
     await dummyLZEndpoint.setDestLzEndpoint(localMain.address, dummyLZEndpoint.address);
     await dummyLZEndpoint.setDestLzEndpoint(remoteMain.address, dummyLZEndpoint.address);
 
@@ -160,9 +132,10 @@ describe('Test Mystiko layer zero', () => {
       localMain,
       localPoolMain,
       remotePoolMain,
-      sanctionList,
+      mockSanctionList,
       dummyLZEndpoint,
-      testToken,
+      mockToken,
+      settings,
       accounts,
       depositAmount.toString(),
       true,

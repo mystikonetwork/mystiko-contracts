@@ -30,12 +30,12 @@ const _abi = [
   },
   {
     inputs: [],
-    name: 'InvalidRollupSize',
+    name: 'InvalidInputsNumber',
     type: 'error',
   },
   {
     inputs: [],
-    name: 'NumInputsGreaterThanZero',
+    name: 'InvalidRollupSize',
     type: 'error',
   },
   {

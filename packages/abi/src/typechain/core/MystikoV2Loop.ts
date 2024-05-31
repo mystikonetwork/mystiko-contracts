@@ -49,7 +49,7 @@ export interface MystikoV2LoopInterface extends utils.Interface {
     'getMaxAmount()': FunctionFragment;
     'getMinAmount()': FunctionFragment;
     'isDepositsDisabled()': FunctionFragment;
-    'settingsCenter()': FunctionFragment;
+    'settings()': FunctionFragment;
   };
 
   encodeFunctionData(functionFragment: 'assetAddress', values?: undefined): string;
@@ -64,7 +64,7 @@ export interface MystikoV2LoopInterface extends utils.Interface {
   encodeFunctionData(functionFragment: 'getMaxAmount', values?: undefined): string;
   encodeFunctionData(functionFragment: 'getMinAmount', values?: undefined): string;
   encodeFunctionData(functionFragment: 'isDepositsDisabled', values?: undefined): string;
-  encodeFunctionData(functionFragment: 'settingsCenter', values?: undefined): string;
+  encodeFunctionData(functionFragment: 'settings', values?: undefined): string;
 
   decodeFunctionResult(functionFragment: 'assetAddress', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'assetType', data: BytesLike): Result;
@@ -75,7 +75,7 @@ export interface MystikoV2LoopInterface extends utils.Interface {
   decodeFunctionResult(functionFragment: 'getMaxAmount', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'getMinAmount', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'isDepositsDisabled', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'settingsCenter', data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'settings', data: BytesLike): Result;
 
   events: {};
 }
@@ -130,7 +130,7 @@ export interface MystikoV2Loop extends BaseContract {
 
     isDepositsDisabled(overrides?: CallOverrides): Promise<[boolean]>;
 
-    settingsCenter(overrides?: CallOverrides): Promise<[string]>;
+    settings(overrides?: CallOverrides): Promise<[string]>;
   };
 
   assetAddress(overrides?: CallOverrides): Promise<string>;
@@ -159,7 +159,7 @@ export interface MystikoV2Loop extends BaseContract {
 
   isDepositsDisabled(overrides?: CallOverrides): Promise<boolean>;
 
-  settingsCenter(overrides?: CallOverrides): Promise<string>;
+  settings(overrides?: CallOverrides): Promise<string>;
 
   callStatic: {
     assetAddress(overrides?: CallOverrides): Promise<string>;
@@ -185,7 +185,7 @@ export interface MystikoV2Loop extends BaseContract {
 
     isDepositsDisabled(overrides?: CallOverrides): Promise<boolean>;
 
-    settingsCenter(overrides?: CallOverrides): Promise<string>;
+    settings(overrides?: CallOverrides): Promise<string>;
   };
 
   filters: {};
@@ -217,7 +217,7 @@ export interface MystikoV2Loop extends BaseContract {
 
     isDepositsDisabled(overrides?: CallOverrides): Promise<BigNumber>;
 
-    settingsCenter(overrides?: CallOverrides): Promise<BigNumber>;
+    settings(overrides?: CallOverrides): Promise<BigNumber>;
   };
 
   populateTransaction: {
@@ -247,6 +247,6 @@ export interface MystikoV2Loop extends BaseContract {
 
     isDepositsDisabled(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
-    settingsCenter(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+    settings(overrides?: CallOverrides): Promise<PopulatedTransaction>;
   };
 }

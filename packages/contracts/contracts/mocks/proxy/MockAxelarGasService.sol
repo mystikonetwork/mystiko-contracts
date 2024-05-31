@@ -117,11 +117,7 @@ contract MockAxelarGasService is IAxelarGasService {
     }
   }
 
-  function refund(
-    address payable receiver,
-    address token,
-    uint256 amount
-  ) external override {
+  function refund(address payable receiver, address token, uint256 amount) external override {
     if (token == address(0)) {
       receiver.transfer(amount);
     } else {
@@ -129,11 +125,7 @@ contract MockAxelarGasService is IAxelarGasService {
     }
   }
 
-  function _safeTransfer(
-    address tokenAddress,
-    address receiver,
-    uint256 amount
-  ) internal {
+  function _safeTransfer(address tokenAddress, address receiver, uint256 amount) internal {
     (bool success, bytes memory returnData) = tokenAddress.call(
       abi.encodeWithSelector(IERC20.transfer.selector, receiver, amount)
     );
@@ -142,11 +134,7 @@ contract MockAxelarGasService is IAxelarGasService {
     if (!transferred || tokenAddress.code.length == 0) revert TransferFailed();
   }
 
-  function _safeTransferFrom(
-    address tokenAddress,
-    address from,
-    uint256 amount
-  ) internal {
+  function _safeTransferFrom(address tokenAddress, address from, uint256 amount) internal {
     (bool success, bytes memory returnData) = tokenAddress.call(
       abi.encodeWithSelector(IERC20.transferFrom.selector, from, address(this), amount)
     );

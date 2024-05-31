@@ -169,7 +169,7 @@ export interface CommitmentPoolMainInterface extends utils.Interface {
     'isKnownRoot(uint256)': FunctionFragment;
     'isSpentSerialNumber(uint256)': FunctionFragment;
     'rollup((((uint256,uint256),(uint256[2],uint256[2]),(uint256,uint256)),uint32,uint256,uint256))': FunctionFragment;
-    'settingsCenter()': FunctionFragment;
+    'settings()': FunctionFragment;
     'transact((((uint256,uint256),(uint256[2],uint256[2]),(uint256,uint256)),uint256,uint256[],uint256[],bytes32,uint256,uint256,uint256[],uint256[],address,address,bytes[],uint256,uint256[]),bytes)': FunctionFragment;
   };
 
@@ -195,7 +195,7 @@ export interface CommitmentPoolMainInterface extends utils.Interface {
   encodeFunctionData(functionFragment: 'isKnownRoot', values: [BigNumberish]): string;
   encodeFunctionData(functionFragment: 'isSpentSerialNumber', values: [BigNumberish]): string;
   encodeFunctionData(functionFragment: 'rollup', values: [ICommitmentPool.RollupRequestStruct]): string;
-  encodeFunctionData(functionFragment: 'settingsCenter', values?: undefined): string;
+  encodeFunctionData(functionFragment: 'settings', values?: undefined): string;
   encodeFunctionData(
     functionFragment: 'transact',
     values: [ICommitmentPool.TransactRequestStruct, BytesLike],
@@ -220,7 +220,7 @@ export interface CommitmentPoolMainInterface extends utils.Interface {
   decodeFunctionResult(functionFragment: 'isKnownRoot', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'isSpentSerialNumber', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'rollup', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'settingsCenter', data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'settings', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'transact', data: BytesLike): Result;
 
   events: {
@@ -352,7 +352,7 @@ export interface CommitmentPoolMain extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<ContractTransaction>;
 
-    settingsCenter(overrides?: CallOverrides): Promise<[string]>;
+    settings(overrides?: CallOverrides): Promise<[string]>;
 
     transact(
       _request: ICommitmentPool.TransactRequestStruct,
@@ -410,7 +410,7 @@ export interface CommitmentPoolMain extends BaseContract {
     overrides?: Overrides & { from?: string | Promise<string> },
   ): Promise<ContractTransaction>;
 
-  settingsCenter(overrides?: CallOverrides): Promise<string>;
+  settings(overrides?: CallOverrides): Promise<string>;
 
   transact(
     _request: ICommitmentPool.TransactRequestStruct,
@@ -465,7 +465,7 @@ export interface CommitmentPoolMain extends BaseContract {
 
     rollup(_request: ICommitmentPool.RollupRequestStruct, overrides?: CallOverrides): Promise<void>;
 
-    settingsCenter(overrides?: CallOverrides): Promise<string>;
+    settings(overrides?: CallOverrides): Promise<string>;
 
     transact(
       _request: ICommitmentPool.TransactRequestStruct,
@@ -565,7 +565,7 @@ export interface CommitmentPoolMain extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<BigNumber>;
 
-    settingsCenter(overrides?: CallOverrides): Promise<BigNumber>;
+    settings(overrides?: CallOverrides): Promise<BigNumber>;
 
     transact(
       _request: ICommitmentPool.TransactRequestStruct,
@@ -627,7 +627,7 @@ export interface CommitmentPoolMain extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<PopulatedTransaction>;
 
-    settingsCenter(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+    settings(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     transact(
       _request: ICommitmentPool.TransactRequestStruct,

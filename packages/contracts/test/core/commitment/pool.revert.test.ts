@@ -2,10 +2,10 @@ import { Wallet } from '@ethersproject/wallet';
 import {
   CommitmentPoolERC20,
   CommitmentPoolMain,
-  DummySanctionsList,
+  MockSanctionList,
   MystikoV2LoopERC20,
   MystikoV2LoopMain,
-  TestToken,
+  MockToken,
 } from '@mystikonetwork/contracts-abi';
 import { MystikoProtocolV2, ProtocolFactoryV2 } from '@mystikonetwork/protocol';
 import { toDecimals } from '@mystikonetwork/utils';
@@ -19,60 +19,41 @@ import {
   deployLoopContracts,
   loadFixture,
 } from '../../util/common';
+import { MystikoCertificate, MystikoSettings } from '@mystikonetwork/contracts-abi-settings';
 
 describe('Test Mystiko pool revert', () => {
   async function fixture(accounts: Wallet[]) {
-    const {
-      testToken,
-      hasher3,
-      transaction1x0Verifier,
-      transaction1x1Verifier,
-      transaction1x2Verifier,
-      transaction2x0Verifier,
-      transaction2x1Verifier,
-      transaction2x2Verifier,
-      rollup1,
-      rollup2,
-      rollup4,
-      rollup8,
-      rollup16,
-      sanctionList,
-    } = await deployDependContracts(accounts);
-    const pool = await deployCommitmentPoolContracts(accounts, testToken.address, sanctionList.address, {
+    const { mockToken, hasher3, mockSanctionList, settings, certificate } = await deployDependContracts(
+      accounts,
+    );
+    const pool = await deployCommitmentPoolContracts(accounts, mockToken.address, settings.address, {
       treeHeight: 1,
     });
     const loop = await deployLoopContracts(
       accounts,
       hasher3.address,
-      testToken.address,
-      sanctionList.address,
-      pool.poolMain,
-      pool.poolERC20,
+      mockToken.address,
+      settings.address,
       {},
     );
+    await settings.updateAssociatedPool(loop.coreMain.address, pool.poolMain.address);
+    await settings.updateAssociatedPool(loop.coreERC20.address, pool.poolERC20.address);
     return {
-      testToken,
+      mockToken,
       hasher3,
-      transaction1x0Verifier,
-      transaction1x1Verifier,
-      transaction1x2Verifier,
-      transaction2x0Verifier,
-      transaction2x1Verifier,
-      transaction2x2Verifier,
-      rollup1,
-      rollup2,
-      rollup4,
-      rollup8,
-      rollup16,
       pool,
       loop,
-      sanctionList,
+      mockSanctionList,
+      certificate,
+      settings,
     };
   }
 
   let accounts: Wallet[];
-  let testToken: TestToken;
-  let sanctionList: DummySanctionsList;
+  let mockToken: MockToken;
+  let mockSanctionList: MockSanctionList;
+  let certificate: MystikoCertificate;
+  let settings: MystikoSettings;
   let poolMain: CommitmentPoolMain;
   let loopMain: MystikoV2LoopMain;
   let poolErc20: CommitmentPoolERC20;
@@ -85,8 +66,10 @@ describe('Test Mystiko pool revert', () => {
     protocol = await protocolFactory.create();
 
     const r = await loadFixture(fixture);
-    testToken = r.testToken;
-    sanctionList = r.sanctionList;
+    mockToken = r.mockToken;
+    mockSanctionList = r.mockSanctionList;
+    certificate = r.certificate;
+    settings = r.settings;
 
     poolMain = r.pool.poolMain;
     loopMain = r.loop.coreMain;
@@ -105,8 +88,10 @@ describe('Test Mystiko pool revert', () => {
       protocol,
       loopMain,
       poolMain,
-      testToken,
-      sanctionList,
+      mockToken,
+      mockSanctionList,
+      certificate,
+      settings,
       accounts,
       depositAmount.toString(),
       true,
@@ -119,8 +104,10 @@ describe('Test Mystiko pool revert', () => {
       protocol,
       loopMain,
       poolMain,
-      testToken,
-      sanctionList,
+      mockToken,
+      mockSanctionList,
+      certificate,
+      settings,
       accounts,
       depositAmount.toString(),
       true,
@@ -139,8 +126,10 @@ describe('Test Mystiko pool revert', () => {
       protocol,
       loopERC20,
       poolErc20,
-      testToken,
-      sanctionList,
+      mockToken,
+      mockSanctionList,
+      certificate,
+      settings,
       accounts,
       depositAmount.toString(),
       false,
@@ -153,8 +142,10 @@ describe('Test Mystiko pool revert', () => {
       protocol,
       loopERC20,
       poolErc20,
-      testToken,
-      sanctionList,
+      mockToken,
+      mockSanctionList,
+      certificate,
+      settings,
       accounts,
       depositAmount.toString(),
       false,

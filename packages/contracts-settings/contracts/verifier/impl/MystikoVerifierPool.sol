@@ -60,13 +60,13 @@ abstract contract MystikoVerifierPool is IMystikoVerifierPool, MystikoDAOAccessC
   }
 
   function enableTransactVerifier(uint32 _numInputs, uint32 _numOutputs) external onlyMystikoDAO {
-    if (_numInputs == 0) revert MystikoSettingsErrors.NumInputsGreaterThanZero();
+    if (_numInputs == 0) revert MystikoSettingsErrors.InvalidInputsNumber();
     transactVerifiers[_numInputs][_numOutputs].enabled = true;
     emit TransactVerifierEnabled(_numInputs, _numOutputs);
   }
 
   function disableTransactVerifier(uint32 _numInputs, uint32 _numOutputs) external onlyMystikoDAO {
-    if (_numInputs == 0) revert MystikoSettingsErrors.NumInputsGreaterThanZero();
+    if (_numInputs == 0) revert MystikoSettingsErrors.InvalidInputsNumber();
     transactVerifiers[_numInputs][_numOutputs].enabled = false;
     emit TransactVerifierDisabled(_numInputs, _numOutputs);
   }

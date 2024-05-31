@@ -250,7 +250,7 @@ const _abi = [
   },
   {
     inputs: [],
-    name: 'settingsCenter',
+    name: 'settings',
     outputs: [
       {
         internalType: 'contract MystikoSettings',

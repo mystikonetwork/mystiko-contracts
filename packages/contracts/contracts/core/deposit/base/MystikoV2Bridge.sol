@@ -20,7 +20,7 @@ abstract contract MystikoV2Bridge is IMystikoBridge, AssetPool, CrossChainDataSe
   // Hasher related.
   IHasher3 private hasher3;
 
-  bool private isPeerContractSet = false;
+  bool public isPeerContractSet = false;
   uint64 public peerChainId;
   string public peerChainName;
   address public peerContract;
@@ -35,7 +35,7 @@ abstract contract MystikoV2Bridge is IMystikoBridge, AssetPool, CrossChainDataSe
   //bridge proxy address
   address public bridgeProxyAddress;
   // configure related.
-  MystikoSettings public settingsCenter;
+  MystikoSettings public settings;
 
   modifier onlySetPeerContractOnce() {
     if (isPeerContractSet) revert CustomErrors.PeerContractAlreadySet();
@@ -63,7 +63,7 @@ abstract contract MystikoV2Bridge is IMystikoBridge, AssetPool, CrossChainDataSe
     defaultMinBridgeFee = _localConfig.minBridgeFee;
     defaultPeerMinExecutorFee = _peerConfig.peerMinExecutorFee;
     defaultPeerMinRollupFee = _peerConfig.peerMinRollupFee;
-    settingsCenter = MystikoSettings(_settingsCenter);
+    settings = MystikoSettings(_settingsCenter);
   }
 
   function setPeerContract(PeerContract memory _peerContract) external onlySetPeerContractOnce {
@@ -93,15 +93,15 @@ abstract contract MystikoV2Bridge is IMystikoBridge, AssetPool, CrossChainDataSe
     uint256 _certificateDeadline,
     bytes memory _certificateSignature
   ) external payable {
-    if (settingsCenter.queryDepositDisable(address(this))) revert CustomErrors.DepositsDisabled();
-    if(settingsCenter.checkEnabled()){
+    if (settings.queryDepositDisable(address(this))) revert CustomErrors.DepositsDisabled();
+    if (settings.checkEnabled()) {
       CertificateParams memory params = CertificateParams({
         account: tx.origin,
         asset: assetAddress(),
         deadline: _certificateDeadline,
         signature: _certificateSignature
       });
-      if (!settingsCenter.verifyCertificate(params)) revert CustomErrors.CertificateInvalid();
+      if (!settings.verifyCertificate(params)) revert CustomErrors.CertificateInvalid();
     }
     if (_request.amount < getMinAmount()) revert CustomErrors.AmountTooSmall();
     if (_request.amount > getMaxAmount()) revert CustomErrors.AmountTooLarge();
@@ -110,7 +110,7 @@ abstract contract MystikoV2Bridge is IMystikoBridge, AssetPool, CrossChainDataSe
     if (_request.rollupFee < getPeerMinRollupFee()) revert CustomErrors.RollupFeeToFew();
     uint256 calculatedCommitment = _commitmentHash(_request.hashK, _request.amount, _request.randomS);
     if (_request.commitment != calculatedCommitment) revert CustomErrors.CommitmentHashIncorrect();
-    if (settingsCenter.isSanctioned(tx.origin)) revert CustomErrors.SanctionedAddress();
+    if (settings.isSanctioned(tx.origin)) revert CustomErrors.SanctionedAddress();
 
     ICommitmentPool.CommitmentRequest memory cmRequest = ICommitmentPool.CommitmentRequest({
       amount: _request.amount,
@@ -138,8 +138,8 @@ abstract contract MystikoV2Bridge is IMystikoBridge, AssetPool, CrossChainDataSe
     address _executor,
     ICommitmentPool.CommitmentRequest memory _request
   ) internal {
-    if (_fromContract != peerContract) revert CustomErrors.FromProxyAddressNotMatched();
-    if (_fromChainId != peerChainId) revert CustomErrors.FromChainIdNotMatched();
+    if (_fromContract != peerContract) revert CustomErrors.PeerContractNotMatched();
+    if (_fromChainId != peerChainId) revert CustomErrors.PeerChainIdNotMatched();
     if (_request.amount == 0) revert CustomErrors.AmountLessThanZero();
     ICommitmentPool(getAssociatedCommitmentPool()).enqueue(_request, _executor);
   }
@@ -147,37 +147,37 @@ abstract contract MystikoV2Bridge is IMystikoBridge, AssetPool, CrossChainDataSe
   function bridgeType() public pure virtual returns (string memory);
 
   function getMinAmount() public view returns (uint256) {
-    uint256 minAmount = settingsCenter.queryMinDepositAmount(address(this));
+    uint256 minAmount = settings.queryMinDepositAmount(address(this));
     return minAmount == 0 ? defaultMinAmount : minAmount;
   }
 
   function getMaxAmount() public view returns (uint256) {
-    uint256 maxAmount = settingsCenter.queryMaxDepositAmount(address(this));
+    uint256 maxAmount = settings.queryMaxDepositAmount(address(this));
     return maxAmount == 0 ? defaultMaxAmount : maxAmount;
   }
 
   function getMinBridgeFee() public view returns (uint256) {
-    uint256 minBridgeFee = settingsCenter.queryMinBridgeFee(address(this));
+    uint256 minBridgeFee = settings.queryMinBridgeFee(address(this));
     return minBridgeFee == 0 ? defaultMinBridgeFee : minBridgeFee;
   }
 
   function getPeerMinExecutorFee() public view returns (uint256) {
-    uint256 minExecutorFee = settingsCenter.queryMinPeerExecutorFee(address(this));
+    uint256 minExecutorFee = settings.queryMinPeerExecutorFee(address(this));
     return minExecutorFee == 0 ? defaultPeerMinExecutorFee : minExecutorFee;
   }
 
   function getPeerMinRollupFee() public view returns (uint256) {
-    uint256 minRollupFee = settingsCenter.queryMinPeerRollupFee(address(this));
+    uint256 minRollupFee = settings.queryMinPeerRollupFee(address(this));
     return minRollupFee == 0 ? defaultPeerMinRollupFee : minRollupFee;
   }
 
   function getAssociatedCommitmentPool() public view returns (address) {
-    address pool = settingsCenter.queryAssociatedPool(address(this));
+    address pool = settings.queryAssociatedPool(address(this));
     if (pool == address(0)) revert CustomErrors.AssociatedPoolNotSet();
     return pool;
   }
 
   function isDepositsDisabled() public view returns (bool) {
-    return settingsCenter.queryDepositDisable(address(this));
+    return settings.queryDepositDisable(address(this));
   }
 }

@@ -82,6 +82,7 @@ contract MystikoRollerRegistryTest is Test, Random {
     vm.prank(pool);
     registry.validate(p1);
 
+    // open role
     vm.prank(dao);
     registry.grantRole(ROLLER_ROLE, address(0));
 

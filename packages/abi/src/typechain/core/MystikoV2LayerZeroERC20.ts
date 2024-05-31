@@ -112,6 +112,7 @@ export interface MystikoV2LayerZeroERC20Interface extends utils.Interface {
     'getPeerMinExecutorFee()': FunctionFragment;
     'getPeerMinRollupFee()': FunctionFragment;
     'isDepositsDisabled()': FunctionFragment;
+    'isPeerContractSet()': FunctionFragment;
     'isTrustedRemote(uint16,bytes)': FunctionFragment;
     'localLayerZeroChainId()': FunctionFragment;
     'lzEndpoint()': FunctionFragment;
@@ -130,7 +131,7 @@ export interface MystikoV2LayerZeroERC20Interface extends utils.Interface {
     'setReceiveVersion(uint16)': FunctionFragment;
     'setSendVersion(uint16)': FunctionFragment;
     'setTrustedRemote(uint16,bytes)': FunctionFragment;
-    'settingsCenter()': FunctionFragment;
+    'settings()': FunctionFragment;
     'transferOwnership(address)': FunctionFragment;
     'trustedRemoteLookup(uint16)': FunctionFragment;
   };
@@ -168,6 +169,7 @@ export interface MystikoV2LayerZeroERC20Interface extends utils.Interface {
   encodeFunctionData(functionFragment: 'getPeerMinExecutorFee', values?: undefined): string;
   encodeFunctionData(functionFragment: 'getPeerMinRollupFee', values?: undefined): string;
   encodeFunctionData(functionFragment: 'isDepositsDisabled', values?: undefined): string;
+  encodeFunctionData(functionFragment: 'isPeerContractSet', values?: undefined): string;
   encodeFunctionData(functionFragment: 'isTrustedRemote', values: [BigNumberish, BytesLike]): string;
   encodeFunctionData(functionFragment: 'localLayerZeroChainId', values?: undefined): string;
   encodeFunctionData(functionFragment: 'lzEndpoint', values?: undefined): string;
@@ -201,7 +203,7 @@ export interface MystikoV2LayerZeroERC20Interface extends utils.Interface {
   encodeFunctionData(functionFragment: 'setReceiveVersion', values: [BigNumberish]): string;
   encodeFunctionData(functionFragment: 'setSendVersion', values: [BigNumberish]): string;
   encodeFunctionData(functionFragment: 'setTrustedRemote', values: [BigNumberish, BytesLike]): string;
-  encodeFunctionData(functionFragment: 'settingsCenter', values?: undefined): string;
+  encodeFunctionData(functionFragment: 'settings', values?: undefined): string;
   encodeFunctionData(functionFragment: 'transferOwnership', values: [string]): string;
   encodeFunctionData(functionFragment: 'trustedRemoteLookup', values: [BigNumberish]): string;
 
@@ -229,6 +231,7 @@ export interface MystikoV2LayerZeroERC20Interface extends utils.Interface {
   decodeFunctionResult(functionFragment: 'getPeerMinExecutorFee', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'getPeerMinRollupFee', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'isDepositsDisabled', data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'isPeerContractSet', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'isTrustedRemote', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'localLayerZeroChainId', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'lzEndpoint', data: BytesLike): Result;
@@ -247,7 +250,7 @@ export interface MystikoV2LayerZeroERC20Interface extends utils.Interface {
   decodeFunctionResult(functionFragment: 'setReceiveVersion', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'setSendVersion', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'setTrustedRemote', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'settingsCenter', data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'settings', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'transferOwnership', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'trustedRemoteLookup', data: BytesLike): Result;
 
@@ -389,6 +392,8 @@ export interface MystikoV2LayerZeroERC20 extends BaseContract {
 
     isDepositsDisabled(overrides?: CallOverrides): Promise<[boolean]>;
 
+    isPeerContractSet(overrides?: CallOverrides): Promise<[boolean]>;
+
     isTrustedRemote(
       _srcChainId: BigNumberish,
       _srcAddress: BytesLike,
@@ -472,7 +477,7 @@ export interface MystikoV2LayerZeroERC20 extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<ContractTransaction>;
 
-    settingsCenter(overrides?: CallOverrides): Promise<[string]>;
+    settings(overrides?: CallOverrides): Promise<[string]>;
 
     transferOwnership(
       newOwner: string,
@@ -552,6 +557,8 @@ export interface MystikoV2LayerZeroERC20 extends BaseContract {
   getPeerMinRollupFee(overrides?: CallOverrides): Promise<BigNumber>;
 
   isDepositsDisabled(overrides?: CallOverrides): Promise<boolean>;
+
+  isPeerContractSet(overrides?: CallOverrides): Promise<boolean>;
 
   isTrustedRemote(
     _srcChainId: BigNumberish,
@@ -636,7 +643,7 @@ export interface MystikoV2LayerZeroERC20 extends BaseContract {
     overrides?: Overrides & { from?: string | Promise<string> },
   ): Promise<ContractTransaction>;
 
-  settingsCenter(overrides?: CallOverrides): Promise<string>;
+  settings(overrides?: CallOverrides): Promise<string>;
 
   transferOwnership(
     newOwner: string,
@@ -714,6 +721,8 @@ export interface MystikoV2LayerZeroERC20 extends BaseContract {
 
     isDepositsDisabled(overrides?: CallOverrides): Promise<boolean>;
 
+    isPeerContractSet(overrides?: CallOverrides): Promise<boolean>;
+
     isTrustedRemote(
       _srcChainId: BigNumberish,
       _srcAddress: BytesLike,
@@ -785,7 +794,7 @@ export interface MystikoV2LayerZeroERC20 extends BaseContract {
       overrides?: CallOverrides,
     ): Promise<void>;
 
-    settingsCenter(overrides?: CallOverrides): Promise<string>;
+    settings(overrides?: CallOverrides): Promise<string>;
 
     transferOwnership(newOwner: string, overrides?: CallOverrides): Promise<void>;
 
@@ -894,6 +903,8 @@ export interface MystikoV2LayerZeroERC20 extends BaseContract {
 
     isDepositsDisabled(overrides?: CallOverrides): Promise<BigNumber>;
 
+    isPeerContractSet(overrides?: CallOverrides): Promise<BigNumber>;
+
     isTrustedRemote(
       _srcChainId: BigNumberish,
       _srcAddress: BytesLike,
@@ -975,7 +986,7 @@ export interface MystikoV2LayerZeroERC20 extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<BigNumber>;
 
-    settingsCenter(overrides?: CallOverrides): Promise<BigNumber>;
+    settings(overrides?: CallOverrides): Promise<BigNumber>;
 
     transferOwnership(
       newOwner: string,
@@ -1056,6 +1067,8 @@ export interface MystikoV2LayerZeroERC20 extends BaseContract {
     getPeerMinRollupFee(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     isDepositsDisabled(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+
+    isPeerContractSet(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     isTrustedRemote(
       _srcChainId: BigNumberish,
@@ -1140,7 +1153,7 @@ export interface MystikoV2LayerZeroERC20 extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<PopulatedTransaction>;
 
-    settingsCenter(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+    settings(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     transferOwnership(
       newOwner: string,

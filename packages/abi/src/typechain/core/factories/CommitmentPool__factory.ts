@@ -107,6 +107,11 @@ const _abi = [
     type: 'error',
   },
   {
+    inputs: [],
+    name: 'RollupFeeToFew',
+    type: 'error',
+  },
+  {
     inputs: [
       {
         internalType: 'uint256',
@@ -114,12 +119,7 @@ const _abi = [
         type: 'uint256',
       },
     ],
-    name: 'RollupDisabled',
-    type: 'error',
-  },
-  {
-    inputs: [],
-    name: 'RollupFeeToFew',
+    name: 'RollupVerifierDisabled',
     type: 'error',
   },
   {
@@ -156,7 +156,7 @@ const _abi = [
         type: 'uint32',
       },
     ],
-    name: 'TransactDisabled',
+    name: 'TransactVerifierDisabled',
     type: 'error',
   },
   {
@@ -683,7 +683,7 @@ const _abi = [
   },
   {
     inputs: [],
-    name: 'settingsCenter',
+    name: 'settings',
     outputs: [
       {
         internalType: 'contract MystikoSettings',

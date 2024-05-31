@@ -7,7 +7,7 @@ library MystikoSettingsErrors {
   error InsufficientBalanceForAction();
   error RollupSizeTooSmall();
   error AuditorIndexError();
-  error NumInputsGreaterThanZero();
+  error InvalidInputsNumber();
   error InvalidRollupSize();
   error RollupSizeNotPowerOfTwo();
   error InvalidRollupFee();

@@ -99,16 +99,6 @@ const _abi = [
   },
   {
     inputs: [],
-    name: 'FromChainIdNotMatched',
-    type: 'error',
-  },
-  {
-    inputs: [],
-    name: 'FromProxyAddressNotMatched',
-    type: 'error',
-  },
-  {
-    inputs: [],
     name: 'HashKGreaterThanFieldSize',
     type: 'error',
   },
@@ -165,7 +155,17 @@ const _abi = [
   },
   {
     inputs: [],
+    name: 'PeerChainIdNotMatched',
+    type: 'error',
+  },
+  {
+    inputs: [],
     name: 'PeerContractAlreadySet',
+    type: 'error',
+  },
+  {
+    inputs: [],
+    name: 'PeerContractNotMatched',
     type: 'error',
   },
   {
@@ -184,6 +184,11 @@ const _abi = [
     type: 'error',
   },
   {
+    inputs: [],
+    name: 'RollupFeeToFew',
+    type: 'error',
+  },
+  {
     inputs: [
       {
         internalType: 'uint256',
@@ -191,12 +196,7 @@ const _abi = [
         type: 'uint256',
       },
     ],
-    name: 'RollupDisabled',
-    type: 'error',
-  },
-  {
-    inputs: [],
-    name: 'RollupFeeToFew',
+    name: 'RollupVerifierDisabled',
     type: 'error',
   },
   {
@@ -222,7 +222,7 @@ const _abi = [
         type: 'uint32',
       },
     ],
-    name: 'TransactDisabled',
+    name: 'TransactVerifierDisabled',
     type: 'error',
   },
   {
@@ -248,7 +248,7 @@ const _abi = [
 ];
 
 const _bytecode =
-  '0x60566037600b82828239805160001a607314602a57634e487b7160e01b600052600060045260246000fd5b30600052607381538281f3fe73000000000000000000000000000000000000000030146080604052600080fdfea2646970667358221220781925487ef6ca9f08f87b5a0a9f8a9d41ab645311dcc350386cd2333f3b919764736f6c63430008140033';
+  '0x60566037600b82828239805160001a607314602a57634e487b7160e01b600052600060045260246000fd5b30600052607381538281f3fe73000000000000000000000000000000000000000030146080604052600080fdfea26469706673582212202cad86c2aeaeb58fb1cba148b3d3a848066dde686e055c5275aff94a1b1cb06664736f6c63430008140033';
 
 type CustomErrorsConstructorParams = [signer?: Signer] | ConstructorParameters<typeof ContractFactory>;
 

@@ -17,39 +17,48 @@ import { FunctionFragment, Result, EventFragment } from '@ethersproject/abi';
 import { Listener, Provider } from '@ethersproject/providers';
 import { TypedEventFilter, TypedEvent, TypedListener, OnEvent } from './common';
 
-export interface MockTokenInterface extends utils.Interface {
-  contractName: 'MockToken';
+export interface ERC20WrapperInterface extends utils.Interface {
+  contractName: 'ERC20Wrapper';
   functions: {
     'allowance(address,address)': FunctionFragment;
     'approve(address,uint256)': FunctionFragment;
     'balanceOf(address)': FunctionFragment;
     'decimals()': FunctionFragment;
+    'depositFor(address,uint256)': FunctionFragment;
     'name()': FunctionFragment;
     'symbol()': FunctionFragment;
     'totalSupply()': FunctionFragment;
     'transfer(address,uint256)': FunctionFragment;
     'transferFrom(address,address,uint256)': FunctionFragment;
+    'underlying()': FunctionFragment;
+    'withdrawTo(address,uint256)': FunctionFragment;
   };
 
   encodeFunctionData(functionFragment: 'allowance', values: [string, string]): string;
   encodeFunctionData(functionFragment: 'approve', values: [string, BigNumberish]): string;
   encodeFunctionData(functionFragment: 'balanceOf', values: [string]): string;
   encodeFunctionData(functionFragment: 'decimals', values?: undefined): string;
+  encodeFunctionData(functionFragment: 'depositFor', values: [string, BigNumberish]): string;
   encodeFunctionData(functionFragment: 'name', values?: undefined): string;
   encodeFunctionData(functionFragment: 'symbol', values?: undefined): string;
   encodeFunctionData(functionFragment: 'totalSupply', values?: undefined): string;
   encodeFunctionData(functionFragment: 'transfer', values: [string, BigNumberish]): string;
   encodeFunctionData(functionFragment: 'transferFrom', values: [string, string, BigNumberish]): string;
+  encodeFunctionData(functionFragment: 'underlying', values?: undefined): string;
+  encodeFunctionData(functionFragment: 'withdrawTo', values: [string, BigNumberish]): string;
 
   decodeFunctionResult(functionFragment: 'allowance', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'approve', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'balanceOf', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'decimals', data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'depositFor', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'name', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'symbol', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'totalSupply', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'transfer', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'transferFrom', data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'underlying', data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'withdrawTo', data: BytesLike): Result;
 
   events: {
     'Approval(address,address,uint256)': EventFragment;
@@ -74,13 +83,13 @@ export type TransferEvent = TypedEvent<
 
 export type TransferEventFilter = TypedEventFilter<TransferEvent>;
 
-export interface MockToken extends BaseContract {
-  contractName: 'MockToken';
+export interface ERC20Wrapper extends BaseContract {
+  contractName: 'ERC20Wrapper';
   connect(signerOrProvider: Signer | Provider | string): this;
   attach(addressOrName: string): this;
   deployed(): Promise<this>;
 
-  interface: MockTokenInterface;
+  interface: ERC20WrapperInterface;
 
   queryFilter<TEvent extends TypedEvent>(
     event: TypedEventFilter<TEvent>,
@@ -110,6 +119,12 @@ export interface MockToken extends BaseContract {
 
     decimals(overrides?: CallOverrides): Promise<[number]>;
 
+    depositFor(
+      account: string,
+      value: BigNumberish,
+      overrides?: Overrides & { from?: string | Promise<string> },
+    ): Promise<ContractTransaction>;
+
     name(overrides?: CallOverrides): Promise<[string]>;
 
     symbol(overrides?: CallOverrides): Promise<[string]>;
@@ -128,6 +143,14 @@ export interface MockToken extends BaseContract {
       value: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<ContractTransaction>;
+
+    underlying(overrides?: CallOverrides): Promise<[string]>;
+
+    withdrawTo(
+      account: string,
+      value: BigNumberish,
+      overrides?: Overrides & { from?: string | Promise<string> },
+    ): Promise<ContractTransaction>;
   };
 
   allowance(owner: string, spender: string, overrides?: CallOverrides): Promise<BigNumber>;
@@ -141,6 +164,12 @@ export interface MockToken extends BaseContract {
   balanceOf(account: string, overrides?: CallOverrides): Promise<BigNumber>;
 
   decimals(overrides?: CallOverrides): Promise<number>;
+
+  depositFor(
+    account: string,
+    value: BigNumberish,
+    overrides?: Overrides & { from?: string | Promise<string> },
+  ): Promise<ContractTransaction>;
 
   name(overrides?: CallOverrides): Promise<string>;
 
@@ -161,6 +190,14 @@ export interface MockToken extends BaseContract {
     overrides?: Overrides & { from?: string | Promise<string> },
   ): Promise<ContractTransaction>;
 
+  underlying(overrides?: CallOverrides): Promise<string>;
+
+  withdrawTo(
+    account: string,
+    value: BigNumberish,
+    overrides?: Overrides & { from?: string | Promise<string> },
+  ): Promise<ContractTransaction>;
+
   callStatic: {
     allowance(owner: string, spender: string, overrides?: CallOverrides): Promise<BigNumber>;
 
@@ -169,6 +206,8 @@ export interface MockToken extends BaseContract {
     balanceOf(account: string, overrides?: CallOverrides): Promise<BigNumber>;
 
     decimals(overrides?: CallOverrides): Promise<number>;
+
+    depositFor(account: string, value: BigNumberish, overrides?: CallOverrides): Promise<boolean>;
 
     name(overrides?: CallOverrides): Promise<string>;
 
@@ -179,6 +218,10 @@ export interface MockToken extends BaseContract {
     transfer(to: string, value: BigNumberish, overrides?: CallOverrides): Promise<boolean>;
 
     transferFrom(from: string, to: string, value: BigNumberish, overrides?: CallOverrides): Promise<boolean>;
+
+    underlying(overrides?: CallOverrides): Promise<string>;
+
+    withdrawTo(account: string, value: BigNumberish, overrides?: CallOverrides): Promise<boolean>;
   };
 
   filters: {
@@ -210,6 +253,12 @@ export interface MockToken extends BaseContract {
 
     decimals(overrides?: CallOverrides): Promise<BigNumber>;
 
+    depositFor(
+      account: string,
+      value: BigNumberish,
+      overrides?: Overrides & { from?: string | Promise<string> },
+    ): Promise<BigNumber>;
+
     name(overrides?: CallOverrides): Promise<BigNumber>;
 
     symbol(overrides?: CallOverrides): Promise<BigNumber>;
@@ -228,6 +277,14 @@ export interface MockToken extends BaseContract {
       value: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<BigNumber>;
+
+    underlying(overrides?: CallOverrides): Promise<BigNumber>;
+
+    withdrawTo(
+      account: string,
+      value: BigNumberish,
+      overrides?: Overrides & { from?: string | Promise<string> },
+    ): Promise<BigNumber>;
   };
 
   populateTransaction: {
@@ -242,6 +299,12 @@ export interface MockToken extends BaseContract {
     balanceOf(account: string, overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     decimals(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+
+    depositFor(
+      account: string,
+      value: BigNumberish,
+      overrides?: Overrides & { from?: string | Promise<string> },
+    ): Promise<PopulatedTransaction>;
 
     name(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
@@ -258,6 +321,14 @@ export interface MockToken extends BaseContract {
     transferFrom(
       from: string,
       to: string,
+      value: BigNumberish,
+      overrides?: Overrides & { from?: string | Promise<string> },
+    ): Promise<PopulatedTransaction>;
+
+    underlying(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+
+    withdrawTo(
+      account: string,
       value: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<PopulatedTransaction>;

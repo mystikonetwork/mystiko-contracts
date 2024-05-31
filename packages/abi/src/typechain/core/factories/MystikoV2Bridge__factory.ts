@@ -420,6 +420,19 @@ const _abi = [
   },
   {
     inputs: [],
+    name: 'isPeerContractSet',
+    outputs: [
+      {
+        internalType: 'bool',
+        name: '',
+        type: 'bool',
+      },
+    ],
+    stateMutability: 'view',
+    type: 'function',
+  },
+  {
+    inputs: [],
     name: 'peerChainId',
     outputs: [
       {
@@ -489,7 +502,7 @@ const _abi = [
   },
   {
     inputs: [],
-    name: 'settingsCenter',
+    name: 'settings',
     outputs: [
       {
         internalType: 'contract MystikoSettings',

@@ -4,8 +4,8 @@ pragma solidity ^0.8.20;
 library CustomErrors {
   error RejectRollup();
   error RejectRelay();
-  error RollupDisabled(uint256 rollupSize);
-  error TransactDisabled(uint32 inputNumber, uint32 outputNumber);
+  error RollupVerifierDisabled(uint256 rollupSize);
+  error TransactVerifierDisabled(uint32 inputNumber, uint32 outputNumber);
   error OnlyWhitelistedExecutor();
   error TreeHeightLessThanZero();
   error RollupFeeToFew();
@@ -28,8 +28,8 @@ library CustomErrors {
   error BridgeFeeTooFew();
   error ExecutorFeeTooFew();
   error CommitmentHashIncorrect();
-  error FromProxyAddressNotMatched();
-  error FromChainIdNotMatched();
+  error PeerContractNotMatched();
+  error PeerChainIdNotMatched();
   error AmountLessThanZero();
   error DestinationChainIsNotTrusted();
   error CallIsNotLzApp();

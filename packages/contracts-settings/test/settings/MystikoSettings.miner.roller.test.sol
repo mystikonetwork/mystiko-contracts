@@ -11,7 +11,7 @@ import "@mystikonetwork/governance/contracts/token/MystikoVoteToken.sol";
 import "@mystikonetwork/governance/contracts/impl/MystikoGovernorRegistry.sol";
 import "@mystikonetwork/governance/contracts/GovernanceErrors.sol";
 import "../utils/Random.sol";
-import "../../contracts/pool/interfaces/IMystikoVerifierPool.sol";
+import "../../contracts/verifier/interfaces/IMystikoVerifierPool.sol";
 
 contract MystikoSettingsCenterTest is Test, Random {
   bytes32 public constant ROLLER_ROLE = keccak256("MYSTIKO_ROLLER_ROLE");

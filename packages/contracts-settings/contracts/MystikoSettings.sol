@@ -1,8 +1,8 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.20;
 
-import {MystikoVerifierPool} from "./pool/impl/MystikoVerifierPool.sol";
-import {MystikoAuditorPool} from "./pool/impl/MystikoAuditorPool.sol";
+import {MystikoVerifierPool} from "./verifier/impl/MystikoVerifierPool.sol";
+import {MystikoAuditorPool} from "./auditor/impl/MystikoAuditorPool.sol";
 import {Sanctions} from "./screen/impl/Sanctions.sol";
 import {IMystikoRollerPool, RollerValidateParams} from "./miner/interfaces/IMystikoRollerPool.sol";
 import {IMystikoRelayerPool, RelayerValidateParams} from "./miner/interfaces/IMystikoRelayerPool.sol";

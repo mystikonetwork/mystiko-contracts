@@ -19,7 +19,7 @@ abstract contract LzApp is Ownable, ILayerZeroReceiver, ILayerZeroUserApplicatio
 
   event SetTrustedRemote(uint16 _srcChainId, bytes _srcAddress);
 
-  constructor() Ownable(tx.origin){}
+  constructor() Ownable(tx.origin) {}
 
   function lzReceive(
     uint16 _srcChainId,
