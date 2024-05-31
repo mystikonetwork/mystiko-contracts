@@ -5,6 +5,7 @@ import { toBN, toHex } from '@mystikonetwork/utils';
 import { expect } from 'chai';
 import { ethers } from 'ethers';
 import { waffle } from 'hardhat';
+import { MystikoSettings } from '@mystikonetwork/contracts-abi-settings';
 import {
   BridgeAccountIndex,
   BridgeExecutorIndex,
@@ -17,7 +18,6 @@ import {
   SourceChainID,
 } from '../util/constants';
 import { CommitmentInfo } from './commitment';
-import { MystikoSettings } from '@mystikonetwork/contracts-abi-settings';
 
 export function testTBridgeDeposit(
   contractName: string,
@@ -291,8 +291,6 @@ export function testTBridgeDeposit(
         expect(depositTx)
           .to.emit(depositContract, 'CommitmentCrossChain')
           .withArgs(commitments[i].commitmentHash);
-        const peerContrct = await depositContract.peerContract();
-        const peerChainId = await depositContract.peerChainId();
         const txReceipt = await waffle.provider.getTransactionReceipt(depositTx.hash);
         const start = txReceipt.blockNumber;
         const bridgeEvents = await tbridgeProxy.queryFilter('TBridgeCrossChainMessage', start, start);

@@ -12,6 +12,7 @@ import { MystikoProtocolV2, ProtocolFactoryV2 } from '@mystikonetwork/protocol';
 import { toDecimals } from '@mystikonetwork/utils';
 import { ZokratesNodeProverFactory } from '@mystikonetwork/zkp-node';
 import { waffle } from 'hardhat';
+import { MystikoSettings } from '@mystikonetwork/contracts-abi-settings';
 import { constructCommitment, testBridgeConstructor } from '../../../common';
 import { testCelerDeposit } from '../../../common/depositCelerTests';
 import {
@@ -20,6 +21,7 @@ import {
   deployDependContracts,
   deployMockCelerContracts,
   loadFixture,
+  associateContract,
 } from '../../../util/common';
 
 // @ts-ignore
@@ -31,8 +33,6 @@ import {
   PeerMinExecutorFee,
   PeerMinRollupFee,
 } from '../../../util/constants';
-import { associateContract } from '../../../util/common';
-import { MystikoSettings } from '@mystikonetwork/contracts-abi-settings';
 
 describe('Test Mystiko celer', () => {
   async function fixture(accounts: Wallet[]) {
@@ -64,7 +64,7 @@ describe('Test Mystiko celer', () => {
     await associateContract(settings, local, remote, poolLocal, poolRemote);
 
     return {
-      mockToken: mockToken,
+      mockToken,
       hasher3,
       poolLocal,
       poolRemote,
@@ -111,7 +111,7 @@ describe('Test Mystiko celer', () => {
     settings = r.settings;
   });
 
-  it('test constructor', async () => {
+  it('test constructor', () => {
     testBridgeConstructor(
       'MystikoV2CelerMain',
       localMain,

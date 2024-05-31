@@ -47,7 +47,7 @@ abstract contract MystikoV2Axelar is MystikoV2Bridge, IAxelarExecutable {
     IAxelarGateway(bridgeProxyAddress).callContract(peerChainName, destinationAddress, _requestBytes);
   }
 
-  //todo add onlyBridgeProxy
+  // todo add onlyBridgeProxy
   function _execute(
     string memory _sourceChain,
     string memory _sourceAddress,

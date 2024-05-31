@@ -25,7 +25,7 @@ abstract contract MystikoV2LayerZero is MystikoV2Bridge, NonblockingLzApp {
     _lzSend(peerLayerZeroChainId, _requestBytes, payable(msg.sender), address(0x0), bytes(""), _bridgeFee);
   }
 
-  //todo add onlyBridgeProxy
+  // todo add onlyBridgeProxy
   function _nonblockingLzReceive(
     uint16 _srcChainId,
     bytes memory _srcAddress,

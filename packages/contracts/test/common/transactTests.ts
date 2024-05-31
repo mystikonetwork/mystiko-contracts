@@ -10,7 +10,6 @@ import { expect } from 'chai';
 import { ethers } from 'ethers';
 import { getBalance } from '../util/common';
 import { CommitmentInfo } from './commitment';
-import { set } from 'husky';
 
 function generateSignatureKeys(): { wallet: ethers.Wallet; pk: Buffer; sk: Buffer } {
   const wallet = ethers.Wallet.createRandom();
@@ -197,7 +196,7 @@ export function testTransact(
   describe(`Test ${contractName} transaction${numInputs}x${numOutputs} operations`, () => {
     before(async () => {
       const relayerRole = await relayerPool.RELAYER_ROLE();
-      //todo eric check relayer role
+      // todo eric check relayer role
       await relayerPool.grantRole(relayerRole, account.address);
 
       for (let i = 0; i < protocol.numOfAuditors; i += 1) {
@@ -395,7 +394,7 @@ export function testTransactRevert(
   describe(`Test ${contractName} transaction${numInputs}x${numOutputs} operations revert`, () => {
     before(async () => {
       const relayerRole = await relayerPool.RELAYER_ROLE();
-      //todo eric check relayer role
+      // todo eric check relayer role
       await relayerPool.grantRole(relayerRole, accounts[0].address);
       const auditorPublicKeys: BN[] = (await commitmentPoolContract.getAllAuditorPublicKeys()).map((k: any) =>
         toBN(k.toString()),
@@ -435,7 +434,7 @@ export function testTransactRevert(
         .map((n) => toBN(toHexNoPrefix(n), 16));
     });
 
-    //todo eric should check relayer role
+    // todo eric should check relayer role
     it('should revert when public amount error', async () => {
       const request = buildRequest(
         numInputs,

@@ -10,6 +10,7 @@ import { MystikoProtocolV2, ProtocolFactoryV2 } from '@mystikonetwork/protocol';
 import { toDecimals } from '@mystikonetwork/utils';
 import { ZokratesNodeProverFactory } from '@mystikonetwork/zkp-node';
 import { waffle } from 'hardhat';
+import { MystikoSettings } from '@mystikonetwork/contracts-abi-settings';
 import { constructCommitment, testBridgeConstructor } from '../../../common';
 import { testLayerZeroDeposit } from '../../../common/depositLayerZeroTests';
 import {
@@ -30,7 +31,6 @@ import {
   MinBridgeFee,
   PeerMinRollupFee,
 } from '../../../util/constants';
-import { MystikoSettings } from '@mystikonetwork/contracts-abi-settings';
 
 describe('Test Mystiko layer zero', () => {
   async function fixture(accounts: Wallet[]) {
@@ -62,7 +62,7 @@ describe('Test Mystiko layer zero', () => {
     await associateContract(settings, local, remote, poolLocal, poolRemote);
 
     return {
-      mockToken: mockToken,
+      mockToken,
       hasher3,
       poolLocal,
       poolRemote,

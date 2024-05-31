@@ -12,6 +12,8 @@ import { MystikoProtocolV2, ProtocolFactoryV2 } from '@mystikonetwork/protocol';
 import { toDecimals } from '@mystikonetwork/utils';
 import { ZokratesNodeProverFactory } from '@mystikonetwork/zkp-node';
 import { waffle } from 'hardhat';
+import { expect } from 'chai';
+import { MystikoSettings } from '@mystikonetwork/contracts-abi-settings';
 import { constructCommitment, testBridgeConstructor } from '../../../common';
 import { testTBridgeDeposit } from '../../../common/depositTBridgeTests';
 import {
@@ -31,11 +33,36 @@ import {
   MinBridgeFee,
   PeerMinExecutorFee,
   PeerMinRollupFee,
-  SourceChainID,
 } from '../../../util/constants';
-import { expect } from 'chai';
-import { BigNumberish } from 'ethers';
-import { MystikoSettings } from '@mystikonetwork/contracts-abi-settings';
+
+function testTBridgeProxyAdminOperations(
+  contractName: string,
+  tbridgeProxy: MystikoTBridgeProxy,
+  accounts: any[],
+) {
+  describe(`Test ${contractName} admin operations`, () => {
+    before(async () => {});
+
+    it('should changeOperator correctly', async () => {
+      await expect(tbridgeProxy.connect(accounts[1]).changeOperator(accounts[1].address)).to.be.revertedWith(
+        'OnlyOperator()',
+      );
+    });
+
+    // todo check executor/register/withdraw
+    it('should remove executor whitelist correctly', async () => {
+      await tbridgeProxy.removeExecutorWhitelist(accounts[1].address);
+    });
+
+    it('should remove register whitelist correctly', async () => {
+      await tbridgeProxy.removeRegisterWhitelist(accounts[1].address);
+    });
+
+    it('should remove executor whitelist correctly', async () => {
+      await tbridgeProxy.withdraw(accounts[1].address);
+    });
+  });
+}
 
 describe('Test Mystiko tbridge', () => {
   async function fixture(accounts: Wallet[]) {
@@ -67,7 +94,7 @@ describe('Test Mystiko tbridge', () => {
     await associateContract(settings, local, remote, poolLocal, poolRemote);
 
     return {
-      mockToken: mockToken,
+      mockToken,
       hasher3,
       poolLocal,
       poolRemote,
@@ -115,7 +142,7 @@ describe('Test Mystiko tbridge', () => {
     settings = r.settings;
   });
 
-  it('test constructor', async () => {
+  it('test constructor', () => {
     testBridgeConstructor(
       'MystikoV2TBridgeMain',
       localMain,
@@ -231,32 +258,3 @@ describe('Test Mystiko tbridge', () => {
     );
   });
 });
-
-function testTBridgeProxyAdminOperations(
-  contractName: string,
-  tbridgeProxy: MystikoTBridgeProxy,
-  accounts: any[],
-) {
-  describe(`Test ${contractName} admin operations`, () => {
-    before(async () => {});
-
-    it('should changeOperator correctly', async () => {
-      await expect(tbridgeProxy.connect(accounts[1]).changeOperator(accounts[1].address)).to.be.revertedWith(
-        'OnlyOperator()',
-      );
-    });
-
-    // todo check executor/register/withdraw
-    it('should remove executor whitelist correctly', async () => {
-      await tbridgeProxy.removeExecutorWhitelist(accounts[1].address);
-    });
-
-    it('should remove register whitelist correctly', async () => {
-      await tbridgeProxy.removeRegisterWhitelist(accounts[1].address);
-    });
-
-    it('should remove executor whitelist correctly', async () => {
-      await tbridgeProxy.withdraw(accounts[1].address);
-    });
-  });
-}

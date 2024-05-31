@@ -4,9 +4,9 @@ import { CommitmentOutput, MystikoProtocolV2 } from '@mystikonetwork/protocol';
 import { toBN, toHex } from '@mystikonetwork/utils';
 import { expect } from 'chai';
 import { waffle } from 'hardhat';
+import { MystikoCertificate, MystikoSettings } from '@mystikonetwork/contracts-abi-settings';
 import { MaxAmount, MinAmount, MockSignature, ZeroAddress } from '../util/constants';
 import { CommitmentInfo } from './commitment';
-import { MystikoCertificate, MystikoSettings } from '@mystikonetwork/contracts-abi-settings';
 
 export function testLoopDeposit(
   contractName: string,

@@ -13,8 +13,6 @@ import {
   MockCelerMessageBus__factory,
   MockLZEndpoint,
   MockLZEndpoint__factory,
-  MockSettingsCenter,
-  MockSettingsCenter__factory,
   Hasher3,
   Hasher3__factory,
   MystikoTBridgeProxy,
@@ -31,29 +29,16 @@ import {
   MystikoV2LoopMain__factory,
   MystikoV2TBridgeERC20__factory,
   MystikoV2TBridgeMain__factory,
-  Rollup16Verifier,
   Rollup16Verifier__factory,
-  Rollup1Verifier,
   Rollup1Verifier__factory,
-  Rollup2Verifier,
   Rollup2Verifier__factory,
-  Rollup4Verifier,
   Rollup4Verifier__factory,
-  Rollup8Verifier,
   Rollup8Verifier__factory,
-  MockToken,
-  MockToken__factory,
-  Transaction1x0Verifier,
   Transaction1x0Verifier__factory,
-  Transaction1x1Verifier,
   Transaction1x1Verifier__factory,
-  Transaction1x2Verifier,
   Transaction1x2Verifier__factory,
-  Transaction2x0Verifier,
   Transaction2x0Verifier__factory,
-  Transaction2x1Verifier,
   Transaction2x1Verifier__factory,
-  Transaction2x2Verifier,
   Transaction2x2Verifier__factory,
   MockDaoRegistry__factory,
   MockSanctionsList__factory,
@@ -68,6 +53,10 @@ import {
   MystikoRelayerPool,
   MystikoRollerPool,
   MystikoSettings,
+  MystikoCertificate__factory,
+  MystikoRelayerPool__factory,
+  MystikoRollerPool__factory,
+  MystikoSettings__factory,
 } from '@mystikonetwork/contracts-abi-settings';
 import { toBN } from '@mystikonetwork/utils';
 import BN from 'bn.js';
@@ -90,15 +79,8 @@ import {
   PeerMinRollupFee,
   SourceChainID,
   UserPrivateKeys,
-  vXZKContract,
   ZeroAddress,
 } from './constants';
-import {
-  MystikoCertificate__factory,
-  MystikoRelayerPool__factory,
-  MystikoRollerPool__factory,
-  MystikoSettings__factory,
-} from '@mystikonetwork/contracts-abi-settings';
 
 // Workaround for https://github.com/nomiclabs/hardhat/issues/849
 // TODO: Remove once fixed upstream.
@@ -519,21 +501,21 @@ export async function deployDependContracts(accounts: Wallet[]): Promise<DependD
   const mockDaoRegistry = await mockDaoRegistryFactory.deploy();
   await mockDaoRegistry.deployed();
 
-  let certificateArtifact = await getArtifactSettings('MystikoCertificate');
+  const certificateArtifact = await getArtifactSettings('MystikoCertificate');
   const certificateFactory = (await ethers.getContractFactoryFromArtifact(
     certificateArtifact,
   )) as MystikoCertificate__factory;
   const certificate = await certificateFactory.deploy(mockDaoRegistry.address, IssuerAddress);
   await certificate.deployed();
 
-  let rollerArtifact = await getArtifactSettings('MystikoRollerPool');
+  const rollerArtifact = await getArtifactSettings('MystikoRollerPool');
   const rollerFactory = (await ethers.getContractFactoryFromArtifact(
     rollerArtifact,
   )) as MystikoRollerPool__factory;
   const rollerPool = await rollerFactory.deploy(mockDaoRegistry.address, mockVoteToken.address, 0);
   await rollerPool.deployed();
 
-  let relayerArtifact = await getArtifactSettings('MystikoRelayerPool');
+  const relayerArtifact = await getArtifactSettings('MystikoRelayerPool');
   const relayerFactory = (await ethers.getContractFactoryFromArtifact(
     relayerArtifact,
   )) as MystikoRelayerPool__factory;
@@ -546,7 +528,7 @@ export async function deployDependContracts(accounts: Wallet[]): Promise<DependD
   const mockSanctionList = await mockSanctionFactory.deploy();
   await mockSanctionList.deployed();
 
-  let settingsArtifact = await getArtifactSettings('MystikoSettings');
+  const settingsArtifact = await getArtifactSettings('MystikoSettings');
   const settingsFactory = (await ethers.getContractFactoryFromArtifact(
     settingsArtifact,
   )) as MystikoSettings__factory;
@@ -581,7 +563,7 @@ export async function deployDependContracts(accounts: Wallet[]): Promise<DependD
   await settings.deployed();
   await settings.updateSanctionsListAddress(mockSanctionList.address);
 
-  //todo eric enable cert check
+  // todo eric enable cert check
   await certificate.disableCertificateCheck();
 
   return {
@@ -618,7 +600,7 @@ export async function getAccounts(admin: Wallet, num: number): Promise<Wallet[]>
   return accounts;
 }
 
-export function getBalance(address: string, mockToken: MockToken | undefined): Promise<BN> {
+export function getBalance(address: string, mockToken: MockMystikoToken | undefined): Promise<BN> {
   if (!mockToken) {
     return waffle.provider.getBalance(address).then((r: any) => toBN(r.toString()));
   }

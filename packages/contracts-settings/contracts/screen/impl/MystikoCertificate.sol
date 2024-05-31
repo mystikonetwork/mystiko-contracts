@@ -21,7 +21,7 @@ contract MystikoCertificate is IMystikoCertificate, MystikoDAOAccessControl {
     return issuer;
   }
 
-  function checkEnabled() external view returns (bool){
+  function checkEnabled() external view returns (bool) {
     return certificateCheck;
   }
 
@@ -50,7 +50,6 @@ contract MystikoCertificate is IMystikoCertificate, MystikoDAOAccessControl {
     certificateCheck = false;
     emit CertificateCheck(certificateCheck);
   }
-
 
   function updateIssuerAddress(address _newIssuer) external onlyMystikoDAO {
     issuer = _newIssuer;

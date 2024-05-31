@@ -5,6 +5,7 @@ import { CommitmentOutput, MystikoProtocolV2 } from '@mystikonetwork/protocol';
 import { readCompressedFile, readFile, toBN } from '@mystikonetwork/utils';
 import { expect } from 'chai';
 import { waffle } from 'hardhat';
+import { MystikoRollerPool, MystikoSettings } from '@mystikonetwork/contracts-abi-settings';
 import {
   CircuitsPath,
   MerkleTreeHeight,
@@ -13,7 +14,6 @@ import {
   RollupAccountIndex1,
   RollupAccountIndex2,
 } from '../util/constants';
-import { MystikoRollerPool, MystikoSettings } from '@mystikonetwork/contracts-abi-settings';
 
 async function generateProof(
   protocol: MystikoProtocolV2,
@@ -149,7 +149,7 @@ export function testRollup(
         commitmentPoolContract
           .connect(rollupAccount)
           .rollup([[proof.proofA, proof.proofB, proof.proofC], 0, proof.newRoot, proof.leafHash]),
-      ).to.be.revertedWith('0xa8530bd8'); //RollupSizeTooSmall();
+      ).to.be.revertedWith('0xa8530bd8'); // RollupSizeTooSmall();
     });
 
     it('should revert invalid rollup Size 1234', async () => {

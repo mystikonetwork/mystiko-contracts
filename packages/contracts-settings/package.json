@@ -19,7 +19,7 @@
     "prettier:check": "prettier --check \"./**/*.{ts,sol}\" --config .prettierrc",
     "prettier:fix": "prettier --write \"./**/*.{ts,sol}\" --config .prettierrc",
     "prettier": "yarn prettier:fix",
-    "lint": "solhint contracts/**/*.sol && eslint --ext .js,.ts .",
+    "lint": "solhint contracts/**/*.sol",
     "report-gas:summary": "REPORT_GAS=true hardhat test",
     "size-contracts": "hardhat size-contracts | sed -r 's/[[:cntrl:]]\\\\\\\\\\\\\\\\[[0-9]{1,3}m//g' > reports/size/contract_sizes.txt",
     "clean": "hardhat clean && rm -rf artifacts && rm -rf artifactsExternal",

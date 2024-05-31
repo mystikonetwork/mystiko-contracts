@@ -1,17 +1,20 @@
 import { Wallet } from '@ethersproject/wallet';
 import {
   CommitmentPoolERC20,
+  MockMystikoToken,
   MockSanctionList,
   MystikoV2LoopERC20,
-  Rollup1Verifier,
-  MockToken,
-  Transaction1x0Verifier,
-  Transaction1x1Verifier,
 } from '@mystikonetwork/contracts-abi';
 import { MystikoProtocolV2, ProtocolFactoryV2 } from '@mystikonetwork/protocol';
 import { toBN, toDecimals } from '@mystikonetwork/utils';
 import { ZokratesNodeProverFactory } from '@mystikonetwork/zkp-node';
 import { waffle } from 'hardhat';
+import {
+  MystikoCertificate,
+  MystikoRelayerPool,
+  MystikoRollerPool,
+  MystikoSettings,
+} from '@mystikonetwork/contracts-abi-settings';
 import { constructCommitment, testTransact } from '../common';
 import { loopDeposit } from '../common/loopDepositTests';
 import { rollup } from '../common/rollupTests';
@@ -22,12 +25,6 @@ import {
   loadFixture,
 } from '../util/common';
 import { CircuitsPath } from '../util/constants';
-import {
-  MystikoCertificate,
-  MystikoRelayerPool,
-  MystikoRollerPool,
-  MystikoSettings,
-} from '@mystikonetwork/contracts-abi-settings';
 
 describe('Mystiko combination test R1', () => {
   async function fixture(accounts: Wallet[]) {
@@ -41,11 +38,12 @@ describe('Mystiko combination test R1', () => {
       settings.address,
       {},
     );
+    await settings.updateAssociatedPool(loop.coreMain.address, pool.poolMain.address);
+    await settings.updateAssociatedPool(loop.coreERC20.address, pool.poolERC20.address);
+
     return {
-      mockToken: mockToken,
+      mockToken,
       hasher3,
-      transaction1x0Verifier,
-      transaction1x1Verifier,
       pool,
       loop,
       mockSanctionList,
@@ -57,12 +55,10 @@ describe('Mystiko combination test R1', () => {
   }
 
   let accounts: Wallet[];
-  let mockToken: MockToken;
+  let mockToken: MockMystikoToken;
   let mockSanctionList: MockSanctionList;
   let poolErc20: CommitmentPoolERC20;
   let loopERC20: MystikoV2LoopERC20;
-  let transaction1x0Verifier: Transaction1x0Verifier;
-  let transaction1x1Verifier: Transaction1x1Verifier;
   let protocol: MystikoProtocolV2;
   let certificate: MystikoCertificate;
   let rollerPool: MystikoRollerPool;
@@ -136,7 +132,7 @@ describe('Mystiko combination test R1', () => {
       mockToken,
     );
 
-    rollup('CommitmentPoolERC20', protocol, poolErc20, rollup1, mockToken, accounts, cmInfo.commitments, {
+    rollup('CommitmentPoolERC20', protocol, poolErc20, mockToken, rollerPool, accounts, cmInfo.commitments, {
       isMainAsset: false,
       rollupSize: 1,
       includedCount: includedCounter,
@@ -167,7 +163,7 @@ describe('Mystiko combination test R1', () => {
     );
     queueSize += 1;
 
-    rollup('CommitmentPoolERC20', protocol, poolErc20, rollup1, mockToken, accounts, cmInfo.commitments, {
+    rollup('CommitmentPoolERC20', protocol, poolErc20, mockToken, rollerPool, accounts, cmInfo.commitments, {
       isMainAsset: false,
       rollupSize: 1,
       rollupFee: toDecimals(1).toString(),

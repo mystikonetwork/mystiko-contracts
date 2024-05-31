@@ -11,6 +11,7 @@ import { MystikoProtocolV2, ProtocolFactoryV2 } from '@mystikonetwork/protocol';
 import { toDecimals } from '@mystikonetwork/utils';
 import { ZokratesNodeProverFactory } from '@mystikonetwork/zkp-node';
 import { waffle } from 'hardhat';
+import { MystikoSettings } from '@mystikonetwork/contracts-abi-settings';
 import { constructCommitment, testBridgeConstructor } from '../../../common';
 import { testAxelarDeposit } from '../../../common/depositAxelarTests';
 import {
@@ -20,13 +21,17 @@ import {
   deployMockAxelarGasService,
   deployMockAxelarGateway,
   loadFixture,
+  associateContract,
 } from '../../../util/common';
 
 // @ts-ignore
-import { MaxAmount, MinAmount, MinBridgeFee, PeerMinRollupFee } from '../../../util/constants';
-import { associateContract } from '../../../util/common';
-import { MystikoSettings } from '@mystikonetwork/contracts-abi-settings';
-import { DestinationChainID } from '../../../util/constants';
+import {
+  MaxAmount,
+  DestinationChainID,
+  MinAmount,
+  MinBridgeFee,
+  PeerMinRollupFee,
+} from '../../../util/constants';
 
 describe('Test Mystiko axelar', () => {
   async function fixture(accounts: Wallet[]) {
@@ -61,7 +66,7 @@ describe('Test Mystiko axelar', () => {
     await associateContract(settings, local, remote, poolLocal, poolRemote);
 
     return {
-      mockToken: mockToken,
+      mockToken,
       hasher3,
       poolLocal,
       poolRemote,

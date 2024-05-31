@@ -5,6 +5,7 @@ import { toBN, toHex } from '@mystikonetwork/utils';
 import { expect } from 'chai';
 import { ethers } from 'ethers';
 import { waffle } from 'hardhat';
+import { MystikoSettings } from '@mystikonetwork/contracts-abi-settings';
 import {
   BridgeAccountIndex,
   DefaultPoolAmount,
@@ -16,8 +17,6 @@ import {
   SourceChainID,
 } from '../util/constants';
 import { CommitmentInfo } from './commitment';
-import { MystikoSettings } from '@mystikonetwork/contracts-abi-settings';
-import { set } from 'husky';
 
 export function testCelerDeposit(
   contractName: string,

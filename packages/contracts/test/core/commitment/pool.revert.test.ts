@@ -11,6 +11,7 @@ import { MystikoProtocolV2, ProtocolFactoryV2 } from '@mystikonetwork/protocol';
 import { toDecimals } from '@mystikonetwork/utils';
 import { ZokratesNodeProverFactory } from '@mystikonetwork/zkp-node';
 import { waffle } from 'hardhat';
+import { MystikoCertificate, MystikoSettings } from '@mystikonetwork/contracts-abi-settings';
 import { constructCommitment } from '../../common';
 import { loopDeposit, loopDepositRevert } from '../../common/loopDepositTests';
 import {
@@ -19,7 +20,6 @@ import {
   deployLoopContracts,
   loadFixture,
 } from '../../util/common';
-import { MystikoCertificate, MystikoSettings } from '@mystikonetwork/contracts-abi-settings';
 
 describe('Test Mystiko pool revert', () => {
   async function fixture(accounts: Wallet[]) {

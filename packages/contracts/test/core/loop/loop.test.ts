@@ -6,7 +6,6 @@ import {
   MystikoV2LoopERC20,
   MystikoV2LoopMain,
 } from '@mystikonetwork/contracts-abi';
-import { waffle } from 'hardhat';
 import { testLoopConstructor } from '../../common';
 import {
   deployCommitmentPoolContracts,
@@ -38,7 +37,6 @@ describe('Test Mystiko loop', () => {
     };
   }
 
-  let accounts: Wallet[];
   let poolMain: CommitmentPoolMain;
   let poolErc20: CommitmentPoolERC20;
   let loopERC20: MystikoV2LoopERC20;
@@ -46,8 +44,6 @@ describe('Test Mystiko loop', () => {
   let mockToken: MockMystikoToken;
 
   beforeEach(async () => {
-    accounts = waffle.provider.getWallets();
-
     const r = await loadFixture(fixture);
     poolMain = r.pool.poolMain;
     poolErc20 = r.pool.poolERC20;

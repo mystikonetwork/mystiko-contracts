@@ -5,24 +5,19 @@ import {
   MockSanctionList,
   MystikoV2LoopERC20,
   MystikoV2LoopMain,
-  Rollup16Verifier,
-  Rollup1Verifier,
-  Rollup2Verifier,
-  Rollup4Verifier,
-  Rollup8Verifier,
   MockToken,
-  Transaction1x0Verifier,
-  Transaction1x1Verifier,
-  Transaction1x2Verifier,
-  Transaction2x0Verifier,
-  Transaction2x1Verifier,
-  Transaction2x2Verifier,
 } from '@mystikonetwork/contracts-abi';
 import { MystikoProtocolV2, ProtocolFactoryV2 } from '@mystikonetwork/protocol';
 import { toBN, toDecimals } from '@mystikonetwork/utils';
 import { ZokratesNodeProverFactory } from '@mystikonetwork/zkp-node';
 import { expect } from 'chai';
 import { waffle } from 'hardhat';
+import {
+  MystikoCertificate,
+  MystikoRelayerPool,
+  MystikoRollerPool,
+  MystikoSettings,
+} from '@mystikonetwork/contracts-abi-settings';
 import {
   constructCommitment,
   testCommitmentPoolConstructor,
@@ -39,12 +34,6 @@ import {
   loadFixture,
 } from '../../util/common';
 import { CircuitsPath } from '../../util/constants';
-import {
-  MystikoCertificate,
-  MystikoRelayerPool,
-  MystikoRollerPool,
-  MystikoSettings,
-} from '@mystikonetwork/contracts-abi-settings';
 
 describe('Test Mystiko pool tree', () => {
   it('test pool tree', async () => {

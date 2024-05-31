@@ -1,23 +1,20 @@
 import { Wallet } from '@ethersproject/wallet';
 import {
   CommitmentPoolMain,
+  MockMystikoToken,
   MockSanctionList,
   MystikoV2LoopMain,
-  Rollup16Verifier,
-  Rollup1Verifier,
-  Rollup4Verifier,
-  MockToken,
-  Transaction1x0Verifier,
-  Transaction1x1Verifier,
-  Transaction1x2Verifier,
-  Transaction2x0Verifier,
-  Transaction2x1Verifier,
-  Transaction2x2Verifier,
 } from '@mystikonetwork/contracts-abi';
 import { MystikoProtocolV2, ProtocolFactoryV2 } from '@mystikonetwork/protocol';
 import { toBN, toDecimals } from '@mystikonetwork/utils';
 import { ZokratesNodeProverFactory } from '@mystikonetwork/zkp-node';
 import { waffle } from 'hardhat';
+import {
+  MystikoCertificate,
+  MystikoRelayerPool,
+  MystikoRollerPool,
+  MystikoSettings,
+} from '@mystikonetwork/contracts-abi-settings';
 import { constructCommitment, testTransact } from '../common';
 import { loopDeposit } from '../common/loopDepositTests';
 import { rollup } from '../common/rollupTests';
@@ -28,12 +25,6 @@ import {
   loadFixture,
 } from '../util/common';
 import { CircuitsPath } from '../util/constants';
-import {
-  MystikoCertificate,
-  MystikoRelayerPool,
-  MystikoRollerPool,
-  MystikoSettings,
-} from '@mystikonetwork/contracts-abi-settings';
 
 describe('Mystiko combination test R16R4R1 ', () => {
   async function fixture(accounts: Wallet[]) {
@@ -47,8 +38,11 @@ describe('Mystiko combination test R16R4R1 ', () => {
       settings.address,
       {},
     );
+    await settings.updateAssociatedPool(loop.coreMain.address, pool.poolMain.address);
+    await settings.updateAssociatedPool(loop.coreERC20.address, pool.poolERC20.address);
+
     return {
-      mockToken: mockToken,
+      mockToken,
       hasher3,
       pool,
       loop,
@@ -61,19 +55,10 @@ describe('Mystiko combination test R16R4R1 ', () => {
   }
 
   let accounts: Wallet[];
-  let mockToken: MockToken;
+  let mockToken: MockMystikoToken;
   let mockSanctionList: MockSanctionList;
   let poolMain: CommitmentPoolMain;
   let loopMain: MystikoV2LoopMain;
-  let transaction1x0Verifier: Transaction1x0Verifier;
-  let transaction1x1Verifier: Transaction1x1Verifier;
-  let transaction1x2Verifier: Transaction1x2Verifier;
-  let transaction2x0Verifier: Transaction2x0Verifier;
-  let transaction2x1Verifier: Transaction2x1Verifier;
-  let transaction2x2Verifier: Transaction2x2Verifier;
-  let rollup1: Rollup1Verifier;
-  let rollup4: Rollup4Verifier;
-  let rollup16: Rollup16Verifier;
   let protocol: MystikoProtocolV2;
   let certificate: MystikoCertificate;
   let rollerPool: MystikoRollerPool;
@@ -316,7 +301,7 @@ describe('Mystiko combination test R16R4R1 ', () => {
       CircuitsPath.concat('Transaction2x1.vkey.gz'),
     );
 
-    rollup('CommitmentPoolMain', protocol, poolMain, rollup4, mockToken, accounts, cmInfo.commitments, {
+    rollup('CommitmentPoolMain', protocol, poolMain, mockToken, rollerPool, accounts, cmInfo.commitments, {
       rollupSize: 4,
       rollupFee: toDecimals(1).toString(),
       includedCount: 24,

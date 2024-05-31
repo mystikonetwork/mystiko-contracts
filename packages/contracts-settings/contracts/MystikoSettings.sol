@@ -55,7 +55,7 @@ contract MystikoSettings is
     return certificate.getIssuerAddress();
   }
 
-  function checkEnabled() external view returns (bool){
+  function checkEnabled() external view returns (bool) {
     return certificate.checkEnabled();
   }
 
