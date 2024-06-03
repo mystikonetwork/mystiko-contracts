@@ -26,7 +26,8 @@
     "build": "yarn build:contract && yarn build:abi",
     "build:abi": "cd ../.. && lerna run generate --scope @mystikonetwork/contracts-abi-certificate",
     "build:contract": "hardhat compile",
-    "test": "yarn test:forge",
+    "test": "yarn test:coverage",
+    "test:coverage": "forge coverage --lib-paths=../../node_modules --lib-paths=../../foundry --report lcov",
     "test:forge": "forge test -vvv --lib-paths=../../node_modules --lib-paths=../../foundry"
   },
   "devDependencies": {

@@ -25,8 +25,8 @@ contract MystikoSettingsCenterTest is Test, Random {
   MystikoRelayerPool public relayerPool;
   MystikoSettings public settings;
 
-  event MinRollupFeeUpdated(address indexed deposit, uint256 minRollupFee);
-  event TransferDisableUpdated(address indexed deposit, bool disable);
+  event MinRollupFeeChanged(address indexed deposit, uint256 minRollupFee);
+  event TransferDisableChanged(address indexed deposit, bool disable);
 
   function setUp() public {
     dao = address(uint160(uint256(keccak256(abi.encodePacked(_random())))));
@@ -63,44 +63,44 @@ contract MystikoSettingsCenterTest is Test, Random {
     assertEq(settings.queryMinRollupFee(pool), 0);
 
     vm.expectRevert(GovernanceErrors.OnlyMystikoDAO.selector);
-    settings.updateMinRollupFee(pool, 500);
+    settings.setMinRollupFee(pool, 500);
     assertEq(settings.queryMinRollupFee(pool), 0);
 
     vm.expectEmit(address(settings));
-    emit MinRollupFeeUpdated(pool, 600);
+    emit MinRollupFeeChanged(pool, 600);
     vm.prank(dao);
-    settings.updateMinRollupFee(pool, 600);
+    settings.setMinRollupFee(pool, 600);
     assertEq(settings.queryMinRollupFee(pool), 600);
 
     vm.expectRevert(MystikoSettingsErrors.NotChanged.selector);
     vm.prank(dao);
-    settings.updateMinRollupFee(pool, 600);
+    settings.setMinRollupFee(pool, 600);
     assertEq(settings.queryMinRollupFee(pool), 600);
   }
 
   function test_transfer_disable() public {
     address pool = address(uint160(uint256(keccak256(abi.encodePacked(_random())))));
-    assertEq(settings.queryTransferDisable(pool), false);
+    assertEq(settings.isTransferDisable(pool), false);
 
     vm.expectRevert(GovernanceErrors.OnlyMystikoDAO.selector);
-    settings.updateTransferDisable(pool, true);
-    assertEq(settings.queryTransferDisable(pool), false);
+    settings.setTransferDisable(pool, true);
+    assertEq(settings.isTransferDisable(pool), false);
 
     vm.expectEmit(address(settings));
-    emit TransferDisableUpdated(pool, true);
+    emit TransferDisableChanged(pool, true);
     vm.prank(dao);
-    settings.updateTransferDisable(pool, true);
-    assertEq(settings.queryTransferDisable(pool), true);
+    settings.setTransferDisable(pool, true);
+    assertEq(settings.isTransferDisable(pool), true);
 
     vm.expectRevert(MystikoSettingsErrors.NotChanged.selector);
     vm.prank(dao);
-    settings.updateTransferDisable(pool, true);
-    assertEq(settings.queryTransferDisable(pool), true);
+    settings.setTransferDisable(pool, true);
+    assertEq(settings.isTransferDisable(pool), true);
 
     vm.expectEmit(address(settings));
-    emit TransferDisableUpdated(pool, false);
+    emit TransferDisableChanged(pool, false);
     vm.prank(dao);
-    settings.updateTransferDisable(pool, false);
-    assertEq(settings.queryTransferDisable(pool), false);
+    settings.setTransferDisable(pool, false);
+    assertEq(settings.isTransferDisable(pool), false);
   }
 }

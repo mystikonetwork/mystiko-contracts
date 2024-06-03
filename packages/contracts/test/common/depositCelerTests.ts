@@ -76,7 +76,7 @@ export function testCelerDeposit(
     });
 
     it('should revert when deposit is disabled', async () => {
-      await settings.updateDepositDisable(depositContract.address, true);
+      await settings.setDepositDisable(depositContract.address, true);
       await expect(
         depositContract.certDeposit(
           [
@@ -94,7 +94,7 @@ export function testCelerDeposit(
           { from: accounts[0].address, value: minTotalValue },
         ),
       ).to.be.revertedWith('DepositsDisabled()');
-      await settings.updateDepositDisable(depositContract.address, false);
+      await settings.setDepositDisable(depositContract.address, false);
     });
 
     it('should revert when sender in sanction list', async () => {

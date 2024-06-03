@@ -15,12 +15,12 @@ const _abi = [
         type: 'address',
       },
     ],
-    name: 'queryMinRollupFee',
+    name: 'isTransferDisable',
     outputs: [
       {
-        internalType: 'uint256',
+        internalType: 'bool',
         name: '',
-        type: 'uint256',
+        type: 'bool',
       },
     ],
     stateMutability: 'view',
@@ -34,12 +34,12 @@ const _abi = [
         type: 'address',
       },
     ],
-    name: 'queryTransferDisable',
+    name: 'queryMinRollupFee',
     outputs: [
       {
-        internalType: 'bool',
+        internalType: 'uint256',
         name: '',
-        type: 'bool',
+        type: 'uint256',
       },
     ],
     stateMutability: 'view',

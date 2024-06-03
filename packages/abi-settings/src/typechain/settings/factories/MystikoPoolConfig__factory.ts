@@ -54,7 +54,7 @@ const _abi = [
         type: 'uint256',
       },
     ],
-    name: 'MinRollupFeeUpdated',
+    name: 'MinRollupFeeChanged',
     type: 'event',
   },
   {
@@ -148,7 +148,7 @@ const _abi = [
         type: 'bool',
       },
     ],
-    name: 'TransferDisableUpdated',
+    name: 'TransferDisableChanged',
     type: 'event',
   },
   {
@@ -242,6 +242,25 @@ const _abi = [
     inputs: [
       {
         internalType: 'address',
+        name: '_pool',
+        type: 'address',
+      },
+    ],
+    name: 'isTransferDisable',
+    outputs: [
+      {
+        internalType: 'bool',
+        name: '',
+        type: 'bool',
+      },
+    ],
+    stateMutability: 'view',
+    type: 'function',
+  },
+  {
+    inputs: [
+      {
+        internalType: 'address',
         name: '',
         type: 'address',
       },
@@ -271,25 +290,6 @@ const _abi = [
         internalType: 'uint256',
         name: '',
         type: 'uint256',
-      },
-    ],
-    stateMutability: 'view',
-    type: 'function',
-  },
-  {
-    inputs: [
-      {
-        internalType: 'address',
-        name: '_pool',
-        type: 'address',
-      },
-    ],
-    name: 'queryTransferDisable',
-    outputs: [
-      {
-        internalType: 'bool',
-        name: '',
-        type: 'bool',
       },
     ],
     stateMutability: 'view',
@@ -334,6 +334,42 @@ const _abi = [
   {
     inputs: [
       {
+        internalType: 'address',
+        name: '_pool',
+        type: 'address',
+      },
+      {
+        internalType: 'uint256',
+        name: '_minRollupFee',
+        type: 'uint256',
+      },
+    ],
+    name: 'setMinRollupFee',
+    outputs: [],
+    stateMutability: 'nonpayable',
+    type: 'function',
+  },
+  {
+    inputs: [
+      {
+        internalType: 'address',
+        name: '_pool',
+        type: 'address',
+      },
+      {
+        internalType: 'bool',
+        name: '_disable',
+        type: 'bool',
+      },
+    ],
+    name: 'setTransferDisable',
+    outputs: [],
+    stateMutability: 'nonpayable',
+    type: 'function',
+  },
+  {
+    inputs: [
+      {
         internalType: 'bytes4',
         name: 'interfaceId',
         type: 'bytes4',
@@ -367,42 +403,6 @@ const _abi = [
       },
     ],
     stateMutability: 'view',
-    type: 'function',
-  },
-  {
-    inputs: [
-      {
-        internalType: 'address',
-        name: '_pool',
-        type: 'address',
-      },
-      {
-        internalType: 'uint256',
-        name: '_minRollupFee',
-        type: 'uint256',
-      },
-    ],
-    name: 'updateMinRollupFee',
-    outputs: [],
-    stateMutability: 'nonpayable',
-    type: 'function',
-  },
-  {
-    inputs: [
-      {
-        internalType: 'address',
-        name: '_pool',
-        type: 'address',
-      },
-      {
-        internalType: 'bool',
-        name: '_disable',
-        type: 'bool',
-      },
-    ],
-    name: 'updateTransferDisable',
-    outputs: [],
-    stateMutability: 'nonpayable',
     type: 'function',
   },
 ];

@@ -25,9 +25,9 @@ contract MystikoSettingsCenterTest is Test, Random {
   MystikoRelayerPool public relayerPool;
   MystikoBridgeSettings public settings;
 
-  event MinBridgeFeeUpdated(address indexed deposit, uint256 minBridgeFee);
-  event MinPeerExecutorFeeUpdated(address indexed deposit, uint256 minPeerExecutorFee);
-  event MinPeerRollupFeeUpdated(address indexed deposit, uint256 minPeerRollupFee);
+  event MinBridgeFeeChanged(address indexed deposit, uint256 minBridgeFee);
+  event MinPeerExecutorFeeChanged(address indexed deposit, uint256 minPeerExecutorFee);
+  event MinPeerRollupFeeChanged(address indexed deposit, uint256 minPeerRollupFee);
 
   function setUp() public {
     dao = address(uint160(uint256(keccak256(abi.encodePacked(_random())))));
@@ -64,13 +64,13 @@ contract MystikoSettingsCenterTest is Test, Random {
     assertEq(settings.queryMinBridgeFee(deposit), 0);
 
     vm.expectRevert(GovernanceErrors.OnlyMystikoDAO.selector);
-    settings.updateMinBridgeFee(deposit, 100);
+    settings.setMinBridgeFee(deposit, 100);
     assertEq(settings.queryMinBridgeFee(deposit), 0);
 
     vm.expectEmit(address(settings));
-    emit MinBridgeFeeUpdated(deposit, 200);
+    emit MinBridgeFeeChanged(deposit, 200);
     vm.prank(dao);
-    settings.updateMinBridgeFee(deposit, 200);
+    settings.setMinBridgeFee(deposit, 200);
     assertEq(settings.queryMinBridgeFee(deposit), 200);
   }
 
@@ -79,18 +79,18 @@ contract MystikoSettingsCenterTest is Test, Random {
     assertEq(settings.queryMinPeerExecutorFee(deposit), 0);
 
     vm.expectRevert(GovernanceErrors.OnlyMystikoDAO.selector);
-    settings.updateMinPeerExecutorFee(deposit, 300);
+    settings.setMinPeerExecutorFee(deposit, 300);
     assertEq(settings.queryMinPeerExecutorFee(deposit), 0);
 
     vm.expectEmit(address(settings));
-    emit MinPeerExecutorFeeUpdated(deposit, 400);
+    emit MinPeerExecutorFeeChanged(deposit, 400);
     vm.prank(dao);
-    settings.updateMinPeerExecutorFee(deposit, 400);
+    settings.setMinPeerExecutorFee(deposit, 400);
     assertEq(settings.queryMinPeerExecutorFee(deposit), 400);
 
     vm.expectRevert(MystikoSettingsErrors.NotChanged.selector);
     vm.prank(dao);
-    settings.updateMinPeerExecutorFee(deposit, 400);
+    settings.setMinPeerExecutorFee(deposit, 400);
     assertEq(settings.queryMinPeerExecutorFee(deposit), 400);
   }
 
@@ -99,18 +99,18 @@ contract MystikoSettingsCenterTest is Test, Random {
     assertEq(settings.queryMinPeerRollupFee(deposit), 0);
 
     vm.expectRevert(GovernanceErrors.OnlyMystikoDAO.selector);
-    settings.updateMinPeerRollupFee(deposit, 500);
+    settings.setMinPeerRollupFee(deposit, 500);
     assertEq(settings.queryMinPeerRollupFee(deposit), 0);
 
     vm.expectEmit(address(settings));
-    emit MinPeerRollupFeeUpdated(deposit, 600);
+    emit MinPeerRollupFeeChanged(deposit, 600);
     vm.prank(dao);
-    settings.updateMinPeerRollupFee(deposit, 600);
+    settings.setMinPeerRollupFee(deposit, 600);
     assertEq(settings.queryMinPeerRollupFee(deposit), 600);
 
     vm.expectRevert(MystikoSettingsErrors.NotChanged.selector);
     vm.prank(dao);
-    settings.updateMinPeerRollupFee(deposit, 600);
+    settings.setMinPeerRollupFee(deposit, 600);
     assertEq(settings.queryMinPeerRollupFee(deposit), 600);
   }
 }

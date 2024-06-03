@@ -9,7 +9,7 @@ struct CertificateParams {
 }
 
 interface IMystikoCertificate {
-  function getIssuerAddress() external view returns (address);
-  function checkEnabled() external view returns (bool);
+  function getCertificateIssuer() external view returns (address);
+  function isCertificateCheckEnabled() external view returns (bool);
   function verifyCertificate(CertificateParams memory _params) external view returns (bool);
 }

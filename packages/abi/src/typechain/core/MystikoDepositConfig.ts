@@ -27,19 +27,19 @@ export interface MystikoDepositConfigInterface extends utils.Interface {
     'getRoleAdmin(bytes32)': FunctionFragment;
     'grantRole(bytes32,address)': FunctionFragment;
     'hasRole(bytes32,address)': FunctionFragment;
+    'isDepositDisable(address)': FunctionFragment;
     'maxDepositAmountMap(address)': FunctionFragment;
     'minDepositAmountMap(address)': FunctionFragment;
     'queryAssociatedPool(address)': FunctionFragment;
-    'queryDepositDisable(address)': FunctionFragment;
     'queryMaxDepositAmount(address)': FunctionFragment;
     'queryMinDepositAmount(address)': FunctionFragment;
     'renounceRole(bytes32,address)': FunctionFragment;
     'revokeRole(bytes32,address)': FunctionFragment;
+    'setAssociatedPool(address,address)': FunctionFragment;
+    'setDepositDisable(address,bool)': FunctionFragment;
+    'setMaxDepositAmount(address,uint256)': FunctionFragment;
+    'setMinDepositAmount(address,uint256)': FunctionFragment;
     'supportsInterface(bytes4)': FunctionFragment;
-    'updateAssociatedPool(address,address)': FunctionFragment;
-    'updateDepositDisable(address,bool)': FunctionFragment;
-    'updateMaxDepositAmount(address,uint256)': FunctionFragment;
-    'updateMinDepositAmount(address,uint256)': FunctionFragment;
   };
 
   encodeFunctionData(functionFragment: 'DEFAULT_ADMIN_ROLE', values?: undefined): string;
@@ -49,19 +49,19 @@ export interface MystikoDepositConfigInterface extends utils.Interface {
   encodeFunctionData(functionFragment: 'getRoleAdmin', values: [BytesLike]): string;
   encodeFunctionData(functionFragment: 'grantRole', values: [BytesLike, string]): string;
   encodeFunctionData(functionFragment: 'hasRole', values: [BytesLike, string]): string;
+  encodeFunctionData(functionFragment: 'isDepositDisable', values: [string]): string;
   encodeFunctionData(functionFragment: 'maxDepositAmountMap', values: [string]): string;
   encodeFunctionData(functionFragment: 'minDepositAmountMap', values: [string]): string;
   encodeFunctionData(functionFragment: 'queryAssociatedPool', values: [string]): string;
-  encodeFunctionData(functionFragment: 'queryDepositDisable', values: [string]): string;
   encodeFunctionData(functionFragment: 'queryMaxDepositAmount', values: [string]): string;
   encodeFunctionData(functionFragment: 'queryMinDepositAmount', values: [string]): string;
   encodeFunctionData(functionFragment: 'renounceRole', values: [BytesLike, string]): string;
   encodeFunctionData(functionFragment: 'revokeRole', values: [BytesLike, string]): string;
+  encodeFunctionData(functionFragment: 'setAssociatedPool', values: [string, string]): string;
+  encodeFunctionData(functionFragment: 'setDepositDisable', values: [string, boolean]): string;
+  encodeFunctionData(functionFragment: 'setMaxDepositAmount', values: [string, BigNumberish]): string;
+  encodeFunctionData(functionFragment: 'setMinDepositAmount', values: [string, BigNumberish]): string;
   encodeFunctionData(functionFragment: 'supportsInterface', values: [BytesLike]): string;
-  encodeFunctionData(functionFragment: 'updateAssociatedPool', values: [string, string]): string;
-  encodeFunctionData(functionFragment: 'updateDepositDisable', values: [string, boolean]): string;
-  encodeFunctionData(functionFragment: 'updateMaxDepositAmount', values: [string, BigNumberish]): string;
-  encodeFunctionData(functionFragment: 'updateMinDepositAmount', values: [string, BigNumberish]): string;
 
   decodeFunctionResult(functionFragment: 'DEFAULT_ADMIN_ROLE', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'associatedPool', data: BytesLike): Result;
@@ -70,60 +70,60 @@ export interface MystikoDepositConfigInterface extends utils.Interface {
   decodeFunctionResult(functionFragment: 'getRoleAdmin', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'grantRole', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'hasRole', data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'isDepositDisable', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'maxDepositAmountMap', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'minDepositAmountMap', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'queryAssociatedPool', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'queryDepositDisable', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'queryMaxDepositAmount', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'queryMinDepositAmount', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'renounceRole', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'revokeRole', data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'setAssociatedPool', data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'setDepositDisable', data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'setMaxDepositAmount', data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'setMinDepositAmount', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'supportsInterface', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'updateAssociatedPool', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'updateDepositDisable', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'updateMaxDepositAmount', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'updateMinDepositAmount', data: BytesLike): Result;
 
   events: {
-    'AssociatedPoolUpdated(address,address)': EventFragment;
-    'DepositDisableUpdated(address,bool)': EventFragment;
-    'MaxDepositAmountUpdated(address,uint256)': EventFragment;
-    'MinDepositAmountUpdated(address,uint256)': EventFragment;
+    'AssociatedPoolChanged(address,address)': EventFragment;
+    'DepositDisableChanged(address,bool)': EventFragment;
+    'MaxDepositAmountChanged(address,uint256)': EventFragment;
+    'MinDepositAmountChanged(address,uint256)': EventFragment;
     'RoleAdminChanged(bytes32,bytes32,bytes32)': EventFragment;
     'RoleGranted(bytes32,address,address)': EventFragment;
     'RoleRevoked(bytes32,address,address)': EventFragment;
   };
 
-  getEvent(nameOrSignatureOrTopic: 'AssociatedPoolUpdated'): EventFragment;
-  getEvent(nameOrSignatureOrTopic: 'DepositDisableUpdated'): EventFragment;
-  getEvent(nameOrSignatureOrTopic: 'MaxDepositAmountUpdated'): EventFragment;
-  getEvent(nameOrSignatureOrTopic: 'MinDepositAmountUpdated'): EventFragment;
+  getEvent(nameOrSignatureOrTopic: 'AssociatedPoolChanged'): EventFragment;
+  getEvent(nameOrSignatureOrTopic: 'DepositDisableChanged'): EventFragment;
+  getEvent(nameOrSignatureOrTopic: 'MaxDepositAmountChanged'): EventFragment;
+  getEvent(nameOrSignatureOrTopic: 'MinDepositAmountChanged'): EventFragment;
   getEvent(nameOrSignatureOrTopic: 'RoleAdminChanged'): EventFragment;
   getEvent(nameOrSignatureOrTopic: 'RoleGranted'): EventFragment;
   getEvent(nameOrSignatureOrTopic: 'RoleRevoked'): EventFragment;
 }
 
-export type AssociatedPoolUpdatedEvent = TypedEvent<[string, string], { deposit: string; pool: string }>;
+export type AssociatedPoolChangedEvent = TypedEvent<[string, string], { deposit: string; pool: string }>;
 
-export type AssociatedPoolUpdatedEventFilter = TypedEventFilter<AssociatedPoolUpdatedEvent>;
+export type AssociatedPoolChangedEventFilter = TypedEventFilter<AssociatedPoolChangedEvent>;
 
-export type DepositDisableUpdatedEvent = TypedEvent<[string, boolean], { deposit: string; disable: boolean }>;
+export type DepositDisableChangedEvent = TypedEvent<[string, boolean], { deposit: string; disable: boolean }>;
 
-export type DepositDisableUpdatedEventFilter = TypedEventFilter<DepositDisableUpdatedEvent>;
+export type DepositDisableChangedEventFilter = TypedEventFilter<DepositDisableChangedEvent>;
 
-export type MaxDepositAmountUpdatedEvent = TypedEvent<
+export type MaxDepositAmountChangedEvent = TypedEvent<
   [string, BigNumber],
   { deposit: string; maxDepositAmount: BigNumber }
 >;
 
-export type MaxDepositAmountUpdatedEventFilter = TypedEventFilter<MaxDepositAmountUpdatedEvent>;
+export type MaxDepositAmountChangedEventFilter = TypedEventFilter<MaxDepositAmountChangedEvent>;
 
-export type MinDepositAmountUpdatedEvent = TypedEvent<
+export type MinDepositAmountChangedEvent = TypedEvent<
   [string, BigNumber],
   { deposit: string; minDepositAmount: BigNumber }
 >;
 
-export type MinDepositAmountUpdatedEventFilter = TypedEventFilter<MinDepositAmountUpdatedEvent>;
+export type MinDepositAmountChangedEventFilter = TypedEventFilter<MinDepositAmountChangedEvent>;
 
 export type RoleAdminChangedEvent = TypedEvent<
   [string, string, string],
@@ -188,13 +188,13 @@ export interface MystikoDepositConfig extends BaseContract {
 
     hasRole(role: BytesLike, account: string, overrides?: CallOverrides): Promise<[boolean]>;
 
+    isDepositDisable(_depositAddress: string, overrides?: CallOverrides): Promise<[boolean]>;
+
     maxDepositAmountMap(arg0: string, overrides?: CallOverrides): Promise<[BigNumber]>;
 
     minDepositAmountMap(arg0: string, overrides?: CallOverrides): Promise<[BigNumber]>;
 
     queryAssociatedPool(_depositAddress: string, overrides?: CallOverrides): Promise<[string]>;
-
-    queryDepositDisable(_depositAddress: string, overrides?: CallOverrides): Promise<[boolean]>;
 
     queryMaxDepositAmount(_pool: string, overrides?: CallOverrides): Promise<[BigNumber]>;
 
@@ -212,31 +212,31 @@ export interface MystikoDepositConfig extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<ContractTransaction>;
 
-    supportsInterface(interfaceId: BytesLike, overrides?: CallOverrides): Promise<[boolean]>;
-
-    updateAssociatedPool(
+    setAssociatedPool(
       _depositAddress: string,
       _poolAddress: string,
       overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<ContractTransaction>;
 
-    updateDepositDisable(
+    setDepositDisable(
       _depositAddress: string,
       _disable: boolean,
       overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<ContractTransaction>;
 
-    updateMaxDepositAmount(
+    setMaxDepositAmount(
       _pool: string,
       _maxDepositAmount: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<ContractTransaction>;
 
-    updateMinDepositAmount(
+    setMinDepositAmount(
       _pool: string,
       _minDepositAmount: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<ContractTransaction>;
+
+    supportsInterface(interfaceId: BytesLike, overrides?: CallOverrides): Promise<[boolean]>;
   };
 
   DEFAULT_ADMIN_ROLE(overrides?: CallOverrides): Promise<string>;
@@ -257,13 +257,13 @@ export interface MystikoDepositConfig extends BaseContract {
 
   hasRole(role: BytesLike, account: string, overrides?: CallOverrides): Promise<boolean>;
 
+  isDepositDisable(_depositAddress: string, overrides?: CallOverrides): Promise<boolean>;
+
   maxDepositAmountMap(arg0: string, overrides?: CallOverrides): Promise<BigNumber>;
 
   minDepositAmountMap(arg0: string, overrides?: CallOverrides): Promise<BigNumber>;
 
   queryAssociatedPool(_depositAddress: string, overrides?: CallOverrides): Promise<string>;
-
-  queryDepositDisable(_depositAddress: string, overrides?: CallOverrides): Promise<boolean>;
 
   queryMaxDepositAmount(_pool: string, overrides?: CallOverrides): Promise<BigNumber>;
 
@@ -281,31 +281,31 @@ export interface MystikoDepositConfig extends BaseContract {
     overrides?: Overrides & { from?: string | Promise<string> },
   ): Promise<ContractTransaction>;
 
-  supportsInterface(interfaceId: BytesLike, overrides?: CallOverrides): Promise<boolean>;
-
-  updateAssociatedPool(
+  setAssociatedPool(
     _depositAddress: string,
     _poolAddress: string,
     overrides?: Overrides & { from?: string | Promise<string> },
   ): Promise<ContractTransaction>;
 
-  updateDepositDisable(
+  setDepositDisable(
     _depositAddress: string,
     _disable: boolean,
     overrides?: Overrides & { from?: string | Promise<string> },
   ): Promise<ContractTransaction>;
 
-  updateMaxDepositAmount(
+  setMaxDepositAmount(
     _pool: string,
     _maxDepositAmount: BigNumberish,
     overrides?: Overrides & { from?: string | Promise<string> },
   ): Promise<ContractTransaction>;
 
-  updateMinDepositAmount(
+  setMinDepositAmount(
     _pool: string,
     _minDepositAmount: BigNumberish,
     overrides?: Overrides & { from?: string | Promise<string> },
   ): Promise<ContractTransaction>;
+
+  supportsInterface(interfaceId: BytesLike, overrides?: CallOverrides): Promise<boolean>;
 
   callStatic: {
     DEFAULT_ADMIN_ROLE(overrides?: CallOverrides): Promise<string>;
@@ -322,13 +322,13 @@ export interface MystikoDepositConfig extends BaseContract {
 
     hasRole(role: BytesLike, account: string, overrides?: CallOverrides): Promise<boolean>;
 
+    isDepositDisable(_depositAddress: string, overrides?: CallOverrides): Promise<boolean>;
+
     maxDepositAmountMap(arg0: string, overrides?: CallOverrides): Promise<BigNumber>;
 
     minDepositAmountMap(arg0: string, overrides?: CallOverrides): Promise<BigNumber>;
 
     queryAssociatedPool(_depositAddress: string, overrides?: CallOverrides): Promise<string>;
-
-    queryDepositDisable(_depositAddress: string, overrides?: CallOverrides): Promise<boolean>;
 
     queryMaxDepositAmount(_pool: string, overrides?: CallOverrides): Promise<BigNumber>;
 
@@ -338,63 +338,59 @@ export interface MystikoDepositConfig extends BaseContract {
 
     revokeRole(role: BytesLike, account: string, overrides?: CallOverrides): Promise<void>;
 
-    supportsInterface(interfaceId: BytesLike, overrides?: CallOverrides): Promise<boolean>;
-
-    updateAssociatedPool(
+    setAssociatedPool(
       _depositAddress: string,
       _poolAddress: string,
       overrides?: CallOverrides,
     ): Promise<void>;
 
-    updateDepositDisable(
-      _depositAddress: string,
-      _disable: boolean,
-      overrides?: CallOverrides,
-    ): Promise<void>;
+    setDepositDisable(_depositAddress: string, _disable: boolean, overrides?: CallOverrides): Promise<void>;
 
-    updateMaxDepositAmount(
+    setMaxDepositAmount(
       _pool: string,
       _maxDepositAmount: BigNumberish,
       overrides?: CallOverrides,
     ): Promise<void>;
 
-    updateMinDepositAmount(
+    setMinDepositAmount(
       _pool: string,
       _minDepositAmount: BigNumberish,
       overrides?: CallOverrides,
     ): Promise<void>;
+
+    supportsInterface(interfaceId: BytesLike, overrides?: CallOverrides): Promise<boolean>;
   };
 
   filters: {
-    'AssociatedPoolUpdated(address,address)'(
+    'AssociatedPoolChanged(address,address)'(
       deposit?: string | null,
       pool?: string | null,
-    ): AssociatedPoolUpdatedEventFilter;
-    AssociatedPoolUpdated(deposit?: string | null, pool?: string | null): AssociatedPoolUpdatedEventFilter;
+    ): AssociatedPoolChangedEventFilter;
+    AssociatedPoolChanged(deposit?: string | null, pool?: string | null): AssociatedPoolChangedEventFilter;
 
-    'DepositDisableUpdated(address,bool)'(
+    'DepositDisableChanged(address,bool)'(
       deposit?: string | null,
       disable?: null,
-    ): DepositDisableUpdatedEventFilter;
-    DepositDisableUpdated(deposit?: string | null, disable?: null): DepositDisableUpdatedEventFilter;
+    ): DepositDisableChangedEventFilter;
+    DepositDisableChanged(deposit?: string | null, disable?: null): DepositDisableChangedEventFilter;
 
-    'MaxDepositAmountUpdated(address,uint256)'(
+    'MaxDepositAmountChanged(address,uint256)'(
       deposit?: string | null,
       maxDepositAmount?: null,
-    ): MaxDepositAmountUpdatedEventFilter;
-    MaxDepositAmountUpdated(
+    ): MaxDepositAmountChangedEventFilter;
+    MaxDepositAmountChanged(
       deposit?: string | null,
       maxDepositAmount?: null,
-    ): MaxDepositAmountUpdatedEventFilter;
+    ): MaxDepositAmountChangedEventFilter;
 
-    'MinDepositAmountUpdated(address,uint256)'(
+    'MinDepositAmountChanged(address,uint256)'(
       deposit?: string | null,
       minDepositAmount?: null,
-    ): MinDepositAmountUpdatedEventFilter;
-    MinDepositAmountUpdated(
+    ): MinDepositAmountChangedEventFilter;
+    MinDepositAmountChanged(
       deposit?: string | null,
       minDepositAmount?: null,
-    ): MinDepositAmountUpdatedEventFilter;
+    ): MinDepositAmountChangedEventFilter;
 
     'RoleAdminChanged(bytes32,bytes32,bytes32)'(
       role?: BytesLike | null,
@@ -449,13 +445,13 @@ export interface MystikoDepositConfig extends BaseContract {
 
     hasRole(role: BytesLike, account: string, overrides?: CallOverrides): Promise<BigNumber>;
 
+    isDepositDisable(_depositAddress: string, overrides?: CallOverrides): Promise<BigNumber>;
+
     maxDepositAmountMap(arg0: string, overrides?: CallOverrides): Promise<BigNumber>;
 
     minDepositAmountMap(arg0: string, overrides?: CallOverrides): Promise<BigNumber>;
 
     queryAssociatedPool(_depositAddress: string, overrides?: CallOverrides): Promise<BigNumber>;
-
-    queryDepositDisable(_depositAddress: string, overrides?: CallOverrides): Promise<BigNumber>;
 
     queryMaxDepositAmount(_pool: string, overrides?: CallOverrides): Promise<BigNumber>;
 
@@ -473,31 +469,31 @@ export interface MystikoDepositConfig extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<BigNumber>;
 
-    supportsInterface(interfaceId: BytesLike, overrides?: CallOverrides): Promise<BigNumber>;
-
-    updateAssociatedPool(
+    setAssociatedPool(
       _depositAddress: string,
       _poolAddress: string,
       overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<BigNumber>;
 
-    updateDepositDisable(
+    setDepositDisable(
       _depositAddress: string,
       _disable: boolean,
       overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<BigNumber>;
 
-    updateMaxDepositAmount(
+    setMaxDepositAmount(
       _pool: string,
       _maxDepositAmount: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<BigNumber>;
 
-    updateMinDepositAmount(
+    setMinDepositAmount(
       _pool: string,
       _minDepositAmount: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<BigNumber>;
+
+    supportsInterface(interfaceId: BytesLike, overrides?: CallOverrides): Promise<BigNumber>;
   };
 
   populateTransaction: {
@@ -519,13 +515,13 @@ export interface MystikoDepositConfig extends BaseContract {
 
     hasRole(role: BytesLike, account: string, overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
+    isDepositDisable(_depositAddress: string, overrides?: CallOverrides): Promise<PopulatedTransaction>;
+
     maxDepositAmountMap(arg0: string, overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     minDepositAmountMap(arg0: string, overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     queryAssociatedPool(_depositAddress: string, overrides?: CallOverrides): Promise<PopulatedTransaction>;
-
-    queryDepositDisable(_depositAddress: string, overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     queryMaxDepositAmount(_pool: string, overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
@@ -543,30 +539,30 @@ export interface MystikoDepositConfig extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<PopulatedTransaction>;
 
-    supportsInterface(interfaceId: BytesLike, overrides?: CallOverrides): Promise<PopulatedTransaction>;
-
-    updateAssociatedPool(
+    setAssociatedPool(
       _depositAddress: string,
       _poolAddress: string,
       overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<PopulatedTransaction>;
 
-    updateDepositDisable(
+    setDepositDisable(
       _depositAddress: string,
       _disable: boolean,
       overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<PopulatedTransaction>;
 
-    updateMaxDepositAmount(
+    setMaxDepositAmount(
       _pool: string,
       _maxDepositAmount: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<PopulatedTransaction>;
 
-    updateMinDepositAmount(
+    setMinDepositAmount(
       _pool: string,
       _minDepositAmount: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<PopulatedTransaction>;
+
+    supportsInterface(interfaceId: BytesLike, overrides?: CallOverrides): Promise<PopulatedTransaction>;
   };
 }

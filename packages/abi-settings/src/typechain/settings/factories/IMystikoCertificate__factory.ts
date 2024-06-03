@@ -9,12 +9,12 @@ import type { IMystikoCertificate, IMystikoCertificateInterface } from '../IMyst
 const _abi = [
   {
     inputs: [],
-    name: 'checkEnabled',
+    name: 'getCertificateIssuer',
     outputs: [
       {
-        internalType: 'bool',
+        internalType: 'address',
         name: '',
-        type: 'bool',
+        type: 'address',
       },
     ],
     stateMutability: 'view',
@@ -22,12 +22,12 @@ const _abi = [
   },
   {
     inputs: [],
-    name: 'getIssuerAddress',
+    name: 'isCertificateCheckEnabled',
     outputs: [
       {
-        internalType: 'address',
+        internalType: 'bool',
         name: '',
-        type: 'address',
+        type: 'bool',
       },
     ],
     stateMutability: 'view',

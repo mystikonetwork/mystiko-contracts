@@ -38,8 +38,6 @@ export interface MystikoRollerPoolInterface extends utils.Interface {
   functions: {
     'DEFAULT_ADMIN_ROLE()': FunctionFragment;
     'ROLLER_ROLE()': FunctionFragment;
-    'changeMinRollupSize(uint256)': FunctionFragment;
-    'changeRollerMinVoteTokenAmount(uint256)': FunctionFragment;
     'daoRegistry()': FunctionFragment;
     'getRoleAdmin(bytes32)': FunctionFragment;
     'grantRole(bytes32,address)': FunctionFragment;
@@ -48,6 +46,8 @@ export interface MystikoRollerPoolInterface extends utils.Interface {
     'minVoteTokenAmount()': FunctionFragment;
     'renounceRole(bytes32,address)': FunctionFragment;
     'revokeRole(bytes32,address)': FunctionFragment;
+    'setMinRollupSize(uint256)': FunctionFragment;
+    'setRollerMinVoteTokenAmount(uint256)': FunctionFragment;
     'supportsInterface(bytes4)': FunctionFragment;
     'vXZK()': FunctionFragment;
     'validateRoller((address,address,uint256,uint256,uint256))': FunctionFragment;
@@ -55,8 +55,6 @@ export interface MystikoRollerPoolInterface extends utils.Interface {
 
   encodeFunctionData(functionFragment: 'DEFAULT_ADMIN_ROLE', values?: undefined): string;
   encodeFunctionData(functionFragment: 'ROLLER_ROLE', values?: undefined): string;
-  encodeFunctionData(functionFragment: 'changeMinRollupSize', values: [BigNumberish]): string;
-  encodeFunctionData(functionFragment: 'changeRollerMinVoteTokenAmount', values: [BigNumberish]): string;
   encodeFunctionData(functionFragment: 'daoRegistry', values?: undefined): string;
   encodeFunctionData(functionFragment: 'getRoleAdmin', values: [BytesLike]): string;
   encodeFunctionData(functionFragment: 'grantRole', values: [BytesLike, string]): string;
@@ -65,14 +63,14 @@ export interface MystikoRollerPoolInterface extends utils.Interface {
   encodeFunctionData(functionFragment: 'minVoteTokenAmount', values?: undefined): string;
   encodeFunctionData(functionFragment: 'renounceRole', values: [BytesLike, string]): string;
   encodeFunctionData(functionFragment: 'revokeRole', values: [BytesLike, string]): string;
+  encodeFunctionData(functionFragment: 'setMinRollupSize', values: [BigNumberish]): string;
+  encodeFunctionData(functionFragment: 'setRollerMinVoteTokenAmount', values: [BigNumberish]): string;
   encodeFunctionData(functionFragment: 'supportsInterface', values: [BytesLike]): string;
   encodeFunctionData(functionFragment: 'vXZK', values?: undefined): string;
   encodeFunctionData(functionFragment: 'validateRoller', values: [RollerValidateParamsStruct]): string;
 
   decodeFunctionResult(functionFragment: 'DEFAULT_ADMIN_ROLE', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'ROLLER_ROLE', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'changeMinRollupSize', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'changeRollerMinVoteTokenAmount', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'daoRegistry', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'getRoleAdmin', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'grantRole', data: BytesLike): Result;
@@ -81,6 +79,8 @@ export interface MystikoRollerPoolInterface extends utils.Interface {
   decodeFunctionResult(functionFragment: 'minVoteTokenAmount', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'renounceRole', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'revokeRole', data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'setMinRollupSize', data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'setRollerMinVoteTokenAmount', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'supportsInterface', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'vXZK', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'validateRoller', data: BytesLike): Result;
@@ -158,16 +158,6 @@ export interface MystikoRollerPool extends BaseContract {
 
     ROLLER_ROLE(overrides?: CallOverrides): Promise<[string]>;
 
-    changeMinRollupSize(
-      _newMinRollupSize: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
-    ): Promise<ContractTransaction>;
-
-    changeRollerMinVoteTokenAmount(
-      _newMinVoteTokenAmount: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
-    ): Promise<ContractTransaction>;
-
     daoRegistry(overrides?: CallOverrides): Promise<[string]>;
 
     getRoleAdmin(role: BytesLike, overrides?: CallOverrides): Promise<[string]>;
@@ -196,6 +186,16 @@ export interface MystikoRollerPool extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<ContractTransaction>;
 
+    setMinRollupSize(
+      _newMinRollupSize: BigNumberish,
+      overrides?: Overrides & { from?: string | Promise<string> },
+    ): Promise<ContractTransaction>;
+
+    setRollerMinVoteTokenAmount(
+      _newMinVoteTokenAmount: BigNumberish,
+      overrides?: Overrides & { from?: string | Promise<string> },
+    ): Promise<ContractTransaction>;
+
     supportsInterface(interfaceId: BytesLike, overrides?: CallOverrides): Promise<[boolean]>;
 
     vXZK(overrides?: CallOverrides): Promise<[string]>;
@@ -206,16 +206,6 @@ export interface MystikoRollerPool extends BaseContract {
   DEFAULT_ADMIN_ROLE(overrides?: CallOverrides): Promise<string>;
 
   ROLLER_ROLE(overrides?: CallOverrides): Promise<string>;
-
-  changeMinRollupSize(
-    _newMinRollupSize: BigNumberish,
-    overrides?: Overrides & { from?: string | Promise<string> },
-  ): Promise<ContractTransaction>;
-
-  changeRollerMinVoteTokenAmount(
-    _newMinVoteTokenAmount: BigNumberish,
-    overrides?: Overrides & { from?: string | Promise<string> },
-  ): Promise<ContractTransaction>;
 
   daoRegistry(overrides?: CallOverrides): Promise<string>;
 
@@ -245,6 +235,16 @@ export interface MystikoRollerPool extends BaseContract {
     overrides?: Overrides & { from?: string | Promise<string> },
   ): Promise<ContractTransaction>;
 
+  setMinRollupSize(
+    _newMinRollupSize: BigNumberish,
+    overrides?: Overrides & { from?: string | Promise<string> },
+  ): Promise<ContractTransaction>;
+
+  setRollerMinVoteTokenAmount(
+    _newMinVoteTokenAmount: BigNumberish,
+    overrides?: Overrides & { from?: string | Promise<string> },
+  ): Promise<ContractTransaction>;
+
   supportsInterface(interfaceId: BytesLike, overrides?: CallOverrides): Promise<boolean>;
 
   vXZK(overrides?: CallOverrides): Promise<string>;
@@ -255,13 +255,6 @@ export interface MystikoRollerPool extends BaseContract {
     DEFAULT_ADMIN_ROLE(overrides?: CallOverrides): Promise<string>;
 
     ROLLER_ROLE(overrides?: CallOverrides): Promise<string>;
-
-    changeMinRollupSize(_newMinRollupSize: BigNumberish, overrides?: CallOverrides): Promise<void>;
-
-    changeRollerMinVoteTokenAmount(
-      _newMinVoteTokenAmount: BigNumberish,
-      overrides?: CallOverrides,
-    ): Promise<void>;
 
     daoRegistry(overrides?: CallOverrides): Promise<string>;
 
@@ -278,6 +271,13 @@ export interface MystikoRollerPool extends BaseContract {
     renounceRole(role: BytesLike, callerConfirmation: string, overrides?: CallOverrides): Promise<void>;
 
     revokeRole(role: BytesLike, account: string, overrides?: CallOverrides): Promise<void>;
+
+    setMinRollupSize(_newMinRollupSize: BigNumberish, overrides?: CallOverrides): Promise<void>;
+
+    setRollerMinVoteTokenAmount(
+      _newMinVoteTokenAmount: BigNumberish,
+      overrides?: CallOverrides,
+    ): Promise<void>;
 
     supportsInterface(interfaceId: BytesLike, overrides?: CallOverrides): Promise<boolean>;
 
@@ -332,16 +332,6 @@ export interface MystikoRollerPool extends BaseContract {
 
     ROLLER_ROLE(overrides?: CallOverrides): Promise<BigNumber>;
 
-    changeMinRollupSize(
-      _newMinRollupSize: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
-    ): Promise<BigNumber>;
-
-    changeRollerMinVoteTokenAmount(
-      _newMinVoteTokenAmount: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
-    ): Promise<BigNumber>;
-
     daoRegistry(overrides?: CallOverrides): Promise<BigNumber>;
 
     getRoleAdmin(role: BytesLike, overrides?: CallOverrides): Promise<BigNumber>;
@@ -370,6 +360,16 @@ export interface MystikoRollerPool extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<BigNumber>;
 
+    setMinRollupSize(
+      _newMinRollupSize: BigNumberish,
+      overrides?: Overrides & { from?: string | Promise<string> },
+    ): Promise<BigNumber>;
+
+    setRollerMinVoteTokenAmount(
+      _newMinVoteTokenAmount: BigNumberish,
+      overrides?: Overrides & { from?: string | Promise<string> },
+    ): Promise<BigNumber>;
+
     supportsInterface(interfaceId: BytesLike, overrides?: CallOverrides): Promise<BigNumber>;
 
     vXZK(overrides?: CallOverrides): Promise<BigNumber>;
@@ -381,16 +381,6 @@ export interface MystikoRollerPool extends BaseContract {
     DEFAULT_ADMIN_ROLE(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     ROLLER_ROLE(overrides?: CallOverrides): Promise<PopulatedTransaction>;
-
-    changeMinRollupSize(
-      _newMinRollupSize: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
-    ): Promise<PopulatedTransaction>;
-
-    changeRollerMinVoteTokenAmount(
-      _newMinVoteTokenAmount: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
-    ): Promise<PopulatedTransaction>;
 
     daoRegistry(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
@@ -417,6 +407,16 @@ export interface MystikoRollerPool extends BaseContract {
     revokeRole(
       role: BytesLike,
       account: string,
+      overrides?: Overrides & { from?: string | Promise<string> },
+    ): Promise<PopulatedTransaction>;
+
+    setMinRollupSize(
+      _newMinRollupSize: BigNumberish,
+      overrides?: Overrides & { from?: string | Promise<string> },
+    ): Promise<PopulatedTransaction>;
+
+    setRollerMinVoteTokenAmount(
+      _newMinVoteTokenAmount: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<PopulatedTransaction>;
 

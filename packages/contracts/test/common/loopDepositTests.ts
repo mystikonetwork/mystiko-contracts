@@ -35,7 +35,7 @@ export function testLoopDeposit(
     });
 
     it('should revert when deposit is disabled', async () => {
-      await settings.updateDepositDisable(depositContract.address, true);
+      await settings.setDepositDisable(depositContract.address, true);
       await expect(
         depositContract.certDeposit(
           [
@@ -51,7 +51,7 @@ export function testLoopDeposit(
           { from: accounts[0].address, value: isMainAsset ? minTotalAmount : '0' },
         ),
       ).to.be.revertedWith('DepositsDisabled()');
-      await settings.updateDepositDisable(depositContract.address, false);
+      await settings.setDepositDisable(depositContract.address, false);
     });
 
     it('should revert when sender in sanction list', async () => {
@@ -159,7 +159,7 @@ export function testLoopDeposit(
     });
 
     it('should revert AssociatedPoolNotSet', async () => {
-      await settings.updateAssociatedPool(depositContract.address, ZeroAddress);
+      await settings.setAssociatedPool(depositContract.address, ZeroAddress);
       await expect(
         depositContract.certDeposit(
           [
@@ -175,7 +175,7 @@ export function testLoopDeposit(
           { from: accounts[0].address, value: isMainAsset ? depositAmount : '0' },
         ),
       ).to.be.revertedWith('AssociatedPoolNotSet()');
-      await settings.updateAssociatedPool(depositContract.address, commitmentPool.address);
+      await settings.setAssociatedPool(depositContract.address, commitmentPool.address);
     });
 
     it('should revert when rollup fee is too few', async () => {

@@ -26,8 +26,8 @@ describe('Test Mystiko loop', () => {
       settings.address,
       {},
     );
-    await settings.updateAssociatedPool(loop.coreMain.address, pool.poolMain.address);
-    await settings.updateAssociatedPool(loop.coreERC20.address, pool.poolERC20.address);
+    await settings.setAssociatedPool(loop.coreMain.address, pool.poolMain.address);
+    await settings.setAssociatedPool(loop.coreERC20.address, pool.poolERC20.address);
     return {
       settings,
       mockToken,

@@ -17,15 +17,15 @@ import { TypedEventFilter, TypedEvent, TypedListener, OnEvent } from './common';
 export interface IMystikoPoolConfigInterface extends utils.Interface {
   contractName: 'IMystikoPoolConfig';
   functions: {
+    'isTransferDisable(address)': FunctionFragment;
     'queryMinRollupFee(address)': FunctionFragment;
-    'queryTransferDisable(address)': FunctionFragment;
   };
 
+  encodeFunctionData(functionFragment: 'isTransferDisable', values: [string]): string;
   encodeFunctionData(functionFragment: 'queryMinRollupFee', values: [string]): string;
-  encodeFunctionData(functionFragment: 'queryTransferDisable', values: [string]): string;
 
+  decodeFunctionResult(functionFragment: 'isTransferDisable', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'queryMinRollupFee', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'queryTransferDisable', data: BytesLike): Result;
 
   events: {};
 }
@@ -54,32 +54,32 @@ export interface IMystikoPoolConfig extends BaseContract {
   removeListener: OnEvent<this>;
 
   functions: {
-    queryMinRollupFee(_pool: string, overrides?: CallOverrides): Promise<[BigNumber]>;
+    isTransferDisable(_pool: string, overrides?: CallOverrides): Promise<[boolean]>;
 
-    queryTransferDisable(_pool: string, overrides?: CallOverrides): Promise<[boolean]>;
+    queryMinRollupFee(_pool: string, overrides?: CallOverrides): Promise<[BigNumber]>;
   };
+
+  isTransferDisable(_pool: string, overrides?: CallOverrides): Promise<boolean>;
 
   queryMinRollupFee(_pool: string, overrides?: CallOverrides): Promise<BigNumber>;
 
-  queryTransferDisable(_pool: string, overrides?: CallOverrides): Promise<boolean>;
-
   callStatic: {
-    queryMinRollupFee(_pool: string, overrides?: CallOverrides): Promise<BigNumber>;
+    isTransferDisable(_pool: string, overrides?: CallOverrides): Promise<boolean>;
 
-    queryTransferDisable(_pool: string, overrides?: CallOverrides): Promise<boolean>;
+    queryMinRollupFee(_pool: string, overrides?: CallOverrides): Promise<BigNumber>;
   };
 
   filters: {};
 
   estimateGas: {
-    queryMinRollupFee(_pool: string, overrides?: CallOverrides): Promise<BigNumber>;
+    isTransferDisable(_pool: string, overrides?: CallOverrides): Promise<BigNumber>;
 
-    queryTransferDisable(_pool: string, overrides?: CallOverrides): Promise<BigNumber>;
+    queryMinRollupFee(_pool: string, overrides?: CallOverrides): Promise<BigNumber>;
   };
 
   populateTransaction: {
-    queryMinRollupFee(_pool: string, overrides?: CallOverrides): Promise<PopulatedTransaction>;
+    isTransferDisable(_pool: string, overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
-    queryTransferDisable(_pool: string, overrides?: CallOverrides): Promise<PopulatedTransaction>;
+    queryMinRollupFee(_pool: string, overrides?: CallOverrides): Promise<PopulatedTransaction>;
   };
 }

@@ -319,6 +319,19 @@ const _abi = [
   {
     inputs: [
       {
+        internalType: 'contract ISanctions',
+        name: '_sanction',
+        type: 'address',
+      },
+    ],
+    name: 'setSanctionsListAddress',
+    outputs: [],
+    stateMutability: 'nonpayable',
+    type: 'function',
+  },
+  {
+    inputs: [
+      {
         internalType: 'bytes4',
         name: 'interfaceId',
         type: 'bytes4',
@@ -333,19 +346,6 @@ const _abi = [
       },
     ],
     stateMutability: 'view',
-    type: 'function',
-  },
-  {
-    inputs: [
-      {
-        internalType: 'contract ISanctions',
-        name: '_sanction',
-        type: 'address',
-      },
-    ],
-    name: 'updateSanctionsListAddress',
-    outputs: [],
-    stateMutability: 'nonpayable',
     type: 'function',
   },
 ];

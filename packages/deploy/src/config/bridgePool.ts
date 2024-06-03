@@ -149,7 +149,7 @@ export class PoolDeployConfig extends BaseConfig {
     return false;
   }
 
-  public updateMinRollupFee(fee: string, tx: string) {
+  public setMinRollupFee(fee: string, tx: string) {
     this.asRawContractDeployConfig().minRollupFee = fee;
     this.asRawContractDeployConfig().minRollupFeeTx = tx;
   }

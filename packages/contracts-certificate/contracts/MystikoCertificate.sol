@@ -7,7 +7,7 @@ import {MystikoDAOAccessControl} from "@mystikonetwork/governance/contracts/Myst
 
 contract MystikoCertificate is IMystikoCertificate, MystikoDAOAccessControl {
   address public issuer;
-  bool public certificateCheck = true;
+  bool public certCheckEnabled = true;
 
   event CertificateCheck(bool state);
   event IssuerChanged(address issuer);
@@ -16,12 +16,12 @@ contract MystikoCertificate is IMystikoCertificate, MystikoDAOAccessControl {
     issuer = _issuer;
   }
 
-  function getIssuerAddress() external view returns (address) {
+  function getCertificateIssuer() external view returns (address) {
     return issuer;
   }
 
-  function checkEnabled() external view returns (bool) {
-    return certificateCheck;
+  function isCertificateCheckEnabled() external view returns (bool) {
+    return certCheckEnabled;
   }
 
   function verifyCertificate(CertificateParams memory _params) external view returns (bool) {
@@ -37,16 +37,16 @@ contract MystikoCertificate is IMystikoCertificate, MystikoDAOAccessControl {
   }
 
   function enableCertificateCheck() external onlyMystikoDAO {
-    certificateCheck = true;
-    emit CertificateCheck(certificateCheck);
+    certCheckEnabled = true;
+    emit CertificateCheck(certCheckEnabled);
   }
 
   function disableCertificateCheck() external onlyMystikoDAO {
-    certificateCheck = false;
-    emit CertificateCheck(certificateCheck);
+    certCheckEnabled = false;
+    emit CertificateCheck(certCheckEnabled);
   }
 
-  function updateIssuerAddress(address _newIssuer) external onlyMystikoDAO {
+  function setIssuerAddress(address _newIssuer) external onlyMystikoDAO {
     issuer = _newIssuer;
     emit IssuerChanged(issuer);
   }

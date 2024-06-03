@@ -36,13 +36,13 @@ contract MystikoRollerPool is IMystikoRollerPool, MystikoDAOAccessControl {
     return true;
   }
 
-  function changeRollerMinVoteTokenAmount(uint256 _newMinVoteTokenAmount) external onlyMystikoDAO {
+  function setRollerMinVoteTokenAmount(uint256 _newMinVoteTokenAmount) external onlyMystikoDAO {
     if (minVoteTokenAmount == _newMinVoteTokenAmount) revert MystikoRollerPoolErrors.NotChanged();
     minVoteTokenAmount = _newMinVoteTokenAmount;
     emit RollerMinVoteTokenAmountChanged(minVoteTokenAmount);
   }
 
-  function changeMinRollupSize(uint256 _newMinRollupSize) external onlyMystikoDAO {
+  function setMinRollupSize(uint256 _newMinRollupSize) external onlyMystikoDAO {
     if (minRollupSize == _newMinRollupSize) revert MystikoRollerPoolErrors.NotChanged();
     minRollupSize = _newMinRollupSize;
     emit MinRollupSizeChanged(minRollupSize);

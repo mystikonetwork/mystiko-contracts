@@ -84,12 +84,12 @@ contract MystikoSettingsCenterTest is Test, Random {
   function test_update_sanction_list() public {
     address list = address(uint160(uint256(keccak256(abi.encodePacked(_random())))));
     vm.expectRevert(GovernanceErrors.OnlyMystikoDAO.selector);
-    settings.updateSanctionsListAddress(ISanctions(list));
+    settings.setSanctionsListAddress(ISanctions(list));
 
     vm.expectEmit(address(settings));
     emit SanctionsListChanged(list);
     vm.prank(dao);
-    settings.updateSanctionsListAddress(ISanctions(list));
+    settings.setSanctionsListAddress(ISanctions(list));
     assertEq(address(settings.sanctionsList()), list);
   }
 

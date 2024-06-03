@@ -68,10 +68,6 @@ export interface MystikoSettingsInterface extends utils.Interface {
     'DEFAULT_ADMIN_ROLE()': FunctionFragment;
     'associatedPool(address)': FunctionFragment;
     'certificate()': FunctionFragment;
-    'changeCertificateRegistry(address)': FunctionFragment;
-    'changeRelayerRegistry(address)': FunctionFragment;
-    'changeRollerRegistry(address)': FunctionFragment;
-    'checkEnabled()': FunctionFragment;
     'daoRegistry()': FunctionFragment;
     'depositDisableMap(address)': FunctionFragment;
     'disableRollupVerifier(uint32)': FunctionFragment;
@@ -80,40 +76,44 @@ export interface MystikoSettingsInterface extends utils.Interface {
     'enableRollupVerifier(uint32)': FunctionFragment;
     'enableSanctionsCheck()': FunctionFragment;
     'enableTransactVerifier(uint32,uint32)': FunctionFragment;
-    'getIssuerAddress()': FunctionFragment;
+    'getCertificateIssuer()': FunctionFragment;
     'getRoleAdmin(bytes32)': FunctionFragment;
     'grantRole(bytes32,address)': FunctionFragment;
     'hasRole(bytes32,address)': FunctionFragment;
+    'isCertificateCheckEnabled()': FunctionFragment;
+    'isDepositDisable(address)': FunctionFragment;
     'isSanctioned(address)': FunctionFragment;
+    'isTransferDisable(address)': FunctionFragment;
     'maxDepositAmountMap(address)': FunctionFragment;
     'minDepositAmountMap(address)': FunctionFragment;
     'minRollupFeeMap(address)': FunctionFragment;
     'queryAllAuditorPublicKeys()': FunctionFragment;
     'queryAssociatedPool(address)': FunctionFragment;
     'queryAuditorPublicKey(uint256)': FunctionFragment;
-    'queryDepositDisable(address)': FunctionFragment;
     'queryMaxDepositAmount(address)': FunctionFragment;
     'queryMinDepositAmount(address)': FunctionFragment;
     'queryMinRollupFee(address)': FunctionFragment;
     'queryRollupVerifier(uint32)': FunctionFragment;
     'queryTransactVerifier(uint32,uint32)': FunctionFragment;
-    'queryTransferDisable(address)': FunctionFragment;
     'relayerPool()': FunctionFragment;
     'renounceRole(bytes32,address)': FunctionFragment;
     'revokeRole(bytes32,address)': FunctionFragment;
     'rollerPool()': FunctionFragment;
     'sanctionsCheck()': FunctionFragment;
     'sanctionsList()': FunctionFragment;
+    'setAssociatedPool(address,address)': FunctionFragment;
+    'setAuditorPublicKey(uint256,uint256)': FunctionFragment;
+    'setCertificateVerifier(address)': FunctionFragment;
+    'setDepositDisable(address,bool)': FunctionFragment;
+    'setMaxDepositAmount(address,uint256)': FunctionFragment;
+    'setMinDepositAmount(address,uint256)': FunctionFragment;
+    'setMinRollupFee(address,uint256)': FunctionFragment;
+    'setRelayerPool(address)': FunctionFragment;
+    'setRollerPool(address)': FunctionFragment;
+    'setSanctionsListAddress(address)': FunctionFragment;
+    'setTransferDisable(address,bool)': FunctionFragment;
     'supportsInterface(bytes4)': FunctionFragment;
     'transferDisableMap(address)': FunctionFragment;
-    'updateAssociatedPool(address,address)': FunctionFragment;
-    'updateAuditorPublicKey(uint256,uint256)': FunctionFragment;
-    'updateDepositDisable(address,bool)': FunctionFragment;
-    'updateMaxDepositAmount(address,uint256)': FunctionFragment;
-    'updateMinDepositAmount(address,uint256)': FunctionFragment;
-    'updateMinRollupFee(address,uint256)': FunctionFragment;
-    'updateSanctionsListAddress(address)': FunctionFragment;
-    'updateTransferDisable(address,bool)': FunctionFragment;
     'validateRelayer((address,address))': FunctionFragment;
     'validateRoller((address,address,uint256,uint256,uint256))': FunctionFragment;
     'verifyCertificate((address,address,uint256,bytes))': FunctionFragment;
@@ -123,10 +123,6 @@ export interface MystikoSettingsInterface extends utils.Interface {
   encodeFunctionData(functionFragment: 'DEFAULT_ADMIN_ROLE', values?: undefined): string;
   encodeFunctionData(functionFragment: 'associatedPool', values: [string]): string;
   encodeFunctionData(functionFragment: 'certificate', values?: undefined): string;
-  encodeFunctionData(functionFragment: 'changeCertificateRegistry', values: [string]): string;
-  encodeFunctionData(functionFragment: 'changeRelayerRegistry', values: [string]): string;
-  encodeFunctionData(functionFragment: 'changeRollerRegistry', values: [string]): string;
-  encodeFunctionData(functionFragment: 'checkEnabled', values?: undefined): string;
   encodeFunctionData(functionFragment: 'daoRegistry', values?: undefined): string;
   encodeFunctionData(functionFragment: 'depositDisableMap', values: [string]): string;
   encodeFunctionData(functionFragment: 'disableRollupVerifier', values: [BigNumberish]): string;
@@ -141,43 +137,44 @@ export interface MystikoSettingsInterface extends utils.Interface {
     functionFragment: 'enableTransactVerifier',
     values: [BigNumberish, BigNumberish],
   ): string;
-  encodeFunctionData(functionFragment: 'getIssuerAddress', values?: undefined): string;
+  encodeFunctionData(functionFragment: 'getCertificateIssuer', values?: undefined): string;
   encodeFunctionData(functionFragment: 'getRoleAdmin', values: [BytesLike]): string;
   encodeFunctionData(functionFragment: 'grantRole', values: [BytesLike, string]): string;
   encodeFunctionData(functionFragment: 'hasRole', values: [BytesLike, string]): string;
+  encodeFunctionData(functionFragment: 'isCertificateCheckEnabled', values?: undefined): string;
+  encodeFunctionData(functionFragment: 'isDepositDisable', values: [string]): string;
   encodeFunctionData(functionFragment: 'isSanctioned', values: [string]): string;
+  encodeFunctionData(functionFragment: 'isTransferDisable', values: [string]): string;
   encodeFunctionData(functionFragment: 'maxDepositAmountMap', values: [string]): string;
   encodeFunctionData(functionFragment: 'minDepositAmountMap', values: [string]): string;
   encodeFunctionData(functionFragment: 'minRollupFeeMap', values: [string]): string;
   encodeFunctionData(functionFragment: 'queryAllAuditorPublicKeys', values?: undefined): string;
   encodeFunctionData(functionFragment: 'queryAssociatedPool', values: [string]): string;
   encodeFunctionData(functionFragment: 'queryAuditorPublicKey', values: [BigNumberish]): string;
-  encodeFunctionData(functionFragment: 'queryDepositDisable', values: [string]): string;
   encodeFunctionData(functionFragment: 'queryMaxDepositAmount', values: [string]): string;
   encodeFunctionData(functionFragment: 'queryMinDepositAmount', values: [string]): string;
   encodeFunctionData(functionFragment: 'queryMinRollupFee', values: [string]): string;
   encodeFunctionData(functionFragment: 'queryRollupVerifier', values: [BigNumberish]): string;
   encodeFunctionData(functionFragment: 'queryTransactVerifier', values: [BigNumberish, BigNumberish]): string;
-  encodeFunctionData(functionFragment: 'queryTransferDisable', values: [string]): string;
   encodeFunctionData(functionFragment: 'relayerPool', values?: undefined): string;
   encodeFunctionData(functionFragment: 'renounceRole', values: [BytesLike, string]): string;
   encodeFunctionData(functionFragment: 'revokeRole', values: [BytesLike, string]): string;
   encodeFunctionData(functionFragment: 'rollerPool', values?: undefined): string;
   encodeFunctionData(functionFragment: 'sanctionsCheck', values?: undefined): string;
   encodeFunctionData(functionFragment: 'sanctionsList', values?: undefined): string;
+  encodeFunctionData(functionFragment: 'setAssociatedPool', values: [string, string]): string;
+  encodeFunctionData(functionFragment: 'setAuditorPublicKey', values: [BigNumberish, BigNumberish]): string;
+  encodeFunctionData(functionFragment: 'setCertificateVerifier', values: [string]): string;
+  encodeFunctionData(functionFragment: 'setDepositDisable', values: [string, boolean]): string;
+  encodeFunctionData(functionFragment: 'setMaxDepositAmount', values: [string, BigNumberish]): string;
+  encodeFunctionData(functionFragment: 'setMinDepositAmount', values: [string, BigNumberish]): string;
+  encodeFunctionData(functionFragment: 'setMinRollupFee', values: [string, BigNumberish]): string;
+  encodeFunctionData(functionFragment: 'setRelayerPool', values: [string]): string;
+  encodeFunctionData(functionFragment: 'setRollerPool', values: [string]): string;
+  encodeFunctionData(functionFragment: 'setSanctionsListAddress', values: [string]): string;
+  encodeFunctionData(functionFragment: 'setTransferDisable', values: [string, boolean]): string;
   encodeFunctionData(functionFragment: 'supportsInterface', values: [BytesLike]): string;
   encodeFunctionData(functionFragment: 'transferDisableMap', values: [string]): string;
-  encodeFunctionData(functionFragment: 'updateAssociatedPool', values: [string, string]): string;
-  encodeFunctionData(
-    functionFragment: 'updateAuditorPublicKey',
-    values: [BigNumberish, BigNumberish],
-  ): string;
-  encodeFunctionData(functionFragment: 'updateDepositDisable', values: [string, boolean]): string;
-  encodeFunctionData(functionFragment: 'updateMaxDepositAmount', values: [string, BigNumberish]): string;
-  encodeFunctionData(functionFragment: 'updateMinDepositAmount', values: [string, BigNumberish]): string;
-  encodeFunctionData(functionFragment: 'updateMinRollupFee', values: [string, BigNumberish]): string;
-  encodeFunctionData(functionFragment: 'updateSanctionsListAddress', values: [string]): string;
-  encodeFunctionData(functionFragment: 'updateTransferDisable', values: [string, boolean]): string;
   encodeFunctionData(functionFragment: 'validateRelayer', values: [RelayerValidateParamsStruct]): string;
   encodeFunctionData(functionFragment: 'validateRoller', values: [RollerValidateParamsStruct]): string;
   encodeFunctionData(functionFragment: 'verifyCertificate', values: [CertificateParamsStruct]): string;
@@ -186,10 +183,6 @@ export interface MystikoSettingsInterface extends utils.Interface {
   decodeFunctionResult(functionFragment: 'DEFAULT_ADMIN_ROLE', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'associatedPool', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'certificate', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'changeCertificateRegistry', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'changeRelayerRegistry', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'changeRollerRegistry', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'checkEnabled', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'daoRegistry', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'depositDisableMap', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'disableRollupVerifier', data: BytesLike): Result;
@@ -198,130 +191,134 @@ export interface MystikoSettingsInterface extends utils.Interface {
   decodeFunctionResult(functionFragment: 'enableRollupVerifier', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'enableSanctionsCheck', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'enableTransactVerifier', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'getIssuerAddress', data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'getCertificateIssuer', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'getRoleAdmin', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'grantRole', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'hasRole', data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'isCertificateCheckEnabled', data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'isDepositDisable', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'isSanctioned', data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'isTransferDisable', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'maxDepositAmountMap', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'minDepositAmountMap', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'minRollupFeeMap', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'queryAllAuditorPublicKeys', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'queryAssociatedPool', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'queryAuditorPublicKey', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'queryDepositDisable', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'queryMaxDepositAmount', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'queryMinDepositAmount', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'queryMinRollupFee', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'queryRollupVerifier', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'queryTransactVerifier', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'queryTransferDisable', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'relayerPool', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'renounceRole', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'revokeRole', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'rollerPool', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'sanctionsCheck', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'sanctionsList', data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'setAssociatedPool', data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'setAuditorPublicKey', data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'setCertificateVerifier', data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'setDepositDisable', data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'setMaxDepositAmount', data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'setMinDepositAmount', data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'setMinRollupFee', data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'setRelayerPool', data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'setRollerPool', data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'setSanctionsListAddress', data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'setTransferDisable', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'supportsInterface', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'transferDisableMap', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'updateAssociatedPool', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'updateAuditorPublicKey', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'updateDepositDisable', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'updateMaxDepositAmount', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'updateMinDepositAmount', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'updateMinRollupFee', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'updateSanctionsListAddress', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'updateTransferDisable', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'validateRelayer', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'validateRoller', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'verifyCertificate', data: BytesLike): Result;
 
   events: {
-    'AssociatedPoolUpdated(address,address)': EventFragment;
-    'AuditorPublicKeyUpdated(uint256,uint256)': EventFragment;
-    'CertificateRegistryChanged(address)': EventFragment;
-    'DepositDisableUpdated(address,bool)': EventFragment;
-    'MaxDepositAmountUpdated(address,uint256)': EventFragment;
-    'MinDepositAmountUpdated(address,uint256)': EventFragment;
-    'MinRollupFeeUpdated(address,uint256)': EventFragment;
-    'RelayerRegistryChanged(address)': EventFragment;
+    'AssociatedPoolChanged(address,address)': EventFragment;
+    'AuditorPublicKeyChanged(uint256,uint256)': EventFragment;
+    'CertificateVerifierChanged(address)': EventFragment;
+    'DepositDisableChanged(address,bool)': EventFragment;
+    'MaxDepositAmountChanged(address,uint256)': EventFragment;
+    'MinDepositAmountChanged(address,uint256)': EventFragment;
+    'MinRollupFeeChanged(address,uint256)': EventFragment;
+    'RelayerPoolChanged(address)': EventFragment;
     'RoleAdminChanged(bytes32,bytes32,bytes32)': EventFragment;
     'RoleGranted(bytes32,address,address)': EventFragment;
     'RoleRevoked(bytes32,address,address)': EventFragment;
-    'RollerRegistryChanged(address)': EventFragment;
+    'RollerPoolChanged(address)': EventFragment;
     'RollupVerifierDisabled(uint32)': EventFragment;
     'RollupVerifierEnabled(uint32)': EventFragment;
     'SanctionsCheck(bool)': EventFragment;
     'SanctionsListChanged(address)': EventFragment;
     'TransactVerifierDisabled(uint32,uint32)': EventFragment;
     'TransactVerifierEnabled(uint32,uint32)': EventFragment;
-    'TransferDisableUpdated(address,bool)': EventFragment;
+    'TransferDisableChanged(address,bool)': EventFragment;
   };
 
-  getEvent(nameOrSignatureOrTopic: 'AssociatedPoolUpdated'): EventFragment;
-  getEvent(nameOrSignatureOrTopic: 'AuditorPublicKeyUpdated'): EventFragment;
-  getEvent(nameOrSignatureOrTopic: 'CertificateRegistryChanged'): EventFragment;
-  getEvent(nameOrSignatureOrTopic: 'DepositDisableUpdated'): EventFragment;
-  getEvent(nameOrSignatureOrTopic: 'MaxDepositAmountUpdated'): EventFragment;
-  getEvent(nameOrSignatureOrTopic: 'MinDepositAmountUpdated'): EventFragment;
-  getEvent(nameOrSignatureOrTopic: 'MinRollupFeeUpdated'): EventFragment;
-  getEvent(nameOrSignatureOrTopic: 'RelayerRegistryChanged'): EventFragment;
+  getEvent(nameOrSignatureOrTopic: 'AssociatedPoolChanged'): EventFragment;
+  getEvent(nameOrSignatureOrTopic: 'AuditorPublicKeyChanged'): EventFragment;
+  getEvent(nameOrSignatureOrTopic: 'CertificateVerifierChanged'): EventFragment;
+  getEvent(nameOrSignatureOrTopic: 'DepositDisableChanged'): EventFragment;
+  getEvent(nameOrSignatureOrTopic: 'MaxDepositAmountChanged'): EventFragment;
+  getEvent(nameOrSignatureOrTopic: 'MinDepositAmountChanged'): EventFragment;
+  getEvent(nameOrSignatureOrTopic: 'MinRollupFeeChanged'): EventFragment;
+  getEvent(nameOrSignatureOrTopic: 'RelayerPoolChanged'): EventFragment;
   getEvent(nameOrSignatureOrTopic: 'RoleAdminChanged'): EventFragment;
   getEvent(nameOrSignatureOrTopic: 'RoleGranted'): EventFragment;
   getEvent(nameOrSignatureOrTopic: 'RoleRevoked'): EventFragment;
-  getEvent(nameOrSignatureOrTopic: 'RollerRegistryChanged'): EventFragment;
+  getEvent(nameOrSignatureOrTopic: 'RollerPoolChanged'): EventFragment;
   getEvent(nameOrSignatureOrTopic: 'RollupVerifierDisabled'): EventFragment;
   getEvent(nameOrSignatureOrTopic: 'RollupVerifierEnabled'): EventFragment;
   getEvent(nameOrSignatureOrTopic: 'SanctionsCheck'): EventFragment;
   getEvent(nameOrSignatureOrTopic: 'SanctionsListChanged'): EventFragment;
   getEvent(nameOrSignatureOrTopic: 'TransactVerifierDisabled'): EventFragment;
   getEvent(nameOrSignatureOrTopic: 'TransactVerifierEnabled'): EventFragment;
-  getEvent(nameOrSignatureOrTopic: 'TransferDisableUpdated'): EventFragment;
+  getEvent(nameOrSignatureOrTopic: 'TransferDisableChanged'): EventFragment;
 }
 
-export type AssociatedPoolUpdatedEvent = TypedEvent<[string, string], { deposit: string; pool: string }>;
+export type AssociatedPoolChangedEvent = TypedEvent<[string, string], { deposit: string; pool: string }>;
 
-export type AssociatedPoolUpdatedEventFilter = TypedEventFilter<AssociatedPoolUpdatedEvent>;
+export type AssociatedPoolChangedEventFilter = TypedEventFilter<AssociatedPoolChangedEvent>;
 
-export type AuditorPublicKeyUpdatedEvent = TypedEvent<
+export type AuditorPublicKeyChangedEvent = TypedEvent<
   [BigNumber, BigNumber],
   { index: BigNumber; publicKey: BigNumber }
 >;
 
-export type AuditorPublicKeyUpdatedEventFilter = TypedEventFilter<AuditorPublicKeyUpdatedEvent>;
+export type AuditorPublicKeyChangedEventFilter = TypedEventFilter<AuditorPublicKeyChangedEvent>;
 
-export type CertificateRegistryChangedEvent = TypedEvent<[string], { registry: string }>;
+export type CertificateVerifierChangedEvent = TypedEvent<[string], { registry: string }>;
 
-export type CertificateRegistryChangedEventFilter = TypedEventFilter<CertificateRegistryChangedEvent>;
+export type CertificateVerifierChangedEventFilter = TypedEventFilter<CertificateVerifierChangedEvent>;
 
-export type DepositDisableUpdatedEvent = TypedEvent<[string, boolean], { deposit: string; disable: boolean }>;
+export type DepositDisableChangedEvent = TypedEvent<[string, boolean], { deposit: string; disable: boolean }>;
 
-export type DepositDisableUpdatedEventFilter = TypedEventFilter<DepositDisableUpdatedEvent>;
+export type DepositDisableChangedEventFilter = TypedEventFilter<DepositDisableChangedEvent>;
 
-export type MaxDepositAmountUpdatedEvent = TypedEvent<
+export type MaxDepositAmountChangedEvent = TypedEvent<
   [string, BigNumber],
   { deposit: string; maxDepositAmount: BigNumber }
 >;
 
-export type MaxDepositAmountUpdatedEventFilter = TypedEventFilter<MaxDepositAmountUpdatedEvent>;
+export type MaxDepositAmountChangedEventFilter = TypedEventFilter<MaxDepositAmountChangedEvent>;
 
-export type MinDepositAmountUpdatedEvent = TypedEvent<
+export type MinDepositAmountChangedEvent = TypedEvent<
   [string, BigNumber],
   { deposit: string; minDepositAmount: BigNumber }
 >;
 
-export type MinDepositAmountUpdatedEventFilter = TypedEventFilter<MinDepositAmountUpdatedEvent>;
+export type MinDepositAmountChangedEventFilter = TypedEventFilter<MinDepositAmountChangedEvent>;
 
-export type MinRollupFeeUpdatedEvent = TypedEvent<
+export type MinRollupFeeChangedEvent = TypedEvent<
   [string, BigNumber],
   { pool: string; minRollupFee: BigNumber }
 >;
 
-export type MinRollupFeeUpdatedEventFilter = TypedEventFilter<MinRollupFeeUpdatedEvent>;
+export type MinRollupFeeChangedEventFilter = TypedEventFilter<MinRollupFeeChangedEvent>;
 
-export type RelayerRegistryChangedEvent = TypedEvent<[string], { registry: string }>;
+export type RelayerPoolChangedEvent = TypedEvent<[string], { registry: string }>;
 
-export type RelayerRegistryChangedEventFilter = TypedEventFilter<RelayerRegistryChangedEvent>;
+export type RelayerPoolChangedEventFilter = TypedEventFilter<RelayerPoolChangedEvent>;
 
 export type RoleAdminChangedEvent = TypedEvent<
   [string, string, string],
@@ -344,9 +341,9 @@ export type RoleRevokedEvent = TypedEvent<
 
 export type RoleRevokedEventFilter = TypedEventFilter<RoleRevokedEvent>;
 
-export type RollerRegistryChangedEvent = TypedEvent<[string], { registry: string }>;
+export type RollerPoolChangedEvent = TypedEvent<[string], { registry: string }>;
 
-export type RollerRegistryChangedEventFilter = TypedEventFilter<RollerRegistryChangedEvent>;
+export type RollerPoolChangedEventFilter = TypedEventFilter<RollerPoolChangedEvent>;
 
 export type RollupVerifierDisabledEvent = TypedEvent<[number], { rollupSize: number }>;
 
@@ -378,9 +375,9 @@ export type TransactVerifierEnabledEvent = TypedEvent<
 
 export type TransactVerifierEnabledEventFilter = TypedEventFilter<TransactVerifierEnabledEvent>;
 
-export type TransferDisableUpdatedEvent = TypedEvent<[string, boolean], { pool: string; disable: boolean }>;
+export type TransferDisableChangedEvent = TypedEvent<[string, boolean], { pool: string; disable: boolean }>;
 
-export type TransferDisableUpdatedEventFilter = TypedEventFilter<TransferDisableUpdatedEvent>;
+export type TransferDisableChangedEventFilter = TypedEventFilter<TransferDisableChangedEvent>;
 
 export interface MystikoSettings extends BaseContract {
   contractName: 'MystikoSettings';
@@ -413,23 +410,6 @@ export interface MystikoSettings extends BaseContract {
     associatedPool(arg0: string, overrides?: CallOverrides): Promise<[string]>;
 
     certificate(overrides?: CallOverrides): Promise<[string]>;
-
-    changeCertificateRegistry(
-      _newCertificateRegistry: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
-    ): Promise<ContractTransaction>;
-
-    changeRelayerRegistry(
-      _newRelayerRegistry: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
-    ): Promise<ContractTransaction>;
-
-    changeRollerRegistry(
-      _newRollerRegistry: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
-    ): Promise<ContractTransaction>;
-
-    checkEnabled(overrides?: CallOverrides): Promise<[boolean]>;
 
     daoRegistry(overrides?: CallOverrides): Promise<[string]>;
 
@@ -465,7 +445,7 @@ export interface MystikoSettings extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<ContractTransaction>;
 
-    getIssuerAddress(overrides?: CallOverrides): Promise<[string]>;
+    getCertificateIssuer(overrides?: CallOverrides): Promise<[string]>;
 
     getRoleAdmin(role: BytesLike, overrides?: CallOverrides): Promise<[string]>;
 
@@ -477,7 +457,13 @@ export interface MystikoSettings extends BaseContract {
 
     hasRole(role: BytesLike, account: string, overrides?: CallOverrides): Promise<[boolean]>;
 
+    isCertificateCheckEnabled(overrides?: CallOverrides): Promise<[boolean]>;
+
+    isDepositDisable(_depositAddress: string, overrides?: CallOverrides): Promise<[boolean]>;
+
     isSanctioned(_account: string, overrides?: CallOverrides): Promise<[boolean]>;
+
+    isTransferDisable(_pool: string, overrides?: CallOverrides): Promise<[boolean]>;
 
     maxDepositAmountMap(arg0: string, overrides?: CallOverrides): Promise<[BigNumber]>;
 
@@ -490,8 +476,6 @@ export interface MystikoSettings extends BaseContract {
     queryAssociatedPool(_depositAddress: string, overrides?: CallOverrides): Promise<[string]>;
 
     queryAuditorPublicKey(_index: BigNumberish, overrides?: CallOverrides): Promise<[BigNumber]>;
-
-    queryDepositDisable(_depositAddress: string, overrides?: CallOverrides): Promise<[boolean]>;
 
     queryMaxDepositAmount(_pool: string, overrides?: CallOverrides): Promise<[BigNumber]>;
 
@@ -509,8 +493,6 @@ export interface MystikoSettings extends BaseContract {
       _numOutputs: BigNumberish,
       overrides?: CallOverrides,
     ): Promise<[WrappedVerifierStructOutput]>;
-
-    queryTransferDisable(_pool: string, overrides?: CallOverrides): Promise<[boolean]>;
 
     relayerPool(overrides?: CallOverrides): Promise<[string]>;
 
@@ -532,56 +514,71 @@ export interface MystikoSettings extends BaseContract {
 
     sanctionsList(overrides?: CallOverrides): Promise<[string]>;
 
-    supportsInterface(interfaceId: BytesLike, overrides?: CallOverrides): Promise<[boolean]>;
-
-    transferDisableMap(arg0: string, overrides?: CallOverrides): Promise<[boolean]>;
-
-    updateAssociatedPool(
+    setAssociatedPool(
       _depositAddress: string,
       _poolAddress: string,
       overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<ContractTransaction>;
 
-    updateAuditorPublicKey(
+    setAuditorPublicKey(
       _index: BigNumberish,
       _publicKey: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<ContractTransaction>;
 
-    updateDepositDisable(
+    setCertificateVerifier(
+      _newCertificateRegistry: string,
+      overrides?: Overrides & { from?: string | Promise<string> },
+    ): Promise<ContractTransaction>;
+
+    setDepositDisable(
       _depositAddress: string,
       _disable: boolean,
       overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<ContractTransaction>;
 
-    updateMaxDepositAmount(
+    setMaxDepositAmount(
       _pool: string,
       _maxDepositAmount: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<ContractTransaction>;
 
-    updateMinDepositAmount(
+    setMinDepositAmount(
       _pool: string,
       _minDepositAmount: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<ContractTransaction>;
 
-    updateMinRollupFee(
+    setMinRollupFee(
       _pool: string,
       _minRollupFee: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<ContractTransaction>;
 
-    updateSanctionsListAddress(
+    setRelayerPool(
+      _newRelayerRegistry: string,
+      overrides?: Overrides & { from?: string | Promise<string> },
+    ): Promise<ContractTransaction>;
+
+    setRollerPool(
+      _newRollerRegistry: string,
+      overrides?: Overrides & { from?: string | Promise<string> },
+    ): Promise<ContractTransaction>;
+
+    setSanctionsListAddress(
       _sanction: string,
       overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<ContractTransaction>;
 
-    updateTransferDisable(
+    setTransferDisable(
       _pool: string,
       _disable: boolean,
       overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<ContractTransaction>;
+
+    supportsInterface(interfaceId: BytesLike, overrides?: CallOverrides): Promise<[boolean]>;
+
+    transferDisableMap(arg0: string, overrides?: CallOverrides): Promise<[boolean]>;
 
     validateRelayer(_params: RelayerValidateParamsStruct, overrides?: CallOverrides): Promise<[boolean]>;
 
@@ -597,23 +594,6 @@ export interface MystikoSettings extends BaseContract {
   associatedPool(arg0: string, overrides?: CallOverrides): Promise<string>;
 
   certificate(overrides?: CallOverrides): Promise<string>;
-
-  changeCertificateRegistry(
-    _newCertificateRegistry: string,
-    overrides?: Overrides & { from?: string | Promise<string> },
-  ): Promise<ContractTransaction>;
-
-  changeRelayerRegistry(
-    _newRelayerRegistry: string,
-    overrides?: Overrides & { from?: string | Promise<string> },
-  ): Promise<ContractTransaction>;
-
-  changeRollerRegistry(
-    _newRollerRegistry: string,
-    overrides?: Overrides & { from?: string | Promise<string> },
-  ): Promise<ContractTransaction>;
-
-  checkEnabled(overrides?: CallOverrides): Promise<boolean>;
 
   daoRegistry(overrides?: CallOverrides): Promise<string>;
 
@@ -649,7 +629,7 @@ export interface MystikoSettings extends BaseContract {
     overrides?: Overrides & { from?: string | Promise<string> },
   ): Promise<ContractTransaction>;
 
-  getIssuerAddress(overrides?: CallOverrides): Promise<string>;
+  getCertificateIssuer(overrides?: CallOverrides): Promise<string>;
 
   getRoleAdmin(role: BytesLike, overrides?: CallOverrides): Promise<string>;
 
@@ -661,7 +641,13 @@ export interface MystikoSettings extends BaseContract {
 
   hasRole(role: BytesLike, account: string, overrides?: CallOverrides): Promise<boolean>;
 
+  isCertificateCheckEnabled(overrides?: CallOverrides): Promise<boolean>;
+
+  isDepositDisable(_depositAddress: string, overrides?: CallOverrides): Promise<boolean>;
+
   isSanctioned(_account: string, overrides?: CallOverrides): Promise<boolean>;
+
+  isTransferDisable(_pool: string, overrides?: CallOverrides): Promise<boolean>;
 
   maxDepositAmountMap(arg0: string, overrides?: CallOverrides): Promise<BigNumber>;
 
@@ -674,8 +660,6 @@ export interface MystikoSettings extends BaseContract {
   queryAssociatedPool(_depositAddress: string, overrides?: CallOverrides): Promise<string>;
 
   queryAuditorPublicKey(_index: BigNumberish, overrides?: CallOverrides): Promise<BigNumber>;
-
-  queryDepositDisable(_depositAddress: string, overrides?: CallOverrides): Promise<boolean>;
 
   queryMaxDepositAmount(_pool: string, overrides?: CallOverrides): Promise<BigNumber>;
 
@@ -693,8 +677,6 @@ export interface MystikoSettings extends BaseContract {
     _numOutputs: BigNumberish,
     overrides?: CallOverrides,
   ): Promise<WrappedVerifierStructOutput>;
-
-  queryTransferDisable(_pool: string, overrides?: CallOverrides): Promise<boolean>;
 
   relayerPool(overrides?: CallOverrides): Promise<string>;
 
@@ -716,56 +698,71 @@ export interface MystikoSettings extends BaseContract {
 
   sanctionsList(overrides?: CallOverrides): Promise<string>;
 
-  supportsInterface(interfaceId: BytesLike, overrides?: CallOverrides): Promise<boolean>;
-
-  transferDisableMap(arg0: string, overrides?: CallOverrides): Promise<boolean>;
-
-  updateAssociatedPool(
+  setAssociatedPool(
     _depositAddress: string,
     _poolAddress: string,
     overrides?: Overrides & { from?: string | Promise<string> },
   ): Promise<ContractTransaction>;
 
-  updateAuditorPublicKey(
+  setAuditorPublicKey(
     _index: BigNumberish,
     _publicKey: BigNumberish,
     overrides?: Overrides & { from?: string | Promise<string> },
   ): Promise<ContractTransaction>;
 
-  updateDepositDisable(
+  setCertificateVerifier(
+    _newCertificateRegistry: string,
+    overrides?: Overrides & { from?: string | Promise<string> },
+  ): Promise<ContractTransaction>;
+
+  setDepositDisable(
     _depositAddress: string,
     _disable: boolean,
     overrides?: Overrides & { from?: string | Promise<string> },
   ): Promise<ContractTransaction>;
 
-  updateMaxDepositAmount(
+  setMaxDepositAmount(
     _pool: string,
     _maxDepositAmount: BigNumberish,
     overrides?: Overrides & { from?: string | Promise<string> },
   ): Promise<ContractTransaction>;
 
-  updateMinDepositAmount(
+  setMinDepositAmount(
     _pool: string,
     _minDepositAmount: BigNumberish,
     overrides?: Overrides & { from?: string | Promise<string> },
   ): Promise<ContractTransaction>;
 
-  updateMinRollupFee(
+  setMinRollupFee(
     _pool: string,
     _minRollupFee: BigNumberish,
     overrides?: Overrides & { from?: string | Promise<string> },
   ): Promise<ContractTransaction>;
 
-  updateSanctionsListAddress(
+  setRelayerPool(
+    _newRelayerRegistry: string,
+    overrides?: Overrides & { from?: string | Promise<string> },
+  ): Promise<ContractTransaction>;
+
+  setRollerPool(
+    _newRollerRegistry: string,
+    overrides?: Overrides & { from?: string | Promise<string> },
+  ): Promise<ContractTransaction>;
+
+  setSanctionsListAddress(
     _sanction: string,
     overrides?: Overrides & { from?: string | Promise<string> },
   ): Promise<ContractTransaction>;
 
-  updateTransferDisable(
+  setTransferDisable(
     _pool: string,
     _disable: boolean,
     overrides?: Overrides & { from?: string | Promise<string> },
   ): Promise<ContractTransaction>;
+
+  supportsInterface(interfaceId: BytesLike, overrides?: CallOverrides): Promise<boolean>;
+
+  transferDisableMap(arg0: string, overrides?: CallOverrides): Promise<boolean>;
 
   validateRelayer(_params: RelayerValidateParamsStruct, overrides?: CallOverrides): Promise<boolean>;
 
@@ -781,14 +778,6 @@ export interface MystikoSettings extends BaseContract {
     associatedPool(arg0: string, overrides?: CallOverrides): Promise<string>;
 
     certificate(overrides?: CallOverrides): Promise<string>;
-
-    changeCertificateRegistry(_newCertificateRegistry: string, overrides?: CallOverrides): Promise<void>;
-
-    changeRelayerRegistry(_newRelayerRegistry: string, overrides?: CallOverrides): Promise<void>;
-
-    changeRollerRegistry(_newRollerRegistry: string, overrides?: CallOverrides): Promise<void>;
-
-    checkEnabled(overrides?: CallOverrides): Promise<boolean>;
 
     daoRegistry(overrides?: CallOverrides): Promise<string>;
 
@@ -814,7 +803,7 @@ export interface MystikoSettings extends BaseContract {
       overrides?: CallOverrides,
     ): Promise<void>;
 
-    getIssuerAddress(overrides?: CallOverrides): Promise<string>;
+    getCertificateIssuer(overrides?: CallOverrides): Promise<string>;
 
     getRoleAdmin(role: BytesLike, overrides?: CallOverrides): Promise<string>;
 
@@ -822,7 +811,13 @@ export interface MystikoSettings extends BaseContract {
 
     hasRole(role: BytesLike, account: string, overrides?: CallOverrides): Promise<boolean>;
 
+    isCertificateCheckEnabled(overrides?: CallOverrides): Promise<boolean>;
+
+    isDepositDisable(_depositAddress: string, overrides?: CallOverrides): Promise<boolean>;
+
     isSanctioned(_account: string, overrides?: CallOverrides): Promise<boolean>;
+
+    isTransferDisable(_pool: string, overrides?: CallOverrides): Promise<boolean>;
 
     maxDepositAmountMap(arg0: string, overrides?: CallOverrides): Promise<BigNumber>;
 
@@ -835,8 +830,6 @@ export interface MystikoSettings extends BaseContract {
     queryAssociatedPool(_depositAddress: string, overrides?: CallOverrides): Promise<string>;
 
     queryAuditorPublicKey(_index: BigNumberish, overrides?: CallOverrides): Promise<BigNumber>;
-
-    queryDepositDisable(_depositAddress: string, overrides?: CallOverrides): Promise<boolean>;
 
     queryMaxDepositAmount(_pool: string, overrides?: CallOverrides): Promise<BigNumber>;
 
@@ -855,8 +848,6 @@ export interface MystikoSettings extends BaseContract {
       overrides?: CallOverrides,
     ): Promise<WrappedVerifierStructOutput>;
 
-    queryTransferDisable(_pool: string, overrides?: CallOverrides): Promise<boolean>;
-
     relayerPool(overrides?: CallOverrides): Promise<string>;
 
     renounceRole(role: BytesLike, callerConfirmation: string, overrides?: CallOverrides): Promise<void>;
@@ -869,45 +860,47 @@ export interface MystikoSettings extends BaseContract {
 
     sanctionsList(overrides?: CallOverrides): Promise<string>;
 
-    supportsInterface(interfaceId: BytesLike, overrides?: CallOverrides): Promise<boolean>;
-
-    transferDisableMap(arg0: string, overrides?: CallOverrides): Promise<boolean>;
-
-    updateAssociatedPool(
+    setAssociatedPool(
       _depositAddress: string,
       _poolAddress: string,
       overrides?: CallOverrides,
     ): Promise<void>;
 
-    updateAuditorPublicKey(
+    setAuditorPublicKey(
       _index: BigNumberish,
       _publicKey: BigNumberish,
       overrides?: CallOverrides,
     ): Promise<void>;
 
-    updateDepositDisable(
-      _depositAddress: string,
-      _disable: boolean,
-      overrides?: CallOverrides,
-    ): Promise<void>;
+    setCertificateVerifier(_newCertificateRegistry: string, overrides?: CallOverrides): Promise<void>;
 
-    updateMaxDepositAmount(
+    setDepositDisable(_depositAddress: string, _disable: boolean, overrides?: CallOverrides): Promise<void>;
+
+    setMaxDepositAmount(
       _pool: string,
       _maxDepositAmount: BigNumberish,
       overrides?: CallOverrides,
     ): Promise<void>;
 
-    updateMinDepositAmount(
+    setMinDepositAmount(
       _pool: string,
       _minDepositAmount: BigNumberish,
       overrides?: CallOverrides,
     ): Promise<void>;
 
-    updateMinRollupFee(_pool: string, _minRollupFee: BigNumberish, overrides?: CallOverrides): Promise<void>;
+    setMinRollupFee(_pool: string, _minRollupFee: BigNumberish, overrides?: CallOverrides): Promise<void>;
 
-    updateSanctionsListAddress(_sanction: string, overrides?: CallOverrides): Promise<void>;
+    setRelayerPool(_newRelayerRegistry: string, overrides?: CallOverrides): Promise<void>;
 
-    updateTransferDisable(_pool: string, _disable: boolean, overrides?: CallOverrides): Promise<void>;
+    setRollerPool(_newRollerRegistry: string, overrides?: CallOverrides): Promise<void>;
+
+    setSanctionsListAddress(_sanction: string, overrides?: CallOverrides): Promise<void>;
+
+    setTransferDisable(_pool: string, _disable: boolean, overrides?: CallOverrides): Promise<void>;
+
+    supportsInterface(interfaceId: BytesLike, overrides?: CallOverrides): Promise<boolean>;
+
+    transferDisableMap(arg0: string, overrides?: CallOverrides): Promise<boolean>;
 
     validateRelayer(_params: RelayerValidateParamsStruct, overrides?: CallOverrides): Promise<boolean>;
 
@@ -917,56 +910,56 @@ export interface MystikoSettings extends BaseContract {
   };
 
   filters: {
-    'AssociatedPoolUpdated(address,address)'(
+    'AssociatedPoolChanged(address,address)'(
       deposit?: string | null,
       pool?: string | null,
-    ): AssociatedPoolUpdatedEventFilter;
-    AssociatedPoolUpdated(deposit?: string | null, pool?: string | null): AssociatedPoolUpdatedEventFilter;
+    ): AssociatedPoolChangedEventFilter;
+    AssociatedPoolChanged(deposit?: string | null, pool?: string | null): AssociatedPoolChangedEventFilter;
 
-    'AuditorPublicKeyUpdated(uint256,uint256)'(
+    'AuditorPublicKeyChanged(uint256,uint256)'(
       index?: BigNumberish | null,
       publicKey?: null,
-    ): AuditorPublicKeyUpdatedEventFilter;
-    AuditorPublicKeyUpdated(
+    ): AuditorPublicKeyChangedEventFilter;
+    AuditorPublicKeyChanged(
       index?: BigNumberish | null,
       publicKey?: null,
-    ): AuditorPublicKeyUpdatedEventFilter;
+    ): AuditorPublicKeyChangedEventFilter;
 
-    'CertificateRegistryChanged(address)'(registry?: string | null): CertificateRegistryChangedEventFilter;
-    CertificateRegistryChanged(registry?: string | null): CertificateRegistryChangedEventFilter;
+    'CertificateVerifierChanged(address)'(registry?: string | null): CertificateVerifierChangedEventFilter;
+    CertificateVerifierChanged(registry?: string | null): CertificateVerifierChangedEventFilter;
 
-    'DepositDisableUpdated(address,bool)'(
+    'DepositDisableChanged(address,bool)'(
       deposit?: string | null,
       disable?: null,
-    ): DepositDisableUpdatedEventFilter;
-    DepositDisableUpdated(deposit?: string | null, disable?: null): DepositDisableUpdatedEventFilter;
+    ): DepositDisableChangedEventFilter;
+    DepositDisableChanged(deposit?: string | null, disable?: null): DepositDisableChangedEventFilter;
 
-    'MaxDepositAmountUpdated(address,uint256)'(
+    'MaxDepositAmountChanged(address,uint256)'(
       deposit?: string | null,
       maxDepositAmount?: null,
-    ): MaxDepositAmountUpdatedEventFilter;
-    MaxDepositAmountUpdated(
+    ): MaxDepositAmountChangedEventFilter;
+    MaxDepositAmountChanged(
       deposit?: string | null,
       maxDepositAmount?: null,
-    ): MaxDepositAmountUpdatedEventFilter;
+    ): MaxDepositAmountChangedEventFilter;
 
-    'MinDepositAmountUpdated(address,uint256)'(
+    'MinDepositAmountChanged(address,uint256)'(
       deposit?: string | null,
       minDepositAmount?: null,
-    ): MinDepositAmountUpdatedEventFilter;
-    MinDepositAmountUpdated(
+    ): MinDepositAmountChangedEventFilter;
+    MinDepositAmountChanged(
       deposit?: string | null,
       minDepositAmount?: null,
-    ): MinDepositAmountUpdatedEventFilter;
+    ): MinDepositAmountChangedEventFilter;
 
-    'MinRollupFeeUpdated(address,uint256)'(
+    'MinRollupFeeChanged(address,uint256)'(
       pool?: string | null,
       minRollupFee?: null,
-    ): MinRollupFeeUpdatedEventFilter;
-    MinRollupFeeUpdated(pool?: string | null, minRollupFee?: null): MinRollupFeeUpdatedEventFilter;
+    ): MinRollupFeeChangedEventFilter;
+    MinRollupFeeChanged(pool?: string | null, minRollupFee?: null): MinRollupFeeChangedEventFilter;
 
-    'RelayerRegistryChanged(address)'(registry?: string | null): RelayerRegistryChangedEventFilter;
-    RelayerRegistryChanged(registry?: string | null): RelayerRegistryChangedEventFilter;
+    'RelayerPoolChanged(address)'(registry?: string | null): RelayerPoolChangedEventFilter;
+    RelayerPoolChanged(registry?: string | null): RelayerPoolChangedEventFilter;
 
     'RoleAdminChanged(bytes32,bytes32,bytes32)'(
       role?: BytesLike | null,
@@ -1001,8 +994,8 @@ export interface MystikoSettings extends BaseContract {
       sender?: string | null,
     ): RoleRevokedEventFilter;
 
-    'RollerRegistryChanged(address)'(registry?: string | null): RollerRegistryChangedEventFilter;
-    RollerRegistryChanged(registry?: string | null): RollerRegistryChangedEventFilter;
+    'RollerPoolChanged(address)'(registry?: string | null): RollerPoolChangedEventFilter;
+    RollerPoolChanged(registry?: string | null): RollerPoolChangedEventFilter;
 
     'RollupVerifierDisabled(uint32)'(rollupSize?: null): RollupVerifierDisabledEventFilter;
     RollupVerifierDisabled(rollupSize?: null): RollupVerifierDisabledEventFilter;
@@ -1028,11 +1021,11 @@ export interface MystikoSettings extends BaseContract {
     ): TransactVerifierEnabledEventFilter;
     TransactVerifierEnabled(inputNumber?: null, outputNumber?: null): TransactVerifierEnabledEventFilter;
 
-    'TransferDisableUpdated(address,bool)'(
+    'TransferDisableChanged(address,bool)'(
       pool?: string | null,
       disable?: null,
-    ): TransferDisableUpdatedEventFilter;
-    TransferDisableUpdated(pool?: string | null, disable?: null): TransferDisableUpdatedEventFilter;
+    ): TransferDisableChangedEventFilter;
+    TransferDisableChanged(pool?: string | null, disable?: null): TransferDisableChangedEventFilter;
   };
 
   estimateGas: {
@@ -1043,23 +1036,6 @@ export interface MystikoSettings extends BaseContract {
     associatedPool(arg0: string, overrides?: CallOverrides): Promise<BigNumber>;
 
     certificate(overrides?: CallOverrides): Promise<BigNumber>;
-
-    changeCertificateRegistry(
-      _newCertificateRegistry: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
-    ): Promise<BigNumber>;
-
-    changeRelayerRegistry(
-      _newRelayerRegistry: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
-    ): Promise<BigNumber>;
-
-    changeRollerRegistry(
-      _newRollerRegistry: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
-    ): Promise<BigNumber>;
-
-    checkEnabled(overrides?: CallOverrides): Promise<BigNumber>;
 
     daoRegistry(overrides?: CallOverrides): Promise<BigNumber>;
 
@@ -1091,7 +1067,7 @@ export interface MystikoSettings extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<BigNumber>;
 
-    getIssuerAddress(overrides?: CallOverrides): Promise<BigNumber>;
+    getCertificateIssuer(overrides?: CallOverrides): Promise<BigNumber>;
 
     getRoleAdmin(role: BytesLike, overrides?: CallOverrides): Promise<BigNumber>;
 
@@ -1103,7 +1079,13 @@ export interface MystikoSettings extends BaseContract {
 
     hasRole(role: BytesLike, account: string, overrides?: CallOverrides): Promise<BigNumber>;
 
+    isCertificateCheckEnabled(overrides?: CallOverrides): Promise<BigNumber>;
+
+    isDepositDisable(_depositAddress: string, overrides?: CallOverrides): Promise<BigNumber>;
+
     isSanctioned(_account: string, overrides?: CallOverrides): Promise<BigNumber>;
+
+    isTransferDisable(_pool: string, overrides?: CallOverrides): Promise<BigNumber>;
 
     maxDepositAmountMap(arg0: string, overrides?: CallOverrides): Promise<BigNumber>;
 
@@ -1116,8 +1098,6 @@ export interface MystikoSettings extends BaseContract {
     queryAssociatedPool(_depositAddress: string, overrides?: CallOverrides): Promise<BigNumber>;
 
     queryAuditorPublicKey(_index: BigNumberish, overrides?: CallOverrides): Promise<BigNumber>;
-
-    queryDepositDisable(_depositAddress: string, overrides?: CallOverrides): Promise<BigNumber>;
 
     queryMaxDepositAmount(_pool: string, overrides?: CallOverrides): Promise<BigNumber>;
 
@@ -1132,8 +1112,6 @@ export interface MystikoSettings extends BaseContract {
       _numOutputs: BigNumberish,
       overrides?: CallOverrides,
     ): Promise<BigNumber>;
-
-    queryTransferDisable(_pool: string, overrides?: CallOverrides): Promise<BigNumber>;
 
     relayerPool(overrides?: CallOverrides): Promise<BigNumber>;
 
@@ -1155,56 +1133,71 @@ export interface MystikoSettings extends BaseContract {
 
     sanctionsList(overrides?: CallOverrides): Promise<BigNumber>;
 
-    supportsInterface(interfaceId: BytesLike, overrides?: CallOverrides): Promise<BigNumber>;
-
-    transferDisableMap(arg0: string, overrides?: CallOverrides): Promise<BigNumber>;
-
-    updateAssociatedPool(
+    setAssociatedPool(
       _depositAddress: string,
       _poolAddress: string,
       overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<BigNumber>;
 
-    updateAuditorPublicKey(
+    setAuditorPublicKey(
       _index: BigNumberish,
       _publicKey: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<BigNumber>;
 
-    updateDepositDisable(
+    setCertificateVerifier(
+      _newCertificateRegistry: string,
+      overrides?: Overrides & { from?: string | Promise<string> },
+    ): Promise<BigNumber>;
+
+    setDepositDisable(
       _depositAddress: string,
       _disable: boolean,
       overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<BigNumber>;
 
-    updateMaxDepositAmount(
+    setMaxDepositAmount(
       _pool: string,
       _maxDepositAmount: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<BigNumber>;
 
-    updateMinDepositAmount(
+    setMinDepositAmount(
       _pool: string,
       _minDepositAmount: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<BigNumber>;
 
-    updateMinRollupFee(
+    setMinRollupFee(
       _pool: string,
       _minRollupFee: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<BigNumber>;
 
-    updateSanctionsListAddress(
+    setRelayerPool(
+      _newRelayerRegistry: string,
+      overrides?: Overrides & { from?: string | Promise<string> },
+    ): Promise<BigNumber>;
+
+    setRollerPool(
+      _newRollerRegistry: string,
+      overrides?: Overrides & { from?: string | Promise<string> },
+    ): Promise<BigNumber>;
+
+    setSanctionsListAddress(
       _sanction: string,
       overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<BigNumber>;
 
-    updateTransferDisable(
+    setTransferDisable(
       _pool: string,
       _disable: boolean,
       overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<BigNumber>;
+
+    supportsInterface(interfaceId: BytesLike, overrides?: CallOverrides): Promise<BigNumber>;
+
+    transferDisableMap(arg0: string, overrides?: CallOverrides): Promise<BigNumber>;
 
     validateRelayer(_params: RelayerValidateParamsStruct, overrides?: CallOverrides): Promise<BigNumber>;
 
@@ -1221,23 +1214,6 @@ export interface MystikoSettings extends BaseContract {
     associatedPool(arg0: string, overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     certificate(overrides?: CallOverrides): Promise<PopulatedTransaction>;
-
-    changeCertificateRegistry(
-      _newCertificateRegistry: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
-    ): Promise<PopulatedTransaction>;
-
-    changeRelayerRegistry(
-      _newRelayerRegistry: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
-    ): Promise<PopulatedTransaction>;
-
-    changeRollerRegistry(
-      _newRollerRegistry: string,
-      overrides?: Overrides & { from?: string | Promise<string> },
-    ): Promise<PopulatedTransaction>;
-
-    checkEnabled(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     daoRegistry(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
@@ -1273,7 +1249,7 @@ export interface MystikoSettings extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<PopulatedTransaction>;
 
-    getIssuerAddress(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+    getCertificateIssuer(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     getRoleAdmin(role: BytesLike, overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
@@ -1285,7 +1261,13 @@ export interface MystikoSettings extends BaseContract {
 
     hasRole(role: BytesLike, account: string, overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
+    isCertificateCheckEnabled(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+
+    isDepositDisable(_depositAddress: string, overrides?: CallOverrides): Promise<PopulatedTransaction>;
+
     isSanctioned(_account: string, overrides?: CallOverrides): Promise<PopulatedTransaction>;
+
+    isTransferDisable(_pool: string, overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     maxDepositAmountMap(arg0: string, overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
@@ -1298,8 +1280,6 @@ export interface MystikoSettings extends BaseContract {
     queryAssociatedPool(_depositAddress: string, overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     queryAuditorPublicKey(_index: BigNumberish, overrides?: CallOverrides): Promise<PopulatedTransaction>;
-
-    queryDepositDisable(_depositAddress: string, overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     queryMaxDepositAmount(_pool: string, overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
@@ -1314,8 +1294,6 @@ export interface MystikoSettings extends BaseContract {
       _numOutputs: BigNumberish,
       overrides?: CallOverrides,
     ): Promise<PopulatedTransaction>;
-
-    queryTransferDisable(_pool: string, overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     relayerPool(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
@@ -1337,56 +1315,71 @@ export interface MystikoSettings extends BaseContract {
 
     sanctionsList(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
-    supportsInterface(interfaceId: BytesLike, overrides?: CallOverrides): Promise<PopulatedTransaction>;
-
-    transferDisableMap(arg0: string, overrides?: CallOverrides): Promise<PopulatedTransaction>;
-
-    updateAssociatedPool(
+    setAssociatedPool(
       _depositAddress: string,
       _poolAddress: string,
       overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<PopulatedTransaction>;
 
-    updateAuditorPublicKey(
+    setAuditorPublicKey(
       _index: BigNumberish,
       _publicKey: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<PopulatedTransaction>;
 
-    updateDepositDisable(
+    setCertificateVerifier(
+      _newCertificateRegistry: string,
+      overrides?: Overrides & { from?: string | Promise<string> },
+    ): Promise<PopulatedTransaction>;
+
+    setDepositDisable(
       _depositAddress: string,
       _disable: boolean,
       overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<PopulatedTransaction>;
 
-    updateMaxDepositAmount(
+    setMaxDepositAmount(
       _pool: string,
       _maxDepositAmount: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<PopulatedTransaction>;
 
-    updateMinDepositAmount(
+    setMinDepositAmount(
       _pool: string,
       _minDepositAmount: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<PopulatedTransaction>;
 
-    updateMinRollupFee(
+    setMinRollupFee(
       _pool: string,
       _minRollupFee: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<PopulatedTransaction>;
 
-    updateSanctionsListAddress(
+    setRelayerPool(
+      _newRelayerRegistry: string,
+      overrides?: Overrides & { from?: string | Promise<string> },
+    ): Promise<PopulatedTransaction>;
+
+    setRollerPool(
+      _newRollerRegistry: string,
+      overrides?: Overrides & { from?: string | Promise<string> },
+    ): Promise<PopulatedTransaction>;
+
+    setSanctionsListAddress(
       _sanction: string,
       overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<PopulatedTransaction>;
 
-    updateTransferDisable(
+    setTransferDisable(
       _pool: string,
       _disable: boolean,
       overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<PopulatedTransaction>;
+
+    supportsInterface(interfaceId: BytesLike, overrides?: CallOverrides): Promise<PopulatedTransaction>;
+
+    transferDisableMap(arg0: string, overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     validateRelayer(
       _params: RelayerValidateParamsStruct,

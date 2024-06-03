@@ -28,7 +28,7 @@ contract MystikoSettingsCenterTest is Test, Random {
   MystikoRelayerPool public relayerPool;
   MystikoSettings public settings;
 
-  event RelayerRegistryChanged(address indexed registry);
+  event RelayerPoolChanged(address indexed registry);
 
   function setUp() public {
     dao = address(uint160(uint256(keccak256(abi.encodePacked(_random())))));
@@ -75,7 +75,7 @@ contract MystikoSettingsCenterTest is Test, Random {
     settings.validateRelayer(p1);
 
     vm.prank(dao);
-    relayerPool.changeRelayerMinVoteTokenAmount(0);
+    relayerPool.setRelayerMinVoteTokenAmount(0);
     vm.prank(pool);
     bool canDo = settings.validateRelayer(p1);
     assertTrue(canDo);
@@ -83,19 +83,19 @@ contract MystikoSettingsCenterTest is Test, Random {
 
   function test_change_relayer_registry() public {
     vm.expectRevert(GovernanceErrors.OnlyMystikoDAO.selector);
-    settings.changeRelayerRegistry(IMystikoRelayerPool(relayerPool));
+    settings.setRelayerPool(IMystikoRelayerPool(relayerPool));
 
     vm.expectRevert(MystikoSettingsErrors.NotChanged.selector);
     vm.prank(dao);
-    settings.changeRelayerRegistry(IMystikoRelayerPool(relayerPool));
+    settings.setRelayerPool(IMystikoRelayerPool(relayerPool));
 
     IMystikoRelayerPool newRegistry = IMystikoRelayerPool(
       address(uint160(uint256(keccak256(abi.encodePacked(_random())))))
     );
     vm.expectEmit(address(settings));
-    emit RelayerRegistryChanged(address(newRegistry));
+    emit RelayerPoolChanged(address(newRegistry));
     vm.prank(dao);
-    settings.changeRelayerRegistry(newRegistry);
+    settings.setRelayerPool(newRegistry);
     assertEq(address(settings.relayerPool()), address(newRegistry));
   }
 }

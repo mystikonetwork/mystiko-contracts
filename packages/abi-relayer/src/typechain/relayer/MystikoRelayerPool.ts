@@ -29,7 +29,6 @@ export interface MystikoRelayerPoolInterface extends utils.Interface {
   functions: {
     'DEFAULT_ADMIN_ROLE()': FunctionFragment;
     'RELAYER_ROLE()': FunctionFragment;
-    'changeRelayerMinVoteTokenAmount(uint256)': FunctionFragment;
     'daoRegistry()': FunctionFragment;
     'getRoleAdmin(bytes32)': FunctionFragment;
     'grantRole(bytes32,address)': FunctionFragment;
@@ -37,6 +36,7 @@ export interface MystikoRelayerPoolInterface extends utils.Interface {
     'minVoteTokenAmount()': FunctionFragment;
     'renounceRole(bytes32,address)': FunctionFragment;
     'revokeRole(bytes32,address)': FunctionFragment;
+    'setRelayerMinVoteTokenAmount(uint256)': FunctionFragment;
     'supportsInterface(bytes4)': FunctionFragment;
     'vXZK()': FunctionFragment;
     'validateRelayer((address,address))': FunctionFragment;
@@ -44,7 +44,6 @@ export interface MystikoRelayerPoolInterface extends utils.Interface {
 
   encodeFunctionData(functionFragment: 'DEFAULT_ADMIN_ROLE', values?: undefined): string;
   encodeFunctionData(functionFragment: 'RELAYER_ROLE', values?: undefined): string;
-  encodeFunctionData(functionFragment: 'changeRelayerMinVoteTokenAmount', values: [BigNumberish]): string;
   encodeFunctionData(functionFragment: 'daoRegistry', values?: undefined): string;
   encodeFunctionData(functionFragment: 'getRoleAdmin', values: [BytesLike]): string;
   encodeFunctionData(functionFragment: 'grantRole', values: [BytesLike, string]): string;
@@ -52,13 +51,13 @@ export interface MystikoRelayerPoolInterface extends utils.Interface {
   encodeFunctionData(functionFragment: 'minVoteTokenAmount', values?: undefined): string;
   encodeFunctionData(functionFragment: 'renounceRole', values: [BytesLike, string]): string;
   encodeFunctionData(functionFragment: 'revokeRole', values: [BytesLike, string]): string;
+  encodeFunctionData(functionFragment: 'setRelayerMinVoteTokenAmount', values: [BigNumberish]): string;
   encodeFunctionData(functionFragment: 'supportsInterface', values: [BytesLike]): string;
   encodeFunctionData(functionFragment: 'vXZK', values?: undefined): string;
   encodeFunctionData(functionFragment: 'validateRelayer', values: [RelayerValidateParamsStruct]): string;
 
   decodeFunctionResult(functionFragment: 'DEFAULT_ADMIN_ROLE', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'RELAYER_ROLE', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'changeRelayerMinVoteTokenAmount', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'daoRegistry', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'getRoleAdmin', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'grantRole', data: BytesLike): Result;
@@ -66,6 +65,7 @@ export interface MystikoRelayerPoolInterface extends utils.Interface {
   decodeFunctionResult(functionFragment: 'minVoteTokenAmount', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'renounceRole', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'revokeRole', data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'setRelayerMinVoteTokenAmount', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'supportsInterface', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'vXZK', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'validateRelayer', data: BytesLike): Result;
@@ -137,11 +137,6 @@ export interface MystikoRelayerPool extends BaseContract {
 
     RELAYER_ROLE(overrides?: CallOverrides): Promise<[string]>;
 
-    changeRelayerMinVoteTokenAmount(
-      _newMinVoteTokenAmount: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
-    ): Promise<ContractTransaction>;
-
     daoRegistry(overrides?: CallOverrides): Promise<[string]>;
 
     getRoleAdmin(role: BytesLike, overrides?: CallOverrides): Promise<[string]>;
@@ -168,6 +163,11 @@ export interface MystikoRelayerPool extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<ContractTransaction>;
 
+    setRelayerMinVoteTokenAmount(
+      _newMinVoteTokenAmount: BigNumberish,
+      overrides?: Overrides & { from?: string | Promise<string> },
+    ): Promise<ContractTransaction>;
+
     supportsInterface(interfaceId: BytesLike, overrides?: CallOverrides): Promise<[boolean]>;
 
     vXZK(overrides?: CallOverrides): Promise<[string]>;
@@ -178,11 +178,6 @@ export interface MystikoRelayerPool extends BaseContract {
   DEFAULT_ADMIN_ROLE(overrides?: CallOverrides): Promise<string>;
 
   RELAYER_ROLE(overrides?: CallOverrides): Promise<string>;
-
-  changeRelayerMinVoteTokenAmount(
-    _newMinVoteTokenAmount: BigNumberish,
-    overrides?: Overrides & { from?: string | Promise<string> },
-  ): Promise<ContractTransaction>;
 
   daoRegistry(overrides?: CallOverrides): Promise<string>;
 
@@ -210,6 +205,11 @@ export interface MystikoRelayerPool extends BaseContract {
     overrides?: Overrides & { from?: string | Promise<string> },
   ): Promise<ContractTransaction>;
 
+  setRelayerMinVoteTokenAmount(
+    _newMinVoteTokenAmount: BigNumberish,
+    overrides?: Overrides & { from?: string | Promise<string> },
+  ): Promise<ContractTransaction>;
+
   supportsInterface(interfaceId: BytesLike, overrides?: CallOverrides): Promise<boolean>;
 
   vXZK(overrides?: CallOverrides): Promise<string>;
@@ -220,11 +220,6 @@ export interface MystikoRelayerPool extends BaseContract {
     DEFAULT_ADMIN_ROLE(overrides?: CallOverrides): Promise<string>;
 
     RELAYER_ROLE(overrides?: CallOverrides): Promise<string>;
-
-    changeRelayerMinVoteTokenAmount(
-      _newMinVoteTokenAmount: BigNumberish,
-      overrides?: CallOverrides,
-    ): Promise<void>;
 
     daoRegistry(overrides?: CallOverrides): Promise<string>;
 
@@ -239,6 +234,11 @@ export interface MystikoRelayerPool extends BaseContract {
     renounceRole(role: BytesLike, callerConfirmation: string, overrides?: CallOverrides): Promise<void>;
 
     revokeRole(role: BytesLike, account: string, overrides?: CallOverrides): Promise<void>;
+
+    setRelayerMinVoteTokenAmount(
+      _newMinVoteTokenAmount: BigNumberish,
+      overrides?: CallOverrides,
+    ): Promise<void>;
 
     supportsInterface(interfaceId: BytesLike, overrides?: CallOverrides): Promise<boolean>;
 
@@ -290,11 +290,6 @@ export interface MystikoRelayerPool extends BaseContract {
 
     RELAYER_ROLE(overrides?: CallOverrides): Promise<BigNumber>;
 
-    changeRelayerMinVoteTokenAmount(
-      _newMinVoteTokenAmount: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
-    ): Promise<BigNumber>;
-
     daoRegistry(overrides?: CallOverrides): Promise<BigNumber>;
 
     getRoleAdmin(role: BytesLike, overrides?: CallOverrides): Promise<BigNumber>;
@@ -321,6 +316,11 @@ export interface MystikoRelayerPool extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<BigNumber>;
 
+    setRelayerMinVoteTokenAmount(
+      _newMinVoteTokenAmount: BigNumberish,
+      overrides?: Overrides & { from?: string | Promise<string> },
+    ): Promise<BigNumber>;
+
     supportsInterface(interfaceId: BytesLike, overrides?: CallOverrides): Promise<BigNumber>;
 
     vXZK(overrides?: CallOverrides): Promise<BigNumber>;
@@ -332,11 +332,6 @@ export interface MystikoRelayerPool extends BaseContract {
     DEFAULT_ADMIN_ROLE(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     RELAYER_ROLE(overrides?: CallOverrides): Promise<PopulatedTransaction>;
-
-    changeRelayerMinVoteTokenAmount(
-      _newMinVoteTokenAmount: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> },
-    ): Promise<PopulatedTransaction>;
 
     daoRegistry(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
@@ -361,6 +356,11 @@ export interface MystikoRelayerPool extends BaseContract {
     revokeRole(
       role: BytesLike,
       account: string,
+      overrides?: Overrides & { from?: string | Promise<string> },
+    ): Promise<PopulatedTransaction>;
+
+    setRelayerMinVoteTokenAmount(
+      _newMinVoteTokenAmount: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<PopulatedTransaction>;
 

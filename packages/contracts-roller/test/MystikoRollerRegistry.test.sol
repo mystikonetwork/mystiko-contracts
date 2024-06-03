@@ -120,16 +120,16 @@ contract MystikoRollerRegistryTest is Test, Random {
     address operator = address(uint160(uint256(keccak256(abi.encodePacked(_random())))));
     vm.expectRevert(GovernanceErrors.OnlyMystikoDAO.selector);
     vm.prank(operator);
-    registry.changeRollerMinVoteTokenAmount(1_000_000e18);
+    registry.setRollerMinVoteTokenAmount(1_000_000e18);
 
     vm.expectRevert(MystikoRollerPoolErrors.NotChanged.selector);
     vm.prank(dao);
-    registry.changeRollerMinVoteTokenAmount(1_000_000e18);
+    registry.setRollerMinVoteTokenAmount(1_000_000e18);
 
     vm.expectEmit(address(registry));
     emit RollerMinVoteTokenAmountChanged(2_000_000e18);
     vm.prank(dao);
-    registry.changeRollerMinVoteTokenAmount(2_000_000e18);
+    registry.setRollerMinVoteTokenAmount(2_000_000e18);
     assertEq(registry.minVoteTokenAmount(), 2_000_000e18);
   }
 
@@ -137,16 +137,16 @@ contract MystikoRollerRegistryTest is Test, Random {
     address operator = address(uint160(uint256(keccak256(abi.encodePacked(_random())))));
     vm.expectRevert(GovernanceErrors.OnlyMystikoDAO.selector);
     vm.prank(operator);
-    registry.changeMinRollupSize(1);
+    registry.setMinRollupSize(1);
 
     vm.expectRevert(MystikoRollerPoolErrors.NotChanged.selector);
     vm.prank(dao);
-    registry.changeMinRollupSize(1);
+    registry.setMinRollupSize(1);
 
     vm.expectEmit(address(registry));
     emit MinRollupSizeChanged(2);
     vm.prank(dao);
-    registry.changeMinRollupSize(2);
+    registry.setMinRollupSize(2);
     assertEq(registry.minRollupSize(), 2);
   }
 

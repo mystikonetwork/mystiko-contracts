@@ -59,7 +59,7 @@ const _abi = [
         type: 'address',
       },
     ],
-    name: 'AssociatedPoolUpdated',
+    name: 'AssociatedPoolChanged',
     type: 'event',
   },
   {
@@ -78,7 +78,7 @@ const _abi = [
         type: 'bool',
       },
     ],
-    name: 'DepositDisableUpdated',
+    name: 'DepositDisableChanged',
     type: 'event',
   },
   {
@@ -97,7 +97,7 @@ const _abi = [
         type: 'uint256',
       },
     ],
-    name: 'MaxDepositAmountUpdated',
+    name: 'MaxDepositAmountChanged',
     type: 'event',
   },
   {
@@ -116,7 +116,7 @@ const _abi = [
         type: 'uint256',
       },
     ],
-    name: 'MinDepositAmountUpdated',
+    name: 'MinDepositAmountChanged',
     type: 'event',
   },
   {
@@ -323,6 +323,25 @@ const _abi = [
     inputs: [
       {
         internalType: 'address',
+        name: '_depositAddress',
+        type: 'address',
+      },
+    ],
+    name: 'isDepositDisable',
+    outputs: [
+      {
+        internalType: 'bool',
+        name: '',
+        type: 'bool',
+      },
+    ],
+    stateMutability: 'view',
+    type: 'function',
+  },
+  {
+    inputs: [
+      {
+        internalType: 'address',
         name: '',
         type: 'address',
       },
@@ -371,25 +390,6 @@ const _abi = [
         internalType: 'address',
         name: '',
         type: 'address',
-      },
-    ],
-    stateMutability: 'view',
-    type: 'function',
-  },
-  {
-    inputs: [
-      {
-        internalType: 'address',
-        name: '_depositAddress',
-        type: 'address',
-      },
-    ],
-    name: 'queryDepositDisable',
-    outputs: [
-      {
-        internalType: 'bool',
-        name: '',
-        type: 'bool',
       },
     ],
     stateMutability: 'view',
@@ -472,25 +472,6 @@ const _abi = [
   {
     inputs: [
       {
-        internalType: 'bytes4',
-        name: 'interfaceId',
-        type: 'bytes4',
-      },
-    ],
-    name: 'supportsInterface',
-    outputs: [
-      {
-        internalType: 'bool',
-        name: '',
-        type: 'bool',
-      },
-    ],
-    stateMutability: 'view',
-    type: 'function',
-  },
-  {
-    inputs: [
-      {
         internalType: 'address',
         name: '_depositAddress',
         type: 'address',
@@ -501,7 +482,7 @@ const _abi = [
         type: 'address',
       },
     ],
-    name: 'updateAssociatedPool',
+    name: 'setAssociatedPool',
     outputs: [],
     stateMutability: 'nonpayable',
     type: 'function',
@@ -519,7 +500,7 @@ const _abi = [
         type: 'bool',
       },
     ],
-    name: 'updateDepositDisable',
+    name: 'setDepositDisable',
     outputs: [],
     stateMutability: 'nonpayable',
     type: 'function',
@@ -537,7 +518,7 @@ const _abi = [
         type: 'uint256',
       },
     ],
-    name: 'updateMaxDepositAmount',
+    name: 'setMaxDepositAmount',
     outputs: [],
     stateMutability: 'nonpayable',
     type: 'function',
@@ -555,9 +536,28 @@ const _abi = [
         type: 'uint256',
       },
     ],
-    name: 'updateMinDepositAmount',
+    name: 'setMinDepositAmount',
     outputs: [],
     stateMutability: 'nonpayable',
+    type: 'function',
+  },
+  {
+    inputs: [
+      {
+        internalType: 'bytes4',
+        name: 'interfaceId',
+        type: 'bytes4',
+      },
+    ],
+    name: 'supportsInterface',
+    outputs: [
+      {
+        internalType: 'bool',
+        name: '',
+        type: 'bool',
+      },
+    ],
+    stateMutability: 'view',
     type: 'function',
   },
 ];

@@ -32,7 +32,7 @@ contract MystikoRelayerPool is IMystikoRelayerPool, MystikoDAOAccessControl {
     return true;
   }
 
-  function changeRelayerMinVoteTokenAmount(uint256 _newMinVoteTokenAmount) external onlyMystikoDAO {
+  function setRelayerMinVoteTokenAmount(uint256 _newMinVoteTokenAmount) external onlyMystikoDAO {
     if (minVoteTokenAmount == _newMinVoteTokenAmount) revert MystikoRelayerPoolErrors.NotChanged();
     minVoteTokenAmount = _newMinVoteTokenAmount;
     emit RelayerMinVoteTokenAmountChanged(minVoteTokenAmount);

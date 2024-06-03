@@ -28,9 +28,9 @@ abstract contract MystikoSettingsBase is
   IMystikoRollerPool public rollerPool;
   IMystikoRelayerPool public relayerPool;
 
-  event CertificateRegistryChanged(address indexed registry);
-  event RollerRegistryChanged(address indexed registry);
-  event RelayerRegistryChanged(address indexed registry);
+  event CertificateVerifierChanged(address indexed registry);
+  event RollerPoolChanged(address indexed registry);
+  event RelayerPoolChanged(address indexed registry);
 
   constructor(
     address _daoRegistry,
@@ -50,12 +50,12 @@ abstract contract MystikoSettingsBase is
     relayerPool = _relayerRegistry;
   }
 
-  function getIssuerAddress() external view returns (address) {
-    return certificate.getIssuerAddress();
+  function getCertificateIssuer() external view returns (address) {
+    return certificate.getCertificateIssuer();
   }
 
-  function checkEnabled() external view returns (bool) {
-    return certificate.checkEnabled();
+  function isCertificateCheckEnabled() external view returns (bool) {
+    return certificate.isCertificateCheckEnabled();
   }
 
   function verifyCertificate(CertificateParams memory _params) external view returns (bool) {
@@ -70,21 +70,21 @@ abstract contract MystikoSettingsBase is
     return relayerPool.validateRelayer(_params);
   }
 
-  function changeCertificateRegistry(IMystikoCertificate _newCertificateRegistry) external onlyMystikoDAO {
+  function setCertificateVerifier(IMystikoCertificate _newCertificateRegistry) external onlyMystikoDAO {
     if (certificate == _newCertificateRegistry) revert MystikoSettingsErrors.NotChanged();
     certificate = _newCertificateRegistry;
-    emit CertificateRegistryChanged(address(certificate));
+    emit CertificateVerifierChanged(address(certificate));
   }
 
-  function changeRollerRegistry(IMystikoRollerPool _newRollerRegistry) external onlyMystikoDAO {
+  function setRollerPool(IMystikoRollerPool _newRollerRegistry) external onlyMystikoDAO {
     if (rollerPool == _newRollerRegistry) revert MystikoSettingsErrors.NotChanged();
     rollerPool = _newRollerRegistry;
-    emit RollerRegistryChanged(address(rollerPool));
+    emit RollerPoolChanged(address(rollerPool));
   }
 
-  function changeRelayerRegistry(IMystikoRelayerPool _newRelayerRegistry) external onlyMystikoDAO {
+  function setRelayerPool(IMystikoRelayerPool _newRelayerRegistry) external onlyMystikoDAO {
     if (relayerPool == _newRelayerRegistry) revert MystikoSettingsErrors.NotChanged();
     relayerPool = _newRelayerRegistry;
-    emit RelayerRegistryChanged(address(relayerPool));
+    emit RelayerPoolChanged(address(relayerPool));
   }
 }

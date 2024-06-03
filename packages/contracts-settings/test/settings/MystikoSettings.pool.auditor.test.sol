@@ -25,7 +25,7 @@ contract MystikoSettingsCenterTest is Test, Random {
   MystikoRelayerPool public relayerPool;
   MystikoSettings public settings;
 
-  event AuditorPublicKeyUpdated(uint256 indexed index, uint256 publicKey);
+  event AuditorPublicKeyChanged(uint256 indexed index, uint256 publicKey);
 
   function setUp() public {
     dao = address(uint160(uint256(keccak256(abi.encodePacked(_random())))));
@@ -75,32 +75,32 @@ contract MystikoSettingsCenterTest is Test, Random {
   function test_update_auditor_public_key() public {
     uint256 newAuditor = uint256(keccak256(abi.encodePacked(_random())));
     vm.expectRevert(GovernanceErrors.OnlyMystikoDAO.selector);
-    settings.updateAuditorPublicKey(0, newAuditor);
+    settings.setAuditorPublicKey(0, newAuditor);
 
     vm.expectEmit(address(settings));
-    emit AuditorPublicKeyUpdated(0, newAuditor);
+    emit AuditorPublicKeyChanged(0, newAuditor);
     vm.prank(dao);
-    settings.updateAuditorPublicKey(0, newAuditor);
+    settings.setAuditorPublicKey(0, newAuditor);
     assertEq(settings.queryAuditorPublicKey(0), newAuditor);
     vm.prank(dao);
-    settings.updateAuditorPublicKey(1, newAuditor);
+    settings.setAuditorPublicKey(1, newAuditor);
     assertEq(settings.queryAuditorPublicKey(1), newAuditor);
     vm.prank(dao);
-    settings.updateAuditorPublicKey(2, newAuditor);
+    settings.setAuditorPublicKey(2, newAuditor);
     assertEq(settings.queryAuditorPublicKey(2), newAuditor);
     vm.prank(dao);
-    settings.updateAuditorPublicKey(3, newAuditor);
+    settings.setAuditorPublicKey(3, newAuditor);
     assertEq(settings.queryAuditorPublicKey(3), newAuditor);
     vm.prank(dao);
-    settings.updateAuditorPublicKey(4, newAuditor);
+    settings.setAuditorPublicKey(4, newAuditor);
     assertEq(settings.queryAuditorPublicKey(4), newAuditor);
 
     vm.prank(dao);
     vm.expectRevert(MystikoSettingsErrors.AuditorIndexError.selector);
-    settings.updateAuditorPublicKey(5, newAuditor);
+    settings.setAuditorPublicKey(5, newAuditor);
 
     vm.prank(dao);
     vm.expectRevert(MystikoSettingsErrors.NotChanged.selector);
-    settings.updateAuditorPublicKey(4, newAuditor);
+    settings.setAuditorPublicKey(4, newAuditor);
   }
 }

@@ -32,17 +32,17 @@ export type CertificateParamsStructOutput = [string, string, BigNumber, string] 
 export interface IMystikoCertificateInterface extends utils.Interface {
   contractName: 'IMystikoCertificate';
   functions: {
-    'checkEnabled()': FunctionFragment;
-    'getIssuerAddress()': FunctionFragment;
+    'getCertificateIssuer()': FunctionFragment;
+    'isCertificateCheckEnabled()': FunctionFragment;
     'verifyCertificate((address,address,uint256,bytes))': FunctionFragment;
   };
 
-  encodeFunctionData(functionFragment: 'checkEnabled', values?: undefined): string;
-  encodeFunctionData(functionFragment: 'getIssuerAddress', values?: undefined): string;
+  encodeFunctionData(functionFragment: 'getCertificateIssuer', values?: undefined): string;
+  encodeFunctionData(functionFragment: 'isCertificateCheckEnabled', values?: undefined): string;
   encodeFunctionData(functionFragment: 'verifyCertificate', values: [CertificateParamsStruct]): string;
 
-  decodeFunctionResult(functionFragment: 'checkEnabled', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'getIssuerAddress', data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'getCertificateIssuer', data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'isCertificateCheckEnabled', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'verifyCertificate', data: BytesLike): Result;
 
   events: {};
@@ -72,23 +72,23 @@ export interface IMystikoCertificate extends BaseContract {
   removeListener: OnEvent<this>;
 
   functions: {
-    checkEnabled(overrides?: CallOverrides): Promise<[boolean]>;
+    getCertificateIssuer(overrides?: CallOverrides): Promise<[string]>;
 
-    getIssuerAddress(overrides?: CallOverrides): Promise<[string]>;
+    isCertificateCheckEnabled(overrides?: CallOverrides): Promise<[boolean]>;
 
     verifyCertificate(_params: CertificateParamsStruct, overrides?: CallOverrides): Promise<[boolean]>;
   };
 
-  checkEnabled(overrides?: CallOverrides): Promise<boolean>;
+  getCertificateIssuer(overrides?: CallOverrides): Promise<string>;
 
-  getIssuerAddress(overrides?: CallOverrides): Promise<string>;
+  isCertificateCheckEnabled(overrides?: CallOverrides): Promise<boolean>;
 
   verifyCertificate(_params: CertificateParamsStruct, overrides?: CallOverrides): Promise<boolean>;
 
   callStatic: {
-    checkEnabled(overrides?: CallOverrides): Promise<boolean>;
+    getCertificateIssuer(overrides?: CallOverrides): Promise<string>;
 
-    getIssuerAddress(overrides?: CallOverrides): Promise<string>;
+    isCertificateCheckEnabled(overrides?: CallOverrides): Promise<boolean>;
 
     verifyCertificate(_params: CertificateParamsStruct, overrides?: CallOverrides): Promise<boolean>;
   };
@@ -96,17 +96,17 @@ export interface IMystikoCertificate extends BaseContract {
   filters: {};
 
   estimateGas: {
-    checkEnabled(overrides?: CallOverrides): Promise<BigNumber>;
+    getCertificateIssuer(overrides?: CallOverrides): Promise<BigNumber>;
 
-    getIssuerAddress(overrides?: CallOverrides): Promise<BigNumber>;
+    isCertificateCheckEnabled(overrides?: CallOverrides): Promise<BigNumber>;
 
     verifyCertificate(_params: CertificateParamsStruct, overrides?: CallOverrides): Promise<BigNumber>;
   };
 
   populateTransaction: {
-    checkEnabled(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+    getCertificateIssuer(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
-    getIssuerAddress(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+    isCertificateCheckEnabled(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     verifyCertificate(
       _params: CertificateParamsStruct,

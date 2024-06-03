@@ -31,8 +31,8 @@ export interface SanctionsInterface extends utils.Interface {
     'revokeRole(bytes32,address)': FunctionFragment;
     'sanctionsCheck()': FunctionFragment;
     'sanctionsList()': FunctionFragment;
+    'setSanctionsListAddress(address)': FunctionFragment;
     'supportsInterface(bytes4)': FunctionFragment;
-    'updateSanctionsListAddress(address)': FunctionFragment;
   };
 
   encodeFunctionData(functionFragment: 'DEFAULT_ADMIN_ROLE', values?: undefined): string;
@@ -47,8 +47,8 @@ export interface SanctionsInterface extends utils.Interface {
   encodeFunctionData(functionFragment: 'revokeRole', values: [BytesLike, string]): string;
   encodeFunctionData(functionFragment: 'sanctionsCheck', values?: undefined): string;
   encodeFunctionData(functionFragment: 'sanctionsList', values?: undefined): string;
+  encodeFunctionData(functionFragment: 'setSanctionsListAddress', values: [string]): string;
   encodeFunctionData(functionFragment: 'supportsInterface', values: [BytesLike]): string;
-  encodeFunctionData(functionFragment: 'updateSanctionsListAddress', values: [string]): string;
 
   decodeFunctionResult(functionFragment: 'DEFAULT_ADMIN_ROLE', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'daoRegistry', data: BytesLike): Result;
@@ -62,8 +62,8 @@ export interface SanctionsInterface extends utils.Interface {
   decodeFunctionResult(functionFragment: 'revokeRole', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'sanctionsCheck', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'sanctionsList', data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'setSanctionsListAddress', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'supportsInterface', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'updateSanctionsListAddress', data: BytesLike): Result;
 
   events: {
     'RoleAdminChanged(bytes32,bytes32,bytes32)': EventFragment;
@@ -173,12 +173,12 @@ export interface Sanctions extends BaseContract {
 
     sanctionsList(overrides?: CallOverrides): Promise<[string]>;
 
-    supportsInterface(interfaceId: BytesLike, overrides?: CallOverrides): Promise<[boolean]>;
-
-    updateSanctionsListAddress(
+    setSanctionsListAddress(
       _sanction: string,
       overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<ContractTransaction>;
+
+    supportsInterface(interfaceId: BytesLike, overrides?: CallOverrides): Promise<[boolean]>;
   };
 
   DEFAULT_ADMIN_ROLE(overrides?: CallOverrides): Promise<string>;
@@ -221,12 +221,12 @@ export interface Sanctions extends BaseContract {
 
   sanctionsList(overrides?: CallOverrides): Promise<string>;
 
-  supportsInterface(interfaceId: BytesLike, overrides?: CallOverrides): Promise<boolean>;
-
-  updateSanctionsListAddress(
+  setSanctionsListAddress(
     _sanction: string,
     overrides?: Overrides & { from?: string | Promise<string> },
   ): Promise<ContractTransaction>;
+
+  supportsInterface(interfaceId: BytesLike, overrides?: CallOverrides): Promise<boolean>;
 
   callStatic: {
     DEFAULT_ADMIN_ROLE(overrides?: CallOverrides): Promise<string>;
@@ -253,9 +253,9 @@ export interface Sanctions extends BaseContract {
 
     sanctionsList(overrides?: CallOverrides): Promise<string>;
 
-    supportsInterface(interfaceId: BytesLike, overrides?: CallOverrides): Promise<boolean>;
+    setSanctionsListAddress(_sanction: string, overrides?: CallOverrides): Promise<void>;
 
-    updateSanctionsListAddress(_sanction: string, overrides?: CallOverrides): Promise<void>;
+    supportsInterface(interfaceId: BytesLike, overrides?: CallOverrides): Promise<boolean>;
   };
 
   filters: {
@@ -336,12 +336,12 @@ export interface Sanctions extends BaseContract {
 
     sanctionsList(overrides?: CallOverrides): Promise<BigNumber>;
 
-    supportsInterface(interfaceId: BytesLike, overrides?: CallOverrides): Promise<BigNumber>;
-
-    updateSanctionsListAddress(
+    setSanctionsListAddress(
       _sanction: string,
       overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<BigNumber>;
+
+    supportsInterface(interfaceId: BytesLike, overrides?: CallOverrides): Promise<BigNumber>;
   };
 
   populateTransaction: {
@@ -385,11 +385,11 @@ export interface Sanctions extends BaseContract {
 
     sanctionsList(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
-    supportsInterface(interfaceId: BytesLike, overrides?: CallOverrides): Promise<PopulatedTransaction>;
-
-    updateSanctionsListAddress(
+    setSanctionsListAddress(
       _sanction: string,
       overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<PopulatedTransaction>;
+
+    supportsInterface(interfaceId: BytesLike, overrides?: CallOverrides): Promise<PopulatedTransaction>;
   };
 }

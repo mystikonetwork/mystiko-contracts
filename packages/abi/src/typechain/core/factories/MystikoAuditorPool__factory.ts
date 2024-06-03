@@ -59,7 +59,7 @@ const _abi = [
         type: 'uint256',
       },
     ],
-    name: 'AuditorPublicKeyUpdated',
+    name: 'AuditorPublicKeyChanged',
     type: 'event',
   },
   {
@@ -308,6 +308,24 @@ const _abi = [
   {
     inputs: [
       {
+        internalType: 'uint256',
+        name: '_index',
+        type: 'uint256',
+      },
+      {
+        internalType: 'uint256',
+        name: '_publicKey',
+        type: 'uint256',
+      },
+    ],
+    name: 'setAuditorPublicKey',
+    outputs: [],
+    stateMutability: 'nonpayable',
+    type: 'function',
+  },
+  {
+    inputs: [
+      {
         internalType: 'bytes4',
         name: 'interfaceId',
         type: 'bytes4',
@@ -322,24 +340,6 @@ const _abi = [
       },
     ],
     stateMutability: 'view',
-    type: 'function',
-  },
-  {
-    inputs: [
-      {
-        internalType: 'uint256',
-        name: '_index',
-        type: 'uint256',
-      },
-      {
-        internalType: 'uint256',
-        name: '_publicKey',
-        type: 'uint256',
-      },
-    ],
-    name: 'updateAuditorPublicKey',
-    outputs: [],
-    stateMutability: 'nonpayable',
     type: 'function',
   },
 ];

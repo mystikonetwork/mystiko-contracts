@@ -573,7 +573,7 @@ export async function deployDependContracts(accounts: Wallet[]): Promise<DependD
     [ZeroAddress, ZeroAddress, ZeroAddress, ZeroAddress, ZeroAddress],
   );
   await settings.deployed();
-  await settings.updateSanctionsListAddress(mockSanctionList.address);
+  await settings.setSanctionsListAddress(mockSanctionList.address);
 
   // todo eric enable cert check
   await certificate.disableCertificateCheck();
@@ -626,10 +626,10 @@ export async function associateContract(
   localPool: any,
   remotePool: any,
 ): Promise<void> {
-  await settings.updateAssociatedPool(localDeposit.coreMain.address, localPool.poolMain.address);
-  await settings.updateAssociatedPool(localDeposit.coreERC20.address, localPool.poolERC20.address);
-  await settings.updateAssociatedPool(remoteDeposit.coreMain.address, remotePool.poolMain.address);
-  await settings.updateAssociatedPool(remoteDeposit.coreERC20.address, remotePool.poolERC20.address);
+  await settings.setAssociatedPool(localDeposit.coreMain.address, localPool.poolMain.address);
+  await settings.setAssociatedPool(localDeposit.coreERC20.address, localPool.poolERC20.address);
+  await settings.setAssociatedPool(remoteDeposit.coreMain.address, remotePool.poolMain.address);
+  await settings.setAssociatedPool(remoteDeposit.coreERC20.address, remotePool.poolERC20.address);
   const localPeerContractMain = {
     peerChainId: DestinationChainID,
     peerChainName: '',

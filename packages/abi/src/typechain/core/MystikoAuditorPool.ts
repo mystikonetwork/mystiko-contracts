@@ -30,8 +30,8 @@ export interface MystikoAuditorPoolInterface extends utils.Interface {
     'queryAuditorPublicKey(uint256)': FunctionFragment;
     'renounceRole(bytes32,address)': FunctionFragment;
     'revokeRole(bytes32,address)': FunctionFragment;
+    'setAuditorPublicKey(uint256,uint256)': FunctionFragment;
     'supportsInterface(bytes4)': FunctionFragment;
-    'updateAuditorPublicKey(uint256,uint256)': FunctionFragment;
   };
 
   encodeFunctionData(functionFragment: 'AUDITOR_COUNT', values?: undefined): string;
@@ -44,11 +44,8 @@ export interface MystikoAuditorPoolInterface extends utils.Interface {
   encodeFunctionData(functionFragment: 'queryAuditorPublicKey', values: [BigNumberish]): string;
   encodeFunctionData(functionFragment: 'renounceRole', values: [BytesLike, string]): string;
   encodeFunctionData(functionFragment: 'revokeRole', values: [BytesLike, string]): string;
+  encodeFunctionData(functionFragment: 'setAuditorPublicKey', values: [BigNumberish, BigNumberish]): string;
   encodeFunctionData(functionFragment: 'supportsInterface', values: [BytesLike]): string;
-  encodeFunctionData(
-    functionFragment: 'updateAuditorPublicKey',
-    values: [BigNumberish, BigNumberish],
-  ): string;
 
   decodeFunctionResult(functionFragment: 'AUDITOR_COUNT', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'DEFAULT_ADMIN_ROLE', data: BytesLike): Result;
@@ -60,28 +57,28 @@ export interface MystikoAuditorPoolInterface extends utils.Interface {
   decodeFunctionResult(functionFragment: 'queryAuditorPublicKey', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'renounceRole', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'revokeRole', data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'setAuditorPublicKey', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'supportsInterface', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'updateAuditorPublicKey', data: BytesLike): Result;
 
   events: {
-    'AuditorPublicKeyUpdated(uint256,uint256)': EventFragment;
+    'AuditorPublicKeyChanged(uint256,uint256)': EventFragment;
     'RoleAdminChanged(bytes32,bytes32,bytes32)': EventFragment;
     'RoleGranted(bytes32,address,address)': EventFragment;
     'RoleRevoked(bytes32,address,address)': EventFragment;
   };
 
-  getEvent(nameOrSignatureOrTopic: 'AuditorPublicKeyUpdated'): EventFragment;
+  getEvent(nameOrSignatureOrTopic: 'AuditorPublicKeyChanged'): EventFragment;
   getEvent(nameOrSignatureOrTopic: 'RoleAdminChanged'): EventFragment;
   getEvent(nameOrSignatureOrTopic: 'RoleGranted'): EventFragment;
   getEvent(nameOrSignatureOrTopic: 'RoleRevoked'): EventFragment;
 }
 
-export type AuditorPublicKeyUpdatedEvent = TypedEvent<
+export type AuditorPublicKeyChangedEvent = TypedEvent<
   [BigNumber, BigNumber],
   { index: BigNumber; publicKey: BigNumber }
 >;
 
-export type AuditorPublicKeyUpdatedEventFilter = TypedEventFilter<AuditorPublicKeyUpdatedEvent>;
+export type AuditorPublicKeyChangedEventFilter = TypedEventFilter<AuditorPublicKeyChangedEvent>;
 
 export type RoleAdminChangedEvent = TypedEvent<
   [string, string, string],
@@ -160,13 +157,13 @@ export interface MystikoAuditorPool extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<ContractTransaction>;
 
-    supportsInterface(interfaceId: BytesLike, overrides?: CallOverrides): Promise<[boolean]>;
-
-    updateAuditorPublicKey(
+    setAuditorPublicKey(
       _index: BigNumberish,
       _publicKey: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<ContractTransaction>;
+
+    supportsInterface(interfaceId: BytesLike, overrides?: CallOverrides): Promise<[boolean]>;
   };
 
   AUDITOR_COUNT(overrides?: CallOverrides): Promise<BigNumber>;
@@ -201,13 +198,13 @@ export interface MystikoAuditorPool extends BaseContract {
     overrides?: Overrides & { from?: string | Promise<string> },
   ): Promise<ContractTransaction>;
 
-  supportsInterface(interfaceId: BytesLike, overrides?: CallOverrides): Promise<boolean>;
-
-  updateAuditorPublicKey(
+  setAuditorPublicKey(
     _index: BigNumberish,
     _publicKey: BigNumberish,
     overrides?: Overrides & { from?: string | Promise<string> },
   ): Promise<ContractTransaction>;
+
+  supportsInterface(interfaceId: BytesLike, overrides?: CallOverrides): Promise<boolean>;
 
   callStatic: {
     AUDITOR_COUNT(overrides?: CallOverrides): Promise<BigNumber>;
@@ -230,24 +227,24 @@ export interface MystikoAuditorPool extends BaseContract {
 
     revokeRole(role: BytesLike, account: string, overrides?: CallOverrides): Promise<void>;
 
-    supportsInterface(interfaceId: BytesLike, overrides?: CallOverrides): Promise<boolean>;
-
-    updateAuditorPublicKey(
+    setAuditorPublicKey(
       _index: BigNumberish,
       _publicKey: BigNumberish,
       overrides?: CallOverrides,
     ): Promise<void>;
+
+    supportsInterface(interfaceId: BytesLike, overrides?: CallOverrides): Promise<boolean>;
   };
 
   filters: {
-    'AuditorPublicKeyUpdated(uint256,uint256)'(
+    'AuditorPublicKeyChanged(uint256,uint256)'(
       index?: BigNumberish | null,
       publicKey?: null,
-    ): AuditorPublicKeyUpdatedEventFilter;
-    AuditorPublicKeyUpdated(
+    ): AuditorPublicKeyChangedEventFilter;
+    AuditorPublicKeyChanged(
       index?: BigNumberish | null,
       publicKey?: null,
-    ): AuditorPublicKeyUpdatedEventFilter;
+    ): AuditorPublicKeyChangedEventFilter;
 
     'RoleAdminChanged(bytes32,bytes32,bytes32)'(
       role?: BytesLike | null,
@@ -316,13 +313,13 @@ export interface MystikoAuditorPool extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<BigNumber>;
 
-    supportsInterface(interfaceId: BytesLike, overrides?: CallOverrides): Promise<BigNumber>;
-
-    updateAuditorPublicKey(
+    setAuditorPublicKey(
       _index: BigNumberish,
       _publicKey: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<BigNumber>;
+
+    supportsInterface(interfaceId: BytesLike, overrides?: CallOverrides): Promise<BigNumber>;
   };
 
   populateTransaction: {
@@ -358,12 +355,12 @@ export interface MystikoAuditorPool extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<PopulatedTransaction>;
 
-    supportsInterface(interfaceId: BytesLike, overrides?: CallOverrides): Promise<PopulatedTransaction>;
-
-    updateAuditorPublicKey(
+    setAuditorPublicKey(
       _index: BigNumberish,
       _publicKey: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<PopulatedTransaction>;
+
+    supportsInterface(interfaceId: BytesLike, overrides?: CallOverrides): Promise<PopulatedTransaction>;
   };
 }

@@ -203,7 +203,7 @@ export function testTransact(
         const auditorSecretKey = ECIES.generateSecretKey();
         const auditorPublicKey = ECIES.publicKey(auditorSecretKey);
         auditorPublicKeys.push(auditorPublicKey);
-        await settings.updateAuditorPublicKey(i, auditorPublicKey.toString());
+        await settings.setAuditorPublicKey(i, auditorPublicKey.toString());
       }
       const proofWithCommitments = await generateProof(
         protocol,

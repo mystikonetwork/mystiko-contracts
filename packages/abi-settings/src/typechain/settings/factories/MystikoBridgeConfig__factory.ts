@@ -54,7 +54,7 @@ const _abi = [
         type: 'uint256',
       },
     ],
-    name: 'MinBridgeFeeUpdated',
+    name: 'MinBridgeFeeChanged',
     type: 'event',
   },
   {
@@ -73,7 +73,7 @@ const _abi = [
         type: 'uint256',
       },
     ],
-    name: 'MinPeerExecutorFeeUpdated',
+    name: 'MinPeerExecutorFeeChanged',
     type: 'event',
   },
   {
@@ -92,7 +92,7 @@ const _abi = [
         type: 'uint256',
       },
     ],
-    name: 'MinPeerRollupFeeUpdated',
+    name: 'MinPeerRollupFeeChanged',
     type: 'event',
   },
   {
@@ -410,25 +410,6 @@ const _abi = [
   {
     inputs: [
       {
-        internalType: 'bytes4',
-        name: 'interfaceId',
-        type: 'bytes4',
-      },
-    ],
-    name: 'supportsInterface',
-    outputs: [
-      {
-        internalType: 'bool',
-        name: '',
-        type: 'bool',
-      },
-    ],
-    stateMutability: 'view',
-    type: 'function',
-  },
-  {
-    inputs: [
-      {
         internalType: 'address',
         name: '_pool',
         type: 'address',
@@ -439,7 +420,7 @@ const _abi = [
         type: 'uint256',
       },
     ],
-    name: 'updateMinBridgeFee',
+    name: 'setMinBridgeFee',
     outputs: [],
     stateMutability: 'nonpayable',
     type: 'function',
@@ -457,7 +438,7 @@ const _abi = [
         type: 'uint256',
       },
     ],
-    name: 'updateMinPeerExecutorFee',
+    name: 'setMinPeerExecutorFee',
     outputs: [],
     stateMutability: 'nonpayable',
     type: 'function',
@@ -475,9 +456,28 @@ const _abi = [
         type: 'uint256',
       },
     ],
-    name: 'updateMinPeerRollupFee',
+    name: 'setMinPeerRollupFee',
     outputs: [],
     stateMutability: 'nonpayable',
+    type: 'function',
+  },
+  {
+    inputs: [
+      {
+        internalType: 'bytes4',
+        name: 'interfaceId',
+        type: 'bytes4',
+      },
+    ],
+    name: 'supportsInterface',
+    outputs: [
+      {
+        internalType: 'bool',
+        name: '',
+        type: 'bool',
+      },
+    ],
+    stateMutability: 'view',
     type: 'function',
   },
 ];

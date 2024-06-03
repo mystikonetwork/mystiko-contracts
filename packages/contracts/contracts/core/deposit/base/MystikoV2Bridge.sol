@@ -92,9 +92,9 @@ abstract contract MystikoV2Bridge is IMystikoBridge, AssetPool, CrossChainDataSe
     DepositRequest memory _request,
     uint256 _certificateDeadline,
     bytes memory _certificateSignature
-  ) external payable {
-    if (settings.queryDepositDisable(address(this))) revert CustomErrors.DepositsDisabled();
-    if (settings.checkEnabled()) {
+  ) external payable override {
+    if (settings.isDepositDisable(address(this))) revert CustomErrors.DepositsDisabled();
+    if (settings.isCertificateCheckEnabled()) {
       CertificateParams memory params = CertificateParams({
         account: tx.origin,
         asset: assetAddress(),
@@ -178,6 +178,6 @@ abstract contract MystikoV2Bridge is IMystikoBridge, AssetPool, CrossChainDataSe
   }
 
   function isDepositsDisabled() public view returns (bool) {
-    return settings.queryDepositDisable(address(this));
+    return settings.isDepositDisable(address(this));
   }
 }

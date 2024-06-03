@@ -79,7 +79,7 @@ const _abi = [
         type: 'address',
       },
     ],
-    name: 'AssociatedPoolUpdated',
+    name: 'AssociatedPoolChanged',
     type: 'event',
   },
   {
@@ -98,7 +98,7 @@ const _abi = [
         type: 'uint256',
       },
     ],
-    name: 'AuditorPublicKeyUpdated',
+    name: 'AuditorPublicKeyChanged',
     type: 'event',
   },
   {
@@ -111,7 +111,7 @@ const _abi = [
         type: 'address',
       },
     ],
-    name: 'CertificateRegistryChanged',
+    name: 'CertificateVerifierChanged',
     type: 'event',
   },
   {
@@ -130,7 +130,7 @@ const _abi = [
         type: 'bool',
       },
     ],
-    name: 'DepositDisableUpdated',
+    name: 'DepositDisableChanged',
     type: 'event',
   },
   {
@@ -149,7 +149,7 @@ const _abi = [
         type: 'uint256',
       },
     ],
-    name: 'MaxDepositAmountUpdated',
+    name: 'MaxDepositAmountChanged',
     type: 'event',
   },
   {
@@ -168,7 +168,7 @@ const _abi = [
         type: 'uint256',
       },
     ],
-    name: 'MinDepositAmountUpdated',
+    name: 'MinDepositAmountChanged',
     type: 'event',
   },
   {
@@ -187,7 +187,7 @@ const _abi = [
         type: 'uint256',
       },
     ],
-    name: 'MinRollupFeeUpdated',
+    name: 'MinRollupFeeChanged',
     type: 'event',
   },
   {
@@ -200,7 +200,7 @@ const _abi = [
         type: 'address',
       },
     ],
-    name: 'RelayerRegistryChanged',
+    name: 'RelayerPoolChanged',
     type: 'event',
   },
   {
@@ -288,7 +288,7 @@ const _abi = [
         type: 'address',
       },
     ],
-    name: 'RollerRegistryChanged',
+    name: 'RollerPoolChanged',
     type: 'event',
   },
   {
@@ -397,7 +397,7 @@ const _abi = [
         type: 'bool',
       },
     ],
-    name: 'TransferDisableUpdated',
+    name: 'TransferDisableChanged',
     type: 'event',
   },
   {
@@ -453,58 +453,6 @@ const _abi = [
         internalType: 'contract IMystikoCertificate',
         name: '',
         type: 'address',
-      },
-    ],
-    stateMutability: 'view',
-    type: 'function',
-  },
-  {
-    inputs: [
-      {
-        internalType: 'contract IMystikoCertificate',
-        name: '_newCertificateRegistry',
-        type: 'address',
-      },
-    ],
-    name: 'changeCertificateRegistry',
-    outputs: [],
-    stateMutability: 'nonpayable',
-    type: 'function',
-  },
-  {
-    inputs: [
-      {
-        internalType: 'contract IMystikoRelayerPool',
-        name: '_newRelayerRegistry',
-        type: 'address',
-      },
-    ],
-    name: 'changeRelayerRegistry',
-    outputs: [],
-    stateMutability: 'nonpayable',
-    type: 'function',
-  },
-  {
-    inputs: [
-      {
-        internalType: 'contract IMystikoRollerPool',
-        name: '_newRollerRegistry',
-        type: 'address',
-      },
-    ],
-    name: 'changeRollerRegistry',
-    outputs: [],
-    stateMutability: 'nonpayable',
-    type: 'function',
-  },
-  {
-    inputs: [],
-    name: 'checkEnabled',
-    outputs: [
-      {
-        internalType: 'bool',
-        name: '',
-        type: 'bool',
       },
     ],
     stateMutability: 'view',
@@ -620,7 +568,7 @@ const _abi = [
   },
   {
     inputs: [],
-    name: 'getIssuerAddress',
+    name: 'getCertificateIssuer',
     outputs: [
       {
         internalType: 'address',
@@ -693,6 +641,38 @@ const _abi = [
     type: 'function',
   },
   {
+    inputs: [],
+    name: 'isCertificateCheckEnabled',
+    outputs: [
+      {
+        internalType: 'bool',
+        name: '',
+        type: 'bool',
+      },
+    ],
+    stateMutability: 'view',
+    type: 'function',
+  },
+  {
+    inputs: [
+      {
+        internalType: 'address',
+        name: '_depositAddress',
+        type: 'address',
+      },
+    ],
+    name: 'isDepositDisable',
+    outputs: [
+      {
+        internalType: 'bool',
+        name: '',
+        type: 'bool',
+      },
+    ],
+    stateMutability: 'view',
+    type: 'function',
+  },
+  {
     inputs: [
       {
         internalType: 'address',
@@ -701,6 +681,25 @@ const _abi = [
       },
     ],
     name: 'isSanctioned',
+    outputs: [
+      {
+        internalType: 'bool',
+        name: '',
+        type: 'bool',
+      },
+    ],
+    stateMutability: 'view',
+    type: 'function',
+  },
+  {
+    inputs: [
+      {
+        internalType: 'address',
+        name: '_pool',
+        type: 'address',
+      },
+    ],
+    name: 'isTransferDisable',
     outputs: [
       {
         internalType: 'bool',
@@ -814,25 +813,6 @@ const _abi = [
         internalType: 'uint256',
         name: '',
         type: 'uint256',
-      },
-    ],
-    stateMutability: 'view',
-    type: 'function',
-  },
-  {
-    inputs: [
-      {
-        internalType: 'address',
-        name: '_depositAddress',
-        type: 'address',
-      },
-    ],
-    name: 'queryDepositDisable',
-    outputs: [
-      {
-        internalType: 'bool',
-        name: '',
-        type: 'bool',
       },
     ],
     stateMutability: 'view',
@@ -963,25 +943,6 @@ const _abi = [
     type: 'function',
   },
   {
-    inputs: [
-      {
-        internalType: 'address',
-        name: '_pool',
-        type: 'address',
-      },
-    ],
-    name: 'queryTransferDisable',
-    outputs: [
-      {
-        internalType: 'bool',
-        name: '',
-        type: 'bool',
-      },
-    ],
-    stateMutability: 'view',
-    type: 'function',
-  },
-  {
     inputs: [],
     name: 'relayerPool',
     outputs: [
@@ -1072,6 +1033,184 @@ const _abi = [
   {
     inputs: [
       {
+        internalType: 'address',
+        name: '_depositAddress',
+        type: 'address',
+      },
+      {
+        internalType: 'address',
+        name: '_poolAddress',
+        type: 'address',
+      },
+    ],
+    name: 'setAssociatedPool',
+    outputs: [],
+    stateMutability: 'nonpayable',
+    type: 'function',
+  },
+  {
+    inputs: [
+      {
+        internalType: 'uint256',
+        name: '_index',
+        type: 'uint256',
+      },
+      {
+        internalType: 'uint256',
+        name: '_publicKey',
+        type: 'uint256',
+      },
+    ],
+    name: 'setAuditorPublicKey',
+    outputs: [],
+    stateMutability: 'nonpayable',
+    type: 'function',
+  },
+  {
+    inputs: [
+      {
+        internalType: 'contract IMystikoCertificate',
+        name: '_newCertificateRegistry',
+        type: 'address',
+      },
+    ],
+    name: 'setCertificateVerifier',
+    outputs: [],
+    stateMutability: 'nonpayable',
+    type: 'function',
+  },
+  {
+    inputs: [
+      {
+        internalType: 'address',
+        name: '_depositAddress',
+        type: 'address',
+      },
+      {
+        internalType: 'bool',
+        name: '_disable',
+        type: 'bool',
+      },
+    ],
+    name: 'setDepositDisable',
+    outputs: [],
+    stateMutability: 'nonpayable',
+    type: 'function',
+  },
+  {
+    inputs: [
+      {
+        internalType: 'address',
+        name: '_pool',
+        type: 'address',
+      },
+      {
+        internalType: 'uint256',
+        name: '_maxDepositAmount',
+        type: 'uint256',
+      },
+    ],
+    name: 'setMaxDepositAmount',
+    outputs: [],
+    stateMutability: 'nonpayable',
+    type: 'function',
+  },
+  {
+    inputs: [
+      {
+        internalType: 'address',
+        name: '_pool',
+        type: 'address',
+      },
+      {
+        internalType: 'uint256',
+        name: '_minDepositAmount',
+        type: 'uint256',
+      },
+    ],
+    name: 'setMinDepositAmount',
+    outputs: [],
+    stateMutability: 'nonpayable',
+    type: 'function',
+  },
+  {
+    inputs: [
+      {
+        internalType: 'address',
+        name: '_pool',
+        type: 'address',
+      },
+      {
+        internalType: 'uint256',
+        name: '_minRollupFee',
+        type: 'uint256',
+      },
+    ],
+    name: 'setMinRollupFee',
+    outputs: [],
+    stateMutability: 'nonpayable',
+    type: 'function',
+  },
+  {
+    inputs: [
+      {
+        internalType: 'contract IMystikoRelayerPool',
+        name: '_newRelayerRegistry',
+        type: 'address',
+      },
+    ],
+    name: 'setRelayerPool',
+    outputs: [],
+    stateMutability: 'nonpayable',
+    type: 'function',
+  },
+  {
+    inputs: [
+      {
+        internalType: 'contract IMystikoRollerPool',
+        name: '_newRollerRegistry',
+        type: 'address',
+      },
+    ],
+    name: 'setRollerPool',
+    outputs: [],
+    stateMutability: 'nonpayable',
+    type: 'function',
+  },
+  {
+    inputs: [
+      {
+        internalType: 'contract ISanctions',
+        name: '_sanction',
+        type: 'address',
+      },
+    ],
+    name: 'setSanctionsListAddress',
+    outputs: [],
+    stateMutability: 'nonpayable',
+    type: 'function',
+  },
+  {
+    inputs: [
+      {
+        internalType: 'address',
+        name: '_pool',
+        type: 'address',
+      },
+      {
+        internalType: 'bool',
+        name: '_disable',
+        type: 'bool',
+      },
+    ],
+    name: 'setTransferDisable',
+    outputs: [],
+    stateMutability: 'nonpayable',
+    type: 'function',
+  },
+  {
+    inputs: [
+      {
         internalType: 'bytes4',
         name: 'interfaceId',
         type: 'bytes4',
@@ -1105,145 +1244,6 @@ const _abi = [
       },
     ],
     stateMutability: 'view',
-    type: 'function',
-  },
-  {
-    inputs: [
-      {
-        internalType: 'address',
-        name: '_depositAddress',
-        type: 'address',
-      },
-      {
-        internalType: 'address',
-        name: '_poolAddress',
-        type: 'address',
-      },
-    ],
-    name: 'updateAssociatedPool',
-    outputs: [],
-    stateMutability: 'nonpayable',
-    type: 'function',
-  },
-  {
-    inputs: [
-      {
-        internalType: 'uint256',
-        name: '_index',
-        type: 'uint256',
-      },
-      {
-        internalType: 'uint256',
-        name: '_publicKey',
-        type: 'uint256',
-      },
-    ],
-    name: 'updateAuditorPublicKey',
-    outputs: [],
-    stateMutability: 'nonpayable',
-    type: 'function',
-  },
-  {
-    inputs: [
-      {
-        internalType: 'address',
-        name: '_depositAddress',
-        type: 'address',
-      },
-      {
-        internalType: 'bool',
-        name: '_disable',
-        type: 'bool',
-      },
-    ],
-    name: 'updateDepositDisable',
-    outputs: [],
-    stateMutability: 'nonpayable',
-    type: 'function',
-  },
-  {
-    inputs: [
-      {
-        internalType: 'address',
-        name: '_pool',
-        type: 'address',
-      },
-      {
-        internalType: 'uint256',
-        name: '_maxDepositAmount',
-        type: 'uint256',
-      },
-    ],
-    name: 'updateMaxDepositAmount',
-    outputs: [],
-    stateMutability: 'nonpayable',
-    type: 'function',
-  },
-  {
-    inputs: [
-      {
-        internalType: 'address',
-        name: '_pool',
-        type: 'address',
-      },
-      {
-        internalType: 'uint256',
-        name: '_minDepositAmount',
-        type: 'uint256',
-      },
-    ],
-    name: 'updateMinDepositAmount',
-    outputs: [],
-    stateMutability: 'nonpayable',
-    type: 'function',
-  },
-  {
-    inputs: [
-      {
-        internalType: 'address',
-        name: '_pool',
-        type: 'address',
-      },
-      {
-        internalType: 'uint256',
-        name: '_minRollupFee',
-        type: 'uint256',
-      },
-    ],
-    name: 'updateMinRollupFee',
-    outputs: [],
-    stateMutability: 'nonpayable',
-    type: 'function',
-  },
-  {
-    inputs: [
-      {
-        internalType: 'contract ISanctions',
-        name: '_sanction',
-        type: 'address',
-      },
-    ],
-    name: 'updateSanctionsListAddress',
-    outputs: [],
-    stateMutability: 'nonpayable',
-    type: 'function',
-  },
-  {
-    inputs: [
-      {
-        internalType: 'address',
-        name: '_pool',
-        type: 'address',
-      },
-      {
-        internalType: 'bool',
-        name: '_disable',
-        type: 'bool',
-      },
-    ],
-    name: 'updateTransferDisable',
-    outputs: [],
-    stateMutability: 'nonpayable',
     type: 'function',
   },
   {

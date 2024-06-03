@@ -271,7 +271,7 @@ export async function setMinBridgeFee(
     const rsp = await coreContract.setMinBridgeFee(fee);
     console.log('rsp hash ', rsp.hash);
     await waitConfirm(ethers, rsp, true);
-    depositCfg.updateMinBridgeFee(fee, rsp.hash);
+    depositCfg.setMinBridgeFee(fee, rsp.hash);
     saveConfig(c.mystikoNetwork, c.cfg);
   } catch (err: any) {
     console.error(LOGRED, err);

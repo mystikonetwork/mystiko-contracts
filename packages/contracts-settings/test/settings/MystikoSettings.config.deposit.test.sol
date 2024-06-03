@@ -25,10 +25,10 @@ contract MystikoSettingsCenterTest is Test, Random {
   MystikoRelayerPool public relayerPool;
   MystikoSettings public settings;
 
-  event MinDepositAmountUpdated(address indexed pool, uint256 minDepositAmount);
-  event MaxDepositAmountUpdated(address indexed pool, uint256 maxDepositAmount);
-  event AssociatedPoolUpdated(address indexed deposit, address indexed pool);
-  event DepositDisableUpdated(address indexed deposit, bool disable);
+  event MinDepositAmountChanged(address indexed pool, uint256 minDepositAmount);
+  event MaxDepositAmountChanged(address indexed pool, uint256 maxDepositAmount);
+  event AssociatedPoolChanged(address indexed deposit, address indexed pool);
+  event DepositDisableChanged(address indexed deposit, bool disable);
 
   function setUp() public {
     dao = address(uint160(uint256(keccak256(abi.encodePacked(_random())))));
@@ -65,31 +65,31 @@ contract MystikoSettingsCenterTest is Test, Random {
     assertEq(settings.queryMinDepositAmount(deposit), 0);
 
     vm.prank(dao);
-    settings.updateMaxDepositAmount(deposit, 1000);
+    settings.setMaxDepositAmount(deposit, 1000);
 
     vm.expectRevert(GovernanceErrors.OnlyMystikoDAO.selector);
-    settings.updateMinDepositAmount(deposit, 500);
+    settings.setMinDepositAmount(deposit, 500);
     assertEq(settings.queryMinDepositAmount(deposit), 0);
 
     vm.expectRevert(MystikoSettingsErrors.InvalidDepositAmount.selector);
     vm.prank(dao);
-    settings.updateMinDepositAmount(deposit, 0);
+    settings.setMinDepositAmount(deposit, 0);
     assertEq(settings.queryMinDepositAmount(deposit), 0);
 
     vm.expectRevert(MystikoSettingsErrors.InvalidDepositAmount.selector);
     vm.prank(dao);
-    settings.updateMinDepositAmount(deposit, 1200);
+    settings.setMinDepositAmount(deposit, 1200);
     assertEq(settings.queryMinDepositAmount(deposit), 0);
 
     vm.expectEmit(address(settings));
-    emit MinDepositAmountUpdated(deposit, 600);
+    emit MinDepositAmountChanged(deposit, 600);
     vm.prank(dao);
-    settings.updateMinDepositAmount(deposit, 600);
+    settings.setMinDepositAmount(deposit, 600);
     assertEq(settings.queryMinDepositAmount(deposit), 600);
 
     vm.expectRevert(MystikoSettingsErrors.NotChanged.selector);
     vm.prank(dao);
-    settings.updateMinDepositAmount(deposit, 600);
+    settings.setMinDepositAmount(deposit, 600);
     assertEq(settings.queryMinDepositAmount(deposit), 600);
   }
 
@@ -98,32 +98,32 @@ contract MystikoSettingsCenterTest is Test, Random {
     assertEq(settings.queryMinDepositAmount(deposit), 0);
 
     vm.expectRevert(GovernanceErrors.OnlyMystikoDAO.selector);
-    settings.updateMaxDepositAmount(deposit, 500);
+    settings.setMaxDepositAmount(deposit, 500);
     assertEq(settings.queryMaxDepositAmount(deposit), 0);
 
     vm.expectRevert(MystikoSettingsErrors.InvalidDepositAmount.selector);
     vm.prank(dao);
-    settings.updateMaxDepositAmount(deposit, 0);
+    settings.setMaxDepositAmount(deposit, 0);
     assertEq(settings.queryMaxDepositAmount(deposit), 0);
 
     vm.expectEmit(address(settings));
-    emit MaxDepositAmountUpdated(deposit, 600);
+    emit MaxDepositAmountChanged(deposit, 600);
     vm.prank(dao);
-    settings.updateMaxDepositAmount(deposit, 600);
+    settings.setMaxDepositAmount(deposit, 600);
     assertEq(settings.queryMaxDepositAmount(deposit), 600);
 
     vm.expectRevert(MystikoSettingsErrors.NotChanged.selector);
     vm.prank(dao);
-    settings.updateMaxDepositAmount(deposit, 600);
+    settings.setMaxDepositAmount(deposit, 600);
     assertEq(settings.queryMaxDepositAmount(deposit), 600);
 
     vm.prank(dao);
-    settings.updateMinDepositAmount(deposit, 400);
+    settings.setMinDepositAmount(deposit, 400);
     assertEq(settings.queryMinDepositAmount(deposit), 400);
 
     vm.expectRevert(MystikoSettingsErrors.InvalidDepositAmount.selector);
     vm.prank(dao);
-    settings.updateMaxDepositAmount(deposit, 300);
+    settings.setMaxDepositAmount(deposit, 300);
     assertEq(settings.queryMaxDepositAmount(deposit), 600);
   }
 
@@ -133,44 +133,44 @@ contract MystikoSettingsCenterTest is Test, Random {
     assertEq(settings.queryAssociatedPool(deposit), address(0));
 
     vm.expectRevert(GovernanceErrors.OnlyMystikoDAO.selector);
-    settings.updateAssociatedPool(deposit, pool);
+    settings.setAssociatedPool(deposit, pool);
     assertEq(settings.queryAssociatedPool(deposit), address(0));
 
     vm.expectEmit(address(settings));
-    emit AssociatedPoolUpdated(deposit, pool);
+    emit AssociatedPoolChanged(deposit, pool);
     vm.prank(dao);
-    settings.updateAssociatedPool(deposit, pool);
+    settings.setAssociatedPool(deposit, pool);
     assertEq(settings.queryAssociatedPool(deposit), pool);
 
     vm.expectRevert(GovernanceErrors.NotChanged.selector);
     vm.prank(dao);
-    settings.updateAssociatedPool(deposit, pool);
+    settings.setAssociatedPool(deposit, pool);
     assertEq(settings.queryAssociatedPool(deposit), pool);
   }
 
   function test_deposit_disable() public {
     address deposit = address(uint160(uint256(keccak256(abi.encodePacked(_random())))));
-    assertEq(settings.queryDepositDisable(deposit), false);
+    assertEq(settings.isDepositDisable(deposit), false);
 
     vm.expectRevert(GovernanceErrors.OnlyMystikoDAO.selector);
-    settings.updateDepositDisable(deposit, true);
-    assertEq(settings.queryDepositDisable(deposit), false);
+    settings.setDepositDisable(deposit, true);
+    assertEq(settings.isDepositDisable(deposit), false);
 
     vm.expectEmit(address(settings));
-    emit DepositDisableUpdated(deposit, true);
+    emit DepositDisableChanged(deposit, true);
     vm.prank(dao);
-    settings.updateDepositDisable(deposit, true);
-    assertEq(settings.queryDepositDisable(deposit), true);
+    settings.setDepositDisable(deposit, true);
+    assertEq(settings.isDepositDisable(deposit), true);
 
     vm.expectRevert(GovernanceErrors.NotChanged.selector);
     vm.prank(dao);
-    settings.updateDepositDisable(deposit, true);
-    assertEq(settings.queryDepositDisable(deposit), true);
+    settings.setDepositDisable(deposit, true);
+    assertEq(settings.isDepositDisable(deposit), true);
 
     vm.expectEmit(address(settings));
-    emit DepositDisableUpdated(deposit, false);
+    emit DepositDisableChanged(deposit, false);
     vm.prank(dao);
-    settings.updateDepositDisable(deposit, false);
-    assertEq(settings.queryDepositDisable(deposit), false);
+    settings.setDepositDisable(deposit, false);
+    assertEq(settings.isDepositDisable(deposit), false);
   }
 }

@@ -33,10 +33,10 @@ export interface MystikoBridgeConfigInterface extends utils.Interface {
     'queryMinPeerRollupFee(address)': FunctionFragment;
     'renounceRole(bytes32,address)': FunctionFragment;
     'revokeRole(bytes32,address)': FunctionFragment;
+    'setMinBridgeFee(address,uint256)': FunctionFragment;
+    'setMinPeerExecutorFee(address,uint256)': FunctionFragment;
+    'setMinPeerRollupFee(address,uint256)': FunctionFragment;
     'supportsInterface(bytes4)': FunctionFragment;
-    'updateMinBridgeFee(address,uint256)': FunctionFragment;
-    'updateMinPeerExecutorFee(address,uint256)': FunctionFragment;
-    'updateMinPeerRollupFee(address,uint256)': FunctionFragment;
   };
 
   encodeFunctionData(functionFragment: 'DEFAULT_ADMIN_ROLE', values?: undefined): string;
@@ -52,10 +52,10 @@ export interface MystikoBridgeConfigInterface extends utils.Interface {
   encodeFunctionData(functionFragment: 'queryMinPeerRollupFee', values: [string]): string;
   encodeFunctionData(functionFragment: 'renounceRole', values: [BytesLike, string]): string;
   encodeFunctionData(functionFragment: 'revokeRole', values: [BytesLike, string]): string;
+  encodeFunctionData(functionFragment: 'setMinBridgeFee', values: [string, BigNumberish]): string;
+  encodeFunctionData(functionFragment: 'setMinPeerExecutorFee', values: [string, BigNumberish]): string;
+  encodeFunctionData(functionFragment: 'setMinPeerRollupFee', values: [string, BigNumberish]): string;
   encodeFunctionData(functionFragment: 'supportsInterface', values: [BytesLike]): string;
-  encodeFunctionData(functionFragment: 'updateMinBridgeFee', values: [string, BigNumberish]): string;
-  encodeFunctionData(functionFragment: 'updateMinPeerExecutorFee', values: [string, BigNumberish]): string;
-  encodeFunctionData(functionFragment: 'updateMinPeerRollupFee', values: [string, BigNumberish]): string;
 
   decodeFunctionResult(functionFragment: 'DEFAULT_ADMIN_ROLE', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'daoRegistry', data: BytesLike): Result;
@@ -70,48 +70,48 @@ export interface MystikoBridgeConfigInterface extends utils.Interface {
   decodeFunctionResult(functionFragment: 'queryMinPeerRollupFee', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'renounceRole', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'revokeRole', data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'setMinBridgeFee', data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'setMinPeerExecutorFee', data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'setMinPeerRollupFee', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'supportsInterface', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'updateMinBridgeFee', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'updateMinPeerExecutorFee', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'updateMinPeerRollupFee', data: BytesLike): Result;
 
   events: {
-    'MinBridgeFeeUpdated(address,uint256)': EventFragment;
-    'MinPeerExecutorFeeUpdated(address,uint256)': EventFragment;
-    'MinPeerRollupFeeUpdated(address,uint256)': EventFragment;
+    'MinBridgeFeeChanged(address,uint256)': EventFragment;
+    'MinPeerExecutorFeeChanged(address,uint256)': EventFragment;
+    'MinPeerRollupFeeChanged(address,uint256)': EventFragment;
     'RoleAdminChanged(bytes32,bytes32,bytes32)': EventFragment;
     'RoleGranted(bytes32,address,address)': EventFragment;
     'RoleRevoked(bytes32,address,address)': EventFragment;
   };
 
-  getEvent(nameOrSignatureOrTopic: 'MinBridgeFeeUpdated'): EventFragment;
-  getEvent(nameOrSignatureOrTopic: 'MinPeerExecutorFeeUpdated'): EventFragment;
-  getEvent(nameOrSignatureOrTopic: 'MinPeerRollupFeeUpdated'): EventFragment;
+  getEvent(nameOrSignatureOrTopic: 'MinBridgeFeeChanged'): EventFragment;
+  getEvent(nameOrSignatureOrTopic: 'MinPeerExecutorFeeChanged'): EventFragment;
+  getEvent(nameOrSignatureOrTopic: 'MinPeerRollupFeeChanged'): EventFragment;
   getEvent(nameOrSignatureOrTopic: 'RoleAdminChanged'): EventFragment;
   getEvent(nameOrSignatureOrTopic: 'RoleGranted'): EventFragment;
   getEvent(nameOrSignatureOrTopic: 'RoleRevoked'): EventFragment;
 }
 
-export type MinBridgeFeeUpdatedEvent = TypedEvent<
+export type MinBridgeFeeChangedEvent = TypedEvent<
   [string, BigNumber],
   { deposit: string; minBridgeFee: BigNumber }
 >;
 
-export type MinBridgeFeeUpdatedEventFilter = TypedEventFilter<MinBridgeFeeUpdatedEvent>;
+export type MinBridgeFeeChangedEventFilter = TypedEventFilter<MinBridgeFeeChangedEvent>;
 
-export type MinPeerExecutorFeeUpdatedEvent = TypedEvent<
+export type MinPeerExecutorFeeChangedEvent = TypedEvent<
   [string, BigNumber],
   { deposit: string; minPeerExecutorFee: BigNumber }
 >;
 
-export type MinPeerExecutorFeeUpdatedEventFilter = TypedEventFilter<MinPeerExecutorFeeUpdatedEvent>;
+export type MinPeerExecutorFeeChangedEventFilter = TypedEventFilter<MinPeerExecutorFeeChangedEvent>;
 
-export type MinPeerRollupFeeUpdatedEvent = TypedEvent<
+export type MinPeerRollupFeeChangedEvent = TypedEvent<
   [string, BigNumber],
   { deposit: string; minPeerRollupFee: BigNumber }
 >;
 
-export type MinPeerRollupFeeUpdatedEventFilter = TypedEventFilter<MinPeerRollupFeeUpdatedEvent>;
+export type MinPeerRollupFeeChangedEventFilter = TypedEventFilter<MinPeerRollupFeeChangedEvent>;
 
 export type RoleAdminChangedEvent = TypedEvent<
   [string, string, string],
@@ -196,25 +196,25 @@ export interface MystikoBridgeConfig extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<ContractTransaction>;
 
-    supportsInterface(interfaceId: BytesLike, overrides?: CallOverrides): Promise<[boolean]>;
-
-    updateMinBridgeFee(
+    setMinBridgeFee(
       _pool: string,
       _minBridgeFee: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<ContractTransaction>;
 
-    updateMinPeerExecutorFee(
+    setMinPeerExecutorFee(
       _pool: string,
       _minPeerExecutorFee: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<ContractTransaction>;
 
-    updateMinPeerRollupFee(
+    setMinPeerRollupFee(
       _pool: string,
       _minPeerRollupFee: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<ContractTransaction>;
+
+    supportsInterface(interfaceId: BytesLike, overrides?: CallOverrides): Promise<[boolean]>;
   };
 
   DEFAULT_ADMIN_ROLE(overrides?: CallOverrides): Promise<string>;
@@ -255,25 +255,25 @@ export interface MystikoBridgeConfig extends BaseContract {
     overrides?: Overrides & { from?: string | Promise<string> },
   ): Promise<ContractTransaction>;
 
-  supportsInterface(interfaceId: BytesLike, overrides?: CallOverrides): Promise<boolean>;
-
-  updateMinBridgeFee(
+  setMinBridgeFee(
     _pool: string,
     _minBridgeFee: BigNumberish,
     overrides?: Overrides & { from?: string | Promise<string> },
   ): Promise<ContractTransaction>;
 
-  updateMinPeerExecutorFee(
+  setMinPeerExecutorFee(
     _pool: string,
     _minPeerExecutorFee: BigNumberish,
     overrides?: Overrides & { from?: string | Promise<string> },
   ): Promise<ContractTransaction>;
 
-  updateMinPeerRollupFee(
+  setMinPeerRollupFee(
     _pool: string,
     _minPeerRollupFee: BigNumberish,
     overrides?: Overrides & { from?: string | Promise<string> },
   ): Promise<ContractTransaction>;
+
+  supportsInterface(interfaceId: BytesLike, overrides?: CallOverrides): Promise<boolean>;
 
   callStatic: {
     DEFAULT_ADMIN_ROLE(overrides?: CallOverrides): Promise<string>;
@@ -302,47 +302,47 @@ export interface MystikoBridgeConfig extends BaseContract {
 
     revokeRole(role: BytesLike, account: string, overrides?: CallOverrides): Promise<void>;
 
-    supportsInterface(interfaceId: BytesLike, overrides?: CallOverrides): Promise<boolean>;
+    setMinBridgeFee(_pool: string, _minBridgeFee: BigNumberish, overrides?: CallOverrides): Promise<void>;
 
-    updateMinBridgeFee(_pool: string, _minBridgeFee: BigNumberish, overrides?: CallOverrides): Promise<void>;
-
-    updateMinPeerExecutorFee(
+    setMinPeerExecutorFee(
       _pool: string,
       _minPeerExecutorFee: BigNumberish,
       overrides?: CallOverrides,
     ): Promise<void>;
 
-    updateMinPeerRollupFee(
+    setMinPeerRollupFee(
       _pool: string,
       _minPeerRollupFee: BigNumberish,
       overrides?: CallOverrides,
     ): Promise<void>;
+
+    supportsInterface(interfaceId: BytesLike, overrides?: CallOverrides): Promise<boolean>;
   };
 
   filters: {
-    'MinBridgeFeeUpdated(address,uint256)'(
+    'MinBridgeFeeChanged(address,uint256)'(
       deposit?: string | null,
       minBridgeFee?: null,
-    ): MinBridgeFeeUpdatedEventFilter;
-    MinBridgeFeeUpdated(deposit?: string | null, minBridgeFee?: null): MinBridgeFeeUpdatedEventFilter;
+    ): MinBridgeFeeChangedEventFilter;
+    MinBridgeFeeChanged(deposit?: string | null, minBridgeFee?: null): MinBridgeFeeChangedEventFilter;
 
-    'MinPeerExecutorFeeUpdated(address,uint256)'(
+    'MinPeerExecutorFeeChanged(address,uint256)'(
       deposit?: string | null,
       minPeerExecutorFee?: null,
-    ): MinPeerExecutorFeeUpdatedEventFilter;
-    MinPeerExecutorFeeUpdated(
+    ): MinPeerExecutorFeeChangedEventFilter;
+    MinPeerExecutorFeeChanged(
       deposit?: string | null,
       minPeerExecutorFee?: null,
-    ): MinPeerExecutorFeeUpdatedEventFilter;
+    ): MinPeerExecutorFeeChangedEventFilter;
 
-    'MinPeerRollupFeeUpdated(address,uint256)'(
+    'MinPeerRollupFeeChanged(address,uint256)'(
       deposit?: string | null,
       minPeerRollupFee?: null,
-    ): MinPeerRollupFeeUpdatedEventFilter;
-    MinPeerRollupFeeUpdated(
+    ): MinPeerRollupFeeChangedEventFilter;
+    MinPeerRollupFeeChanged(
       deposit?: string | null,
       minPeerRollupFee?: null,
-    ): MinPeerRollupFeeUpdatedEventFilter;
+    ): MinPeerRollupFeeChangedEventFilter;
 
     'RoleAdminChanged(bytes32,bytes32,bytes32)'(
       role?: BytesLike | null,
@@ -417,25 +417,25 @@ export interface MystikoBridgeConfig extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<BigNumber>;
 
-    supportsInterface(interfaceId: BytesLike, overrides?: CallOverrides): Promise<BigNumber>;
-
-    updateMinBridgeFee(
+    setMinBridgeFee(
       _pool: string,
       _minBridgeFee: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<BigNumber>;
 
-    updateMinPeerExecutorFee(
+    setMinPeerExecutorFee(
       _pool: string,
       _minPeerExecutorFee: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<BigNumber>;
 
-    updateMinPeerRollupFee(
+    setMinPeerRollupFee(
       _pool: string,
       _minPeerRollupFee: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<BigNumber>;
+
+    supportsInterface(interfaceId: BytesLike, overrides?: CallOverrides): Promise<BigNumber>;
   };
 
   populateTransaction: {
@@ -477,24 +477,24 @@ export interface MystikoBridgeConfig extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<PopulatedTransaction>;
 
-    supportsInterface(interfaceId: BytesLike, overrides?: CallOverrides): Promise<PopulatedTransaction>;
-
-    updateMinBridgeFee(
+    setMinBridgeFee(
       _pool: string,
       _minBridgeFee: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<PopulatedTransaction>;
 
-    updateMinPeerExecutorFee(
+    setMinPeerExecutorFee(
       _pool: string,
       _minPeerExecutorFee: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<PopulatedTransaction>;
 
-    updateMinPeerRollupFee(
+    setMinPeerRollupFee(
       _pool: string,
       _minPeerRollupFee: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<PopulatedTransaction>;
+
+    supportsInterface(interfaceId: BytesLike, overrides?: CallOverrides): Promise<PopulatedTransaction>;
   };
 }

@@ -32,7 +32,7 @@ contract MystikoCertificateRegistryTest is Test, Random {
     emit CertificateCheck(true);
     vm.prank(dao);
     checker.enableCertificateCheck();
-    assertTrue(checker.checkEnabled());
+    assertTrue(checker.isCertificateCheckEnabled());
   }
 
   function test_disable_certificate_check() public {
@@ -43,24 +43,24 @@ contract MystikoCertificateRegistryTest is Test, Random {
     emit CertificateCheck(false);
     vm.prank(dao);
     checker.disableCertificateCheck();
-    assertFalse(checker.checkEnabled());
+    assertFalse(checker.isCertificateCheckEnabled());
   }
 
   function test_get_issuer_address() public {
-    assertEq(checker.getIssuerAddress(), issuer);
+    assertEq(checker.getCertificateIssuer(), issuer);
   }
 
   function test_update_issuer_address() public {
     address newIssuer = address(uint160(uint256(keccak256(abi.encodePacked(_random())))));
 
     vm.expectRevert(GovernanceErrors.OnlyMystikoDAO.selector);
-    checker.updateIssuerAddress(newIssuer);
+    checker.setIssuerAddress(newIssuer);
 
     vm.expectEmit(address(checker));
     emit IssuerChanged(newIssuer);
     vm.prank(dao);
-    checker.updateIssuerAddress(newIssuer);
-    assertEq(checker.getIssuerAddress(), newIssuer);
+    checker.setIssuerAddress(newIssuer);
+    assertEq(checker.getCertificateIssuer(), newIssuer);
   }
 
   function test_verify_certificate() public {
@@ -84,8 +84,8 @@ contract MystikoCertificateRegistryTest is Test, Random {
 
     address newIssuer = address(uint160(uint256(keccak256(abi.encodePacked(_random())))));
     vm.prank(dao);
-    checker.updateIssuerAddress(newIssuer);
-    assertEq(checker.getIssuerAddress(), newIssuer);
+    checker.setIssuerAddress(newIssuer);
+    assertEq(checker.getCertificateIssuer(), newIssuer);
 
     bool result2 = checker.verifyCertificate(params);
     assertFalse(result2);

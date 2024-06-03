@@ -161,7 +161,7 @@ abstract contract CommitmentPool is ICommitmentPool, AssetPool, ReentrancyGuard 
   function transact(TransactRequest memory _request, bytes memory _signature) external override nonReentrant {
     uint32 numInputs = SafeCast.toUint32(_request.serialNumbers.length);
     uint32 numOutputs = SafeCast.toUint32(_request.outCommitments.length);
-    if (settings.queryTransferDisable(address(this)) && numOutputs != 0)
+    if (settings.isTransferDisable(address(this)) && numOutputs != 0)
       revert CustomErrors.TransactVerifierDisabled(numInputs, numOutputs);
     if (_request.relayerFeeAmount > 0) {
       RelayerValidateParams memory _params = RelayerValidateParams({

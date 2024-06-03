@@ -95,16 +95,16 @@ contract MystikoRelayerRegistryTest is Test, Random {
     address operator = address(uint160(uint256(keccak256(abi.encodePacked(_random())))));
     vm.expectRevert(GovernanceErrors.OnlyMystikoDAO.selector);
     vm.prank(operator);
-    registry.changeRelayerMinVoteTokenAmount(100_000e18);
+    registry.setRelayerMinVoteTokenAmount(100_000e18);
 
     vm.expectRevert(MystikoRelayerPoolErrors.NotChanged.selector);
     vm.prank(dao);
-    registry.changeRelayerMinVoteTokenAmount(100_000e18);
+    registry.setRelayerMinVoteTokenAmount(100_000e18);
 
     vm.expectEmit(address(registry));
     emit RelayerMinVoteTokenAmountChanged(200_000e18);
     vm.prank(dao);
-    registry.changeRelayerMinVoteTokenAmount(200_000e18);
+    registry.setRelayerMinVoteTokenAmount(200_000e18);
     assertEq(registry.minVoteTokenAmount(), 200_000e18);
   }
 

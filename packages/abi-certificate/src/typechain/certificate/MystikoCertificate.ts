@@ -35,55 +35,55 @@ export interface MystikoCertificateInterface extends utils.Interface {
   contractName: 'MystikoCertificate';
   functions: {
     'DEFAULT_ADMIN_ROLE()': FunctionFragment;
-    'certificateCheck()': FunctionFragment;
-    'checkEnabled()': FunctionFragment;
+    'certCheckEnabled()': FunctionFragment;
     'daoRegistry()': FunctionFragment;
     'disableCertificateCheck()': FunctionFragment;
     'enableCertificateCheck()': FunctionFragment;
-    'getIssuerAddress()': FunctionFragment;
+    'getCertificateIssuer()': FunctionFragment;
     'getRoleAdmin(bytes32)': FunctionFragment;
     'grantRole(bytes32,address)': FunctionFragment;
     'hasRole(bytes32,address)': FunctionFragment;
+    'isCertificateCheckEnabled()': FunctionFragment;
     'issuer()': FunctionFragment;
     'renounceRole(bytes32,address)': FunctionFragment;
     'revokeRole(bytes32,address)': FunctionFragment;
+    'setIssuerAddress(address)': FunctionFragment;
     'supportsInterface(bytes4)': FunctionFragment;
-    'updateIssuerAddress(address)': FunctionFragment;
     'verifyCertificate((address,address,uint256,bytes))': FunctionFragment;
   };
 
   encodeFunctionData(functionFragment: 'DEFAULT_ADMIN_ROLE', values?: undefined): string;
-  encodeFunctionData(functionFragment: 'certificateCheck', values?: undefined): string;
-  encodeFunctionData(functionFragment: 'checkEnabled', values?: undefined): string;
+  encodeFunctionData(functionFragment: 'certCheckEnabled', values?: undefined): string;
   encodeFunctionData(functionFragment: 'daoRegistry', values?: undefined): string;
   encodeFunctionData(functionFragment: 'disableCertificateCheck', values?: undefined): string;
   encodeFunctionData(functionFragment: 'enableCertificateCheck', values?: undefined): string;
-  encodeFunctionData(functionFragment: 'getIssuerAddress', values?: undefined): string;
+  encodeFunctionData(functionFragment: 'getCertificateIssuer', values?: undefined): string;
   encodeFunctionData(functionFragment: 'getRoleAdmin', values: [BytesLike]): string;
   encodeFunctionData(functionFragment: 'grantRole', values: [BytesLike, string]): string;
   encodeFunctionData(functionFragment: 'hasRole', values: [BytesLike, string]): string;
+  encodeFunctionData(functionFragment: 'isCertificateCheckEnabled', values?: undefined): string;
   encodeFunctionData(functionFragment: 'issuer', values?: undefined): string;
   encodeFunctionData(functionFragment: 'renounceRole', values: [BytesLike, string]): string;
   encodeFunctionData(functionFragment: 'revokeRole', values: [BytesLike, string]): string;
+  encodeFunctionData(functionFragment: 'setIssuerAddress', values: [string]): string;
   encodeFunctionData(functionFragment: 'supportsInterface', values: [BytesLike]): string;
-  encodeFunctionData(functionFragment: 'updateIssuerAddress', values: [string]): string;
   encodeFunctionData(functionFragment: 'verifyCertificate', values: [CertificateParamsStruct]): string;
 
   decodeFunctionResult(functionFragment: 'DEFAULT_ADMIN_ROLE', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'certificateCheck', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'checkEnabled', data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'certCheckEnabled', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'daoRegistry', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'disableCertificateCheck', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'enableCertificateCheck', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'getIssuerAddress', data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'getCertificateIssuer', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'getRoleAdmin', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'grantRole', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'hasRole', data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'isCertificateCheckEnabled', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'issuer', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'renounceRole', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'revokeRole', data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'setIssuerAddress', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'supportsInterface', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'updateIssuerAddress', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'verifyCertificate', data: BytesLike): Result;
 
   events: {
@@ -156,9 +156,7 @@ export interface MystikoCertificate extends BaseContract {
   functions: {
     DEFAULT_ADMIN_ROLE(overrides?: CallOverrides): Promise<[string]>;
 
-    certificateCheck(overrides?: CallOverrides): Promise<[boolean]>;
-
-    checkEnabled(overrides?: CallOverrides): Promise<[boolean]>;
+    certCheckEnabled(overrides?: CallOverrides): Promise<[boolean]>;
 
     daoRegistry(overrides?: CallOverrides): Promise<[string]>;
 
@@ -170,7 +168,7 @@ export interface MystikoCertificate extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<ContractTransaction>;
 
-    getIssuerAddress(overrides?: CallOverrides): Promise<[string]>;
+    getCertificateIssuer(overrides?: CallOverrides): Promise<[string]>;
 
     getRoleAdmin(role: BytesLike, overrides?: CallOverrides): Promise<[string]>;
 
@@ -181,6 +179,8 @@ export interface MystikoCertificate extends BaseContract {
     ): Promise<ContractTransaction>;
 
     hasRole(role: BytesLike, account: string, overrides?: CallOverrides): Promise<[boolean]>;
+
+    isCertificateCheckEnabled(overrides?: CallOverrides): Promise<[boolean]>;
 
     issuer(overrides?: CallOverrides): Promise<[string]>;
 
@@ -196,21 +196,19 @@ export interface MystikoCertificate extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<ContractTransaction>;
 
-    supportsInterface(interfaceId: BytesLike, overrides?: CallOverrides): Promise<[boolean]>;
-
-    updateIssuerAddress(
+    setIssuerAddress(
       _newIssuer: string,
       overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<ContractTransaction>;
+
+    supportsInterface(interfaceId: BytesLike, overrides?: CallOverrides): Promise<[boolean]>;
 
     verifyCertificate(_params: CertificateParamsStruct, overrides?: CallOverrides): Promise<[boolean]>;
   };
 
   DEFAULT_ADMIN_ROLE(overrides?: CallOverrides): Promise<string>;
 
-  certificateCheck(overrides?: CallOverrides): Promise<boolean>;
-
-  checkEnabled(overrides?: CallOverrides): Promise<boolean>;
+  certCheckEnabled(overrides?: CallOverrides): Promise<boolean>;
 
   daoRegistry(overrides?: CallOverrides): Promise<string>;
 
@@ -222,7 +220,7 @@ export interface MystikoCertificate extends BaseContract {
     overrides?: Overrides & { from?: string | Promise<string> },
   ): Promise<ContractTransaction>;
 
-  getIssuerAddress(overrides?: CallOverrides): Promise<string>;
+  getCertificateIssuer(overrides?: CallOverrides): Promise<string>;
 
   getRoleAdmin(role: BytesLike, overrides?: CallOverrides): Promise<string>;
 
@@ -233,6 +231,8 @@ export interface MystikoCertificate extends BaseContract {
   ): Promise<ContractTransaction>;
 
   hasRole(role: BytesLike, account: string, overrides?: CallOverrides): Promise<boolean>;
+
+  isCertificateCheckEnabled(overrides?: CallOverrides): Promise<boolean>;
 
   issuer(overrides?: CallOverrides): Promise<string>;
 
@@ -248,21 +248,19 @@ export interface MystikoCertificate extends BaseContract {
     overrides?: Overrides & { from?: string | Promise<string> },
   ): Promise<ContractTransaction>;
 
-  supportsInterface(interfaceId: BytesLike, overrides?: CallOverrides): Promise<boolean>;
-
-  updateIssuerAddress(
+  setIssuerAddress(
     _newIssuer: string,
     overrides?: Overrides & { from?: string | Promise<string> },
   ): Promise<ContractTransaction>;
+
+  supportsInterface(interfaceId: BytesLike, overrides?: CallOverrides): Promise<boolean>;
 
   verifyCertificate(_params: CertificateParamsStruct, overrides?: CallOverrides): Promise<boolean>;
 
   callStatic: {
     DEFAULT_ADMIN_ROLE(overrides?: CallOverrides): Promise<string>;
 
-    certificateCheck(overrides?: CallOverrides): Promise<boolean>;
-
-    checkEnabled(overrides?: CallOverrides): Promise<boolean>;
+    certCheckEnabled(overrides?: CallOverrides): Promise<boolean>;
 
     daoRegistry(overrides?: CallOverrides): Promise<string>;
 
@@ -270,7 +268,7 @@ export interface MystikoCertificate extends BaseContract {
 
     enableCertificateCheck(overrides?: CallOverrides): Promise<void>;
 
-    getIssuerAddress(overrides?: CallOverrides): Promise<string>;
+    getCertificateIssuer(overrides?: CallOverrides): Promise<string>;
 
     getRoleAdmin(role: BytesLike, overrides?: CallOverrides): Promise<string>;
 
@@ -278,15 +276,17 @@ export interface MystikoCertificate extends BaseContract {
 
     hasRole(role: BytesLike, account: string, overrides?: CallOverrides): Promise<boolean>;
 
+    isCertificateCheckEnabled(overrides?: CallOverrides): Promise<boolean>;
+
     issuer(overrides?: CallOverrides): Promise<string>;
 
     renounceRole(role: BytesLike, callerConfirmation: string, overrides?: CallOverrides): Promise<void>;
 
     revokeRole(role: BytesLike, account: string, overrides?: CallOverrides): Promise<void>;
 
-    supportsInterface(interfaceId: BytesLike, overrides?: CallOverrides): Promise<boolean>;
+    setIssuerAddress(_newIssuer: string, overrides?: CallOverrides): Promise<void>;
 
-    updateIssuerAddress(_newIssuer: string, overrides?: CallOverrides): Promise<void>;
+    supportsInterface(interfaceId: BytesLike, overrides?: CallOverrides): Promise<boolean>;
 
     verifyCertificate(_params: CertificateParamsStruct, overrides?: CallOverrides): Promise<boolean>;
   };
@@ -335,9 +335,7 @@ export interface MystikoCertificate extends BaseContract {
   estimateGas: {
     DEFAULT_ADMIN_ROLE(overrides?: CallOverrides): Promise<BigNumber>;
 
-    certificateCheck(overrides?: CallOverrides): Promise<BigNumber>;
-
-    checkEnabled(overrides?: CallOverrides): Promise<BigNumber>;
+    certCheckEnabled(overrides?: CallOverrides): Promise<BigNumber>;
 
     daoRegistry(overrides?: CallOverrides): Promise<BigNumber>;
 
@@ -345,7 +343,7 @@ export interface MystikoCertificate extends BaseContract {
 
     enableCertificateCheck(overrides?: Overrides & { from?: string | Promise<string> }): Promise<BigNumber>;
 
-    getIssuerAddress(overrides?: CallOverrides): Promise<BigNumber>;
+    getCertificateIssuer(overrides?: CallOverrides): Promise<BigNumber>;
 
     getRoleAdmin(role: BytesLike, overrides?: CallOverrides): Promise<BigNumber>;
 
@@ -356,6 +354,8 @@ export interface MystikoCertificate extends BaseContract {
     ): Promise<BigNumber>;
 
     hasRole(role: BytesLike, account: string, overrides?: CallOverrides): Promise<BigNumber>;
+
+    isCertificateCheckEnabled(overrides?: CallOverrides): Promise<BigNumber>;
 
     issuer(overrides?: CallOverrides): Promise<BigNumber>;
 
@@ -371,12 +371,12 @@ export interface MystikoCertificate extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<BigNumber>;
 
-    supportsInterface(interfaceId: BytesLike, overrides?: CallOverrides): Promise<BigNumber>;
-
-    updateIssuerAddress(
+    setIssuerAddress(
       _newIssuer: string,
       overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<BigNumber>;
+
+    supportsInterface(interfaceId: BytesLike, overrides?: CallOverrides): Promise<BigNumber>;
 
     verifyCertificate(_params: CertificateParamsStruct, overrides?: CallOverrides): Promise<BigNumber>;
   };
@@ -384,9 +384,7 @@ export interface MystikoCertificate extends BaseContract {
   populateTransaction: {
     DEFAULT_ADMIN_ROLE(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
-    certificateCheck(overrides?: CallOverrides): Promise<PopulatedTransaction>;
-
-    checkEnabled(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+    certCheckEnabled(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     daoRegistry(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
@@ -398,7 +396,7 @@ export interface MystikoCertificate extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<PopulatedTransaction>;
 
-    getIssuerAddress(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+    getCertificateIssuer(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     getRoleAdmin(role: BytesLike, overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
@@ -409,6 +407,8 @@ export interface MystikoCertificate extends BaseContract {
     ): Promise<PopulatedTransaction>;
 
     hasRole(role: BytesLike, account: string, overrides?: CallOverrides): Promise<PopulatedTransaction>;
+
+    isCertificateCheckEnabled(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     issuer(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
@@ -424,12 +424,12 @@ export interface MystikoCertificate extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<PopulatedTransaction>;
 
-    supportsInterface(interfaceId: BytesLike, overrides?: CallOverrides): Promise<PopulatedTransaction>;
-
-    updateIssuerAddress(
+    setIssuerAddress(
       _newIssuer: string,
       overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<PopulatedTransaction>;
+
+    supportsInterface(interfaceId: BytesLike, overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     verifyCertificate(
       _params: CertificateParamsStruct,

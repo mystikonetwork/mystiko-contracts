@@ -25,15 +25,15 @@ export interface MystikoPoolConfigInterface extends utils.Interface {
     'getRoleAdmin(bytes32)': FunctionFragment;
     'grantRole(bytes32,address)': FunctionFragment;
     'hasRole(bytes32,address)': FunctionFragment;
+    'isTransferDisable(address)': FunctionFragment;
     'minRollupFeeMap(address)': FunctionFragment;
     'queryMinRollupFee(address)': FunctionFragment;
-    'queryTransferDisable(address)': FunctionFragment;
     'renounceRole(bytes32,address)': FunctionFragment;
     'revokeRole(bytes32,address)': FunctionFragment;
+    'setMinRollupFee(address,uint256)': FunctionFragment;
+    'setTransferDisable(address,bool)': FunctionFragment;
     'supportsInterface(bytes4)': FunctionFragment;
     'transferDisableMap(address)': FunctionFragment;
-    'updateMinRollupFee(address,uint256)': FunctionFragment;
-    'updateTransferDisable(address,bool)': FunctionFragment;
   };
 
   encodeFunctionData(functionFragment: 'DEFAULT_ADMIN_ROLE', values?: undefined): string;
@@ -41,52 +41,52 @@ export interface MystikoPoolConfigInterface extends utils.Interface {
   encodeFunctionData(functionFragment: 'getRoleAdmin', values: [BytesLike]): string;
   encodeFunctionData(functionFragment: 'grantRole', values: [BytesLike, string]): string;
   encodeFunctionData(functionFragment: 'hasRole', values: [BytesLike, string]): string;
+  encodeFunctionData(functionFragment: 'isTransferDisable', values: [string]): string;
   encodeFunctionData(functionFragment: 'minRollupFeeMap', values: [string]): string;
   encodeFunctionData(functionFragment: 'queryMinRollupFee', values: [string]): string;
-  encodeFunctionData(functionFragment: 'queryTransferDisable', values: [string]): string;
   encodeFunctionData(functionFragment: 'renounceRole', values: [BytesLike, string]): string;
   encodeFunctionData(functionFragment: 'revokeRole', values: [BytesLike, string]): string;
+  encodeFunctionData(functionFragment: 'setMinRollupFee', values: [string, BigNumberish]): string;
+  encodeFunctionData(functionFragment: 'setTransferDisable', values: [string, boolean]): string;
   encodeFunctionData(functionFragment: 'supportsInterface', values: [BytesLike]): string;
   encodeFunctionData(functionFragment: 'transferDisableMap', values: [string]): string;
-  encodeFunctionData(functionFragment: 'updateMinRollupFee', values: [string, BigNumberish]): string;
-  encodeFunctionData(functionFragment: 'updateTransferDisable', values: [string, boolean]): string;
 
   decodeFunctionResult(functionFragment: 'DEFAULT_ADMIN_ROLE', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'daoRegistry', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'getRoleAdmin', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'grantRole', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'hasRole', data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'isTransferDisable', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'minRollupFeeMap', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'queryMinRollupFee', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'queryTransferDisable', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'renounceRole', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'revokeRole', data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'setMinRollupFee', data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'setTransferDisable', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'supportsInterface', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'transferDisableMap', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'updateMinRollupFee', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'updateTransferDisable', data: BytesLike): Result;
 
   events: {
-    'MinRollupFeeUpdated(address,uint256)': EventFragment;
+    'MinRollupFeeChanged(address,uint256)': EventFragment;
     'RoleAdminChanged(bytes32,bytes32,bytes32)': EventFragment;
     'RoleGranted(bytes32,address,address)': EventFragment;
     'RoleRevoked(bytes32,address,address)': EventFragment;
-    'TransferDisableUpdated(address,bool)': EventFragment;
+    'TransferDisableChanged(address,bool)': EventFragment;
   };
 
-  getEvent(nameOrSignatureOrTopic: 'MinRollupFeeUpdated'): EventFragment;
+  getEvent(nameOrSignatureOrTopic: 'MinRollupFeeChanged'): EventFragment;
   getEvent(nameOrSignatureOrTopic: 'RoleAdminChanged'): EventFragment;
   getEvent(nameOrSignatureOrTopic: 'RoleGranted'): EventFragment;
   getEvent(nameOrSignatureOrTopic: 'RoleRevoked'): EventFragment;
-  getEvent(nameOrSignatureOrTopic: 'TransferDisableUpdated'): EventFragment;
+  getEvent(nameOrSignatureOrTopic: 'TransferDisableChanged'): EventFragment;
 }
 
-export type MinRollupFeeUpdatedEvent = TypedEvent<
+export type MinRollupFeeChangedEvent = TypedEvent<
   [string, BigNumber],
   { pool: string; minRollupFee: BigNumber }
 >;
 
-export type MinRollupFeeUpdatedEventFilter = TypedEventFilter<MinRollupFeeUpdatedEvent>;
+export type MinRollupFeeChangedEventFilter = TypedEventFilter<MinRollupFeeChangedEvent>;
 
 export type RoleAdminChangedEvent = TypedEvent<
   [string, string, string],
@@ -109,9 +109,9 @@ export type RoleRevokedEvent = TypedEvent<
 
 export type RoleRevokedEventFilter = TypedEventFilter<RoleRevokedEvent>;
 
-export type TransferDisableUpdatedEvent = TypedEvent<[string, boolean], { pool: string; disable: boolean }>;
+export type TransferDisableChangedEvent = TypedEvent<[string, boolean], { pool: string; disable: boolean }>;
 
-export type TransferDisableUpdatedEventFilter = TypedEventFilter<TransferDisableUpdatedEvent>;
+export type TransferDisableChangedEventFilter = TypedEventFilter<TransferDisableChangedEvent>;
 
 export interface MystikoPoolConfig extends BaseContract {
   contractName: 'MystikoPoolConfig';
@@ -151,11 +151,11 @@ export interface MystikoPoolConfig extends BaseContract {
 
     hasRole(role: BytesLike, account: string, overrides?: CallOverrides): Promise<[boolean]>;
 
+    isTransferDisable(_pool: string, overrides?: CallOverrides): Promise<[boolean]>;
+
     minRollupFeeMap(arg0: string, overrides?: CallOverrides): Promise<[BigNumber]>;
 
     queryMinRollupFee(_pool: string, overrides?: CallOverrides): Promise<[BigNumber]>;
-
-    queryTransferDisable(_pool: string, overrides?: CallOverrides): Promise<[boolean]>;
 
     renounceRole(
       role: BytesLike,
@@ -169,21 +169,21 @@ export interface MystikoPoolConfig extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<ContractTransaction>;
 
-    supportsInterface(interfaceId: BytesLike, overrides?: CallOverrides): Promise<[boolean]>;
-
-    transferDisableMap(arg0: string, overrides?: CallOverrides): Promise<[boolean]>;
-
-    updateMinRollupFee(
+    setMinRollupFee(
       _pool: string,
       _minRollupFee: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<ContractTransaction>;
 
-    updateTransferDisable(
+    setTransferDisable(
       _pool: string,
       _disable: boolean,
       overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<ContractTransaction>;
+
+    supportsInterface(interfaceId: BytesLike, overrides?: CallOverrides): Promise<[boolean]>;
+
+    transferDisableMap(arg0: string, overrides?: CallOverrides): Promise<[boolean]>;
   };
 
   DEFAULT_ADMIN_ROLE(overrides?: CallOverrides): Promise<string>;
@@ -200,11 +200,11 @@ export interface MystikoPoolConfig extends BaseContract {
 
   hasRole(role: BytesLike, account: string, overrides?: CallOverrides): Promise<boolean>;
 
+  isTransferDisable(_pool: string, overrides?: CallOverrides): Promise<boolean>;
+
   minRollupFeeMap(arg0: string, overrides?: CallOverrides): Promise<BigNumber>;
 
   queryMinRollupFee(_pool: string, overrides?: CallOverrides): Promise<BigNumber>;
-
-  queryTransferDisable(_pool: string, overrides?: CallOverrides): Promise<boolean>;
 
   renounceRole(
     role: BytesLike,
@@ -218,21 +218,21 @@ export interface MystikoPoolConfig extends BaseContract {
     overrides?: Overrides & { from?: string | Promise<string> },
   ): Promise<ContractTransaction>;
 
-  supportsInterface(interfaceId: BytesLike, overrides?: CallOverrides): Promise<boolean>;
-
-  transferDisableMap(arg0: string, overrides?: CallOverrides): Promise<boolean>;
-
-  updateMinRollupFee(
+  setMinRollupFee(
     _pool: string,
     _minRollupFee: BigNumberish,
     overrides?: Overrides & { from?: string | Promise<string> },
   ): Promise<ContractTransaction>;
 
-  updateTransferDisable(
+  setTransferDisable(
     _pool: string,
     _disable: boolean,
     overrides?: Overrides & { from?: string | Promise<string> },
   ): Promise<ContractTransaction>;
+
+  supportsInterface(interfaceId: BytesLike, overrides?: CallOverrides): Promise<boolean>;
+
+  transferDisableMap(arg0: string, overrides?: CallOverrides): Promise<boolean>;
 
   callStatic: {
     DEFAULT_ADMIN_ROLE(overrides?: CallOverrides): Promise<string>;
@@ -245,31 +245,31 @@ export interface MystikoPoolConfig extends BaseContract {
 
     hasRole(role: BytesLike, account: string, overrides?: CallOverrides): Promise<boolean>;
 
+    isTransferDisable(_pool: string, overrides?: CallOverrides): Promise<boolean>;
+
     minRollupFeeMap(arg0: string, overrides?: CallOverrides): Promise<BigNumber>;
 
     queryMinRollupFee(_pool: string, overrides?: CallOverrides): Promise<BigNumber>;
-
-    queryTransferDisable(_pool: string, overrides?: CallOverrides): Promise<boolean>;
 
     renounceRole(role: BytesLike, callerConfirmation: string, overrides?: CallOverrides): Promise<void>;
 
     revokeRole(role: BytesLike, account: string, overrides?: CallOverrides): Promise<void>;
 
+    setMinRollupFee(_pool: string, _minRollupFee: BigNumberish, overrides?: CallOverrides): Promise<void>;
+
+    setTransferDisable(_pool: string, _disable: boolean, overrides?: CallOverrides): Promise<void>;
+
     supportsInterface(interfaceId: BytesLike, overrides?: CallOverrides): Promise<boolean>;
 
     transferDisableMap(arg0: string, overrides?: CallOverrides): Promise<boolean>;
-
-    updateMinRollupFee(_pool: string, _minRollupFee: BigNumberish, overrides?: CallOverrides): Promise<void>;
-
-    updateTransferDisable(_pool: string, _disable: boolean, overrides?: CallOverrides): Promise<void>;
   };
 
   filters: {
-    'MinRollupFeeUpdated(address,uint256)'(
+    'MinRollupFeeChanged(address,uint256)'(
       pool?: string | null,
       minRollupFee?: null,
-    ): MinRollupFeeUpdatedEventFilter;
-    MinRollupFeeUpdated(pool?: string | null, minRollupFee?: null): MinRollupFeeUpdatedEventFilter;
+    ): MinRollupFeeChangedEventFilter;
+    MinRollupFeeChanged(pool?: string | null, minRollupFee?: null): MinRollupFeeChangedEventFilter;
 
     'RoleAdminChanged(bytes32,bytes32,bytes32)'(
       role?: BytesLike | null,
@@ -304,11 +304,11 @@ export interface MystikoPoolConfig extends BaseContract {
       sender?: string | null,
     ): RoleRevokedEventFilter;
 
-    'TransferDisableUpdated(address,bool)'(
+    'TransferDisableChanged(address,bool)'(
       pool?: string | null,
       disable?: null,
-    ): TransferDisableUpdatedEventFilter;
-    TransferDisableUpdated(pool?: string | null, disable?: null): TransferDisableUpdatedEventFilter;
+    ): TransferDisableChangedEventFilter;
+    TransferDisableChanged(pool?: string | null, disable?: null): TransferDisableChangedEventFilter;
   };
 
   estimateGas: {
@@ -326,11 +326,11 @@ export interface MystikoPoolConfig extends BaseContract {
 
     hasRole(role: BytesLike, account: string, overrides?: CallOverrides): Promise<BigNumber>;
 
+    isTransferDisable(_pool: string, overrides?: CallOverrides): Promise<BigNumber>;
+
     minRollupFeeMap(arg0: string, overrides?: CallOverrides): Promise<BigNumber>;
 
     queryMinRollupFee(_pool: string, overrides?: CallOverrides): Promise<BigNumber>;
-
-    queryTransferDisable(_pool: string, overrides?: CallOverrides): Promise<BigNumber>;
 
     renounceRole(
       role: BytesLike,
@@ -344,21 +344,21 @@ export interface MystikoPoolConfig extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<BigNumber>;
 
-    supportsInterface(interfaceId: BytesLike, overrides?: CallOverrides): Promise<BigNumber>;
-
-    transferDisableMap(arg0: string, overrides?: CallOverrides): Promise<BigNumber>;
-
-    updateMinRollupFee(
+    setMinRollupFee(
       _pool: string,
       _minRollupFee: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<BigNumber>;
 
-    updateTransferDisable(
+    setTransferDisable(
       _pool: string,
       _disable: boolean,
       overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<BigNumber>;
+
+    supportsInterface(interfaceId: BytesLike, overrides?: CallOverrides): Promise<BigNumber>;
+
+    transferDisableMap(arg0: string, overrides?: CallOverrides): Promise<BigNumber>;
   };
 
   populateTransaction: {
@@ -376,11 +376,11 @@ export interface MystikoPoolConfig extends BaseContract {
 
     hasRole(role: BytesLike, account: string, overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
+    isTransferDisable(_pool: string, overrides?: CallOverrides): Promise<PopulatedTransaction>;
+
     minRollupFeeMap(arg0: string, overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     queryMinRollupFee(_pool: string, overrides?: CallOverrides): Promise<PopulatedTransaction>;
-
-    queryTransferDisable(_pool: string, overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     renounceRole(
       role: BytesLike,
@@ -394,20 +394,20 @@ export interface MystikoPoolConfig extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<PopulatedTransaction>;
 
-    supportsInterface(interfaceId: BytesLike, overrides?: CallOverrides): Promise<PopulatedTransaction>;
-
-    transferDisableMap(arg0: string, overrides?: CallOverrides): Promise<PopulatedTransaction>;
-
-    updateMinRollupFee(
+    setMinRollupFee(
       _pool: string,
       _minRollupFee: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<PopulatedTransaction>;
 
-    updateTransferDisable(
+    setTransferDisable(
       _pool: string,
       _disable: boolean,
       overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<PopulatedTransaction>;
+
+    supportsInterface(interfaceId: BytesLike, overrides?: CallOverrides): Promise<PopulatedTransaction>;
+
+    transferDisableMap(arg0: string, overrides?: CallOverrides): Promise<PopulatedTransaction>;
   };
 }
