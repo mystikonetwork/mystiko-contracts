@@ -4,7 +4,7 @@ import { CommitmentOutput, MystikoProtocolV2 } from '@mystikonetwork/protocol';
 import { toBN, toHex } from '@mystikonetwork/utils';
 import { expect } from 'chai';
 import { waffle } from 'hardhat';
-import { MystikoCertificate, MystikoSettings } from '@mystikonetwork/contracts-abi-settings';
+import { MystikoCertificate, MystikoBridgeSettings } from '@mystikonetwork/contracts-abi-settings';
 import { MaxAmount, MinAmount, MockSignature, ZeroAddress } from '../util/constants';
 import { CommitmentInfo } from './commitment';
 
@@ -16,7 +16,7 @@ export function testLoopDeposit(
   mockToken: MockToken,
   mockSanctionList: MockSanctionList,
   certificate: MystikoCertificate,
-  settings: MystikoSettings,
+  settings: MystikoBridgeSettings,
   accounts: Wallet[],
   depositAmount: string,
   isMainAsset: boolean,
@@ -297,7 +297,7 @@ export function loopDepositRevert(
   mockToken: MockToken,
   mockSanctionList: MockSanctionList,
   certificate: MystikoCertificate,
-  settings: MystikoSettings,
+  settings: MystikoBridgeSettings,
   accounts: Wallet[],
   depositAmount: string,
   isMainAsset: boolean,
@@ -362,7 +362,7 @@ export function loopDeposit(
   mockToken: MockToken,
   mockSanctionList: MockSanctionList,
   certificate: MystikoCertificate,
-  settings: MystikoSettings,
+  settings: MystikoBridgeSettings,
   accounts: Wallet[],
   depositAmount: string,
   isMainAsset: boolean,

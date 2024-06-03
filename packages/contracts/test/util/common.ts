@@ -51,7 +51,7 @@ import {
 import { MystikoCertificate, MystikoCertificate__factory } from '@mystikonetwork/contracts-abi-certificate';
 import { MystikoRollerPool, MystikoRollerPool__factory } from '@mystikonetwork/contracts-abi-roller';
 import { MystikoRelayerPool, MystikoRelayerPool__factory } from '@mystikonetwork/contracts-abi-relayer';
-import { MystikoSettings, MystikoSettings__factory } from '@mystikonetwork/contracts-abi-settings';
+import { MystikoBridgeSettings, MystikoSettings__factory } from '@mystikonetwork/contracts-abi-settings';
 import { toBN } from '@mystikonetwork/utils';
 import BN from 'bn.js';
 import { Fixture } from 'ethereum-waffle/dist/esm';
@@ -98,7 +98,7 @@ interface CoreBridgeDeploymentInfo {
 }
 
 interface DependDeploymentInfo {
-  settings: MystikoSettings;
+  settings: MystikoBridgeSettings;
   mockToken: MockMystikoToken;
   mockVoteToken: MockMystikoVoteToken;
   mockSanctionList: MockSanctionList;
@@ -540,7 +540,7 @@ export async function deployDependContracts(accounts: Wallet[]): Promise<DependD
   const mockSanctionList = await mockSanctionFactory.deploy();
   await mockSanctionList.deployed();
 
-  const settingsArtifact = await getArtifactSettings('MystikoSettings');
+  const settingsArtifact = await getArtifactSettings('MystikoBridgeSettings');
   const settingsFactory = (await ethers.getContractFactoryFromArtifact(
     settingsArtifact,
   )) as MystikoSettings__factory;
@@ -620,7 +620,7 @@ export function getBalance(address: string, mockToken: MockMystikoToken | undefi
 }
 
 export async function associateContract(
-  settings: MystikoSettings,
+  settings: MystikoBridgeSettings,
   localDeposit: any,
   remoteDeposit: any,
   localPool: any,

@@ -2,6 +2,7 @@
 pragma solidity ^0.8.20;
 
 import {Test} from "forge-std/Test.sol";
+import "../../contracts/MystikoSettingsErrors.sol";
 import "../../contracts/MystikoSettings.sol";
 import "@mystikonetwork/contracts-certificate/contracts/MystikoCertificate.sol";
 import "@mystikonetwork/contracts-relayer/contracts/MystikoRelayerPoolErrors.sol";

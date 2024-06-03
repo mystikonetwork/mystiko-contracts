@@ -13,7 +13,7 @@ import { toDecimals } from '@mystikonetwork/utils';
 import { ZokratesNodeProverFactory } from '@mystikonetwork/zkp-node';
 import { waffle } from 'hardhat';
 import { expect } from 'chai';
-import { MystikoSettings } from '@mystikonetwork/contracts-abi-settings';
+import { MystikoBridgeSettings } from '@mystikonetwork/contracts-abi-settings';
 import { constructCommitment, testBridgeConstructor } from '../../../common';
 import { testTBridgeDeposit } from '../../../common/depositTBridgeTests';
 import {
@@ -119,7 +119,7 @@ describe('Test Mystiko tbridge', () => {
   let remoteERC20: MystikoV2TBridgeERC20;
   let remoteMain: MystikoV2TBridgeMain;
   let protocol: MystikoProtocolV2;
-  let settings: MystikoSettings;
+  let settings: MystikoBridgeSettings;
 
   beforeEach(async () => {
     accounts = waffle.provider.getWallets();

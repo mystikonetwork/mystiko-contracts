@@ -1,5 +1,5 @@
 import { MockSanctionList, MockToken } from '@mystikonetwork/contracts-abi';
-import { MystikoRelayerPool, MystikoSettings } from '@mystikonetwork/contracts-abi-settings';
+import { MystikoRelayerPool, MystikoBridgeSettings } from '@mystikonetwork/contracts-abi-settings';
 import { ECIES } from '@mystikonetwork/ecies';
 import { MerkleTree } from '@mystikonetwork/merkle';
 import { CommitmentOutput, MystikoProtocolV2 } from '@mystikonetwork/protocol';
@@ -158,7 +158,7 @@ export function testTransact(
   account: any,
   protocol: MystikoProtocolV2,
   commitmentPoolContract: any,
-  settings: MystikoSettings,
+  settings: MystikoBridgeSettings,
   relayerPool: MystikoRelayerPool,
   commitmentInfo: CommitmentInfo<CommitmentOutput>,
   inCommitmentsIndices: number[],
@@ -364,7 +364,7 @@ export function testTransactRevert(
   commitmentPoolContract: any,
   mockSanctionList: MockSanctionList,
   relayerPool: MystikoRelayerPool,
-  settings: MystikoSettings,
+  settings: MystikoBridgeSettings,
   commitmentInfo: CommitmentInfo<CommitmentOutput>,
   inCommitmentsIndices: number[],
   queueSize: number,

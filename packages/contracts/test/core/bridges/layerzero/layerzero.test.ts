@@ -10,7 +10,7 @@ import { MystikoProtocolV2, ProtocolFactoryV2 } from '@mystikonetwork/protocol';
 import { toDecimals } from '@mystikonetwork/utils';
 import { ZokratesNodeProverFactory } from '@mystikonetwork/zkp-node';
 import { waffle } from 'hardhat';
-import { MystikoSettings } from '@mystikonetwork/contracts-abi-settings';
+import { MystikoBridgeSettings } from '@mystikonetwork/contracts-abi-settings';
 import { constructCommitment, testBridgeConstructor } from '../../../common';
 import { testLayerZeroDeposit } from '../../../common/depositLayerZeroTests';
 import {
@@ -83,7 +83,7 @@ describe('Test Mystiko layer zero', () => {
   let remoteMain: MystikoV2LayerZeroMain;
   let protocol: MystikoProtocolV2;
   let dummyLZEndpoint: MockLZEndpoint;
-  let settings: MystikoSettings;
+  let settings: MystikoBridgeSettings;
 
   beforeEach(async () => {
     accounts = waffle.provider.getWallets();

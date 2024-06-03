@@ -5,7 +5,7 @@ import { toBN, toHex } from '@mystikonetwork/utils';
 import { expect } from 'chai';
 import { ethers } from 'ethers';
 import { waffle } from 'hardhat';
-import { MystikoSettings } from '@mystikonetwork/contracts-abi-settings';
+import { MystikoBridgeSettings } from '@mystikonetwork/contracts-abi-settings';
 import { BridgeAccountIndex, DefaultPoolAmount, DefaultTokenAmount, MockSignature } from '../util/constants';
 import { CommitmentInfo } from './commitment';
 
@@ -20,7 +20,7 @@ export function testAxelarDeposit(
   bridgeContract: any,
   gasService: any,
   mockToken: MockToken,
-  settings: MystikoSettings,
+  settings: MystikoBridgeSettings,
   accounts: Wallet[],
   depositAmount: string,
   isMainAsset: boolean,

@@ -13,7 +13,7 @@ import {
   MystikoCertificate,
   MystikoRelayerPool,
   MystikoRollerPool,
-  MystikoSettings,
+  MystikoBridgeSettings,
 } from '@mystikonetwork/contracts-abi-settings';
 import { constructCommitment, testTransact } from '../common';
 import { loopDeposit } from '../common/loopDepositTests';
@@ -63,7 +63,7 @@ describe('Mystiko combination test R16R4R1 ', () => {
   let certificate: MystikoCertificate;
   let rollerPool: MystikoRollerPool;
   let relayerPool: MystikoRelayerPool;
-  let settings: MystikoSettings;
+  let settings: MystikoBridgeSettings;
 
   beforeEach(async () => {
     accounts = waffle.provider.getWallets();

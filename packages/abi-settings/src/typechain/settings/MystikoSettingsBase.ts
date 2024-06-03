@@ -61,8 +61,8 @@ export type CertificateParamsStructOutput = [string, string, BigNumber, string] 
   signature: string;
 };
 
-export interface MystikoSettingsInterface extends utils.Interface {
-  contractName: 'MystikoSettings';
+export interface MystikoSettingsBaseInterface extends utils.Interface {
+  contractName: 'MystikoSettingsBase';
   functions: {
     'AUDITOR_COUNT()': FunctionFragment;
     'DEFAULT_ADMIN_ROLE()': FunctionFragment;
@@ -382,13 +382,13 @@ export type TransferDisableUpdatedEvent = TypedEvent<[string, boolean], { pool: 
 
 export type TransferDisableUpdatedEventFilter = TypedEventFilter<TransferDisableUpdatedEvent>;
 
-export interface MystikoSettings extends BaseContract {
-  contractName: 'MystikoSettings';
+export interface MystikoSettingsBase extends BaseContract {
+  contractName: 'MystikoSettingsBase';
   connect(signerOrProvider: Signer | Provider | string): this;
   attach(addressOrName: string): this;
   deployed(): Promise<this>;
 
-  interface: MystikoSettingsInterface;
+  interface: MystikoSettingsBaseInterface;
 
   queryFilter<TEvent extends TypedEvent>(
     event: TypedEventFilter<TEvent>,

@@ -11,7 +11,7 @@ import "./CrossChainDataSerializable.sol";
 import {ReentrancyGuard} from "@openzeppelin/contracts/utils/ReentrancyGuard.sol";
 import {ECDSA} from "@openzeppelin/contracts/utils/cryptography/ECDSA.sol";
 import {SafeCast} from "@openzeppelin/contracts/utils/math/SafeCast.sol";
-import {MystikoSettings} from "@mystikonetwork/contracts-settings/contracts/MystikoSettings.sol";
+import {MystikoBridgeSettings} from "@mystikonetwork/contracts-settings/contracts/MystikoBridgeSettings.sol";
 import {CertificateParams} from "@mystikonetwork/contracts-certificate/contracts/interfaces/IMystikoCertificate.sol";
 
 abstract contract MystikoV2Bridge is IMystikoBridge, AssetPool, CrossChainDataSerializable {
@@ -35,7 +35,7 @@ abstract contract MystikoV2Bridge is IMystikoBridge, AssetPool, CrossChainDataSe
   //bridge proxy address
   address public bridgeProxyAddress;
   // configure related.
-  MystikoSettings public settings;
+  MystikoBridgeSettings public settings;
 
   modifier onlySetPeerContractOnce() {
     if (isPeerContractSet) revert CustomErrors.PeerContractAlreadySet();
@@ -63,7 +63,7 @@ abstract contract MystikoV2Bridge is IMystikoBridge, AssetPool, CrossChainDataSe
     defaultMinBridgeFee = _localConfig.minBridgeFee;
     defaultPeerMinExecutorFee = _peerConfig.peerMinExecutorFee;
     defaultPeerMinRollupFee = _peerConfig.peerMinRollupFee;
-    settings = MystikoSettings(_settingsCenter);
+    settings = MystikoBridgeSettings(_settingsCenter);
   }
 
   function setPeerContract(PeerContract memory _peerContract) external onlySetPeerContractOnce {

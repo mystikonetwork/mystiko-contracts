@@ -505,7 +505,7 @@ const _abi = [
     name: 'settings',
     outputs: [
       {
-        internalType: 'contract MystikoSettings',
+        internalType: 'contract MystikoBridgeSettings',
         name: '',
         type: 'address',
       },

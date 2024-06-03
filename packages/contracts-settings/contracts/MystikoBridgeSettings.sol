@@ -1,12 +1,13 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.20;
 
-import {MystikoSettingsBase} from "./MystikoSettingsBase.sol";
+import {MystikoBridgeConfig} from "./config/impl/MystikoBridgeConfig.sol";
 import {IMystikoRollerPool} from "@mystikonetwork/contracts-roller/contracts/interfaces/IMystikoRollerPool.sol";
 import {IMystikoRelayerPool} from "@mystikonetwork/contracts-relayer/contracts/interfaces/IMystikoRelayerPool.sol";
 import {IMystikoCertificate} from "@mystikonetwork/contracts-certificate/contracts/interfaces/IMystikoCertificate.sol";
+import {MystikoSettingsBase} from "./MystikoSettings.sol";
 
-contract MystikoSettings is MystikoSettingsBase {
+contract MystikoBridgeSettings is MystikoSettingsBase, MystikoBridgeConfig {
   constructor(
     address _daoRegistry,
     IMystikoCertificate _certificateRegistry,
@@ -25,5 +26,6 @@ contract MystikoSettings is MystikoSettingsBase {
       _transactVerifiers,
       _auditors
     )
+    MystikoBridgeConfig()
   {}
 }

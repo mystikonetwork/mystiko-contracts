@@ -16,7 +16,7 @@ import {
   MystikoCertificate,
   MystikoRelayerPool,
   MystikoRollerPool,
-  MystikoSettings,
+  MystikoBridgeSettings,
 } from '@mystikonetwork/contracts-abi-settings';
 import {
   constructCommitment,
@@ -93,7 +93,7 @@ describe('Test Mystiko pool', () => {
   let accounts: Wallet[];
   let mockToken: MockToken;
   let mockSanctionList: MockSanctionList;
-  let settings: MystikoSettings;
+  let settings: MystikoBridgeSettings;
   let certificate: MystikoCertificate;
   let rollerPool: MystikoRollerPool;
   let relayerPool: MystikoRelayerPool;
