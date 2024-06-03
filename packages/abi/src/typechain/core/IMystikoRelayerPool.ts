@@ -24,12 +24,12 @@ export type RelayerValidateParamsStructOutput = [string, string] & {
 export interface IMystikoRelayerPoolInterface extends utils.Interface {
   contractName: 'IMystikoRelayerPool';
   functions: {
-    'validate((address,address))': FunctionFragment;
+    'validateRelayer((address,address))': FunctionFragment;
   };
 
-  encodeFunctionData(functionFragment: 'validate', values: [RelayerValidateParamsStruct]): string;
+  encodeFunctionData(functionFragment: 'validateRelayer', values: [RelayerValidateParamsStruct]): string;
 
-  decodeFunctionResult(functionFragment: 'validate', data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'validateRelayer', data: BytesLike): Result;
 
   events: {};
 }
@@ -58,22 +58,25 @@ export interface IMystikoRelayerPool extends BaseContract {
   removeListener: OnEvent<this>;
 
   functions: {
-    validate(_params: RelayerValidateParamsStruct, overrides?: CallOverrides): Promise<[boolean]>;
+    validateRelayer(_params: RelayerValidateParamsStruct, overrides?: CallOverrides): Promise<[boolean]>;
   };
 
-  validate(_params: RelayerValidateParamsStruct, overrides?: CallOverrides): Promise<boolean>;
+  validateRelayer(_params: RelayerValidateParamsStruct, overrides?: CallOverrides): Promise<boolean>;
 
   callStatic: {
-    validate(_params: RelayerValidateParamsStruct, overrides?: CallOverrides): Promise<boolean>;
+    validateRelayer(_params: RelayerValidateParamsStruct, overrides?: CallOverrides): Promise<boolean>;
   };
 
   filters: {};
 
   estimateGas: {
-    validate(_params: RelayerValidateParamsStruct, overrides?: CallOverrides): Promise<BigNumber>;
+    validateRelayer(_params: RelayerValidateParamsStruct, overrides?: CallOverrides): Promise<BigNumber>;
   };
 
   populateTransaction: {
-    validate(_params: RelayerValidateParamsStruct, overrides?: CallOverrides): Promise<PopulatedTransaction>;
+    validateRelayer(
+      _params: RelayerValidateParamsStruct,
+      overrides?: CallOverrides,
+    ): Promise<PopulatedTransaction>;
   };
 }

@@ -24,6 +24,13 @@ export type WrappedVerifierStructOutput = [string, boolean] & {
   enabled: boolean;
 };
 
+export type RelayerValidateParamsStruct = { pool: string; relayer: string };
+
+export type RelayerValidateParamsStructOutput = [string, string] & {
+  pool: string;
+  relayer: string;
+};
+
 export type RollerValidateParamsStruct = {
   pool: string;
   roller: string;
@@ -38,13 +45,6 @@ export type RollerValidateParamsStructOutput = [string, string, BigNumber, BigNu
   rollupSize: BigNumber;
   queueCount: BigNumber;
   includedCount: BigNumber;
-};
-
-export type RelayerValidateParamsStruct = { pool: string; relayer: string };
-
-export type RelayerValidateParamsStructOutput = [string, string] & {
-  pool: string;
-  relayer: string;
 };
 
 export type CertificateParamsStruct = {
@@ -123,7 +123,8 @@ export interface MystikoSettingsInterface extends utils.Interface {
     'updateMinRollupFee(address,uint256)': FunctionFragment;
     'updateSanctionsListAddress(address)': FunctionFragment;
     'updateTransferDisable(address,bool)': FunctionFragment;
-    'validate((address,address,uint256,uint256,uint256))': FunctionFragment;
+    'validateRelayer((address,address))': FunctionFragment;
+    'validateRoller((address,address,uint256,uint256,uint256))': FunctionFragment;
     'verifyCertificate((address,address,uint256,bytes))': FunctionFragment;
   };
 
@@ -195,7 +196,8 @@ export interface MystikoSettingsInterface extends utils.Interface {
   encodeFunctionData(functionFragment: 'updateMinRollupFee', values: [string, BigNumberish]): string;
   encodeFunctionData(functionFragment: 'updateSanctionsListAddress', values: [string]): string;
   encodeFunctionData(functionFragment: 'updateTransferDisable', values: [string, boolean]): string;
-  encodeFunctionData(functionFragment: 'validate', values: [RollerValidateParamsStruct]): string;
+  encodeFunctionData(functionFragment: 'validateRelayer', values: [RelayerValidateParamsStruct]): string;
+  encodeFunctionData(functionFragment: 'validateRoller', values: [RollerValidateParamsStruct]): string;
   encodeFunctionData(functionFragment: 'verifyCertificate', values: [CertificateParamsStruct]): string;
 
   decodeFunctionResult(functionFragment: 'AUDITOR_COUNT', data: BytesLike): Result;
@@ -257,7 +259,8 @@ export interface MystikoSettingsInterface extends utils.Interface {
   decodeFunctionResult(functionFragment: 'updateMinRollupFee', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'updateSanctionsListAddress', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'updateTransferDisable', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'validate', data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'validateRelayer', data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'validateRoller', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'verifyCertificate', data: BytesLike): Result;
 
   events: {
@@ -664,15 +667,9 @@ export interface MystikoSettings extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<ContractTransaction>;
 
-    'validate((address,address,uint256,uint256,uint256))'(
-      _params: RollerValidateParamsStruct,
-      overrides?: CallOverrides,
-    ): Promise<[boolean]>;
+    validateRelayer(_params: RelayerValidateParamsStruct, overrides?: CallOverrides): Promise<[boolean]>;
 
-    'validate((address,address))'(
-      _params: RelayerValidateParamsStruct,
-      overrides?: CallOverrides,
-    ): Promise<[boolean]>;
+    validateRoller(_params: RollerValidateParamsStruct, overrides?: CallOverrides): Promise<[boolean]>;
 
     verifyCertificate(_params: CertificateParamsStruct, overrides?: CallOverrides): Promise<[boolean]>;
   };
@@ -884,15 +881,9 @@ export interface MystikoSettings extends BaseContract {
     overrides?: Overrides & { from?: string | Promise<string> },
   ): Promise<ContractTransaction>;
 
-  'validate((address,address,uint256,uint256,uint256))'(
-    _params: RollerValidateParamsStruct,
-    overrides?: CallOverrides,
-  ): Promise<boolean>;
+  validateRelayer(_params: RelayerValidateParamsStruct, overrides?: CallOverrides): Promise<boolean>;
 
-  'validate((address,address))'(
-    _params: RelayerValidateParamsStruct,
-    overrides?: CallOverrides,
-  ): Promise<boolean>;
+  validateRoller(_params: RollerValidateParamsStruct, overrides?: CallOverrides): Promise<boolean>;
 
   verifyCertificate(_params: CertificateParamsStruct, overrides?: CallOverrides): Promise<boolean>;
 
@@ -1058,15 +1049,9 @@ export interface MystikoSettings extends BaseContract {
 
     updateTransferDisable(_pool: string, _disable: boolean, overrides?: CallOverrides): Promise<void>;
 
-    'validate((address,address,uint256,uint256,uint256))'(
-      _params: RollerValidateParamsStruct,
-      overrides?: CallOverrides,
-    ): Promise<boolean>;
+    validateRelayer(_params: RelayerValidateParamsStruct, overrides?: CallOverrides): Promise<boolean>;
 
-    'validate((address,address))'(
-      _params: RelayerValidateParamsStruct,
-      overrides?: CallOverrides,
-    ): Promise<boolean>;
+    validateRoller(_params: RollerValidateParamsStruct, overrides?: CallOverrides): Promise<boolean>;
 
     verifyCertificate(_params: CertificateParamsStruct, overrides?: CallOverrides): Promise<boolean>;
   };
@@ -1415,15 +1400,9 @@ export interface MystikoSettings extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<BigNumber>;
 
-    'validate((address,address,uint256,uint256,uint256))'(
-      _params: RollerValidateParamsStruct,
-      overrides?: CallOverrides,
-    ): Promise<BigNumber>;
+    validateRelayer(_params: RelayerValidateParamsStruct, overrides?: CallOverrides): Promise<BigNumber>;
 
-    'validate((address,address))'(
-      _params: RelayerValidateParamsStruct,
-      overrides?: CallOverrides,
-    ): Promise<BigNumber>;
+    validateRoller(_params: RollerValidateParamsStruct, overrides?: CallOverrides): Promise<BigNumber>;
 
     verifyCertificate(_params: CertificateParamsStruct, overrides?: CallOverrides): Promise<BigNumber>;
   };
@@ -1633,13 +1612,13 @@ export interface MystikoSettings extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<PopulatedTransaction>;
 
-    'validate((address,address,uint256,uint256,uint256))'(
-      _params: RollerValidateParamsStruct,
+    validateRelayer(
+      _params: RelayerValidateParamsStruct,
       overrides?: CallOverrides,
     ): Promise<PopulatedTransaction>;
 
-    'validate((address,address))'(
-      _params: RelayerValidateParamsStruct,
+    validateRoller(
+      _params: RollerValidateParamsStruct,
       overrides?: CallOverrides,
     ): Promise<PopulatedTransaction>;
 

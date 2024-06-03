@@ -4,6 +4,7 @@ pragma solidity ^0.8.20;
 import {Test} from "forge-std/Test.sol";
 import "../../contracts/MystikoSettings.sol";
 import "../../contracts/screen/impl/MystikoCertificate.sol";
+import "../../contracts/miner/interfaces/IMystikoRelayerPool.sol";
 import "../../contracts/miner/impl/MystikoRelayerPool.sol";
 import "../../contracts/miner/impl/MystikoRollerPool.sol";
 import "../mock/MockMystikoToken.sol";
@@ -11,7 +12,6 @@ import "@mystikonetwork/governance/contracts/token/MystikoVoteToken.sol";
 import "@mystikonetwork/governance/contracts/impl/MystikoGovernorRegistry.sol";
 import "@mystikonetwork/governance/contracts/GovernanceErrors.sol";
 import "../utils/Random.sol";
-import "../../contracts/verifier/interfaces/IMystikoVerifierPool.sol";
 
 contract MystikoSettingsCenterTest is Test, Random {
   bytes32 public constant RELAYER_ROLE = keccak256("MYSTIKO_RELAYER_ROLE");
@@ -62,19 +62,19 @@ contract MystikoSettingsCenterTest is Test, Random {
     RelayerValidateParams memory p1 = RelayerValidateParams({pool: pool, relayer: relayer});
     vm.expectRevert(MystikoSettingsErrors.UnauthorizedRole.selector);
     vm.prank(pool);
-    settings.validate(p1);
+    settings.validateRelayer(p1);
 
     vm.prank(dao);
     relayerPool.grantRole(RELAYER_ROLE, relayer);
 
     vm.expectRevert(MystikoSettingsErrors.InsufficientBalanceForAction.selector);
     vm.prank(pool);
-    settings.validate(p1);
+    settings.validateRelayer(p1);
 
     vm.prank(dao);
     relayerPool.changeRelayerMinVoteTokenAmount(0);
     vm.prank(pool);
-    bool canDo = settings.validate(p1);
+    bool canDo = settings.validateRelayer(p1);
     assertTrue(canDo);
   }
 

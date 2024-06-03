@@ -26,7 +26,7 @@ contract MystikoRollerPool is IMystikoRollerPool, MystikoDAOAccessControl {
     vXZK = _vXZK;
   }
 
-  function validate(
+  function validateRoller(
     RollerValidateParams calldata _params
   ) external view onlyHasRoleOrOpen(ROLLER_ROLE, _params.roller) returns (bool) {
     if (_params.rollupSize < minRollupSize) revert MystikoSettingsErrors.RollupSizeTooSmall();

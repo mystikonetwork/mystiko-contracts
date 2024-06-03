@@ -42,7 +42,7 @@ const _abi = [
         type: 'tuple',
       },
     ],
-    name: 'validate',
+    name: 'validateRoller',
     outputs: [
       {
         internalType: 'bool',

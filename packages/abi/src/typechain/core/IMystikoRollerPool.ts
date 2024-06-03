@@ -34,12 +34,12 @@ export type RollerValidateParamsStructOutput = [string, string, BigNumber, BigNu
 export interface IMystikoRollerPoolInterface extends utils.Interface {
   contractName: 'IMystikoRollerPool';
   functions: {
-    'validate((address,address,uint256,uint256,uint256))': FunctionFragment;
+    'validateRoller((address,address,uint256,uint256,uint256))': FunctionFragment;
   };
 
-  encodeFunctionData(functionFragment: 'validate', values: [RollerValidateParamsStruct]): string;
+  encodeFunctionData(functionFragment: 'validateRoller', values: [RollerValidateParamsStruct]): string;
 
-  decodeFunctionResult(functionFragment: 'validate', data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'validateRoller', data: BytesLike): Result;
 
   events: {};
 }
@@ -68,22 +68,25 @@ export interface IMystikoRollerPool extends BaseContract {
   removeListener: OnEvent<this>;
 
   functions: {
-    validate(_params: RollerValidateParamsStruct, overrides?: CallOverrides): Promise<[boolean]>;
+    validateRoller(_params: RollerValidateParamsStruct, overrides?: CallOverrides): Promise<[boolean]>;
   };
 
-  validate(_params: RollerValidateParamsStruct, overrides?: CallOverrides): Promise<boolean>;
+  validateRoller(_params: RollerValidateParamsStruct, overrides?: CallOverrides): Promise<boolean>;
 
   callStatic: {
-    validate(_params: RollerValidateParamsStruct, overrides?: CallOverrides): Promise<boolean>;
+    validateRoller(_params: RollerValidateParamsStruct, overrides?: CallOverrides): Promise<boolean>;
   };
 
   filters: {};
 
   estimateGas: {
-    validate(_params: RollerValidateParamsStruct, overrides?: CallOverrides): Promise<BigNumber>;
+    validateRoller(_params: RollerValidateParamsStruct, overrides?: CallOverrides): Promise<BigNumber>;
   };
 
   populateTransaction: {
-    validate(_params: RollerValidateParamsStruct, overrides?: CallOverrides): Promise<PopulatedTransaction>;
+    validateRoller(
+      _params: RollerValidateParamsStruct,
+      overrides?: CallOverrides,
+    ): Promise<PopulatedTransaction>;
   };
 }

@@ -30,7 +30,6 @@
     "build:cjs": "tsc -p ./tsconfig.json",
     "build:esm": "tsc -p ./tsconfig.esm.json",
     "build": "rm -rf build && yarn build:cjs && yarn build:esm",
-    "test": "jest --coverage",
     "lint": "eslint --ext .js,.ts .",
     "prettier:check": "prettier --check \"./**/*.{js,ts}\" --config .prettierrc",
     "prettier:fix": "prettier --write \"./**/*.{js,ts}\" --config .prettierrc",

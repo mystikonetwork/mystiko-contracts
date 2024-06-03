@@ -50,7 +50,7 @@ export interface MystikoRollerPoolInterface extends utils.Interface {
     'revokeRole(bytes32,address)': FunctionFragment;
     'supportsInterface(bytes4)': FunctionFragment;
     'vXZK()': FunctionFragment;
-    'validate((address,address,uint256,uint256,uint256))': FunctionFragment;
+    'validateRoller((address,address,uint256,uint256,uint256))': FunctionFragment;
   };
 
   encodeFunctionData(functionFragment: 'DEFAULT_ADMIN_ROLE', values?: undefined): string;
@@ -67,7 +67,7 @@ export interface MystikoRollerPoolInterface extends utils.Interface {
   encodeFunctionData(functionFragment: 'revokeRole', values: [BytesLike, string]): string;
   encodeFunctionData(functionFragment: 'supportsInterface', values: [BytesLike]): string;
   encodeFunctionData(functionFragment: 'vXZK', values?: undefined): string;
-  encodeFunctionData(functionFragment: 'validate', values: [RollerValidateParamsStruct]): string;
+  encodeFunctionData(functionFragment: 'validateRoller', values: [RollerValidateParamsStruct]): string;
 
   decodeFunctionResult(functionFragment: 'DEFAULT_ADMIN_ROLE', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'ROLLER_ROLE', data: BytesLike): Result;
@@ -83,7 +83,7 @@ export interface MystikoRollerPoolInterface extends utils.Interface {
   decodeFunctionResult(functionFragment: 'revokeRole', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'supportsInterface', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'vXZK', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'validate', data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'validateRoller', data: BytesLike): Result;
 
   events: {
     'MinRollupSizeChanged(uint256)': EventFragment;
@@ -200,7 +200,7 @@ export interface MystikoRollerPool extends BaseContract {
 
     vXZK(overrides?: CallOverrides): Promise<[string]>;
 
-    validate(_params: RollerValidateParamsStruct, overrides?: CallOverrides): Promise<[boolean]>;
+    validateRoller(_params: RollerValidateParamsStruct, overrides?: CallOverrides): Promise<[boolean]>;
   };
 
   DEFAULT_ADMIN_ROLE(overrides?: CallOverrides): Promise<string>;
@@ -249,7 +249,7 @@ export interface MystikoRollerPool extends BaseContract {
 
   vXZK(overrides?: CallOverrides): Promise<string>;
 
-  validate(_params: RollerValidateParamsStruct, overrides?: CallOverrides): Promise<boolean>;
+  validateRoller(_params: RollerValidateParamsStruct, overrides?: CallOverrides): Promise<boolean>;
 
   callStatic: {
     DEFAULT_ADMIN_ROLE(overrides?: CallOverrides): Promise<string>;
@@ -283,7 +283,7 @@ export interface MystikoRollerPool extends BaseContract {
 
     vXZK(overrides?: CallOverrides): Promise<string>;
 
-    validate(_params: RollerValidateParamsStruct, overrides?: CallOverrides): Promise<boolean>;
+    validateRoller(_params: RollerValidateParamsStruct, overrides?: CallOverrides): Promise<boolean>;
   };
 
   filters: {
@@ -374,7 +374,7 @@ export interface MystikoRollerPool extends BaseContract {
 
     vXZK(overrides?: CallOverrides): Promise<BigNumber>;
 
-    validate(_params: RollerValidateParamsStruct, overrides?: CallOverrides): Promise<BigNumber>;
+    validateRoller(_params: RollerValidateParamsStruct, overrides?: CallOverrides): Promise<BigNumber>;
   };
 
   populateTransaction: {
@@ -424,6 +424,9 @@ export interface MystikoRollerPool extends BaseContract {
 
     vXZK(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
-    validate(_params: RollerValidateParamsStruct, overrides?: CallOverrides): Promise<PopulatedTransaction>;
+    validateRoller(
+      _params: RollerValidateParamsStruct,
+      overrides?: CallOverrides,
+    ): Promise<PopulatedTransaction>;
   };
 }

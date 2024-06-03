@@ -67,6 +67,24 @@ abstract contract CommitmentPool is ICommitmentPool, AssetPool, ReentrancyGuard 
   event EncryptedAuditorNote(uint64 id, uint256 auditorPublicKey, uint256 encryptedAuditorNote);
   event EncryptedAuditorNotes(AuditorNote[] notes);
 
+  modifier onlyAssociatedPool() {
+    address associatePool = settings.queryAssociatedPool(msg.sender);
+    if (associatePool != address(this)) revert CustomErrors.AssociatedPoolNotMatched();
+    _;
+  }
+
+  modifier onlyValidatedRoller(uint256 rollupSize) {
+    RollerValidateParams memory _params = RollerValidateParams({
+      pool: address(this),
+      roller: msg.sender,
+      rollupSize: rollupSize,
+      queueCount: commitmentQueueSize,
+      includedCount: commitmentIncludedCount
+    });
+    if (!settings.validateRoller(_params)) revert CustomErrors.RejectRollup();
+    _;
+  }
+
   constructor(uint8 _treeHeight, uint256 _minRollupFee, address _settingsCenter) {
     if (_treeHeight == 0) revert CustomErrors.TreeHeightLessThanZero();
     treeCapacity = 1 << _treeHeight;
@@ -81,9 +99,7 @@ abstract contract CommitmentPool is ICommitmentPool, AssetPool, ReentrancyGuard 
    *  @param _executor    Specific address that send enqueue transaction, only be valid address when do cross chain transaction
    *  @return             True means commitment success insert into commitment queue , or exception and return false.
    */
-  function enqueue(CommitmentRequest memory _request, address _executor) external override {
-    address associatePool = settings.queryAssociatedPool(msg.sender);
-    if (associatePool != address(this)) revert CustomErrors.AssociatedPoolNotMatched();
+  function enqueue(CommitmentRequest memory _request, address _executor) external override onlyAssociatedPool{
     uint256 minRollupFee = getMinRollupFee();
     if (_request.rollupFee < minRollupFee) revert CustomErrors.RollupFeeToFew();
     if (commitmentIncludedCount + commitmentQueueSize >= treeCapacity) revert CustomErrors.TreeIsFull();
@@ -100,19 +116,10 @@ abstract contract CommitmentPool is ICommitmentPool, AssetPool, ReentrancyGuard 
   /* @notice              Check rollup request parameter、verify rollup proof and update commitment merkle tree
    *  @param _request     The rollup request parameter
    */
-  function rollup(RollupRequest memory _request) external override {
-    uint256 queueCount = commitmentQueueSize;
+  function rollup(RollupRequest memory _request) external override onlyValidatedRoller(_request.rollupSize)  {
     uint256 includedCount = commitmentIncludedCount;
-    RollerValidateParams memory _params = RollerValidateParams({
-      pool: address(this),
-      roller: msg.sender,
-      rollupSize: _request.rollupSize,
-      queueCount: queueCount,
-      includedCount: includedCount
-    });
-    if (!settings.validate(_params)) revert CustomErrors.RejectRollup();
     if (rootHistory[_request.newRoot]) revert CustomErrors.NewRootIsDuplicated();
-    if (_request.rollupSize > queueCount) revert CustomErrors.Invalid("rollupSize");
+    if (_request.rollupSize > commitmentQueueSize) revert CustomErrors.Invalid("rollupSize");
     if (includedCount % _request.rollupSize != 0) revert CustomErrors.Invalid("rollupSize");
     WrappedVerifier memory wVerifier = settings.queryRollupVerifier(_request.rollupSize);
     if (!wVerifier.enabled) revert CustomErrors.RollupVerifierDisabled(_request.rollupSize);
@@ -148,7 +155,7 @@ abstract contract CommitmentPool is ICommitmentPool, AssetPool, ReentrancyGuard 
    *  @param _request     The transact request parameter
    *  @param _signature   The signature of the transact request by proffer
    */
-  function transact(TransactRequest memory _request, bytes memory _signature) external override nonReentrant {
+  function transact(TransactRequest memory _request, bytes memory _signature) external override nonReentrant  {
     uint32 numInputs = SafeCast.toUint32(_request.serialNumbers.length);
     uint32 numOutputs = SafeCast.toUint32(_request.outCommitments.length);
     if (settings.queryTransferDisable(address(this)) && numOutputs != 0)
@@ -158,7 +165,7 @@ abstract contract CommitmentPool is ICommitmentPool, AssetPool, ReentrancyGuard 
         pool: address(this),
         relayer: msg.sender
       });
-      if (!settings.validate(_params)) revert CustomErrors.RejectRelay();
+      if (!settings.validateRelayer(_params)) revert CustomErrors.RejectRelay();
     }
     WrappedVerifier memory wVerifier = settings.queryTransactVerifier(numInputs, numOutputs);
     if (!wVerifier.enabled) revert CustomErrors.TransactVerifierDisabled(numInputs, numOutputs);

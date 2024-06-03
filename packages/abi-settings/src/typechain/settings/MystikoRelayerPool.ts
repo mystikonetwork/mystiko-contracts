@@ -39,7 +39,7 @@ export interface MystikoRelayerPoolInterface extends utils.Interface {
     'revokeRole(bytes32,address)': FunctionFragment;
     'supportsInterface(bytes4)': FunctionFragment;
     'vXZK()': FunctionFragment;
-    'validate((address,address))': FunctionFragment;
+    'validateRelayer((address,address))': FunctionFragment;
   };
 
   encodeFunctionData(functionFragment: 'DEFAULT_ADMIN_ROLE', values?: undefined): string;
@@ -54,7 +54,7 @@ export interface MystikoRelayerPoolInterface extends utils.Interface {
   encodeFunctionData(functionFragment: 'revokeRole', values: [BytesLike, string]): string;
   encodeFunctionData(functionFragment: 'supportsInterface', values: [BytesLike]): string;
   encodeFunctionData(functionFragment: 'vXZK', values?: undefined): string;
-  encodeFunctionData(functionFragment: 'validate', values: [RelayerValidateParamsStruct]): string;
+  encodeFunctionData(functionFragment: 'validateRelayer', values: [RelayerValidateParamsStruct]): string;
 
   decodeFunctionResult(functionFragment: 'DEFAULT_ADMIN_ROLE', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'RELAYER_ROLE', data: BytesLike): Result;
@@ -68,7 +68,7 @@ export interface MystikoRelayerPoolInterface extends utils.Interface {
   decodeFunctionResult(functionFragment: 'revokeRole', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'supportsInterface', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'vXZK', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'validate', data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'validateRelayer', data: BytesLike): Result;
 
   events: {
     'RelayerMinVoteTokenAmountChanged(uint256)': EventFragment;
@@ -172,7 +172,7 @@ export interface MystikoRelayerPool extends BaseContract {
 
     vXZK(overrides?: CallOverrides): Promise<[string]>;
 
-    validate(_params: RelayerValidateParamsStruct, overrides?: CallOverrides): Promise<[boolean]>;
+    validateRelayer(_params: RelayerValidateParamsStruct, overrides?: CallOverrides): Promise<[boolean]>;
   };
 
   DEFAULT_ADMIN_ROLE(overrides?: CallOverrides): Promise<string>;
@@ -214,7 +214,7 @@ export interface MystikoRelayerPool extends BaseContract {
 
   vXZK(overrides?: CallOverrides): Promise<string>;
 
-  validate(_params: RelayerValidateParamsStruct, overrides?: CallOverrides): Promise<boolean>;
+  validateRelayer(_params: RelayerValidateParamsStruct, overrides?: CallOverrides): Promise<boolean>;
 
   callStatic: {
     DEFAULT_ADMIN_ROLE(overrides?: CallOverrides): Promise<string>;
@@ -244,7 +244,7 @@ export interface MystikoRelayerPool extends BaseContract {
 
     vXZK(overrides?: CallOverrides): Promise<string>;
 
-    validate(_params: RelayerValidateParamsStruct, overrides?: CallOverrides): Promise<boolean>;
+    validateRelayer(_params: RelayerValidateParamsStruct, overrides?: CallOverrides): Promise<boolean>;
   };
 
   filters: {
@@ -325,7 +325,7 @@ export interface MystikoRelayerPool extends BaseContract {
 
     vXZK(overrides?: CallOverrides): Promise<BigNumber>;
 
-    validate(_params: RelayerValidateParamsStruct, overrides?: CallOverrides): Promise<BigNumber>;
+    validateRelayer(_params: RelayerValidateParamsStruct, overrides?: CallOverrides): Promise<BigNumber>;
   };
 
   populateTransaction: {
@@ -368,6 +368,9 @@ export interface MystikoRelayerPool extends BaseContract {
 
     vXZK(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
-    validate(_params: RelayerValidateParamsStruct, overrides?: CallOverrides): Promise<PopulatedTransaction>;
+    validateRelayer(
+      _params: RelayerValidateParamsStruct,
+      overrides?: CallOverrides,
+    ): Promise<PopulatedTransaction>;
   };
 }

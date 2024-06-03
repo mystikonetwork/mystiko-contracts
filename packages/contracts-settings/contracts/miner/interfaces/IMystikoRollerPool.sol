@@ -10,5 +10,5 @@ struct RollerValidateParams {
 }
 
 interface IMystikoRollerPool {
-  function validate(RollerValidateParams calldata _params) external view returns (bool);
+  function validateRoller(RollerValidateParams calldata _params) external view returns (bool);
 }

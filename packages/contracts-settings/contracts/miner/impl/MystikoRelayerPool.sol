@@ -23,7 +23,7 @@ contract MystikoRelayerPool is IMystikoRelayerPool, MystikoDAOAccessControl {
     vXZK = _vXZK;
   }
 
-  function validate(
+  function validateRelayer(
     RelayerValidateParams calldata _params
   ) external view onlyHasRoleOrOpen(RELAYER_ROLE, _params.relayer) returns (bool) {
     if (IERC20(vXZK).balanceOf(_params.relayer) < minVoteTokenAmount)

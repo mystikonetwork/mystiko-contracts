@@ -38,14 +38,14 @@ contract MystikoRelayerRegistryTest is Test, Random {
     RelayerValidateParams memory p1 = RelayerValidateParams({pool: pool, relayer: relayer});
     vm.expectRevert(MystikoSettingsErrors.UnauthorizedRole.selector);
     vm.prank(pool);
-    registry.validate(p1);
+    registry.validateRelayer(p1);
 
     vm.prank(dao);
     registry.grantRole(RELAYER_ROLE, relayer);
 
     vm.expectRevert(MystikoSettingsErrors.InsufficientBalanceForAction.selector);
     vm.prank(pool);
-    registry.validate(p1);
+    registry.validateRelayer(p1);
 
     uint256 voteAmount = 100_000e18;
     XZK.transfer(relayer, voteAmount);
@@ -54,7 +54,7 @@ contract MystikoRelayerRegistryTest is Test, Random {
     vm.prank(relayer);
     vXZK.depositFor(relayer, voteAmount);
     vm.prank(pool);
-    bool canDo = registry.validate(p1);
+    bool canDo = registry.validateRelayer(p1);
     assertTrue(canDo);
 
     vm.prank(dao);
@@ -62,13 +62,13 @@ contract MystikoRelayerRegistryTest is Test, Random {
 
     vm.expectRevert(MystikoSettingsErrors.UnauthorizedRole.selector);
     vm.prank(pool);
-    registry.validate(p1);
+    registry.validateRelayer(p1);
 
     // open role
     vm.prank(dao);
     registry.grantRole(RELAYER_ROLE, address(0));
 
-    bool canDo2 = registry.validate(p1);
+    bool canDo2 = registry.validateRelayer(p1);
     assertTrue(canDo2);
   }
 
@@ -80,13 +80,13 @@ contract MystikoRelayerRegistryTest is Test, Random {
     RelayerValidateParams memory p1 = RelayerValidateParams({pool: pool, relayer: relayer});
     vm.expectRevert(MystikoSettingsErrors.UnauthorizedRole.selector);
     vm.prank(pool);
-    registryZero.validate(p1);
+    registryZero.validateRelayer(p1);
 
     vm.prank(dao);
     registryZero.grantRole(RELAYER_ROLE, relayer);
 
     vm.prank(pool);
-    bool canDo = registryZero.validate(p1);
+    bool canDo = registryZero.validateRelayer(p1);
     assertTrue(canDo);
   }
 

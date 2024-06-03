@@ -7,5 +7,5 @@ struct RelayerValidateParams {
 }
 
 interface IMystikoRelayerPool {
-  function validate(RelayerValidateParams calldata _params) external view returns (bool);
+  function validateRelayer(RelayerValidateParams calldata _params) external view returns (bool);
 }

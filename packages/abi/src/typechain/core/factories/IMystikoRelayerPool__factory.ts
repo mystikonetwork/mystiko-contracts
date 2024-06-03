@@ -27,7 +27,7 @@ const _abi = [
         type: 'tuple',
       },
     ],
-    name: 'validate',
+    name: 'validateRelayer',
     outputs: [
       {
         internalType: 'bool',

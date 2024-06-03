@@ -63,12 +63,12 @@ contract MystikoSettings is
     return certificate.verifyCertificate(_params);
   }
 
-  function validate(RollerValidateParams calldata _params) external view returns (bool) {
-    return rollerPool.validate(_params);
+  function validateRoller(RollerValidateParams calldata _params) external view returns (bool) {
+    return rollerPool.validateRoller(_params);
   }
 
-  function validate(RelayerValidateParams calldata _params) external view returns (bool) {
-    return relayerPool.validate(_params);
+  function validateRelayer(RelayerValidateParams calldata _params) external view returns (bool) {
+    return relayerPool.validateRelayer(_params);
   }
 
   function changeCertificateRegistry(IMystikoCertificate _newCertificateRegistry) external onlyMystikoDAO {

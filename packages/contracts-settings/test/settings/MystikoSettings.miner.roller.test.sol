@@ -4,6 +4,7 @@ pragma solidity ^0.8.20;
 import {Test} from "forge-std/Test.sol";
 import "../../contracts/MystikoSettings.sol";
 import "../../contracts/screen/impl/MystikoCertificate.sol";
+import "../../contracts/miner/interfaces/IMystikoRollerPool.sol";
 import "../../contracts/miner/impl/MystikoRelayerPool.sol";
 import "../../contracts/miner/impl/MystikoRollerPool.sol";
 import "../mock/MockMystikoToken.sol";
@@ -11,7 +12,6 @@ import "@mystikonetwork/governance/contracts/token/MystikoVoteToken.sol";
 import "@mystikonetwork/governance/contracts/impl/MystikoGovernorRegistry.sol";
 import "@mystikonetwork/governance/contracts/GovernanceErrors.sol";
 import "../utils/Random.sol";
-import "../../contracts/verifier/interfaces/IMystikoVerifierPool.sol";
 
 contract MystikoSettingsCenterTest is Test, Random {
   bytes32 public constant ROLLER_ROLE = keccak256("MYSTIKO_ROLLER_ROLE");
@@ -68,19 +68,19 @@ contract MystikoSettingsCenterTest is Test, Random {
     });
     vm.expectRevert(MystikoSettingsErrors.UnauthorizedRole.selector);
     vm.prank(pool);
-    settings.validate(p1);
+    settings.validateRoller(p1);
 
     vm.prank(dao);
     rollerPool.grantRole(ROLLER_ROLE, roller);
 
     vm.expectRevert(MystikoSettingsErrors.InsufficientBalanceForAction.selector);
     vm.prank(pool);
-    settings.validate(p1);
+    settings.validateRoller(p1);
 
     vm.prank(dao);
     rollerPool.changeRollerMinVoteTokenAmount(0);
     vm.prank(pool);
-    bool canDo = settings.validate(p1);
+    bool canDo = settings.validateRoller(p1);
     assertTrue(canDo);
   }
 

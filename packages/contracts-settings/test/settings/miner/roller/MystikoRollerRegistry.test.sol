@@ -45,14 +45,14 @@ contract MystikoRollerRegistryTest is Test, Random {
     });
     vm.expectRevert(MystikoSettingsErrors.UnauthorizedRole.selector);
     vm.prank(pool);
-    registry.validate(p1);
+    registry.validateRoller(p1);
 
     vm.prank(dao);
     registry.grantRole(ROLLER_ROLE, roller);
 
     vm.expectRevert(MystikoSettingsErrors.InsufficientBalanceForAction.selector);
     vm.prank(pool);
-    registry.validate(p1);
+    registry.validateRoller(p1);
 
     uint256 voteAmount = 1_000_000e18;
     XZK.transfer(roller, voteAmount);
@@ -61,7 +61,7 @@ contract MystikoRollerRegistryTest is Test, Random {
     vm.prank(roller);
     vXZK.depositFor(roller, voteAmount);
     vm.prank(pool);
-    bool canDo = registry.validate(p1);
+    bool canDo = registry.validateRoller(p1);
     assertTrue(canDo);
 
     RollerValidateParams memory p2 = RollerValidateParams({
@@ -73,20 +73,20 @@ contract MystikoRollerRegistryTest is Test, Random {
     });
     vm.expectRevert(MystikoSettingsErrors.RollupSizeTooSmall.selector);
     vm.prank(pool);
-    registry.validate(p2);
+    registry.validateRoller(p2);
 
     vm.prank(dao);
     registry.revokeRole(ROLLER_ROLE, roller);
 
     vm.expectRevert(MystikoSettingsErrors.UnauthorizedRole.selector);
     vm.prank(pool);
-    registry.validate(p1);
+    registry.validateRoller(p1);
 
     // open role
     vm.prank(dao);
     registry.grantRole(ROLLER_ROLE, address(0));
 
-    bool canDo2 = registry.validate(p1);
+    bool canDo2 = registry.validateRoller(p1);
     assertTrue(canDo2);
   }
 
@@ -105,13 +105,13 @@ contract MystikoRollerRegistryTest is Test, Random {
     });
     vm.expectRevert(MystikoSettingsErrors.UnauthorizedRole.selector);
     vm.prank(pool);
-    registryZero.validate(p1);
+    registryZero.validateRoller(p1);
 
     vm.prank(dao);
     registryZero.grantRole(ROLLER_ROLE, roller);
 
     vm.prank(pool);
-    bool canDo = registryZero.validate(p1);
+    bool canDo = registryZero.validateRoller(p1);
     assertTrue(canDo);
   }
 
