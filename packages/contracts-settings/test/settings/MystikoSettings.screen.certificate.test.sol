@@ -3,15 +3,15 @@ pragma solidity ^0.8.20;
 
 import {Test} from "forge-std/Test.sol";
 import "../../contracts/MystikoSettings.sol";
-import "../../contracts/screen/impl/MystikoCertificate.sol";
-import "../../contracts/miner/impl/MystikoRelayerPool.sol";
-import "../../contracts/miner/impl/MystikoRollerPool.sol";
 import "../mock/MockMystikoToken.sol";
+import "@mystikonetwork/contracts-certificate/contracts/MystikoCertificate.sol";
+import "@mystikonetwork/contracts-relayer/contracts/MystikoRelayerPool.sol";
+import "@mystikonetwork/contracts-roller/contracts/MystikoRollerPool.sol";
 import "@mystikonetwork/governance/contracts/token/MystikoVoteToken.sol";
 import "@mystikonetwork/governance/contracts/impl/MystikoGovernorRegistry.sol";
 import "@mystikonetwork/governance/contracts/GovernanceErrors.sol";
+import "@mystikonetwork/contracts-certificate/contracts/interfaces/IMystikoCertificate.sol";
 import "../utils/Random.sol";
-import "../../contracts/screen/interfaces/IMystikoCertificate.sol";
 
 contract MystikoSettingsCenterTest is Test, Random {
   address public dao;

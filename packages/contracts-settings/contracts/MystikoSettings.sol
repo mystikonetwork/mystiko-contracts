@@ -4,14 +4,14 @@ pragma solidity ^0.8.20;
 import {MystikoVerifierPool} from "./verifier/impl/MystikoVerifierPool.sol";
 import {MystikoAuditorPool} from "./auditor/impl/MystikoAuditorPool.sol";
 import {Sanctions} from "./screen/impl/Sanctions.sol";
-import {IMystikoRollerPool, RollerValidateParams} from "./miner/interfaces/IMystikoRollerPool.sol";
-import {IMystikoRelayerPool, RelayerValidateParams} from "./miner/interfaces/IMystikoRelayerPool.sol";
-import {IMystikoCertificate, CertificateParams} from "./screen/interfaces/IMystikoCertificate.sol";
 import {MystikoSettingsErrors} from "./MystikoSettingsErrors.sol";
-import {MystikoDAOAccessControl} from "@mystikonetwork/governance/contracts/MystikoDAOAccessControl.sol";
 import {MystikoDepositConfig} from "./config/impl/MystikoDepositConfig.sol";
 import {MystikoPoolConfig} from "./config/impl/MystikoPoolConfig.sol";
 import {MystikoBridgeConfig} from "./config/impl/MystikoBridgeConfig.sol";
+import {IMystikoRollerPool, RollerValidateParams} from "@mystikonetwork/contracts-roller/contracts/interfaces/IMystikoRollerPool.sol";
+import {IMystikoRelayerPool, RelayerValidateParams} from "@mystikonetwork/contracts-relayer/contracts/interfaces/IMystikoRelayerPool.sol";
+import {IMystikoCertificate, CertificateParams} from "@mystikonetwork/contracts-certificate/contracts/interfaces/IMystikoCertificate.sol";
+import {MystikoDAOAccessControl} from "@mystikonetwork/governance/contracts/MystikoDAOAccessControl.sol";
 
 contract MystikoSettings is
   IMystikoCertificate,

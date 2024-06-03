@@ -3,11 +3,13 @@ pragma solidity ^0.8.20;
 
 import {Test} from "forge-std/Test.sol";
 import "../../contracts/MystikoSettings.sol";
-import "../../contracts/screen/impl/MystikoCertificate.sol";
-import "../../contracts/miner/interfaces/IMystikoRelayerPool.sol";
-import "../../contracts/miner/impl/MystikoRelayerPool.sol";
-import "../../contracts/miner/impl/MystikoRollerPool.sol";
 import "../mock/MockMystikoToken.sol";
+import "@mystikonetwork/contracts-certificate/contracts/MystikoCertificate.sol";
+import "@mystikonetwork/contracts-relayer/contracts/interfaces/IMystikoRelayerPool.sol";
+import "@mystikonetwork/contracts-relayer/contracts/MystikoRelayerPoolErrors.sol";
+import "@mystikonetwork/contracts-roller/contracts/MystikoRollerPoolErrors.sol";
+import "@mystikonetwork/contracts-relayer/contracts/MystikoRelayerPool.sol";
+import "@mystikonetwork/contracts-roller/contracts/MystikoRollerPool.sol";
 import "@mystikonetwork/governance/contracts/token/MystikoVoteToken.sol";
 import "@mystikonetwork/governance/contracts/impl/MystikoGovernorRegistry.sol";
 import "@mystikonetwork/governance/contracts/GovernanceErrors.sol";
@@ -60,7 +62,7 @@ contract MystikoSettingsCenterTest is Test, Random {
     address relayer = address(uint160(uint256(keccak256(abi.encodePacked(_random())))));
     address pool = address(uint160(uint256(keccak256(abi.encodePacked(_random())))));
     RelayerValidateParams memory p1 = RelayerValidateParams({pool: pool, relayer: relayer});
-    vm.expectRevert(MystikoSettingsErrors.UnauthorizedRole.selector);
+    vm.expectRevert(GovernanceErrors.UnauthorizedRole.selector);
     vm.prank(pool);
     settings.validateRelayer(p1);
 

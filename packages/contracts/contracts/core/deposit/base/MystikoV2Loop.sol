@@ -11,7 +11,7 @@ import {ReentrancyGuard} from "@openzeppelin/contracts/utils/ReentrancyGuard.sol
 import {ECDSA} from "@openzeppelin/contracts/utils/cryptography/ECDSA.sol";
 import {SafeCast} from "@openzeppelin/contracts/utils/math/SafeCast.sol";
 import {MystikoSettings} from "@mystikonetwork/contracts-settings/contracts/MystikoSettings.sol";
-import {CertificateParams} from "@mystikonetwork/contracts-settings/contracts/screen/interfaces/IMystikoCertificate.sol";
+import {CertificateParams} from "@mystikonetwork/contracts-certificate/contracts/interfaces/IMystikoCertificate.sol";
 
 abstract contract MystikoV2Loop is IMystikoLoop, AssetPool {
   using SafeCast for uint256;

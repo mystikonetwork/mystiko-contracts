@@ -3,11 +3,13 @@ pragma solidity ^0.8.20;
 
 import {Test} from "forge-std/Test.sol";
 import "../../contracts/MystikoSettings.sol";
-import "../../contracts/screen/impl/MystikoCertificate.sol";
-import "../../contracts/miner/interfaces/IMystikoRollerPool.sol";
-import "../../contracts/miner/impl/MystikoRelayerPool.sol";
-import "../../contracts/miner/impl/MystikoRollerPool.sol";
 import "../mock/MockMystikoToken.sol";
+import "@mystikonetwork/contracts-certificate/contracts/MystikoCertificate.sol";
+import "@mystikonetwork/contracts-roller/contracts/interfaces/IMystikoRollerPool.sol";
+import "@mystikonetwork/contracts-relayer/contracts/MystikoRelayerPoolErrors.sol";
+import "@mystikonetwork/contracts-relayer/contracts/MystikoRelayerPool.sol";
+import "@mystikonetwork/contracts-roller/contracts/MystikoRollerPoolErrors.sol";
+import "@mystikonetwork/contracts-roller/contracts/MystikoRollerPool.sol";
 import "@mystikonetwork/governance/contracts/token/MystikoVoteToken.sol";
 import "@mystikonetwork/governance/contracts/impl/MystikoGovernorRegistry.sol";
 import "@mystikonetwork/governance/contracts/GovernanceErrors.sol";
@@ -66,7 +68,7 @@ contract MystikoSettingsCenterTest is Test, Random {
       queueCount: 0,
       includedCount: 0
     });
-    vm.expectRevert(MystikoSettingsErrors.UnauthorizedRole.selector);
+    vm.expectRevert(GovernanceErrors.UnauthorizedRole.selector);
     vm.prank(pool);
     settings.validateRoller(p1);
 

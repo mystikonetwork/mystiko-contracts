@@ -48,16 +48,10 @@ import {
   MockMystikoVoteToken,
   MockMystikoToken,
 } from '@mystikonetwork/contracts-abi';
-import {
-  MystikoCertificate,
-  MystikoRelayerPool,
-  MystikoRollerPool,
-  MystikoSettings,
-  MystikoCertificate__factory,
-  MystikoRelayerPool__factory,
-  MystikoRollerPool__factory,
-  MystikoSettings__factory,
-} from '@mystikonetwork/contracts-abi-settings';
+import { MystikoCertificate, MystikoCertificate__factory } from '@mystikonetwork/contracts-abi-certificate';
+import { MystikoRollerPool, MystikoRollerPool__factory } from '@mystikonetwork/contracts-abi-roller';
+import { MystikoRelayerPool, MystikoRelayerPool__factory } from '@mystikonetwork/contracts-abi-relayer';
+import { MystikoSettings, MystikoSettings__factory } from '@mystikonetwork/contracts-abi-settings';
 import { toBN } from '@mystikonetwork/utils';
 import BN from 'bn.js';
 import { Fixture } from 'ethereum-waffle/dist/esm';
@@ -124,6 +118,24 @@ export function getArtifactExternal(contract: string): Promise<Artifact> {
 export function getArtifactVerifier(contract: string): Promise<Artifact> {
   const artifactsPath: string = '../contracts-verifier/artifacts';
   // const artifactsPath: string = "./artifacts";
+  const artifacts = new Artifacts(artifactsPath);
+  return artifacts.readArtifact(contract);
+}
+
+export function getArtifactCertificate(contract: string): Promise<Artifact> {
+  const artifactsPath: string = '../contracts-certificate/artifacts';
+  const artifacts = new Artifacts(artifactsPath);
+  return artifacts.readArtifact(contract);
+}
+
+export function getArtifactRoller(contract: string): Promise<Artifact> {
+  const artifactsPath: string = '../contracts-roller/artifacts';
+  const artifacts = new Artifacts(artifactsPath);
+  return artifacts.readArtifact(contract);
+}
+
+export function getArtifactRelayer(contract: string): Promise<Artifact> {
+  const artifactsPath: string = '../contracts-relayer/artifacts';
   const artifacts = new Artifacts(artifactsPath);
   return artifacts.readArtifact(contract);
 }
@@ -501,21 +513,21 @@ export async function deployDependContracts(accounts: Wallet[]): Promise<DependD
   const mockDaoRegistry = await mockDaoRegistryFactory.deploy();
   await mockDaoRegistry.deployed();
 
-  const certificateArtifact = await getArtifactSettings('MystikoCertificate');
+  const certificateArtifact = await getArtifactCertificate('MystikoCertificate');
   const certificateFactory = (await ethers.getContractFactoryFromArtifact(
     certificateArtifact,
   )) as MystikoCertificate__factory;
   const certificate = await certificateFactory.deploy(mockDaoRegistry.address, IssuerAddress);
   await certificate.deployed();
 
-  const rollerArtifact = await getArtifactSettings('MystikoRollerPool');
+  const rollerArtifact = await getArtifactRoller('MystikoRollerPool');
   const rollerFactory = (await ethers.getContractFactoryFromArtifact(
     rollerArtifact,
   )) as MystikoRollerPool__factory;
   const rollerPool = await rollerFactory.deploy(mockDaoRegistry.address, mockVoteToken.address, 0);
   await rollerPool.deployed();
 
-  const relayerArtifact = await getArtifactSettings('MystikoRelayerPool');
+  const relayerArtifact = await getArtifactRelayer('MystikoRelayerPool');
   const relayerFactory = (await ethers.getContractFactoryFromArtifact(
     relayerArtifact,
   )) as MystikoRelayerPool__factory;

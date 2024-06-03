@@ -11,8 +11,8 @@ import {ReentrancyGuard} from "@openzeppelin/contracts/utils/ReentrancyGuard.sol
 import {MessageHashUtils} from "@openzeppelin/contracts/utils/cryptography/MessageHashUtils.sol";
 import {ECDSA} from "@openzeppelin/contracts/utils/cryptography/ECDSA.sol";
 import {SafeCast} from "@openzeppelin/contracts/utils/math/SafeCast.sol";
-import {RollerValidateParams} from "@mystikonetwork/contracts-settings/contracts/miner/interfaces/IMystikoRollerPool.sol";
-import {RelayerValidateParams} from "@mystikonetwork/contracts-settings/contracts/miner/interfaces/IMystikoRelayerPool.sol";
+import {RollerValidateParams} from "@mystikonetwork/contracts-roller/contracts/interfaces/IMystikoRollerPool.sol";
+import {RelayerValidateParams} from "@mystikonetwork/contracts-relayer/contracts/interfaces/IMystikoRelayerPool.sol";
 import {WrappedVerifier} from "@mystikonetwork/contracts-settings/contracts/verifier/interfaces/IMystikoVerifierPool.sol";
 import {MystikoSettings} from "@mystikonetwork/contracts-settings/contracts/MystikoSettings.sol";
 
@@ -99,7 +99,10 @@ abstract contract CommitmentPool is ICommitmentPool, AssetPool, ReentrancyGuard 
    *  @param _executor    Specific address that send enqueue transaction, only be valid address when do cross chain transaction
    *  @return             True means commitment success insert into commitment queue , or exception and return false.
    */
-  function enqueue(CommitmentRequest memory _request, address _executor) external override onlyAssociatedPool{
+  function enqueue(
+    CommitmentRequest memory _request,
+    address _executor
+  ) external override onlyAssociatedPool {
     uint256 minRollupFee = getMinRollupFee();
     if (_request.rollupFee < minRollupFee) revert CustomErrors.RollupFeeToFew();
     if (commitmentIncludedCount + commitmentQueueSize >= treeCapacity) revert CustomErrors.TreeIsFull();
@@ -116,7 +119,7 @@ abstract contract CommitmentPool is ICommitmentPool, AssetPool, ReentrancyGuard 
   /* @notice              Check rollup request parameter、verify rollup proof and update commitment merkle tree
    *  @param _request     The rollup request parameter
    */
-  function rollup(RollupRequest memory _request) external override onlyValidatedRoller(_request.rollupSize)  {
+  function rollup(RollupRequest memory _request) external override onlyValidatedRoller(_request.rollupSize) {
     uint256 includedCount = commitmentIncludedCount;
     if (rootHistory[_request.newRoot]) revert CustomErrors.NewRootIsDuplicated();
     if (_request.rollupSize > commitmentQueueSize) revert CustomErrors.Invalid("rollupSize");
@@ -155,7 +158,7 @@ abstract contract CommitmentPool is ICommitmentPool, AssetPool, ReentrancyGuard 
    *  @param _request     The transact request parameter
    *  @param _signature   The signature of the transact request by proffer
    */
-  function transact(TransactRequest memory _request, bytes memory _signature) external override nonReentrant  {
+  function transact(TransactRequest memory _request, bytes memory _signature) external override nonReentrant {
     uint32 numInputs = SafeCast.toUint32(_request.serialNumbers.length);
     uint32 numOutputs = SafeCast.toUint32(_request.outCommitments.length);
     if (settings.queryTransferDisable(address(this)) && numOutputs != 0)

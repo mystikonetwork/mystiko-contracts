@@ -30,7 +30,7 @@ const _abi = [
   },
   {
     inputs: [],
-    name: 'InvalidInputsNumber',
+    name: 'InvalidNumInputs',
     type: 'error',
   },
   {
