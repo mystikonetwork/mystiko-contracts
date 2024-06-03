@@ -1,4 +1,4 @@
-import { TestToken__factory } from '@mystikonetwork/contracts-abi';
+import { MockMystikoToken__factory } from '@mystikonetwork/contracts-abi';
 import { toDecimals } from '@mystikonetwork/utils';
 import { LOGRED } from '../common/constant';
 import { waitConfirm } from '../common/utils';
@@ -6,12 +6,12 @@ import { PoolDeployConfig } from '../config/bridgePool';
 import { saveConfig } from '../config/config';
 import { ChainTokenConfig } from '../config/chainToken';
 
-let TestToken: TestToken__factory;
+let MockToken: MockMystikoToken__factory;
 let ethers: any;
 
 export async function initTestTokenContractFactory(eth: any) {
   ethers = eth;
-  TestToken = await ethers.getContractFactory('TestToken');
+  MockToken = await ethers.getContractFactory('MockMystikoToken');
 }
 //
 // async function transferMainToContract(c: any, srcTokenCfg: ChainTokenConfig, inPoolCfg: PoolDeployConfig) {
@@ -51,7 +51,7 @@ async function transferTokenToContract(c: any, srcTokenCfg: ChainTokenConfig, in
     contractAmount = parseInt(inPoolCfg.tokenTransfer, 10);
   }
 
-  const testToken = await TestToken.attach(srcTokenCfg.address);
+  const testToken = await MockToken.attach(srcTokenCfg.address);
 
   let amount = 1000;
   if (process.env.DEFAULT_TOKEN_TRANSFER) {
@@ -97,7 +97,7 @@ export async function transferOnDeploy(c: any, srcTokenCfg: ChainTokenConfig, in
 export async function deployChainTestToken(assetSymbol: string) {
   const tokenDecimals = 18;
   console.log(assetSymbol);
-  const testToken = await TestToken.deploy(assetSymbol, assetSymbol, tokenDecimals);
+  const testToken = await MockToken.deploy(assetSymbol, assetSymbol, tokenDecimals);
   await testToken.deployed();
   console.log('test token address ', testToken.address);
 
