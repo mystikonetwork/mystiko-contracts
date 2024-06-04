@@ -5,16 +5,14 @@ import {
   CommitmentPoolERC20__factory,
   CommitmentPoolMain,
   CommitmentPoolMain__factory,
-  DummyAxelarGasService,
-  DummyAxelarGasService__factory,
-  DummyAxelarGateway,
-  DummyAxelarGateway__factory,
-  DummyCelerMessageBus,
-  DummyCelerMessageBus__factory,
-  DummyLZEndpoint,
-  DummyLZEndpoint__factory,
-  DummySanctionsList,
-  DummySanctionsList__factory,
+  MockAxelarGasService,
+  MockAxelarGasService__factory,
+  MockAxelarGateway,
+  MockAxelarGateway__factory,
+  MockCelerMessageBus,
+  MockCelerMessageBus__factory,
+  MockLZEndpoint,
+  MockLZEndpoint__factory,
   Hasher3,
   Hasher3__factory,
   MystikoTBridgeProxy,
@@ -31,31 +29,29 @@ import {
   MystikoV2LoopMain__factory,
   MystikoV2TBridgeERC20__factory,
   MystikoV2TBridgeMain__factory,
-  Rollup16Verifier,
   Rollup16Verifier__factory,
-  Rollup1Verifier,
   Rollup1Verifier__factory,
-  Rollup2Verifier,
   Rollup2Verifier__factory,
-  Rollup4Verifier,
   Rollup4Verifier__factory,
-  Rollup8Verifier,
   Rollup8Verifier__factory,
-  TestToken,
-  TestToken__factory,
-  Transaction1x0Verifier,
   Transaction1x0Verifier__factory,
-  Transaction1x1Verifier,
   Transaction1x1Verifier__factory,
-  Transaction1x2Verifier,
   Transaction1x2Verifier__factory,
-  Transaction2x0Verifier,
   Transaction2x0Verifier__factory,
-  Transaction2x1Verifier,
   Transaction2x1Verifier__factory,
-  Transaction2x2Verifier,
   Transaction2x2Verifier__factory,
+  MockDaoRegistry__factory,
+  MockSanctionsList__factory,
+  MockSanctionList,
+  MockMystikoToken__factory,
+  MockMystikoVoteToken__factory,
+  MockMystikoVoteToken,
+  MockMystikoToken,
 } from '@mystikonetwork/contracts-abi';
+import { MystikoCertificate, MystikoCertificate__factory } from '@mystikonetwork/contracts-abi-certificate';
+import { MystikoRollerPool, MystikoRollerPool__factory } from '@mystikonetwork/contracts-abi-roller';
+import { MystikoRelayerPool, MystikoRelayerPool__factory } from '@mystikonetwork/contracts-abi-relayer';
+import { MystikoBridgeSettings, MystikoSettings__factory } from '@mystikonetwork/contracts-abi-settings';
 import { toBN } from '@mystikonetwork/utils';
 import BN from 'bn.js';
 import { Fixture } from 'ethereum-waffle/dist/esm';
@@ -65,14 +61,19 @@ import { Artifact } from 'hardhat/types';
 import {
   BridgeAccountIndex,
   DefaultTokenAmount,
+  DestinationChainID,
+  IssuerAddress,
   LzChainID,
   MaxAmount,
   MerkleTreeHeight,
   MinAmount,
   MinBridgeFee,
-  MinExecutorFee,
   MinRollupFee,
-  UserPrivKeys,
+  PeerMinExecutorFee,
+  PeerMinRollupFee,
+  SourceChainID,
+  UserPrivateKeys,
+  ZeroAddress,
 } from './constants';
 
 // Workaround for https://github.com/nomiclabs/hardhat/issues/849
@@ -97,23 +98,17 @@ interface CoreBridgeDeploymentInfo {
 }
 
 interface DependDeploymentInfo {
-  testToken: TestToken;
+  settings: MystikoBridgeSettings;
+  mockToken: MockMystikoToken;
+  mockVoteToken: MockMystikoVoteToken;
+  mockSanctionList: MockSanctionList;
   hasher3: Hasher3;
-  transaction1x0Verifier: Transaction1x0Verifier;
-  transaction1x1Verifier: Transaction1x1Verifier;
-  transaction1x2Verifier: Transaction1x2Verifier;
-  transaction2x0Verifier: Transaction2x0Verifier;
-  transaction2x1Verifier: Transaction2x1Verifier;
-  transaction2x2Verifier: Transaction2x2Verifier;
-  rollup1: Rollup1Verifier;
-  rollup2: Rollup2Verifier;
-  rollup4: Rollup4Verifier;
-  rollup8: Rollup8Verifier;
-  rollup16: Rollup16Verifier;
-  sanctionList: DummySanctionsList;
+  rollerPool: MystikoRollerPool;
+  relayerPool: MystikoRelayerPool;
+  certificate: MystikoCertificate;
 }
 
-export function getArtifact(contract: string): Promise<Artifact> {
+export function getArtifactExternal(contract: string): Promise<Artifact> {
   const artifactsPath: string = './artifactsExternal';
   // const artifactsPath: string = "./artifacts";
   const artifacts = new Artifacts(artifactsPath);
@@ -127,27 +122,50 @@ export function getArtifactVerifier(contract: string): Promise<Artifact> {
   return artifacts.readArtifact(contract);
 }
 
+export function getArtifactCertificate(contract: string): Promise<Artifact> {
+  const artifactsPath: string = '../contracts-certificate/artifacts';
+  const artifacts = new Artifacts(artifactsPath);
+  return artifacts.readArtifact(contract);
+}
+
+export function getArtifactRoller(contract: string): Promise<Artifact> {
+  const artifactsPath: string = '../contracts-roller/artifacts';
+  const artifacts = new Artifacts(artifactsPath);
+  return artifacts.readArtifact(contract);
+}
+
+export function getArtifactRelayer(contract: string): Promise<Artifact> {
+  const artifactsPath: string = '../contracts-relayer/artifacts';
+  const artifacts = new Artifacts(artifactsPath);
+  return artifacts.readArtifact(contract);
+}
+
+export function getArtifactSettings(contract: string): Promise<Artifact> {
+  const artifactsPath: string = '../contracts-settings/artifacts';
+  const artifacts = new Artifacts(artifactsPath);
+  return artifacts.readArtifact(contract);
+}
+
 export async function deployCommitmentPoolContracts(
   accounts: Wallet[],
   tokenAddress: string,
-  sanctionListAddress: string,
+  settings: string,
   { treeHeight = MerkleTreeHeight, minRollupFee = MinRollupFee },
 ): Promise<CommitmentPoolDeploymentInfo> {
   const poolMainFactory = (await ethers.getContractFactory(
     'CommitmentPoolMain',
   )) as CommitmentPoolMain__factory;
-  const poolMain = await poolMainFactory.connect(accounts[0]).deploy(treeHeight);
+  const poolMain = await poolMainFactory.connect(accounts[0]).deploy(treeHeight, minRollupFee, settings);
   await poolMain.deployed();
-  await poolMain.setMinRollupFee(minRollupFee.toString());
-  await poolMain.updateSanctionsListAddress(sanctionListAddress);
 
   const poolERC20Factory = (await ethers.getContractFactory(
     'CommitmentPoolERC20',
   )) as CommitmentPoolERC20__factory;
-  const poolERC20 = await poolERC20Factory.connect(accounts[0]).deploy(treeHeight, tokenAddress);
+  const poolERC20 = await poolERC20Factory
+    .connect(accounts[0])
+    .deploy(treeHeight, minRollupFee, tokenAddress, settings);
+
   await poolERC20.deployed();
-  await poolERC20.setMinRollupFee(minRollupFee.toString());
-  await poolERC20.updateSanctionsListAddress(sanctionListAddress);
 
   return { poolMain, poolERC20 };
 }
@@ -156,30 +174,24 @@ export async function deployLoopContracts(
   accounts: Wallet[],
   hasher3Address: string,
   tokenAddress: string,
-  sanctionListAddress: string,
-  poolMain: CommitmentPoolMain,
-  poolERC20: CommitmentPoolERC20,
+  settings: string,
   { minAmount = MinAmount, maxAmount = MaxAmount },
 ): Promise<CoreLoopDeploymentInfo> {
+  const localConfig = { minAmount, maxAmount };
+
   const loopMainFactory = (await ethers.getContractFactory(
     'MystikoV2LoopMain',
   )) as MystikoV2LoopMain__factory;
-  const coreMain = await loopMainFactory.connect(accounts[0]).deploy(hasher3Address);
+  const coreMain = await loopMainFactory.connect(accounts[0]).deploy(hasher3Address, settings, localConfig);
   await coreMain.deployed();
-  await coreMain.updateDepositAmountLimits(maxAmount, minAmount);
-  await coreMain.setAssociatedCommitmentPool(poolMain.address);
-  await coreMain.updateSanctionsListAddress(sanctionListAddress);
-  await poolMain.addEnqueueWhitelist(coreMain.address);
 
   const loopERC20Factory = (await ethers.getContractFactory(
     'MystikoV2LoopERC20',
   )) as MystikoV2LoopERC20__factory;
-  const coreERC20 = await loopERC20Factory.connect(accounts[0]).deploy(hasher3Address, tokenAddress);
+  const coreERC20 = await loopERC20Factory
+    .connect(accounts[0])
+    .deploy(hasher3Address, tokenAddress, settings, localConfig);
   await coreERC20.deployed();
-  await coreERC20.updateDepositAmountLimits(maxAmount, minAmount);
-  await coreERC20.setAssociatedCommitmentPool(poolERC20.address);
-  await coreERC20.updateSanctionsListAddress(sanctionListAddress);
-  await poolERC20.addEnqueueWhitelist(coreERC20.address);
 
   return { coreMain, coreERC20 };
 }
@@ -188,51 +200,37 @@ export async function deployTBridgeContracts(
   accounts: Wallet[],
   hasher3Address: string,
   tokenAddress: string,
-  sanctionListAddress: string,
-  tbridge: MystikoTBridgeProxy,
-  poolMain: CommitmentPoolMain,
-  poolERC20: CommitmentPoolERC20,
+  tbridgeProxy: MystikoTBridgeProxy,
+  settings: string,
   {
     minAmount = MinAmount,
     maxAmount = MaxAmount,
     minBridgeFee = MinBridgeFee,
-    minExecutorFee = MinExecutorFee,
-    minRollupFee = MinRollupFee,
+    peerMinExecutorFee = PeerMinExecutorFee,
+    peerMinRollupFee = PeerMinRollupFee,
   },
 ): Promise<CoreBridgeDeploymentInfo> {
+  const localConfig = { minAmount, maxAmount, minBridgeFee };
+  const peerConfig = { peerMinExecutorFee, peerMinRollupFee };
+
   const tBridgeMainFactory = (await ethers.getContractFactory(
     'MystikoV2TBridgeMain',
   )) as MystikoV2TBridgeMain__factory;
-
-  const coreMain = await tBridgeMainFactory.connect(accounts[0]).deploy(hasher3Address);
+  const coreMain = await tBridgeMainFactory
+    .connect(accounts[0])
+    .deploy(hasher3Address, tbridgeProxy.address, settings, localConfig, peerConfig);
   await coreMain.deployed();
-  await coreMain.setAssociatedCommitmentPool(poolMain.address);
-  await coreMain.setBridgeProxyAddress(tbridge.address);
-  await coreMain.updateDepositAmountLimits(maxAmount, minAmount);
-  await coreMain.setMinBridgeFee(minBridgeFee);
-  await coreMain.setMinExecutorFee(minExecutorFee);
-  await coreMain.setPeerMinExecutorFee(minExecutorFee);
-  await coreMain.setPeerMinRollupFee(minRollupFee);
-  await coreMain.updateSanctionsListAddress(sanctionListAddress);
-  await poolMain.addEnqueueWhitelist(coreMain.address);
-  await tbridge.addRegisterWhitelist(coreMain.address);
+  await tbridgeProxy.addRegisterWhitelist(coreMain.address);
 
   const tBridgeERC20Factory = (await ethers.getContractFactory(
     'MystikoV2TBridgeERC20',
   )) as MystikoV2TBridgeERC20__factory;
 
-  const coreERC20 = await tBridgeERC20Factory.connect(accounts[0]).deploy(hasher3Address, tokenAddress);
+  const coreERC20 = await tBridgeERC20Factory
+    .connect(accounts[0])
+    .deploy(hasher3Address, tokenAddress, tbridgeProxy.address, settings, localConfig, peerConfig);
   await coreERC20.deployed();
-  await coreERC20.setAssociatedCommitmentPool(poolERC20.address);
-  await coreERC20.setBridgeProxyAddress(tbridge.address);
-  await coreERC20.updateDepositAmountLimits(maxAmount, minAmount);
-  await coreERC20.setMinBridgeFee(minBridgeFee);
-  await coreERC20.setMinExecutorFee(minExecutorFee);
-  await coreERC20.setPeerMinExecutorFee(minExecutorFee);
-  await coreERC20.setPeerMinRollupFee(minRollupFee);
-  await coreERC20.updateSanctionsListAddress(sanctionListAddress);
-  await poolERC20.addEnqueueWhitelist(coreERC20.address);
-  await tbridge.addRegisterWhitelist(coreERC20.address);
+  await tbridgeProxy.addRegisterWhitelist(coreERC20.address);
 
   return { coreMain, coreERC20 };
 }
@@ -241,49 +239,35 @@ export async function deployCelerContracts(
   accounts: Wallet[],
   hasher3Address: string,
   tokenAddress: string,
-  sanctionListAddress: string,
-  dummyCeler: DummyCelerMessageBus,
-  poolMain: CommitmentPoolMain,
-  poolERC20: CommitmentPoolERC20,
+  dummyCeler: MockCelerMessageBus,
+  settings: string,
   {
     minAmount = MinAmount,
     maxAmount = MaxAmount,
     minBridgeFee = MinBridgeFee,
-    minExecutorFee = MinExecutorFee,
-    minRollupFee = MinRollupFee,
+    peerMinExecutorFee = PeerMinExecutorFee,
+    peerMinRollupFee = PeerMinRollupFee,
   },
 ): Promise<CoreBridgeDeploymentInfo> {
+  const localConfig = { minAmount, maxAmount, minBridgeFee };
+  const peerConfig = { peerMinExecutorFee, peerMinRollupFee };
+
   const celerMainFactory = (await ethers.getContractFactory(
     'MystikoV2CelerMain',
   )) as MystikoV2CelerMain__factory;
-
-  const coreMain = await celerMainFactory.connect(accounts[0]).deploy(hasher3Address);
+  const coreMain = await celerMainFactory
+    .connect(accounts[0])
+    .deploy(hasher3Address, dummyCeler.address, settings, localConfig, peerConfig);
   await coreMain.deployed();
-  await coreMain.setAssociatedCommitmentPool(poolMain.address);
-  await coreMain.setBridgeProxyAddress(dummyCeler.address);
-  await coreMain.updateDepositAmountLimits(maxAmount, minAmount);
-  await coreMain.setMinBridgeFee(minBridgeFee);
-  await coreMain.setMinExecutorFee(minExecutorFee);
-  await coreMain.setPeerMinExecutorFee(minExecutorFee);
-  await coreMain.setPeerMinRollupFee(minRollupFee);
-  await coreMain.updateSanctionsListAddress(sanctionListAddress);
-  await poolMain.addEnqueueWhitelist(coreMain.address);
 
   const celerERC20Factory = (await ethers.getContractFactory(
     'MystikoV2CelerERC20',
   )) as MystikoV2CelerERC20__factory;
 
-  const coreERC20 = await celerERC20Factory.connect(accounts[0]).deploy(hasher3Address, tokenAddress);
+  const coreERC20 = await celerERC20Factory
+    .connect(accounts[0])
+    .deploy(hasher3Address, tokenAddress, dummyCeler.address, settings, localConfig, peerConfig);
   await coreERC20.deployed();
-  await coreERC20.setAssociatedCommitmentPool(poolERC20.address);
-  await coreERC20.setBridgeProxyAddress(dummyCeler.address);
-  await coreERC20.updateDepositAmountLimits(maxAmount, minAmount);
-  await coreERC20.setMinBridgeFee(minBridgeFee);
-  await coreERC20.setMinExecutorFee(minExecutorFee);
-  await coreERC20.setPeerMinExecutorFee(minExecutorFee);
-  await coreERC20.setPeerMinRollupFee(minRollupFee);
-  await coreERC20.updateSanctionsListAddress(sanctionListAddress);
-  await poolERC20.addEnqueueWhitelist(coreERC20.address);
 
   return { coreMain, coreERC20 };
 }
@@ -292,49 +276,38 @@ export async function deployLayerZeroContracts(
   accounts: Wallet[],
   hasher3Address: string,
   tokenAddress: string,
-  sanctionListAddress: string,
-  dummyLZEndpoint: DummyLZEndpoint,
-  poolMain: CommitmentPoolMain,
-  poolERC20: CommitmentPoolERC20,
+  dummyLZEndpoint: MockLZEndpoint,
+  settings: string,
   {
     minAmount = MinAmount,
     maxAmount = MaxAmount,
     minBridgeFee = MinBridgeFee,
-    minExecutorFee = MinExecutorFee,
-    minRollupFee = MinRollupFee,
+    peerMinExecutorFee = PeerMinExecutorFee,
+    peerMinRollupFee = PeerMinRollupFee,
   },
 ): Promise<CoreBridgeDeploymentInfo> {
+  const localConfig = { minAmount, maxAmount, minBridgeFee };
+  const peerConfig = { peerMinExecutorFee, peerMinRollupFee };
+
   const lzMainFactory = (await ethers.getContractFactory(
     'MystikoV2LayerZeroMain',
   )) as MystikoV2LayerZeroMain__factory;
 
-  const coreMain = await lzMainFactory.connect(accounts[0]).deploy(hasher3Address);
+  const coreMain = await lzMainFactory
+    .connect(accounts[0])
+    .deploy(hasher3Address, dummyLZEndpoint.address, settings, localConfig, peerConfig);
   await coreMain.deployed();
-  await coreMain.setAssociatedCommitmentPool(poolMain.address);
-  await coreMain.updateDepositAmountLimits(maxAmount, minAmount);
-  await coreMain.setMinBridgeFee(minBridgeFee);
-  await coreMain.setMinExecutorFee(minExecutorFee);
-  await coreMain.setPeerMinExecutorFee(minExecutorFee);
-  await coreMain.setPeerMinRollupFee(minRollupFee);
-  await coreMain.updateSanctionsListAddress(sanctionListAddress);
   await coreMain.setEndpoint(LzChainID, dummyLZEndpoint.address);
-  await poolMain.addEnqueueWhitelist(coreMain.address);
 
   const lzERC20Factory = (await ethers.getContractFactory(
     'MystikoV2LayerZeroERC20',
   )) as MystikoV2LayerZeroERC20__factory;
 
-  const coreERC20 = await lzERC20Factory.connect(accounts[0]).deploy(hasher3Address, tokenAddress);
+  const coreERC20 = await lzERC20Factory
+    .connect(accounts[0])
+    .deploy(hasher3Address, tokenAddress, dummyLZEndpoint.address, settings, localConfig, peerConfig);
   await coreERC20.deployed();
-  await coreERC20.setAssociatedCommitmentPool(poolERC20.address);
-  await coreERC20.updateDepositAmountLimits(maxAmount, minAmount);
-  await coreERC20.setMinBridgeFee(minBridgeFee);
-  await coreERC20.setMinExecutorFee(minExecutorFee);
-  await coreERC20.setPeerMinExecutorFee(minExecutorFee);
-  await coreERC20.setPeerMinRollupFee(minRollupFee);
-  await coreERC20.updateSanctionsListAddress(sanctionListAddress);
   await coreERC20.setEndpoint(LzChainID, dummyLZEndpoint.address);
-  await poolERC20.addEnqueueWhitelist(coreERC20.address);
 
   return { coreMain, coreERC20 };
 }
@@ -343,52 +316,52 @@ export async function deployAxelarContracts(
   accounts: Wallet[],
   hasher3Address: string,
   tokenAddress: string,
-  sanctionListAddress: string,
-  dummyAxelarGateway: DummyAxelarGateway,
-  dummyAxelarGasService: DummyAxelarGasService,
-  poolMain: CommitmentPoolMain,
-  poolERC20: CommitmentPoolERC20,
+  settings: string,
+  dummyAxelarGateway: MockAxelarGateway,
+  dummyAxelarGasService: MockAxelarGasService,
   {
     minAmount = MinAmount,
     maxAmount = MaxAmount,
     minBridgeFee = MinBridgeFee,
-    minExecutorFee = MinExecutorFee,
-    minRollupFee = MinRollupFee,
+    peerMinExecutorFee = PeerMinExecutorFee,
+    peerMinRollupFee = PeerMinRollupFee,
   },
 ): Promise<CoreBridgeDeploymentInfo> {
+  const localConfig = { minAmount, maxAmount, minBridgeFee };
+  const peerConfig = { peerMinExecutorFee, peerMinRollupFee };
+
   const lzMainFactory = (await ethers.getContractFactory(
     'MystikoV2AxelarMain',
   )) as MystikoV2AxelarMain__factory;
 
-  const coreMain = await lzMainFactory.connect(accounts[0]).deploy(hasher3Address);
+  const coreMain = await lzMainFactory
+    .connect(accounts[0])
+    .deploy(
+      hasher3Address,
+      dummyAxelarGateway.address,
+      settings,
+      localConfig,
+      peerConfig,
+      dummyAxelarGasService.address,
+    );
   await coreMain.deployed();
-  await coreMain.setAssociatedCommitmentPool(poolMain.address);
-  await coreMain.updateDepositAmountLimits(maxAmount, minAmount);
-  await coreMain.setMinBridgeFee(minBridgeFee);
-  await coreMain.setMinExecutorFee(minExecutorFee);
-  await coreMain.setPeerMinExecutorFee(minExecutorFee);
-  await coreMain.setPeerMinRollupFee(minRollupFee);
-  await coreMain.updateSanctionsListAddress(sanctionListAddress);
-  await coreMain.setBridgeProxyAddress(dummyAxelarGateway.address);
-  await coreMain.setAxelarGasReceiver(dummyAxelarGasService.address);
-  await poolMain.addEnqueueWhitelist(coreMain.address);
 
   const lzERC20Factory = (await ethers.getContractFactory(
     'MystikoV2AxelarERC20',
   )) as MystikoV2AxelarERC20__factory;
 
-  const coreERC20 = await lzERC20Factory.connect(accounts[0]).deploy(hasher3Address, tokenAddress);
+  const coreERC20 = await lzERC20Factory
+    .connect(accounts[0])
+    .deploy(
+      hasher3Address,
+      tokenAddress,
+      dummyAxelarGateway.address,
+      settings,
+      localConfig,
+      peerConfig,
+      dummyAxelarGasService.address,
+    );
   await coreERC20.deployed();
-  await coreERC20.setAssociatedCommitmentPool(poolERC20.address);
-  await coreERC20.updateDepositAmountLimits(maxAmount, minAmount);
-  await coreERC20.setMinBridgeFee(minBridgeFee);
-  await coreERC20.setMinExecutorFee(minExecutorFee);
-  await coreERC20.setPeerMinExecutorFee(minExecutorFee);
-  await coreERC20.setPeerMinRollupFee(minRollupFee);
-  await coreERC20.updateSanctionsListAddress(sanctionListAddress);
-  await coreERC20.setBridgeProxyAddress(dummyAxelarGateway.address);
-  await coreERC20.setAxelarGasReceiver(dummyAxelarGasService.address);
-  await poolERC20.addEnqueueWhitelist(coreERC20.address);
 
   return { coreMain, coreERC20 };
 }
@@ -403,52 +376,56 @@ export async function deployTbridgeProxyContracts(accounts: Wallet[]): Promise<M
   return tbridge;
 }
 
-export async function deployDummyCelerContracts(accounts: Wallet[]): Promise<DummyCelerMessageBus> {
-  const dummyCelerFactory = (await ethers.getContractFactory(
-    'DummyCelerMessageBus',
-  )) as DummyCelerMessageBus__factory;
-  const dummyCeler = await dummyCelerFactory.connect(accounts[0]).deploy();
-  await dummyCeler.deployed();
-  return dummyCeler;
+export async function deployMockCelerContracts(accounts: Wallet[]): Promise<MockCelerMessageBus> {
+  const mockCelerFactory = (await ethers.getContractFactory(
+    'MockCelerMessageBus',
+  )) as MockCelerMessageBus__factory;
+  const mockCeler = await mockCelerFactory.connect(accounts[0]).deploy();
+  await mockCeler.deployed();
+  return mockCeler;
 }
 
-export async function deployDummyLayerZeroContracts(accounts: Wallet[]): Promise<DummyLZEndpoint> {
-  const dummyLayerZeroFactory = (await ethers.getContractFactory(
-    'DummyLZEndpoint',
-  )) as DummyLZEndpoint__factory;
-  const dummyLZ = await dummyLayerZeroFactory.connect(accounts[0]).deploy(LzChainID);
-  await dummyLZ.deployed();
-  return dummyLZ;
+export async function deployMockLayerZeroContracts(accounts: Wallet[]): Promise<MockLZEndpoint> {
+  const mockLayerZeroFactory = (await ethers.getContractFactory('MockLZEndpoint')) as MockLZEndpoint__factory;
+  const mockLZ = await mockLayerZeroFactory.connect(accounts[0]).deploy(LzChainID);
+  await mockLZ.deployed();
+  return mockLZ;
 }
 
-export async function deployDummyAxelarGateway(accounts: Wallet[]): Promise<DummyAxelarGateway> {
-  const dummyAxelarFactory = (await ethers.getContractFactory(
-    'DummyAxelarGateway',
-  )) as DummyAxelarGateway__factory;
-  const dummyAxelar = await dummyAxelarFactory.connect(accounts[0]).deploy();
-  await dummyAxelar.deployed();
-  return dummyAxelar;
+export async function deployMockAxelarGateway(accounts: Wallet[]): Promise<MockAxelarGateway> {
+  const mockAxelarFactory = (await ethers.getContractFactory(
+    'MockAxelarGateway',
+  )) as MockAxelarGateway__factory;
+  const mockAxelar = await mockAxelarFactory.connect(accounts[0]).deploy();
+  await mockAxelar.deployed();
+  return mockAxelar;
 }
 
-export async function deployDummyAxelarGasService(accounts: Wallet[]): Promise<DummyAxelarGasService> {
-  const dummyAxelarFactory = (await ethers.getContractFactory(
-    'DummyAxelarGasService',
-  )) as DummyAxelarGasService__factory;
-  const dummyAxelar = await dummyAxelarFactory.connect(accounts[0]).deploy();
-  await dummyAxelar.deployed();
-  return dummyAxelar;
+export async function deployMockAxelarGasService(accounts: Wallet[]): Promise<MockAxelarGasService> {
+  const mockAxelarFactory = (await ethers.getContractFactory(
+    'MockAxelarGasService',
+  )) as MockAxelarGasService__factory;
+  const mockAxelar = await mockAxelarFactory.connect(accounts[0]).deploy();
+  await mockAxelar.deployed();
+  return mockAxelar;
 }
 
 export async function deployDependContracts(accounts: Wallet[]): Promise<DependDeploymentInfo> {
-  const testTokenFactory = (await ethers.getContractFactory('TestToken')) as TestToken__factory;
-  const testToken = await testTokenFactory.connect(accounts[0]).deploy('Mystiko Test Token', 'MTT', 18);
-  await testToken.deployed();
+  const mockTokenFactory = (await ethers.getContractFactory('MockMystikoToken')) as MockMystikoToken__factory;
+  const mockToken = await mockTokenFactory.connect(accounts[0]).deploy();
+  await mockToken.deployed();
+
+  const mockVoteTokenFactory = (await ethers.getContractFactory(
+    'MockMystikoVoteToken',
+  )) as MockMystikoVoteToken__factory;
+  const mockVoteToken = await mockVoteTokenFactory.connect(accounts[0]).deploy(mockToken.address);
+  await mockVoteToken.deployed();
 
   for (let i = 0; i < accounts.length; i += 1) {
-    await testToken.transfer(accounts[i].address, DefaultTokenAmount);
+    await mockToken.transfer(accounts[i].address, DefaultTokenAmount);
   }
 
-  const hasher3Artifact = await getArtifact('Hasher3');
+  const hasher3Artifact = await getArtifactExternal('Hasher3');
   const hasher3Factory = (await ethers.getContractFactoryFromArtifact(hasher3Artifact)) as Hasher3__factory;
   const hasher3 = await hasher3Factory.deploy();
   await hasher3.deployed();
@@ -530,27 +507,86 @@ export async function deployDependContracts(accounts: Wallet[]): Promise<DependD
   const rollup16 = await rollup16Factory.connect(accounts[0]).deploy();
   await rollup16.deployed();
 
-  const sanctionListFactory = (await ethers.getContractFactory(
-    'DummySanctionsList',
-  )) as DummySanctionsList__factory;
-  const sanctionList = await sanctionListFactory.connect(accounts[0]).deploy();
-  await sanctionList.deployed();
+  const mockDaoRegistryFactory = (await ethers.getContractFactory(
+    'MockDaoRegistry',
+  )) as MockDaoRegistry__factory;
+  const mockDaoRegistry = await mockDaoRegistryFactory.deploy();
+  await mockDaoRegistry.deployed();
+
+  const certificateArtifact = await getArtifactCertificate('MystikoCertificate');
+  const certificateFactory = (await ethers.getContractFactoryFromArtifact(
+    certificateArtifact,
+  )) as MystikoCertificate__factory;
+  const certificate = await certificateFactory.deploy(mockDaoRegistry.address, IssuerAddress);
+  await certificate.deployed();
+
+  const rollerArtifact = await getArtifactRoller('MystikoRollerPool');
+  const rollerFactory = (await ethers.getContractFactoryFromArtifact(
+    rollerArtifact,
+  )) as MystikoRollerPool__factory;
+  const rollerPool = await rollerFactory.deploy(mockDaoRegistry.address, mockVoteToken.address, 0);
+  await rollerPool.deployed();
+
+  const relayerArtifact = await getArtifactRelayer('MystikoRelayerPool');
+  const relayerFactory = (await ethers.getContractFactoryFromArtifact(
+    relayerArtifact,
+  )) as MystikoRelayerPool__factory;
+  const relayerPool = await relayerFactory.deploy(mockDaoRegistry.address, mockVoteToken.address, 0);
+  await relayerPool.deployed();
+
+  const mockSanctionFactory = (await ethers.getContractFactory(
+    'MockSanctionList',
+  )) as MockSanctionsList__factory;
+  const mockSanctionList = await mockSanctionFactory.deploy();
+  await mockSanctionList.deployed();
+
+  const settingsArtifact = await getArtifactSettings('MystikoBridgeSettings');
+  const settingsFactory = (await ethers.getContractFactoryFromArtifact(
+    settingsArtifact,
+  )) as MystikoSettings__factory;
+  const settings = await settingsFactory.deploy(
+    mockDaoRegistry.address,
+    certificate.address,
+    rollerPool.address,
+    relayerPool.address,
+    [
+      rollup1.address,
+      rollup2.address,
+      rollup4.address,
+      rollup8.address,
+      rollup16.address,
+      ZeroAddress,
+      ZeroAddress,
+      ZeroAddress,
+      ZeroAddress,
+      ZeroAddress,
+      ZeroAddress,
+    ],
+    [
+      transaction1x0Verifier.address,
+      transaction1x1Verifier.address,
+      transaction1x2Verifier.address,
+      transaction2x0Verifier.address,
+      transaction2x1Verifier.address,
+      transaction2x2Verifier.address,
+    ],
+    [ZeroAddress, ZeroAddress, ZeroAddress, ZeroAddress, ZeroAddress],
+  );
+  await settings.deployed();
+  await settings.setSanctionsListAddress(mockSanctionList.address);
+
+  // todo eric enable cert check
+  await certificate.disableCertificateCheck();
 
   return {
-    testToken,
     hasher3,
-    transaction1x0Verifier,
-    transaction1x1Verifier,
-    transaction1x2Verifier,
-    transaction2x0Verifier,
-    transaction2x1Verifier,
-    transaction2x2Verifier,
-    rollup1,
-    rollup2,
-    rollup4,
-    rollup8,
-    rollup16,
-    sanctionList,
+    mockToken,
+    mockVoteToken,
+    mockSanctionList,
+    certificate,
+    rollerPool,
+    relayerPool,
+    settings,
   };
 }
 
@@ -558,7 +594,7 @@ export async function getAccounts(admin: Wallet, num: number): Promise<Wallet[]>
   const accounts: Wallet[] = [];
   const accountPromise = [];
   for (let i = 0; i < num; i += 1) {
-    const wallet = new ethers.Wallet(UserPrivKeys[i]).connect(ethers.provider);
+    const wallet = new ethers.Wallet(UserPrivateKeys[i]).connect(ethers.provider);
     // @ts-ignore
     accounts.push(wallet);
     const trx = admin.sendTransaction({
@@ -576,9 +612,47 @@ export async function getAccounts(admin: Wallet, num: number): Promise<Wallet[]>
   return accounts;
 }
 
-export function getBalance(address: string, testToken: TestToken | undefined): Promise<BN> {
-  if (!testToken) {
+export function getBalance(address: string, mockToken: MockMystikoToken | undefined): Promise<BN> {
+  if (!mockToken) {
     return waffle.provider.getBalance(address).then((r: any) => toBN(r.toString()));
   }
-  return testToken.balanceOf(address).then((r: any) => toBN(r.toString()));
+  return mockToken.balanceOf(address).then((r: any) => toBN(r.toString()));
+}
+
+export async function associateContract(
+  settings: MystikoBridgeSettings,
+  localDeposit: any,
+  remoteDeposit: any,
+  localPool: any,
+  remotePool: any,
+): Promise<void> {
+  await settings.setAssociatedPool(localDeposit.coreMain.address, localPool.poolMain.address);
+  await settings.setAssociatedPool(localDeposit.coreERC20.address, localPool.poolERC20.address);
+  await settings.setAssociatedPool(remoteDeposit.coreMain.address, remotePool.poolMain.address);
+  await settings.setAssociatedPool(remoteDeposit.coreERC20.address, remotePool.poolERC20.address);
+  const localPeerContractMain = {
+    peerChainId: DestinationChainID,
+    peerChainName: '',
+    peerContract: remoteDeposit.coreMain.address,
+  };
+  await localDeposit.coreMain.setPeerContract(localPeerContractMain);
+  const localPeerContractERC20 = {
+    peerChainId: DestinationChainID,
+    peerChainName: '',
+    peerContract: remoteDeposit.coreERC20.address,
+  };
+  await localDeposit.coreERC20.setPeerContract(localPeerContractERC20);
+
+  const remotePeerContractMain = {
+    peerChainId: SourceChainID,
+    peerChainName: '',
+    peerContract: localDeposit.coreMain.address,
+  };
+  await remoteDeposit.coreMain.setPeerContract(remotePeerContractMain);
+  const remotePeerContractERC20 = {
+    peerChainId: SourceChainID,
+    peerChainName: '',
+    peerContract: localDeposit.coreERC20.address,
+  };
+  await remoteDeposit.coreERC20.setPeerContract(remotePeerContractERC20);
 }

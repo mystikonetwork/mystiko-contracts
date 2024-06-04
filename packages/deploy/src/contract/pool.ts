@@ -82,7 +82,7 @@ export async function setCommitmentPoolRollupFee(
     const rsp = await poolContract.setMinRollupFee(chainTokenCfg.minRollupFee);
     console.log('rsp hash ', rsp.hash);
     await waitConfirm(ethers, rsp, true);
-    poolCfg.updateMinRollupFee(chainTokenCfg.minRollupFee, rsp.hash);
+    poolCfg.setMinRollupFee(chainTokenCfg.minRollupFee, rsp.hash);
     saveConfig(c.mystikoNetwork, c.cfg);
   } catch (err: any) {
     console.error(LOGRED, err);
@@ -675,7 +675,7 @@ export async function setAuditor(
   const pool = await PoolContractFactory.attach(poolCfg.address);
   const RevertNotChanged = '0x02538338';
   try {
-    const rsp = await pool.updateAuditorPublicKey(index, auditor);
+    const rsp = await pool.setAuditorPublicKey(index, auditor);
     console.log('rsp hash ', rsp.hash);
     await waitConfirm(ethers, rsp, true);
     poolCfg.addAuditor(auditor, rsp.hash);

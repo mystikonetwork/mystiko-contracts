@@ -19,6 +19,16 @@ const _abi = [
   },
   {
     inputs: [],
+    name: 'AssociatedPoolNotSet',
+    type: 'error',
+  },
+  {
+    inputs: [],
+    name: 'CertificateInvalid',
+    type: 'error',
+  },
+  {
+    inputs: [],
     name: 'CommitmentHashIncorrect',
     type: 'error',
   },
@@ -34,17 +44,7 @@ const _abi = [
   },
   {
     inputs: [],
-    name: 'MinAmountGreaterThanMaxAmount',
-    type: 'error',
-  },
-  {
-    inputs: [],
-    name: 'NotChanged',
-    type: 'error',
-  },
-  {
-    inputs: [],
-    name: 'OnlyOperator',
+    name: 'NotSupport',
     type: 'error',
   },
   {
@@ -58,75 +58,17 @@ const _abi = [
     type: 'error',
   },
   {
-    anonymous: false,
-    inputs: [
+    inputs: [],
+    name: 'assetAddress',
+    outputs: [
       {
-        indexed: false,
-        internalType: 'uint256',
-        name: 'maxAmount',
-        type: 'uint256',
-      },
-      {
-        indexed: false,
-        internalType: 'uint256',
-        name: 'minAmount',
-        type: 'uint256',
-      },
-    ],
-    name: 'DepositAmountLimits',
-    type: 'event',
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: false,
-        internalType: 'bool',
-        name: 'state',
-        type: 'bool',
-      },
-    ],
-    name: 'DepositsDisabled',
-    type: 'event',
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: true,
         internalType: 'address',
-        name: 'operator',
+        name: '',
         type: 'address',
       },
     ],
-    name: 'OperatorChanged',
-    type: 'event',
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: false,
-        internalType: 'bool',
-        name: 'state',
-        type: 'bool',
-      },
-    ],
-    name: 'SanctionsCheck',
-    type: 'event',
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: false,
-        internalType: 'contract ISanctionsList',
-        name: 'sanctions',
-        type: 'address',
-      },
-    ],
-    name: 'SanctionsList',
-    type: 'event',
+    stateMutability: 'view',
+    type: 'function',
   },
   {
     inputs: [],
@@ -157,14 +99,56 @@ const _abi = [
   {
     inputs: [
       {
-        internalType: 'address',
-        name: '_newOperator',
-        type: 'address',
+        components: [
+          {
+            internalType: 'uint256',
+            name: 'amount',
+            type: 'uint256',
+          },
+          {
+            internalType: 'uint256',
+            name: 'commitment',
+            type: 'uint256',
+          },
+          {
+            internalType: 'uint256',
+            name: 'hashK',
+            type: 'uint256',
+          },
+          {
+            internalType: 'uint128',
+            name: 'randomS',
+            type: 'uint128',
+          },
+          {
+            internalType: 'bytes',
+            name: 'encryptedNote',
+            type: 'bytes',
+          },
+          {
+            internalType: 'uint256',
+            name: 'rollupFee',
+            type: 'uint256',
+          },
+        ],
+        internalType: 'struct IMystikoLoop.DepositRequest',
+        name: '_request',
+        type: 'tuple',
+      },
+      {
+        internalType: 'uint256',
+        name: '_certificateDeadline',
+        type: 'uint256',
+      },
+      {
+        internalType: 'bytes',
+        name: '_certificateSignature',
+        type: 'bytes',
       },
     ],
-    name: 'changeOperator',
+    name: 'certDeposit',
     outputs: [],
-    stateMutability: 'nonpayable',
+    stateMutability: 'payable',
     type: 'function',
   },
   {
@@ -210,20 +194,6 @@ const _abi = [
     name: 'deposit',
     outputs: [],
     stateMutability: 'payable',
-    type: 'function',
-  },
-  {
-    inputs: [],
-    name: 'disableSanctionsCheck',
-    outputs: [],
-    stateMutability: 'nonpayable',
-    type: 'function',
-  },
-  {
-    inputs: [],
-    name: 'enableSanctionsCheck',
-    outputs: [],
-    stateMutability: 'nonpayable',
     type: 'function',
   },
   {
@@ -280,85 +250,15 @@ const _abi = [
   },
   {
     inputs: [],
-    name: 'sanctionsCheck',
+    name: 'settings',
     outputs: [
       {
-        internalType: 'bool',
-        name: '',
-        type: 'bool',
-      },
-    ],
-    stateMutability: 'view',
-    type: 'function',
-  },
-  {
-    inputs: [],
-    name: 'sanctionsList',
-    outputs: [
-      {
-        internalType: 'contract ISanctionsList',
+        internalType: 'contract MystikoSettings',
         name: '',
         type: 'address',
       },
     ],
     stateMutability: 'view',
-    type: 'function',
-  },
-  {
-    inputs: [
-      {
-        internalType: 'address',
-        name: '_commitmentPoolAddress',
-        type: 'address',
-      },
-    ],
-    name: 'setAssociatedCommitmentPool',
-    outputs: [],
-    stateMutability: 'nonpayable',
-    type: 'function',
-  },
-  {
-    inputs: [
-      {
-        internalType: 'bool',
-        name: '_state',
-        type: 'bool',
-      },
-    ],
-    name: 'setDepositsDisabled',
-    outputs: [],
-    stateMutability: 'nonpayable',
-    type: 'function',
-  },
-  {
-    inputs: [
-      {
-        internalType: 'uint256',
-        name: '_maxAmount',
-        type: 'uint256',
-      },
-      {
-        internalType: 'uint256',
-        name: '_minAmount',
-        type: 'uint256',
-      },
-    ],
-    name: 'updateDepositAmountLimits',
-    outputs: [],
-    stateMutability: 'nonpayable',
-    type: 'function',
-  },
-  {
-    inputs: [
-      {
-        internalType: 'contract ISanctionsList',
-        name: '_sanction',
-        type: 'address',
-      },
-    ],
-    name: 'updateSanctionsListAddress',
-    outputs: [],
-    stateMutability: 'nonpayable',
     type: 'function',
   },
 ];

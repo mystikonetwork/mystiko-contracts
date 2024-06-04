@@ -1,119 +1,95 @@
 import { Wallet } from '@ethersproject/wallet';
 import {
   CommitmentPoolMain,
-  DummyAxelarGasService,
-  DummyAxelarGateway,
-  DummySanctionsList,
+  MockAxelarGasService,
+  MockAxelarGateway,
+  MockSanctionList,
   MystikoV2LayerZeroMain,
-  TestToken,
+  MockToken,
 } from '@mystikonetwork/contracts-abi';
 import { MystikoProtocolV2, ProtocolFactoryV2 } from '@mystikonetwork/protocol';
 import { toDecimals } from '@mystikonetwork/utils';
 import { ZokratesNodeProverFactory } from '@mystikonetwork/zkp-node';
 import { waffle } from 'hardhat';
+import { MystikoBridgeSettings } from '@mystikonetwork/contracts-abi-settings';
 import { constructCommitment, testBridgeConstructor } from '../../../common';
 import { testAxelarDeposit } from '../../../common/depositAxelarTests';
 import {
   deployAxelarContracts,
   deployCommitmentPoolContracts,
   deployDependContracts,
-  deployDummyAxelarGasService,
-  deployDummyAxelarGateway,
+  deployMockAxelarGasService,
+  deployMockAxelarGateway,
   loadFixture,
+  associateContract,
 } from '../../../util/common';
 
 // @ts-ignore
-import { MaxAmount, MinAmount, MinBridgeFee, MinRollupFee } from '../../../util/constants';
+import {
+  MaxAmount,
+  DestinationChainID,
+  MinAmount,
+  MinBridgeFee,
+  PeerMinRollupFee,
+} from '../../../util/constants';
 
 describe('Test Mystiko axelar', () => {
   async function fixture(accounts: Wallet[]) {
-    const {
-      testToken,
-      hasher3,
-      transaction1x0Verifier,
-      transaction1x1Verifier,
-      transaction1x2Verifier,
-      transaction2x0Verifier,
-      transaction2x1Verifier,
-      transaction2x2Verifier,
-      rollup1,
-      rollup4,
-      rollup16,
-      sanctionList,
-    } = await deployDependContracts(accounts);
+    const { mockToken, hasher3, mockSanctionList, settings } = await deployDependContracts(accounts);
 
-    const dummyAxelarGateway = await deployDummyAxelarGateway(accounts);
-    const dummyAxelarGasService = await deployDummyAxelarGasService(accounts);
+    const dummyAxelarGateway = await deployMockAxelarGateway(accounts);
+    const dummyAxelarGasService = await deployMockAxelarGasService(accounts);
 
-    const poolLocal = await deployCommitmentPoolContracts(
-      accounts,
-      testToken.address,
-      sanctionList.address,
-      {},
-    );
-    const poolRemote = await deployCommitmentPoolContracts(
-      accounts,
-      testToken.address,
-      sanctionList.address,
-      {},
-    );
+    const poolLocal = await deployCommitmentPoolContracts(accounts, mockToken.address, settings.address, {});
+    const poolRemote = await deployCommitmentPoolContracts(accounts, mockToken.address, settings.address, {});
 
     const local = await deployAxelarContracts(
       accounts,
       hasher3.address,
-      testToken.address,
-      sanctionList.address,
+      mockToken.address,
+      settings.address,
       dummyAxelarGateway,
       dummyAxelarGasService,
-      poolLocal.poolMain,
-      poolLocal.poolERC20,
-      { minExecutorFee: '0' },
+      { peerMinExecutorFee: '0' },
     );
 
     const remote = await deployAxelarContracts(
       accounts,
       hasher3.address,
-      testToken.address,
-      sanctionList.address,
+      mockToken.address,
+      settings.address,
       dummyAxelarGateway,
       dummyAxelarGasService,
-      poolRemote.poolMain,
-      poolRemote.poolERC20,
-      { minExecutorFee: '0' },
+      { peerMinExecutorFee: '0' },
     );
 
+    await associateContract(settings, local, remote, poolLocal, poolRemote);
+
     return {
-      testToken,
+      mockToken,
       hasher3,
-      transaction1x0Verifier,
-      transaction1x1Verifier,
-      transaction1x2Verifier,
-      transaction2x0Verifier,
-      transaction2x1Verifier,
-      transaction2x2Verifier,
-      rollup1,
-      rollup4,
-      rollup16,
       poolLocal,
       poolRemote,
       local,
       remote,
-      sanctionList,
+      mockSanctionList,
       dummyAxelarGateway,
       dummyAxelarGasService,
+      settings,
     };
   }
 
   let accounts: Wallet[];
-  let testToken: TestToken;
-  let sanctionList: DummySanctionsList;
+  let mockToken: MockToken;
+  let mockSanctionList: MockSanctionList;
   let localPoolMain: CommitmentPoolMain;
   let remotePoolMain: CommitmentPoolMain;
   let localMain: MystikoV2LayerZeroMain;
   let remoteMain: MystikoV2LayerZeroMain;
   let protocol: MystikoProtocolV2;
-  let dummyAxelarGateway: DummyAxelarGateway;
-  let dummyAxelarGasService: DummyAxelarGasService;
+  let dummyAxelarGateway: MockAxelarGateway;
+  let dummyAxelarGasService: MockAxelarGasService;
+  let settings: MystikoBridgeSettings;
 
   beforeEach(async () => {
     accounts = waffle.provider.getWallets();
@@ -121,14 +97,15 @@ describe('Test Mystiko axelar', () => {
     protocol = await protocolFactory.create();
 
     const r = await loadFixture(fixture);
-    testToken = r.testToken;
+    mockToken = r.mockToken;
     localPoolMain = r.poolLocal.poolMain;
     remotePoolMain = r.poolRemote.poolMain;
     localMain = r.local.coreMain;
     remoteMain = r.remote.coreMain;
-    sanctionList = r.sanctionList;
+    mockSanctionList = r.mockSanctionList;
     dummyAxelarGateway = r.dummyAxelarGateway;
     dummyAxelarGasService = r.dummyAxelarGasService;
+    settings = r.settings;
   });
 
   it('test constructor', () => {
@@ -140,7 +117,9 @@ describe('Test Mystiko axelar', () => {
       MaxAmount,
       MinBridgeFee,
       '0',
-      MinRollupFee,
+      PeerMinRollupFee,
+      DestinationChainID,
+      remoteMain.address,
     );
   });
 
@@ -155,10 +134,11 @@ describe('Test Mystiko axelar', () => {
       remoteMain,
       localPoolMain,
       remotePoolMain,
-      sanctionList,
+      mockSanctionList,
       dummyAxelarGateway,
       dummyAxelarGasService,
-      testToken,
+      mockToken,
+      settings,
       accounts,
       depositAmount.toString(),
       true,

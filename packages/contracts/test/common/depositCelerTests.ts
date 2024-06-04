@@ -1,10 +1,11 @@
 import { Wallet } from '@ethersproject/wallet';
-import { DummySanctionsList, TestToken } from '@mystikonetwork/contracts-abi';
+import { MockSanctionList, MockToken } from '@mystikonetwork/contracts-abi';
 import { CommitmentOutput, MystikoProtocolV2 } from '@mystikonetwork/protocol';
 import { toBN, toHex } from '@mystikonetwork/utils';
 import { expect } from 'chai';
 import { ethers } from 'ethers';
 import { waffle } from 'hardhat';
+import { MystikoBridgeSettings } from '@mystikonetwork/contracts-abi-settings';
 import {
   BridgeAccountIndex,
   DefaultPoolAmount,
@@ -12,6 +13,7 @@ import {
   DestinationChainID,
   MaxAmount,
   MinAmount,
+  MockSignature,
   SourceChainID,
 } from '../util/constants';
 import { CommitmentInfo } from './commitment';
@@ -19,13 +21,14 @@ import { CommitmentInfo } from './commitment';
 export function testCelerDeposit(
   contractName: string,
   protocol: MystikoProtocolV2,
-  mystikoContract: any,
+  depositContract: any,
   commitmentPool: any,
   peerMystikoContract: any,
   peerCommitmentPool: any,
-  sanctionList: DummySanctionsList,
+  mockSanctionList: MockSanctionList,
   bridgeContract: any,
-  testTokenContract: TestToken,
+  mockToken: MockToken,
+  settings: MystikoBridgeSettings,
   accounts: Wallet[],
   depositAmount: string,
   isMainAsset: boolean,
@@ -44,8 +47,8 @@ export function testCelerDeposit(
 
   describe(`Test ${contractName} deposit operation`, () => {
     before(async () => {
-      minBridgeFee = (await mystikoContract.getMinBridgeFee()).toString();
-      minExecutorFee = (await mystikoContract.getMinExecutorFee()).toString();
+      minBridgeFee = (await depositContract.getMinBridgeFee()).toString();
+      minExecutorFee = (await depositContract.getPeerMinExecutorFee()).toString();
       minRollupFee = (await commitmentPool.getMinRollupFee()).toString();
       const amount = toBN(depositAmount).add(toBN(minExecutorFee)).add(toBN(minRollupFee));
       minTotalAmount = amount.toString();
@@ -61,23 +64,21 @@ export function testCelerDeposit(
           value: DefaultPoolAmount,
         });
       } else {
-        await testTokenContract.transfer(peerCommitmentPool.address, DefaultTokenAmount);
+        await mockToken.transfer(peerCommitmentPool.address, DefaultTokenAmount);
       }
 
       await bridgeContract.setChainPair(
         SourceChainID,
-        mystikoContract.address,
+        depositContract.address,
         DestinationChainID,
         peerMystikoContract.address,
       );
-      await mystikoContract.setPeerContract(DestinationChainID, '', peerMystikoContract.address);
-      await peerMystikoContract.setPeerContract(SourceChainID, '', mystikoContract.address);
     });
 
     it('should revert when deposit is disabled', async () => {
-      await mystikoContract.setDepositsDisabled(true);
+      await settings.setDepositDisable(depositContract.address, true);
       await expect(
-        mystikoContract.deposit(
+        depositContract.certDeposit(
           [
             depositAmount,
             commitments[0].commitmentHash.toString(),
@@ -88,16 +89,18 @@ export function testCelerDeposit(
             minExecutorFee,
             minRollupFee,
           ],
+          0,
+          MockSignature,
           { from: accounts[0].address, value: minTotalValue },
         ),
       ).to.be.revertedWith('DepositsDisabled()');
-      await mystikoContract.setDepositsDisabled(false);
+      await settings.setDepositDisable(depositContract.address, false);
     });
 
     it('should revert when sender in sanction list', async () => {
-      await sanctionList.addToSanctionsList(accounts[0].address);
+      await mockSanctionList.addToSanctionsList(accounts[0].address);
       await expect(
-        mystikoContract.deposit(
+        depositContract.certDeposit(
           [
             depositAmount,
             commitments[0].commitmentHash.toString(),
@@ -108,16 +111,18 @@ export function testCelerDeposit(
             minExecutorFee,
             minRollupFee,
           ],
+          0,
+          MockSignature,
           { from: accounts[0].address, value: minTotalValue },
         ),
       ).to.be.revertedWith('SanctionedAddress()');
-      await sanctionList.removeFromSanctionsList(accounts[0].address);
+      await mockSanctionList.removeFromSanctionsList(accounts[0].address);
     });
 
     it('should revert when amount is too few', async () => {
       const amount = toBN(MinAmount).sub(toBN(1)).toString();
       await expect(
-        mystikoContract.deposit(
+        depositContract.certDeposit(
           [
             amount,
             commitments[0].commitmentHash.toString(),
@@ -128,6 +133,8 @@ export function testCelerDeposit(
             minExecutorFee,
             minRollupFee,
           ],
+          0,
+          MockSignature,
           { from: accounts[0].address, value: amount },
         ),
       ).to.be.revertedWith('AmountTooSmall()');
@@ -136,7 +143,7 @@ export function testCelerDeposit(
     it('should revert when amount is too large', async () => {
       const amount = toBN(MaxAmount).add(toBN(1)).toString();
       await expect(
-        mystikoContract.deposit(
+        depositContract.certDeposit(
           [
             amount,
             commitments[0].commitmentHash.toString(),
@@ -147,6 +154,8 @@ export function testCelerDeposit(
             minExecutorFee,
             minRollupFee,
           ],
+          0,
+          MockSignature,
           { from: accounts[0].address, value: amount },
         ),
       ).to.be.revertedWith('AmountTooLarge()');
@@ -154,7 +163,7 @@ export function testCelerDeposit(
 
     it('should revert when bridge fee is too few', async () => {
       await expect(
-        mystikoContract.deposit(
+        depositContract.certDeposit(
           [
             depositAmount,
             commitments[0].commitmentHash.toString(),
@@ -165,6 +174,8 @@ export function testCelerDeposit(
             minExecutorFee,
             minRollupFee,
           ],
+          0,
+          MockSignature,
           { from: accounts[0].address, value: minTotalValue },
         ),
       ).to.be.revertedWith('BridgeFeeTooFew()');
@@ -172,7 +183,7 @@ export function testCelerDeposit(
 
     it('should revert when executor fee is too few', async () => {
       await expect(
-        mystikoContract.deposit(
+        depositContract.certDeposit(
           [
             depositAmount,
             commitments[0].commitmentHash.toString(),
@@ -183,6 +194,8 @@ export function testCelerDeposit(
             '0',
             minRollupFee,
           ],
+          0,
+          MockSignature,
           { from: accounts[0].address, value: minTotalValue },
         ),
       ).to.be.revertedWith('ExecutorFeeTooFew()');
@@ -190,7 +203,7 @@ export function testCelerDeposit(
 
     it('should revert when rollup fee is too few', async () => {
       await expect(
-        mystikoContract.deposit(
+        depositContract.certDeposit(
           [
             depositAmount,
             commitments[0].commitmentHash.toString(),
@@ -201,6 +214,8 @@ export function testCelerDeposit(
             minExecutorFee,
             '0',
           ],
+          0,
+          MockSignature,
           { from: accounts[0].address, value: minTotalValue },
         ),
       ).to.be.revertedWith('RollupFeeToFew()');
@@ -209,7 +224,7 @@ export function testCelerDeposit(
     it('should revert when hashK greater than field size', async () => {
       const fieldSize = '21888242871839275222246405745257275088548364400416034343698204186575808495617';
       await expect(
-        mystikoContract.deposit(
+        depositContract.certDeposit(
           [
             depositAmount,
             commitments[0].commitmentHash.toString(),
@@ -220,6 +235,8 @@ export function testCelerDeposit(
             minExecutorFee,
             minRollupFee,
           ],
+          0,
+          MockSignature,
           { from: accounts[0].address, value: minTotalValue },
         ),
       ).to.be.revertedWith('HashKGreaterThanFieldSize()');
@@ -227,7 +244,7 @@ export function testCelerDeposit(
 
     it('should revert when commitmentHash is incorrect', async () => {
       await expect(
-        mystikoContract.deposit(
+        depositContract.certDeposit(
           [
             depositAmount,
             commitments[0].commitmentHash.toString(),
@@ -238,6 +255,8 @@ export function testCelerDeposit(
             minExecutorFee,
             minRollupFee,
           ],
+          0,
+          MockSignature,
           { from: accounts[0].address, value: minTotalValue },
         ),
       ).to.be.revertedWith('CommitmentHashIncorrect()');
@@ -246,24 +265,24 @@ export function testCelerDeposit(
     it('should approve asset successfully', async () => {
       if (!isMainAsset) {
         const approveAmount = toBN(minTotalAmount).muln(commitments.length).toString();
-        await testTokenContract.connect(bridgeAccount).approve(mystikoContract.address, approveAmount, {
+        await mockToken.connect(bridgeAccount).approve(depositContract.address, approveAmount, {
           from: bridgeAccount.address,
         });
       }
     });
 
     it('should deposit successfully', async () => {
-      await sanctionList.addToSanctionsList(bridgeAccount.address);
-      await mystikoContract.disableSanctionsCheck();
+      await mockSanctionList.addToSanctionsList(bridgeAccount.address);
+      await settings.disableSanctionsCheck();
 
       for (let i = 0; i < numOfCommitments; i += 1) {
         const balanceBefore = isDstMainAsset
           ? await waffle.provider.getBalance(bridgeAccount.address)
-          : await testTokenContract.balanceOf(bridgeAccount.address);
+          : await mockToken.balanceOf(bridgeAccount.address);
 
-        const depositTx = await mystikoContract
+        const depositTx = await depositContract
           .connect(bridgeAccount)
-          .deposit(
+          .certDeposit(
             [
               depositAmount,
               commitments[i].commitmentHash.toString(),
@@ -274,10 +293,12 @@ export function testCelerDeposit(
               minExecutorFee,
               minRollupFee,
             ],
+            0,
+            MockSignature,
             { from: bridgeAccount.address, value: minTotalValue },
           );
         expect(depositTx)
-          .to.emit(mystikoContract, 'CommitmentCrossChain')
+          .to.emit(depositContract, 'CommitmentCrossChain')
           .withArgs(commitments[i].commitmentHash);
 
         if (isMainAsset) {
@@ -287,7 +308,7 @@ export function testCelerDeposit(
               .toString(),
           );
         } else {
-          expect(await testTokenContract.balanceOf(commitmentPool.address)).to.be.equal(
+          expect(await mockToken.balanceOf(commitmentPool.address)).to.be.equal(
             toBN(minTotalAmount)
               .muln(i + 1)
               .toString(),
@@ -299,7 +320,7 @@ export function testCelerDeposit(
 
         const balanceAfter = isDstMainAsset
           ? await waffle.provider.getBalance(bridgeAccount.address)
-          : await testTokenContract.balanceOf(bridgeAccount.address);
+          : await mockToken.balanceOf(bridgeAccount.address);
 
         if (isDstMainAsset) {
           expect(minExecutorFee.toString()).to.equal(
@@ -331,7 +352,8 @@ export function testCelerDeposit(
           }
         }
       }
-      await sanctionList.removeFromSanctionsList(bridgeAccount.address);
+      await mockSanctionList.removeFromSanctionsList(bridgeAccount.address);
+      await settings.enableSanctionsCheck();
     });
 
     it('should emit correct events', () => {
@@ -358,16 +380,14 @@ export function testCelerDeposit(
       if (isMainAsset) {
         expect(await waffle.provider.getBalance(commitmentPool.address)).to.equal(expectBalance);
       } else {
-        expect((await testTokenContract.balanceOf(commitmentPool.address)).toString()).to.equal(
-          expectBalance,
-        );
+        expect((await mockToken.balanceOf(commitmentPool.address)).toString()).to.equal(expectBalance);
       }
     });
 
     it('should approve asset successfully', async () => {
       if (!isMainAsset) {
         const approveAmount = toBN(minTotalAmount).muln(commitments.length).toString();
-        await testTokenContract.connect(accounts[0]).approve(mystikoContract.address, approveAmount, {
+        await mockToken.connect(accounts[0]).approve(depositContract.address, approveAmount, {
           from: accounts[0].address,
         });
       }
@@ -375,7 +395,7 @@ export function testCelerDeposit(
 
     it('should revert with duplicate commitment', async () => {
       await expect(
-        mystikoContract.deposit(
+        depositContract.certDeposit(
           [
             depositAmount,
             commitments[0].commitmentHash.toString(),
@@ -386,6 +406,8 @@ export function testCelerDeposit(
             minExecutorFee,
             minRollupFee,
           ],
+          0,
+          MockSignature,
           { from: accounts[0].address, value: minTotalValue },
         ),
       ).to.be.revertedWith('CommitmentHasBeenSubmitted()');

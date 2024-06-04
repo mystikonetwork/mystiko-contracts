@@ -2,21 +2,10 @@ import { Wallet } from '@ethersproject/wallet';
 import {
   CommitmentPoolERC20,
   CommitmentPoolMain,
-  DummySanctionsList,
+  MockSanctionList,
   MystikoV2LoopERC20,
   MystikoV2LoopMain,
-  Rollup16Verifier,
-  Rollup1Verifier,
-  Rollup2Verifier,
-  Rollup4Verifier,
-  Rollup8Verifier,
-  TestToken,
-  Transaction1x0Verifier,
-  Transaction1x1Verifier,
-  Transaction1x2Verifier,
-  Transaction2x0Verifier,
-  Transaction2x1Verifier,
-  Transaction2x2Verifier,
+  MockToken,
 } from '@mystikonetwork/contracts-abi';
 import { MystikoProtocolV2, ProtocolFactoryV2 } from '@mystikonetwork/protocol';
 import { toBN, toDecimals } from '@mystikonetwork/utils';
@@ -24,8 +13,13 @@ import { ZokratesNodeProverFactory } from '@mystikonetwork/zkp-node';
 import { expect } from 'chai';
 import { waffle } from 'hardhat';
 import {
+  MystikoCertificate,
+  MystikoRelayerPool,
+  MystikoRollerPool,
+  MystikoBridgeSettings,
+} from '@mystikonetwork/contracts-abi-settings';
+import {
   constructCommitment,
-  testCommitmentPoolAdminOperations,
   testCommitmentPoolConstructor,
   testLoopDeposit,
   testRollup,
@@ -44,9 +38,9 @@ import { CircuitsPath } from '../../util/constants';
 describe('Test Mystiko pool tree', () => {
   it('test pool tree', async () => {
     const accounts = waffle.provider.getWallets();
-    const { testToken, sanctionList } = await deployDependContracts(accounts);
+    const { mockToken, settings } = await deployDependContracts(accounts);
     for (let i = 1; i < 33; i += 1) {
-      await deployCommitmentPoolContracts(accounts, testToken.address, sanctionList.address, {
+      await deployCommitmentPoolContracts(accounts, mockToken.address, settings.address, {
         treeHeight: i,
       });
     }
@@ -54,87 +48,59 @@ describe('Test Mystiko pool tree', () => {
 
   it('should revert when treeHeight less than zero', async () => {
     const accounts = waffle.provider.getWallets();
-    const { testToken, sanctionList } = await deployDependContracts(accounts);
+    const { mockToken, settings } = await deployDependContracts(accounts);
     await expect(
-      deployCommitmentPoolContracts(accounts, testToken.address, sanctionList.address, { treeHeight: 0 }),
+      deployCommitmentPoolContracts(accounts, mockToken.address, settings.address, { treeHeight: 0 }),
     ).revertedWith('TreeHeightLessThanZero()');
   });
 
   it('should revert when treeHeight out of bounds', async () => {
     const accounts = waffle.provider.getWallets();
-    const { testToken, sanctionList } = await deployDependContracts(accounts);
+    const { mockToken, settings } = await deployDependContracts(accounts);
     await expect(
-      deployCommitmentPoolContracts(accounts, testToken.address, sanctionList.address, { treeHeight: 33 }),
+      deployCommitmentPoolContracts(accounts, mockToken.address, settings.address, { treeHeight: 33 }),
     ).revertedWith('TreeHeightOutOfBounds()');
   });
 });
 
 describe('Test Mystiko pool', () => {
   async function fixture(accounts: Wallet[]) {
-    const {
-      testToken,
-      hasher3,
-      transaction1x0Verifier,
-      transaction1x1Verifier,
-      transaction1x2Verifier,
-      transaction2x0Verifier,
-      transaction2x1Verifier,
-      transaction2x2Verifier,
-      rollup1,
-      rollup2,
-      rollup4,
-      rollup8,
-      rollup16,
-      sanctionList,
-    } = await deployDependContracts(accounts);
-    const pool = await deployCommitmentPoolContracts(accounts, testToken.address, sanctionList.address, {});
+    const { mockToken, hasher3, settings, mockSanctionList, certificate, rollerPool, relayerPool } =
+      await deployDependContracts(accounts);
+    const pool = await deployCommitmentPoolContracts(accounts, mockToken.address, settings.address, {});
     const loop = await deployLoopContracts(
       accounts,
       hasher3.address,
-      testToken.address,
-      sanctionList.address,
-      pool.poolMain,
-      pool.poolERC20,
+      mockToken.address,
+      settings.address,
       {},
     );
+    await settings.setAssociatedPool(loop.coreMain.address, pool.poolMain.address);
+    await settings.setAssociatedPool(loop.coreERC20.address, pool.poolERC20.address);
     return {
-      testToken,
+      mockToken,
       hasher3,
-      transaction1x0Verifier,
-      transaction1x1Verifier,
-      transaction1x2Verifier,
-      transaction2x0Verifier,
-      transaction2x1Verifier,
-      transaction2x2Verifier,
-      rollup1,
-      rollup2,
-      rollup4,
-      rollup8,
-      rollup16,
       pool,
       loop,
-      sanctionList,
+      mockSanctionList,
+      settings,
+      certificate,
+      rollerPool,
+      relayerPool,
     };
   }
 
   let accounts: Wallet[];
-  let testToken: TestToken;
-  let sanctionList: DummySanctionsList;
+  let mockToken: MockToken;
+  let mockSanctionList: MockSanctionList;
+  let settings: MystikoBridgeSettings;
+  let certificate: MystikoCertificate;
+  let rollerPool: MystikoRollerPool;
+  let relayerPool: MystikoRelayerPool;
   let poolMain: CommitmentPoolMain;
   let poolErc20: CommitmentPoolERC20;
   let loopERC20: MystikoV2LoopERC20;
   let loopMain: MystikoV2LoopMain;
-  let transaction1x0Verifier: Transaction1x0Verifier;
-  let transaction1x1Verifier: Transaction1x1Verifier;
-  let transaction1x2Verifier: Transaction1x2Verifier;
-  let transaction2x0Verifier: Transaction2x0Verifier;
-  let transaction2x1Verifier: Transaction2x1Verifier;
-  let transaction2x2Verifier: Transaction2x2Verifier;
-  let rollup1: Rollup1Verifier;
-  let rollup2: Rollup2Verifier;
-  let rollup4: Rollup4Verifier;
-  let rollup8: Rollup8Verifier;
-  let rollup16: Rollup16Verifier;
   let protocol: MystikoProtocolV2;
 
   beforeEach(async () => {
@@ -143,34 +109,22 @@ describe('Test Mystiko pool', () => {
     protocol = await protocolFactory.create();
 
     const r = await loadFixture(fixture);
-    testToken = r.testToken;
-    sanctionList = r.sanctionList;
+    mockToken = r.mockToken;
+    mockSanctionList = r.mockSanctionList;
+    settings = r.settings;
+    certificate = r.certificate;
+    rollerPool = r.rollerPool;
+    relayerPool = r.relayerPool;
 
     poolMain = r.pool.poolMain;
     poolErc20 = r.pool.poolERC20;
     loopMain = r.loop.coreMain;
     loopERC20 = r.loop.coreERC20;
-    transaction1x0Verifier = r.transaction1x0Verifier;
-    transaction1x1Verifier = r.transaction1x1Verifier;
-    transaction1x2Verifier = r.transaction1x2Verifier;
-    transaction2x0Verifier = r.transaction2x0Verifier;
-    transaction2x1Verifier = r.transaction2x1Verifier;
-    transaction2x2Verifier = r.transaction2x2Verifier;
-    rollup1 = r.rollup1;
-    rollup2 = r.rollup2;
-    rollup4 = r.rollup4;
-    rollup8 = r.rollup8;
-    rollup16 = r.rollup16;
   });
 
   it('test constructor', async () => {
     await testCommitmentPoolConstructor('CommitmentPoolMain', poolMain, {});
     await testCommitmentPoolConstructor('CommitmentPoolERC20', poolErc20, {});
-  });
-
-  it('test admin operation', async () => {
-    await testCommitmentPoolAdminOperations('CommitmentPoolMain', poolMain, accounts);
-    await testCommitmentPoolAdminOperations('CommitmentPoolERC20', poolErc20, accounts);
   });
 
   it('test pool main', async () => {
@@ -185,34 +139,86 @@ describe('Test Mystiko pool', () => {
       protocol,
       loopMain,
       poolMain,
-      testToken,
-      sanctionList,
+      mockToken,
+      mockSanctionList,
+      certificate,
+      settings,
       accounts,
       depositAmount.toString(),
       true,
       cmInfo,
     );
 
-    testRollup('CommitmentPoolMain', protocol, poolMain, rollup16, testToken, accounts, cmInfo.commitments, {
-      rollupSize: 16,
-      includedCount: 0,
-    });
-    testRollup('CommitmentPoolMain', protocol, poolMain, rollup8, testToken, accounts, cmInfo.commitments, {
-      rollupSize: 8,
-      includedCount: 16,
-    });
-    testRollup('CommitmentPoolMain', protocol, poolMain, rollup4, testToken, accounts, cmInfo.commitments, {
-      rollupSize: 4,
-      includedCount: 24,
-    });
-    testRollup('CommitmentPoolMain', protocol, poolMain, rollup2, testToken, accounts, cmInfo.commitments, {
-      rollupSize: 2,
-      includedCount: 28,
-    });
-    testRollup('CommitmentPoolMain', protocol, poolMain, rollup1, testToken, accounts, cmInfo.commitments, {
-      rollupSize: 1,
-      includedCount: 30,
-    });
+    testRollup(
+      'CommitmentPoolMain',
+      protocol,
+      poolMain,
+      mockToken,
+      settings,
+      rollerPool,
+      accounts,
+      cmInfo.commitments,
+      {
+        rollupSize: 16,
+        includedCount: 0,
+      },
+    );
+    testRollup(
+      'CommitmentPoolMain',
+      protocol,
+      poolMain,
+      mockToken,
+      settings,
+      rollerPool,
+      accounts,
+      cmInfo.commitments,
+      {
+        rollupSize: 8,
+        includedCount: 16,
+      },
+    );
+    testRollup(
+      'CommitmentPoolMain',
+      protocol,
+      poolMain,
+      mockToken,
+      settings,
+      rollerPool,
+      accounts,
+      cmInfo.commitments,
+      {
+        rollupSize: 4,
+        includedCount: 24,
+      },
+    );
+    testRollup(
+      'CommitmentPoolMain',
+      protocol,
+      poolMain,
+      mockToken,
+      settings,
+      rollerPool,
+      accounts,
+      cmInfo.commitments,
+      {
+        rollupSize: 2,
+        includedCount: 28,
+      },
+    );
+    testRollup(
+      'CommitmentPoolMain',
+      protocol,
+      poolMain,
+      mockToken,
+      settings,
+      rollerPool,
+      accounts,
+      cmInfo.commitments,
+      {
+        rollupSize: 1,
+        includedCount: 30,
+      },
+    );
 
     queueSize = 0;
     includedCounter = 31;
@@ -221,8 +227,9 @@ describe('Test Mystiko pool', () => {
       accounts,
       protocol,
       poolMain,
-      sanctionList,
-      transaction1x0Verifier,
+      mockSanctionList,
+      relayerPool,
+      settings,
       cmInfo,
       [0],
       queueSize,
@@ -238,9 +245,11 @@ describe('Test Mystiko pool', () => {
 
     testTransact(
       'CommitmentPoolMain',
+      accounts[0],
       protocol,
       poolMain,
-      transaction1x0Verifier,
+      settings,
+      relayerPool,
       cmInfo,
       [0],
       queueSize,
@@ -257,9 +266,11 @@ describe('Test Mystiko pool', () => {
 
     testTransact(
       'CommitmentPoolMain',
+      accounts[0],
       protocol,
       poolMain,
-      transaction1x1Verifier,
+      settings,
+      relayerPool,
       cmInfo,
       [1],
       queueSize,
@@ -274,7 +285,7 @@ describe('Test Mystiko pool', () => {
       CircuitsPath.concat('Transaction1x1.vkey.gz'),
     );
 
-    rollup('CommitmentPoolMain', protocol, poolMain, rollup1, testToken, accounts, cmInfo.commitments, {
+    rollup('CommitmentPoolMain', protocol, poolMain, mockToken, rollerPool, accounts, cmInfo.commitments, {
       rollupSize: 1,
       rollupFee: toDecimals(1).toString(),
       includedCount: 31,
@@ -285,9 +296,11 @@ describe('Test Mystiko pool', () => {
 
     testTransact(
       'CommitmentPoolMain',
+      accounts[0],
       protocol,
       poolMain,
-      transaction1x2Verifier,
+      settings,
+      relayerPool,
       cmInfo,
       [2],
       queueSize,
@@ -306,9 +319,11 @@ describe('Test Mystiko pool', () => {
 
     testTransact(
       'CommitmentPoolMain',
+      accounts[0],
       protocol,
       poolMain,
-      transaction2x0Verifier,
+      settings,
+      relayerPool,
       cmInfo,
       [3, 4],
       queueSize,
@@ -327,9 +342,11 @@ describe('Test Mystiko pool', () => {
 
     testTransact(
       'CommitmentPoolMain',
+      accounts[0],
       protocol,
       poolMain,
-      transaction2x1Verifier,
+      settings,
+      relayerPool,
       cmInfo,
       [5, 6],
       queueSize,
@@ -348,9 +365,11 @@ describe('Test Mystiko pool', () => {
 
     testTransact(
       'CommitmentPoolMain',
+      accounts[0],
       protocol,
       poolMain,
-      transaction2x2Verifier,
+      settings,
+      relayerPool,
       cmInfo,
       [7, 8],
       queueSize,
@@ -377,39 +396,41 @@ describe('Test Mystiko pool', () => {
       protocol,
       loopERC20,
       poolErc20,
-      testToken,
-      sanctionList,
+      mockToken,
+      mockSanctionList,
+      certificate,
+      settings,
       accounts,
       depositAmount.toString(),
       false,
       cmInfo,
     );
 
-    rollup('CommitmentPoolERC20', protocol, poolErc20, rollup16, testToken, accounts, cmInfo.commitments, {
+    rollup('CommitmentPoolERC20', protocol, poolErc20, mockToken, rollerPool, accounts, cmInfo.commitments, {
       isMainAsset: false,
       rollupSize: 16,
       includedCount: 0,
     });
 
-    rollup('CommitmentPoolERC20', protocol, poolErc20, rollup8, testToken, accounts, cmInfo.commitments, {
+    rollup('CommitmentPoolERC20', protocol, poolErc20, mockToken, rollerPool, accounts, cmInfo.commitments, {
       isMainAsset: false,
       rollupSize: 8,
       includedCount: 16,
     });
 
-    rollup('CommitmentPoolERC20', protocol, poolErc20, rollup4, testToken, accounts, cmInfo.commitments, {
+    rollup('CommitmentPoolERC20', protocol, poolErc20, mockToken, rollerPool, accounts, cmInfo.commitments, {
       isMainAsset: false,
       rollupSize: 4,
       includedCount: 24,
     });
 
-    rollup('CommitmentPoolERC20', protocol, poolErc20, rollup2, testToken, accounts, cmInfo.commitments, {
+    rollup('CommitmentPoolERC20', protocol, poolErc20, mockToken, rollerPool, accounts, cmInfo.commitments, {
       isMainAsset: false,
       rollupSize: 2,
       includedCount: 28,
     });
 
-    rollup('CommitmentPoolERC20', protocol, poolErc20, rollup1, testToken, accounts, cmInfo.commitments, {
+    rollup('CommitmentPoolERC20', protocol, poolErc20, mockToken, rollerPool, accounts, cmInfo.commitments, {
       isMainAsset: false,
       rollupSize: 1,
       includedCount: 30,
@@ -419,9 +440,11 @@ describe('Test Mystiko pool', () => {
     includedCounter = 31;
     testTransact(
       'CommitmentPoolERC20',
+      accounts[0],
       protocol,
       poolErc20,
-      transaction1x0Verifier,
+      settings,
+      relayerPool,
       cmInfo,
       [0],
       queueSize,
@@ -434,14 +457,16 @@ describe('Test Mystiko pool', () => {
       CircuitsPath.concat('Transaction1x0.abi.json'),
       CircuitsPath.concat('Transaction1x0.pkey.gz'),
       CircuitsPath.concat('Transaction1x0.vkey.gz'),
-      testToken,
+      mockToken,
     );
 
     testTransact(
       'CommitmentPoolERC20',
+      accounts[0],
       protocol,
       poolErc20,
-      transaction1x1Verifier,
+      settings,
+      relayerPool,
       cmInfo,
       [1],
       queueSize,
@@ -454,16 +479,18 @@ describe('Test Mystiko pool', () => {
       CircuitsPath.concat('Transaction1x1.abi.json'),
       CircuitsPath.concat('Transaction1x1.pkey.gz'),
       CircuitsPath.concat('Transaction1x1.vkey.gz'),
-      testToken,
+      mockToken,
     );
     queueSize = 1;
     includedCounter = 31;
 
     testTransact(
       'CommitmentPoolERC20',
+      accounts[0],
       protocol,
       poolErc20,
-      transaction1x2Verifier,
+      settings,
+      relayerPool,
       cmInfo,
       [2],
       queueSize,
@@ -476,16 +503,18 @@ describe('Test Mystiko pool', () => {
       CircuitsPath.concat('Transaction1x2.abi.json'),
       CircuitsPath.concat('Transaction1x2.pkey.gz'),
       CircuitsPath.concat('Transaction1x2.vkey.gz'),
-      testToken,
+      mockToken,
     );
     queueSize = 3;
     includedCounter = 31;
 
     testTransact(
       'CommitmentPoolERC20',
+      accounts[0],
       protocol,
       poolErc20,
-      transaction2x0Verifier,
+      settings,
+      relayerPool,
       cmInfo,
       [3, 4],
       queueSize,
@@ -498,14 +527,16 @@ describe('Test Mystiko pool', () => {
       CircuitsPath.concat('Transaction2x0.abi.json'),
       CircuitsPath.concat('Transaction2x0.pkey.gz'),
       CircuitsPath.concat('Transaction2x0.vkey.gz'),
-      testToken,
+      mockToken,
     );
 
     testTransact(
       'CommitmentPoolERC20',
+      accounts[0],
       protocol,
       poolErc20,
-      transaction2x1Verifier,
+      settings,
+      relayerPool,
       cmInfo,
       [5, 6],
       queueSize,
@@ -518,16 +549,18 @@ describe('Test Mystiko pool', () => {
       CircuitsPath.concat('Transaction2x1.abi.json'),
       CircuitsPath.concat('Transaction2x1.pkey.gz'),
       CircuitsPath.concat('Transaction2x1.vkey.gz'),
-      testToken,
+      mockToken,
     );
     queueSize = 4;
     includedCounter = 31;
 
     testTransact(
       'CommitmentPoolERC20',
+      accounts[0],
       protocol,
       poolErc20,
-      transaction2x2Verifier,
+      settings,
+      relayerPool,
       cmInfo,
       [7, 8],
       queueSize,
@@ -540,7 +573,7 @@ describe('Test Mystiko pool', () => {
       CircuitsPath.concat('Transaction2x2.abi.json'),
       CircuitsPath.concat('Transaction2x2.pkey.gz'),
       CircuitsPath.concat('Transaction2x2.vkey.gz'),
-      testToken,
+      mockToken,
     );
   });
 });

@@ -1,4 +1,5 @@
-import { DummySanctionsList, TestToken } from '@mystikonetwork/contracts-abi';
+import { MockSanctionList, MockToken } from '@mystikonetwork/contracts-abi';
+import { MystikoRelayerPool, MystikoBridgeSettings } from '@mystikonetwork/contracts-abi-settings';
 import { ECIES } from '@mystikonetwork/ecies';
 import { MerkleTree } from '@mystikonetwork/merkle';
 import { CommitmentOutput, MystikoProtocolV2 } from '@mystikonetwork/protocol';
@@ -154,9 +155,11 @@ function buildRequest(
 
 export function testTransact(
   contractName: string,
+  account: any,
   protocol: MystikoProtocolV2,
   commitmentPoolContract: any,
-  transactVerifier: any,
+  settings: MystikoBridgeSettings,
+  relayerPool: MystikoRelayerPool,
   commitmentInfo: CommitmentInfo<CommitmentOutput>,
   inCommitmentsIndices: number[],
   queueSize: number,
@@ -169,7 +172,7 @@ export function testTransact(
   abiFile: string,
   provingKeyFile: string,
   vkeyFile: string,
-  testToken: TestToken | undefined = undefined,
+  mockToken: MockToken | undefined = undefined,
   isLoop: boolean = true,
 ) {
   const numInputs = inCommitmentsIndices.length;
@@ -192,12 +195,15 @@ export function testTransact(
 
   describe(`Test ${contractName} transaction${numInputs}x${numOutputs} operations`, () => {
     before(async () => {
-      await commitmentPoolContract.enableTransactVerifier(numInputs, numOutputs, transactVerifier.address);
+      const relayerRole = await relayerPool.RELAYER_ROLE();
+      // todo eric check relayer role
+      await relayerPool.grantRole(relayerRole, account.address);
+
       for (let i = 0; i < protocol.numOfAuditors; i += 1) {
         const auditorSecretKey = ECIES.generateSecretKey();
         const auditorPublicKey = ECIES.publicKey(auditorSecretKey);
         auditorPublicKeys.push(auditorPublicKey);
-        await commitmentPoolContract.updateAuditorPublicKey(i, auditorPublicKey.toString());
+        await settings.setAuditorPublicKey(i, auditorPublicKey.toString());
       }
       const proofWithCommitments = await generateProof(
         protocol,
@@ -229,8 +235,8 @@ export function testTransact(
         relayerAddress,
         outEncryptedNotes,
       );
-      recipientBalance = await getBalance(publicRecipientAddress, testToken);
-      relayerBalance = await getBalance(relayerAddress, testToken);
+      recipientBalance = await getBalance(publicRecipientAddress, mockToken);
+      relayerBalance = await getBalance(relayerAddress, mockToken);
       encryptedAuditorNotes = proof.inputs
         .slice(proof.inputs.length - numInputs * protocol.numOfAuditors)
         .map((n) => toBN(toHexNoPrefix(n), 16));
@@ -238,8 +244,6 @@ export function testTransact(
     });
 
     it('should transact successfully', async () => {
-      await commitmentPoolContract.disableSanctionsCheck();
-
       expect(await protocol.zkVerify(proof, (await readCompressedFile(vkeyFile)).toString())).to.equal(true);
       const request = buildRequest(
         numInputs,
@@ -321,8 +325,8 @@ export function testTransact(
     });
 
     it('should have correct balance', async () => {
-      const newRecipientBalance = await getBalance(publicRecipientAddress, testToken);
-      const newRelayerBalance = await getBalance(relayerAddress, testToken);
+      const newRecipientBalance = await getBalance(publicRecipientAddress, mockToken);
+      const newRelayerBalance = await getBalance(relayerAddress, mockToken);
       expect(newRecipientBalance.toString()).to.equal(recipientBalance.add(publicAmount).toString());
       expect(newRelayerBalance.toString()).to.equal(relayerBalance.add(relayerFeeAmount).toString());
     });
@@ -358,8 +362,9 @@ export function testTransactRevert(
   accounts: any[],
   protocol: MystikoProtocolV2,
   commitmentPoolContract: any,
-  sanctionList: DummySanctionsList,
-  transactVerifier: any,
+  mockSanctionList: MockSanctionList,
+  relayerPool: MystikoRelayerPool,
+  settings: MystikoBridgeSettings,
   commitmentInfo: CommitmentInfo<CommitmentOutput>,
   inCommitmentsIndices: number[],
   queueSize: number,
@@ -371,7 +376,7 @@ export function testTransactRevert(
   programFile: string,
   abiFile: string,
   provingKeyFile: string,
-  testToken: TestToken | undefined = undefined,
+  mockToken: MockToken | undefined = undefined,
 ) {
   const numInputs = inCommitmentsIndices.length;
   const numOutputs = outAmounts.length;
@@ -388,7 +393,9 @@ export function testTransactRevert(
   let encryptedAuditorNotes: BN[] = [];
   describe(`Test ${contractName} transaction${numInputs}x${numOutputs} operations revert`, () => {
     before(async () => {
-      await commitmentPoolContract.enableTransactVerifier(numInputs, numOutputs, transactVerifier.address);
+      const relayerRole = await relayerPool.RELAYER_ROLE();
+      // todo eric check relayer role
+      await relayerPool.grantRole(relayerRole, accounts[0].address);
       const auditorPublicKeys: BN[] = (await commitmentPoolContract.getAllAuditorPublicKeys()).map((k: any) =>
         toBN(k.toString()),
       );
@@ -420,13 +427,14 @@ export function testTransactRevert(
         outEncryptedNotes,
       );
 
-      recipientBalance = await getBalance(publicRecipientAddress, testToken);
-      relayerBalance = await getBalance(relayerAddress, testToken);
+      recipientBalance = await getBalance(publicRecipientAddress, mockToken);
+      relayerBalance = await getBalance(relayerAddress, mockToken);
       encryptedAuditorNotes = proof.inputs
         .slice(proof.inputs.length - numInputs * protocol.numOfAuditors)
         .map((n) => toBN(toHexNoPrefix(n), 16));
     });
 
+    // todo eric should check relayer role
     it('should revert when public amount error', async () => {
       const request = buildRequest(
         numInputs,
@@ -464,7 +472,8 @@ export function testTransactRevert(
     });
 
     it('should revert when verifier disabled', async () => {
-      await commitmentPoolContract.disableTransactVerifier(numInputs, numOutputs);
+      await settings.disableTransactVerifier(numInputs, numOutputs);
+      const expectRevertError = `TransactVerifierDisabled(${numInputs}, ${numOutputs})`;
       const request = buildRequest(
         numInputs,
         numOutputs,
@@ -475,14 +484,12 @@ export function testTransactRevert(
         randomAuditingSecretKey,
         encryptedAuditorNotes,
       );
-      await expect(commitmentPoolContract.transact(request, signature)).to.be.revertedWith(
-        'Invalid("i/o length")',
-      );
-      await commitmentPoolContract.enableTransactVerifier(numInputs, numOutputs, transactVerifier.address);
+      await expect(commitmentPoolContract.transact(request, signature)).to.be.revertedWith(expectRevertError);
+      await settings.enableTransactVerifier(numInputs, numOutputs);
     });
 
     it('should revert when sender in sanction list', async () => {
-      await sanctionList.addToSanctionsList(accounts[0].address);
+      await mockSanctionList.addToSanctionsList(accounts[0].address);
       const request = buildRequest(
         numInputs,
         numOutputs,
@@ -497,11 +504,11 @@ export function testTransactRevert(
       await expect(commitmentPoolContract.transact(request, signature)).to.be.revertedWith(
         'SanctionedAddress()',
       );
-      await sanctionList.removeFromSanctionsList(accounts[0].address);
+      await mockSanctionList.removeFromSanctionsList(accounts[0].address);
     });
 
     it('should revert when recipient in sanction list', async () => {
-      await sanctionList.addToSanctionsList(publicRecipientAddress);
+      await mockSanctionList.addToSanctionsList(publicRecipientAddress);
       const request = buildRequest(
         numInputs,
         numOutputs,
@@ -516,12 +523,12 @@ export function testTransactRevert(
       await expect(commitmentPoolContract.transact(request, signature)).to.be.revertedWith(
         'SanctionedAddress()',
       );
-      await sanctionList.removeFromSanctionsList(publicRecipientAddress);
+      await mockSanctionList.removeFromSanctionsList(publicRecipientAddress);
     });
 
     it('should have correct balance', async () => {
-      const newRecipientBalance = await getBalance(publicRecipientAddress, testToken);
-      const newRelayerBalance = await getBalance(relayerAddress, testToken);
+      const newRecipientBalance = await getBalance(publicRecipientAddress, mockToken);
+      const newRelayerBalance = await getBalance(relayerAddress, mockToken);
       expect(newRecipientBalance.toString()).to.equal(recipientBalance.toString());
       expect(newRelayerBalance.toString()).to.equal(relayerBalance.toString());
     });

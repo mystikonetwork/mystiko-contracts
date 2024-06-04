@@ -32,6 +32,11 @@ jobs:
           mkdir -p "$HOME/.zokrates/bin" && tar -xvvf zokrates.tar.gz -C "$HOME/.zokrates" && mv "$HOME/.zokrates/zokrates" "$HOME/.zokrates/bin" && chmod 755 "$HOME/.zokrates/bin/zokrates"
           echo "$HOME/.zokrates/bin" >> $GITHUB_PATH
 
+      - name: Install Foundry
+        uses: foundry-rs/foundry-toolchain@v1
+        with:
+          version: nightly
+
       - name: Install Lerna
         run: npm install -g lerna
 
@@ -45,8 +50,8 @@ jobs:
         working-directory: packages/deploy
         run: cp .env.example .env
 
-      - name: Run Deploy
-        run: lerna run deploy
+      #- name: Run Deploy
+        #run: lerna run deploy
 
       - name: Delete Temp Files
         working-directory: packages/deploy
@@ -61,6 +66,7 @@ jobs:
 
       - name: Test
         run: lerna run test
+
 
       - name: Check Dirty Files
         run: git diff --quiet || (echo "some generated files are not included in repo" && exit 1)

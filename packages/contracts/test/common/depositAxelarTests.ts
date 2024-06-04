@@ -1,29 +1,26 @@
 import { Wallet } from '@ethersproject/wallet';
-import { DummySanctionsList, TestToken } from '@mystikonetwork/contracts-abi';
+import { MockSanctionList, MockToken } from '@mystikonetwork/contracts-abi';
 import { CommitmentOutput, MystikoProtocolV2 } from '@mystikonetwork/protocol';
 import { toBN, toHex } from '@mystikonetwork/utils';
 import { expect } from 'chai';
 import { ethers } from 'ethers';
 import { waffle } from 'hardhat';
-import {
-  BridgeAccountIndex,
-  DefaultPoolAmount,
-  DefaultTokenAmount,
-  DestinationChainID,
-} from '../util/constants';
+import { MystikoBridgeSettings } from '@mystikonetwork/contracts-abi-settings';
+import { BridgeAccountIndex, DefaultPoolAmount, DefaultTokenAmount, MockSignature } from '../util/constants';
 import { CommitmentInfo } from './commitment';
 
 export function testAxelarDeposit(
   contractName: string,
   protocol: MystikoProtocolV2,
-  mystikoContract: any,
+  depositContract: any,
   peerMystikoContract: any,
   commitmentPool: any,
   peerCommitmentPool: any,
-  sanctionList: DummySanctionsList,
+  mockSanctionList: MockSanctionList,
   bridgeContract: any,
   gasService: any,
-  testTokenContract: TestToken,
+  mockToken: MockToken,
+  settings: MystikoBridgeSettings,
   accounts: Wallet[],
   depositAmount: string,
   isMainAsset: boolean,
@@ -42,8 +39,8 @@ export function testAxelarDeposit(
 
   describe(`Test ${contractName} deposit operation`, () => {
     before(async () => {
-      minBridgeFee = (await mystikoContract.getMinBridgeFee()).toString();
-      minExecutorFee = (await mystikoContract.getMinExecutorFee()).toString();
+      minBridgeFee = (await depositContract.getMinBridgeFee()).toString();
+      minExecutorFee = (await depositContract.getPeerMinExecutorFee()).toString();
       minRollupFee = (await commitmentPool.getMinRollupFee()).toString();
 
       const amount = toBN(depositAmount).add(toBN(minExecutorFee)).add(toBN(minRollupFee));
@@ -60,36 +57,35 @@ export function testAxelarDeposit(
           value: DefaultPoolAmount,
         });
       } else {
-        await testTokenContract.transfer(peerCommitmentPool.address, DefaultTokenAmount);
+        await mockToken.transfer(peerCommitmentPool.address, DefaultTokenAmount);
       }
 
-      await mystikoContract.setPeerContract(DestinationChainID, '', peerMystikoContract.address);
-      await bridgeContract.setChainPair('a', mystikoContract.address, 'b', peerMystikoContract.address);
+      await bridgeContract.setChainPair('a', depositContract.address, 'b', peerMystikoContract.address);
     });
 
     it('should approve asset successfully', async () => {
       if (!isMainAsset) {
         const approveAmount = toBN(minTotalAmount).muln(commitments.length).toString();
-        await testTokenContract.connect(bridgeAccount).approve(mystikoContract.address, approveAmount, {
+        await mockToken.connect(bridgeAccount).approve(depositContract.address, approveAmount, {
           from: bridgeAccount.address,
         });
       }
     });
 
     it('should deposit successfully', async () => {
-      await sanctionList.addToSanctionsList(bridgeAccount.address);
-      await mystikoContract.disableSanctionsCheck();
+      await mockSanctionList.addToSanctionsList(bridgeAccount.address);
+      await settings.disableSanctionsCheck();
 
       for (let i = 0; i < numOfCommitments; i += 1) {
         const balanceBefore = isDstMainAsset
           ? await waffle.provider.getBalance(bridgeAccount.address)
-          : await testTokenContract.balanceOf(bridgeAccount.address);
+          : await mockToken.balanceOf(bridgeAccount.address);
 
         let depositTx: any;
         try {
-          depositTx = await mystikoContract
+          depositTx = await depositContract
             .connect(bridgeAccount)
-            .deposit(
+            .certDeposit(
               [
                 depositAmount,
                 commitments[i].commitmentHash.toString(),
@@ -100,6 +96,8 @@ export function testAxelarDeposit(
                 minExecutorFee,
                 minRollupFee,
               ],
+              0,
+              MockSignature,
               { from: bridgeAccount.address, value: minTotalValue },
             );
         } catch (e) {
@@ -107,7 +105,7 @@ export function testAxelarDeposit(
         }
 
         expect(depositTx)
-          .to.emit(mystikoContract, 'CommitmentCrossChain')
+          .to.emit(depositContract, 'CommitmentCrossChain')
           .withArgs(commitments[i].commitmentHash);
 
         if (isMainAsset) {
@@ -117,7 +115,7 @@ export function testAxelarDeposit(
               .toString(),
           );
         } else {
-          expect(await testTokenContract.balanceOf(commitmentPool.address)).to.be.equal(
+          expect(await mockToken.balanceOf(commitmentPool.address)).to.be.equal(
             toBN(minTotalAmount)
               .muln(i + 1)
               .toString(),
@@ -129,7 +127,7 @@ export function testAxelarDeposit(
 
         const balanceAfter = isDstMainAsset
           ? await waffle.provider.getBalance(bridgeAccount.address)
-          : await testTokenContract.balanceOf(bridgeAccount.address);
+          : await mockToken.balanceOf(bridgeAccount.address);
 
         if (isDstMainAsset) {
           expect(minExecutorFee.toString()).to.equal(
@@ -160,7 +158,8 @@ export function testAxelarDeposit(
             // do nothing
           }
         }
-        await sanctionList.removeFromSanctionsList(bridgeAccount.address);
+        await mockSanctionList.removeFromSanctionsList(bridgeAccount.address);
+        await settings.enableSanctionsCheck();
       }
     });
 
@@ -188,9 +187,7 @@ export function testAxelarDeposit(
       if (isMainAsset) {
         expect(await waffle.provider.getBalance(commitmentPool.address)).to.equal(expectBalance);
       } else {
-        expect((await testTokenContract.balanceOf(commitmentPool.address)).toString()).to.equal(
-          expectBalance,
-        );
+        expect((await mockToken.balanceOf(commitmentPool.address)).toString()).to.equal(expectBalance);
       }
     });
   });

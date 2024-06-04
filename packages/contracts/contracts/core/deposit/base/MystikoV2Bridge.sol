@@ -1,51 +1,44 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.7;
+pragma solidity ^0.8.20;
 
 import "../../../libs/asset/AssetPool.sol";
 import "../../../libs/common/CustomErrors.sol";
 import "../../../libs/common/DataTypes.sol";
-import "../../../interface/IMystikoBridge.sol";
-import "../../../interface/IHasher3.sol";
-import "../../../interface/ICommitmentPool.sol";
-import "../../../interface/ISanctionsList.sol";
+import "../../../interfaces/IMystikoBridge.sol";
+import "../../../interfaces/IHasher3.sol";
+import "../../../interfaces/ICommitmentPool.sol";
 import "./CrossChainDataSerializable.sol";
-import "../../rule/Sanctions.sol";
-import "@openzeppelin/contracts/security/ReentrancyGuard.sol";
-import "@openzeppelin/contracts/utils/cryptography/ECDSA.sol";
-import "@openzeppelin/contracts/utils/math/SafeMath.sol";
+import {ReentrancyGuard} from "@openzeppelin/contracts/utils/ReentrancyGuard.sol";
+import {ECDSA} from "@openzeppelin/contracts/utils/cryptography/ECDSA.sol";
+import {SafeCast} from "@openzeppelin/contracts/utils/math/SafeCast.sol";
+import {MystikoBridgeSettings} from "@mystikonetwork/contracts-settings/contracts/MystikoBridgeSettings.sol";
+import {CertificateParams} from "@mystikonetwork/contracts-certificate/contracts/interfaces/IMystikoCertificate.sol";
 
-abstract contract MystikoV2Bridge is IMystikoBridge, AssetPool, CrossChainDataSerializable, Sanctions {
-  using SafeMath for uint256;
+abstract contract MystikoV2Bridge is IMystikoBridge, AssetPool, CrossChainDataSerializable {
+  using SafeCast for uint256;
 
   // Hasher related.
   IHasher3 private hasher3;
 
-  address private associatedCommitmentPool;
+  bool public isPeerContractSet = false;
   uint64 public peerChainId;
   string public peerChainName;
   address public peerContract;
 
+  //default configure
+  uint256 public defaultMinAmount;
+  uint256 public defaultMaxAmount;
+  uint256 public defaultMinBridgeFee;
+  uint256 public defaultPeerMinExecutorFee;
+  uint256 public defaultPeerMinRollupFee;
+
   //bridge proxy address
   address public bridgeProxyAddress;
+  // configure related.
+  MystikoBridgeSettings public settings;
 
-  //local chain fee
-  uint256 private minAmount;
-  uint256 private maxAmount;
-  uint256 private minBridgeFee;
-  uint256 private minExecutorFee;
-
-  //remote chain fee
-  uint256 private peerMinExecutorFee;
-  uint256 private peerMinRollupFee;
-
-  // Admin related.
-  address private operator;
-
-  // Some switches.
-  bool private depositsDisabled;
-
-  modifier onlyOperator() {
-    if (msg.sender != operator) revert CustomErrors.OnlyOperator();
+  modifier onlySetPeerContractOnce() {
+    if (isPeerContractSet) revert CustomErrors.PeerContractAlreadySet();
     _;
   }
 
@@ -54,64 +47,30 @@ abstract contract MystikoV2Bridge is IMystikoBridge, AssetPool, CrossChainDataSe
     _;
   }
 
-  event OperatorChanged(address indexed operator);
-  event DepositAmountLimits(uint256 maxAmount, uint256 minAmount);
-  event MinBridgeFee(uint256 minBridgeFee);
-  event MinExecutorFee(uint256 minExecutorFee);
-  event PeerMinExecutorFee(uint256 peerMinExecutorFee);
-  event PeerMinRollupFee(uint256 peerMinRollupFee);
-  event DepositsDisabled(bool state);
   event CommitmentCrossChain(uint256 indexed commitment);
 
-  constructor(IHasher3 _hasher3) {
-    operator = msg.sender;
+  constructor(
+    IHasher3 _hasher3,
+    address _bridgeProxyAddress,
+    address _settingsCenter,
+    LocalConfig memory _localConfig,
+    PeerConfig memory _peerConfig
+  ) {
     hasher3 = _hasher3;
-  }
-
-  function setBridgeProxyAddress(address _bridgeProxyAddress) external onlyOperator {
     bridgeProxyAddress = _bridgeProxyAddress;
+    defaultMinAmount = _localConfig.minAmount;
+    defaultMaxAmount = _localConfig.maxAmount;
+    defaultMinBridgeFee = _localConfig.minBridgeFee;
+    defaultPeerMinExecutorFee = _peerConfig.peerMinExecutorFee;
+    defaultPeerMinRollupFee = _peerConfig.peerMinRollupFee;
+    settings = MystikoBridgeSettings(_settingsCenter);
   }
 
-  function updateDepositAmountLimits(uint256 _maxAmount, uint256 _minAmount) external onlyOperator {
-    if (_minAmount > _maxAmount) revert CustomErrors.MinAmountGreaterThanMaxAmount();
-    maxAmount = _maxAmount;
-    minAmount = _minAmount;
-    emit DepositAmountLimits(_maxAmount, _minAmount);
-  }
-
-  function setMinBridgeFee(uint256 _minBridgeFee) external onlyOperator {
-    minBridgeFee = _minBridgeFee;
-    emit MinBridgeFee(_minBridgeFee);
-  }
-
-  function setMinExecutorFee(uint256 _minExecutorFee) external onlyOperator {
-    minExecutorFee = _minExecutorFee;
-    emit MinExecutorFee(_minExecutorFee);
-  }
-
-  function setPeerMinExecutorFee(uint256 _peerMinExecutorFee) external onlyOperator {
-    peerMinExecutorFee = _peerMinExecutorFee;
-    emit PeerMinExecutorFee(_peerMinExecutorFee);
-  }
-
-  function setPeerMinRollupFee(uint256 _peerMinRollupFee) external onlyOperator {
-    if (_peerMinRollupFee == 0) revert CustomErrors.Invalid("peer minimal rollup fee");
-    peerMinRollupFee = _peerMinRollupFee;
-    emit PeerMinRollupFee(_peerMinRollupFee);
-  }
-
-  function setAssociatedCommitmentPool(address _commitmentPoolAddress) external onlyOperator {
-    associatedCommitmentPool = _commitmentPoolAddress;
-  }
-
-  function setPeerContract(
-    uint64 _peerChainId,
-    string memory _peerChainName,
-    address _peerContract
-  ) external onlyOperator {
-    peerChainId = _peerChainId;
-    peerChainName = _peerChainName;
-    peerContract = _peerContract;
+  function setPeerContract(PeerContract memory _peerContract) external onlySetPeerContractOnce {
+    peerChainId = _peerContract.peerChainId;
+    peerChainName = _peerContract.peerChainName;
+    peerContract = _peerContract.peerContract;
+    isPeerContractSet = true;
   }
 
   function _commitmentHash(
@@ -126,17 +85,33 @@ abstract contract MystikoV2Bridge is IMystikoBridge, AssetPool, CrossChainDataSe
   }
 
   function deposit(DepositRequest memory _request) external payable override {
-    if (depositsDisabled) revert CustomErrors.DepositsDisabled();
-    if (_request.amount < minAmount) revert CustomErrors.AmountTooSmall();
-    if (_request.amount > maxAmount) revert CustomErrors.AmountTooLarge();
-    if (_request.bridgeFee < minBridgeFee) revert CustomErrors.BridgeFeeTooFew();
-    if (_request.executorFee < peerMinExecutorFee) revert CustomErrors.ExecutorFeeTooFew();
-    if (_request.rollupFee < peerMinRollupFee) revert CustomErrors.RollupFeeToFew();
+    revert CustomErrors.NotSupport();
+  }
+
+  function certDeposit(
+    DepositRequest memory _request,
+    uint256 _certificateDeadline,
+    bytes memory _certificateSignature
+  ) external payable override {
+    if (settings.isDepositDisable(address(this))) revert CustomErrors.DepositsDisabled();
+    if (settings.isCertificateCheckEnabled()) {
+      CertificateParams memory params = CertificateParams({
+        account: tx.origin,
+        asset: assetAddress(),
+        deadline: _certificateDeadline,
+        signature: _certificateSignature
+      });
+      if (!settings.verifyCertificate(params)) revert CustomErrors.CertificateInvalid();
+    }
+    if (_request.amount < getMinAmount()) revert CustomErrors.AmountTooSmall();
+    if (_request.amount > getMaxAmount()) revert CustomErrors.AmountTooLarge();
+    if (_request.bridgeFee < getMinBridgeFee()) revert CustomErrors.BridgeFeeTooFew();
+    if (_request.executorFee < getPeerMinExecutorFee()) revert CustomErrors.ExecutorFeeTooFew();
+    if (_request.rollupFee < getPeerMinRollupFee()) revert CustomErrors.RollupFeeToFew();
     uint256 calculatedCommitment = _commitmentHash(_request.hashK, _request.amount, _request.randomS);
     if (_request.commitment != calculatedCommitment) revert CustomErrors.CommitmentHashIncorrect();
-    if (isSanctioned(msg.sender)) revert CustomErrors.SanctionedAddress();
+    if (settings.isSanctioned(tx.origin)) revert CustomErrors.SanctionedAddress();
 
-    // todo check commitment ?
     ICommitmentPool.CommitmentRequest memory cmRequest = ICommitmentPool.CommitmentRequest({
       amount: _request.amount,
       commitment: _request.commitment,
@@ -148,7 +123,7 @@ abstract contract MystikoV2Bridge is IMystikoBridge, AssetPool, CrossChainDataSe
     bytes memory cmRequestBytes = serializeTxData(cmRequest);
     _processDeposit(_request.bridgeFee, cmRequestBytes);
     _processDepositTransfer(
-      associatedCommitmentPool,
+      getAssociatedCommitmentPool(),
       _request.amount + _request.executorFee + _request.rollupFee,
       _request.bridgeFee
     );
@@ -163,69 +138,46 @@ abstract contract MystikoV2Bridge is IMystikoBridge, AssetPool, CrossChainDataSe
     address _executor,
     ICommitmentPool.CommitmentRequest memory _request
   ) internal {
-    if (_fromContract != peerContract) revert CustomErrors.FromProxyAddressNotMatched();
-    if (_fromChainId != peerChainId) revert CustomErrors.FromChainIdNotMatched();
+    if (_fromContract != peerContract) revert CustomErrors.PeerContractNotMatched();
+    if (_fromChainId != peerChainId) revert CustomErrors.PeerChainIdNotMatched();
     if (_request.amount == 0) revert CustomErrors.AmountLessThanZero();
-    ICommitmentPool(associatedCommitmentPool).enqueue(_request, _executor);
-  }
-
-  function setDepositsDisabled(bool _state) external onlyOperator {
-    depositsDisabled = _state;
-    emit DepositsDisabled(_state);
-  }
-
-  function changeOperator(address _newOperator) external onlyOperator {
-    if (operator == _newOperator) revert CustomErrors.NotChanged();
-    operator = _newOperator;
-    emit OperatorChanged(_newOperator);
-  }
-
-  function enableSanctionsCheck() external onlyOperator {
-    sanctionsCheck = true;
-    emit SanctionsCheck(sanctionsCheck);
-  }
-
-  function disableSanctionsCheck() external onlyOperator {
-    sanctionsCheck = false;
-    emit SanctionsCheck(sanctionsCheck);
-  }
-
-  function updateSanctionsListAddress(ISanctionsList _sanction) external onlyOperator {
-    sanctionsList = _sanction;
-    emit SanctionsList(_sanction);
+    ICommitmentPool(getAssociatedCommitmentPool()).enqueue(_request, _executor);
   }
 
   function bridgeType() public pure virtual returns (string memory);
 
   function getMinAmount() public view returns (uint256) {
-    return minAmount;
+    uint256 minAmount = settings.queryMinDepositAmount(address(this));
+    return minAmount == 0 ? defaultMinAmount : minAmount;
   }
 
   function getMaxAmount() public view returns (uint256) {
-    return maxAmount;
+    uint256 maxAmount = settings.queryMaxDepositAmount(address(this));
+    return maxAmount == 0 ? defaultMaxAmount : maxAmount;
   }
 
   function getMinBridgeFee() public view returns (uint256) {
-    return minBridgeFee;
-  }
-
-  function getMinExecutorFee() public view returns (uint256) {
-    return minExecutorFee;
+    uint256 minBridgeFee = settings.queryMinBridgeFee(address(this));
+    return minBridgeFee == 0 ? defaultMinBridgeFee : minBridgeFee;
   }
 
   function getPeerMinExecutorFee() public view returns (uint256) {
-    return peerMinExecutorFee;
+    uint256 minExecutorFee = settings.queryMinPeerExecutorFee(address(this));
+    return minExecutorFee == 0 ? defaultPeerMinExecutorFee : minExecutorFee;
   }
 
   function getPeerMinRollupFee() public view returns (uint256) {
-    return peerMinRollupFee;
+    uint256 minRollupFee = settings.queryMinPeerRollupFee(address(this));
+    return minRollupFee == 0 ? defaultPeerMinRollupFee : minRollupFee;
   }
 
   function getAssociatedCommitmentPool() public view returns (address) {
-    return associatedCommitmentPool;
+    address pool = settings.queryAssociatedPool(address(this));
+    if (pool == address(0)) revert CustomErrors.AssociatedPoolNotSet();
+    return pool;
   }
 
   function isDepositsDisabled() public view returns (bool) {
-    return depositsDisabled;
+    return settings.isDepositDisable(address(this));
   }
 }

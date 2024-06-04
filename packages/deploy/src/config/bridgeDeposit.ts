@@ -157,7 +157,7 @@ export class DepositDeployConfig extends BaseConfig {
     return false;
   }
 
-  public updateMinBridgeFee(fee: string, tx: string) {
+  public setMinBridgeFee(fee: string, tx: string) {
     this.asRawContractDeployConfig().minBridgeFee = fee;
     this.asRawContractDeployConfig().minBridgeFeeTx = tx;
   }

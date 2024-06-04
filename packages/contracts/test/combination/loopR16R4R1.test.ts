@@ -1,23 +1,20 @@
 import { Wallet } from '@ethersproject/wallet';
 import {
   CommitmentPoolMain,
-  DummySanctionsList,
+  MockMystikoToken,
+  MockSanctionList,
   MystikoV2LoopMain,
-  Rollup16Verifier,
-  Rollup1Verifier,
-  Rollup4Verifier,
-  TestToken,
-  Transaction1x0Verifier,
-  Transaction1x1Verifier,
-  Transaction1x2Verifier,
-  Transaction2x0Verifier,
-  Transaction2x1Verifier,
-  Transaction2x2Verifier,
 } from '@mystikonetwork/contracts-abi';
 import { MystikoProtocolV2, ProtocolFactoryV2 } from '@mystikonetwork/protocol';
 import { toBN, toDecimals } from '@mystikonetwork/utils';
 import { ZokratesNodeProverFactory } from '@mystikonetwork/zkp-node';
 import { waffle } from 'hardhat';
+import {
+  MystikoCertificate,
+  MystikoRelayerPool,
+  MystikoRollerPool,
+  MystikoBridgeSettings,
+} from '@mystikonetwork/contracts-abi-settings';
 import { constructCommitment, testTransact } from '../common';
 import { loopDeposit } from '../common/loopDepositTests';
 import { rollup } from '../common/rollupTests';
@@ -31,67 +28,42 @@ import { CircuitsPath } from '../util/constants';
 
 describe('Mystiko combination test R16R4R1 ', () => {
   async function fixture(accounts: Wallet[]) {
-    const {
-      testToken,
-      hasher3,
-      transaction1x0Verifier,
-      transaction1x1Verifier,
-      transaction1x2Verifier,
-      transaction2x0Verifier,
-      transaction2x1Verifier,
-      transaction2x2Verifier,
-      rollup1,
-      rollup2,
-      rollup4,
-      rollup8,
-      rollup16,
-      sanctionList,
-    } = await deployDependContracts(accounts);
-    const pool = await deployCommitmentPoolContracts(accounts, testToken.address, sanctionList.address, {});
+    const { mockToken, hasher3, mockSanctionList, certificate, rollerPool, relayerPool, settings } =
+      await deployDependContracts(accounts);
+    const pool = await deployCommitmentPoolContracts(accounts, mockToken.address, settings.address, {});
     const loop = await deployLoopContracts(
       accounts,
       hasher3.address,
-      testToken.address,
-      sanctionList.address,
-      pool.poolMain,
-      pool.poolERC20,
+      mockToken.address,
+      settings.address,
       {},
     );
+    await settings.setAssociatedPool(loop.coreMain.address, pool.poolMain.address);
+    await settings.setAssociatedPool(loop.coreERC20.address, pool.poolERC20.address);
+
     return {
-      testToken,
+      mockToken,
       hasher3,
-      transaction1x0Verifier,
-      transaction1x1Verifier,
-      transaction1x2Verifier,
-      transaction2x0Verifier,
-      transaction2x1Verifier,
-      transaction2x2Verifier,
-      rollup1,
-      rollup2,
-      rollup4,
-      rollup8,
-      rollup16,
       pool,
       loop,
-      sanctionList,
+      mockSanctionList,
+      certificate,
+      rollerPool,
+      relayerPool,
+      settings,
     };
   }
 
   let accounts: Wallet[];
-  let testToken: TestToken;
-  let sanctionList: DummySanctionsList;
+  let mockToken: MockMystikoToken;
+  let mockSanctionList: MockSanctionList;
   let poolMain: CommitmentPoolMain;
   let loopMain: MystikoV2LoopMain;
-  let transaction1x0Verifier: Transaction1x0Verifier;
-  let transaction1x1Verifier: Transaction1x1Verifier;
-  let transaction1x2Verifier: Transaction1x2Verifier;
-  let transaction2x0Verifier: Transaction2x0Verifier;
-  let transaction2x1Verifier: Transaction2x1Verifier;
-  let transaction2x2Verifier: Transaction2x2Verifier;
-  let rollup1: Rollup1Verifier;
-  let rollup4: Rollup4Verifier;
-  let rollup16: Rollup16Verifier;
   let protocol: MystikoProtocolV2;
+  let certificate: MystikoCertificate;
+  let rollerPool: MystikoRollerPool;
+  let relayerPool: MystikoRelayerPool;
+  let settings: MystikoBridgeSettings;
 
   beforeEach(async () => {
     accounts = waffle.provider.getWallets();
@@ -99,20 +71,15 @@ describe('Mystiko combination test R16R4R1 ', () => {
     protocol = await protocolFactory.create();
 
     const r = await loadFixture(fixture);
-    testToken = r.testToken;
-    sanctionList = r.sanctionList;
+    mockToken = r.mockToken;
+    mockSanctionList = r.mockSanctionList;
 
     poolMain = r.pool.poolMain;
     loopMain = r.loop.coreMain;
-    transaction1x0Verifier = r.transaction1x0Verifier;
-    transaction1x1Verifier = r.transaction1x1Verifier;
-    transaction1x2Verifier = r.transaction1x2Verifier;
-    transaction2x0Verifier = r.transaction2x0Verifier;
-    transaction2x1Verifier = r.transaction2x1Verifier;
-    transaction2x2Verifier = r.transaction2x2Verifier;
-    rollup1 = r.rollup1;
-    rollup4 = r.rollup4;
-    rollup16 = r.rollup16;
+    certificate = r.certificate;
+    rollerPool = r.rollerPool;
+    relayerPool = r.relayerPool;
+    settings = r.settings;
   });
 
   it('combination main R16R4R1', async () => {
@@ -127,25 +94,27 @@ describe('Mystiko combination test R16R4R1 ', () => {
       protocol,
       loopMain,
       poolMain,
-      testToken,
-      sanctionList,
+      mockToken,
+      mockSanctionList,
+      certificate,
+      settings,
       accounts,
       depositAmount.toString(),
       true,
       cmInfo,
     );
 
-    rollup('CommitmentPoolMain', protocol, poolMain, rollup16, testToken, accounts, cmInfo.commitments, {
+    rollup('CommitmentPoolMain', protocol, poolMain, mockToken, rollerPool, accounts, cmInfo.commitments, {
       rollupSize: 16,
       includedCount: 0,
     });
 
-    rollup('CommitmentPoolMain', protocol, poolMain, rollup4, testToken, accounts, cmInfo.commitments, {
+    rollup('CommitmentPoolMain', protocol, poolMain, mockToken, rollerPool, accounts, cmInfo.commitments, {
       rollupSize: 4,
       includedCount: 16,
     });
 
-    rollup('CommitmentPoolMain', protocol, poolMain, rollup1, testToken, accounts, cmInfo.commitments, {
+    rollup('CommitmentPoolMain', protocol, poolMain, mockToken, rollerPool, accounts, cmInfo.commitments, {
       rollupSize: 1,
       includedCount: 20,
     });
@@ -155,9 +124,11 @@ describe('Mystiko combination test R16R4R1 ', () => {
 
     testTransact(
       'CommitmentPoolMain',
+      accounts[0],
       protocol,
       poolMain,
-      transaction1x0Verifier,
+      settings,
+      relayerPool,
       cmInfo,
       [0],
       queueSize,
@@ -174,9 +145,11 @@ describe('Mystiko combination test R16R4R1 ', () => {
 
     testTransact(
       'CommitmentPoolMain',
+      accounts[0],
       protocol,
       poolMain,
-      transaction1x1Verifier,
+      settings,
+      relayerPool,
       cmInfo,
       [1],
       queueSize,
@@ -191,7 +164,7 @@ describe('Mystiko combination test R16R4R1 ', () => {
       CircuitsPath.concat('Transaction1x1.vkey.gz'),
     );
 
-    rollup('CommitmentPoolMain', protocol, poolMain, rollup1, testToken, accounts, cmInfo.commitments, {
+    rollup('CommitmentPoolMain', protocol, poolMain, mockToken, rollerPool, accounts, cmInfo.commitments, {
       rollupSize: 1,
       rollupFee: toDecimals(1).toString(),
       includedCount: 21,
@@ -202,9 +175,11 @@ describe('Mystiko combination test R16R4R1 ', () => {
 
     testTransact(
       'CommitmentPoolMain',
+      accounts[0],
       protocol,
       poolMain,
-      transaction1x2Verifier,
+      settings,
+      relayerPool,
       cmInfo,
       [2],
       queueSize,
@@ -223,9 +198,11 @@ describe('Mystiko combination test R16R4R1 ', () => {
 
     testTransact(
       'CommitmentPoolMain',
+      accounts[0],
       protocol,
       poolMain,
-      transaction2x0Verifier,
+      settings,
+      relayerPool,
       cmInfo,
       [3, 4],
       queueSize,
@@ -244,9 +221,11 @@ describe('Mystiko combination test R16R4R1 ', () => {
 
     testTransact(
       'CommitmentPoolMain',
+      accounts[0],
       protocol,
       poolMain,
-      transaction2x1Verifier,
+      settings,
+      relayerPool,
       cmInfo,
       [5, 6],
       queueSize,
@@ -265,9 +244,11 @@ describe('Mystiko combination test R16R4R1 ', () => {
 
     testTransact(
       'CommitmentPoolMain',
+      accounts[0],
       protocol,
       poolMain,
-      transaction2x2Verifier,
+      settings,
+      relayerPool,
       cmInfo,
       [7, 8],
       queueSize,
@@ -284,13 +265,13 @@ describe('Mystiko combination test R16R4R1 ', () => {
     queueSize = 5;
     includedCounter = 22;
 
-    rollup('CommitmentPoolMain', protocol, poolMain, rollup1, testToken, accounts, cmInfo.commitments, {
+    rollup('CommitmentPoolMain', protocol, poolMain, mockToken, rollerPool, accounts, cmInfo.commitments, {
       rollupSize: 1,
       rollupFee: toDecimals(1).toString(),
       includedCount: 22,
     });
 
-    rollup('CommitmentPoolMain', protocol, poolMain, rollup1, testToken, accounts, cmInfo.commitments, {
+    rollup('CommitmentPoolMain', protocol, poolMain, mockToken, rollerPool, accounts, cmInfo.commitments, {
       rollupSize: 1,
       rollupFee: toDecimals(1).toString(),
       includedCount: 23,
@@ -301,9 +282,11 @@ describe('Mystiko combination test R16R4R1 ', () => {
 
     testTransact(
       'CommitmentPoolMain',
+      accounts[0],
       protocol,
       poolMain,
-      transaction2x1Verifier,
+      settings,
+      relayerPool,
       cmInfo,
       [9, 10],
       queueSize,
@@ -318,7 +301,7 @@ describe('Mystiko combination test R16R4R1 ', () => {
       CircuitsPath.concat('Transaction2x1.vkey.gz'),
     );
 
-    rollup('CommitmentPoolMain', protocol, poolMain, rollup4, testToken, accounts, cmInfo.commitments, {
+    rollup('CommitmentPoolMain', protocol, poolMain, mockToken, rollerPool, accounts, cmInfo.commitments, {
       rollupSize: 4,
       rollupFee: toDecimals(1).toString(),
       includedCount: 24,
@@ -329,9 +312,11 @@ describe('Mystiko combination test R16R4R1 ', () => {
 
     testTransact(
       'CommitmentPoolMain',
+      accounts[0],
       protocol,
       poolMain,
-      transaction1x0Verifier,
+      settings,
+      relayerPool,
       cmInfo,
       [21],
       queueSize,
@@ -348,9 +333,11 @@ describe('Mystiko combination test R16R4R1 ', () => {
 
     testTransact(
       'CommitmentPoolMain',
+      accounts[0],
       protocol,
       poolMain,
-      transaction2x0Verifier,
+      settings,
+      relayerPool,
       cmInfo,
       [22, 23],
       queueSize,
@@ -367,9 +354,11 @@ describe('Mystiko combination test R16R4R1 ', () => {
 
     testTransact(
       'CommitmentPoolMain',
+      accounts[0],
       protocol,
       poolMain,
-      transaction1x1Verifier,
+      settings,
+      relayerPool,
       cmInfo,
       [24],
       queueSize,
@@ -388,9 +377,11 @@ describe('Mystiko combination test R16R4R1 ', () => {
 
     testTransact(
       'CommitmentPoolMain',
+      accounts[0],
       protocol,
       poolMain,
-      transaction1x1Verifier,
+      settings,
+      relayerPool,
       cmInfo,
       [25],
       queueSize,
@@ -409,9 +400,11 @@ describe('Mystiko combination test R16R4R1 ', () => {
 
     testTransact(
       'CommitmentPoolMain',
+      accounts[0],
       protocol,
       poolMain,
-      transaction2x2Verifier,
+      settings,
+      relayerPool,
       cmInfo,
       [26, 27],
       queueSize,
@@ -429,7 +422,7 @@ describe('Mystiko combination test R16R4R1 ', () => {
     queueSize = 4;
     includedCounter = 28;
 
-    rollup('CommitmentPoolMain', protocol, poolMain, rollup4, testToken, accounts, cmInfo.commitments, {
+    rollup('CommitmentPoolMain', protocol, poolMain, mockToken, rollerPool, accounts, cmInfo.commitments, {
       rollupSize: 4,
       rollupFee: toDecimals(1).toString(),
       includedCount: 28,
@@ -439,9 +432,11 @@ describe('Mystiko combination test R16R4R1 ', () => {
     includedCounter = 32;
     testTransact(
       'CommitmentPoolMain',
+      accounts[0],
       protocol,
       poolMain,
-      transaction1x0Verifier,
+      settings,
+      relayerPool,
       cmInfo,
       [28],
       queueSize,

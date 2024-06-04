@@ -9,6 +9,19 @@ import type { ERC20AssetPool, ERC20AssetPoolInterface } from '../ERC20AssetPool'
 const _abi = [
   {
     inputs: [],
+    name: 'assetAddress',
+    outputs: [
+      {
+        internalType: 'address',
+        name: '',
+        type: 'address',
+      },
+    ],
+    stateMutability: 'view',
+    type: 'function',
+  },
+  {
+    inputs: [],
     name: 'assetDecimals',
     outputs: [
       {

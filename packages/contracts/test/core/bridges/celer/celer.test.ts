@@ -2,24 +2,26 @@ import { Wallet } from '@ethersproject/wallet';
 import {
   CommitmentPoolERC20,
   CommitmentPoolMain,
-  DummyCelerMessageBus,
-  DummySanctionsList,
+  MockCelerMessageBus,
+  MockSanctionList,
   MystikoV2CelerERC20,
   MystikoV2CelerMain,
-  TestToken,
+  MockToken,
 } from '@mystikonetwork/contracts-abi';
 import { MystikoProtocolV2, ProtocolFactoryV2 } from '@mystikonetwork/protocol';
 import { toDecimals } from '@mystikonetwork/utils';
 import { ZokratesNodeProverFactory } from '@mystikonetwork/zkp-node';
 import { waffle } from 'hardhat';
-import { constructCommitment, testBridgeAdminOperations, testBridgeConstructor } from '../../../common';
+import { MystikoBridgeSettings } from '@mystikonetwork/contracts-abi-settings';
+import { constructCommitment, testBridgeConstructor } from '../../../common';
 import { testCelerDeposit } from '../../../common/depositCelerTests';
 import {
   deployCelerContracts,
   deployCommitmentPoolContracts,
   deployDependContracts,
-  deployDummyCelerContracts,
+  deployMockCelerContracts,
   loadFixture,
+  associateContract,
 } from '../../../util/common';
 
 // @ts-ignore
@@ -28,88 +30,55 @@ import {
   MaxAmount,
   MinAmount,
   MinBridgeFee,
-  MinExecutorFee,
-  MinRollupFee,
+  PeerMinExecutorFee,
+  PeerMinRollupFee,
 } from '../../../util/constants';
 
 describe('Test Mystiko celer', () => {
   async function fixture(accounts: Wallet[]) {
-    const {
-      testToken,
-      hasher3,
-      transaction1x0Verifier,
-      transaction1x1Verifier,
-      transaction1x2Verifier,
-      transaction2x0Verifier,
-      transaction2x1Verifier,
-      transaction2x2Verifier,
-      rollup1,
-      rollup4,
-      rollup16,
-      sanctionList,
-    } = await deployDependContracts(accounts);
+    const { mockToken, hasher3, mockSanctionList, settings } = await deployDependContracts(accounts);
 
-    const dummyCeler = await deployDummyCelerContracts(accounts);
+    const dummyCeler = await deployMockCelerContracts(accounts);
 
-    const poolLocal = await deployCommitmentPoolContracts(
-      accounts,
-      testToken.address,
-      sanctionList.address,
-      {},
-    );
-    const poolRemote = await deployCommitmentPoolContracts(
-      accounts,
-      testToken.address,
-      sanctionList.address,
-      {},
-    );
+    const poolLocal = await deployCommitmentPoolContracts(accounts, mockToken.address, settings.address, {});
+    const poolRemote = await deployCommitmentPoolContracts(accounts, mockToken.address, settings.address, {});
 
     const local = await deployCelerContracts(
       accounts,
       hasher3.address,
-      testToken.address,
-      sanctionList.address,
+      mockToken.address,
       dummyCeler,
-      poolLocal.poolMain,
-      poolLocal.poolERC20,
+      settings.address,
       {},
     );
 
     const remote = await deployCelerContracts(
       accounts,
       hasher3.address,
-      testToken.address,
-      sanctionList.address,
+      mockToken.address,
       dummyCeler,
-      poolRemote.poolMain,
-      poolRemote.poolERC20,
+      settings.address,
       {},
     );
 
+    await associateContract(settings, local, remote, poolLocal, poolRemote);
+
     return {
-      testToken,
+      mockToken,
       hasher3,
-      transaction1x0Verifier,
-      transaction1x1Verifier,
-      transaction1x2Verifier,
-      transaction2x0Verifier,
-      transaction2x1Verifier,
-      transaction2x2Verifier,
-      rollup1,
-      rollup4,
-      rollup16,
       poolLocal,
       poolRemote,
       local,
       remote,
-      sanctionList,
+      mockSanctionList,
       dummyCeler,
+      settings,
     };
   }
 
   let accounts: Wallet[];
-  let testToken: TestToken;
-  let sanctionList: DummySanctionsList;
+  let mockToken: MockToken;
+  let mockSanctionList: MockSanctionList;
   let localPoolMain: CommitmentPoolMain;
   let remotePoolMain: CommitmentPoolMain;
   let localPoolERC20: CommitmentPoolERC20;
@@ -119,7 +88,8 @@ describe('Test Mystiko celer', () => {
   let remoteERC20: MystikoV2CelerERC20;
   let remoteMain: MystikoV2CelerMain;
   let protocol: MystikoProtocolV2;
-  let dummyCeler: DummyCelerMessageBus;
+  let dummyCeler: MockCelerMessageBus;
+  let settings: MystikoBridgeSettings;
 
   beforeEach(async () => {
     accounts = waffle.provider.getWallets();
@@ -127,7 +97,7 @@ describe('Test Mystiko celer', () => {
     protocol = await protocolFactory.create();
 
     const r = await loadFixture(fixture);
-    testToken = r.testToken;
+    mockToken = r.mockToken;
     localPoolMain = r.poolLocal.poolMain;
     localPoolERC20 = r.poolLocal.poolERC20;
     remotePoolMain = r.poolRemote.poolMain;
@@ -136,12 +106,12 @@ describe('Test Mystiko celer', () => {
     localERC20 = r.local.coreERC20;
     remoteMain = r.remote.coreMain;
     remoteERC20 = r.remote.coreERC20;
-    sanctionList = r.sanctionList;
+    mockSanctionList = r.mockSanctionList;
     dummyCeler = r.dummyCeler;
+    settings = r.settings;
   });
 
-  it('test constructor', async () => {
-    await localMain.setPeerContract(DestinationChainID, '', remoteMain.address);
+  it('test constructor', () => {
     testBridgeConstructor(
       'MystikoV2CelerMain',
       localMain,
@@ -149,11 +119,12 @@ describe('Test Mystiko celer', () => {
       MinAmount,
       MaxAmount,
       MinBridgeFee,
-      MinExecutorFee,
-      MinRollupFee,
+      PeerMinExecutorFee,
+      PeerMinRollupFee,
+      DestinationChainID,
+      remoteMain.address,
     );
 
-    await localERC20.setPeerContract(DestinationChainID, '', remoteERC20.address);
     testBridgeConstructor(
       'MystikoV2CelerERC20',
       localERC20,
@@ -161,14 +132,11 @@ describe('Test Mystiko celer', () => {
       MinAmount,
       MaxAmount,
       MinBridgeFee,
-      MinExecutorFee,
-      MinRollupFee,
+      PeerMinExecutorFee,
+      PeerMinRollupFee,
+      DestinationChainID,
+      remoteERC20.address,
     );
-  });
-
-  it('test admin operation', () => {
-    testBridgeAdminOperations('MystikoV2CelerMain', localMain, accounts, {});
-    testBridgeAdminOperations('MystikoV2CelerERC20', localERC20, accounts, {});
   });
 
   it('test bridge main to main deposit', async () => {
@@ -182,9 +150,10 @@ describe('Test Mystiko celer', () => {
       localPoolMain,
       remoteMain,
       remotePoolMain,
-      sanctionList,
+      mockSanctionList,
       dummyCeler,
-      testToken,
+      mockToken,
+      settings,
       accounts,
       depositAmount.toString(),
       true,
@@ -203,7 +172,7 @@ describe('Test Mystiko celer', () => {
   //     localMain,
   //     remoteERC20,
   //     proxy,
-  //     testToken,
+  //     mockToken,
   //     accounts,
   //     depositAmount.toString(),
   //     true,
@@ -222,7 +191,7 @@ describe('Test Mystiko celer', () => {
   //     localERC20,
   //     remoteMain,
   //     proxy,
-  //     testToken,
+  //     mockToken,
   //     accounts,
   //     depositAmount.toString(),
   //     false,
@@ -242,9 +211,10 @@ describe('Test Mystiko celer', () => {
       localPoolERC20,
       remoteERC20,
       remotePoolERC20,
-      sanctionList,
+      mockSanctionList,
       dummyCeler,
-      testToken,
+      mockToken,
+      settings,
       accounts,
       depositAmount.toString(),
       false,

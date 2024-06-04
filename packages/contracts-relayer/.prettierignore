@@ -1,0 +1,6 @@
+artifacts
+artifactsExternal
+*.log
+yarn.lock
+typechain
+foundry/lib/

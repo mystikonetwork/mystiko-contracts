@@ -1,29 +1,26 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.7;
+pragma solidity ^0.8.20;
 
 import "../../libs/asset/AssetPool.sol";
 import "../../libs/common/CustomErrors.sol";
 import "../../libs/common/DataTypes.sol";
-import "../../interface/IHasher3.sol";
-import "../../interface/IVerifier.sol";
-import "../../interface/ICommitmentPool.sol";
-import "../../interface/ISanctionsList.sol";
-import "../rule/Sanctions.sol";
-import "@openzeppelin/contracts/security/ReentrancyGuard.sol";
-import "@openzeppelin/contracts/utils/cryptography/ECDSA.sol";
-import "@openzeppelin/contracts/utils/math/SafeCast.sol";
+import "../../interfaces/IHasher3.sol";
+import "../../interfaces/IVerifier.sol";
+import "../../interfaces/ICommitmentPool.sol";
+import {ReentrancyGuard} from "@openzeppelin/contracts/utils/ReentrancyGuard.sol";
+import {MessageHashUtils} from "@openzeppelin/contracts/utils/cryptography/MessageHashUtils.sol";
+import {ECDSA} from "@openzeppelin/contracts/utils/cryptography/ECDSA.sol";
+import {SafeCast} from "@openzeppelin/contracts/utils/math/SafeCast.sol";
+import {RollerValidateParams} from "@mystikonetwork/contracts-roller/contracts/interfaces/IMystikoRollerPool.sol";
+import {RelayerValidateParams} from "@mystikonetwork/contracts-relayer/contracts/interfaces/IMystikoRelayerPool.sol";
+import {WrappedVerifier} from "@mystikonetwork/contracts-settings/contracts/verifier/interfaces/IMystikoVerifierPool.sol";
+import {MystikoSettings} from "@mystikonetwork/contracts-settings/contracts/MystikoSettings.sol";
 
-abstract contract CommitmentPool is ICommitmentPool, AssetPool, ReentrancyGuard, Sanctions {
-  uint256 public constant auditorCount = 5;
-
+abstract contract CommitmentPool is ICommitmentPool, AssetPool, ReentrancyGuard {
+  uint256 public constant AUDITOR_COUNT = 5;
   struct CommitmentLeaf {
     uint256 commitment;
     uint256 rollupFee;
-  }
-
-  struct WrappedVerifier {
-    IVerifier verifier;
-    bool enabled;
   }
 
   struct UnpackedPublicKey {
@@ -36,11 +33,6 @@ abstract contract CommitmentPool is ICommitmentPool, AssetPool, ReentrancyGuard,
     uint256 publicKey;
     uint256 note;
   }
-
-  // Transact proof verifier related contract
-  mapping(uint32 => mapping(uint32 => WrappedVerifier)) private transactVerifiers;
-  // Rollup proof verifier related contract
-  mapping(uint32 => WrappedVerifier) private rollupVerifiers;
 
   // For checking duplicates.
   mapping(uint256 => bool) private historicCommitments;
@@ -57,35 +49,12 @@ abstract contract CommitmentPool is ICommitmentPool, AssetPool, ReentrancyGuard,
   mapping(uint256 => bool) private rootHistory;
   uint256 private currentRoot;
 
-  // Admin related.
-  address private operator;
-  uint256 private minRollupFee;
-  mapping(address => bool) private rollupWhitelist;
-  mapping(address => bool) private enqueueWhitelist;
+  // default configure
+  uint256 public defaultMinRollupFee;
 
-  // Some switches.
-  bool private verifierUpdateDisabled;
-  bool private rollupWhitelistDisabled;
+  // configure related.
+  MystikoSettings public settings;
 
-  // auditor public keys
-  uint256[auditorCount] private auditorPublicKeys;
-
-  modifier onlyOperator() {
-    if (msg.sender != operator) revert CustomErrors.OnlyOperator();
-    _;
-  }
-
-  modifier onlyRollupWhitelisted() {
-    if (!rollupWhitelistDisabled && !rollupWhitelist[msg.sender]) revert CustomErrors.OnlyWhitelistedRoller();
-    _;
-  }
-
-  modifier onlyEnqueueWhitelisted() {
-    if (!enqueueWhitelist[msg.sender]) revert CustomErrors.OnlyWhitelistedSender();
-    _;
-  }
-
-  event OperatorChanged(address indexed operator);
   event CommitmentQueued(
     uint256 indexed commitment,
     uint256 rollupFee,
@@ -97,16 +66,32 @@ abstract contract CommitmentPool is ICommitmentPool, AssetPool, ReentrancyGuard,
   // event is deprecated， new event is EncryptedAuditorNotes, keep define for backward compatibility
   event EncryptedAuditorNote(uint64 id, uint256 auditorPublicKey, uint256 encryptedAuditorNote);
   event EncryptedAuditorNotes(AuditorNote[] notes);
-  event VerifierUpdateDisabled(bool state);
-  event RollupWhitelistDisabled(bool state);
-  event AuditorPublicKey(uint256 indexed index, uint256 publicKey);
 
-  constructor(uint8 _treeHeight) {
+  modifier onlyAssociatedPool() {
+    address associatePool = settings.queryAssociatedPool(msg.sender);
+    if (associatePool != address(this)) revert CustomErrors.AssociatedPoolNotMatched();
+    _;
+  }
+
+  modifier onlyValidatedRoller(uint256 rollupSize) {
+    RollerValidateParams memory _params = RollerValidateParams({
+      pool: address(this),
+      roller: msg.sender,
+      rollupSize: rollupSize,
+      queueCount: commitmentQueueSize,
+      includedCount: commitmentIncludedCount
+    });
+    if (!settings.validateRoller(_params)) revert CustomErrors.RejectRollup();
+    _;
+  }
+
+  constructor(uint8 _treeHeight, uint256 _minRollupFee, address _settingsCenter) {
     if (_treeHeight == 0) revert CustomErrors.TreeHeightLessThanZero();
-    operator = msg.sender;
     treeCapacity = 1 << _treeHeight;
     currentRoot = _zeros(_treeHeight);
     rootHistory[currentRoot] = true;
+    defaultMinRollupFee = _minRollupFee;
+    settings = MystikoSettings(_settingsCenter);
   }
 
   /* @notice              Check commitment request parameter and insert commitment into commitment queue
@@ -117,8 +102,8 @@ abstract contract CommitmentPool is ICommitmentPool, AssetPool, ReentrancyGuard,
   function enqueue(
     CommitmentRequest memory _request,
     address _executor
-  ) external override onlyEnqueueWhitelisted {
-    // todo should do check in upper layer call
+  ) external override onlyAssociatedPool {
+    uint256 minRollupFee = getMinRollupFee();
     if (_request.rollupFee < minRollupFee) revert CustomErrors.RollupFeeToFew();
     if (commitmentIncludedCount + commitmentQueueSize >= treeCapacity) revert CustomErrors.TreeIsFull();
     if (historicCommitments[_request.commitment]) revert CustomErrors.CommitmentHasBeenSubmitted();
@@ -134,12 +119,13 @@ abstract contract CommitmentPool is ICommitmentPool, AssetPool, ReentrancyGuard,
   /* @notice              Check rollup request parameter、verify rollup proof and update commitment merkle tree
    *  @param _request     The rollup request parameter
    */
-  function rollup(RollupRequest memory _request) external override onlyRollupWhitelisted {
-    if (rootHistory[_request.newRoot]) revert CustomErrors.NewRootIsDuplicated();
-    if (_request.rollupSize > commitmentQueueSize || !rollupVerifiers[_request.rollupSize].enabled)
-      revert CustomErrors.Invalid("rollupSize");
+  function rollup(RollupRequest memory _request) external override onlyValidatedRoller(_request.rollupSize) {
     uint256 includedCount = commitmentIncludedCount;
+    if (rootHistory[_request.newRoot]) revert CustomErrors.NewRootIsDuplicated();
+    if (_request.rollupSize > commitmentQueueSize) revert CustomErrors.Invalid("rollupSize");
     if (includedCount % _request.rollupSize != 0) revert CustomErrors.Invalid("rollupSize");
+    WrappedVerifier memory wVerifier = settings.queryRollupVerifier(_request.rollupSize);
+    if (!wVerifier.enabled) revert CustomErrors.RollupVerifierDisabled(_request.rollupSize);
     uint256 pathIndices = _pathIndices(includedCount, _request.rollupSize);
     uint256[] memory leaves = new uint256[](_request.rollupSize);
     uint256 totalRollupFee = 0;
@@ -160,7 +146,7 @@ abstract contract CommitmentPool is ICommitmentPool, AssetPool, ReentrancyGuard,
     inputs[1] = _request.newRoot;
     inputs[2] = expectedLeafHash;
     inputs[3] = pathIndices;
-    bool verified = rollupVerifiers[_request.rollupSize].verifier.verifyTx(_request.proof, inputs);
+    bool verified = IVerifier(wVerifier.verifier).verifyTx(_request.proof, inputs);
     if (!verified) revert CustomErrors.Invalid("proof");
     commitmentIncludedCount += _request.rollupSize;
     currentRoot = _request.newRoot;
@@ -175,30 +161,36 @@ abstract contract CommitmentPool is ICommitmentPool, AssetPool, ReentrancyGuard,
   function transact(TransactRequest memory _request, bytes memory _signature) external override nonReentrant {
     uint32 numInputs = SafeCast.toUint32(_request.serialNumbers.length);
     uint32 numOutputs = SafeCast.toUint32(_request.outCommitments.length);
-
-    // check input and output lengths.
-    if (!transactVerifiers[numInputs][numOutputs].enabled) revert CustomErrors.Invalid("i/o length");
+    if (settings.isTransferDisable(address(this)) && numOutputs != 0)
+      revert CustomErrors.TransactVerifierDisabled(numInputs, numOutputs);
+    if (_request.relayerFeeAmount > 0) {
+      RelayerValidateParams memory _params = RelayerValidateParams({
+        pool: address(this),
+        relayer: msg.sender
+      });
+      if (!settings.validateRelayer(_params)) revert CustomErrors.RejectRelay();
+    }
+    WrappedVerifier memory wVerifier = settings.queryTransactVerifier(numInputs, numOutputs);
+    if (!wVerifier.enabled) revert CustomErrors.TransactVerifierDisabled(numInputs, numOutputs);
     if (_request.sigHashes.length != numInputs) revert CustomErrors.Invalid("sigHashes length");
     if (_request.outRollupFees.length != numOutputs) revert CustomErrors.Invalid("outRollupFees length");
     if (_request.outEncryptedNotes.length != numOutputs)
       revert CustomErrors.Invalid("outEncryptedNotes length");
     if (commitmentIncludedCount + commitmentQueueSize + numOutputs > treeCapacity)
       revert CustomErrors.TreeIsFull();
-    if (isSanctioned(tx.origin)) revert CustomErrors.SanctionedAddress();
-    if (isSanctioned(_request.publicRecipient)) revert CustomErrors.SanctionedAddress();
-    if (_request.encryptedAuditorNotes.length != numInputs * auditorCount)
+    if (settings.isSanctioned(tx.origin)) revert CustomErrors.SanctionedAddress();
+    if (settings.isSanctioned(_request.publicRecipient)) revert CustomErrors.SanctionedAddress();
+    if (_request.encryptedAuditorNotes.length != numInputs * AUDITOR_COUNT)
       revert CustomErrors.AuditorNotesLengthError();
 
     // check signature
-    bytes32 hash = _transactRequestHash(_request);
-    if (_request.sigPk != bytes32(uint256(uint160(ECDSA.recover(hash, _signature)))))
-      revert CustomErrors.Invalid("signature");
+    _checkTransactRequestHash(_request, _signature);
 
     // initialize inputs array for verifying proof.
     uint256 totalInput = 2 * numInputs;
     uint256 allInput = 2 * numInputs + 4;
     uint256 allInputAndOutput = allInput + 2 * numOutputs;
-    uint256[] memory inputs = new uint256[](allInputAndOutput + 2 + (2 + numInputs) * auditorCount);
+    uint256[] memory inputs = new uint256[](allInputAndOutput + 2 + (2 + numInputs) * AUDITOR_COUNT);
 
     // check whether valid root.
     if (!rootHistory[_request.rootHash]) revert CustomErrors.Invalid("root");
@@ -219,6 +211,7 @@ abstract contract CommitmentPool is ICommitmentPool, AssetPool, ReentrancyGuard,
 
     // check rollup fees and output commitments.
     uint256 offsetRollupFee = allInput + numOutputs;
+    uint256 minRollupFee = getMinRollupFee();
     for (uint256 i = 0; i < numOutputs; i++) {
       if (historicCommitments[_request.outCommitments[i]]) revert CustomErrors.Duplicated("commitment");
       if (_request.outRollupFees[i] < minRollupFee) revert CustomErrors.RollupFeeToFew();
@@ -230,8 +223,8 @@ abstract contract CommitmentPool is ICommitmentPool, AssetPool, ReentrancyGuard,
     _setAuditingInputs(_request, inputs, allInputAndOutput);
 
     // verify proof.
-    bool verified = transactVerifiers[numInputs][numOutputs].verifier.verifyTx(_request.proof, inputs);
-    if (!verified) revert CustomErrors.Invalid("transact proof");
+    if (!IVerifier(wVerifier.verifier).verifyTx(_request.proof, inputs))
+      revert CustomErrors.Invalid("transact proof");
 
     // set spent flag for serial numbers.
     for (uint256 i = 0; i < numInputs; i++) {
@@ -264,95 +257,6 @@ abstract contract CommitmentPool is ICommitmentPool, AssetPool, ReentrancyGuard,
     _emitAuditingNotes(_request);
   }
 
-  function setRollupWhitelistDisabled(bool _state) external onlyOperator {
-    rollupWhitelistDisabled = _state;
-    emit RollupWhitelistDisabled(_state);
-  }
-
-  function setVerifierUpdateDisabled(bool _state) external onlyOperator {
-    verifierUpdateDisabled = _state;
-    emit VerifierUpdateDisabled(_state);
-  }
-
-  function enableTransactVerifier(
-    uint32 _numInputs,
-    uint32 _numOutputs,
-    IVerifier _transactVerifier
-  ) external onlyOperator {
-    if (verifierUpdateDisabled) revert CustomErrors.VerifierUpdatesHasBeenDisabled();
-    if (_numInputs == 0) revert CustomErrors.NumInputsGreaterThanZero();
-    transactVerifiers[_numInputs][_numOutputs] = WrappedVerifier(_transactVerifier, true);
-  }
-
-  function disableTransactVerifier(uint32 _numInputs, uint32 _numOutputs) external onlyOperator {
-    if (verifierUpdateDisabled) revert CustomErrors.VerifierUpdatesHasBeenDisabled();
-    if (_numInputs == 0) revert CustomErrors.NumInputsGreaterThanZero();
-    transactVerifiers[_numInputs][_numOutputs].enabled = false;
-  }
-
-  function enableRollupVerifier(uint32 _rollupSize, IVerifier _rollupVerifier) external onlyOperator {
-    if (verifierUpdateDisabled) revert CustomErrors.VerifierUpdatesHasBeenDisabled();
-    if (_rollupSize == 0 || _rollupSize > 1024) revert CustomErrors.Invalid("rollupSize");
-    if (_rollupSize & (_rollupSize - 1) != 0) revert CustomErrors.RollupSizeNotPowerOfTwo();
-    rollupVerifiers[_rollupSize] = WrappedVerifier(_rollupVerifier, true);
-  }
-
-  function disableRollupVerifier(uint32 _rollupSize) external onlyOperator {
-    if (verifierUpdateDisabled) revert CustomErrors.VerifierUpdatesHasBeenDisabled();
-    if (_rollupSize == 0 || _rollupSize > 1024) revert CustomErrors.Invalid("rollupSize");
-    if (_rollupSize & (_rollupSize - 1) != 0) revert CustomErrors.RollupSizeNotPowerOfTwo();
-    rollupVerifiers[_rollupSize].enabled = false;
-  }
-
-  function addRollupWhitelist(address _roller) external onlyOperator {
-    rollupWhitelist[_roller] = true;
-  }
-
-  function removeRollupWhitelist(address _roller) external onlyOperator {
-    rollupWhitelist[_roller] = false;
-  }
-
-  function addEnqueueWhitelist(address _actor) external onlyOperator {
-    enqueueWhitelist[_actor] = true;
-  }
-
-  function removeEnqueueWhitelist(address _actor) external onlyOperator {
-    enqueueWhitelist[_actor] = false;
-  }
-
-  function setMinRollupFee(uint256 _minRollupFee) external onlyOperator {
-    if (_minRollupFee == 0) revert CustomErrors.Invalid("_minRollupFee");
-    minRollupFee = _minRollupFee;
-  }
-
-  function changeOperator(address _newOperator) external onlyOperator {
-    if (operator == _newOperator) revert CustomErrors.NotChanged();
-    operator = _newOperator;
-    emit OperatorChanged(_newOperator);
-  }
-
-  function enableSanctionsCheck() external onlyOperator {
-    sanctionsCheck = true;
-    emit SanctionsCheck(sanctionsCheck);
-  }
-
-  function disableSanctionsCheck() external onlyOperator {
-    sanctionsCheck = false;
-    emit SanctionsCheck(sanctionsCheck);
-  }
-
-  function updateSanctionsListAddress(ISanctionsList _sanction) external onlyOperator {
-    sanctionsList = _sanction;
-    emit SanctionsList(_sanction);
-  }
-
-  function updateAuditorPublicKey(uint256 _index, uint256 _publicKey) external onlyOperator {
-    if (_index >= auditorCount) revert CustomErrors.AuditorIndexError();
-    if (auditorPublicKeys[_index] == _publicKey) revert CustomErrors.AuditorPublicKeyNotChanged();
-    auditorPublicKeys[_index] = _publicKey;
-    emit AuditorPublicKey(_index, _publicKey);
-  }
-
   function isHistoricCommitment(uint256 _commitment) public view returns (bool) {
     return historicCommitments[_commitment];
   }
@@ -369,16 +273,9 @@ abstract contract CommitmentPool is ICommitmentPool, AssetPool, ReentrancyGuard,
     return treeCapacity;
   }
 
-  function isVerifierUpdateDisabled() public view returns (bool) {
-    return verifierUpdateDisabled;
-  }
-
-  function isRollupWhitelistDisabled() public view returns (bool) {
-    return rollupWhitelistDisabled;
-  }
-
   function getMinRollupFee() public view returns (uint256) {
-    return minRollupFee;
+    uint256 minRollupFee = settings.queryMinRollupFee(address(this));
+    return minRollupFee == 0 ? defaultMinRollupFee : minRollupFee;
   }
 
   function getCommitmentIncludedCount() public view returns (uint256) {
@@ -407,16 +304,11 @@ abstract contract CommitmentPool is ICommitmentPool, AssetPool, ReentrancyGuard,
   }
 
   function getAuditorPublicKey(uint256 _index) public view returns (uint256) {
-    if (_index >= auditorCount) revert CustomErrors.AuditorIndexError();
-    return auditorPublicKeys[_index];
+    return settings.queryAuditorPublicKey(_index);
   }
 
   function getAllAuditorPublicKeys() public view returns (uint256[] memory) {
-    uint256[] memory publicKeys = new uint256[](auditorCount);
-    for (uint256 i = 0; i < auditorCount; i++) {
-      publicKeys[i] = auditorPublicKeys[i];
-    }
-    return publicKeys;
+    return settings.queryAllAuditorPublicKeys();
   }
 
   function _enqueueCommitment(uint256 _commitment, uint256 _rollupFee, bytes memory _encryptedNote) internal {
@@ -520,7 +412,7 @@ abstract contract CommitmentPool is ICommitmentPool, AssetPool, ReentrancyGuard,
     return _fullPath;
   }
 
-  function _transactRequestHash(TransactRequest memory _request) internal returns (bytes32) {
+  function _checkTransactRequestHash(TransactRequest memory _request, bytes memory _signature) internal pure {
     uint256 outNotesLen = _request.outEncryptedNotes.length;
     if (outNotesLen >= 3) revert CustomErrors.OutputNotesLessThanThree();
 
@@ -542,10 +434,12 @@ abstract contract CommitmentPool is ICommitmentPool, AssetPool, ReentrancyGuard,
       );
     }
 
-    return ECDSA.toEthSignedMessageHash(keccak256(requestBytes));
+    bytes32 hash = MessageHashUtils.toEthSignedMessageHash(keccak256(requestBytes));
+    if (_request.sigPk != bytes32(uint256(uint160(ECDSA.recover(hash, _signature)))))
+      revert CustomErrors.Invalid("signature");
   }
 
-  function _unpackPublicKey(uint256 _publicKey) internal returns (UnpackedPublicKey memory) {
+  function _unpackPublicKey(uint256 _publicKey) internal pure returns (UnpackedPublicKey memory) {
     UnpackedPublicKey memory unpacked;
     unpacked.xSign = _publicKey >> 255;
     unpacked.y = _publicKey & 0x7fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff;
@@ -556,11 +450,13 @@ abstract contract CommitmentPool is ICommitmentPool, AssetPool, ReentrancyGuard,
     TransactRequest memory _request,
     uint256[] memory inputs,
     uint256 previousIndex
-  ) internal {
+  ) internal view {
     UnpackedPublicKey memory unpackedAuditingPublicKey = _unpackPublicKey(_request.randomAuditingPublicKey);
     inputs[previousIndex] = unpackedAuditingPublicKey.xSign;
     inputs[previousIndex + 1] = unpackedAuditingPublicKey.y;
 
+    uint256 auditorCount = AUDITOR_COUNT;
+    uint256[] memory auditorPublicKeys = settings.queryAllAuditorPublicKeys();
     uint256 nextIndex = previousIndex + 2;
     uint256 updatedIndex = nextIndex + auditorCount;
     uint256 adjustedIndex = nextIndex + 2 * auditorCount;
@@ -576,6 +472,8 @@ abstract contract CommitmentPool is ICommitmentPool, AssetPool, ReentrancyGuard,
   }
 
   function _emitAuditingNotes(TransactRequest memory _request) internal {
+    uint256 auditorCount = AUDITOR_COUNT;
+    uint256[] memory auditorPublicKeys = settings.queryAllAuditorPublicKeys();
     uint256 auditorNoteCount = _request.serialNumbers.length * auditorCount;
     AuditorNote[] memory auditorNotes = new AuditorNote[](auditorNoteCount);
 

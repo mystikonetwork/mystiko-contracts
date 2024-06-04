@@ -1,0 +1,7 @@
+.env
+.env.test
+artifacts
+artifactsExternal
+cache
+coverage.json
+out

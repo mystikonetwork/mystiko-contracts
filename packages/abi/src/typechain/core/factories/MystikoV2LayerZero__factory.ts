@@ -24,12 +24,22 @@ const _abi = [
   },
   {
     inputs: [],
+    name: 'AssociatedPoolNotSet',
+    type: 'error',
+  },
+  {
+    inputs: [],
     name: 'BridgeFeeTooFew',
     type: 'error',
   },
   {
     inputs: [],
     name: 'CallIsNotLzApp',
+    type: 'error',
+  },
+  {
+    inputs: [],
+    name: 'CertificateInvalid',
     type: 'error',
   },
   {
@@ -54,16 +64,6 @@ const _abi = [
   },
   {
     inputs: [],
-    name: 'FromChainIdNotMatched',
-    type: 'error',
-  },
-  {
-    inputs: [],
-    name: 'FromProxyAddressNotMatched',
-    type: 'error',
-  },
-  {
-    inputs: [],
     name: 'HashKGreaterThanFieldSize',
     type: 'error',
   },
@@ -80,22 +80,49 @@ const _abi = [
   },
   {
     inputs: [],
-    name: 'MinAmountGreaterThanMaxAmount',
-    type: 'error',
-  },
-  {
-    inputs: [],
     name: 'NoStoredMessage',
     type: 'error',
   },
   {
     inputs: [],
-    name: 'NotChanged',
+    name: 'NotSupport',
+    type: 'error',
+  },
+  {
+    inputs: [
+      {
+        internalType: 'address',
+        name: 'owner',
+        type: 'address',
+      },
+    ],
+    name: 'OwnableInvalidOwner',
+    type: 'error',
+  },
+  {
+    inputs: [
+      {
+        internalType: 'address',
+        name: 'account',
+        type: 'address',
+      },
+    ],
+    name: 'OwnableUnauthorizedAccount',
     type: 'error',
   },
   {
     inputs: [],
-    name: 'OnlyOperator',
+    name: 'PeerChainIdNotMatched',
+    type: 'error',
+  },
+  {
+    inputs: [],
+    name: 'PeerContractAlreadySet',
+    type: 'error',
+  },
+  {
+    inputs: [],
+    name: 'PeerContractNotMatched',
     type: 'error',
   },
   {
@@ -124,38 +151,6 @@ const _abi = [
       },
     ],
     name: 'CommitmentCrossChain',
-    type: 'event',
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: false,
-        internalType: 'uint256',
-        name: 'maxAmount',
-        type: 'uint256',
-      },
-      {
-        indexed: false,
-        internalType: 'uint256',
-        name: 'minAmount',
-        type: 'uint256',
-      },
-    ],
-    name: 'DepositAmountLimits',
-    type: 'event',
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: false,
-        internalType: 'bool',
-        name: 'state',
-        type: 'bool',
-      },
-    ],
-    name: 'DepositsDisabled',
     type: 'event',
   },
   {
@@ -193,45 +188,6 @@ const _abi = [
     anonymous: false,
     inputs: [
       {
-        indexed: false,
-        internalType: 'uint256',
-        name: 'minBridgeFee',
-        type: 'uint256',
-      },
-    ],
-    name: 'MinBridgeFee',
-    type: 'event',
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: false,
-        internalType: 'uint256',
-        name: 'minExecutorFee',
-        type: 'uint256',
-      },
-    ],
-    name: 'MinExecutorFee',
-    type: 'event',
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: true,
-        internalType: 'address',
-        name: 'operator',
-        type: 'address',
-      },
-    ],
-    name: 'OperatorChanged',
-    type: 'event',
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
         indexed: true,
         internalType: 'address',
         name: 'previousOwner',
@@ -252,58 +208,6 @@ const _abi = [
     inputs: [
       {
         indexed: false,
-        internalType: 'uint256',
-        name: 'peerMinExecutorFee',
-        type: 'uint256',
-      },
-    ],
-    name: 'PeerMinExecutorFee',
-    type: 'event',
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: false,
-        internalType: 'uint256',
-        name: 'peerMinRollupFee',
-        type: 'uint256',
-      },
-    ],
-    name: 'PeerMinRollupFee',
-    type: 'event',
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: false,
-        internalType: 'bool',
-        name: 'state',
-        type: 'bool',
-      },
-    ],
-    name: 'SanctionsCheck',
-    type: 'event',
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: false,
-        internalType: 'contract ISanctionsList',
-        name: 'sanctions',
-        type: 'address',
-      },
-    ],
-    name: 'SanctionsList',
-    type: 'event',
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: false,
         internalType: 'uint16',
         name: '_srcChainId',
         type: 'uint16',
@@ -317,6 +221,19 @@ const _abi = [
     ],
     name: 'SetTrustedRemote',
     type: 'event',
+  },
+  {
+    inputs: [],
+    name: 'assetAddress',
+    outputs: [
+      {
+        internalType: 'address',
+        name: '',
+        type: 'address',
+      },
+    ],
+    stateMutability: 'view',
+    type: 'function',
   },
   {
     inputs: [],
@@ -360,14 +277,131 @@ const _abi = [
   {
     inputs: [
       {
-        internalType: 'address',
-        name: '_newOperator',
-        type: 'address',
+        components: [
+          {
+            internalType: 'uint256',
+            name: 'amount',
+            type: 'uint256',
+          },
+          {
+            internalType: 'uint256',
+            name: 'commitment',
+            type: 'uint256',
+          },
+          {
+            internalType: 'uint256',
+            name: 'hashK',
+            type: 'uint256',
+          },
+          {
+            internalType: 'uint128',
+            name: 'randomS',
+            type: 'uint128',
+          },
+          {
+            internalType: 'bytes',
+            name: 'encryptedNote',
+            type: 'bytes',
+          },
+          {
+            internalType: 'uint256',
+            name: 'bridgeFee',
+            type: 'uint256',
+          },
+          {
+            internalType: 'uint256',
+            name: 'executorFee',
+            type: 'uint256',
+          },
+          {
+            internalType: 'uint256',
+            name: 'rollupFee',
+            type: 'uint256',
+          },
+        ],
+        internalType: 'struct IMystikoBridge.DepositRequest',
+        name: '_request',
+        type: 'tuple',
+      },
+      {
+        internalType: 'uint256',
+        name: '_certificateDeadline',
+        type: 'uint256',
+      },
+      {
+        internalType: 'bytes',
+        name: '_certificateSignature',
+        type: 'bytes',
       },
     ],
-    name: 'changeOperator',
+    name: 'certDeposit',
     outputs: [],
-    stateMutability: 'nonpayable',
+    stateMutability: 'payable',
+    type: 'function',
+  },
+  {
+    inputs: [],
+    name: 'defaultMaxAmount',
+    outputs: [
+      {
+        internalType: 'uint256',
+        name: '',
+        type: 'uint256',
+      },
+    ],
+    stateMutability: 'view',
+    type: 'function',
+  },
+  {
+    inputs: [],
+    name: 'defaultMinAmount',
+    outputs: [
+      {
+        internalType: 'uint256',
+        name: '',
+        type: 'uint256',
+      },
+    ],
+    stateMutability: 'view',
+    type: 'function',
+  },
+  {
+    inputs: [],
+    name: 'defaultMinBridgeFee',
+    outputs: [
+      {
+        internalType: 'uint256',
+        name: '',
+        type: 'uint256',
+      },
+    ],
+    stateMutability: 'view',
+    type: 'function',
+  },
+  {
+    inputs: [],
+    name: 'defaultPeerMinExecutorFee',
+    outputs: [
+      {
+        internalType: 'uint256',
+        name: '',
+        type: 'uint256',
+      },
+    ],
+    stateMutability: 'view',
+    type: 'function',
+  },
+  {
+    inputs: [],
+    name: 'defaultPeerMinRollupFee',
+    outputs: [
+      {
+        internalType: 'uint256',
+        name: '',
+        type: 'uint256',
+      },
+    ],
+    stateMutability: 'view',
     type: 'function',
   },
   {
@@ -423,20 +457,6 @@ const _abi = [
     name: 'deposit',
     outputs: [],
     stateMutability: 'payable',
-    type: 'function',
-  },
-  {
-    inputs: [],
-    name: 'disableSanctionsCheck',
-    outputs: [],
-    stateMutability: 'nonpayable',
-    type: 'function',
-  },
-  {
-    inputs: [],
-    name: 'enableSanctionsCheck',
-    outputs: [],
-    stateMutability: 'nonpayable',
     type: 'function',
   },
   {
@@ -574,19 +594,6 @@ const _abi = [
   },
   {
     inputs: [],
-    name: 'getMinExecutorFee',
-    outputs: [
-      {
-        internalType: 'uint256',
-        name: '',
-        type: 'uint256',
-      },
-    ],
-    stateMutability: 'view',
-    type: 'function',
-  },
-  {
-    inputs: [],
     name: 'getPeerMinExecutorFee',
     outputs: [
       {
@@ -614,6 +621,19 @@ const _abi = [
   {
     inputs: [],
     name: 'isDepositsDisabled',
+    outputs: [
+      {
+        internalType: 'bool',
+        name: '',
+        type: 'bool',
+      },
+    ],
+    stateMutability: 'view',
+    type: 'function',
+  },
+  {
+    inputs: [],
+    name: 'isPeerContractSet',
     outputs: [
       {
         internalType: 'bool',
@@ -831,58 +851,6 @@ const _abi = [
     type: 'function',
   },
   {
-    inputs: [],
-    name: 'sanctionsCheck',
-    outputs: [
-      {
-        internalType: 'bool',
-        name: '',
-        type: 'bool',
-      },
-    ],
-    stateMutability: 'view',
-    type: 'function',
-  },
-  {
-    inputs: [],
-    name: 'sanctionsList',
-    outputs: [
-      {
-        internalType: 'contract ISanctionsList',
-        name: '',
-        type: 'address',
-      },
-    ],
-    stateMutability: 'view',
-    type: 'function',
-  },
-  {
-    inputs: [
-      {
-        internalType: 'address',
-        name: '_commitmentPoolAddress',
-        type: 'address',
-      },
-    ],
-    name: 'setAssociatedCommitmentPool',
-    outputs: [],
-    stateMutability: 'nonpayable',
-    type: 'function',
-  },
-  {
-    inputs: [
-      {
-        internalType: 'address',
-        name: '_bridgeProxyAddress',
-        type: 'address',
-      },
-    ],
-    name: 'setBridgeProxyAddress',
-    outputs: [],
-    stateMutability: 'nonpayable',
-    type: 'function',
-  },
-  {
     inputs: [
       {
         internalType: 'uint16',
@@ -913,19 +881,6 @@ const _abi = [
   {
     inputs: [
       {
-        internalType: 'bool',
-        name: '_state',
-        type: 'bool',
-      },
-    ],
-    name: 'setDepositsDisabled',
-    outputs: [],
-    stateMutability: 'nonpayable',
-    type: 'function',
-  },
-  {
-    inputs: [
-      {
         internalType: 'uint16',
         name: '_lzChainId',
         type: 'uint16',
@@ -944,74 +899,29 @@ const _abi = [
   {
     inputs: [
       {
-        internalType: 'uint256',
-        name: '_minBridgeFee',
-        type: 'uint256',
-      },
-    ],
-    name: 'setMinBridgeFee',
-    outputs: [],
-    stateMutability: 'nonpayable',
-    type: 'function',
-  },
-  {
-    inputs: [
-      {
-        internalType: 'uint256',
-        name: '_minExecutorFee',
-        type: 'uint256',
-      },
-    ],
-    name: 'setMinExecutorFee',
-    outputs: [],
-    stateMutability: 'nonpayable',
-    type: 'function',
-  },
-  {
-    inputs: [
-      {
-        internalType: 'uint64',
-        name: '_peerChainId',
-        type: 'uint64',
-      },
-      {
-        internalType: 'string',
-        name: '_peerChainName',
-        type: 'string',
-      },
-      {
-        internalType: 'address',
+        components: [
+          {
+            internalType: 'uint64',
+            name: 'peerChainId',
+            type: 'uint64',
+          },
+          {
+            internalType: 'string',
+            name: 'peerChainName',
+            type: 'string',
+          },
+          {
+            internalType: 'address',
+            name: 'peerContract',
+            type: 'address',
+          },
+        ],
+        internalType: 'struct IMystikoBridge.PeerContract',
         name: '_peerContract',
-        type: 'address',
+        type: 'tuple',
       },
     ],
     name: 'setPeerContract',
-    outputs: [],
-    stateMutability: 'nonpayable',
-    type: 'function',
-  },
-  {
-    inputs: [
-      {
-        internalType: 'uint256',
-        name: '_peerMinExecutorFee',
-        type: 'uint256',
-      },
-    ],
-    name: 'setPeerMinExecutorFee',
-    outputs: [],
-    stateMutability: 'nonpayable',
-    type: 'function',
-  },
-  {
-    inputs: [
-      {
-        internalType: 'uint256',
-        name: '_peerMinRollupFee',
-        type: 'uint256',
-      },
-    ],
-    name: 'setPeerMinRollupFee',
     outputs: [],
     stateMutability: 'nonpayable',
     type: 'function',
@@ -1061,6 +971,19 @@ const _abi = [
     type: 'function',
   },
   {
+    inputs: [],
+    name: 'settings',
+    outputs: [
+      {
+        internalType: 'contract MystikoBridgeSettings',
+        name: '',
+        type: 'address',
+      },
+    ],
+    stateMutability: 'view',
+    type: 'function',
+  },
+  {
     inputs: [
       {
         internalType: 'address',
@@ -1090,37 +1013,6 @@ const _abi = [
       },
     ],
     stateMutability: 'view',
-    type: 'function',
-  },
-  {
-    inputs: [
-      {
-        internalType: 'uint256',
-        name: '_maxAmount',
-        type: 'uint256',
-      },
-      {
-        internalType: 'uint256',
-        name: '_minAmount',
-        type: 'uint256',
-      },
-    ],
-    name: 'updateDepositAmountLimits',
-    outputs: [],
-    stateMutability: 'nonpayable',
-    type: 'function',
-  },
-  {
-    inputs: [
-      {
-        internalType: 'contract ISanctionsList',
-        name: '_sanction',
-        type: 'address',
-      },
-    ],
-    name: 'updateSanctionsListAddress',
-    outputs: [],
-    stateMutability: 'nonpayable',
     type: 'function',
   },
 ];

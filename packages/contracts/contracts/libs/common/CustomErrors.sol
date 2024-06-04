@@ -1,10 +1,11 @@
-pragma solidity ^0.8.7;
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.20;
 
 library CustomErrors {
-  error OnlyOperator();
-  error NotChanged();
-  error OnlyWhitelistedRoller();
-  error OnlyWhitelistedSender();
+  error RejectRollup();
+  error RejectRelay();
+  error RollupVerifierDisabled(uint256 rollupSize);
+  error TransactVerifierDisabled(uint32 inputNumber, uint32 outputNumber);
   error OnlyWhitelistedExecutor();
   error TreeHeightLessThanZero();
   error RollupFeeToFew();
@@ -16,9 +17,6 @@ library CustomErrors {
   error SanctionedAddress();
   error NoteHasBeenSpent();
   error Duplicated(string param);
-  error VerifierUpdatesHasBeenDisabled();
-  error NumInputsGreaterThanZero();
-  error RollupSizeNotPowerOfTwo();
   error TreeHeightOutOfBounds();
   error OutputNotesLessThanThree();
   error SenderIsNotBridgeProxy();
@@ -27,13 +25,11 @@ library CustomErrors {
   error DepositsDisabled();
   error AmountTooSmall();
   error AmountTooLarge();
-  error MaxAmountLessThanMinAmount();
-  error MinAmountGreaterThanMaxAmount();
   error BridgeFeeTooFew();
   error ExecutorFeeTooFew();
   error CommitmentHashIncorrect();
-  error FromProxyAddressNotMatched();
-  error FromChainIdNotMatched();
+  error PeerContractNotMatched();
+  error PeerChainIdNotMatched();
   error AmountLessThanZero();
   error DestinationChainIsNotTrusted();
   error CallIsNotLzApp();
@@ -42,6 +38,10 @@ library CustomErrors {
   error CallCrossChainSyncTxError();
   error WithdrawFailed();
   error AuditorIndexError();
-  error AuditorPublicKeyNotChanged();
   error AuditorNotesLengthError();
+  error AssociatedPoolNotMatched();
+  error AssociatedPoolNotSet();
+  error NotSupport();
+  error CertificateInvalid();
+  error PeerContractAlreadySet();
 }

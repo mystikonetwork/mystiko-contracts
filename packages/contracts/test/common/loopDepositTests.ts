@@ -1,19 +1,22 @@
 import { Wallet } from '@ethersproject/wallet';
-import { DummySanctionsList, TestToken } from '@mystikonetwork/contracts-abi';
+import { MockSanctionList, MockToken } from '@mystikonetwork/contracts-abi';
 import { CommitmentOutput, MystikoProtocolV2 } from '@mystikonetwork/protocol';
 import { toBN, toHex } from '@mystikonetwork/utils';
 import { expect } from 'chai';
 import { waffle } from 'hardhat';
-import { MaxAmount, MinAmount } from '../util/constants';
+import { MystikoCertificate, MystikoBridgeSettings } from '@mystikonetwork/contracts-abi-settings';
+import { MaxAmount, MinAmount, MockSignature, ZeroAddress } from '../util/constants';
 import { CommitmentInfo } from './commitment';
 
 export function testLoopDeposit(
   contractName: string,
   protocol: MystikoProtocolV2,
-  mystikoContract: any,
+  depositContract: any,
   commitmentPool: any,
-  testTokenContract: TestToken,
-  sanctionList: DummySanctionsList,
+  mockToken: MockToken,
+  mockSanctionList: MockSanctionList,
+  certificate: MystikoCertificate,
+  settings: MystikoBridgeSettings,
   accounts: Wallet[],
   depositAmount: string,
   isMainAsset: boolean,
@@ -32,9 +35,9 @@ export function testLoopDeposit(
     });
 
     it('should revert when deposit is disabled', async () => {
-      await mystikoContract.setDepositsDisabled(true);
+      await settings.setDepositDisable(depositContract.address, true);
       await expect(
-        mystikoContract.deposit(
+        depositContract.certDeposit(
           [
             depositAmount,
             commitments[0].commitmentHash.toString(),
@@ -43,16 +46,18 @@ export function testLoopDeposit(
             toHex(commitments[0].encryptedNote),
             minRollupFee,
           ],
+          0,
+          MockSignature,
           { from: accounts[0].address, value: isMainAsset ? minTotalAmount : '0' },
         ),
       ).to.be.revertedWith('DepositsDisabled()');
-      await mystikoContract.setDepositsDisabled(false);
+      await settings.setDepositDisable(depositContract.address, false);
     });
 
     it('should revert when sender in sanction list', async () => {
-      await sanctionList.addToSanctionsList(accounts[0].address);
+      await mockSanctionList.addToSanctionsList(accounts[0].address);
       await expect(
-        mystikoContract.deposit(
+        depositContract.certDeposit(
           [
             depositAmount,
             commitments[0].commitmentHash.toString(),
@@ -61,16 +66,18 @@ export function testLoopDeposit(
             toHex(commitments[0].encryptedNote),
             minRollupFee,
           ],
+          0,
+          MockSignature,
           { from: accounts[0].address, value: isMainAsset ? minTotalAmount : '0' },
         ),
       ).to.be.revertedWith('SanctionedAddress()');
-      await sanctionList.removeFromSanctionsList(accounts[0].address);
+      await mockSanctionList.removeFromSanctionsList(accounts[0].address);
     });
 
     it('should revert when amount is too few', async () => {
       const amount = toBN(MinAmount).sub(toBN(1)).toString();
       await expect(
-        mystikoContract.deposit(
+        depositContract.certDeposit(
           [
             amount,
             commitments[0].commitmentHash.toString(),
@@ -79,6 +86,8 @@ export function testLoopDeposit(
             toHex(commitments[0].encryptedNote),
             '0',
           ],
+          0,
+          MockSignature,
           { from: accounts[0].address, value: isMainAsset ? amount : '0' },
         ),
       ).to.be.revertedWith('AmountTooSmall()');
@@ -87,7 +96,7 @@ export function testLoopDeposit(
     it('should revert when amount is too large', async () => {
       const amount = toBN(MaxAmount).add(toBN(1)).toString();
       await expect(
-        mystikoContract.deposit(
+        depositContract.certDeposit(
           [
             amount,
             commitments[0].commitmentHash.toString(),
@@ -96,6 +105,8 @@ export function testLoopDeposit(
             toHex(commitments[0].encryptedNote),
             '0',
           ],
+          0,
+          MockSignature,
           { from: accounts[0].address, value: isMainAsset ? amount : '0' },
         ),
       ).to.be.revertedWith('AmountTooLarge()');
@@ -104,7 +115,7 @@ export function testLoopDeposit(
     it('should revert when hashK greater than field size', async () => {
       const fieldSize = '21888242871839275222246405745257275088548364400416034343698204186575808495617';
       await expect(
-        mystikoContract.deposit(
+        depositContract.certDeposit(
           [
             depositAmount,
             commitments[0].commitmentHash.toString(),
@@ -113,6 +124,8 @@ export function testLoopDeposit(
             toHex(commitments[0].encryptedNote),
             minRollupFee,
           ],
+          0,
+          MockSignature,
           { from: accounts[0].address, value: isMainAsset ? minTotalAmount : '0' },
         ),
       ).to.be.revertedWith('HashKGreaterThanFieldSize()');
@@ -120,7 +133,7 @@ export function testLoopDeposit(
 
     it('should revert when commitmentHash is incorrect', async () => {
       await expect(
-        mystikoContract.deposit(
+        depositContract.certDeposit(
           [
             depositAmount,
             commitments[0].commitmentHash.toString(),
@@ -129,6 +142,8 @@ export function testLoopDeposit(
             toHex(commitments[0].encryptedNote),
             minRollupFee,
           ],
+          0,
+          MockSignature,
           { from: accounts[0].address, value: isMainAsset ? minTotalAmount : '0' },
         ),
       ).to.be.revertedWith('CommitmentHashIncorrect()');
@@ -137,16 +152,16 @@ export function testLoopDeposit(
     it('should approve asset successfully', async () => {
       if (!isMainAsset) {
         const approveAmount = toBN(minTotalAmount).muln(commitments.length).toString();
-        await testTokenContract.approve(mystikoContract.address, approveAmount, {
+        await mockToken.approve(depositContract.address, approveAmount, {
           from: accounts[0].address,
         });
       }
     });
 
-    it('should revert onlyEnqueueWhitelisted', async () => {
-      await commitmentPool.removeEnqueueWhitelist(mystikoContract.address);
+    it('should revert AssociatedPoolNotSet', async () => {
+      await settings.setAssociatedPool(depositContract.address, ZeroAddress);
       await expect(
-        mystikoContract.deposit(
+        depositContract.certDeposit(
           [
             depositAmount,
             commitments[0].commitmentHash.toString(),
@@ -155,15 +170,17 @@ export function testLoopDeposit(
             toHex(commitments[0].encryptedNote),
             minRollupFee,
           ],
+          0,
+          MockSignature,
           { from: accounts[0].address, value: isMainAsset ? depositAmount : '0' },
         ),
-      ).to.be.revertedWith('OnlyWhitelistedSender()');
-      await commitmentPool.addEnqueueWhitelist(mystikoContract.address);
+      ).to.be.revertedWith('AssociatedPoolNotSet()');
+      await settings.setAssociatedPool(depositContract.address, commitmentPool.address);
     });
 
     it('should revert when rollup fee is too few', async () => {
       await expect(
-        mystikoContract.deposit(
+        depositContract.certDeposit(
           [
             depositAmount,
             commitments[0].commitmentHash.toString(),
@@ -172,18 +189,20 @@ export function testLoopDeposit(
             toHex(commitments[0].encryptedNote),
             '0',
           ],
+          0,
+          MockSignature,
           { from: accounts[0].address, value: isMainAsset ? depositAmount : '0' },
         ),
       ).to.be.revertedWith('RollupFeeToFew()');
     });
 
     it('should deposit successfully', async () => {
-      await sanctionList.addToSanctionsList(accounts[0].address);
-      await mystikoContract.disableSanctionsCheck();
+      await mockSanctionList.addToSanctionsList(accounts[0].address);
+      await settings.disableSanctionsCheck();
 
       for (let i = 0; i < numOfCommitments; i += 1) {
         await expect(
-          mystikoContract.deposit(
+          depositContract.certDeposit(
             [
               depositAmount,
               commitments[i].commitmentHash.toString(),
@@ -192,6 +211,8 @@ export function testLoopDeposit(
               toHex(commitments[i].encryptedNote),
               minRollupFee,
             ],
+            0,
+            MockSignature,
             { from: accounts[0].address, value: isMainAsset ? minTotalAmount : '0' },
           ),
         )
@@ -213,27 +234,26 @@ export function testLoopDeposit(
         expect(queued.length).to.be.equal(i + 1);
         expect(queued[i].toString()).to.be.equal(commitments[i].commitmentHash.toString());
       }
-      await sanctionList.removeFromSanctionsList(accounts[0].address);
+      await mockSanctionList.removeFromSanctionsList(accounts[0].address);
+      await settings.enableSanctionsCheck();
     });
 
     it('should have correct balance', async () => {
       expectBalance = toBN(minTotalAmount).muln(numOfCommitments).toString();
 
       if (isMainAsset) {
-        expect(await waffle.provider.getBalance(mystikoContract.address)).to.equal('0');
+        expect(await waffle.provider.getBalance(depositContract.address)).to.equal('0');
         expect(await waffle.provider.getBalance(commitmentPool.address)).to.equal(expectBalance);
       } else {
-        expect((await testTokenContract.balanceOf(mystikoContract.address)).toString()).to.equal('0');
-        expect((await testTokenContract.balanceOf(commitmentPool.address)).toString()).to.equal(
-          expectBalance,
-        );
+        expect((await mockToken.balanceOf(depositContract.address)).toString()).to.equal('0');
+        expect((await mockToken.balanceOf(commitmentPool.address)).toString()).to.equal(expectBalance);
       }
     });
 
     it('should approve asset successfully', async () => {
       if (!isMainAsset) {
         const approveAmount = toBN(minTotalAmount).muln(commitments.length).toString();
-        await testTokenContract.approve(mystikoContract.address, approveAmount, {
+        await mockToken.approve(depositContract.address, approveAmount, {
           from: accounts[0].address,
         });
       }
@@ -241,7 +261,7 @@ export function testLoopDeposit(
 
     it('should revert with duplicate commitment', async () => {
       await expect(
-        mystikoContract.deposit(
+        depositContract.certDeposit(
           [
             depositAmount,
             commitments[0].commitmentHash.toString(),
@@ -250,6 +270,8 @@ export function testLoopDeposit(
             toHex(commitments[0].encryptedNote),
             minRollupFee,
           ],
+          0,
+          MockSignature,
           { from: accounts[0].address, value: isMainAsset ? minTotalAmount : '0' },
         ),
       ).to.be.revertedWith('CommitmentHasBeenSubmitted()');
@@ -257,13 +279,11 @@ export function testLoopDeposit(
 
     it('should have correct balance', async () => {
       if (isMainAsset) {
-        expect(await waffle.provider.getBalance(mystikoContract.address)).to.equal('0');
+        expect(await waffle.provider.getBalance(depositContract.address)).to.equal('0');
         expect(await waffle.provider.getBalance(commitmentPool.address)).to.equal(expectBalance);
       } else {
-        expect((await testTokenContract.balanceOf(mystikoContract.address)).toString()).to.equal('0');
-        expect((await testTokenContract.balanceOf(commitmentPool.address)).toString()).to.equal(
-          expectBalance,
-        );
+        expect((await mockToken.balanceOf(depositContract.address)).toString()).to.equal('0');
+        expect((await mockToken.balanceOf(commitmentPool.address)).toString()).to.equal(expectBalance);
       }
     });
   });
@@ -272,10 +292,12 @@ export function testLoopDeposit(
 export function loopDepositRevert(
   contractName: string,
   protocol: MystikoProtocolV2,
-  mystikoContract: any,
+  depositContract: any,
   commitmentPool: any,
-  testTokenContract: TestToken,
-  sanctionList: DummySanctionsList,
+  mockToken: MockToken,
+  mockSanctionList: MockSanctionList,
+  certificate: MystikoCertificate,
+  settings: MystikoBridgeSettings,
   accounts: Wallet[],
   depositAmount: string,
   isMainAsset: boolean,
@@ -295,19 +317,19 @@ export function loopDepositRevert(
     it('should approve asset successfully', async () => {
       if (!isMainAsset) {
         const approveAmount = toBN(minTotalAmount).muln(commitments.length).toString();
-        await testTokenContract.approve(mystikoContract.address, approveAmount, {
+        await mockToken.approve(depositContract.address, approveAmount, {
           from: accounts[0].address,
         });
       }
     });
 
     it('deposit should revert with tree full', async () => {
-      await sanctionList.addToSanctionsList(accounts[0].address);
-      await mystikoContract.disableSanctionsCheck();
+      await mockSanctionList.addToSanctionsList(accounts[0].address);
+      await settings.disableSanctionsCheck();
 
       for (let i = 0; i < numOfCommitments; i += 1) {
         await expect(
-          mystikoContract.deposit(
+          depositContract.certDeposit(
             [
               depositAmount,
               commitments[i].commitmentHash.toString(),
@@ -316,6 +338,8 @@ export function loopDepositRevert(
               toHex(commitments[i].encryptedNote),
               minRollupFee,
             ],
+            0,
+            MockSignature,
             { from: accounts[0].address, value: isMainAsset ? minTotalAmount : '0' },
           ),
         ).revertedWith('TreeIsFull()');
@@ -323,8 +347,9 @@ export function loopDepositRevert(
         expect(await commitmentPool.isHistoricCommitment(commitments[i].commitmentHash.toString())).to.equal(
           false,
         );
-        await sanctionList.removeFromSanctionsList(accounts[0].address);
       }
+      await mockSanctionList.removeFromSanctionsList(accounts[0].address);
+      await settings.disableSanctionsCheck();
     });
   });
 }
@@ -332,10 +357,12 @@ export function loopDepositRevert(
 export function loopDeposit(
   contractName: string,
   protocol: MystikoProtocolV2,
-  mystikoContract: any,
+  depositContract: any,
   commitmentPool: any,
-  testTokenContract: TestToken,
-  sanctionList: DummySanctionsList,
+  mockToken: MockToken,
+  mockSanctionList: MockSanctionList,
+  certificate: MystikoCertificate,
+  settings: MystikoBridgeSettings,
   accounts: Wallet[],
   depositAmount: string,
   isMainAsset: boolean,
@@ -355,18 +382,18 @@ export function loopDeposit(
     it('should approve asset successfully', async () => {
       if (!isMainAsset) {
         const approveAmount = toBN(minTotalAmount).muln(commitments.length).toString();
-        await testTokenContract.approve(mystikoContract.address, approveAmount, {
+        await mockToken.approve(depositContract.address, approveAmount, {
           from: accounts[0].address,
         });
       }
     });
 
-    it('should deposit successfully', async () => {
-      await sanctionList.addToSanctionsList(accounts[0].address);
-      await mystikoContract.disableSanctionsCheck();
+    it('should deposit successfully with disable certificate check', async () => {
+      await mockSanctionList.addToSanctionsList(accounts[0].address);
+      await settings.disableSanctionsCheck();
       for (let i = 0; i < numOfCommitments; i += 1) {
         await expect(
-          mystikoContract.deposit(
+          depositContract.certDeposit(
             [
               depositAmount,
               commitments[i].commitmentHash.toString(),
@@ -375,6 +402,8 @@ export function loopDeposit(
               toHex(commitments[i].encryptedNote),
               minRollupFee,
             ],
+            0,
+            MockSignature,
             { from: accounts[0].address, value: isMainAsset ? minTotalAmount : '0' },
           ),
         )
@@ -389,21 +418,20 @@ export function loopDeposit(
         expect(await commitmentPool.isHistoricCommitment(commitments[i].commitmentHash.toString())).to.equal(
           true,
         );
-        await sanctionList.removeFromSanctionsList(accounts[0].address);
       }
+      await mockSanctionList.removeFromSanctionsList(accounts[0].address);
+      await settings.enableSanctionsCheck();
     });
 
     it('should have correct balance', async () => {
       const expectBalance = toBN(minTotalAmount).muln(numOfCommitments).toString();
 
       if (isMainAsset) {
-        expect(await waffle.provider.getBalance(mystikoContract.address)).to.equal('0');
+        expect(await waffle.provider.getBalance(depositContract.address)).to.equal('0');
         expect(await waffle.provider.getBalance(commitmentPool.address)).to.equal(expectBalance);
       } else {
-        expect((await testTokenContract.balanceOf(mystikoContract.address)).toString()).to.equal('0');
-        expect((await testTokenContract.balanceOf(commitmentPool.address)).toString()).to.equal(
-          expectBalance,
-        );
+        expect((await mockToken.balanceOf(depositContract.address)).toString()).to.equal('0');
+        expect((await mockToken.balanceOf(commitmentPool.address)).toString()).to.equal(expectBalance);
       }
     });
   });

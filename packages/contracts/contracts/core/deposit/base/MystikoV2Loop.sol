@@ -1,57 +1,35 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.7;
+pragma solidity ^0.8.20;
 
 import "../../../libs/asset/AssetPool.sol";
 import "../../../libs/common/CustomErrors.sol";
 import "../../../libs/common/DataTypes.sol";
-import "../../../interface/IMystikoLoop.sol";
-import "../../../interface/IHasher3.sol";
-import "../../../interface/ICommitmentPool.sol";
-import "../../../interface/ISanctionsList.sol";
-import "../../rule/Sanctions.sol";
-import "@openzeppelin/contracts/security/ReentrancyGuard.sol";
-import "@openzeppelin/contracts/utils/cryptography/ECDSA.sol";
-import "@openzeppelin/contracts/utils/math/SafeMath.sol";
+import "../../../interfaces/IMystikoLoop.sol";
+import "../../../interfaces/IHasher3.sol";
+import "../../../interfaces/ICommitmentPool.sol";
+import {ReentrancyGuard} from "@openzeppelin/contracts/utils/ReentrancyGuard.sol";
+import {ECDSA} from "@openzeppelin/contracts/utils/cryptography/ECDSA.sol";
+import {SafeCast} from "@openzeppelin/contracts/utils/math/SafeCast.sol";
+import {MystikoSettings} from "@mystikonetwork/contracts-settings/contracts/MystikoSettings.sol";
+import {CertificateParams} from "@mystikonetwork/contracts-certificate/contracts/interfaces/IMystikoCertificate.sol";
 
-abstract contract MystikoV2Loop is IMystikoLoop, AssetPool, Sanctions {
-  using SafeMath for uint256;
+abstract contract MystikoV2Loop is IMystikoLoop, AssetPool {
+  using SafeCast for uint256;
 
   // Hasher related.
   IHasher3 private hasher3;
 
-  address private associatedCommitmentPool;
-  uint256 private minAmount;
-  uint256 private maxAmount;
+  uint256 private defaultMinAmount;
+  uint256 private defaultMaxAmount;
 
-  // Admin related.
-  address private operator;
+  // configure related.
+  MystikoSettings public settings;
 
-  // Some switches.
-  bool private depositsDisabled;
-
-  modifier onlyOperator() {
-    if (msg.sender != operator) revert CustomErrors.OnlyOperator();
-    _;
-  }
-
-  constructor(IHasher3 _hasher3) {
-    operator = msg.sender;
+  constructor(IHasher3 _hasher3, address _settingsCenter, LocalConfig memory _localConfig) {
     hasher3 = _hasher3;
-  }
-
-  event OperatorChanged(address indexed operator);
-  event DepositAmountLimits(uint256 maxAmount, uint256 minAmount);
-  event DepositsDisabled(bool state);
-
-  function setAssociatedCommitmentPool(address _commitmentPoolAddress) external onlyOperator {
-    associatedCommitmentPool = _commitmentPoolAddress;
-  }
-
-  function updateDepositAmountLimits(uint256 _maxAmount, uint256 _minAmount) external onlyOperator {
-    if (_minAmount > _maxAmount) revert CustomErrors.MinAmountGreaterThanMaxAmount();
-    maxAmount = _maxAmount;
-    minAmount = _minAmount;
-    emit DepositAmountLimits(_maxAmount, _minAmount);
+    defaultMinAmount = _localConfig.minAmount;
+    defaultMaxAmount = _localConfig.maxAmount;
+    settings = MystikoSettings(_settingsCenter);
   }
 
   function _commitmentHash(
@@ -69,12 +47,29 @@ abstract contract MystikoV2Loop is IMystikoLoop, AssetPool, Sanctions {
    *  @param _request     The transact request parameter
    */
   function deposit(DepositRequest memory _request) external payable override {
-    if (depositsDisabled) revert CustomErrors.DepositsDisabled();
-    if (_request.amount < minAmount) revert CustomErrors.AmountTooSmall();
-    if (_request.amount > maxAmount) revert CustomErrors.AmountTooLarge();
+    revert CustomErrors.NotSupport();
+  }
+
+  function certDeposit(
+    DepositRequest memory _request,
+    uint256 _certificateDeadline,
+    bytes memory _certificateSignature
+  ) external payable override {
+    if (settings.isDepositDisable(address(this))) revert CustomErrors.DepositsDisabled();
+    if (settings.isCertificateCheckEnabled()) {
+      CertificateParams memory params = CertificateParams({
+        account: tx.origin,
+        asset: assetAddress(),
+        deadline: _certificateDeadline,
+        signature: _certificateSignature
+      });
+      if (!settings.verifyCertificate(params)) revert CustomErrors.CertificateInvalid();
+    }
+    if (_request.amount < getMinAmount()) revert CustomErrors.AmountTooSmall();
+    if (_request.amount > getMaxAmount()) revert CustomErrors.AmountTooLarge();
     uint256 calculatedCommitment = _commitmentHash(_request.hashK, _request.amount, _request.randomS);
     if (_request.commitment != calculatedCommitment) revert CustomErrors.CommitmentHashIncorrect();
-    if (isSanctioned(msg.sender)) revert CustomErrors.SanctionedAddress();
+    if (settings.isSanctioned(tx.origin)) revert CustomErrors.SanctionedAddress();
 
     _processDeposit(_request.amount, _request.commitment, _request.rollupFee, _request.encryptedNote);
   }
@@ -92,35 +87,9 @@ abstract contract MystikoV2Loop is IMystikoLoop, AssetPool, Sanctions {
       rollupFee: _rollupFee,
       encryptedNote: _encryptedNote
     });
-
-    ICommitmentPool(associatedCommitmentPool).enqueue(cmRequest, address(0));
-    _processDepositTransfer(associatedCommitmentPool, _amount + _rollupFee, 0);
-  }
-
-  function setDepositsDisabled(bool _state) external onlyOperator {
-    depositsDisabled = _state;
-    emit DepositsDisabled(_state);
-  }
-
-  function changeOperator(address _newOperator) external onlyOperator {
-    if (operator == _newOperator) revert CustomErrors.NotChanged();
-    operator = _newOperator;
-    emit OperatorChanged(_newOperator);
-  }
-
-  function enableSanctionsCheck() external onlyOperator {
-    sanctionsCheck = true;
-    emit SanctionsCheck(sanctionsCheck);
-  }
-
-  function disableSanctionsCheck() external onlyOperator {
-    sanctionsCheck = false;
-    emit SanctionsCheck(sanctionsCheck);
-  }
-
-  function updateSanctionsListAddress(ISanctionsList _sanction) external onlyOperator {
-    sanctionsList = _sanction;
-    emit SanctionsList(_sanction);
+    address pool = getAssociatedCommitmentPool();
+    ICommitmentPool(pool).enqueue(cmRequest, address(0));
+    _processDepositTransfer(pool, _amount + _rollupFee, 0);
   }
 
   function bridgeType() public pure returns (string memory) {
@@ -128,18 +97,22 @@ abstract contract MystikoV2Loop is IMystikoLoop, AssetPool, Sanctions {
   }
 
   function getMinAmount() public view returns (uint256) {
-    return minAmount;
+    uint256 minAmount = settings.queryMinDepositAmount(address(this));
+    return minAmount == 0 ? defaultMinAmount : minAmount;
   }
 
   function getMaxAmount() public view returns (uint256) {
-    return maxAmount;
+    uint256 maxAmount = settings.queryMaxDepositAmount(address(this));
+    return maxAmount == 0 ? defaultMaxAmount : maxAmount;
   }
 
   function getAssociatedCommitmentPool() public view returns (address) {
-    return associatedCommitmentPool;
+    address pool = settings.queryAssociatedPool(address(this));
+    if (pool == address(0)) revert CustomErrors.AssociatedPoolNotSet();
+    return pool;
   }
 
   function isDepositsDisabled() public view returns (bool) {
-    return depositsDisabled;
+    return settings.isDepositDisable(address(this));
   }
 }
