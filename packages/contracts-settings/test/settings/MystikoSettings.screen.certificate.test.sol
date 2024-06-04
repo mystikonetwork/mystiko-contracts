@@ -42,7 +42,8 @@ contract MystikoSettingsCenterTest is Test, Random {
 
     MockMystikoToken XZK = new MockMystikoToken();
     MystikoVoteToken vXZK = new MystikoVoteToken(XZK);
-    MystikoGovernorRegistry daoRegistry = new MystikoGovernorRegistry(dao);
+    vm.prank(dao);
+    MystikoGovernorRegistry daoRegistry = new MystikoGovernorRegistry();
     privateKey = uint256(keccak256(abi.encodePacked(_random())));
     issuer = vm.addr(privateKey);
     certificateChecker = new MystikoCertificate(address(daoRegistry), issuer);

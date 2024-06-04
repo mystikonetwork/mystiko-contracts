@@ -1894,10 +1894,10 @@
   resolved "https://npm.pkg.github.com/download/@mystikonetwork/fastfile/0.0.21/069a0d0d6a28a3f002fe97519456bbbd14880f9c#069a0d0d6a28a3f002fe97519456bbbd14880f9c"
   integrity sha512-o9vr4WoWEGord8+6ADBSulLO9arM2z0R5bOKj+GGPOFY/Zm8bg7alqRfuTvcxzll9TTk/rv7gDM4GnbBHhvyMA==
 
-"@mystikonetwork/governance@0.1.5":
-  version "0.1.5"
-  resolved "https://npm.pkg.github.com/download/@mystikonetwork/governance/0.1.5/4817215b788aca8c34cfb2093295547ac53c0506#4817215b788aca8c34cfb2093295547ac53c0506"
-  integrity sha512-jfWwW2aIsmr+YOVdDa0M0te6pXuc3mYCJ0y7uJ2dGeQUbJzvtNLj4/LkhzFub1E2iGds39obJ9AaTKtLNA8siQ==
+"@mystikonetwork/governance@0.1.6":
+  version "0.1.6"
+  resolved "https://npm.pkg.github.com/download/@mystikonetwork/governance/0.1.6/747f215056725592c9c7eb2f2b7347576e02e2b5#747f215056725592c9c7eb2f2b7347576e02e2b5"
+  integrity sha512-6k6p/jVTQzmck1OdJWJSQ6Y1+nuxtdRBW9wtfQ6BoXg3WZsuSlqbnIvR9Soycc2PYaHRBQmcaIZgdZyyat1qVA==
 
 "@mystikonetwork/merkle@^0.3.0", "@mystikonetwork/merkle@^0.3.10":
   version "0.3.10"

@@ -18,7 +18,8 @@ contract MystikoCertificateRegistryTest is Test, Random {
 
   function setUp() public {
     dao = address(uint160(uint256(keccak256(abi.encodePacked(_random())))));
-    daoRegistry = new MystikoGovernorRegistry(dao);
+    vm.prank(dao);
+    daoRegistry = new MystikoGovernorRegistry();
     privateKey = uint256(keccak256(abi.encodePacked(_random())));
     issuer = vm.addr(privateKey);
     checker = new MystikoCertificate(address(daoRegistry), issuer);

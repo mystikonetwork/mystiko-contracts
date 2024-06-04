@@ -48,7 +48,7 @@
     "@mystikonetwork/utils": "^0.1.1",
     "@mystikonetwork/zkp": "^0.3.0",
     "@mystikonetwork/zkp-node": "^0.3.0",
-    "@mystikonetwork/governance": "0.1.5",
+    "@mystikonetwork/governance": "0.1.6",
     "@nomiclabs/hardhat-ethers": "^2.2.3",
     "@nomiclabs/hardhat-waffle": "^2.0.6",
     "@openzeppelin/contracts": "5.0.0",

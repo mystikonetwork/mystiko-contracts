@@ -45,7 +45,8 @@ contract MystikoSettingsCenterTest is Test, Random {
 
     MockMystikoToken XZK = new MockMystikoToken();
     MystikoVoteToken vXZK = new MystikoVoteToken(XZK);
-    MystikoGovernorRegistry daoRegistry = new MystikoGovernorRegistry(dao);
+    vm.prank(dao);
+    MystikoGovernorRegistry daoRegistry = new MystikoGovernorRegistry();
     certificateChecker = new MystikoCertificate(address(daoRegistry), address(0));
     rollerPool = new MystikoRollerPool(address(daoRegistry), address(vXZK), 100_000e18);
     relayerPool = new MystikoRelayerPool(address(daoRegistry), address(vXZK), 100_000e18);

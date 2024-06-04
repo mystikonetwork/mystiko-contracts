@@ -18,12 +18,17 @@ const _abi = [
   },
   {
     inputs: [],
-    name: 'OnlyMystikoDAO',
+    name: 'OnlyBeforeDaoInitialized',
     type: 'error',
   },
   {
     inputs: [],
-    name: 'OnlyOperator',
+    name: 'OnlyDeployer',
+    type: 'error',
+  },
+  {
+    inputs: [],
+    name: 'OnlyMystikoDAO',
     type: 'error',
   },
   {
@@ -34,7 +39,7 @@ const _abi = [
 ];
 
 const _bytecode =
-  '0x60566037600b82828239805160001a607314602a57634e487b7160e01b600052600060045260246000fd5b30600052607381538281f3fe73000000000000000000000000000000000000000030146080604052600080fdfea2646970667358221220cf74ea03255a94031d4a37deea677f0d638e087f89d7b9d4b0c5887c0c0c579a64736f6c63430008140033';
+  '0x60566037600b82828239805160001a607314602a57634e487b7160e01b600052600060045260246000fd5b30600052607381538281f3fe73000000000000000000000000000000000000000030146080604052600080fdfea2646970667358221220dca0268d7c743ee1e187aec9ad821a5e3a19d20e407fc2cefa3ac9f3f5efdf2464736f6c63430008140033';
 
 type GovernanceErrorsConstructorParams = [signer?: Signer] | ConstructorParameters<typeof ContractFactory>;
 

@@ -28,7 +28,8 @@ contract MystikoRelayerRegistryTest is Test, Random {
     XZK = new MockMystikoToken();
     vXZK = new MystikoVoteToken(XZK);
     dao = address(uint160(uint256(keccak256(abi.encodePacked(_random())))));
-    daoRegistry = new MystikoGovernorRegistry(dao);
+    vm.prank(dao);
+    daoRegistry = new MystikoGovernorRegistry();
     registry = new MystikoRelayerPool(address(daoRegistry), address(vXZK), 100_000e18);
   }
 
