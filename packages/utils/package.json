@@ -1,6 +1,6 @@
 {
   "name": "@mystikonetwork/contracts-utils",
-  "version": "0.2.3",
+  "version": "0.3.0",
   "description": "Core contract utilities of Mystiko.Network",
   "main": "build/cjs/index.js",
   "module": "build/esm/index.js",

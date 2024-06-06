@@ -1,6 +1,6 @@
 {
   "name": "@mystikonetwork/contracts-abi-certificate",
-  "version": "0.2.3",
+  "version": "0.3.0",
   "description": "Certificate contracts ABI of Mystiko.Network",
   "main": "build/cjs/index.js",
   "module": "build/esm/index.js",
@@ -36,6 +36,7 @@
     "prettier": "yarn prettier:fix"
   },
   "devDependencies": {
+    "@mystikonetwork/contracts-settings": "^0.3.0",
     "@tsconfig/recommended": "^1.0.1",
     "@typechain/ethers-v5": "^9.0.0",
     "@types/jest": "^27.4.0",
@@ -43,7 +44,6 @@
     "@types/uuid": "^8.3.4",
     "@typescript-eslint/eslint-plugin": "^5.12.1",
     "@typescript-eslint/parser": "^5.12.1",
-    "@mystikonetwork/contracts-settings": "^0.2.3",
     "eslint": "^8.6.0",
     "eslint-config-airbnb-typescript": "^16.1.0",
     "eslint-config-prettier": "^8.3.0",

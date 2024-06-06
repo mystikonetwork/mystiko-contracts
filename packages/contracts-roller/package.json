@@ -1,6 +1,6 @@
 {
   "name": "@mystikonetwork/contracts-roller",
-  "version": "0.2.3",
+  "version": "0.3.0",
   "description": "Roller smart contracts of Mystiko.Network",
   "publishConfig": {
     "registry": "https://npm.pkg.github.com/"
@@ -41,14 +41,14 @@
     "@ethersproject/units": "^5.5.3",
     "@ethersproject/wallet": "^5.5.3",
     "@mystikonetwork/config": "^0.1.16",
-    "@mystikonetwork/contracts-abi": "^0.2.3",
+    "@mystikonetwork/contracts-abi": "^0.3.0",
     "@mystikonetwork/ecies": "^0.3.0",
+    "@mystikonetwork/governance": "0.1.6",
     "@mystikonetwork/merkle": "^0.3.0",
     "@mystikonetwork/protocol": "^0.3.0",
     "@mystikonetwork/utils": "^0.1.1",
     "@mystikonetwork/zkp": "^0.3.0",
     "@mystikonetwork/zkp-node": "^0.3.0",
-    "@mystikonetwork/governance": "0.1.6",
     "@nomiclabs/hardhat-ethers": "^2.2.3",
     "@nomiclabs/hardhat-waffle": "^2.0.6",
     "@openzeppelin/contracts": "5.0.0",
