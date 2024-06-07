@@ -31,6 +31,7 @@ export interface SanctionsInterface extends utils.Interface {
     'revokeRole(bytes32,address)': FunctionFragment;
     'sanctionsCheck()': FunctionFragment;
     'sanctionsList()': FunctionFragment;
+    'setAdminRole()': FunctionFragment;
     'setSanctionsListAddress(address)': FunctionFragment;
     'supportsInterface(bytes4)': FunctionFragment;
   };
@@ -47,6 +48,7 @@ export interface SanctionsInterface extends utils.Interface {
   encodeFunctionData(functionFragment: 'revokeRole', values: [BytesLike, string]): string;
   encodeFunctionData(functionFragment: 'sanctionsCheck', values?: undefined): string;
   encodeFunctionData(functionFragment: 'sanctionsList', values?: undefined): string;
+  encodeFunctionData(functionFragment: 'setAdminRole', values?: undefined): string;
   encodeFunctionData(functionFragment: 'setSanctionsListAddress', values: [string]): string;
   encodeFunctionData(functionFragment: 'supportsInterface', values: [BytesLike]): string;
 
@@ -62,6 +64,7 @@ export interface SanctionsInterface extends utils.Interface {
   decodeFunctionResult(functionFragment: 'revokeRole', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'sanctionsCheck', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'sanctionsList', data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'setAdminRole', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'setSanctionsListAddress', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'supportsInterface', data: BytesLike): Result;
 
@@ -173,6 +176,8 @@ export interface Sanctions extends BaseContract {
 
     sanctionsList(overrides?: CallOverrides): Promise<[string]>;
 
+    setAdminRole(overrides?: Overrides & { from?: string | Promise<string> }): Promise<ContractTransaction>;
+
     setSanctionsListAddress(
       _sanction: string,
       overrides?: Overrides & { from?: string | Promise<string> },
@@ -221,6 +226,8 @@ export interface Sanctions extends BaseContract {
 
   sanctionsList(overrides?: CallOverrides): Promise<string>;
 
+  setAdminRole(overrides?: Overrides & { from?: string | Promise<string> }): Promise<ContractTransaction>;
+
   setSanctionsListAddress(
     _sanction: string,
     overrides?: Overrides & { from?: string | Promise<string> },
@@ -252,6 +259,8 @@ export interface Sanctions extends BaseContract {
     sanctionsCheck(overrides?: CallOverrides): Promise<boolean>;
 
     sanctionsList(overrides?: CallOverrides): Promise<string>;
+
+    setAdminRole(overrides?: CallOverrides): Promise<void>;
 
     setSanctionsListAddress(_sanction: string, overrides?: CallOverrides): Promise<void>;
 
@@ -336,6 +345,8 @@ export interface Sanctions extends BaseContract {
 
     sanctionsList(overrides?: CallOverrides): Promise<BigNumber>;
 
+    setAdminRole(overrides?: Overrides & { from?: string | Promise<string> }): Promise<BigNumber>;
+
     setSanctionsListAddress(
       _sanction: string,
       overrides?: Overrides & { from?: string | Promise<string> },
@@ -384,6 +395,8 @@ export interface Sanctions extends BaseContract {
     sanctionsCheck(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     sanctionsList(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+
+    setAdminRole(overrides?: Overrides & { from?: string | Promise<string> }): Promise<PopulatedTransaction>;
 
     setSanctionsListAddress(
       _sanction: string,

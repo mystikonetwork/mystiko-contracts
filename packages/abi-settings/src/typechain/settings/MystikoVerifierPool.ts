@@ -40,6 +40,7 @@ export interface MystikoVerifierPoolInterface extends utils.Interface {
     'queryTransactVerifier(uint32,uint32)': FunctionFragment;
     'renounceRole(bytes32,address)': FunctionFragment;
     'revokeRole(bytes32,address)': FunctionFragment;
+    'setAdminRole()': FunctionFragment;
     'supportsInterface(bytes4)': FunctionFragment;
   };
 
@@ -62,6 +63,7 @@ export interface MystikoVerifierPoolInterface extends utils.Interface {
   encodeFunctionData(functionFragment: 'queryTransactVerifier', values: [BigNumberish, BigNumberish]): string;
   encodeFunctionData(functionFragment: 'renounceRole', values: [BytesLike, string]): string;
   encodeFunctionData(functionFragment: 'revokeRole', values: [BytesLike, string]): string;
+  encodeFunctionData(functionFragment: 'setAdminRole', values?: undefined): string;
   encodeFunctionData(functionFragment: 'supportsInterface', values: [BytesLike]): string;
 
   decodeFunctionResult(functionFragment: 'DEFAULT_ADMIN_ROLE', data: BytesLike): Result;
@@ -77,6 +79,7 @@ export interface MystikoVerifierPoolInterface extends utils.Interface {
   decodeFunctionResult(functionFragment: 'queryTransactVerifier', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'renounceRole', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'revokeRole', data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'setAdminRole', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'supportsInterface', data: BytesLike): Result;
 
   events: {
@@ -224,6 +227,8 @@ export interface MystikoVerifierPool extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<ContractTransaction>;
 
+    setAdminRole(overrides?: Overrides & { from?: string | Promise<string> }): Promise<ContractTransaction>;
+
     supportsInterface(interfaceId: BytesLike, overrides?: CallOverrides): Promise<[boolean]>;
   };
 
@@ -286,6 +291,8 @@ export interface MystikoVerifierPool extends BaseContract {
     overrides?: Overrides & { from?: string | Promise<string> },
   ): Promise<ContractTransaction>;
 
+  setAdminRole(overrides?: Overrides & { from?: string | Promise<string> }): Promise<ContractTransaction>;
+
   supportsInterface(interfaceId: BytesLike, overrides?: CallOverrides): Promise<boolean>;
 
   callStatic: {
@@ -329,6 +336,8 @@ export interface MystikoVerifierPool extends BaseContract {
     renounceRole(role: BytesLike, callerConfirmation: string, overrides?: CallOverrides): Promise<void>;
 
     revokeRole(role: BytesLike, account: string, overrides?: CallOverrides): Promise<void>;
+
+    setAdminRole(overrides?: CallOverrides): Promise<void>;
 
     supportsInterface(interfaceId: BytesLike, overrides?: CallOverrides): Promise<boolean>;
   };
@@ -443,6 +452,8 @@ export interface MystikoVerifierPool extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<BigNumber>;
 
+    setAdminRole(overrides?: Overrides & { from?: string | Promise<string> }): Promise<BigNumber>;
+
     supportsInterface(interfaceId: BytesLike, overrides?: CallOverrides): Promise<BigNumber>;
   };
 
@@ -502,6 +513,8 @@ export interface MystikoVerifierPool extends BaseContract {
       account: string,
       overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<PopulatedTransaction>;
+
+    setAdminRole(overrides?: Overrides & { from?: string | Promise<string> }): Promise<PopulatedTransaction>;
 
     supportsInterface(interfaceId: BytesLike, overrides?: CallOverrides): Promise<PopulatedTransaction>;
   };

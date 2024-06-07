@@ -26,6 +26,7 @@ export interface MystikoDAOAccessControlInterface extends utils.Interface {
     'hasRole(bytes32,address)': FunctionFragment;
     'renounceRole(bytes32,address)': FunctionFragment;
     'revokeRole(bytes32,address)': FunctionFragment;
+    'setAdminRole()': FunctionFragment;
     'supportsInterface(bytes4)': FunctionFragment;
   };
 
@@ -36,6 +37,7 @@ export interface MystikoDAOAccessControlInterface extends utils.Interface {
   encodeFunctionData(functionFragment: 'hasRole', values: [BytesLike, string]): string;
   encodeFunctionData(functionFragment: 'renounceRole', values: [BytesLike, string]): string;
   encodeFunctionData(functionFragment: 'revokeRole', values: [BytesLike, string]): string;
+  encodeFunctionData(functionFragment: 'setAdminRole', values?: undefined): string;
   encodeFunctionData(functionFragment: 'supportsInterface', values: [BytesLike]): string;
 
   decodeFunctionResult(functionFragment: 'DEFAULT_ADMIN_ROLE', data: BytesLike): Result;
@@ -45,6 +47,7 @@ export interface MystikoDAOAccessControlInterface extends utils.Interface {
   decodeFunctionResult(functionFragment: 'hasRole', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'renounceRole', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'revokeRole', data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'setAdminRole', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'supportsInterface', data: BytesLike): Result;
 
   events: {
@@ -129,6 +132,8 @@ export interface MystikoDAOAccessControl extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<ContractTransaction>;
 
+    setAdminRole(overrides?: Overrides & { from?: string | Promise<string> }): Promise<ContractTransaction>;
+
     supportsInterface(interfaceId: BytesLike, overrides?: CallOverrides): Promise<[boolean]>;
   };
 
@@ -158,6 +163,8 @@ export interface MystikoDAOAccessControl extends BaseContract {
     overrides?: Overrides & { from?: string | Promise<string> },
   ): Promise<ContractTransaction>;
 
+  setAdminRole(overrides?: Overrides & { from?: string | Promise<string> }): Promise<ContractTransaction>;
+
   supportsInterface(interfaceId: BytesLike, overrides?: CallOverrides): Promise<boolean>;
 
   callStatic: {
@@ -174,6 +181,8 @@ export interface MystikoDAOAccessControl extends BaseContract {
     renounceRole(role: BytesLike, callerConfirmation: string, overrides?: CallOverrides): Promise<void>;
 
     revokeRole(role: BytesLike, account: string, overrides?: CallOverrides): Promise<void>;
+
+    setAdminRole(overrides?: CallOverrides): Promise<void>;
 
     supportsInterface(interfaceId: BytesLike, overrides?: CallOverrides): Promise<boolean>;
   };
@@ -240,6 +249,8 @@ export interface MystikoDAOAccessControl extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<BigNumber>;
 
+    setAdminRole(overrides?: Overrides & { from?: string | Promise<string> }): Promise<BigNumber>;
+
     supportsInterface(interfaceId: BytesLike, overrides?: CallOverrides): Promise<BigNumber>;
   };
 
@@ -269,6 +280,8 @@ export interface MystikoDAOAccessControl extends BaseContract {
       account: string,
       overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<PopulatedTransaction>;
+
+    setAdminRole(overrides?: Overrides & { from?: string | Promise<string> }): Promise<PopulatedTransaction>;
 
     supportsInterface(interfaceId: BytesLike, overrides?: CallOverrides): Promise<PopulatedTransaction>;
   };

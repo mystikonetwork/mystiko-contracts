@@ -30,6 +30,7 @@ export interface MystikoPoolConfigInterface extends utils.Interface {
     'queryMinRollupFee(address)': FunctionFragment;
     'renounceRole(bytes32,address)': FunctionFragment;
     'revokeRole(bytes32,address)': FunctionFragment;
+    'setAdminRole()': FunctionFragment;
     'setMinRollupFee(address,uint256)': FunctionFragment;
     'setTransferDisable(address,bool)': FunctionFragment;
     'supportsInterface(bytes4)': FunctionFragment;
@@ -46,6 +47,7 @@ export interface MystikoPoolConfigInterface extends utils.Interface {
   encodeFunctionData(functionFragment: 'queryMinRollupFee', values: [string]): string;
   encodeFunctionData(functionFragment: 'renounceRole', values: [BytesLike, string]): string;
   encodeFunctionData(functionFragment: 'revokeRole', values: [BytesLike, string]): string;
+  encodeFunctionData(functionFragment: 'setAdminRole', values?: undefined): string;
   encodeFunctionData(functionFragment: 'setMinRollupFee', values: [string, BigNumberish]): string;
   encodeFunctionData(functionFragment: 'setTransferDisable', values: [string, boolean]): string;
   encodeFunctionData(functionFragment: 'supportsInterface', values: [BytesLike]): string;
@@ -61,6 +63,7 @@ export interface MystikoPoolConfigInterface extends utils.Interface {
   decodeFunctionResult(functionFragment: 'queryMinRollupFee', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'renounceRole', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'revokeRole', data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'setAdminRole', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'setMinRollupFee', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'setTransferDisable', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'supportsInterface', data: BytesLike): Result;
@@ -169,6 +172,8 @@ export interface MystikoPoolConfig extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<ContractTransaction>;
 
+    setAdminRole(overrides?: Overrides & { from?: string | Promise<string> }): Promise<ContractTransaction>;
+
     setMinRollupFee(
       _pool: string,
       _minRollupFee: BigNumberish,
@@ -218,6 +223,8 @@ export interface MystikoPoolConfig extends BaseContract {
     overrides?: Overrides & { from?: string | Promise<string> },
   ): Promise<ContractTransaction>;
 
+  setAdminRole(overrides?: Overrides & { from?: string | Promise<string> }): Promise<ContractTransaction>;
+
   setMinRollupFee(
     _pool: string,
     _minRollupFee: BigNumberish,
@@ -254,6 +261,8 @@ export interface MystikoPoolConfig extends BaseContract {
     renounceRole(role: BytesLike, callerConfirmation: string, overrides?: CallOverrides): Promise<void>;
 
     revokeRole(role: BytesLike, account: string, overrides?: CallOverrides): Promise<void>;
+
+    setAdminRole(overrides?: CallOverrides): Promise<void>;
 
     setMinRollupFee(_pool: string, _minRollupFee: BigNumberish, overrides?: CallOverrides): Promise<void>;
 
@@ -344,6 +353,8 @@ export interface MystikoPoolConfig extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<BigNumber>;
 
+    setAdminRole(overrides?: Overrides & { from?: string | Promise<string> }): Promise<BigNumber>;
+
     setMinRollupFee(
       _pool: string,
       _minRollupFee: BigNumberish,
@@ -393,6 +404,8 @@ export interface MystikoPoolConfig extends BaseContract {
       account: string,
       overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<PopulatedTransaction>;
+
+    setAdminRole(overrides?: Overrides & { from?: string | Promise<string> }): Promise<PopulatedTransaction>;
 
     setMinRollupFee(
       _pool: string,

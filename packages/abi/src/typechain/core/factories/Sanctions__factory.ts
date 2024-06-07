@@ -317,6 +317,13 @@ const _abi = [
     type: 'function',
   },
   {
+    inputs: [],
+    name: 'setAdminRole',
+    outputs: [],
+    stateMutability: 'nonpayable',
+    type: 'function',
+  },
+  {
     inputs: [
       {
         internalType: 'contract ISanctions',

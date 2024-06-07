@@ -33,6 +33,7 @@ export interface MystikoBridgeConfigInterface extends utils.Interface {
     'queryMinPeerRollupFee(address)': FunctionFragment;
     'renounceRole(bytes32,address)': FunctionFragment;
     'revokeRole(bytes32,address)': FunctionFragment;
+    'setAdminRole()': FunctionFragment;
     'setMinBridgeFee(address,uint256)': FunctionFragment;
     'setMinPeerExecutorFee(address,uint256)': FunctionFragment;
     'setMinPeerRollupFee(address,uint256)': FunctionFragment;
@@ -52,6 +53,7 @@ export interface MystikoBridgeConfigInterface extends utils.Interface {
   encodeFunctionData(functionFragment: 'queryMinPeerRollupFee', values: [string]): string;
   encodeFunctionData(functionFragment: 'renounceRole', values: [BytesLike, string]): string;
   encodeFunctionData(functionFragment: 'revokeRole', values: [BytesLike, string]): string;
+  encodeFunctionData(functionFragment: 'setAdminRole', values?: undefined): string;
   encodeFunctionData(functionFragment: 'setMinBridgeFee', values: [string, BigNumberish]): string;
   encodeFunctionData(functionFragment: 'setMinPeerExecutorFee', values: [string, BigNumberish]): string;
   encodeFunctionData(functionFragment: 'setMinPeerRollupFee', values: [string, BigNumberish]): string;
@@ -70,6 +72,7 @@ export interface MystikoBridgeConfigInterface extends utils.Interface {
   decodeFunctionResult(functionFragment: 'queryMinPeerRollupFee', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'renounceRole', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'revokeRole', data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'setAdminRole', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'setMinBridgeFee', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'setMinPeerExecutorFee', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'setMinPeerRollupFee', data: BytesLike): Result;
@@ -196,6 +199,8 @@ export interface MystikoBridgeConfig extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<ContractTransaction>;
 
+    setAdminRole(overrides?: Overrides & { from?: string | Promise<string> }): Promise<ContractTransaction>;
+
     setMinBridgeFee(
       _pool: string,
       _minBridgeFee: BigNumberish,
@@ -255,6 +260,8 @@ export interface MystikoBridgeConfig extends BaseContract {
     overrides?: Overrides & { from?: string | Promise<string> },
   ): Promise<ContractTransaction>;
 
+  setAdminRole(overrides?: Overrides & { from?: string | Promise<string> }): Promise<ContractTransaction>;
+
   setMinBridgeFee(
     _pool: string,
     _minBridgeFee: BigNumberish,
@@ -301,6 +308,8 @@ export interface MystikoBridgeConfig extends BaseContract {
     renounceRole(role: BytesLike, callerConfirmation: string, overrides?: CallOverrides): Promise<void>;
 
     revokeRole(role: BytesLike, account: string, overrides?: CallOverrides): Promise<void>;
+
+    setAdminRole(overrides?: CallOverrides): Promise<void>;
 
     setMinBridgeFee(_pool: string, _minBridgeFee: BigNumberish, overrides?: CallOverrides): Promise<void>;
 
@@ -417,6 +426,8 @@ export interface MystikoBridgeConfig extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<BigNumber>;
 
+    setAdminRole(overrides?: Overrides & { from?: string | Promise<string> }): Promise<BigNumber>;
+
     setMinBridgeFee(
       _pool: string,
       _minBridgeFee: BigNumberish,
@@ -476,6 +487,8 @@ export interface MystikoBridgeConfig extends BaseContract {
       account: string,
       overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<PopulatedTransaction>;
+
+    setAdminRole(overrides?: Overrides & { from?: string | Promise<string> }): Promise<PopulatedTransaction>;
 
     setMinBridgeFee(
       _pool: string,

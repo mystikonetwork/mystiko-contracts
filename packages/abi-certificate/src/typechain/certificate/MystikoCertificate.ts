@@ -47,6 +47,7 @@ export interface MystikoCertificateInterface extends utils.Interface {
     'issuer()': FunctionFragment;
     'renounceRole(bytes32,address)': FunctionFragment;
     'revokeRole(bytes32,address)': FunctionFragment;
+    'setAdminRole()': FunctionFragment;
     'setIssuerAddress(address)': FunctionFragment;
     'supportsInterface(bytes4)': FunctionFragment;
     'verifyCertificate((address,address,uint256,bytes))': FunctionFragment;
@@ -65,6 +66,7 @@ export interface MystikoCertificateInterface extends utils.Interface {
   encodeFunctionData(functionFragment: 'issuer', values?: undefined): string;
   encodeFunctionData(functionFragment: 'renounceRole', values: [BytesLike, string]): string;
   encodeFunctionData(functionFragment: 'revokeRole', values: [BytesLike, string]): string;
+  encodeFunctionData(functionFragment: 'setAdminRole', values?: undefined): string;
   encodeFunctionData(functionFragment: 'setIssuerAddress', values: [string]): string;
   encodeFunctionData(functionFragment: 'supportsInterface', values: [BytesLike]): string;
   encodeFunctionData(functionFragment: 'verifyCertificate', values: [CertificateParamsStruct]): string;
@@ -82,6 +84,7 @@ export interface MystikoCertificateInterface extends utils.Interface {
   decodeFunctionResult(functionFragment: 'issuer', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'renounceRole', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'revokeRole', data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'setAdminRole', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'setIssuerAddress', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'supportsInterface', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'verifyCertificate', data: BytesLike): Result;
@@ -196,6 +199,8 @@ export interface MystikoCertificate extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<ContractTransaction>;
 
+    setAdminRole(overrides?: Overrides & { from?: string | Promise<string> }): Promise<ContractTransaction>;
+
     setIssuerAddress(
       _newIssuer: string,
       overrides?: Overrides & { from?: string | Promise<string> },
@@ -248,6 +253,8 @@ export interface MystikoCertificate extends BaseContract {
     overrides?: Overrides & { from?: string | Promise<string> },
   ): Promise<ContractTransaction>;
 
+  setAdminRole(overrides?: Overrides & { from?: string | Promise<string> }): Promise<ContractTransaction>;
+
   setIssuerAddress(
     _newIssuer: string,
     overrides?: Overrides & { from?: string | Promise<string> },
@@ -283,6 +290,8 @@ export interface MystikoCertificate extends BaseContract {
     renounceRole(role: BytesLike, callerConfirmation: string, overrides?: CallOverrides): Promise<void>;
 
     revokeRole(role: BytesLike, account: string, overrides?: CallOverrides): Promise<void>;
+
+    setAdminRole(overrides?: CallOverrides): Promise<void>;
 
     setIssuerAddress(_newIssuer: string, overrides?: CallOverrides): Promise<void>;
 
@@ -371,6 +380,8 @@ export interface MystikoCertificate extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<BigNumber>;
 
+    setAdminRole(overrides?: Overrides & { from?: string | Promise<string> }): Promise<BigNumber>;
+
     setIssuerAddress(
       _newIssuer: string,
       overrides?: Overrides & { from?: string | Promise<string> },
@@ -423,6 +434,8 @@ export interface MystikoCertificate extends BaseContract {
       account: string,
       overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<PopulatedTransaction>;
+
+    setAdminRole(overrides?: Overrides & { from?: string | Promise<string> }): Promise<PopulatedTransaction>;
 
     setIssuerAddress(
       _newIssuer: string,

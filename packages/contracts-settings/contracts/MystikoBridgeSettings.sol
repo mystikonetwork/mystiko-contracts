@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.20;
+pragma solidity ^0.8.26;
 
 import {MystikoBridgeConfig} from "./config/impl/MystikoBridgeConfig.sol";
 import {IMystikoRollerPool} from "@mystikonetwork/contracts-roller/contracts/interfaces/IMystikoRollerPool.sol";
