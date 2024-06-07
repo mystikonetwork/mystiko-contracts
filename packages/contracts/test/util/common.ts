@@ -577,6 +577,9 @@ export async function deployDependContracts(accounts: Wallet[]): Promise<DependD
 
   // todo eric enable cert check
   await certificate.disableCertificateCheck();
+  await certificate.setAdminRole();
+  await rollerPool.setAdminRole();
+  await relayerPool.setAdminRole();
 
   return {
     hasher3,

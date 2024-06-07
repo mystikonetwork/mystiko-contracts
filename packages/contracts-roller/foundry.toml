@@ -5,4 +5,4 @@ test = 'test'
 cache = true
 cache_path  = 'foundry/cache'
 match_path = '**/test/**/*.test.sol'
-solc = "0.8.20"
+solc = "0.8.26"

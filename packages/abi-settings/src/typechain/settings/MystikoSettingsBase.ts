@@ -101,6 +101,7 @@ export interface MystikoSettingsBaseInterface extends utils.Interface {
     'rollerPool()': FunctionFragment;
     'sanctionsCheck()': FunctionFragment;
     'sanctionsList()': FunctionFragment;
+    'setAdminRole()': FunctionFragment;
     'setAssociatedPool(address,address)': FunctionFragment;
     'setAuditorPublicKey(uint256,uint256)': FunctionFragment;
     'setCertificateVerifier(address)': FunctionFragment;
@@ -162,6 +163,7 @@ export interface MystikoSettingsBaseInterface extends utils.Interface {
   encodeFunctionData(functionFragment: 'rollerPool', values?: undefined): string;
   encodeFunctionData(functionFragment: 'sanctionsCheck', values?: undefined): string;
   encodeFunctionData(functionFragment: 'sanctionsList', values?: undefined): string;
+  encodeFunctionData(functionFragment: 'setAdminRole', values?: undefined): string;
   encodeFunctionData(functionFragment: 'setAssociatedPool', values: [string, string]): string;
   encodeFunctionData(functionFragment: 'setAuditorPublicKey', values: [BigNumberish, BigNumberish]): string;
   encodeFunctionData(functionFragment: 'setCertificateVerifier', values: [string]): string;
@@ -216,6 +218,7 @@ export interface MystikoSettingsBaseInterface extends utils.Interface {
   decodeFunctionResult(functionFragment: 'rollerPool', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'sanctionsCheck', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'sanctionsList', data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'setAdminRole', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'setAssociatedPool', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'setAuditorPublicKey', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'setCertificateVerifier', data: BytesLike): Result;
@@ -514,6 +517,8 @@ export interface MystikoSettingsBase extends BaseContract {
 
     sanctionsList(overrides?: CallOverrides): Promise<[string]>;
 
+    setAdminRole(overrides?: Overrides & { from?: string | Promise<string> }): Promise<ContractTransaction>;
+
     setAssociatedPool(
       _depositAddress: string,
       _poolAddress: string,
@@ -698,6 +703,8 @@ export interface MystikoSettingsBase extends BaseContract {
 
   sanctionsList(overrides?: CallOverrides): Promise<string>;
 
+  setAdminRole(overrides?: Overrides & { from?: string | Promise<string> }): Promise<ContractTransaction>;
+
   setAssociatedPool(
     _depositAddress: string,
     _poolAddress: string,
@@ -859,6 +866,8 @@ export interface MystikoSettingsBase extends BaseContract {
     sanctionsCheck(overrides?: CallOverrides): Promise<boolean>;
 
     sanctionsList(overrides?: CallOverrides): Promise<string>;
+
+    setAdminRole(overrides?: CallOverrides): Promise<void>;
 
     setAssociatedPool(
       _depositAddress: string,
@@ -1133,6 +1142,8 @@ export interface MystikoSettingsBase extends BaseContract {
 
     sanctionsList(overrides?: CallOverrides): Promise<BigNumber>;
 
+    setAdminRole(overrides?: Overrides & { from?: string | Promise<string> }): Promise<BigNumber>;
+
     setAssociatedPool(
       _depositAddress: string,
       _poolAddress: string,
@@ -1314,6 +1325,8 @@ export interface MystikoSettingsBase extends BaseContract {
     sanctionsCheck(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     sanctionsList(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+
+    setAdminRole(overrides?: Overrides & { from?: string | Promise<string> }): Promise<PopulatedTransaction>;
 
     setAssociatedPool(
       _depositAddress: string,

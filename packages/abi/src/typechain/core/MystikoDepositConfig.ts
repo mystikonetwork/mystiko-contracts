@@ -35,6 +35,7 @@ export interface MystikoDepositConfigInterface extends utils.Interface {
     'queryMinDepositAmount(address)': FunctionFragment;
     'renounceRole(bytes32,address)': FunctionFragment;
     'revokeRole(bytes32,address)': FunctionFragment;
+    'setAdminRole()': FunctionFragment;
     'setAssociatedPool(address,address)': FunctionFragment;
     'setDepositDisable(address,bool)': FunctionFragment;
     'setMaxDepositAmount(address,uint256)': FunctionFragment;
@@ -57,6 +58,7 @@ export interface MystikoDepositConfigInterface extends utils.Interface {
   encodeFunctionData(functionFragment: 'queryMinDepositAmount', values: [string]): string;
   encodeFunctionData(functionFragment: 'renounceRole', values: [BytesLike, string]): string;
   encodeFunctionData(functionFragment: 'revokeRole', values: [BytesLike, string]): string;
+  encodeFunctionData(functionFragment: 'setAdminRole', values?: undefined): string;
   encodeFunctionData(functionFragment: 'setAssociatedPool', values: [string, string]): string;
   encodeFunctionData(functionFragment: 'setDepositDisable', values: [string, boolean]): string;
   encodeFunctionData(functionFragment: 'setMaxDepositAmount', values: [string, BigNumberish]): string;
@@ -78,6 +80,7 @@ export interface MystikoDepositConfigInterface extends utils.Interface {
   decodeFunctionResult(functionFragment: 'queryMinDepositAmount', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'renounceRole', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'revokeRole', data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'setAdminRole', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'setAssociatedPool', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'setDepositDisable', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'setMaxDepositAmount', data: BytesLike): Result;
@@ -212,6 +215,8 @@ export interface MystikoDepositConfig extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<ContractTransaction>;
 
+    setAdminRole(overrides?: Overrides & { from?: string | Promise<string> }): Promise<ContractTransaction>;
+
     setAssociatedPool(
       _depositAddress: string,
       _poolAddress: string,
@@ -281,6 +286,8 @@ export interface MystikoDepositConfig extends BaseContract {
     overrides?: Overrides & { from?: string | Promise<string> },
   ): Promise<ContractTransaction>;
 
+  setAdminRole(overrides?: Overrides & { from?: string | Promise<string> }): Promise<ContractTransaction>;
+
   setAssociatedPool(
     _depositAddress: string,
     _poolAddress: string,
@@ -337,6 +344,8 @@ export interface MystikoDepositConfig extends BaseContract {
     renounceRole(role: BytesLike, callerConfirmation: string, overrides?: CallOverrides): Promise<void>;
 
     revokeRole(role: BytesLike, account: string, overrides?: CallOverrides): Promise<void>;
+
+    setAdminRole(overrides?: CallOverrides): Promise<void>;
 
     setAssociatedPool(
       _depositAddress: string,
@@ -469,6 +478,8 @@ export interface MystikoDepositConfig extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<BigNumber>;
 
+    setAdminRole(overrides?: Overrides & { from?: string | Promise<string> }): Promise<BigNumber>;
+
     setAssociatedPool(
       _depositAddress: string,
       _poolAddress: string,
@@ -538,6 +549,8 @@ export interface MystikoDepositConfig extends BaseContract {
       account: string,
       overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<PopulatedTransaction>;
+
+    setAdminRole(overrides?: Overrides & { from?: string | Promise<string> }): Promise<PopulatedTransaction>;
 
     setAssociatedPool(
       _depositAddress: string,

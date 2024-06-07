@@ -29,6 +29,11 @@ const _abi = [
     type: 'error',
   },
   {
+    inputs: [],
+    name: 'OnlyMystikoDAO',
+    type: 'error',
+  },
+  {
     anonymous: false,
     inputs: [
       {
@@ -222,6 +227,13 @@ const _abi = [
       },
     ],
     name: 'revokeRole',
+    outputs: [],
+    stateMutability: 'nonpayable',
+    type: 'function',
+  },
+  {
+    inputs: [],
+    name: 'setAdminRole',
     outputs: [],
     stateMutability: 'nonpayable',
     type: 'function',

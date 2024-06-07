@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.20;
+pragma solidity ^0.8.26;
 
 import "../../core/deposit/celer/relay/interfaces/IMessageReceiverApp.sol";
 import "../../core/deposit/celer/relay/interfaces/IMessageSenderApp.sol";
