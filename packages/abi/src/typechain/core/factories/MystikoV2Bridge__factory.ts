@@ -381,7 +381,7 @@ const _abi = [
   },
   {
     inputs: [],
-    name: 'getPeerMinExecutorFee',
+    name: 'getMinExecutorFee',
     outputs: [
       {
         internalType: 'uint256',

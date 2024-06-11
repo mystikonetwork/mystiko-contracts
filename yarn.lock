@@ -1841,18 +1841,6 @@
     tweetnacl "^1.0.3"
     tweetnacl-util "^0.15.1"
 
-"@mystikonetwork/config@^0.1.16":
-  version "0.1.16"
-  resolved "https://npm.pkg.github.com/download/@mystikonetwork/config/0.1.16/579f07d2bd701f52e16e3be944a380b3e8f6fc32#579f07d2bd701f52e16e3be944a380b3e8f6fc32"
-  integrity sha512-XP0XqCwLat3xYqp7MUeZK63bESp6DsewzkV++gpiNXPmL9f4WpOCgFxuHtk1TKlk34Zcw2QtWMxuDaOMgeZsLQ==
-  dependencies:
-    "@mystikonetwork/utils" "^0.1.1"
-    bn.js "^5.2.0"
-    class-transformer "^0.5.1"
-    class-validator "^0.13.2"
-    ethers "^5.5.3"
-    reflect-metadata "^0.1.13"
-
 "@mystikonetwork/config@^0.10.5":
   version "0.10.5"
   resolved "https://npm.pkg.github.com/download/@mystikonetwork/config/0.10.5/7cfb70a87af0e076ce4938316493342c7e27ec0b#7cfb70a87af0e076ce4938316493342c7e27ec0b"
@@ -1866,7 +1854,7 @@
     ethers "^5.5.3"
     reflect-metadata "^0.1.13"
 
-"@mystikonetwork/contracts-governance@^0.3.0":
+"@mystikonetwork/contracts-governance@0.3.0", "@mystikonetwork/contracts-governance@^0.3.0":
   version "0.3.0"
   resolved "https://npm.pkg.github.com/download/@mystikonetwork/contracts-governance/0.3.0/a2eb21fb23c59c9cade9aa87d826ad210b34d187#a2eb21fb23c59c9cade9aa87d826ad210b34d187"
   integrity sha512-eZ7vqHbzeOKndRVMpRpS3VgXyWxmMBJip1hUeEmev6vBlcG5ek3Plp1jlj/+FwMwpP8J/k57oYGMVhT1CIoZsw==
@@ -1883,7 +1871,7 @@
   optionalDependencies:
     secp256k1 "3.7.1"
 
-"@mystikonetwork/ecies@^0.3.0", "@mystikonetwork/ecies@^0.3.10":
+"@mystikonetwork/ecies@^0.3.10":
   version "0.3.10"
   resolved "https://npm.pkg.github.com/download/@mystikonetwork/ecies/0.3.10/494bb601ae164c77ae2c7d5341305a1afcbaf09b#494bb601ae164c77ae2c7d5341305a1afcbaf09b"
   integrity sha512-eJHOFOa4Lx3CfV7CI30CuYbVmi6iqG24Io+Skizp4qxkBXAjHdw1cc6lKlimkMPmZGEeEq9epyYfxTRnb1mxKw==
@@ -1899,7 +1887,7 @@
   resolved "https://npm.pkg.github.com/download/@mystikonetwork/fastfile/0.0.21/069a0d0d6a28a3f002fe97519456bbbd14880f9c#069a0d0d6a28a3f002fe97519456bbbd14880f9c"
   integrity sha512-o9vr4WoWEGord8+6ADBSulLO9arM2z0R5bOKj+GGPOFY/Zm8bg7alqRfuTvcxzll9TTk/rv7gDM4GnbBHhvyMA==
 
-"@mystikonetwork/merkle@^0.3.0", "@mystikonetwork/merkle@^0.3.10":
+"@mystikonetwork/merkle@^0.3.10":
   version "0.3.10"
   resolved "https://npm.pkg.github.com/download/@mystikonetwork/merkle/0.3.10/4eac044dbfb2ef1612362fe707a891d264e8bdae#4eac044dbfb2ef1612362fe707a891d264e8bdae"
   integrity sha512-e93pO7avRURC1p8EQKu0ZVlkgX4Dn6APPzxwmPAmrF5V5ma5Md8g4a9tTvXxurtzmfRySKY22Ag7M7mqXMHRyw==
@@ -1910,7 +1898,7 @@
     circomlibjs "^0.0.8"
     ethers "^5.5.3"
 
-"@mystikonetwork/protocol@^0.3.0", "@mystikonetwork/protocol@^0.3.10":
+"@mystikonetwork/protocol@^0.3.10":
   version "0.3.10"
   resolved "https://npm.pkg.github.com/download/@mystikonetwork/protocol/0.3.10/13f11b1a032163040798f90bdd3036284f4b3f27#13f11b1a032163040798f90bdd3036284f4b3f27"
   integrity sha512-tK/qxTZF8YnreUThRbFMFdD2O5LeR1a74x4TdPnSF8afF6UjKwjl5hLi/+eu7aApvk8gvZXrnA41VTuX9eWpAg==
@@ -1955,20 +1943,7 @@
     loglevel-plugin-prefix "^0.8.4"
     pako "^2.0.4"
 
-"@mystikonetwork/utils@^0.1.1":
-  version "0.1.6"
-  resolved "https://npm.pkg.github.com/download/@mystikonetwork/utils/0.1.6/1b1278ad99d686c279aea60b459f275f94746ebc#1b1278ad99d686c279aea60b459f275f94746ebc"
-  integrity sha512-1Ksi5pCbnXZoG6GYeDGLULZ/VwxZN3VmbC9m82skE7AKJ0fyfP+K6DBoYSEh91CKMBk+pt23QY7dhBNeYtsf5Q==
-  dependencies:
-    "@mystikonetwork/fastfile" "^0.0.21"
-    axios "^0.27.2"
-    bn.js "^5.2.0"
-    ethers "^5.5.3"
-    loglevel "^1.8.0"
-    loglevel-plugin-prefix "^0.8.4"
-    pako "^2.0.4"
-
-"@mystikonetwork/zkp-node@^0.3.0", "@mystikonetwork/zkp-node@^0.3.10":
+"@mystikonetwork/zkp-node@^0.3.10":
   version "0.3.10"
   resolved "https://npm.pkg.github.com/download/@mystikonetwork/zkp-node/0.3.10/7c2cfdcf52e217d51dc522097206e1740b494180#7c2cfdcf52e217d51dc522097206e1740b494180"
   integrity sha512-kIVR0/HcRJWFsLUYkptD6sy4y4jPL2I5hgjZ2VvTnF4wkgtWbLWts7OQADuqdXF45J/YNHYNDher3kCSpN5lTw==
@@ -1988,7 +1963,7 @@
     "@mystikonetwork/zkp" "^0.3.10"
     "@mystikonetwork/zokrates-js" "^0.3.10"
 
-"@mystikonetwork/zkp@^0.3.0", "@mystikonetwork/zkp@^0.3.10":
+"@mystikonetwork/zkp@^0.3.10":
   version "0.3.10"
   resolved "https://npm.pkg.github.com/download/@mystikonetwork/zkp/0.3.10/dcac1c5e26ae27a8ebed1d6107d966a48312006f#dcac1c5e26ae27a8ebed1d6107d966a48312006f"
   integrity sha512-KuJrifve/qvZGQSpXHSkWa5QIm8zodwgjnaftntux12tNsLao8bn4jC3E7zYsXnJ54ZXuATQwrvOcxTHXggTbQ==
@@ -4765,14 +4740,6 @@ class-utils@^0.3.5:
     define-property "^0.2.5"
     isobject "^3.0.0"
     static-extend "^0.1.1"
-
-class-validator@^0.13.2:
-  version "0.13.2"
-  resolved "https://registry.npmmirror.com/class-validator/-/class-validator-0.13.2.tgz#64b031e9f3f81a1e1dcd04a5d604734608b24143"
-  integrity sha512-yBUcQy07FPlGzUjoLuUfIOXzgynnQPPruyK1Ge2B74k9ROwnle1E+NxLWnUv5OLU8hA/qL5leAE9XnXq3byaBw==
-  dependencies:
-    libphonenumber-js "^1.9.43"
-    validator "^13.7.0"
 
 class-validator@^0.14.0:
   version "0.14.1"
@@ -9508,7 +9475,7 @@ levn@~0.3.0:
     prelude-ls "~1.1.2"
     type-check "~0.3.2"
 
-libphonenumber-js@^1.10.53, libphonenumber-js@^1.9.43:
+libphonenumber-js@^1.10.53:
   version "1.11.2"
   resolved "https://registry.yarnpkg.com/libphonenumber-js/-/libphonenumber-js-1.11.2.tgz#9ddd7d1a1e1be0e7c596c7e09487c362b4f1210c"
   integrity sha512-V9mGLlaXN1WETzqQvSu6qf6XVAr3nFuJvWsHcuzCCCo6xUKawwSxOPTpan5CGOSKTn5w/bQuCZcLPJkyysgC3w==
@@ -13436,7 +13403,7 @@ validate-npm-package-license@^3.0.1:
     spdx-correct "^3.0.0"
     spdx-expression-parse "^3.0.0"
 
-validator@^13.7.0, validator@^13.9.0:
+validator@^13.9.0:
   version "13.12.0"
   resolved "https://registry.yarnpkg.com/validator/-/validator-13.12.0.tgz#7d78e76ba85504da3fee4fd1922b385914d4b35f"
   integrity sha512-c1Q0mCiPlgdTVVVIJIrBuxNicYE+t/7oKeI9MWLj3fh/uq2Pxh/3eeWbVZ4OcGW1TUf53At0njHw5SMdA3tmMg==
