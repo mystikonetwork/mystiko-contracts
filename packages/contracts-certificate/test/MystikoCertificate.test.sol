@@ -4,7 +4,7 @@ pragma solidity ^0.8.26;
 import {Test} from "forge-std/Test.sol";
 import "../contracts/MystikoCertificate.sol";
 import "./utils/Random.sol";
-import "@mystikonetwork/governance/contracts/impl/MystikoGovernorRegistry.sol";
+import "@mystikonetwork/contracts-governance/contracts/impl/MystikoGovernorRegistry.sol";
 
 contract MystikoCertificateRegistryTest is Test, Random {
   address public dao;

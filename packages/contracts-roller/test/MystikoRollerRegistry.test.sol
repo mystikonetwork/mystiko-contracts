@@ -7,9 +7,9 @@ import "../contracts/MystikoRollerPool.sol";
 import "../contracts/interfaces/IMystikoRollerPool.sol";
 import "../contracts/MystikoRollerPoolErrors.sol";
 import "./utils/Random.sol";
-import "@mystikonetwork/governance/contracts/GovernanceErrors.sol";
-import "@mystikonetwork/governance/contracts/token/MystikoVoteToken.sol";
-import "@mystikonetwork/governance/contracts/impl/MystikoGovernorRegistry.sol";
+import "@mystikonetwork/contracts-governance/contracts/GovernanceErrors.sol";
+import "@mystikonetwork/contracts-governance/contracts/token/MystikoVoteToken.sol";
+import "@mystikonetwork/contracts-governance/contracts/impl/MystikoGovernorRegistry.sol";
 
 contract MystikoRollerRegistryTest is Test, Random {
   bytes32 public constant ROLLER_ROLE = keccak256("MYSTIKO_ROLLER_ROLE");

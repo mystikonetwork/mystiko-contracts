@@ -10,9 +10,9 @@ import "@mystikonetwork/contracts-roller/contracts/MystikoRollerPoolErrors.sol";
 import "@mystikonetwork/contracts-relayer/contracts/MystikoRelayerPool.sol";
 import "@mystikonetwork/contracts-roller/contracts/MystikoRollerPool.sol";
 import "../mock/MockMystikoToken.sol";
-import "@mystikonetwork/governance/contracts/token/MystikoVoteToken.sol";
-import "@mystikonetwork/governance/contracts/impl/MystikoGovernorRegistry.sol";
-import "@mystikonetwork/governance/contracts/GovernanceErrors.sol";
+import "@mystikonetwork/contracts-governance/contracts/token/MystikoVoteToken.sol";
+import "@mystikonetwork/contracts-governance/contracts/impl/MystikoGovernorRegistry.sol";
+import "@mystikonetwork/contracts-governance/contracts/GovernanceErrors.sol";
 import "../utils/Random.sol";
 import "../../contracts/screen/interfaces/ISanctions.sol";
 

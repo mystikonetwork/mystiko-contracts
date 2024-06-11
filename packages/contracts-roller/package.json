@@ -43,7 +43,7 @@
     "@mystikonetwork/config": "^0.1.16",
     "@mystikonetwork/contracts-abi": "^0.3.0",
     "@mystikonetwork/ecies": "^0.3.0",
-    "@mystikonetwork/governance": "0.1.8",
+    "@mystikonetwork/contracts-governance": "^0.3.0",
     "@mystikonetwork/merkle": "^0.3.0",
     "@mystikonetwork/protocol": "^0.3.0",
     "@mystikonetwork/utils": "^0.1.1",

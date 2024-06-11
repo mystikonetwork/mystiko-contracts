@@ -4,7 +4,7 @@ pragma solidity ^0.8.26;
 import {IERC20} from "@openzeppelin/contracts/token/ERC20/ERC20.sol";
 import {IMystikoRelayerPool, RelayerValidateParams} from "./interfaces/IMystikoRelayerPool.sol";
 import {MystikoRelayerPoolErrors} from "./MystikoRelayerPoolErrors.sol";
-import {MystikoDAOAccessControl} from "@mystikonetwork/governance/contracts/MystikoDAOAccessControl.sol";
+import {MystikoDAOAccessControl} from "@mystikonetwork/contracts-governance/contracts/MystikoDAOAccessControl.sol";
 
 contract MystikoRelayerPool is IMystikoRelayerPool, MystikoDAOAccessControl {
   bytes32 public constant RELAYER_ROLE = keccak256("MYSTIKO_RELAYER_ROLE");

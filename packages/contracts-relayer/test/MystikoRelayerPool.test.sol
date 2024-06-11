@@ -7,9 +7,9 @@ import "../contracts/MystikoRelayerPool.sol";
 import "../contracts/interfaces/IMystikoRelayerPool.sol";
 import "../contracts/MystikoRelayerPoolErrors.sol";
 import "./utils/Random.sol";
-import "@mystikonetwork/governance/contracts/GovernanceErrors.sol";
-import "@mystikonetwork/governance/contracts/token/MystikoVoteToken.sol";
-import "@mystikonetwork/governance/contracts/impl/MystikoGovernorRegistry.sol";
+import "@mystikonetwork/contracts-governance/contracts/GovernanceErrors.sol";
+import "@mystikonetwork/contracts-governance/contracts/token/MystikoVoteToken.sol";
+import "@mystikonetwork/contracts-governance/contracts/impl/MystikoGovernorRegistry.sol";
 
 contract MystikoRelayerRegistryTest is Test, Random {
   bytes32 public constant RELAYER_ROLE = keccak256("MYSTIKO_RELAYER_ROLE");

@@ -17,7 +17,8 @@ jobs:
           lfs: true
           submodules: recursive
 
-      - uses: actions/setup-node@v4
+      - name: Setup Node
+        uses: actions/setup-node@v4
         with:
           node-version: 18
 
@@ -66,7 +67,6 @@ jobs:
 
       - name: Test
         run: lerna run test
-
 
       - name: Check Dirty Files
         run: git diff --quiet || (echo "some generated files are not included in repo" && exit 1)
