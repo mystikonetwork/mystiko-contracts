@@ -2,6 +2,9 @@
 /* tslint:disable */
 /* eslint-disable */
 export type { IMystikoCertificate } from './IMystikoCertificate';
+export type { GovernanceErrors } from './GovernanceErrors';
+export type { MystikoGovernorRegistry } from './MystikoGovernorRegistry';
+export type { MystikoDAOAccessControl } from './MystikoDAOAccessControl';
 export type { IMystikoRelayerPool } from './IMystikoRelayerPool';
 export type { IMystikoRollerPool } from './IMystikoRollerPool';
 export type { MystikoAuditorPool } from './MystikoAuditorPool';
@@ -17,9 +20,6 @@ export type { Sanctions } from './Sanctions';
 export type { ISanctions } from './ISanctions';
 export type { MystikoVerifierPool } from './MystikoVerifierPool';
 export type { IMystikoVerifierPool } from './IMystikoVerifierPool';
-export type { GovernanceErrors } from './GovernanceErrors';
-export type { MystikoGovernorRegistry } from './MystikoGovernorRegistry';
-export type { MystikoDAOAccessControl } from './MystikoDAOAccessControl';
 export type { AccessControl } from './AccessControl';
 export type { IAccessControl } from './IAccessControl';
 export type { Ownable } from './Ownable';
@@ -103,6 +103,9 @@ export type { Hasher2 } from './Hasher2';
 export type { Hasher3 } from './Hasher3';
 
 export { IMystikoCertificate__factory } from './factories/IMystikoCertificate__factory';
+export { GovernanceErrors__factory } from './factories/GovernanceErrors__factory';
+export { MystikoGovernorRegistry__factory } from './factories/MystikoGovernorRegistry__factory';
+export { MystikoDAOAccessControl__factory } from './factories/MystikoDAOAccessControl__factory';
 export { IMystikoRelayerPool__factory } from './factories/IMystikoRelayerPool__factory';
 export { IMystikoRollerPool__factory } from './factories/IMystikoRollerPool__factory';
 export { MystikoAuditorPool__factory } from './factories/MystikoAuditorPool__factory';
@@ -118,9 +121,6 @@ export { Sanctions__factory } from './factories/Sanctions__factory';
 export { ISanctions__factory } from './factories/ISanctions__factory';
 export { MystikoVerifierPool__factory } from './factories/MystikoVerifierPool__factory';
 export { IMystikoVerifierPool__factory } from './factories/IMystikoVerifierPool__factory';
-export { GovernanceErrors__factory } from './factories/GovernanceErrors__factory';
-export { MystikoGovernorRegistry__factory } from './factories/MystikoGovernorRegistry__factory';
-export { MystikoDAOAccessControl__factory } from './factories/MystikoDAOAccessControl__factory';
 export { AccessControl__factory } from './factories/AccessControl__factory';
 export { IAccessControl__factory } from './factories/IAccessControl__factory';
 export { Ownable__factory } from './factories/Ownable__factory';

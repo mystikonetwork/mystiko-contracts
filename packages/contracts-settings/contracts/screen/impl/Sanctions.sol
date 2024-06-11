@@ -2,7 +2,7 @@
 pragma solidity ^0.8.26;
 
 import {ISanctions} from "../interfaces/ISanctions.sol";
-import {MystikoDAOAccessControl} from "@mystikonetwork/governance/contracts/MystikoDAOAccessControl.sol";
+import {MystikoDAOAccessControl} from "@mystikonetwork/contracts-governance/contracts/MystikoDAOAccessControl.sol";
 
 abstract contract Sanctions is ISanctions, MystikoDAOAccessControl {
   ISanctions public sanctionsList = ISanctions(0x40C57923924B5c5c5455c48D93317139ADDaC8fb);

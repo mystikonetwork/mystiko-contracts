@@ -17,7 +17,8 @@ jobs:
           lfs: true
           submodules: recursive
 
-      - uses: actions/setup-node@v4
+      - name: Setup Node
+        uses: actions/setup-node@v4
         with:
           node-version: 18
 
