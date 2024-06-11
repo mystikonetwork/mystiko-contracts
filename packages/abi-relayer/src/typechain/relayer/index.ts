@@ -15,8 +15,9 @@ export type { IERC20 } from './IERC20';
 export type { ERC165 } from './ERC165';
 export type { IERC165 } from './IERC165';
 export type { IMystikoRelayerPool } from './IMystikoRelayerPool';
+export type { MystikoRelayerErrors } from './MystikoRelayerErrors';
 export type { MystikoRelayerPool } from './MystikoRelayerPool';
-export type { MystikoRelayerPoolErrors } from './MystikoRelayerPoolErrors';
+export type { MystikoRelayerRegister } from './MystikoRelayerRegister';
 
 export { GovernanceErrors__factory } from './factories/GovernanceErrors__factory';
 export { MystikoGovernorRegistry__factory } from './factories/MystikoGovernorRegistry__factory';
@@ -32,5 +33,6 @@ export { IERC20__factory } from './factories/IERC20__factory';
 export { ERC165__factory } from './factories/ERC165__factory';
 export { IERC165__factory } from './factories/IERC165__factory';
 export { IMystikoRelayerPool__factory } from './factories/IMystikoRelayerPool__factory';
+export { MystikoRelayerErrors__factory } from './factories/MystikoRelayerErrors__factory';
 export { MystikoRelayerPool__factory } from './factories/MystikoRelayerPool__factory';
-export { MystikoRelayerPoolErrors__factory } from './factories/MystikoRelayerPoolErrors__factory';
+export { MystikoRelayerRegister__factory } from './factories/MystikoRelayerRegister__factory';

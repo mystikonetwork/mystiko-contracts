@@ -50,7 +50,7 @@ async function setExecutorWhitelist(c: any, bridgeCfg: BridgeProxyConfig, execut
   }
 }
 
-async function addExecutorWhitelist(c: any, inBridgeProxyCfg: BridgeProxyConfig, executors: string[]) {
+async function tbridgeAddExecutor(c: any, inBridgeProxyCfg: BridgeProxyConfig, executors: string[]) {
   /* eslint-disable no-await-in-loop */
   for (let i = 0; i < executors.length; i += 1) {
     await setExecutorWhitelist(c, inBridgeProxyCfg, executors[i]);
@@ -58,7 +58,7 @@ async function addExecutorWhitelist(c: any, inBridgeProxyCfg: BridgeProxyConfig,
   /* eslint-enable no-await-in-loop */
 }
 
-async function changeOperator(c: any, inBridgeProxyCfg: BridgeProxyConfig, operator: string) {
+async function tbridgeChangeOperator(c: any, inBridgeProxyCfg: BridgeProxyConfig, operator: string) {
   const bridgeProxyCfg = inBridgeProxyCfg;
 
   if (!bridgeProxyCfg.isOperatorChange(operator)) {
@@ -80,7 +80,7 @@ async function changeOperator(c: any, inBridgeProxyCfg: BridgeProxyConfig, opera
   }
 }
 
-export async function addRegisterWhitelist(
+export async function tbridgeAddRegister(
   c: any,
   inBridgeProxyConfig: BridgeProxyConfig,
   depositContractAddress: string,
@@ -171,21 +171,20 @@ export async function getOrDeployBridgeProxy(
   return bridgeProxyCfg;
 }
 
-export async function doBridgeProxyConfigure(
+export async function doTBridgeProxyConfigure(
   c: any,
   bridgeCfg: BridgeConfig,
   bridgeProxyCfg: BridgeProxyConfig | undefined,
   operatorCfg: OperatorConfig,
 ) {
-  if (bridgeCfg.name === BridgeTBridge) {
-    if (bridgeProxyCfg === undefined) {
-      console.error('bridge proxy configure not exist');
-      process.exit(-1);
-    }
-    await addExecutorWhitelist(c, bridgeProxyCfg, operatorCfg.executors);
+  if (bridgeProxyCfg === undefined) {
+    console.error('bridge proxy configure not exist');
+    process.exit(-1);
+  }
+  await tbridgeAddExecutor(c, bridgeProxyCfg, operatorCfg.executors);
+  await tbridgeAddRegister(c, bridgeProxyCfg, c.pairSrcDepositCfg.address);
 
-    if (operatorCfg.admin !== '') {
-      await changeOperator(c, bridgeProxyCfg, operatorCfg.admin);
-    }
+  if (operatorCfg.admin !== '') {
+    await tbridgeChangeOperator(c, bridgeProxyCfg, operatorCfg.admin);
   }
 }

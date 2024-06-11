@@ -19,19 +19,24 @@ contract MystikoRollerPool is IMystikoRollerPool, MystikoDAOAccessControl {
   constructor(
     address _daoRegistry,
     address _vXZK,
-    uint256 _minVoteTokenAmount
+    uint256 _minVoteTokenAmount,
+    address[] memory _rollers
   ) MystikoDAOAccessControl(_daoRegistry) {
+    vXZK = _vXZK;
     minVoteTokenAmount = _minVoteTokenAmount;
     minRollupSize = 1;
-    vXZK = _vXZK;
+    for (uint256 i = 0; i < _rollers.length; i++) {
+      _grantRole(ROLLER_ROLE, _rollers[i]);
+    }
   }
 
   function validateRoller(
     RollerValidateParams calldata _params
   ) external view onlyHasRoleOrOpen(ROLLER_ROLE, _params.roller) returns (bool) {
     if (_params.rollupSize < minRollupSize) revert MystikoRollerPoolErrors.RollupSizeTooSmall();
-    if (IERC20(vXZK).balanceOf(_params.roller) < minVoteTokenAmount)
+    if (minVoteTokenAmount > 0 && IERC20(vXZK).balanceOf(_params.roller) < minVoteTokenAmount) {
       revert MystikoRollerPoolErrors.InsufficientBalanceForAction();
+    }
 
     return true;
   }
@@ -39,12 +44,12 @@ contract MystikoRollerPool is IMystikoRollerPool, MystikoDAOAccessControl {
   function setRollerMinVoteTokenAmount(uint256 _newMinVoteTokenAmount) external onlyMystikoDAO {
     if (minVoteTokenAmount == _newMinVoteTokenAmount) revert MystikoRollerPoolErrors.NotChanged();
     minVoteTokenAmount = _newMinVoteTokenAmount;
-    emit RollerMinVoteTokenAmountChanged(minVoteTokenAmount);
+    emit RollerMinVoteTokenAmountChanged(_newMinVoteTokenAmount);
   }
 
   function setMinRollupSize(uint256 _newMinRollupSize) external onlyMystikoDAO {
     if (minRollupSize == _newMinRollupSize) revert MystikoRollerPoolErrors.NotChanged();
     minRollupSize = _newMinRollupSize;
-    emit MinRollupSizeChanged(minRollupSize);
+    emit MinRollupSizeChanged(_newMinRollupSize);
   }
 }

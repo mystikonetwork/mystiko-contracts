@@ -15,7 +15,7 @@
           "minAmount": "100000000000000000",
           "maxAmount": "1000000000000000000000",
           "minExecutorFee": "5000000000000000",
-          "minRollupFee": "10000000000000000",
+          "minRollupFee": "3000000000000000",
           "recommendedAmounts": [
             "100000000000000000",
             "1000000000000000000",
@@ -31,7 +31,7 @@
           "minAmount": "100000000",
           "maxAmount": "1000000000000",
           "minExecutorFee": "7500000",
-          "minRollupFee": "15000000",
+          "minRollupFee": "10000000",
           "recommendedAmounts": [
             "100000000",
             "1000000000",
@@ -47,7 +47,7 @@
           "minAmount": "100000000",
           "maxAmount": "1000000000000",
           "minExecutorFee": "7500000",
-          "minRollupFee": "15000000",
+          "minRollupFee": "10000000",
           "recommendedAmounts": [
             "100000000",
             "1000000000",
@@ -67,7 +67,9 @@
       "transaction1x2VerifierAddress": "0xd02c62789D0A5b79D1f0C41500c8382ee8076a2C",
       "transaction2x0VerifierAddress": "0x00dD8C49Cd45B12A23928eD4203eD44758f457bc",
       "transaction2x1VerifierAddress": "0x42D8D7082Ada7E497dBc3e36F074086893eD3EF6",
-      "transaction2x2VerifierAddress": "0x4b4136Af5e1D81657bE5cDdc2F24dDb1424204fB"
+      "transaction2x2VerifierAddress": "0x4b4136Af5e1D81657bE5cDdc2F24dDb1424204fB",
+      "rollup32Address": "0x3F58Ac2845Be880C932f42843B91be51285ba80d",
+      "rollup64Address": "0x10695d6eDc6e907bCe884314ebf2f4a63F318277"
     },
     {
       "name": "BSC",
@@ -149,7 +151,9 @@
       "transaction1x2VerifierAddress": "0x8A21c3a4527611aB5CD8d926b33d3DfE539eb3EE",
       "transaction2x0VerifierAddress": "0x506BCf537698214e8F69B9e96E7f7aBA4F9A9A63",
       "transaction2x1VerifierAddress": "0x90B78efbF17C7fA8eB9BBb6cca7fcDEA65b516d3",
-      "transaction2x2VerifierAddress": "0x53FDc92C3CAc3A50eb5967c54Add616F3810B1b2"
+      "transaction2x2VerifierAddress": "0x53FDc92C3CAc3A50eb5967c54Add616F3810B1b2",
+      "rollup32Address": "0x9D072215277AE3CD9650fCDC8376946c17b1dc87",
+      "rollup64Address": "0x416EB387ff5f0E7B5FeD6917e5b1109db6495AeE"
     },
     {
       "name": "Polygon",
@@ -247,7 +251,9 @@
       "transaction1x2VerifierAddress": "0xF2DC0AfE64b26E144F373638298C26D42c654b10",
       "transaction2x0VerifierAddress": "0x93b21B203d2B5906482030f6fD241dd88D4789f1",
       "transaction2x1VerifierAddress": "0xb7E99ADFD81F51c031dE82e7A9DBB1E35aC153f5",
-      "transaction2x2VerifierAddress": "0x67d3B78E01b1357241281057B25f856d3b6aAdee"
+      "transaction2x2VerifierAddress": "0x67d3B78E01b1357241281057B25f856d3b6aAdee",
+      "rollup32Address": "0xD290E660720d7aAd74B43fA85598457545BF76cC",
+      "rollup64Address": "0x6a1e3a22BE09397a3A3616dd757f5aB14Eb0d12D"
     },
     {
       "name": "Base Mainnet",
@@ -297,7 +303,129 @@
       "transaction1x2VerifierAddress": "0x579011D4F25942604442229e144507798451Cd66",
       "transaction2x0VerifierAddress": "0xD0b4CE9c55498DD59Ec47F1E699aDE5588fA622d",
       "transaction2x1VerifierAddress": "0x775175965755FF315a9BC96614988c5EF5fA3d42",
-      "transaction2x2VerifierAddress": "0x932f3DD5b6C0F5fe1aEc31Cb38B7a57d01496411"
+      "transaction2x2VerifierAddress": "0x932f3DD5b6C0F5fe1aEc31Cb38B7a57d01496411",
+      "rollup32Address": "0x4757B2aF4BA0DA3637e5F0A532e28970EadDB9Bc",
+      "rollup64Address": "0x9bF443aFA3d1D592CBF16E90aC4D790325DfD64D"
+    },
+    {
+      "name": "Avalanche C-Chain",
+      "network": "Avalanche",
+      "chainId": 43114,
+      "tokens": [
+        {
+          "assetSymbol": "AVAX",
+          "assetDecimals": 18,
+          "erc20": false,
+          "minAmount": "10000000000000000000",
+          "maxAmount": "100000000000000000000000",
+          "minExecutorFee": "1000000000000000",
+          "minRollupFee": "20000000000000000",
+          "recommendedAmounts": [
+            "10000000000000000000",
+            "100000000000000000000",
+            "1000000000000000000000",
+            "10000000000000000000000"
+          ]
+        },
+        {
+          "assetSymbol": "USDT",
+          "erc20": true,
+          "assetDecimals": 6,
+          "address": "0x9702230A8Ea53601f5cD2dc00fDBc13d4dF4A8c7",
+          "minAmount": "100000000",
+          "maxAmount": "1000000000000",
+          "minExecutorFee": "250000",
+          "minRollupFee": "500000",
+          "recommendedAmounts": [
+            "100000000",
+            "1000000000",
+            "10000000000",
+            "100000000000"
+          ]
+        },
+        {
+          "assetSymbol": "USDC",
+          "erc20": true,
+          "assetDecimals": 6,
+          "address": "0xB97EF9Ef8734C71904D8002F8b6Bc66Dd9c48a6E",
+          "minAmount": "100000000",
+          "maxAmount": "1000000000000",
+          "minExecutorFee": "250000",
+          "minRollupFee": "500000",
+          "recommendedAmounts": [
+            "100000000",
+            "1000000000",
+            "10000000000",
+            "100000000000"
+          ]
+        }
+      ],
+      "hasher3Address": "0xA9d3173fa17D14FC147c993667A97C6889f5D486",
+      "rollup1Address": "0xA288b938FE6d6bC70aDb5C545A99985993e398F5",
+      "rollup2Address": "0x58b92DB0b3A7924a383062FD441a7c7218aD1703",
+      "rollup4Address": "0xcfc951490b111267260e58d0515e1dAB71Dde2ff",
+      "rollup8Address": "0x6eCeFEB74c4891c02F533c934E9D139779b55357",
+      "rollup16Address": "0x715c4c1AB3B8cDc764074a295DD9B8AA38453B14",
+      "transaction1x0VerifierAddress": "0x4e491a0429fC092D6dB461498724E53c2149d50E",
+      "transaction1x1VerifierAddress": "0x35dB27BeDA70b87420FC381Ee4ea3e7f9bC4829e",
+      "transaction1x2VerifierAddress": "0x6343a114b47CFc31C1099970f38AC5E423454461",
+      "transaction2x0VerifierAddress": "0x7D74970daEBf0aC772895e85BeF55767cB72ca98",
+      "transaction2x1VerifierAddress": "0xcb3aa1f94f7A3C646D8E8e91756c000e0de9FF41",
+      "transaction2x2VerifierAddress": "0xc5c00c9a613D65fC132Fc17b413F2756b4ddCeB4",
+      "rollup32Address": "0x932f3DD5b6C0F5fe1aEc31Cb38B7a57d01496411",
+      "rollup64Address": "0x7F88F2A3Cf18E96844E14CaE59EC97B908734C01"
+    },
+    {
+      "name": "Linea Mainnet",
+      "network": "Linea",
+      "chainId": 59144,
+      "tokens": [
+        {
+          "assetSymbol": "ETH",
+          "assetDecimals": 18,
+          "erc20": false,
+          "minAmount": "100000000000000000",
+          "maxAmount": "1000000000000000000000",
+          "minExecutorFee": "20000000000000",
+          "minRollupFee": "40000000000000",
+          "recommendedAmounts": [
+            "100000000000000000",
+            "1000000000000000000",
+            "10000000000000000000",
+            "100000000000000000000"
+          ]
+        },
+        {
+          "assetSymbol": "USDC",
+          "erc20": true,
+          "assetDecimals": 6,
+          "address": "0x176211869cA2b568f2A7D4EE941E073a821EE1ff",
+          "minAmount": "100000000",
+          "maxAmount": "1000000000000",
+          "minExecutorFee": "50000",
+          "minRollupFee": "100000",
+          "recommendedAmounts": [
+            "100000000",
+            "1000000000",
+            "10000000000",
+            "100000000000"
+          ]
+        }
+      ],
+      "hasher3Address": "0xA9d3173fa17D14FC147c993667A97C6889f5D486",
+      "rollup1Address": "0xA288b938FE6d6bC70aDb5C545A99985993e398F5",
+      "rollup2Address": "0x58b92DB0b3A7924a383062FD441a7c7218aD1703",
+      "rollup4Address": "0xcfc951490b111267260e58d0515e1dAB71Dde2ff",
+      "rollup8Address": "0x6eCeFEB74c4891c02F533c934E9D139779b55357",
+      "rollup16Address": "0x715c4c1AB3B8cDc764074a295DD9B8AA38453B14",
+      "transaction1x0VerifierAddress": "0x4e491a0429fC092D6dB461498724E53c2149d50E",
+      "transaction1x1VerifierAddress": "0x35dB27BeDA70b87420FC381Ee4ea3e7f9bC4829e",
+      "transaction1x2VerifierAddress": "0x6343a114b47CFc31C1099970f38AC5E423454461",
+      "transaction2x0VerifierAddress": "0x7D74970daEBf0aC772895e85BeF55767cB72ca98",
+      "transaction2x1VerifierAddress": "0xcb3aa1f94f7A3C646D8E8e91756c000e0de9FF41",
+      "transaction2x2VerifierAddress": "0xc5c00c9a613D65fC132Fc17b413F2756b4ddCeB4",
+      "rollup32Address": "0x579011D4F25942604442229e144507798451Cd66",
+      "rollup64Address": "0xD0b4CE9c55498DD59Ec47F1E699aDE5588fA622d"
     }
   ],
   "bridges": [
@@ -313,8 +441,8 @@
           "address": "0xA9d3173fa17D14FC147c993667A97C6889f5D486",
           "syncStart": 48512366,
           "nonce": 0,
-          "operator": "0xB1362DE09607A7f19C3510Ef355E129C44ee6190",
-          "operatorTx": "0xdae32cdadbc0a985397dd9f40cc7b93d0da7ec8e3e253c7cfdf0d8dcf6df5f0e",
+          "operator": "0x218f850E3AC86a4c83E997bb86fB99c5669EC373",
+          "operatorTx": "0xeefb282565a1b3e61de59bd8dbd44f03ece43aaa35b9d4ae91d464f012dc3b14",
           "minRollupFee": "100000000000000000",
           "minRollupFeeTx": "0x7a06aeeec64ac44b64754b62f20fd507c7d2e5d8a4e301392f1f61402d66da27",
           "rollup1Verifier": "0x4ba17CA685c360C173c75E841277AE837A0e094C",
@@ -362,7 +490,11 @@
           ],
           "enqueueWhitelistTx": [
             "0xa9a2bf31c3925b792d42717fab02eec712800ef079fde450e6b6cfadf9635de2"
-          ]
+          ],
+          "rollup32Verifier": "0xD290E660720d7aAd74B43fA85598457545BF76cC",
+          "rollup32VerifierTx": "0x46e007f8bb74b6ec47b2824195137011983073464570c06903679c159059f4eb",
+          "rollup64Verifier": "0x6a1e3a22BE09397a3A3616dd757f5aB14Eb0d12D",
+          "rollup64VerifierTx": "0x9a90573eb2eb7b72e1143f8cb376f739716f6d2d2e729053bdd147f048d2da8f"
         },
         {
           "network": "Polygon",
@@ -370,8 +502,8 @@
           "address": "0xA288b938FE6d6bC70aDb5C545A99985993e398F5",
           "syncStart": 48512373,
           "nonce": 1,
-          "operator": "0xB1362DE09607A7f19C3510Ef355E129C44ee6190",
-          "operatorTx": "0x0b7c26e5a7330f50a5fddae4711e6e316e1cc6636c7ca9c6c9fce43aaf485bc4",
+          "operator": "0x218f850E3AC86a4c83E997bb86fB99c5669EC373",
+          "operatorTx": "0xd3dcad5785e3ec6c70899e4dff4d3c7f12f384623baef73dc52087065cc36969",
           "minRollupFee": "100000",
           "minRollupFeeTx": "0xcb303594ef34fcc4b30eb3ef5616595d6c65e25cd1319a7cc6483109be272955",
           "rollup1Verifier": "0x4ba17CA685c360C173c75E841277AE837A0e094C",
@@ -419,7 +551,11 @@
           ],
           "enqueueWhitelistTx": [
             "0x291644af6ca447c553e2383b2b7a00db12f5928a707550b378d454a45e7e6afb"
-          ]
+          ],
+          "rollup32Verifier": "0xD290E660720d7aAd74B43fA85598457545BF76cC",
+          "rollup32VerifierTx": "0xb23945a6e63d2f47249dd4c945c017c459ce66f3937a0937396ea122c5dda5ac",
+          "rollup64Verifier": "0x6a1e3a22BE09397a3A3616dd757f5aB14Eb0d12D",
+          "rollup64VerifierTx": "0xe038b72050530b576c03e16023572191fa68aabc7aef44cae222756bd72da376"
         },
         {
           "network": "Polygon",
@@ -427,8 +563,8 @@
           "address": "0x58b92DB0b3A7924a383062FD441a7c7218aD1703",
           "syncStart": 48512383,
           "nonce": 2,
-          "operator": "0xB1362DE09607A7f19C3510Ef355E129C44ee6190",
-          "operatorTx": "0xa925821575b27c96896e2021775f9403c5f9fdf0d2d3f824fa0e377db756fbc0",
+          "operator": "0x218f850E3AC86a4c83E997bb86fB99c5669EC373",
+          "operatorTx": "0xb39cb5fd3fbc6ed1bd834696e5afd46a8334688fd1b016b87bdce42016af5ad2",
           "minRollupFee": "100000",
           "minRollupFeeTx": "0x371b4677a5bc6c7736d54ffd12957bcf853454120ae53fd4ec3726bc3b6965d6",
           "rollup1Verifier": "0x4ba17CA685c360C173c75E841277AE837A0e094C",
@@ -476,7 +612,11 @@
           ],
           "enqueueWhitelistTx": [
             "0xdaa47181a5b84f8614be476016a19757005d30815824950f3e4635984104a874"
-          ]
+          ],
+          "rollup32Verifier": "0xD290E660720d7aAd74B43fA85598457545BF76cC",
+          "rollup32VerifierTx": "0x21e8e85d7f53415f7acfa471ae198dd9a7ef756cff46b3a267b9931ee99cf001",
+          "rollup64Verifier": "0x6a1e3a22BE09397a3A3616dd757f5aB14Eb0d12D",
+          "rollup64VerifierTx": "0xca0fd9cc664ee4d3f5c4d7d5e1d83c598ed5bd60c5e523d266aec2861980a2a2"
         },
         {
           "network": "Polygon",
@@ -484,8 +624,8 @@
           "address": "0xcfc951490b111267260e58d0515e1dAB71Dde2ff",
           "syncStart": 48512390,
           "nonce": 3,
-          "operator": "0xB1362DE09607A7f19C3510Ef355E129C44ee6190",
-          "operatorTx": "0xed556758dc787202b342d81525787352edd0af539ab991502e1b74c840c08e31",
+          "operator": "0x218f850E3AC86a4c83E997bb86fB99c5669EC373",
+          "operatorTx": "0xfb2a1b0bcdd752786addca0ad12854b766b63be80bb80515f202c69295ae72c7",
           "minRollupFee": "100000000000000000",
           "minRollupFeeTx": "0x25981970a4f9261af40d123e6052cd68efe598110cdd5ca703f1dd79b8c385f1",
           "rollup1Verifier": "0x4ba17CA685c360C173c75E841277AE837A0e094C",
@@ -500,16 +640,16 @@
           "rollup16VerifierTx": "0xc683c666a67a6bfbf27251023962177e36dd3c758ca9d8706b9dbb7f19bdcf6d",
           "transact1x0Verifier": "0xda84f860B57639B1F04Bb2C9Ef081260A3Da6F0a",
           "transact1x0VerifierTx": "0x500090b53e04e2026ba84df71845857327b95c7ee99cd0b06d66797da277d251",
-          "transact1x1Verifier": "0x84DbE5d8B42d344C8f852d580B0474a96D296186",
-          "transact1x1VerifierTx": "0x09893840628e883216b40dd387dd4d4c35aa8cfd50e05590726d888e17328eec",
-          "transact1x2Verifier": "0xF2DC0AfE64b26E144F373638298C26D42c654b10",
-          "transact1x2VerifierTx": "0xd953849fc0da4e00b3d630d8e2243dd1e246244cc9b482f35aacc17266e7e88d",
+          "transact1x1Verifier": "disabled",
+          "transact1x1VerifierTx": "0x7b9b21a6ff9997046d243004c0f617866750ac160488aa3b5d37c3c24dd8cd00",
+          "transact1x2Verifier": "disabled",
+          "transact1x2VerifierTx": "0x3e7cf3213671bb4dd0b91ebee43afc3f0af848dce13856409546ec5283a8cc7a",
           "transact2x0Verifier": "0x93b21B203d2B5906482030f6fD241dd88D4789f1",
           "transact2x0VerifierTx": "0x4d4e843bd063539232490cb47a6f1387fb64456ab27a83e9f2fbeaa34227c602",
-          "transact2x1Verifier": "0xb7E99ADFD81F51c031dE82e7A9DBB1E35aC153f5",
-          "transact2x1VerifierTx": "0xc50217cd540697347783b24d06043868a193431ce14be2a7f5d505d1b109f09d",
-          "transact2x2Verifier": "0x67d3B78E01b1357241281057B25f856d3b6aAdee",
-          "transact2x2VerifierTx": "0x69ffd6d289c80593d6da08eb537ee289fa2bc42c619c2efcec7ada155170ec79",
+          "transact2x1Verifier": "disabled",
+          "transact2x1VerifierTx": "0x4c2e8ad528c9882420f990f7083bdced800f07941a50f329d9cb222ec247e50f",
+          "transact2x2Verifier": "disabled",
+          "transact2x2VerifierTx": "0x85002bb6aa722ec4ed31544cec143113afb75b92c5284aa50e182e296dc1580d",
           "rollupWhitelist": [
             "0x740D5941bf285D6070896aAC9084AE9CF64F5913",
             "0xD2318B8a8028922BCE5871ea26b74babd9d61Cd5"
@@ -533,7 +673,12 @@
           ],
           "enqueueWhitelistTx": [
             "0xbec12e64f72d65db2573a6dc38ab5c73a62a19721987f8640c320480f25b8616"
-          ]
+          ],
+          "rollup32Verifier": "0xD290E660720d7aAd74B43fA85598457545BF76cC",
+          "rollup32VerifierTx": "0xe36a5368a84f92927169e8e77dca97b3f1ea1eaee014fb140e927a037be5fc90",
+          "rollup64Verifier": "0x6a1e3a22BE09397a3A3616dd757f5aB14Eb0d12D",
+          "rollup64VerifierTx": "0x93b48204f0082d5154fd63426be1fbd42d697dc6434ea03f848bf3f26ea26efc",
+          "disabledAt": 56789472
         },
         {
           "network": "Polygon",
@@ -541,8 +686,8 @@
           "address": "0x6eCeFEB74c4891c02F533c934E9D139779b55357",
           "syncStart": 48512397,
           "nonce": 4,
-          "operator": "0xB1362DE09607A7f19C3510Ef355E129C44ee6190",
-          "operatorTx": "0xc7b0f4aa3009c585ed1c5632ef228581e8158f955f28d503e48a8faaf66e788f",
+          "operator": "0x218f850E3AC86a4c83E997bb86fB99c5669EC373",
+          "operatorTx": "0xf7fde17847b9365753ffdd8344e7215cee6cfe5109f7260b89e91bb97edfeaa2",
           "minRollupFee": "50000000000000",
           "minRollupFeeTx": "0xa1a0a5027750637cc08457b60ac260b48c40555df15fe637dc08de26340291fe",
           "rollup1Verifier": "0x4ba17CA685c360C173c75E841277AE837A0e094C",
@@ -590,7 +735,11 @@
           ],
           "enqueueWhitelistTx": [
             "0x54d7b5e9f04b2c40a5b0596d6cb66d7e941a20e9235f93df030c227e77146b61"
-          ]
+          ],
+          "rollup32Verifier": "0xD290E660720d7aAd74B43fA85598457545BF76cC",
+          "rollup32VerifierTx": "0x2366e367569b3c773a41e8bf368da356f634606a70b1bd70578682c8e2adce83",
+          "rollup64Verifier": "0x6a1e3a22BE09397a3A3616dd757f5aB14Eb0d12D",
+          "rollup64VerifierTx": "0x222d4dcd419a86ec0aa94db4382e25eafec52465d44062a64b004a556fc04233"
         },
         {
           "network": "Base",
@@ -598,8 +747,8 @@
           "address": "0xA9d3173fa17D14FC147c993667A97C6889f5D486",
           "syncStart": 5032931,
           "nonce": 0,
-          "operator": "0xB1362DE09607A7f19C3510Ef355E129C44ee6190",
-          "operatorTx": "0x76e1c4ca26331472c32271c698b971e7f81b6ee6984f1f7f7b4429db9d7d18b4",
+          "operator": "0x218f850E3AC86a4c83E997bb86fB99c5669EC373",
+          "operatorTx": "0xa026a7d863e0eb41a21bf7bb8e2f2ad3c02fd08e50b113d36f7cb03a7b3301a6",
           "minRollupFee": "200000000000000",
           "minRollupFeeTx": "0xfad176360124fe30c39eb719a8ac389cd8cfaa08ba85b07ee99bb719d47c635b",
           "rollup1Verifier": "0xeF9482556810c8c8E47fCf141E1b4aFd6326cF44",
@@ -648,8 +797,14 @@
           ],
           "transact1x0Verifier": "0x9FEDACbA4e6646E3764B6Dab9575867265Bb7e3f",
           "transact1x0VerifierTx": "0x6aeb0617c476b26b6a18c65ee77e6e110ab94418d8ea88a23b92f22f34c11d54",
-          "sanctionCheck": false,
-          "sanctionCheckTx": "0x210de78de9c8b4980ba444707565875b39a63f6f20ba9458ba23446b75c79712"
+          "sanctionCheck": true,
+          "sanctionCheckTx": "0x55f315d96558049035041282eb181b12fd0b2f4b92cd18b69b66eda9f2985cfe",
+          "rollup32Verifier": "0x4757B2aF4BA0DA3637e5F0A532e28970EadDB9Bc",
+          "rollup32VerifierTx": "0x5519157bf51b6cf24a948fdbd7e0df601c0e36f2c9597a2feffebd2231a95d2e",
+          "rollup64Verifier": "0x9bF443aFA3d1D592CBF16E90aC4D790325DfD64D",
+          "rollup64VerifierTx": "0x851f8bd4245e75a08921c631032adbdb43b7efb8efa97d34044aea27f9e86f48",
+          "sanctionCheckAddress": "0x3A91A31cB3dC49b4db9Ce721F50a9D076c8D739B",
+          "sanctionCheckAddressTx": "0x684c25c3bfe9c9f8ab6a62cbd4902da7b8503a7b24f8f9e14db6959fddb2663e"
         },
         {
           "network": "Base",
@@ -657,8 +812,8 @@
           "address": "0xA288b938FE6d6bC70aDb5C545A99985993e398F5",
           "syncStart": 5032941,
           "nonce": 1,
-          "operator": "0xB1362DE09607A7f19C3510Ef355E129C44ee6190",
-          "operatorTx": "0xb534cc35f04b8f9ba307972109e09ccd990391d62f674716708d900fa8f714cb",
+          "operator": "0x218f850E3AC86a4c83E997bb86fB99c5669EC373",
+          "operatorTx": "0xee8379dd33e2d3175b8221949b39383beb4bc399d599878fedf01698f9879c65",
           "minRollupFee": "300000",
           "minRollupFeeTx": "0x1e5521916c81d539964fbda8816b24cf3b710181a1602c44cdfcd985e502758b",
           "rollup1Verifier": "0xeF9482556810c8c8E47fCf141E1b4aFd6326cF44",
@@ -707,8 +862,14 @@
           "enqueueWhitelistTx": [
             "0xf5d69d5c7515c893db2efd6a0dd860f84344e2792583515a2a5dea84d27f31f7"
           ],
-          "sanctionCheck": false,
-          "sanctionCheckTx": "0xaae2b940963b7bd549744cf793aaad7c4075f0ab4119e0ab2fa1252197010101"
+          "sanctionCheck": true,
+          "sanctionCheckTx": "0xae87c33e531ff96d0cf21e56df655c567913b6bf5b96dc6d8660156e20d7cc85",
+          "rollup32Verifier": "0x4757B2aF4BA0DA3637e5F0A532e28970EadDB9Bc",
+          "rollup32VerifierTx": "0xe6a1b8b090051cb98f0ce455d1e1f255490797e3012af01d3d668da46672c5d0",
+          "rollup64Verifier": "0x9bF443aFA3d1D592CBF16E90aC4D790325DfD64D",
+          "rollup64VerifierTx": "0x216478d583b2ed8d6f20313f551ef127afd92cedf612d783db1dcded2c86fa45",
+          "sanctionCheckAddress": "0x3A91A31cB3dC49b4db9Ce721F50a9D076c8D739B",
+          "sanctionCheckAddressTx": "0xd16bdb9a05b9f641c5bfdd61fc4e1bbff3126b0ad88f2bce2bb2e47e3e319e99"
         },
         {
           "network": "BSC",
@@ -716,8 +877,8 @@
           "address": "0xA9d3173fa17D14FC147c993667A97C6889f5D486",
           "syncStart": 32452894,
           "nonce": 0,
-          "operator": "0xB1362DE09607A7f19C3510Ef355E129C44ee6190",
-          "operatorTx": "0xd258672b2e20c729299168a1ec22aac034f6ef69d93256cac38822cb82fd292f",
+          "operator": "0x218f850E3AC86a4c83E997bb86fB99c5669EC373",
+          "operatorTx": "0x604cb137ae6dffeef414333c58a8449f0498853e888c1e629514ce4797bfc857",
           "minRollupFee": "4000000000000000",
           "minRollupFeeTx": "0x158140594c9bb28fab26ea469d5abcbc63d18d26fe5dac5324a9dd7f5a70912f",
           "rollup1Verifier": "0xa5c0060cdBf2F5185165e4430c374800d891750C",
@@ -765,7 +926,11 @@
           ],
           "enqueueWhitelistTx": [
             "0x6da6062be7a1a48360cd7ff51d89a5555ba114087d783c385e6995358374b458"
-          ]
+          ],
+          "rollup32Verifier": "0x9D072215277AE3CD9650fCDC8376946c17b1dc87",
+          "rollup32VerifierTx": "0xc546f2b1df6f953dc96b91675a4320eafda7b73f32d126a6650c62a8df3b7057",
+          "rollup64Verifier": "0x416EB387ff5f0E7B5FeD6917e5b1109db6495AeE",
+          "rollup64VerifierTx": "0xfc1eb435d9e1b9c5a538ad73914f8b795f08a2f8106d5969f99f6052a492d72c"
         },
         {
           "network": "BSC",
@@ -773,8 +938,8 @@
           "address": "0xA288b938FE6d6bC70aDb5C545A99985993e398F5",
           "syncStart": 32452899,
           "nonce": 1,
-          "operator": "0xB1362DE09607A7f19C3510Ef355E129C44ee6190",
-          "operatorTx": "0xecf7dc7b79130b4286ddbb4b10ad1aa3ea1dba1874f163078dff50d7ca890e4c",
+          "operator": "0x218f850E3AC86a4c83E997bb86fB99c5669EC373",
+          "operatorTx": "0x922e94cc4d1059753658c78ace484dc1a0821bed7d112795d9c21cc76f032eaf",
           "minRollupFee": "1000000000000000000",
           "minRollupFeeTx": "0x3c54064f684dc4035eb76970b85ef797949a76f86bb1927afba0719d12a84a7e",
           "rollup1Verifier": "0xa5c0060cdBf2F5185165e4430c374800d891750C",
@@ -822,7 +987,11 @@
           ],
           "enqueueWhitelistTx": [
             "0x83972fbdf0a9defeea766b871dc62c7dc6c4ed876feb24ce257e79b27e41a0a2"
-          ]
+          ],
+          "rollup32Verifier": "0x9D072215277AE3CD9650fCDC8376946c17b1dc87",
+          "rollup32VerifierTx": "0xf8985cfeaafb07a5fe30dd027a33f5ee80a88a36008b897bac200c55c01eaee8",
+          "rollup64Verifier": "0x416EB387ff5f0E7B5FeD6917e5b1109db6495AeE",
+          "rollup64VerifierTx": "0xfabd1fdf0ebbebcdde4c496011195746af9d33dedbfaca4ee2b43df2dec5c664"
         },
         {
           "network": "BSC",
@@ -830,8 +999,8 @@
           "address": "0x58b92DB0b3A7924a383062FD441a7c7218aD1703",
           "syncStart": 32452906,
           "nonce": 2,
-          "operator": "0xB1362DE09607A7f19C3510Ef355E129C44ee6190",
-          "operatorTx": "0xf8803fd0d7aa5a2b60a0216d6d86aa857ade6244df343b09b9f9d1b4530e1bfb",
+          "operator": "0x218f850E3AC86a4c83E997bb86fB99c5669EC373",
+          "operatorTx": "0xf641ee2302409e31afc310e9fb1cf958c813134e95b0ab585a6677089da5e32d",
           "minRollupFee": "1000000000000000000",
           "minRollupFeeTx": "0x16ddc17a0e2b5adc1880652644eb156b32012c6095957f4ec18001107f90c8b2",
           "rollup1Verifier": "0xa5c0060cdBf2F5185165e4430c374800d891750C",
@@ -879,7 +1048,11 @@
           ],
           "enqueueWhitelistTx": [
             "0xb527f8d2f86ccbe13c60b8840e88ab564b5201a8316229953001d4eebc4b64e1"
-          ]
+          ],
+          "rollup32Verifier": "0x9D072215277AE3CD9650fCDC8376946c17b1dc87",
+          "rollup32VerifierTx": "0x91483c1f9b3fcccb0c618135fabf13feb5a36e694feba9aad8521d9c2ce6c5b6",
+          "rollup64Verifier": "0x416EB387ff5f0E7B5FeD6917e5b1109db6495AeE",
+          "rollup64VerifierTx": "0x0bc53152d7e0c76f3de7cf7285725fd5c967db76c5f5349b1eb2bc8e38f209e5"
         },
         {
           "network": "BSC",
@@ -887,8 +1060,8 @@
           "address": "0xcfc951490b111267260e58d0515e1dAB71Dde2ff",
           "syncStart": 32452913,
           "nonce": 3,
-          "operator": "0xB1362DE09607A7f19C3510Ef355E129C44ee6190",
-          "operatorTx": "0xd0a01f34ac685845acdc8b284ebe6f47d01803a9335325e6450ea9160067a0fc",
+          "operator": "0x218f850E3AC86a4c83E997bb86fB99c5669EC373",
+          "operatorTx": "0x4fcf6069f0e23f1bb0d8f5bdff6d7988f30d6b72e38dde069abd3833ad4fdc81",
           "minRollupFee": "1000000000000000000",
           "minRollupFeeTx": "0xccf7b0d94e4da673d689bf9cfc434796a985f06e00cf5ec6b0e62a73673840aa",
           "rollup1Verifier": "0xa5c0060cdBf2F5185165e4430c374800d891750C",
@@ -903,16 +1076,16 @@
           "rollup16VerifierTx": "0x3972f464e6dba2193c8acb0a76f7cde25c8d9b57cd70a251e2ebed35cda4aa94",
           "transact1x0Verifier": "0x57Fbd29A381B09d0f0c94E5622F62aacF9e1B295",
           "transact1x0VerifierTx": "0xc541fef3f7381eec0713bce567d313e543c4e768bcf7691cda7f4d2726be553b",
-          "transact1x1Verifier": "0x422d151d8aa5c9F8AD75dC8Dff2dcd648B8b4e59",
-          "transact1x1VerifierTx": "0x3a63190fa3abb10f212006c7b20e505649a529a6a7826de2a5e82381bafe3b47",
-          "transact1x2Verifier": "0x8A21c3a4527611aB5CD8d926b33d3DfE539eb3EE",
-          "transact1x2VerifierTx": "0x9e2858eb1d23f0c392a289fc2942a45375962f3a548c22abda11893754bc4dc5",
+          "transact1x1Verifier": "disabled",
+          "transact1x1VerifierTx": "0x9984c70947fdae82776be1d551b039224f70b68d77fae228e7b095b35e4ee94f",
+          "transact1x2Verifier": "disabled",
+          "transact1x2VerifierTx": "0x14b541dd9f941d57eb5cf5edeaab22e490eb904ee184e76f24216e501d9d388b",
           "transact2x0Verifier": "0x506BCf537698214e8F69B9e96E7f7aBA4F9A9A63",
           "transact2x0VerifierTx": "0x46713f3f0d3b398b7c3764d8ce70773e93a084be09a32ad54fbed5f6b2188982",
-          "transact2x1Verifier": "0x90B78efbF17C7fA8eB9BBb6cca7fcDEA65b516d3",
-          "transact2x1VerifierTx": "0x0cc6c7f34f61c3e222ebb8be3b580478097f9831b7b0c3dbf459809f6cc231a8",
-          "transact2x2Verifier": "0x53FDc92C3CAc3A50eb5967c54Add616F3810B1b2",
-          "transact2x2VerifierTx": "0xbc3fa384c1905b3139b856f515dfd15702b10377dae940f14278d92d7df13c91",
+          "transact2x1Verifier": "disabled",
+          "transact2x1VerifierTx": "0xb7cc7e7e976769e4bb1e18a65e174dd23e96a60d6b9b8ca0b49e35dff4b97e3d",
+          "transact2x2Verifier": "disabled",
+          "transact2x2VerifierTx": "0x2da57906a426010a1dec05775ba5d0f4dac7a3d9597780320a5cfc1debf26cfa",
           "rollupWhitelist": [
             "0x740D5941bf285D6070896aAC9084AE9CF64F5913",
             "0xD2318B8a8028922BCE5871ea26b74babd9d61Cd5"
@@ -936,7 +1109,12 @@
           ],
           "enqueueWhitelistTx": [
             "0x5676fb6a3142fac54c6beaf358db89c8f54f3c75dbd479f04ff0472f8731d4d3"
-          ]
+          ],
+          "rollup32Verifier": "0x9D072215277AE3CD9650fCDC8376946c17b1dc87",
+          "rollup32VerifierTx": "0xe0e040be28b1463a2cb7e0970e9e3bab1c0538ff092e8854579335d08785dec5",
+          "rollup64Verifier": "0x416EB387ff5f0E7B5FeD6917e5b1109db6495AeE",
+          "rollup64VerifierTx": "0x8e175bb0d8f879a919096c597bf1a2c05b3d3d46950c01696073ee28593fe372",
+          "disabledAt": 38589041
         },
         {
           "network": "Ethereum",
@@ -946,8 +1124,8 @@
           "nonce": 0,
           "operator": "0xB1362DE09607A7f19C3510Ef355E129C44ee6190",
           "operatorTx": "0x6afc99cdc58483b557e8037d2519e3bddbc54786008f543de42567d68132e14f",
-          "minRollupFee": "10000000000000000",
-          "minRollupFeeTx": "0x2a21b65ff71b9ea24b170cfb3b2929b54f80f7d1efb1a51bda46985624ff8a4b",
+          "minRollupFee": "3000000000000000",
+          "minRollupFeeTx": "0xd1c38e2970e92970a76c79c5f8b4d2e38ecdb5b688b5e66df5e304b30d8a0758",
           "rollup1Verifier": "0x5841E189B170420b5fc67F58bA79F21f26FE6E4a",
           "rollup1VerifierTx": "0x6daa1b93137c441f21df4921091e04340e97e2ad7d0fc46c0df70a1eb34fb0ab",
           "rollup2Verifier": "0xF2A6b7f5163f984e31b0E8bb5fF6154B3EfF06aD",
@@ -993,7 +1171,9 @@
           ],
           "enqueueWhitelistTx": [
             "0xc130c6727b12046127f07b00d7ae0b60c42fcf58c16aa168f12e0832e104ce75"
-          ]
+          ],
+          "rollup32Verifier": "0x3F58Ac2845Be880C932f42843B91be51285ba80d",
+          "rollup32VerifierTx": "0x95438b2bf35bb8cba6f1b169c1301f639d4cf25187ea8313ff53b29e85f98efb"
         },
         {
           "network": "Ethereum",
@@ -1001,10 +1181,10 @@
           "address": "0xA288b938FE6d6bC70aDb5C545A99985993e398F5",
           "syncStart": 18312992,
           "nonce": 1,
-          "operator": "0xB1362DE09607A7f19C3510Ef355E129C44ee6190",
-          "operatorTx": "0x8ddc3f1c8f7ad0014423e83a55c06cf70f7e39b2c4eee6a3c8c3e90d92ffe8bf",
-          "minRollupFee": "15000000",
-          "minRollupFeeTx": "0x81a17f5fc63a2412185fabfeff633129f31beb9da5dc2c336a12fe690a319a65",
+          "operator": "0x218f850E3AC86a4c83E997bb86fB99c5669EC373",
+          "operatorTx": "0x65e9c622d395234c4e6fe16ca69660af6c8f87afe973ca7935a296f8a1d03d48",
+          "minRollupFee": "10000000",
+          "minRollupFeeTx": "0xeb3b126657762e03dcb845a318426e890e1c4f949ea9105887e7565749d4f1b3",
           "rollup1Verifier": "0x5841E189B170420b5fc67F58bA79F21f26FE6E4a",
           "rollup1VerifierTx": "0x1629a95631fbeb1f848c21711692f72f7f5216e4bed72768943d7ed92e054bef",
           "rollup2Verifier": "0xF2A6b7f5163f984e31b0E8bb5fF6154B3EfF06aD",
@@ -1050,7 +1230,11 @@
           ],
           "enqueueWhitelistTx": [
             "0x993172291216984a906002a0b1f70f768b64ed87a50ac60bb14657fa49210200"
-          ]
+          ],
+          "rollup32Verifier": "0x3F58Ac2845Be880C932f42843B91be51285ba80d",
+          "rollup32VerifierTx": "0x00630a295ccd6a4c9e4a3073b45eac22cedc44db9a3ed51898c5f80ac1a3ee5c",
+          "rollup64Verifier": "0x10695d6eDc6e907bCe884314ebf2f4a63F318277",
+          "rollup64VerifierTx": "0x3d5d23d0a0ca4f9fdc010be70e142b4e4057f1fcb5b2b86b7bcdb27138f41949"
         },
         {
           "network": "Ethereum",
@@ -1058,10 +1242,10 @@
           "address": "0x58b92DB0b3A7924a383062FD441a7c7218aD1703",
           "syncStart": 18312994,
           "nonce": 2,
-          "operator": "0xB1362DE09607A7f19C3510Ef355E129C44ee6190",
-          "operatorTx": "0xfdb9e4116752d53457cd2319c7d0fd82926110465e0bf46b357f0c56a830d670",
-          "minRollupFee": "15000000",
-          "minRollupFeeTx": "0xdf6fdaca2267220ab149aad00c2ed86d98a05942708dafc492790f839b56c182",
+          "operator": "0x218f850E3AC86a4c83E997bb86fB99c5669EC373",
+          "operatorTx": "0x3ae049b9df9cb1bb7e7afd91d562ea94faa74998559f169d4fab9e685a099b9f",
+          "minRollupFee": "10000000",
+          "minRollupFeeTx": "0xd8670856c6c0bf5fb5efdeb513b347a7a52af5c035a97c2a1f2b3486751c4a43",
           "rollup1Verifier": "0x5841E189B170420b5fc67F58bA79F21f26FE6E4a",
           "rollup1VerifierTx": "0xcb2d517f7fab9311055f5b330658587297db4175f8d11440bf59f39e31a6f835",
           "rollup2Verifier": "0xF2A6b7f5163f984e31b0E8bb5fF6154B3EfF06aD",
@@ -1107,7 +1291,320 @@
           ],
           "enqueueWhitelistTx": [
             "0x7b5140b793f27ba20da960761e64ae7a608ee01834c6e00544caffa0d8cc5589"
-          ]
+          ],
+          "rollup32Verifier": "0x3F58Ac2845Be880C932f42843B91be51285ba80d",
+          "rollup32VerifierTx": "0xa93f5252f47fd7599512364f8bb2ae3f3509d019fca414ddde670a5b630d2e3a",
+          "rollup64Verifier": "0x10695d6eDc6e907bCe884314ebf2f4a63F318277",
+          "rollup64VerifierTx": "0xc1b89fbf503aa28a88723ce0a4743693611ba82179d6cd0cc608f7643b1ab403"
+        },
+        {
+          "network": "Avalanche",
+          "assetSymbol": "AVAX",
+          "address": "0xf5fc0Bd6bBe24a0ff945A8F58aEc2f6EC48EC964",
+          "syncStart": 40514111,
+          "nonce": 12,
+          "minRollupFee": "20000000000000000",
+          "minRollupFeeTx": "0xe788c43ef55b4a4df791c53290c8d513bfdd3a0213ce68fa39b83e2f3d7a68f4",
+          "rollup1Verifier": "0xA288b938FE6d6bC70aDb5C545A99985993e398F5",
+          "rollup1VerifierTx": "0xaefecdd13a12599b22474e3110704edebea94764913e1975bd792288e4696ada",
+          "rollup2Verifier": "0x58b92DB0b3A7924a383062FD441a7c7218aD1703",
+          "rollup2VerifierTx": "0xdeab63dad3bb4770476f78122d57b97f6acb1186f0aedf7254ef48776c359116",
+          "rollup4Verifier": "0xcfc951490b111267260e58d0515e1dAB71Dde2ff",
+          "rollup4VerifierTx": "0x4b98bb3af6081d2a644f1cacf4d05b32d50de6a405494f360876c00772ffd3d4",
+          "rollup8Verifier": "0x6eCeFEB74c4891c02F533c934E9D139779b55357",
+          "rollup8VerifierTx": "0xcd54f5a5ccc91b037daf5e9847fe51e915b31a598a34de5c95dd69c9d7713b38",
+          "rollup16Verifier": "0x715c4c1AB3B8cDc764074a295DD9B8AA38453B14",
+          "rollup16VerifierTx": "0x74fb27ea6e09bbf31a2abefa1f20b690386a04c97ed82c4742b7f8fa29b10088",
+          "transact1x0Verifier": "0x4e491a0429fC092D6dB461498724E53c2149d50E",
+          "transact1x0VerifierTx": "0x8b69cf443b24dcd80efdd60770fb7ae2000df607dad3d7a1d723cfb0c1a2812b",
+          "transact1x1Verifier": "0x35dB27BeDA70b87420FC381Ee4ea3e7f9bC4829e",
+          "transact1x1VerifierTx": "0x99110c22ace998a8915003660b5412fa5cfbd3af6e7759fa3245dd764dca3539",
+          "transact1x2Verifier": "0x6343a114b47CFc31C1099970f38AC5E423454461",
+          "transact1x2VerifierTx": "0x3e8d2e2ae2e83cfa9ecf5892d0d2aeaf7954bf53539a6d0454a102ce9995e365",
+          "transact2x0Verifier": "0x7D74970daEBf0aC772895e85BeF55767cB72ca98",
+          "transact2x0VerifierTx": "0xe6f2a86caf79a3462f1e0fd2ddc221d8b5fa3062d651c855ac90ccb71f47f492",
+          "transact2x1Verifier": "0xcb3aa1f94f7A3C646D8E8e91756c000e0de9FF41",
+          "transact2x1VerifierTx": "0x9f38f3b97d4a020d92f61541f2d8e0755c1c8ad0003ddd0e574dec053af242ce",
+          "transact2x2Verifier": "0xc5c00c9a613D65fC132Fc17b413F2756b4ddCeB4",
+          "transact2x2VerifierTx": "0x477b4c8c8be0a7d87eaaab6faf443810e0199f22bee6f847c8f4d729594e68c2",
+          "rollupWhitelist": [
+            "0x740D5941bf285D6070896aAC9084AE9CF64F5913",
+            "0xD2318B8a8028922BCE5871ea26b74babd9d61Cd5"
+          ],
+          "rollupWhitelistTx": [
+            "0xa6df341a7ea1d4bf2d415695984b90a9264b954378ff5eb2e15b1399853f20a4",
+            "0x526fdcaeefd3d75a95fbaa6f38ef1d04ddf5cec0e5b20837b6c06984babedd88"
+          ],
+          "auditors": [
+            "71974561790665464247604435795065683686381931489528897462330672390776840504073",
+            "4997220442638814810609909752944635265697515387283055012148220746256985615693",
+            "75515112535918662049551479070314526291311940874433203669050730808316017216416"
+          ],
+          "auditorsTx": [
+            "0xb9428cb6b4dd7221adfdeab99c69afe5a6673149ac4efa425ffafe9423a823c8",
+            "0x600306f7f5c07ba3756d22ff48005c3bcaf6c639291d9ec8d1ebe9e558c99484",
+            "0xe93b8707f99bc06f51f733223e5317d61df5cb6a1a5cc3ddaad0ab4a047075d5"
+          ],
+          "operator": "0x218f850E3AC86a4c83E997bb86fB99c5669EC373",
+          "operatorTx": "0x68322bcd259f772ca1b16c9e4fc306758e0d76d289220f2e34e9e3b4d71b4b2a",
+          "enqueueWhitelist": [
+            "0xC20f84542eBcB87A8108d960A367741F8fD2d691"
+          ],
+          "enqueueWhitelistTx": [
+            "0x7c628e514e8ae31b75c090ff236c6c59ef17c1bcd1e25b015fe762c779f57e9a"
+          ],
+          "rollup32Verifier": "0x932f3DD5b6C0F5fe1aEc31Cb38B7a57d01496411",
+          "rollup32VerifierTx": "0x52f74b64644b0ea6a4a1393a47fb47ea4d83fc457d2e5ee8bd4a8d304fc06db0",
+          "rollup64Verifier": "0x7F88F2A3Cf18E96844E14CaE59EC97B908734C01",
+          "rollup64VerifierTx": "0xf52c815e91d060100a29a1f9adb1ce79d14bc130e86b918b364e2da41b1d4fcd"
+        },
+        {
+          "network": "Avalanche",
+          "assetSymbol": "USDT",
+          "address": "0x373DBe18EEf567D5Dd2a393B8c11e90B1A30d967",
+          "syncStart": 40514123,
+          "nonce": 14,
+          "minRollupFee": "500000",
+          "minRollupFeeTx": "0x97fdf5909ade1d8de7cf0315998bbd9da985855f2e1b3d64a53e9a0b12f045b6",
+          "rollup1Verifier": "0xA288b938FE6d6bC70aDb5C545A99985993e398F5",
+          "rollup1VerifierTx": "0x1f6bb87c7354784a175e1d23684e45814527c6b571752aaf0b6c65e37fd5a394",
+          "rollup2Verifier": "0x58b92DB0b3A7924a383062FD441a7c7218aD1703",
+          "rollup2VerifierTx": "0x45d4676be9cde4220d0a2c5b6f1ae1e61728c04383ef8b286225dde018fcedb3",
+          "rollup4Verifier": "0xcfc951490b111267260e58d0515e1dAB71Dde2ff",
+          "rollup4VerifierTx": "0x9af2de5ddac10bedfde314be5471f8774bae15fa5763288f291f4b29626a05d1",
+          "rollup8Verifier": "0x6eCeFEB74c4891c02F533c934E9D139779b55357",
+          "rollup8VerifierTx": "0xc6929c80ec95cd3544d67709cfe57b3ef7cce2db4b2549710e537d5c681b1cd5",
+          "rollup16Verifier": "0x715c4c1AB3B8cDc764074a295DD9B8AA38453B14",
+          "rollup16VerifierTx": "0x2c4139c076d7c7318a9746f36be4febf7838f4704a5243d40d45edf586fca7f5",
+          "transact1x0Verifier": "0x4e491a0429fC092D6dB461498724E53c2149d50E",
+          "transact1x0VerifierTx": "0xbf6a8d8afd9c4c7f3b78085b64152b92cd1fffb7b860c5d72898e822f82b8f1d",
+          "transact1x1Verifier": "0x35dB27BeDA70b87420FC381Ee4ea3e7f9bC4829e",
+          "transact1x1VerifierTx": "0x3fdaecb37936d5dd5b4cd1d6858451974ba1cf09a25d6a47e9710b72cf155a81",
+          "transact1x2Verifier": "0x6343a114b47CFc31C1099970f38AC5E423454461",
+          "transact1x2VerifierTx": "0x02cc1f4a61a83f74a9b9d8872d66535bd460c644e95c22c294aa35bb329aed0e",
+          "transact2x0Verifier": "0x7D74970daEBf0aC772895e85BeF55767cB72ca98",
+          "transact2x0VerifierTx": "0x84adc80942e85b57818b594159e54aa7748e8b13366285c05d691f0847900489",
+          "transact2x1Verifier": "0xcb3aa1f94f7A3C646D8E8e91756c000e0de9FF41",
+          "transact2x1VerifierTx": "0x005aa5518fd3a8e0857562d291a8d51367d28a089d4c9cb7e12709fa62aa6c48",
+          "transact2x2Verifier": "0xc5c00c9a613D65fC132Fc17b413F2756b4ddCeB4",
+          "transact2x2VerifierTx": "0x1e8080d21fecd65c08177582a3e1183917774cafec6b595e6b412cfae4c46cba",
+          "rollupWhitelist": [
+            "0x740D5941bf285D6070896aAC9084AE9CF64F5913",
+            "0xD2318B8a8028922BCE5871ea26b74babd9d61Cd5"
+          ],
+          "rollupWhitelistTx": [
+            "0xaa77bdd1b26da05568b2579d54f533791dac4f99a5728442627aeef464158522",
+            "0x143be01468c6a4a1691938812a471d385a4e0641059537fd6a6c3dacd6c08bec"
+          ],
+          "auditors": [
+            "71974561790665464247604435795065683686381931489528897462330672390776840504073",
+            "4997220442638814810609909752944635265697515387283055012148220746256985615693",
+            "75515112535918662049551479070314526291311940874433203669050730808316017216416"
+          ],
+          "auditorsTx": [
+            "0xde50e5b465f1b8c6bd6948b5eff5f7eae0aa055a2a96e872d7c92d11589bb031",
+            "0x777182b9c3e88deb4e193ac73474faa6a7c4cacce0cec1b42fbf8ab707f9b11f",
+            "0xdf7caa80be809f15f1d0da5b2b59f382504f0c6e3beda6acfc65b09cab5f0c14"
+          ],
+          "operator": "0x218f850E3AC86a4c83E997bb86fB99c5669EC373",
+          "operatorTx": "0xcd26818b71ddc8af61585325a8c04de40975cb3e96139a4c82165707ea1fff6f",
+          "enqueueWhitelist": [
+            "0x8FfA92155bd9cc60198FBE6E1e6fd32A4A82dEA2"
+          ],
+          "enqueueWhitelistTx": [
+            "0x239c0f16f304ccfcc0b12deb9612e1481fa7427fde833e9c55a4b4544e682bb9"
+          ],
+          "rollup32Verifier": "0x932f3DD5b6C0F5fe1aEc31Cb38B7a57d01496411",
+          "rollup32VerifierTx": "0xfac5bbb69f9a7da52ca56ed480656e482d1aeb3faf0913bfde4e36c79be6db14",
+          "rollup64Verifier": "0x7F88F2A3Cf18E96844E14CaE59EC97B908734C01",
+          "rollup64VerifierTx": "0x585e0acdb8e003fc8606ef4ccac61b4549564ed679df9d63edd2a20f81b4009f"
+        },
+        {
+          "network": "Avalanche",
+          "assetSymbol": "USDC",
+          "address": "0xaEa40007De57E3C13acAFbb7EE0EE5725f3F67fE",
+          "syncStart": 40514135,
+          "nonce": 16,
+          "minRollupFee": "500000",
+          "minRollupFeeTx": "0xda6f473e9120492730823225a40e9d685759c8c2db682f050b85424c190b5e3e",
+          "rollup1Verifier": "0xA288b938FE6d6bC70aDb5C545A99985993e398F5",
+          "rollup1VerifierTx": "0x7dd96a6c4321922b821344c70c2c96412dbddcc1110be9d3f3121fecea51ef7e",
+          "rollup2Verifier": "0x58b92DB0b3A7924a383062FD441a7c7218aD1703",
+          "rollup2VerifierTx": "0xa11b262a7c726b43002802b43fcbaff67f8669a6bf3429eb3531039d5ad8cd42",
+          "rollup4Verifier": "0xcfc951490b111267260e58d0515e1dAB71Dde2ff",
+          "rollup4VerifierTx": "0xb2e830639a51cc356ae9abfbead27967fc5ff5137eb3117f80be760d6886db88",
+          "rollup8Verifier": "0x6eCeFEB74c4891c02F533c934E9D139779b55357",
+          "rollup8VerifierTx": "0xa3ea1b3c2cfdf00363dbec7fe13bc2ac5fd467611514221628d1e27e6990d0fe",
+          "rollup16Verifier": "0x715c4c1AB3B8cDc764074a295DD9B8AA38453B14",
+          "rollup16VerifierTx": "0x16922f3a614b7a056ad82c73a82cd50e8a8cfb0afee386c4ff4eae9c91979caa",
+          "transact1x0Verifier": "0x4e491a0429fC092D6dB461498724E53c2149d50E",
+          "transact1x0VerifierTx": "0x392ce912539d3b72336d0c65aacba3e644f1942e6ef52a55aaa65e2e6668d2e9",
+          "transact1x1Verifier": "0x35dB27BeDA70b87420FC381Ee4ea3e7f9bC4829e",
+          "transact1x1VerifierTx": "0x7b329afd3b8b35bf7e7552d69695b4d8d81bd09652c6722642bbb84374930c32",
+          "transact1x2Verifier": "0x6343a114b47CFc31C1099970f38AC5E423454461",
+          "transact1x2VerifierTx": "0x48dd238ad85b4d39bf7264046148ddd5febc5bb52c569428faf7407a4922a608",
+          "transact2x0Verifier": "0x7D74970daEBf0aC772895e85BeF55767cB72ca98",
+          "transact2x0VerifierTx": "0x1bfde5f4206f9f64aeec17c60c4f0d06306085482e8966814bcea25e37055d17",
+          "transact2x1Verifier": "0xcb3aa1f94f7A3C646D8E8e91756c000e0de9FF41",
+          "transact2x1VerifierTx": "0x2fe42e86894eb675d706dc31f2e87e8beb0ee2bd57960267202d6378b3939d58",
+          "transact2x2Verifier": "0xc5c00c9a613D65fC132Fc17b413F2756b4ddCeB4",
+          "transact2x2VerifierTx": "0xff30b6a6b73583f7278cb0eecd29b8c34217cdcb587eda51998d22f0098aab67",
+          "rollupWhitelist": [
+            "0x740D5941bf285D6070896aAC9084AE9CF64F5913",
+            "0xD2318B8a8028922BCE5871ea26b74babd9d61Cd5"
+          ],
+          "rollupWhitelistTx": [
+            "0x601cd66059976253ca74698160deb09152507c3727bcfc86554b455e9558a5ce",
+            "0xd13d30aa119b01e0d8e0d6bc0c93dc51aaaaf9dc83a17e4c4aed09e8eab47e2e"
+          ],
+          "auditors": [
+            "71974561790665464247604435795065683686381931489528897462330672390776840504073",
+            "4997220442638814810609909752944635265697515387283055012148220746256985615693",
+            "75515112535918662049551479070314526291311940874433203669050730808316017216416"
+          ],
+          "auditorsTx": [
+            "0x597c2b2e1c52aa04c9b90984a5dbe4a3d5675c29d1c3fa566859a63e972afd21",
+            "0x20d8510b2bd1a9039491babdea57506e5c5c0f3af4f5c716a27aaf108277a9bb",
+            "0x9f32a78348d5ebb6bb8ee0e65babb8873b1249759d3ce5316b041ac2132438c6"
+          ],
+          "operator": "0x218f850E3AC86a4c83E997bb86fB99c5669EC373",
+          "operatorTx": "0x55a144ebf637df346c7ed85f11e6ce07a5fecba8157952b3cf0834ae63174ce7",
+          "enqueueWhitelist": [
+            "0x60ed8556D10c547b667EC610E36f46a2a023245c"
+          ],
+          "enqueueWhitelistTx": [
+            "0xe1e9ce7e6aa50cb1ff933b329f7d8659598c161d330b25cffd2725d4e5a0cd8a"
+          ],
+          "rollup32Verifier": "0x932f3DD5b6C0F5fe1aEc31Cb38B7a57d01496411",
+          "rollup32VerifierTx": "0x9f3f8debeb036ea6356ca19004b4feaa2e7405e1f1638e397c1a70a88dc7919a",
+          "rollup64Verifier": "0x7F88F2A3Cf18E96844E14CaE59EC97B908734C01",
+          "rollup64VerifierTx": "0x9870b91faf4d47b96d93365cb2e5a2ff0772db2c29087269b56b3791f1eefaa5"
+        },
+        {
+          "network": "Linea",
+          "assetSymbol": "USDC",
+          "address": "0xf5fc0Bd6bBe24a0ff945A8F58aEc2f6EC48EC964",
+          "syncStart": 3707166,
+          "nonce": 12,
+          "minRollupFee": "100000",
+          "minRollupFeeTx": "0x6b3ffcf6fd9cc26360e81873e2f1bacbe1c99bafdfd3bd8c45a39fb9a19adebe",
+          "rollup1Verifier": "0xA288b938FE6d6bC70aDb5C545A99985993e398F5",
+          "rollup1VerifierTx": "0x41e854409f6c475f44560d2ff5a183ef84c809ef4e89384b7108e7bc2f3a1407",
+          "rollup2Verifier": "0x58b92DB0b3A7924a383062FD441a7c7218aD1703",
+          "rollup2VerifierTx": "0x4b0eaa12ffcf3c8c16140bfc04b1a29a9befdd355dbd3ac061849d74cb609699",
+          "rollup4Verifier": "0xcfc951490b111267260e58d0515e1dAB71Dde2ff",
+          "rollup4VerifierTx": "0xa02aba504eab0c2e53529d7ad6784d228bebcf33af69964ffe9621df861f0ab0",
+          "rollup8Verifier": "0x6eCeFEB74c4891c02F533c934E9D139779b55357",
+          "rollup8VerifierTx": "0xa3c0b18ee3a55702e718ee013751c15dbc9f6a912e21aefb5afd56a5178ad4ff",
+          "rollup16Verifier": "0x715c4c1AB3B8cDc764074a295DD9B8AA38453B14",
+          "rollup16VerifierTx": "0x277f9a68971eeb5b73a0659fba491e940b99b91a1d08bf399e7128a794374215",
+          "transact1x0Verifier": "0x4e491a0429fC092D6dB461498724E53c2149d50E",
+          "transact1x0VerifierTx": "0x750988ecc2c776f9ab61fbbaf058a13538552f858f833a06aa26b9a1af70dd02",
+          "transact1x1Verifier": "0x35dB27BeDA70b87420FC381Ee4ea3e7f9bC4829e",
+          "transact1x1VerifierTx": "0x93c130b6063cb8b0bf91df689bcfd4d819a8564d25d34c7ae6b4d43af50e3805",
+          "transact1x2Verifier": "0x6343a114b47CFc31C1099970f38AC5E423454461",
+          "transact1x2VerifierTx": "0x516229e71bbc9b2e94dcfb0166f491cf1be2bed4b1ffa8c303fe89a346c34594",
+          "transact2x0Verifier": "0x7D74970daEBf0aC772895e85BeF55767cB72ca98",
+          "transact2x0VerifierTx": "0x2c912a072b3a6b3e7839c372b1893c8138ed022427de3d34e46a3253504b0c42",
+          "transact2x1Verifier": "0xcb3aa1f94f7A3C646D8E8e91756c000e0de9FF41",
+          "transact2x1VerifierTx": "0x6693b75987e7937f2e75a77f1bffc5b2a232d0529586132d81b1b292b4bb743c",
+          "transact2x2Verifier": "0xc5c00c9a613D65fC132Fc17b413F2756b4ddCeB4",
+          "transact2x2VerifierTx": "0x1366c8e42ab9b70b911ca2a0400763410168198b45911367add62b8a3506c47f",
+          "rollupWhitelist": [
+            "0x740D5941bf285D6070896aAC9084AE9CF64F5913",
+            "0xD2318B8a8028922BCE5871ea26b74babd9d61Cd5"
+          ],
+          "rollupWhitelistTx": [
+            "0x53d38fc13ea38149a0959ac3e558b295a45950d22d12bb925997dad8e2e4caa2",
+            "0xf9eac6e910deec4f313e576a9e4ed8d4b6933a55a4c7cfe79b41bda9d7f34d2e"
+          ],
+          "auditors": [
+            "71974561790665464247604435795065683686381931489528897462330672390776840504073",
+            "4997220442638814810609909752944635265697515387283055012148220746256985615693",
+            "75515112535918662049551479070314526291311940874433203669050730808316017216416"
+          ],
+          "auditorsTx": [
+            "0xf62f3a3053659af1854ec46e373bd32d4e308f838239d6f0fbdea5dcb005d5cd",
+            "0xf34d4082799e3330723ba8ad718c52e512264d30ea8d463330b2356abbdf75c8",
+            "0xd69219a44d8dc1cec2dc61d1ac296467d2b1596fa76e2f53ac7bded0b175161f"
+          ],
+          "operator": "0x218f850E3AC86a4c83E997bb86fB99c5669EC373",
+          "operatorTx": "0x7445ea6445e83bd45fa9905aa3e06a51aed6ce2435253084a67fee5fd754644e",
+          "enqueueWhitelist": [
+            "0xC20f84542eBcB87A8108d960A367741F8fD2d691"
+          ],
+          "enqueueWhitelistTx": [
+            "0xdb0cebafe425136d6684116dd316127e9016ccf91115c698b5c56bbc28640fb4"
+          ],
+          "sanctionCheck": false,
+          "sanctionCheckTx": "0xa5aa34f99c2638ec3734bf581ccaf54187ca32adc172535cc291e211c08be269",
+          "rollup32Verifier": "0x579011D4F25942604442229e144507798451Cd66",
+          "rollup32VerifierTx": "0x9d5e29e4b7415c6983348023bf365a7c9dc8a7680043866c06f518ce6d344d78",
+          "rollup64Verifier": "0xD0b4CE9c55498DD59Ec47F1E699aDE5588fA622d",
+          "rollup64VerifierTx": "0xe603a23ec7c9a9b8a162627ff1ae3edfcb1e31fb04f4abd781b6ba0af40a6e06"
+        },
+        {
+          "network": "Linea",
+          "assetSymbol": "ETH",
+          "address": "0x8FfA92155bd9cc60198FBE6E1e6fd32A4A82dEA2",
+          "syncStart": 3707213,
+          "nonce": 15,
+          "minRollupFee": "40000000000000",
+          "minRollupFeeTx": "0x2d7154bf4b48a1771ebe546d5396a0abd7932a5b5a0caa6395628627f4c2bb81",
+          "rollup1Verifier": "0xA288b938FE6d6bC70aDb5C545A99985993e398F5",
+          "rollup1VerifierTx": "0xba23ad6fc0b9b4246e4b36290a429467570c0b7470742c60d91a41d6e2f81fe0",
+          "rollup2Verifier": "0x58b92DB0b3A7924a383062FD441a7c7218aD1703",
+          "rollup2VerifierTx": "0xfc1cb60d493dfa55e697a9ded85cc1874b6de3980031df7d5525722b8d32f2d9",
+          "rollup4Verifier": "0xcfc951490b111267260e58d0515e1dAB71Dde2ff",
+          "rollup4VerifierTx": "0xb476792a66459c5301e9c261bdc0d68f6a35aeae706d4213a89b8fd0cfe94305",
+          "rollup8Verifier": "0x6eCeFEB74c4891c02F533c934E9D139779b55357",
+          "rollup8VerifierTx": "0xe66037a6883bbd9522e147a4420aebdc2787f639193decda38af99dcd196a447",
+          "rollup16Verifier": "0x715c4c1AB3B8cDc764074a295DD9B8AA38453B14",
+          "rollup16VerifierTx": "0xd09c1f6c1bd5346a7ad5023f76a7e4b79c720e6f227ee0244e331dc97746eef2",
+          "transact1x0Verifier": "0x4e491a0429fC092D6dB461498724E53c2149d50E",
+          "transact1x0VerifierTx": "0x885faaac9cedcea5d509a30b38e874d8b74b1e35cd61acc916bd95ad48f0158a",
+          "transact1x1Verifier": "0x35dB27BeDA70b87420FC381Ee4ea3e7f9bC4829e",
+          "transact1x1VerifierTx": "0xc5f36494f0a2dc6f730255152ae7e66098ada47d3c8c5b664a533a6a3a92cf59",
+          "transact1x2Verifier": "0x6343a114b47CFc31C1099970f38AC5E423454461",
+          "transact1x2VerifierTx": "0x170d04e89487e4117bc56a1a9bf3f0a504e59fdaf546e2e60d2eb3415f1969c2",
+          "transact2x0Verifier": "0x7D74970daEBf0aC772895e85BeF55767cB72ca98",
+          "transact2x0VerifierTx": "0x748e1111b4ee5b6f974a77e3093ff3c1118bb84d9d43726a0192948b67aaca77",
+          "transact2x1Verifier": "0xcb3aa1f94f7A3C646D8E8e91756c000e0de9FF41",
+          "transact2x1VerifierTx": "0xf50ce523726db8d759b40d512c03955253237f4f6c4b3c5a1c80f253853f6e5f",
+          "transact2x2Verifier": "0xc5c00c9a613D65fC132Fc17b413F2756b4ddCeB4",
+          "transact2x2VerifierTx": "0x7d4bbd08da6b827bbc20ad3e711e788c585ac73c211f3df38ea398d848666faa",
+          "rollupWhitelist": [
+            "0x740D5941bf285D6070896aAC9084AE9CF64F5913",
+            "0xD2318B8a8028922BCE5871ea26b74babd9d61Cd5"
+          ],
+          "rollupWhitelistTx": [
+            "0x057a660d89f3dbf88c85f91e4b511d60933fc9be64257271d74614206ee22b24",
+            "0x454020355c10e87fb14c1543373cd2d94c4ce8c25254e8953a81a55633d1d166"
+          ],
+          "auditors": [
+            "71974561790665464247604435795065683686381931489528897462330672390776840504073",
+            "4997220442638814810609909752944635265697515387283055012148220746256985615693",
+            "75515112535918662049551479070314526291311940874433203669050730808316017216416"
+          ],
+          "auditorsTx": [
+            "0xe9725efdf62d1797f18b82a3e10398ff9f07b58a4d75f45441b32f993f1fe5fd",
+            "0x4a30d9c6a39d7e4876edab0074ee342d508bb5f6d0fadceeea75b323152c887e",
+            "0x6dd3c44adf66ecf5ecda93aeb260e459e9313db710b991b018f73a303fcc5622"
+          ],
+          "operator": "0x218f850E3AC86a4c83E997bb86fB99c5669EC373",
+          "operatorTx": "0xbdc6389e0fad0dc9b04d3e27cf27fced2684d8caf3f71655bd6fb40ac9174070",
+          "enqueueWhitelist": [
+            "0xaEa40007De57E3C13acAFbb7EE0EE5725f3F67fE"
+          ],
+          "enqueueWhitelistTx": [
+            "0xb29f8fd3ef4f5e678ffd74475e923f376b0f8af28d0bf8ff85aeb5412d10ab33"
+          ],
+          "sanctionCheck": false,
+          "sanctionCheckTx": "0x40f6b07fa718aa889fa07ab11dcec0c25e0929e167a8df86147a389c07cbd69c",
+          "rollup32Verifier": "0x579011D4F25942604442229e144507798451Cd66",
+          "rollup32VerifierTx": "0x6180fc675035d16cd0a277438579c086bdecfd6c43cdad0f94f04c99b64f2d9f",
+          "rollup64Verifier": "0xD0b4CE9c55498DD59Ec47F1E699aDE5588fA622d",
+          "rollup64VerifierTx": "0x111d4e00b901f5aa8c0b0ed373105d5ae7085e0e3af4c175fbb741e6c0501a0a"
         }
       ],
       "pairs": [
@@ -1138,8 +1635,9 @@
               "maxAmount": "1000000000000",
               "minAmount": "100000000",
               "commitmentPool": "0xA288b938FE6d6bC70aDb5C545A99985993e398F5",
-              "operator": "0xB1362DE09607A7f19C3510Ef355E129C44ee6190",
-              "commitmentPoolTx": "0xbc23216b9ef1dafb1f69c8c2e125f3b63d216b59fb5bc8cba32b774dd7765bf6"
+              "operator": "0x218f850E3AC86a4c83E997bb86fB99c5669EC373",
+              "commitmentPoolTx": "0xbc23216b9ef1dafb1f69c8c2e125f3b63d216b59fb5bc8cba32b774dd7765bf6",
+              "operatorTx": "0x9e48aeeeee9ff34b330cce5dd02f533c5fc403c68bccb696d814693f93efaa23"
             }
           ]
         },
@@ -1154,8 +1652,9 @@
               "maxAmount": "1000000000000",
               "minAmount": "100000000",
               "commitmentPool": "0x58b92DB0b3A7924a383062FD441a7c7218aD1703",
-              "operator": "0xB1362DE09607A7f19C3510Ef355E129C44ee6190",
-              "commitmentPoolTx": "0x0a046ea788934517fc59214a082a025d562414ad39d6d2001cd9ec6f24e40323"
+              "operator": "0x218f850E3AC86a4c83E997bb86fB99c5669EC373",
+              "commitmentPoolTx": "0x0a046ea788934517fc59214a082a025d562414ad39d6d2001cd9ec6f24e40323",
+              "operatorTx": "0x0f35a4c9031d5e81a60fb6eca388e91a2e0b5e5f56e76c1edd024b5eb46c9223"
             }
           ]
         },
@@ -1170,8 +1669,9 @@
               "maxAmount": "10000000000000000000000",
               "minAmount": "1000000000000000000",
               "commitmentPool": "0xA9d3173fa17D14FC147c993667A97C6889f5D486",
-              "operator": "0xB1362DE09607A7f19C3510Ef355E129C44ee6190",
-              "commitmentPoolTx": "0xe63fe5c4c1bb3294191902f15fc61cf4f92c897e3f7ccc5bafbaefe54eec3c09"
+              "operator": "0x218f850E3AC86a4c83E997bb86fB99c5669EC373",
+              "commitmentPoolTx": "0xe63fe5c4c1bb3294191902f15fc61cf4f92c897e3f7ccc5bafbaefe54eec3c09",
+              "operatorTx": "0xcd78984d3e42528f838bd4045df5ab9cc3985807aafd366864a3d95f47bb19d3"
             }
           ]
         },
@@ -1186,8 +1686,9 @@
               "maxAmount": "1000000000000000000000000",
               "minAmount": "100000000000000000000",
               "commitmentPool": "0xA288b938FE6d6bC70aDb5C545A99985993e398F5",
-              "operator": "0xB1362DE09607A7f19C3510Ef355E129C44ee6190",
-              "commitmentPoolTx": "0x8e6794b653b656ac3b08014cf35385256974011fc3de434d117eda4f0adc9a82"
+              "operator": "0x218f850E3AC86a4c83E997bb86fB99c5669EC373",
+              "commitmentPoolTx": "0x8e6794b653b656ac3b08014cf35385256974011fc3de434d117eda4f0adc9a82",
+              "operatorTx": "0x2b237d59a02d4bbadce632054dac797bac267a3a2cb769cc417be81a0bc137ca"
             }
           ]
         },
@@ -1202,8 +1703,9 @@
               "maxAmount": "1000000000000000000000000",
               "minAmount": "100000000000000000000",
               "commitmentPool": "0x58b92DB0b3A7924a383062FD441a7c7218aD1703",
-              "operator": "0xB1362DE09607A7f19C3510Ef355E129C44ee6190",
-              "commitmentPoolTx": "0xf90c3fea0a3f0742b3884ad02d5fb7e6afd5eb4e5adb757ee4f83bbc14bf6a6e"
+              "operator": "0x218f850E3AC86a4c83E997bb86fB99c5669EC373",
+              "commitmentPoolTx": "0xf90c3fea0a3f0742b3884ad02d5fb7e6afd5eb4e5adb757ee4f83bbc14bf6a6e",
+              "operatorTx": "0xc555f2d28b86b849243b5ecbfe34979154ae20d1761739877937f0c63afd3def"
             }
           ]
         },
@@ -1218,8 +1720,11 @@
               "maxAmount": "1000000000000000000000000",
               "minAmount": "100000000000000000000",
               "commitmentPool": "0xcfc951490b111267260e58d0515e1dAB71Dde2ff",
-              "operator": "0xB1362DE09607A7f19C3510Ef355E129C44ee6190",
-              "commitmentPoolTx": "0xaf5e6a2d207d255c22c3a399985922296e10ed09aed1f8538ba54daddd2bfbb7"
+              "operator": "0x218f850E3AC86a4c83E997bb86fB99c5669EC373",
+              "commitmentPoolTx": "0xaf5e6a2d207d255c22c3a399985922296e10ed09aed1f8538ba54daddd2bfbb7",
+              "operatorTx": "0xde818a9701a81653f2c1a7a5ab563abdbf7f609301e560ef9f041b4706aa5e74",
+              "disabledAt": 38589023,
+              "disabledAtTx": "0x789249cf6a97c4f48e0022d4c8f345c4d477944e5d23509a1eff3852872c31e0"
             }
           ]
         },
@@ -1234,8 +1739,9 @@
               "maxAmount": "1000000000000000000000000",
               "minAmount": "100000000000000000000",
               "commitmentPool": "0xA9d3173fa17D14FC147c993667A97C6889f5D486",
-              "operator": "0xB1362DE09607A7f19C3510Ef355E129C44ee6190",
-              "commitmentPoolTx": "0x5fdb61c90d2dcb208774f733e025a9c1b7f966880a32affd3252f05e4d1a7be4"
+              "operator": "0x218f850E3AC86a4c83E997bb86fB99c5669EC373",
+              "commitmentPoolTx": "0x5fdb61c90d2dcb208774f733e025a9c1b7f966880a32affd3252f05e4d1a7be4",
+              "operatorTx": "0x3d92db645e91f14e28e855935aa96e4efd7c2be6b9518cb0c5ce1beae5c42311"
             }
           ]
         },
@@ -1250,8 +1756,9 @@
               "maxAmount": "1000000000000",
               "minAmount": "100000000",
               "commitmentPool": "0xA288b938FE6d6bC70aDb5C545A99985993e398F5",
-              "operator": "0xB1362DE09607A7f19C3510Ef355E129C44ee6190",
-              "commitmentPoolTx": "0xca6e3e909dfd45b7d94ae6e6634919743c03ece82e43cd6ec091da37064f1288"
+              "operator": "0x218f850E3AC86a4c83E997bb86fB99c5669EC373",
+              "commitmentPoolTx": "0xca6e3e909dfd45b7d94ae6e6634919743c03ece82e43cd6ec091da37064f1288",
+              "operatorTx": "0x50f7eed76ac33bd59e00230368d0b59bc023768768a5e877f7696039125e5748"
             }
           ]
         },
@@ -1266,8 +1773,9 @@
               "maxAmount": "1000000000000",
               "minAmount": "100000000",
               "commitmentPool": "0x58b92DB0b3A7924a383062FD441a7c7218aD1703",
-              "operator": "0xB1362DE09607A7f19C3510Ef355E129C44ee6190",
-              "commitmentPoolTx": "0xfd70d275df3d1341d299d1493e3eafc237c0198172f4f253fba3ee560761e141"
+              "operator": "0x218f850E3AC86a4c83E997bb86fB99c5669EC373",
+              "commitmentPoolTx": "0xfd70d275df3d1341d299d1493e3eafc237c0198172f4f253fba3ee560761e141",
+              "operatorTx": "0xed24dea33068aa1e74ada24a3bfd3a2f73c620d74b8c350d63c23d60b68dfe10"
             }
           ]
         },
@@ -1282,8 +1790,11 @@
               "maxAmount": "1000000000000000000000000",
               "minAmount": "100000000000000000000",
               "commitmentPool": "0xcfc951490b111267260e58d0515e1dAB71Dde2ff",
-              "operator": "0xB1362DE09607A7f19C3510Ef355E129C44ee6190",
-              "commitmentPoolTx": "0x380caa8e5a0c77dd21822aac074ab4ebd9c05e39cd6de56bae02fa7e921803a3"
+              "operator": "0x218f850E3AC86a4c83E997bb86fB99c5669EC373",
+              "commitmentPoolTx": "0x380caa8e5a0c77dd21822aac074ab4ebd9c05e39cd6de56bae02fa7e921803a3",
+              "operatorTx": "0xb7559c0357c826d80102e8379e4275688ec1cde8395b0458539bc46473feb7e0",
+              "disabledAt": 56789427,
+              "disabledAtTx": "0x9a6bf72b05ab4c17e6ebd843724618d070d56e80e6f845ea31f3e4e367c1aea2"
             }
           ]
         },
@@ -1298,8 +1809,9 @@
               "maxAmount": "1000000000000000000000",
               "minAmount": "100000000000000000",
               "commitmentPool": "0x6eCeFEB74c4891c02F533c934E9D139779b55357",
-              "operator": "0xB1362DE09607A7f19C3510Ef355E129C44ee6190",
-              "commitmentPoolTx": "0xa99f73879c5b4248fd65917728adbd411ceed12b88eddb20d1fc50ecd75349d6"
+              "operator": "0x218f850E3AC86a4c83E997bb86fB99c5669EC373",
+              "commitmentPoolTx": "0xa99f73879c5b4248fd65917728adbd411ceed12b88eddb20d1fc50ecd75349d6",
+              "operatorTx": "0x61f4d1ede69eca4fde87f967b67f4a842aa3373022364a56d7201af918c4c2d1"
             }
           ]
         },
@@ -1314,9 +1826,13 @@
               "maxAmount": "1000000000000000000000",
               "minAmount": "100000000000000000",
               "commitmentPool": "0xA9d3173fa17D14FC147c993667A97C6889f5D486",
-              "operator": "0xB1362DE09607A7f19C3510Ef355E129C44ee6190",
-              "sanctionCheck": false,
-              "commitmentPoolTx": "0x645870420d7c32afeb4126c2e5aaaa3def77eb24b8f780c16568d08ae42d810d"
+              "operator": "0x218f850E3AC86a4c83E997bb86fB99c5669EC373",
+              "sanctionCheck": true,
+              "commitmentPoolTx": "0x645870420d7c32afeb4126c2e5aaaa3def77eb24b8f780c16568d08ae42d810d",
+              "operatorTx": "0x78b08a39204b994efaf15ac9f668c84553981e11b4b22a084f4db0fc02e09005",
+              "sanctionCheckAddress": "0x3A91A31cB3dC49b4db9Ce721F50a9D076c8D739B",
+              "sanctionCheckAddressTx": "0xbbc0a671dfd64c1cc779c9e488aad0fcfaf0b792162093a4cfe22438904b6701",
+              "sanctionCheckTx": "0xc52be2bcff3ddc08dfd8c6e99e942014879b06f98427753246044af29958be41"
             }
           ]
         },
@@ -1331,9 +1847,112 @@
               "maxAmount": "1000000000000",
               "minAmount": "100000000",
               "commitmentPool": "0xA288b938FE6d6bC70aDb5C545A99985993e398F5",
-              "operator": "0xB1362DE09607A7f19C3510Ef355E129C44ee6190",
+              "operator": "0x218f850E3AC86a4c83E997bb86fB99c5669EC373",
+              "sanctionCheck": true,
+              "commitmentPoolTx": "0x4b7d655d5ab9ec75a69fbf30761a7ebf95711be9aa9e86264f8ee151c5f8f6ab",
+              "operatorTx": "0x8bbc96a700dee400fd6ab7f5fd795cb9c45c245228649e62c874e57e21fd0589",
+              "sanctionCheckTx": "0xa56746ccd7e5de73346884fe55f05a0c37c520710cf15d4f17d1baffed12a8c0",
+              "sanctionCheckAddress": "0x3A91A31cB3dC49b4db9Ce721F50a9D076c8D739B",
+              "sanctionCheckAddressTx": "0x4726826d7566db5b9485127e626c74f35aad81e821c13d1db7853241c9b0d0fe"
+            }
+          ]
+        },
+        {
+          "pair": [
+            {
+              "network": "Avalanche",
+              "assetSymbol": "AVAX",
+              "address": "0xC20f84542eBcB87A8108d960A367741F8fD2d691",
+              "syncStart": 40514115,
+              "nonce": 13,
+              "maxAmount": "100000000000000000000000",
+              "maxAmountTx": "0x1476b687329935f2dba1abe183adb8c2e1573d7e29c8fa1fe6b53cca553d1b12",
+              "minAmount": "10000000000000000000",
+              "minAmountTx": "0x1476b687329935f2dba1abe183adb8c2e1573d7e29c8fa1fe6b53cca553d1b12",
+              "commitmentPool": "0xf5fc0Bd6bBe24a0ff945A8F58aEc2f6EC48EC964",
+              "commitmentPoolTx": "0x9fa3087fbdcecdfc2eaf2577c70e70afff6cee9e8a5b6503445b2360c67fcb05",
+              "operator": "0x218f850E3AC86a4c83E997bb86fB99c5669EC373",
+              "operatorTx": "0x152cebddb41ff656e9341ff6720e4c9cf1efb364a686b75a6888c47822d28bf8"
+            }
+          ]
+        },
+        {
+          "pair": [
+            {
+              "network": "Avalanche",
+              "assetSymbol": "USDT",
+              "address": "0x8FfA92155bd9cc60198FBE6E1e6fd32A4A82dEA2",
+              "syncStart": 40514128,
+              "nonce": 15,
+              "maxAmount": "1000000000000",
+              "maxAmountTx": "0xa069796cfcc3f23304cf83aa087d2e09174e933bcf5b4e5bab55e4456fa7ffa2",
+              "minAmount": "100000000",
+              "minAmountTx": "0xa069796cfcc3f23304cf83aa087d2e09174e933bcf5b4e5bab55e4456fa7ffa2",
+              "commitmentPool": "0x373DBe18EEf567D5Dd2a393B8c11e90B1A30d967",
+              "commitmentPoolTx": "0x5e9bd9298046450346f3b8218f504e53f2e4bff53c3b9ccd43ad366294fe730a",
+              "operator": "0x218f850E3AC86a4c83E997bb86fB99c5669EC373",
+              "operatorTx": "0x1c9f36fbdb504c7a1999cd1b9b1ecbd4e3f0a0033d8b5afcf683bf56eb667648"
+            }
+          ]
+        },
+        {
+          "pair": [
+            {
+              "network": "Avalanche",
+              "assetSymbol": "USDC",
+              "address": "0x60ed8556D10c547b667EC610E36f46a2a023245c",
+              "syncStart": 40514138,
+              "nonce": 17,
+              "maxAmount": "1000000000000",
+              "maxAmountTx": "0x8fca224a41466c9e996c1b46bb6490ccd924d0a3bbcb241be23d8a33fb2ed166",
+              "minAmount": "100000000",
+              "minAmountTx": "0x8fca224a41466c9e996c1b46bb6490ccd924d0a3bbcb241be23d8a33fb2ed166",
+              "commitmentPool": "0xaEa40007De57E3C13acAFbb7EE0EE5725f3F67fE",
+              "commitmentPoolTx": "0xcb5903a20da77f0cc888c5dd51841ab7cec7880c7c94d5dda81cc24a4f660a39",
+              "operator": "0x218f850E3AC86a4c83E997bb86fB99c5669EC373",
+              "operatorTx": "0xd2150e9d3b261affd70c63fe540a6089d60188f8c1c658dda016a635d6722980"
+            }
+          ]
+        },
+        {
+          "pair": [
+            {
+              "network": "Linea",
+              "assetSymbol": "ETH",
+              "address": "0xaEa40007De57E3C13acAFbb7EE0EE5725f3F67fE",
+              "syncStart": 3707216,
+              "nonce": 16,
+              "maxAmount": "1000000000000000000000",
+              "maxAmountTx": "0x4e3d3ab35dc8de28e9a397047230ad4089c28b9494a92f42e7d5374da16f741d",
+              "minAmount": "100000000000000000",
+              "minAmountTx": "0x4e3d3ab35dc8de28e9a397047230ad4089c28b9494a92f42e7d5374da16f741d",
+              "commitmentPool": "0x8FfA92155bd9cc60198FBE6E1e6fd32A4A82dEA2",
+              "commitmentPoolTx": "0x72951843d072cbb07b1925b50c646b8f26e12d73eb782bded8884d542be7465d",
+              "operator": "0x218f850E3AC86a4c83E997bb86fB99c5669EC373",
+              "operatorTx": "0xf52320655834dad5a0eac1970e2daa6f659b573dfad767e475eee728e41a77a7",
               "sanctionCheck": false,
-              "commitmentPoolTx": "0x4b7d655d5ab9ec75a69fbf30761a7ebf95711be9aa9e86264f8ee151c5f8f6ab"
+              "sanctionCheckTx": "0x05b185824c9f7992bfe201c82c7b621247733fab89763faab6e43c3f1f58c5b2"
+            }
+          ]
+        },
+        {
+          "pair": [
+            {
+              "network": "Linea",
+              "assetSymbol": "USDC",
+              "address": "0xC20f84542eBcB87A8108d960A367741F8fD2d691",
+              "syncStart": 3707169,
+              "nonce": 13,
+              "maxAmount": "1000000000000",
+              "maxAmountTx": "0x4bdcfdd03d35442a9a5f5c492a2de6503f52a553a1600e7be20a0d8d597a07e6",
+              "minAmount": "100000000",
+              "minAmountTx": "0x4bdcfdd03d35442a9a5f5c492a2de6503f52a553a1600e7be20a0d8d597a07e6",
+              "commitmentPool": "0xf5fc0Bd6bBe24a0ff945A8F58aEc2f6EC48EC964",
+              "commitmentPoolTx": "0x9f137c2aaf1fb8848868da89b6750bbada16a7feadb6be79fbfd1ae4a1f716d0",
+              "operator": "0x218f850E3AC86a4c83E997bb86fB99c5669EC373",
+              "operatorTx": "0x49896743114a851f8f08c5bd8a48281ce89cfc4770560b0d5d892a73a2d12ead",
+              "sanctionCheck": false,
+              "sanctionCheckTx": "0x89b9446eaacb4ffefa7192f3e0183ec44b29bf1e836affbb68ac9eaaa9b974e1"
             }
           ]
         }
@@ -1341,7 +1960,7 @@
     }
   ],
   "operator": {
-    "admin": "0xB1362DE09607A7f19C3510Ef355E129C44ee6190",
+    "admin": "0x218f850E3AC86a4c83E997bb86fB99c5669EC373",
     "executors": [],
     "rollers": [
       "0x740D5941bf285D6070896aAC9084AE9CF64F5913",

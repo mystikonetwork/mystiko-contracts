@@ -6,7 +6,7 @@ import "../../contracts/MystikoSettingsErrors.sol";
 import "../../contracts/MystikoSettings.sol";
 import "../mock/MockMystikoToken.sol";
 import "@mystikonetwork/contracts-certificate/contracts/MystikoCertificate.sol";
-import "@mystikonetwork/contracts-relayer/contracts/MystikoRelayerPoolErrors.sol";
+import "@mystikonetwork/contracts-relayer/contracts/MystikoRelayerErrors.sol";
 import "@mystikonetwork/contracts-relayer/contracts/MystikoRelayerPool.sol";
 import "@mystikonetwork/contracts-roller/contracts/MystikoRollerPoolErrors.sol";
 import "@mystikonetwork/contracts-roller/contracts/MystikoRollerPool.sol";
@@ -28,7 +28,7 @@ contract MystikoSettingsCenterTest is Test, Random {
   MystikoRelayerPool public relayerPool;
   MystikoSettings public settings;
 
-  event CertificateVerifierChanged(address indexed registry);
+  event CertificateVerifierChanged(address indexed verifier);
 
   function setUp() public {
     dao = address(uint160(uint256(keccak256(abi.encodePacked(_random())))));
@@ -48,8 +48,9 @@ contract MystikoSettingsCenterTest is Test, Random {
     MystikoGovernorRegistry daoRegistry = new MystikoGovernorRegistry();
     privateKey = uint256(keccak256(abi.encodePacked(_random())));
     issuer = vm.addr(privateKey);
-    certificateChecker = new MystikoCertificate(address(daoRegistry), issuer);
-    rollerPool = new MystikoRollerPool(address(daoRegistry), address(vXZK), 100_000e18);
+    certificateChecker = new MystikoCertificate(address(daoRegistry), issuer, true);
+    address[] memory zero = new address[](0);
+    rollerPool = new MystikoRollerPool(address(daoRegistry), address(vXZK), 100_000e18, zero);
     relayerPool = new MystikoRelayerPool(address(daoRegistry), address(vXZK), 100_000e18);
 
     settings = new MystikoSettings(
@@ -73,13 +74,13 @@ contract MystikoSettingsCenterTest is Test, Random {
     assertEq(settings.getCertificateIssuer(), issuer);
   }
 
-  function test_change_certificate_registry() public {
+  function test_change_certificate_verifier() public {
     vm.expectRevert(GovernanceErrors.OnlyMystikoDAO.selector);
-    settings.setCertificateVerifier(IMystikoCertificate(certificateChecker));
+    settings.setCertificateVerifier(address(certificateChecker));
 
     vm.expectRevert(MystikoSettingsErrors.NotChanged.selector);
     vm.prank(dao);
-    settings.setCertificateVerifier(IMystikoCertificate(certificateChecker));
+    settings.setCertificateVerifier(address(certificateChecker));
 
     IMystikoCertificate newCertificate = IMystikoCertificate(
       address(uint160(uint256(keccak256(abi.encodePacked(_random())))))
@@ -87,7 +88,7 @@ contract MystikoSettingsCenterTest is Test, Random {
     vm.expectEmit(address(settings));
     emit CertificateVerifierChanged(address(newCertificate));
     vm.prank(dao);
-    settings.setCertificateVerifier(newCertificate);
+    settings.setCertificateVerifier(address(newCertificate));
     assertEq(address(settings.certificate()), address(newCertificate));
   }
 

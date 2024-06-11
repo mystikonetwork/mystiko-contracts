@@ -10,10 +10,13 @@ import {
   Rollup4Verifier__factory,
   Rollup8Verifier__factory,
   Rollup16Verifier__factory,
+  Rollup32Verifier__factory,
+  Rollup64Verifier__factory,
   Hasher3__factory,
 } from '@mystikonetwork/contracts-abi';
 import { getExternalArtifact, getVerifierArtifact } from '../common/utils';
 import { saveConfig } from '../config/config';
+import { ChainConfig } from '../config/chain';
 
 let Transaction1x0Verifier: Transaction1x0Verifier__factory;
 let Transaction1x1Verifier: Transaction1x1Verifier__factory;
@@ -26,9 +29,12 @@ let Rollup2Verifier: Rollup2Verifier__factory;
 let Rollup4Verifier: Rollup4Verifier__factory;
 let Rollup8Verifier: Rollup8Verifier__factory;
 let Rollup16Verifier: Rollup16Verifier__factory;
+let Rollup32Verifier: Rollup32Verifier__factory;
+let Rollup64Verifier: Rollup64Verifier__factory;
+
 let Hasher3: Hasher3__factory;
 
-export async function initBaseContractFactory(ethers: any) {
+export async function initVerifierContractFactory(ethers: any) {
   const Rollup1Artifact = await getVerifierArtifact('Rollup1Verifier');
   Rollup1Verifier = (await ethers.getContractFactoryFromArtifact(
     Rollup1Artifact,
@@ -53,6 +59,16 @@ export async function initBaseContractFactory(ethers: any) {
   Rollup16Verifier = (await ethers.getContractFactoryFromArtifact(
     Rollup16Artifact,
   )) as Rollup16Verifier__factory;
+
+  const Rollup32Artifact = await getVerifierArtifact('Rollup32Verifier');
+  Rollup32Verifier = (await ethers.getContractFactoryFromArtifact(
+    Rollup32Artifact,
+  )) as Rollup32Verifier__factory;
+
+  const Rollup64Artifact = await getVerifierArtifact('Rollup64Verifier');
+  Rollup64Verifier = (await ethers.getContractFactoryFromArtifact(
+    Rollup64Artifact,
+  )) as Rollup64Verifier__factory;
 
   const Transaction1x0Artifact = await getVerifierArtifact('Transaction1x0Verifier');
   Transaction1x0Verifier = (await ethers.getContractFactoryFromArtifact(
@@ -89,12 +105,8 @@ export async function initBaseContractFactory(ethers: any) {
 }
 
 // deploy hasher and verifier
-export async function deployBaseContract(c: any) {
+export async function deployVerifierContract(c: any) {
   const chainCfg = c.srcChainCfg;
-
-  if (c.override === 'true') {
-    chainCfg.reset();
-  }
 
   if (chainCfg.hasher3Address === undefined) {
     console.log('deploy hasher3');
@@ -153,6 +165,26 @@ export async function deployBaseContract(c: any) {
     const rollup16VerifierAddress = rollup16.address;
     console.log('rollup16 verifier address: ', rollup16VerifierAddress);
     chainCfg.rollup16Address = rollup16VerifierAddress;
+    saveConfig(c.mystikoNetwork, c.cfg);
+  }
+
+  if (chainCfg.rollup32Address === undefined) {
+    console.log('deploy rollup32 verifier');
+    const rollup32 = await Rollup32Verifier.deploy();
+    await rollup32.deployed();
+    const rollup32VerifierAddress = rollup32.address;
+    console.log('rollup32 verifier address: ', rollup32VerifierAddress);
+    chainCfg.rollup32Address = rollup32VerifierAddress;
+    saveConfig(c.mystikoNetwork, c.cfg);
+  }
+
+  if (chainCfg.rollup64Address === undefined) {
+    console.log('deploy rollup64 verifier');
+    const rollup64 = await Rollup64Verifier.deploy();
+    await rollup64.deployed();
+    const rollup64VerifierAddress = rollup64.address;
+    console.log('rollup64 verifier address: ', rollup64VerifierAddress);
+    chainCfg.rollup64Address = rollup64VerifierAddress;
     saveConfig(c.mystikoNetwork, c.cfg);
   }
 

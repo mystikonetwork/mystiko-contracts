@@ -10,18 +10,18 @@ import {MystikoSettingsBase} from "./MystikoSettings.sol";
 contract MystikoBridgeSettings is MystikoSettingsBase, MystikoBridgeConfig {
   constructor(
     address _daoRegistry,
-    IMystikoCertificate _certificateRegistry,
-    IMystikoRollerPool _rollerRegistry,
-    IMystikoRelayerPool _relayerRegistry,
+    IMystikoCertificate _certificateVerifier,
+    IMystikoRollerPool _rollerPool,
+    IMystikoRelayerPool _relayerPool,
     address[11] memory _rollupVerifiers,
     address[6] memory _transactVerifiers,
     uint256[AUDITOR_COUNT] memory _auditors
   )
     MystikoSettingsBase(
       _daoRegistry,
-      _certificateRegistry,
-      _rollerRegistry,
-      _relayerRegistry,
+      _certificateVerifier,
+      _rollerPool,
+      _relayerPool,
       _rollupVerifiers,
       _transactVerifiers,
       _auditors

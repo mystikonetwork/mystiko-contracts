@@ -1,4 +1,4 @@
-import { initBaseContractFactory } from './contract/base';
+import { initVerifierContractFactory } from './contract/verifier';
 import { initTestTokenContractFactory } from './contract/token';
 import { initTBridgeContractFactory } from './contract/tbridge';
 import { initPoolContractFactory } from './contract/pool';
@@ -13,19 +13,20 @@ import {
   poolNullifierCount,
   poolQueuedCommitments,
   poolQueuedCount,
-  poolSanctionCheckQuery,
-  poolSanctionListQuery,
 } from './contract/poolQuery';
 import {
-  depositContractInstance,
-  depositSanctionCheckQuery,
-  depositSanctionListQuery,
-} from './contract/depsitQuery';
+  getRelayerPoolContract,
+  getRelayerRegisterContract,
+  getRollerPoolContract,
+  getSettingsCenterContract,
+  initSettingsContractFactory,
+} from './contract/settings';
 
 let ethers: any;
 
+async function depositQuery(taskArgs: any) {}
 // deploy mystiko contract and config contract
-async function commitmentQueueQuery(taskArgs: any) {
+async function poolQuery(taskArgs: any) {
   const c = loadConfig(taskArgs);
 
   const pool = await poolContractInstance(c.srcTokenCfg.erc20, c.srcPoolCfg?.address);
@@ -43,41 +44,146 @@ async function commitmentQueueQuery(taskArgs: any) {
 
   const minRollupFee = await poolMinRollupFee(pool);
   console.log('min rollup fee ', minRollupFee);
+
+  const settingsAddress = await pool.settings();
+  console.log('settings address ', settingsAddress);
 }
 
 // deploy mystiko contract and config contract
-async function sanctionQuery(taskArgs: any) {
+async function settingsQuery(taskArgs: any) {
   const c = loadConfig(taskArgs);
+  const chainCfg = c.srcChainCfg;
+  if (chainCfg === undefined || chainCfg.settingsCenter === undefined) {
+    console.error(LOGRED, 'chain not configure');
+    process.exit(-1);
+  }
 
-  const pool = await poolContractInstance(c.srcTokenCfg.erc20, c.srcPoolCfg?.address);
-  const poolCheck = await poolSanctionCheckQuery(pool);
-  console.log('pool sanction disabled ', poolCheck);
-  const poolList = await poolSanctionListQuery(pool);
-  console.log('pool sanction address ', poolList);
+  const settingsFactory = getSettingsCenterContract();
+  const settingsContract = await settingsFactory.attach(chainCfg.settingsCenter);
 
-  const depositContract = await depositContractInstance(
-    c.bridgeCfg.name,
-    c.srcTokenCfg.erc20,
-    c.pairSrcDepositCfg.address,
-  );
-  const depositCheck = await depositSanctionCheckQuery(depositContract);
-  console.log('deposit sanction disabled ', depositCheck);
-  const depositList = await depositSanctionListQuery(depositContract);
-  console.log('deposit sanction address ', depositList);
+  const sanctionsCheck = await settingsContract.sanctionsCheck();
+  console.log('deposit sanction check ', sanctionsCheck);
+  const certificateCheck = await settingsContract.isCertificateCheckEnabled();
+  console.log('certificate check ', certificateCheck);
+
+  const rollerPool = await settingsContract.rollerPool();
+  console.log('roller pool address', rollerPool);
+
+  const relayerPool = await settingsContract.relayerPool();
+  console.log('relayer pool address', relayerPool);
+
+  const certificate = await settingsContract.certificate();
+  console.log('certificate address', certificate);
+
+  const dao = await settingsContract.daoRegistry();
+  console.log('dao address', dao);
 }
+
+// deploy mystiko contract and config contract
+async function rollerPoolQuery(taskArgs: any) {
+  const c = loadConfig(taskArgs);
+  const chainCfg = c.srcChainCfg;
+  if (chainCfg === undefined || chainCfg.rollerPool === undefined) {
+    console.error(LOGRED, 'chain not configure');
+    process.exit(-1);
+  }
+
+  const rollerPoolFactory = getRollerPoolContract();
+  const rollerPoolContract = await rollerPoolFactory.attach(chainCfg.rollerPool);
+
+  const vXZK = await rollerPoolContract.vXZK();
+  console.log('vXZK address ', vXZK);
+
+  const minAmount = await rollerPoolContract.minVoteTokenAmount();
+  console.log('min vote token amount ', minAmount);
+
+  const role = await rollerPoolContract.ROLLER_ROLE();
+  for (let i = 0; i < c.operatorCfg?.rollers.length; i++) {
+    const roller = c.operatorCfg?.rollers[i];
+    const hashRole = await rollerPoolContract.hasRole(role, roller);
+    console.log('roller ', roller, ' has role ', hashRole);
+  }
+
+  const dao = await rollerPoolContract.daoRegistry();
+  console.log('dao address', dao);
+}
+
+// deploy mystiko contract and config contract
+async function relayerPoolQuery(taskArgs: any) {
+  const c = loadConfig(taskArgs);
+  const chainCfg = c.srcChainCfg;
+  if (chainCfg === undefined || chainCfg.relayerPool === undefined) {
+    console.error(LOGRED, 'chain not configure');
+    process.exit(-1);
+  }
+
+  const relayerPoolFactory = getRelayerPoolContract();
+  const relayerPoolContract = await relayerPoolFactory.attach(chainCfg.relayerPool);
+
+  const minAmount = await relayerPoolContract.minVoteTokenAmount();
+  console.log('min vote token amount ', minAmount);
+
+  const dao = await relayerPoolContract.daoRegistry();
+  console.log('dao address', dao);
+}
+
+// deploy mystiko contract and config contract
+async function relayerRegisterQuery(taskArgs: any) {
+  const c = loadConfig(taskArgs);
+  const chainCfg = c.srcChainCfg;
+  if (chainCfg === undefined || chainCfg.relayerRegister === undefined) {
+    console.error(LOGRED, 'chain not configure');
+    process.exit(-1);
+  }
+
+  const relayerRegisterFactory = getRelayerRegisterContract();
+  const relayerRegisterContract = await relayerRegisterFactory.attach(chainCfg.relayerRegister);
+  console.log('relayer register address ', relayerRegisterContract.address);
+  const allRelayers = await relayerRegisterContract.getAllRelayerInfo();
+  console.log('relayer ', allRelayers);
+
+  for (let i = 0; i < c.operatorCfg?.relayers.length; i++) {
+    const relayer = c.operatorCfg?.relayers[i];
+    const result = await relayerRegisterContract.getRelayerUrlAndName(relayer);
+    console.log('relayer ', relayer, ' url  ', result[0], ' name ', result[1]);
+  }
+
+  const dao = await relayerRegisterContract.daoRegistry();
+  console.log('dao address', dao);
+}
+
+async function certificateQuery(taskArgs: any) {}
 
 export async function query(taskArgs: any, hre: any) {
   ethers = hre.ethers;
-  await initBaseContractFactory(ethers);
+  await initSettingsContractFactory(ethers);
+  await initVerifierContractFactory(ethers);
   await initTestTokenContractFactory(ethers);
   await initTBridgeContractFactory(ethers);
   await initPoolContractFactory(ethers);
   await initDepositContractFactory(ethers);
 
-  if (taskArgs.func === 'commitmentQueue') {
-    await commitmentQueueQuery(taskArgs);
-  } else if (taskArgs.func === 'sanction') {
-    await sanctionQuery(taskArgs);
+  if (taskArgs.func === 'poolQuery') {
+    await poolQuery(taskArgs);
+  } else if (taskArgs.func === 'depositQuery') {
+    await depositQuery(taskArgs);
+  } else if (taskArgs.func === 'settingsQuery') {
+    await settingsQuery(taskArgs);
+  } else if (taskArgs.func === 'rollerPoolQuery') {
+    await rollerPoolQuery(taskArgs);
+  } else if (taskArgs.func === 'relayerPoolQuery') {
+    await relayerPoolQuery(taskArgs);
+  } else if (taskArgs.func === 'relayerRegisterQuery') {
+    await relayerRegisterQuery(taskArgs);
+  } else if (taskArgs.func === 'certificateQuery') {
+    await certificateQuery(taskArgs);
+  } else if (taskArgs.func === 'allQuery') {
+    await settingsQuery(taskArgs);
+    await certificateQuery(taskArgs);
+    await rollerPoolQuery(taskArgs);
+    await relayerPoolQuery(taskArgs);
+    await relayerRegisterQuery(taskArgs);
+    await poolQuery(taskArgs);
   } else {
     console.error(LOGRED, 'un support function');
   }

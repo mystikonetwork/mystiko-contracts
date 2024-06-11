@@ -6,20 +6,20 @@ import { BaseContract, Signer, utils } from 'ethers';
 import { Listener, Provider } from '@ethersproject/providers';
 import { TypedEventFilter, TypedEvent, TypedListener, OnEvent } from './common';
 
-export interface MystikoRelayerPoolErrorsInterface extends utils.Interface {
-  contractName: 'MystikoRelayerPoolErrors';
+export interface MystikoRelayerErrorsInterface extends utils.Interface {
+  contractName: 'MystikoRelayerErrors';
   functions: {};
 
   events: {};
 }
 
-export interface MystikoRelayerPoolErrors extends BaseContract {
-  contractName: 'MystikoRelayerPoolErrors';
+export interface MystikoRelayerErrors extends BaseContract {
+  contractName: 'MystikoRelayerErrors';
   connect(signerOrProvider: Signer | Provider | string): this;
   attach(addressOrName: string): this;
   deployed(): Promise<this>;
 
-  interface: MystikoRelayerPoolErrorsInterface;
+  interface: MystikoRelayerErrorsInterface;
 
   queryFilter<TEvent extends TypedEvent>(
     event: TypedEventFilter<TEvent>,

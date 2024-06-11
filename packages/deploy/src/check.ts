@@ -12,33 +12,29 @@ import {
   depositPeerMinRollupFee,
   depositSanctionCheckQuery,
 } from './contract/depsitQuery';
-import {
-  poolAllAuditorPublicKeys,
-  poolContractInstance,
-  poolMinRollupFee,
-  poolSanctionCheckQuery,
-} from './contract/poolQuery';
+import { poolContractInstance, poolMinRollupFee } from './contract/poolQuery';
+import { chainAuditors, chainSanctionEnabled, settingsContractInstance } from './contract/settingsQuery';
 
-export async function checkPool(c: any) {
-  const poolContract = await poolContractInstance(c.srcTokenCfg.erc20, c.srcPoolCfg?.address);
+export async function checkChain(c: any) {
+  const settingsContract = await settingsContractInstance(c.srcChainCfg.settingsCenter);
 
-  const minRollupFee = await poolMinRollupFee(poolContract);
-  if (minRollupFee.toString() !== c.srcPoolCfg?.minRollupFee) {
-    console.log(LOGRED, 'minRollupFee mismatch ', minRollupFee, c.srcPoolCfg?.minRollupFee);
+  const sanctionCheck = await chainSanctionEnabled(settingsContract);
+  if (sanctionCheck && c.srcChainCfg?.settingsConfig.sanctionCheck === false) {
+    console.log(
+      LOGRED,
+      'pool saction check mismatch ',
+      sanctionCheck,
+      c.srcChainCfg?.settingsConfig.sanctionCheck,
+    );
   }
 
-  const poolSactionCheck = await poolSanctionCheckQuery(poolContract);
-  if (poolSactionCheck && c.srcPoolCfg?.sanctionCheck === false) {
-    console.log(LOGRED, 'pool saction check mismatch ', poolSactionCheck, c.srcPoolCfg?.sanctionCheck);
-  }
-
-  const auditorKeys = await poolAllAuditorPublicKeys(poolContract);
-  if (auditorKeys.length < c.srcPoolCfg?.auditorsCount) {
+  const auditorKeys = await chainAuditors(settingsContract);
+  if (auditorKeys.length < c.srcChainCfg.settingsConfig?.auditorsCount) {
     console.log(
       LOGRED,
       'pool auditor public address mismatch ',
       auditorKeys,
-      c.srcPoolCfg?.auditorsByAddress,
+      c.srcChainCfg?.settingsConfig.ad(),
     );
   }
 
@@ -53,6 +49,31 @@ export async function checkPool(c: any) {
         );
       }
     }
+  }
+}
+
+async function checkChainTx(c: any) {
+  const tx = c.srcChainCfg?.settingsConfig.sanctionCheckTx;
+  await checkOneTx(tx);
+
+  /* eslint-disable no-await-in-loop */
+  /* eslint-disable no-restricted-syntax */
+  const txs = c.srcPoolCfg?.auditorsTx;
+  if (txs) {
+    for (const auditorTx of txs) {
+      await checkOneTx(auditorTx);
+    }
+  }
+  /* eslint-enable no-await-in-loop */
+  /* eslint-enable no-restricted-syntax */
+}
+
+export async function checkPool(c: any) {
+  const poolContract = await poolContractInstance(c.srcTokenCfg.erc20, c.srcPoolCfg?.address);
+
+  const minRollupFee = await poolMinRollupFee(poolContract);
+  if (minRollupFee.toString() !== c.srcPoolCfg?.minRollupFee) {
+    console.log(LOGRED, 'minRollupFee mismatch ', minRollupFee, c.srcPoolCfg?.minRollupFee);
   }
 }
 
@@ -206,6 +227,7 @@ async function checkDepositTx(c: any) {
 
 export async function check(eth: any, taskArgs: any) {
   const c = loadConfig(taskArgs);
+  await checkChain(c);
   await checkPool(c);
   await checkPoolTx(c);
   await checkDeposit(c);

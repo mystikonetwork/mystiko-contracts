@@ -95,13 +95,12 @@ export async function transferOnDeploy(c: any, srcTokenCfg: ChainTokenConfig, in
 }
 
 export async function deployChainTestToken(assetSymbol: string) {
-  const tokenDecimals = 18;
   console.log(assetSymbol);
-  const testToken = await MockToken.deploy(assetSymbol, assetSymbol, tokenDecimals);
+  const testToken = await MockToken.deploy();
   await testToken.deployed();
   console.log('test token address ', testToken.address);
 
-  const amount = toDecimals(200000000, tokenDecimals);
+  const amount = toDecimals(200000000, 18);
   const holders = process.env.TOKEN_HOLDERS?.split(',');
   if (holders === undefined) {
     return;

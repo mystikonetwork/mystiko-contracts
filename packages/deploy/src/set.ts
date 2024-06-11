@@ -1,90 +1,13 @@
-import { initBaseContractFactory } from './contract/base';
+import { initVerifierContractFactory } from './contract/verifier';
 import { initTestTokenContractFactory, transferToContract } from './contract/token';
 import { initTBridgeContractFactory } from './contract/tbridge';
-import {
-  changePoolOperator,
-  disableCommitmentPool,
-  initPoolContractFactory,
-  setPoolSanctionCheck,
-} from './contract/pool';
-import {
-  changeDepositOperator,
-  disableDeposit,
-  initDepositContractFactory,
-  setDepositSanctionCheck,
-} from './contract/depsit';
+import { initPoolContractFactory } from './contract/pool';
+import { initDepositContractFactory } from './contract/depsit';
 import { BridgeLoop, LOGRED, MystikoTestnet } from './common/constant';
 import { loadConfig } from './config/config';
+import { getRelayerRegisterContract, initSettingsContractFactory } from './contract/settings';
 
 let ethers: any;
-
-// deploy mystiko contract and config contract
-async function sanctionCheck(taskArgs: any) {
-  const c = loadConfig(taskArgs);
-  const parameter = taskArgs.param;
-
-  if (parameter !== 'true' && parameter !== 'false') {
-    console.error(LOGRED, 'wrong parameter');
-    return;
-  }
-
-  const check = parameter === 'true';
-  console.log('sanction check ', check);
-
-  if (c.srcPoolCfg === undefined) {
-    console.error('commitment pool configure not exist');
-    process.exit(-1);
-  }
-
-  await setPoolSanctionCheck(c, c.srcTokenCfg.erc20, c.srcPoolCfg, check);
-  await setDepositSanctionCheck(c, c.bridgeCfg.name, c.srcTokenCfg.erc20, c.pairSrcDepositCfg, check);
-}
-
-// deploy mystiko contract and config contract
-async function changeOperator(taskArgs: any) {
-  const c = loadConfig(taskArgs);
-
-  if (c.srcPoolCfg === undefined) {
-    console.error('commitment pool configure not exist');
-    process.exit(-1);
-  }
-
-  // @ts-ignore
-  if (c.operatorCfg.admin !== '' && c.operatorCfg.admin !== c.pairSrcDepositCfg.operator) {
-    console.log('change deposit operator');
-    await changeDepositOperator(
-      c,
-      c.bridgeCfg.name,
-      c.srcTokenCfg.erc20,
-      c.pairSrcDepositCfg,
-      c.operatorCfg.admin,
-    );
-  }
-
-  // @ts-ignore
-  if (c.operatorCfg.admin !== '' && c.operatorCfg.admin !== c.srcPoolCfg.operator) {
-    console.log('change pool operator');
-    await changePoolOperator(c, c.srcTokenCfg.erc20, c.srcPoolCfg, c.operatorCfg.admin);
-  }
-}
-
-async function disablePoolContract(taskArgs: any) {
-  const c = loadConfig(taskArgs);
-
-  if (c.srcPoolCfg === undefined) {
-    console.error('commitment pool configure not exist');
-    process.exit(-1);
-  }
-
-  await disableCommitmentPool(c, c.srcTokenCfg.erc20, c.srcPoolCfg);
-}
-
-// deploy mystiko contract and config contract
-async function disableDepositContract(taskArgs: any) {
-  const c = loadConfig(taskArgs);
-
-  await disableDeposit(c, c.bridgeCfg.name, c.srcTokenCfg.erc20, c.pairSrcDepositCfg);
-}
 
 async function tokenTransfer(taskArgs: any) {
   const c = loadConfig(taskArgs);
@@ -97,24 +20,37 @@ async function tokenTransfer(taskArgs: any) {
   }
 }
 
+async function registerRelayer(taskArgs: any) {
+  console.log('register relayer');
+  const c = loadConfig(taskArgs);
+
+  const relayer = '0x11f85D418dE9238a4e48D8e242AA518F0352e280';
+  const name = 'Demon Hunter';
+  const url = 'https://gasrelayer01.privacyguard.network';
+
+  if (c.srcChainCfg?.relayerRegister === undefined) {
+    console.error(LOGRED, 'relayerRegister contract address is undefined');
+    return;
+  }
+  const relayerFactory = getRelayerRegisterContract();
+  const relayerContract = relayerFactory.attach(c.srcChainCfg.relayerRegister);
+  const tx = await relayerContract.registerRelayer(relayer, url, name);
+  console.log('tx', tx.hash);
+}
+
 export async function set(taskArgs: any, hre: any) {
   ethers = hre.ethers;
-  await initBaseContractFactory(ethers);
+  await initVerifierContractFactory(ethers);
+  await initSettingsContractFactory(ethers);
   await initTestTokenContractFactory(ethers);
   await initTBridgeContractFactory(ethers);
   await initPoolContractFactory(ethers);
   await initDepositContractFactory(ethers);
 
-  if (taskArgs.func === 'sanctionCheck') {
-    await sanctionCheck(taskArgs);
-  } else if (taskArgs.func === 'tokenTransfer') {
+  if (taskArgs.func === 'tokenTransfer') {
     await tokenTransfer(taskArgs);
-  } else if (taskArgs.func === 'changeOperator') {
-    await changeOperator(taskArgs);
-  } else if (taskArgs.func === 'disablePoolContract') {
-    await disablePoolContract(taskArgs);
-  } else if (taskArgs.func === 'disableDepositContract') {
-    await disableDepositContract(taskArgs);
+  } else if (taskArgs.func === 'registerRelayer') {
+    await registerRelayer(taskArgs);
   } else {
     console.error(LOGRED, 'un support function');
   }

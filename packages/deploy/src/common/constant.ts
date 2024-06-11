@@ -1,5 +1,5 @@
 export const LOGRED = '\x1b[31m';
-export const MainNetworks = ['Ethereum', 'BSC', 'Polygon', 'Base'];
+export const MainNetworks = ['Ethereum', 'BSC', 'Polygon', 'Base', 'Avalanche', 'Linea'];
 export const TestNetworks = [
   'bsctestnet',
   'goerli',

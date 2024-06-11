@@ -517,14 +517,14 @@ export async function deployDependContracts(accounts: Wallet[]): Promise<DependD
   const certificateFactory = (await ethers.getContractFactoryFromArtifact(
     certificateArtifact,
   )) as MystikoCertificate__factory;
-  const certificate = await certificateFactory.deploy(mockDaoRegistry.address, IssuerAddress);
+  const certificate = await certificateFactory.deploy(mockDaoRegistry.address, IssuerAddress, true);
   await certificate.deployed();
 
   const rollerArtifact = await getArtifactRoller('MystikoRollerPool');
   const rollerFactory = (await ethers.getContractFactoryFromArtifact(
     rollerArtifact,
   )) as MystikoRollerPool__factory;
-  const rollerPool = await rollerFactory.deploy(mockDaoRegistry.address, mockVoteToken.address, 0);
+  const rollerPool = await rollerFactory.deploy(mockDaoRegistry.address, mockVoteToken.address, 0, []);
   await rollerPool.deployed();
 
   const relayerArtifact = await getArtifactRelayer('MystikoRelayerPool');

@@ -50,14 +50,20 @@ export function loadDeployConfig(mystikoNetwork: string) {
 }
 
 export function loadConfig(taskArgs: any) {
-  const srcNetwork = taskArgs.src;
-  const dstNetwork = taskArgs.dst;
+  let srcNetwork = taskArgs.src;
+  if (srcNetwork === 'localhost') {
+    srcNetwork = 'hardhat';
+  }
+  let dstNetwork = taskArgs.dst;
+  if (dstNetwork === 'localhost') {
+    dstNetwork = 'hardhat';
+  }
+
   const bridgeName = taskArgs.bridge;
   const assetSymbol = taskArgs.token;
   const { override } = taskArgs;
 
   const mystikoNetwork = getMystikoNetwork(srcNetwork);
-
   if (bridgeName === BridgeLoop && srcNetwork !== dstNetwork) {
     console.error(LOGRED, 'src and dst must be same when bridge type is loop');
     process.exit(-1);

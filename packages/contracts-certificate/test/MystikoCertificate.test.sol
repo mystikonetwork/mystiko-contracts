@@ -23,9 +23,19 @@ contract MystikoCertificateTest is Test, Random {
     daoRegistry = new MystikoGovernorRegistry();
     privateKey = uint256(keccak256(abi.encodePacked(_random())));
     issuer = vm.addr(privateKey);
-    checker = new MystikoCertificate(address(daoRegistry), issuer);
+    checker = new MystikoCertificate(address(daoRegistry), issuer, true);
     vm.prank(dao);
     checker.setAdminRole();
+  }
+
+  function test_construct() public {
+    MystikoCertificate checker = new MystikoCertificate(address(daoRegistry), issuer, true);
+    assertEq(checker.getCertificateIssuer(), issuer);
+    assertTrue(checker.isCertificateCheckEnabled());
+
+    MystikoCertificate checker2 = new MystikoCertificate(address(daoRegistry), issuer, false);
+    assertEq(checker2.getCertificateIssuer(), issuer);
+    assertFalse(checker2.isCertificateCheckEnabled());
   }
 
   function test_enable_certificate_check() public {
