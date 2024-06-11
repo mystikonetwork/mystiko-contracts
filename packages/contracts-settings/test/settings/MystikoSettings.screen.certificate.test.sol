@@ -6,7 +6,9 @@ import "../../contracts/MystikoSettingsErrors.sol";
 import "../../contracts/MystikoSettings.sol";
 import "../mock/MockMystikoToken.sol";
 import "@mystikonetwork/contracts-certificate/contracts/MystikoCertificate.sol";
+import "@mystikonetwork/contracts-relayer/contracts/MystikoRelayerPoolErrors.sol";
 import "@mystikonetwork/contracts-relayer/contracts/MystikoRelayerPool.sol";
+import "@mystikonetwork/contracts-roller/contracts/MystikoRollerPoolErrors.sol";
 import "@mystikonetwork/contracts-roller/contracts/MystikoRollerPool.sol";
 import "@mystikonetwork/contracts-governance/contracts/token/MystikoVoteToken.sol";
 import "@mystikonetwork/contracts-governance/contracts/impl/MystikoGovernorRegistry.sol";
@@ -59,6 +61,12 @@ contract MystikoSettingsCenterTest is Test, Random {
       transactVerifiers,
       auditors
     );
+    vm.prank(dao);
+    settings.setAdminRole();
+    vm.prank(dao);
+    rollerPool.setAdminRole();
+    vm.prank(dao);
+    relayerPool.setAdminRole();
   }
 
   function test_get_issuer_address() public {
@@ -80,7 +88,7 @@ contract MystikoSettingsCenterTest is Test, Random {
     emit CertificateVerifierChanged(address(newCertificate));
     vm.prank(dao);
     settings.setCertificateVerifier(newCertificate);
-    assertEq(address(settings.getCertificateIssuer()), address(newCertificate));
+    assertEq(address(settings.certificate()), address(newCertificate));
   }
 
   function test_verify_certificate() public {

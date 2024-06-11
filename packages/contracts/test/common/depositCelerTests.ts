@@ -48,7 +48,7 @@ export function testCelerDeposit(
   describe(`Test ${contractName} deposit operation`, () => {
     before(async () => {
       minBridgeFee = (await depositContract.getMinBridgeFee()).toString();
-      minExecutorFee = (await depositContract.getPeerMinExecutorFee()).toString();
+      minExecutorFee = (await depositContract.getMinExecutorFee()).toString();
       minRollupFee = (await commitmentPool.getMinRollupFee()).toString();
       const amount = toBN(depositAmount).add(toBN(minExecutorFee)).add(toBN(minRollupFee));
       minTotalAmount = amount.toString();

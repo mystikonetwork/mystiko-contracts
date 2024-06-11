@@ -11,14 +11,14 @@ import "@mystikonetwork/contracts-governance/contracts/GovernanceErrors.sol";
 import "@mystikonetwork/contracts-governance/contracts/token/MystikoVoteToken.sol";
 import "@mystikonetwork/contracts-governance/contracts/impl/MystikoGovernorRegistry.sol";
 
-contract MystikoRelayerRegistryTest is Test, Random {
+contract MystikoRelayerPoolTest is Test, Random {
   bytes32 public constant RELAYER_ROLE = keccak256("MYSTIKO_RELAYER_ROLE");
 
   address public dao;
   MystikoGovernorRegistry public daoRegistry;
   MockMystikoToken public XZK;
   MystikoVoteToken public vXZK;
-  MystikoRelayerPool public registry;
+  MystikoRelayerPool public relayerPool;
 
   event RelayerMinVoteTokenAmountChanged(uint256 _amount);
   event RoleGranted(address indexed account);
@@ -30,7 +30,9 @@ contract MystikoRelayerRegistryTest is Test, Random {
     dao = address(uint160(uint256(keccak256(abi.encodePacked(_random())))));
     vm.prank(dao);
     daoRegistry = new MystikoGovernorRegistry();
-    registry = new MystikoRelayerPool(address(daoRegistry), address(vXZK), 100_000e18);
+    relayerPool = new MystikoRelayerPool(address(daoRegistry), address(vXZK), 100_000e18);
+    vm.prank(dao);
+    relayerPool.setAdminRole();
   }
 
   function test_canDoRelay() public {
@@ -40,14 +42,14 @@ contract MystikoRelayerRegistryTest is Test, Random {
     RelayerValidateParams memory p1 = RelayerValidateParams({pool: pool, relayer: relayer});
     vm.expectRevert(GovernanceErrors.UnauthorizedRole.selector);
     vm.prank(pool);
-    registry.validateRelayer(p1);
+    relayerPool.validateRelayer(p1);
 
     vm.prank(dao);
-    registry.grantRole(RELAYER_ROLE, relayer);
+    relayerPool.grantRole(RELAYER_ROLE, relayer);
 
     vm.expectRevert(MystikoRelayerPoolErrors.InsufficientBalanceForAction.selector);
     vm.prank(pool);
-    registry.validateRelayer(p1);
+    relayerPool.validateRelayer(p1);
 
     uint256 voteAmount = 100_000e18;
     XZK.transfer(relayer, voteAmount);
@@ -56,26 +58,28 @@ contract MystikoRelayerRegistryTest is Test, Random {
     vm.prank(relayer);
     vXZK.depositFor(relayer, voteAmount);
     vm.prank(pool);
-    bool canDo = registry.validateRelayer(p1);
+    bool canDo = relayerPool.validateRelayer(p1);
     assertTrue(canDo);
 
     vm.prank(dao);
-    registry.revokeRole(RELAYER_ROLE, relayer);
+    relayerPool.revokeRole(RELAYER_ROLE, relayer);
 
     vm.expectRevert(GovernanceErrors.UnauthorizedRole.selector);
     vm.prank(pool);
-    registry.validateRelayer(p1);
+    relayerPool.validateRelayer(p1);
 
     // open role
     vm.prank(dao);
-    registry.grantRole(RELAYER_ROLE, address(0));
+    relayerPool.grantRole(RELAYER_ROLE, address(0));
 
-    bool canDo2 = registry.validateRelayer(p1);
+    bool canDo2 = relayerPool.validateRelayer(p1);
     assertTrue(canDo2);
   }
 
   function test_canDoRelay_with_zero_token() public {
     MystikoRelayerPool registryZero = new MystikoRelayerPool(address(daoRegistry), address(vXZK), 0);
+    vm.prank(dao);
+    registryZero.setAdminRole();
     address relayer = address(uint160(uint256(keccak256(abi.encodePacked(_random())))));
     address pool = address(uint160(uint256(keccak256(abi.encodePacked(_random())))));
 
@@ -96,35 +100,35 @@ contract MystikoRelayerRegistryTest is Test, Random {
     address operator = address(uint160(uint256(keccak256(abi.encodePacked(_random())))));
     vm.expectRevert(GovernanceErrors.OnlyMystikoDAO.selector);
     vm.prank(operator);
-    registry.setRelayerMinVoteTokenAmount(100_000e18);
+    relayerPool.setRelayerMinVoteTokenAmount(100_000e18);
 
     vm.expectRevert(MystikoRelayerPoolErrors.NotChanged.selector);
     vm.prank(dao);
-    registry.setRelayerMinVoteTokenAmount(100_000e18);
+    relayerPool.setRelayerMinVoteTokenAmount(100_000e18);
 
-    vm.expectEmit(address(registry));
+    vm.expectEmit(address(relayerPool));
     emit RelayerMinVoteTokenAmountChanged(200_000e18);
     vm.prank(dao);
-    registry.setRelayerMinVoteTokenAmount(200_000e18);
-    assertEq(registry.minVoteTokenAmount(), 200_000e18);
+    relayerPool.setRelayerMinVoteTokenAmount(200_000e18);
+    assertEq(relayerPool.minVoteTokenAmount(), 200_000e18);
   }
 
   function test_grant_and_revoke_relayer() public {
     address relayer = address(uint160(uint256(keccak256(abi.encodePacked(_random())))));
-    assertFalse(registry.hasRole(RELAYER_ROLE, relayer));
+    assertFalse(relayerPool.hasRole(RELAYER_ROLE, relayer));
 
     vm.expectRevert();
-    registry.grantRole(RELAYER_ROLE, relayer);
+    relayerPool.grantRole(RELAYER_ROLE, relayer);
 
     vm.prank(dao);
-    registry.grantRole(RELAYER_ROLE, relayer);
-    assertTrue(registry.hasRole(RELAYER_ROLE, relayer));
+    relayerPool.grantRole(RELAYER_ROLE, relayer);
+    assertTrue(relayerPool.hasRole(RELAYER_ROLE, relayer));
 
     vm.expectRevert();
-    registry.revokeRole(RELAYER_ROLE, relayer);
+    relayerPool.revokeRole(RELAYER_ROLE, relayer);
 
     vm.prank(dao);
-    registry.revokeRole(RELAYER_ROLE, relayer);
-    assertFalse(registry.hasRole(RELAYER_ROLE, relayer));
+    relayerPool.revokeRole(RELAYER_ROLE, relayer);
+    assertFalse(relayerPool.hasRole(RELAYER_ROLE, relayer));
   }
 }

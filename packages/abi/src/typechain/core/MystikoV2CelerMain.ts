@@ -104,7 +104,7 @@ export interface MystikoV2CelerMainInterface extends utils.Interface {
     'getMaxAmount()': FunctionFragment;
     'getMinAmount()': FunctionFragment;
     'getMinBridgeFee()': FunctionFragment;
-    'getPeerMinExecutorFee()': FunctionFragment;
+    'getMinExecutorFee()': FunctionFragment;
     'getPeerMinRollupFee()': FunctionFragment;
     'isDepositsDisabled()': FunctionFragment;
     'isPeerContractSet()': FunctionFragment;
@@ -137,7 +137,7 @@ export interface MystikoV2CelerMainInterface extends utils.Interface {
   encodeFunctionData(functionFragment: 'getMaxAmount', values?: undefined): string;
   encodeFunctionData(functionFragment: 'getMinAmount', values?: undefined): string;
   encodeFunctionData(functionFragment: 'getMinBridgeFee', values?: undefined): string;
-  encodeFunctionData(functionFragment: 'getPeerMinExecutorFee', values?: undefined): string;
+  encodeFunctionData(functionFragment: 'getMinExecutorFee', values?: undefined): string;
   encodeFunctionData(functionFragment: 'getPeerMinRollupFee', values?: undefined): string;
   encodeFunctionData(functionFragment: 'isDepositsDisabled', values?: undefined): string;
   encodeFunctionData(functionFragment: 'isPeerContractSet', values?: undefined): string;
@@ -166,7 +166,7 @@ export interface MystikoV2CelerMainInterface extends utils.Interface {
   decodeFunctionResult(functionFragment: 'getMaxAmount', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'getMinAmount', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'getMinBridgeFee', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'getPeerMinExecutorFee', data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'getMinExecutorFee', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'getPeerMinRollupFee', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'isDepositsDisabled', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'isPeerContractSet', data: BytesLike): Result;
@@ -257,7 +257,7 @@ export interface MystikoV2CelerMain extends BaseContract {
 
     getMinBridgeFee(overrides?: CallOverrides): Promise<[BigNumber]>;
 
-    getPeerMinExecutorFee(overrides?: CallOverrides): Promise<[BigNumber]>;
+    getMinExecutorFee(overrides?: CallOverrides): Promise<[BigNumber]>;
 
     getPeerMinRollupFee(overrides?: CallOverrides): Promise<[BigNumber]>;
 
@@ -325,7 +325,7 @@ export interface MystikoV2CelerMain extends BaseContract {
 
   getMinBridgeFee(overrides?: CallOverrides): Promise<BigNumber>;
 
-  getPeerMinExecutorFee(overrides?: CallOverrides): Promise<BigNumber>;
+  getMinExecutorFee(overrides?: CallOverrides): Promise<BigNumber>;
 
   getPeerMinRollupFee(overrides?: CallOverrides): Promise<BigNumber>;
 
@@ -390,7 +390,7 @@ export interface MystikoV2CelerMain extends BaseContract {
 
     getMinBridgeFee(overrides?: CallOverrides): Promise<BigNumber>;
 
-    getPeerMinExecutorFee(overrides?: CallOverrides): Promise<BigNumber>;
+    getMinExecutorFee(overrides?: CallOverrides): Promise<BigNumber>;
 
     getPeerMinRollupFee(overrides?: CallOverrides): Promise<BigNumber>;
 
@@ -464,7 +464,7 @@ export interface MystikoV2CelerMain extends BaseContract {
 
     getMinBridgeFee(overrides?: CallOverrides): Promise<BigNumber>;
 
-    getPeerMinExecutorFee(overrides?: CallOverrides): Promise<BigNumber>;
+    getMinExecutorFee(overrides?: CallOverrides): Promise<BigNumber>;
 
     getPeerMinRollupFee(overrides?: CallOverrides): Promise<BigNumber>;
 
@@ -533,7 +533,7 @@ export interface MystikoV2CelerMain extends BaseContract {
 
     getMinBridgeFee(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
-    getPeerMinExecutorFee(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+    getMinExecutorFee(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     getPeerMinRollupFee(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 

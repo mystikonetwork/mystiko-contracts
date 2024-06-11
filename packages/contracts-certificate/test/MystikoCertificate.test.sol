@@ -4,9 +4,10 @@ pragma solidity ^0.8.26;
 import {Test} from "forge-std/Test.sol";
 import "../contracts/MystikoCertificate.sol";
 import "./utils/Random.sol";
+import "@mystikonetwork/contracts-governance/contracts/GovernanceErrors.sol";
 import "@mystikonetwork/contracts-governance/contracts/impl/MystikoGovernorRegistry.sol";
 
-contract MystikoCertificateRegistryTest is Test, Random {
+contract MystikoCertificateTest is Test, Random {
   address public dao;
   uint256 public privateKey;
   address public issuer;
@@ -23,6 +24,8 @@ contract MystikoCertificateRegistryTest is Test, Random {
     privateKey = uint256(keccak256(abi.encodePacked(_random())));
     issuer = vm.addr(privateKey);
     checker = new MystikoCertificate(address(daoRegistry), issuer);
+    vm.prank(dao);
+    checker.setAdminRole();
   }
 
   function test_enable_certificate_check() public {

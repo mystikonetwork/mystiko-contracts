@@ -106,7 +106,7 @@ abstract contract MystikoV2Bridge is IMystikoBridge, AssetPool, CrossChainDataSe
     if (_request.amount < getMinAmount()) revert CustomErrors.AmountTooSmall();
     if (_request.amount > getMaxAmount()) revert CustomErrors.AmountTooLarge();
     if (_request.bridgeFee < getMinBridgeFee()) revert CustomErrors.BridgeFeeTooFew();
-    if (_request.executorFee < getPeerMinExecutorFee()) revert CustomErrors.ExecutorFeeTooFew();
+    if (_request.executorFee < getMinExecutorFee()) revert CustomErrors.ExecutorFeeTooFew();
     if (_request.rollupFee < getPeerMinRollupFee()) revert CustomErrors.RollupFeeToFew();
     uint256 calculatedCommitment = _commitmentHash(_request.hashK, _request.amount, _request.randomS);
     if (_request.commitment != calculatedCommitment) revert CustomErrors.CommitmentHashIncorrect();
@@ -161,7 +161,7 @@ abstract contract MystikoV2Bridge is IMystikoBridge, AssetPool, CrossChainDataSe
     return minBridgeFee == 0 ? defaultMinBridgeFee : minBridgeFee;
   }
 
-  function getPeerMinExecutorFee() public view returns (uint256) {
+  function getMinExecutorFee() public view returns (uint256) {
     uint256 minExecutorFee = settings.queryMinPeerExecutorFee(address(this));
     return minExecutorFee == 0 ? defaultPeerMinExecutorFee : minExecutorFee;
   }

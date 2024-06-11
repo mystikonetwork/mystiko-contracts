@@ -37,7 +37,6 @@
     "@babel/register": "^7.16.8",
     "@ethersproject/units": "^5.5.3",
     "@ethersproject/wallet": "^5.5.3",
-    "@mystikonetwork/config": "^0.10.5",
     "@mystikonetwork/contracts-abi": "^0.3.0",
     "@mystikonetwork/contracts-abi-certificate": "^0.3.0",
     "@mystikonetwork/contracts-abi-relayer": "^0.3.0",

@@ -58,6 +58,12 @@ contract MystikoSettingsCenterTest is Test, Random {
       transactVerifiers,
       auditors
     );
+    vm.prank(dao);
+    settings.setAdminRole();
+    vm.prank(dao);
+    rollerPool.setAdminRole();
+    vm.prank(dao);
+    relayerPool.setAdminRole();
   }
 
   function test_can_do_rollup() public {

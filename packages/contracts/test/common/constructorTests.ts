@@ -63,7 +63,7 @@ export function testBridgeConstructor(
       expect(await depositContract.getMinBridgeFee()).to.equal(minBridgeFee);
     });
     it('should initialize peerMinExecutorFee correctly', async () => {
-      expect(await depositContract.getPeerMinExecutorFee()).to.equal(minExecutorFee);
+      expect(await depositContract.getMinExecutorFee()).to.equal(minExecutorFee);
     });
     it('should initialize peerMinRollupFee correctly', async () => {
       expect(await depositContract.getPeerMinRollupFee()).to.equal(peerMinRoolupFee);
