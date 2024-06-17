@@ -89,19 +89,19 @@ export function getCertificateArtifact(contract: string): Promise<Artifact> {
 }
 
 export function getRelayerArtifact(contract: string): Promise<Artifact> {
-  const artifactsPath: string = '../contracts-Relayer/artifacts';
+  const artifactsPath: string = '../contracts-relayer/artifacts';
   const artifacts = new Artifacts(artifactsPath);
   return artifacts.readArtifact(contract);
 }
 
 export function getRollerArtifact(contract: string): Promise<Artifact> {
-  const artifactsPath: string = '../contracts-Roller/artifacts';
+  const artifactsPath: string = '../contracts-roller/artifacts';
   const artifacts = new Artifacts(artifactsPath);
   return artifacts.readArtifact(contract);
 }
 
 export function getSettingsArtifact(contract: string): Promise<Artifact> {
-  const artifactsPath: string = '../contracts-Settings/artifacts';
+  const artifactsPath: string = '../contracts-settings/artifacts';
   const artifacts = new Artifacts(artifactsPath);
   return artifacts.readArtifact(contract);
 }
