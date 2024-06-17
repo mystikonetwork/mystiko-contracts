@@ -1854,10 +1854,10 @@
     ethers "^5.5.3"
     reflect-metadata "^0.1.13"
 
-"@mystikonetwork/contracts-governance@0.3.0", "@mystikonetwork/contracts-governance@^0.3.0":
-  version "0.3.0"
-  resolved "https://npm.pkg.github.com/download/@mystikonetwork/contracts-governance/0.3.0/a2eb21fb23c59c9cade9aa87d826ad210b34d187#a2eb21fb23c59c9cade9aa87d826ad210b34d187"
-  integrity sha512-eZ7vqHbzeOKndRVMpRpS3VgXyWxmMBJip1hUeEmev6vBlcG5ek3Plp1jlj/+FwMwpP8J/k57oYGMVhT1CIoZsw==
+"@mystikonetwork/contracts-governance@0.3.1", "@mystikonetwork/contracts-governance@^0.3.1":
+  version "0.3.1"
+  resolved "https://npm.pkg.github.com/download/@mystikonetwork/contracts-governance/0.3.1/f8d0cc3c03a520b4a9fc504b6642f0d8d10072ea#f8d0cc3c03a520b4a9fc504b6642f0d8d10072ea"
+  integrity sha512-BP2GQ+iZfb3SO0P9l/bFYvTtwbcHyz0AF0bC6DS2dgAx/ULhu6osKGhQWxjPQFrjaEaPSeLU7lh7mmP+3mnSHQ==
 
 "@mystikonetwork/eccrypto@^1.1.8":
   version "1.1.8"
