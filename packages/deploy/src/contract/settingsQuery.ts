@@ -1,6 +1,6 @@
+import { MystikoSettings } from '@mystikonetwork/contracts-abi-settings';
 import { LOGRED } from '../common/constant';
 import { getSettingsCenterContract } from './settings';
-import { MystikoSettings } from '@mystikonetwork/contracts-abi-settings';
 
 export function settingsContractInstance(addr: string): Promise<MystikoSettings> {
   const SettingsFactory = getSettingsCenterContract();

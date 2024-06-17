@@ -93,12 +93,12 @@ contract MystikoRelayerPoolTest is Test, Random {
     RelayerValidateParams memory p1 = RelayerValidateParams({pool: pool, relayer: relayer});
     vm.expectRevert(MystikoRelayerErrors.InsufficientBalanceForAction.selector);
     vm.prank(pool);
-    bool canDo=relayerPool.validateRelayer(p1);
+    bool canDo = relayerPool.validateRelayer(p1);
     assertFalse(canDo);
 
     vm.prank(dao);
     relayerPool.setRelayerMinVoteTokenAmount(0);
-    bool canDo2=relayerPool.validateRelayer(p1);
+    bool canDo2 = relayerPool.validateRelayer(p1);
     assertTrue(canDo2);
   }
 

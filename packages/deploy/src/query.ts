@@ -21,10 +21,23 @@ import {
   getSettingsCenterContract,
   initSettingsContractFactory,
 } from './contract/settings';
+import { depositContractInstance, depositMinAmount } from './contract/depsitQuery';
 
 let ethers: any;
 
-async function depositQuery(taskArgs: any) {}
+async function depositQuery(taskArgs: any) {
+  const c = loadConfig(taskArgs);
+  if (c.bridgeCfg === undefined || c.srcTokenCfg === undefined || c.srcPoolCfg === undefined) {
+    console.error(LOGRED, 'config not configure');
+    process.exit(-1);
+  }
+  const deposit = await depositContractInstance(c.bridgeCfg.name, c.srcTokenCfg.erc20, c.srcPoolCfg?.address);
+  const minAmount = await depositMinAmount(deposit);
+  console.log('min amount ', minAmount);
+  const maxAmount = await deposit.getMaxAmount();
+  console.log('max amount ', maxAmount);
+}
+
 // deploy mystiko contract and config contract
 async function poolQuery(taskArgs: any) {
   const c = loadConfig(taskArgs);
@@ -98,11 +111,13 @@ async function rollerPoolQuery(taskArgs: any) {
   console.log('min vote token amount ', minAmount);
 
   const role = await rollerPoolContract.ROLLER_ROLE();
-  for (let i = 0; i < c.operatorCfg?.rollers.length; i++) {
+  /* eslint-disable no-await-in-loop */
+  for (let i = 0; i < c.operatorCfg?.rollers.length; i += 1) {
     const roller = c.operatorCfg?.rollers[i];
     const hashRole = await rollerPoolContract.hasRole(role, roller);
     console.log('roller ', roller, ' has role ', hashRole);
   }
+  /* eslint-enable no-await-in-loop */
 
   const dao = await rollerPoolContract.daoRegistry();
   console.log('dao address', dao);
@@ -142,17 +157,35 @@ async function relayerRegisterQuery(taskArgs: any) {
   const allRelayers = await relayerRegisterContract.getAllRelayerInfo();
   console.log('relayer ', allRelayers);
 
-  for (let i = 0; i < c.operatorCfg?.relayers.length; i++) {
+  /* eslint-disable no-await-in-loop */
+  for (let i = 0; i < c.operatorCfg?.relayers.length; i += 1) {
     const relayer = c.operatorCfg?.relayers[i];
     const result = await relayerRegisterContract.getRelayerUrlAndName(relayer);
     console.log('relayer ', relayer, ' url  ', result[0], ' name ', result[1]);
   }
+  /* eslint-enable no-await-in-loop */
 
   const dao = await relayerRegisterContract.daoRegistry();
   console.log('dao address', dao);
 }
 
-async function certificateQuery(taskArgs: any) {}
+async function certificateQuery(taskArgs: any) {
+  const c = loadConfig(taskArgs);
+  const chainCfg = c.srcChainCfg;
+  if (chainCfg === undefined || chainCfg.certificateVerifier === undefined) {
+    console.error(LOGRED, 'chain not configure');
+    process.exit(-1);
+  }
+
+  const certificateFactory = getSettingsCenterContract();
+  const certificateContract = await certificateFactory.attach(chainCfg.certificateVerifier);
+
+  const certificateCheck = await certificateContract.isCertificateCheckEnabled();
+  console.log('certificate check ', certificateCheck);
+
+  const dao = await certificateContract.daoRegistry();
+  console.log('dao address', dao);
+}
 
 export async function query(taskArgs: any, hre: any) {
   ethers = hre.ethers;

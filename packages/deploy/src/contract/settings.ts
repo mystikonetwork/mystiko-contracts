@@ -1,11 +1,3 @@
-import {
-  getCertificateArtifact,
-  getRelayerArtifact,
-  getRollerArtifact,
-  getSettingsArtifact,
-  waitConfirm,
-} from '../common/utils';
-import { saveConfig } from '../config/config';
 import { MystikoCertificate__factory } from '@mystikonetwork/contracts-abi-certificate';
 import {
   MystikoRelayerPool__factory,
@@ -15,6 +7,14 @@ import { MystikoRollerPool__factory } from '@mystikonetwork/contracts-abi-roller
 import { MystikoSettings__factory } from '@mystikonetwork/contracts-abi-settings';
 import { LOGRED, MystikoMainnet, MystikoTestnet } from '../common/constant';
 import { ChainSettingsConfig } from '../config/chainSettings';
+import { saveConfig } from '../config/config';
+import {
+  getCertificateArtifact,
+  getRelayerArtifact,
+  getRollerArtifact,
+  getSettingsArtifact,
+  waitConfirm,
+} from '../common/utils';
 
 let CertifacteFactory: MystikoCertificate__factory;
 let RelayerPoolFactory: MystikoRelayerPool__factory;

@@ -197,27 +197,25 @@ export async function deployDepositContract(
           bridgeProxyConfig?.gasReceiver,
         );
       }
+    } else if (srcChainTokenCfg.erc20) {
+      // @ts-ignore
+      coreContract = await DepositContractFactory.deploy(
+        srcChainCfg.hasher3Address,
+        srcChainTokenCfg.address,
+        bridgeProxyConfig?.address,
+        srcChainCfg.settingsCenter,
+        localConfig,
+        peerConfig,
+      );
     } else {
-      if (srcChainTokenCfg.erc20) {
-        // @ts-ignore
-        coreContract = await DepositContractFactory.deploy(
-          srcChainCfg.hasher3Address,
-          srcChainTokenCfg.address,
-          bridgeProxyConfig?.address,
-          srcChainCfg.settingsCenter,
-          localConfig,
-          peerConfig,
-        );
-      } else {
-        // @ts-ignore
-        coreContract = await DepositContractFactory.deploy(
-          srcChainCfg.hasher3Address,
-          bridgeProxyConfig?.address,
-          srcChainCfg.settingsCenter,
-          localConfig,
-          peerConfig,
-        );
-      }
+      // @ts-ignore
+      coreContract = await DepositContractFactory.deploy(
+        srcChainCfg.hasher3Address,
+        bridgeProxyConfig?.address,
+        srcChainCfg.settingsCenter,
+        localConfig,
+        peerConfig,
+      );
     }
   }
 
@@ -268,10 +266,7 @@ export async function doDepositContractConfigure(
   c: any,
   srcChainCfg: ChainConfig,
   depositCfg: DepositDeployConfig,
-  bridgeCfg: BridgeConfig,
-  srcChainTokenCfg: ChainTokenConfig,
   commitmentPoolAddress: string,
-  bridgeProxy?: BridgeProxyConfig,
 ) {
   if (depositCfg.disabled) {
     console.error(LOGRED, 'deposit contract is disabled');

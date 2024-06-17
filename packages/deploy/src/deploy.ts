@@ -126,15 +126,7 @@ async function deployStep3(taskArgs: any) {
     c.override,
   );
 
-  await doDepositContractConfigure(
-    c,
-    c.srcChainCfg,
-    c.pairSrcDepositCfg,
-    c.bridgeCfg,
-    c.srcTokenCfg,
-    c.srcPoolCfg.address,
-    bridgeProxyConfig,
-  );
+  await doDepositContractConfigure(c, c.srcChainCfg, c.pairSrcDepositCfg, c.srcPoolCfg.address);
 
   if (c.bridgeCfg.name === BridgeTBridge) {
     await doTBridgeProxyConfigure(c, c.bridgeCfg, bridgeProxyConfig, c.operatorCfg);

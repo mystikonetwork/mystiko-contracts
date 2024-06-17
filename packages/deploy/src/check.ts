@@ -15,6 +15,22 @@ import {
 import { poolContractInstance, poolMinRollupFee } from './contract/poolQuery';
 import { chainAuditors, chainSanctionEnabled, settingsContractInstance } from './contract/settingsQuery';
 
+async function checkChainTx(c: any) {
+  const tx = c.srcChainCfg?.settingsConfig.sanctionCheckTx;
+  await checkOneTx(tx);
+
+  /* eslint-disable no-await-in-loop */
+  /* eslint-disable no-restricted-syntax */
+  const txs = c.srcPoolCfg?.auditorsTx;
+  if (txs) {
+    for (const auditorTx of txs) {
+      await checkOneTx(auditorTx);
+    }
+  }
+  /* eslint-enable no-await-in-loop */
+  /* eslint-enable no-restricted-syntax */
+}
+
 export async function checkChain(c: any) {
   const settingsContract = await settingsContractInstance(c.srcChainCfg.settingsCenter);
 
@@ -50,22 +66,8 @@ export async function checkChain(c: any) {
       }
     }
   }
-}
 
-async function checkChainTx(c: any) {
-  const tx = c.srcChainCfg?.settingsConfig.sanctionCheckTx;
-  await checkOneTx(tx);
-
-  /* eslint-disable no-await-in-loop */
-  /* eslint-disable no-restricted-syntax */
-  const txs = c.srcPoolCfg?.auditorsTx;
-  if (txs) {
-    for (const auditorTx of txs) {
-      await checkOneTx(auditorTx);
-    }
-  }
-  /* eslint-enable no-await-in-loop */
-  /* eslint-enable no-restricted-syntax */
+  await checkChainTx(c);
 }
 
 export async function checkPool(c: any) {

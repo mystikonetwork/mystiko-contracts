@@ -16,7 +16,6 @@ import {
 } from '@mystikonetwork/contracts-abi';
 import { getExternalArtifact, getVerifierArtifact } from '../common/utils';
 import { saveConfig } from '../config/config';
-import { ChainConfig } from '../config/chain';
 
 let Transaction1x0Verifier: Transaction1x0Verifier__factory;
 let Transaction1x1Verifier: Transaction1x1Verifier__factory;

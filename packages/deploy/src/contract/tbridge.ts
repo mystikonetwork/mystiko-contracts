@@ -7,7 +7,6 @@ import {
   BridgeCeler,
   BridgeLayerZero,
   BridgeLoop,
-  BridgeTBridge,
   LOGRED,
   MystikoDevelopment,
 } from '../common/constant';
