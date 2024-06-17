@@ -40,11 +40,25 @@
           "address": "0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512",
           "startBlock": 2,
           "bridgeType": "loop",
-          "poolAddress": "0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0",
-          "minAmount": "2000",
-          "maxAmount": "2000000",
+          "poolAddress": "0x5FbDB2315678afecb367f032d93F642f64180aa3",
+          "minAmount": "1000",
+          "maxAmount": "1000000",
           "peerChainId": 9999999,
           "peerContractAddress": "0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512",
+          "minBridgeFee": "1000",
+          "minExecutorFee": "2000"
+        },
+        {
+          "version": 2,
+          "name": "MystikoV2TBridgeERC20",
+          "address": "0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0",
+          "startBlock": 3,
+          "bridgeType": "tbridge",
+          "poolAddress": "0x5FbDB2315678afecb367f032d93F642f64180aa3",
+          "peerChainId": 9999999,
+          "peerContractAddress": "0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0",
+          "minAmount": "2000",
+          "maxAmount": "2000000",
           "minBridgeFee": "1000",
           "minExecutorFee": "2000"
         }
@@ -55,9 +69,10 @@
           "name": "CommitmentPool",
           "address": "0x5FbDB2315678afecb367f032d93F642f64180aa3",
           "startBlock": 1,
-          "minRollupFee": "1000",
+          "minRollupFee": "2000",
           "poolName": "beta-20220720",
-          "bridgeType": "loop"
+          "bridgeType": "tbridge",
+          "assetAddress": "0xfc508d512957c1d13fe1fcd7c29b3423340510d3"
         },
         {
           "version": 2,

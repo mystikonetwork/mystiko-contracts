@@ -5,7 +5,7 @@ import {
 } from '@mystikonetwork/contracts-abi-relayer';
 import { MystikoRollerPool__factory } from '@mystikonetwork/contracts-abi-roller';
 import { MystikoSettings__factory } from '@mystikonetwork/contracts-abi-settings';
-import { LOGRED, MystikoMainnet, MystikoTestnet } from '../common/constant';
+import { LOGRED, MystikoDevelopment, MystikoMainnet, MystikoTestnet } from '../common/constant';
 import { ChainSettingsConfig } from '../config/chainSettings';
 import { saveConfig } from '../config/config';
 import {
@@ -455,7 +455,9 @@ export async function doSettingsCenterConfig(c: any) {
     );
   }
 
-  await updateSettingsPoolAddress(c, chainCfg.settingsConfig, chainCfg.settingsCenter);
+  if (c.mystikoNetwork !== MystikoDevelopment) {
+    await updateSettingsPoolAddress(c, chainCfg.settingsConfig, chainCfg.settingsCenter);
+  }
   // await setChainCertificateCheck(c, false, chainCfg.settingsConfig, chainCfg.certificateVerifier);
 
   // todo change min vote amount
