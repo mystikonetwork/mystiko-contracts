@@ -119,14 +119,7 @@
       "proxys": [
         {
           "network": "hardhat",
-          "remoteNetwork": "hardhat",
-          "address": "0x5FbDB2315678afecb367f032d93F642f64180aa3",
-          "executorWhitelist": [
-            "0x2fD64dFE5Fa6e1e6bEc263BeB7A903DeF1c1e4e8"
-          ],
-          "registerWhitelist": [
-            "0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0"
-          ]
+          "remoteNetwork": "hardhat"
         }
       ],
       "fees": [
@@ -138,17 +131,11 @@
       "commitmentPools": [
         {
           "network": "hardhat",
-          "assetSymbol": "MTT",
-          "address": "0x5FbDB2315678afecb367f032d93F642f64180aa3",
-          "syncStart": 1,
-          "nonce": 0
+          "assetSymbol": "MTT"
         },
         {
           "network": "hardhat",
-          "assetSymbol": "mUSD",
-          "address": "0x5FbDB2315678afecb367f032d93F642f64180aa3",
-          "syncStart": 1,
-          "nonce": 0
+          "assetSymbol": "mUSD"
         }
       ],
       "pairs": [
@@ -156,25 +143,11 @@
           "pair": [
             {
               "network": "hardhat",
-              "assetSymbol": "MTT",
-              "address": "0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0",
-              "syncStart": 3,
-              "nonce": 2,
-              "commitmentPool": "0x5FbDB2315678afecb367f032d93F642f64180aa3",
-              "commitmentPoolTx": "0x8af77745e8bf9bea85aad4dfbf773bb049209afeb485772b3c54e365ea4ec686",
-              "peerContract": "0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0",
-              "peerContractTx": "0x5f14994fcd5630582f8af2ff5fb188baffc1f9b82f7fc22d57ac263ade55ccde"
+              "assetSymbol": "MTT"
             },
             {
               "network": "hardhat",
-              "assetSymbol": "mUSD",
-              "address": "0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0",
-              "syncStart": 3,
-              "nonce": 2,
-              "commitmentPool": "0x5FbDB2315678afecb367f032d93F642f64180aa3",
-              "commitmentPoolTx": "0x8af77745e8bf9bea85aad4dfbf773bb049209afeb485772b3c54e365ea4ec686",
-              "peerContract": "0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0",
-              "peerContractTx": "0x5f14994fcd5630582f8af2ff5fb188baffc1f9b82f7fc22d57ac263ade55ccde"
+              "assetSymbol": "mUSD"
             }
           ]
         }
