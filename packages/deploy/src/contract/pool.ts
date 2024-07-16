@@ -30,6 +30,11 @@ export function getMystikoPoolContract(bErc20: boolean) {
   return coreContract;
 }
 
+export function poolContractInstance(erc20: boolean, addr: string | undefined): Promise<any> {
+  const PoolContractFactory = getMystikoPoolContract(erc20);
+  return Promise.resolve(PoolContractFactory.attach(addr));
+}
+
 async function deployCommitmentPoolContract(
   commitmentPoolCfg: PoolDeployConfig,
   chainCfg: ChainConfig,

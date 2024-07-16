@@ -24,9 +24,9 @@ async function registerRelayer(taskArgs: any) {
   console.log('register relayer');
   const c = loadConfig(taskArgs);
 
-  const relayer = '0x11f85D418dE9238a4e48D8e242AA518F0352e280';
-  const name = 'Demon Hunter';
-  const url = 'https://gasrelayer01.privacyguard.network';
+  const relayer = '';
+  const name = '';
+  const url = '';
 
   if (c.srcChainCfg?.relayerRegister === undefined) {
     console.error(LOGRED, 'relayerRegister contract address is undefined');

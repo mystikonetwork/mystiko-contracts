@@ -1,4 +1,3 @@
-import { check } from './check';
 import {
   BridgeAxelar,
   BridgeCeler,
@@ -297,8 +296,6 @@ export async function deploy(taskArgs: any, hre: any) {
     await deployStep3(taskArgs);
   } else if (step === 'step4') {
     await deployStep4(taskArgs);
-  } else if (step === 'check') {
-    await check(ethers, taskArgs);
   } else if (step === 'checkJson') {
     await checkJson(taskArgs);
   } else if (step === 'testToken') {

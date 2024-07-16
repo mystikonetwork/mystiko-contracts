@@ -1,10 +1,11 @@
-import { MystikoCertificate__factory } from '@mystikonetwork/contracts-abi-certificate';
+import { MystikoCertificate, MystikoCertificate__factory } from '@mystikonetwork/contracts-abi-certificate';
 import {
+  MystikoRelayerPool,
   MystikoRelayerPool__factory,
   MystikoRelayerRegister__factory,
 } from '@mystikonetwork/contracts-abi-relayer';
-import { MystikoRollerPool__factory } from '@mystikonetwork/contracts-abi-roller';
-import { MystikoSettings__factory } from '@mystikonetwork/contracts-abi-settings';
+import { MystikoRollerPool, MystikoRollerPool__factory } from '@mystikonetwork/contracts-abi-roller';
+import { MystikoSettings, MystikoSettings__factory } from '@mystikonetwork/contracts-abi-settings';
 import { LOGRED, MystikoDevelopment, MystikoMainnet, MystikoTestnet } from '../common/constant';
 import { ChainSettingsConfig } from '../config/chainSettings';
 import { saveConfig } from '../config/config';
@@ -69,6 +70,22 @@ export function getRelayerRegisterContract() {
 
 export function getCertifacteContract() {
   return CertifacteFactory;
+}
+
+export function settingsContractInstance(addr: string): Promise<MystikoSettings> {
+  return Promise.resolve(SettingsFactory.attach(addr));
+}
+
+export function rollerPoolContractInstance(addr: string): Promise<MystikoRollerPool> {
+  return Promise.resolve(RollerFactory.attach(addr));
+}
+
+export function relayerPoolContractInstance(addr: string): Promise<MystikoRelayerPool> {
+  return Promise.resolve(RelayerPoolFactory.attach(addr));
+}
+
+export function certifacteContractInstance(addr: string): Promise<MystikoCertificate> {
+  return Promise.resolve(CertifacteFactory.attach(addr));
 }
 
 export async function setChainSanctionCheck(

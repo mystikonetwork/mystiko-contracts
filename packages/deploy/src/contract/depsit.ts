@@ -93,6 +93,15 @@ export function getMystikoDeployContract(bridge: string, bErc20: boolean) {
   return coreContract;
 }
 
+export function depositContractInstance(
+  bridgeName: string,
+  erc20: boolean,
+  addr: string | undefined,
+): Promise<any> {
+  const DepositContractFactory = getMystikoDeployContract(bridgeName, erc20);
+  return Promise.resolve(DepositContractFactory.attach(addr));
+}
+
 export async function deployDepositContract(
   c: any,
   mystikoNetwork: string,
