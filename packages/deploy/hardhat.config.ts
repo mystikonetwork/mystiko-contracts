@@ -102,6 +102,9 @@ const moonbeamPrivateKey = process.env.MOONBEAM_MAINNET_PRIVATE_KEY || DEFAULT_M
 const baseEndpoint = process.env.BASE_ENDPOINT || DEFAULT_ENDPOINT;
 const basePrivateKey = process.env.BASE_MAINNET_PRIVATE_KEY || DEFAULT_MAINNET_PRIVATE_KEY;
 
+const lineaEndpoint = process.env.LINEA_ENDPOINT || DEFAULT_ENDPOINT;
+const lineaPrivateKey = process.env.LINEA_MAINNET_PRIVATE_KEY || DEFAULT_MAINNET_PRIVATE_KEY;
+
 const config: HardhatUserConfig = {
   defaultNetwork: 'hardhat',
   networks: {
@@ -153,7 +156,7 @@ const config: HardhatUserConfig = {
       url: fantomEndpoint,
       accounts: [`0x${fantomPrivateKey}`],
     },
-    avalanche: {
+    Avalanche: {
       url: avalancheEndpoint,
       accounts: [`0x${avalanchePrivateKey}`],
     },
@@ -164,11 +167,15 @@ const config: HardhatUserConfig = {
     Polygon: {
       url: polygonEndpoint,
       accounts: [`0x${polygonPrivateKey}`],
-      gasPrice: 100000000000,
+      gasPrice: 300000000000,
     },
     Base: {
       url: baseEndpoint,
       accounts: [`0x${basePrivateKey}`],
+    },
+    Linea: {
+      url: lineaEndpoint,
+      accounts: [`0x${lineaPrivateKey}`],
     },
   },
   paths: {

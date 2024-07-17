@@ -82,6 +82,30 @@ export function getExternalArtifact(contract: string): Promise<Artifact> {
   return artifacts.readArtifact(contract);
 }
 
+export function getCertificateArtifact(contract: string): Promise<Artifact> {
+  const artifactsPath: string = '../contracts-certificate/artifacts';
+  const artifacts = new Artifacts(artifactsPath);
+  return artifacts.readArtifact(contract);
+}
+
+export function getRelayerArtifact(contract: string): Promise<Artifact> {
+  const artifactsPath: string = '../contracts-relayer/artifacts';
+  const artifacts = new Artifacts(artifactsPath);
+  return artifacts.readArtifact(contract);
+}
+
+export function getRollerArtifact(contract: string): Promise<Artifact> {
+  const artifactsPath: string = '../contracts-roller/artifacts';
+  const artifacts = new Artifacts(artifactsPath);
+  return artifacts.readArtifact(contract);
+}
+
+export function getSettingsArtifact(contract: string): Promise<Artifact> {
+  const artifactsPath: string = '../contracts-settings/artifacts';
+  const artifacts = new Artifacts(artifactsPath);
+  return artifacts.readArtifact(contract);
+}
+
 export function delay(timeoutMs: number) {
   // return new Promise((resolve) => setTimeout(resolve, ms));
 

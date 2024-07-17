@@ -166,7 +166,9 @@
       "transaction1x2VerifierAddress": "0x07ADB25a1ffF5F324cF53B168eD55A3dB5c4a8FA",
       "transaction2x0VerifierAddress": "0x48d1019F4c72c85E1B7554f15c860C2Bccff0B0a",
       "transaction2x1VerifierAddress": "0x9793596f0ec0FDE7f677F6F914a3c89D9A3153Cb",
-      "transaction2x2VerifierAddress": "0x19502c389FFb8f59Ef33851fEC4818659D1cf3d2"
+      "transaction2x2VerifierAddress": "0x19502c389FFb8f59Ef33851fEC4818659D1cf3d2",
+      "rollup32Address": "0x151b3E9815C8120c46bbe9925ae34EA9936570f2",
+      "rollup64Address": "0x3C9A11D8292787a85B4aE7E0Df32895766f15Ef3"
     },
     {
       "name": "Fantom Testnet",
@@ -603,7 +605,11 @@
           "sanctionCheck": false,
           "enqueueWhitelist": [
             "0x2dc0dfb02F7f30C3e21b0FDA7C6e0412e0f3f525"
-          ]
+          ],
+          "rollup32Verifier": "0x151b3E9815C8120c46bbe9925ae34EA9936570f2",
+          "rollup32VerifierTx": "0x8c02310f1996a846c14d9142f333ffdbf499ad12970136ba26aa11c8ea4c4b13",
+          "rollup64Verifier": "0x3C9A11D8292787a85B4aE7E0Df32895766f15Ef3",
+          "rollup64VerifierTx": "0x9e0d7e71541a19557af70904244f520fa98e02a5a3c76810c693ad72f36ec250"
         },
         {
           "network": "bsctestnet",
@@ -638,7 +644,11 @@
           "sanctionCheck": false,
           "enqueueWhitelist": [
             "0x45bB3CE23436581923C3557d2222f0D3fC6B0193"
-          ]
+          ],
+          "rollup32Verifier": "0x151b3E9815C8120c46bbe9925ae34EA9936570f2",
+          "rollup32VerifierTx": "0x4b8bfbfa9ab862ab5797e2c2eb39f513b659609d11b1d038c95023aae163a4cb",
+          "rollup64Verifier": "0x3C9A11D8292787a85B4aE7E0Df32895766f15Ef3",
+          "rollup64VerifierTx": "0x5bd7081447da6f750d50ae20dc8c43dfff26436b9f512edd955fa04f5af93244"
         },
         {
           "network": "bsctestnet",
@@ -673,7 +683,11 @@
           "sanctionCheck": false,
           "enqueueWhitelist": [
             "0x4d292C3c673AF99Fd2299C3F4Fa6485216466a9f"
-          ]
+          ],
+          "rollup32Verifier": "0x151b3E9815C8120c46bbe9925ae34EA9936570f2",
+          "rollup32VerifierTx": "0x469b458e8653e56f427afe6769801be9af9cb7842af8b392529f9227b5abc375",
+          "rollup64Verifier": "0x3C9A11D8292787a85B4aE7E0Df32895766f15Ef3",
+          "rollup64VerifierTx": "0xf99f33b44ecdbe822883f6f0605c5b4e0e49e835fbf5829f0e26530884a4557a"
         },
         {
           "network": "polygontestnet",

@@ -6,7 +6,9 @@ export interface RawOperatorConfig {
   admin: string;
   executors: string[];
   rollers: string[];
+  relayers: string[];
   auditors: string[];
+  issuer: string;
 }
 
 export class OperatorConfig extends BaseConfig {
@@ -23,6 +25,13 @@ export class OperatorConfig extends BaseConfig {
       check(ethers.utils.isAddress(roller), `${roller} is invalid address`);
     });
 
+    BaseConfig.checkStringArray(this.config, 'relayers');
+    if (this.asRawOperatorConfig().relayers !== undefined) {
+      this.asRawOperatorConfig().relayers.forEach((relayer) => {
+        check(ethers.utils.isAddress(relayer), `${relayer} is invalid address`);
+      });
+    }
+    BaseConfig.checkEthAddress(this.config, 'issuer');
     BaseConfig.checkStringArray(this.config, 'auditors');
   }
 
@@ -36,6 +45,14 @@ export class OperatorConfig extends BaseConfig {
 
   public get rollers(): string[] {
     return this.asRawOperatorConfig().rollers;
+  }
+
+  public get relayers(): string[] {
+    return this.asRawOperatorConfig().relayers;
+  }
+
+  public get issuer(): string {
+    return this.asRawOperatorConfig().issuer;
   }
 
   public get auditors(): string[] {

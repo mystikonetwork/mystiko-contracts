@@ -29,8 +29,8 @@ abstract contract Sanctions is ISanctions, MystikoDAOAccessControl {
     emit SanctionsCheck(sanctionsCheck);
   }
 
-  function setSanctionsListAddress(ISanctions _sanction) external onlyMystikoDAO {
-    sanctionsList = _sanction;
-    emit SanctionsListChanged(address(_sanction));
+  function setSanctionsListAddress(address _sanction) external onlyMystikoDAO {
+    sanctionsList = ISanctions(_sanction);
+    emit SanctionsListChanged(_sanction);
   }
 }

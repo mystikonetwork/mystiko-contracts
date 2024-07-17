@@ -1,4 +1,3 @@
-import { check } from './check';
 import {
   BridgeAxelar,
   BridgeCeler,
@@ -12,16 +11,10 @@ import {
 } from './common/constant';
 import { getMystikoNetwork } from './common/utils';
 import { loadConfig, loadDeployConfig, saveConfig } from './config/config';
-import {
-  addEnqueueWhitelist,
-  doCommitmentPoolConfigure,
-  getOrDeployCommitmentPool,
-  initPoolContractFactory,
-} from './contract/pool';
+import { deployCommitmentPool, initPoolContractFactory } from './contract/pool';
 import { deployChainTestToken, initTestTokenContractFactory, transferOnDeploy } from './contract/token';
 import {
-  addRegisterWhitelist,
-  doBridgeProxyConfigure,
+  doTBridgeProxyConfigure,
   getOrDeployBridgeProxy,
   initTBridgeContractFactory,
 } from './contract/tbridge';
@@ -30,19 +23,29 @@ import {
   doDepositContractConfigure,
   initDepositContractFactory,
   setPeerContract,
-  setTrustedRemote,
+  setLZTrustedRemote,
+  setLZEndpoint,
 } from './contract/depsit';
-import { deployBaseContract, initBaseContractFactory } from './contract/base';
+import { deployVerifierContract, initVerifierContractFactory } from './contract/verifier';
 import { checkCoreConfig, saveCoreContractJson } from './dump/coreJson';
 import { dumpChainTBridgeConfig, saveTBridgeJson } from './dump/tbridgeJson';
 import { saveCelerToml } from './dump/celerToml';
+import {
+  deploySettingsContract,
+  doSettingsCenterConfig,
+  initSettingsContractFactory,
+} from './contract/settings';
 
 let ethers: any;
 
 // deploy hasher and verifier
 async function deployStep1(taskArgs: any) {
   const c = loadConfig(taskArgs);
-  await deployBaseContract(c);
+  if (c.override === 'true') {
+    c.srcChainCfg.reset();
+  }
+  await deployVerifierContract(c);
+  await deploySettingsContract(c);
 }
 
 function dumpConfig(c: any) {
@@ -64,7 +67,7 @@ async function deployStep2(taskArgs: any) {
     process.exit(-1);
   }
 
-  const poolCfg = await getOrDeployCommitmentPool(
+  const poolCfg = await deployCommitmentPool(
     c,
     c.mystikoNetwork,
     c.bridgeCfg,
@@ -72,6 +75,17 @@ async function deployStep2(taskArgs: any) {
     c.srcTokenCfg,
     c.srcPoolCfg,
     c.operatorCfg,
+    c.override,
+  );
+
+  const bridgeProxyConfig = await getOrDeployBridgeProxy(
+    c,
+    c.mystikoNetwork,
+    c.bridgeCfg,
+    c.proxyCfg,
+    c.operatorCfg,
+    c.srcChainCfg.network,
+    c.dstChainCfg?.network,
     c.override,
   );
 
@@ -84,6 +98,7 @@ async function deployStep2(taskArgs: any) {
     c.dstTokenCfg,
     c.pairSrcDepositCfg,
     poolCfg.address,
+    bridgeProxyConfig,
     c.override,
   );
 }
@@ -97,6 +112,8 @@ async function deployStep3(taskArgs: any) {
     process.exit(-1);
   }
 
+  await doSettingsCenterConfig(c);
+
   const bridgeProxyConfig = await getOrDeployBridgeProxy(
     c,
     c.mystikoNetwork,
@@ -108,71 +125,27 @@ async function deployStep3(taskArgs: any) {
     c.override,
   );
 
-  await doBridgeProxyConfigure(c, c.bridgeCfg, bridgeProxyConfig, c.operatorCfg);
-
-  const poolCfg = await getOrDeployCommitmentPool(
-    c,
-    c.mystikoNetwork,
-    c.bridgeCfg,
-    c.srcChainCfg,
-    c.srcTokenCfg,
-    c.srcPoolCfg,
-    c.operatorCfg,
-    c.override,
-  );
-
-  await doCommitmentPoolConfigure(c, c.mystikoNetwork, poolCfg, c.srcChainCfg, c.srcTokenCfg, c.operatorCfg);
-
-  const depositCfg = await deployDepositContract(
-    c,
-    c.mystikoNetwork,
-    c.bridgeCfg,
-    c.srcChainCfg,
-    c.srcTokenCfg,
-    c.dstTokenCfg,
-    c.pairSrcDepositCfg,
-    poolCfg.address,
-    c.override,
-  );
-
-  await doDepositContractConfigure(
-    c,
-    c.mystikoNetwork,
-    depositCfg,
-    c.bridgeCfg,
-    c.srcChainCfg,
-    c.srcTokenCfg,
-    c.dstTokenCfg,
-    c.pairSrcDepositCfg,
-    poolCfg.address,
-    c.operatorCfg,
-    bridgeProxyConfig,
-  );
-
-  await addEnqueueWhitelist(c, c.srcTokenCfg.erc20, poolCfg, depositCfg.address);
+  await doDepositContractConfigure(c, c.srcChainCfg, c.pairSrcDepositCfg, c.srcPoolCfg.address);
 
   if (c.bridgeCfg.name === BridgeTBridge) {
-    if (bridgeProxyConfig === undefined) {
-      console.error('bridge proxy configure not exist');
+    await doTBridgeProxyConfigure(c, c.bridgeCfg, bridgeProxyConfig, c.operatorCfg);
+  } else if (c.bridgeCfg.name === BridgeLayerZero) {
+    const proxyConfig = c.bridgeCfg.getBridgeProxyConfig(c.dstChainCfg.network, '');
+    if (proxyConfig === undefined || proxyConfig.mapChainId === undefined) {
+      console.error(LOGRED, 'proxy or proxy map chain id not configure');
       process.exit(-1);
     }
-    await addRegisterWhitelist(c, bridgeProxyConfig, depositCfg.address);
-  }
-}
 
-// deploy mystiko contract and config contract
-async function deployStep4(taskArgs: any) {
-  const c = loadConfig(taskArgs);
-
-  if (c.pairSrcDepositCfg.address === '' || c.pairDstDepositCfg.address === '') {
-    console.error(LOGRED, 'token pair address not configure, should do step2 first');
-    process.exit(-1);
-  }
-
-  // transfer token to contract
-  if (c.bridgeCfg.name !== BridgeLoop && c.mystikoNetwork === MystikoTestnet) {
-    // @ts-ignore
-    await transferOnDeploy(c, c.srcTokenCfg, c.srcPoolCfg);
+    await setLZEndpoint(c, c.bridgeCfg.name, c.srcTokenCfg.erc20, c.pairSrcDepositCfg, proxyConfig);
+    await setLZTrustedRemote(
+      c,
+      c.bridgeCfg.name,
+      c.srcTokenCfg.erc20,
+      c.pairSrcDepositCfg,
+      proxyConfig.mapChainId,
+      c.pairSrcDepositCfg.address,
+      c.pairDstDepositCfg.address,
+    );
   }
 
   if (c.bridgeCfg.name !== BridgeLoop) {
@@ -197,23 +170,21 @@ async function deployStep4(taskArgs: any) {
       c.pairDstDepositCfg.address,
     );
   }
+}
 
-  if (c.bridgeCfg.name === BridgeLayerZero) {
-    const proxy = c.bridgeCfg.getBridgeProxyConfig(c.dstChainCfg.network, '');
-    if (proxy === undefined || proxy.mapChainId === undefined) {
-      console.error(LOGRED, 'proxy or proxy map chain id not configure');
-      process.exit(-1);
-    }
+// deploy mystiko contract and config contract
+async function deployStep4(taskArgs: any) {
+  const c = loadConfig(taskArgs);
 
-    await setTrustedRemote(
-      c,
-      c.bridgeCfg.name,
-      c.srcTokenCfg.erc20,
-      c.pairSrcDepositCfg,
-      proxy.mapChainId,
-      c.pairSrcDepositCfg.address,
-      c.pairDstDepositCfg.address,
-    );
+  if (c.pairSrcDepositCfg.address === '' || c.pairDstDepositCfg.address === '') {
+    console.error(LOGRED, 'token pair address not configure, should do step2 first');
+    process.exit(-1);
+  }
+
+  // transfer token to contract
+  if (c.bridgeCfg.name !== BridgeLoop && c.mystikoNetwork === MystikoTestnet) {
+    // @ts-ignore
+    await transferOnDeploy(c, c.srcTokenCfg, c.srcPoolCfg);
   }
 
   dumpConfig(c);
@@ -295,12 +266,12 @@ function resetAllVerifier(taskArgs: any) {
   if (mystikoNetwork === MystikoTestnet) {
     TestNetworks.forEach((network) => {
       const chain = cfg.getChain(network);
-      chain?.resetVerifier();
+      chain?.resetChainContract();
     });
   } else {
     MainNetworks.forEach((network) => {
       const chain = cfg.getChain(network);
-      chain?.resetVerifier();
+      chain?.resetChainContract();
     });
   }
 
@@ -309,7 +280,8 @@ function resetAllVerifier(taskArgs: any) {
 
 export async function deploy(taskArgs: any, hre: any) {
   ethers = hre.ethers;
-  await initBaseContractFactory(ethers);
+  await initVerifierContractFactory(ethers);
+  await initSettingsContractFactory(ethers);
   await initTestTokenContractFactory(ethers);
   await initTBridgeContractFactory(ethers);
   await initPoolContractFactory(ethers);
@@ -324,8 +296,6 @@ export async function deploy(taskArgs: any, hre: any) {
     await deployStep3(taskArgs);
   } else if (step === 'step4') {
     await deployStep4(taskArgs);
-  } else if (step === 'check') {
-    await check(ethers, taskArgs);
   } else if (step === 'checkJson') {
     await checkJson(taskArgs);
   } else if (step === 'testToken') {

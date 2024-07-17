@@ -107,7 +107,7 @@ const _abi = [
       {
         indexed: true,
         internalType: 'address',
-        name: 'registry',
+        name: 'verifier',
         type: 'address',
       },
     ],
@@ -196,7 +196,7 @@ const _abi = [
       {
         indexed: true,
         internalType: 'address',
-        name: 'registry',
+        name: 'relayerPool',
         type: 'address',
       },
     ],
@@ -284,7 +284,7 @@ const _abi = [
       {
         indexed: true,
         internalType: 'address',
-        name: 'registry',
+        name: 'rollerPool',
         type: 'address',
       },
     ],
@@ -1076,8 +1076,8 @@ const _abi = [
   {
     inputs: [
       {
-        internalType: 'contract IMystikoCertificate',
-        name: '_newCertificateRegistry',
+        internalType: 'address',
+        name: '_newCertificateVerifier',
         type: 'address',
       },
     ],
@@ -1161,8 +1161,8 @@ const _abi = [
   {
     inputs: [
       {
-        internalType: 'contract IMystikoRelayerPool',
-        name: '_newRelayerRegistry',
+        internalType: 'address',
+        name: '_newRelayerPool',
         type: 'address',
       },
     ],
@@ -1174,8 +1174,8 @@ const _abi = [
   {
     inputs: [
       {
-        internalType: 'contract IMystikoRollerPool',
-        name: '_newRollerRegistry',
+        internalType: 'address',
+        name: '_newRollerPool',
         type: 'address',
       },
     ],
@@ -1187,7 +1187,7 @@ const _abi = [
   {
     inputs: [
       {
-        internalType: 'contract ISanctions',
+        internalType: 'address',
         name: '_sanction',
         type: 'address',
       },

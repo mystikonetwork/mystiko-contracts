@@ -290,7 +290,7 @@ export type AuditorPublicKeyChangedEvent = TypedEvent<
 
 export type AuditorPublicKeyChangedEventFilter = TypedEventFilter<AuditorPublicKeyChangedEvent>;
 
-export type CertificateVerifierChangedEvent = TypedEvent<[string], { registry: string }>;
+export type CertificateVerifierChangedEvent = TypedEvent<[string], { verifier: string }>;
 
 export type CertificateVerifierChangedEventFilter = TypedEventFilter<CertificateVerifierChangedEvent>;
 
@@ -319,7 +319,7 @@ export type MinRollupFeeChangedEvent = TypedEvent<
 
 export type MinRollupFeeChangedEventFilter = TypedEventFilter<MinRollupFeeChangedEvent>;
 
-export type RelayerPoolChangedEvent = TypedEvent<[string], { registry: string }>;
+export type RelayerPoolChangedEvent = TypedEvent<[string], { relayerPool: string }>;
 
 export type RelayerPoolChangedEventFilter = TypedEventFilter<RelayerPoolChangedEvent>;
 
@@ -344,7 +344,7 @@ export type RoleRevokedEvent = TypedEvent<
 
 export type RoleRevokedEventFilter = TypedEventFilter<RoleRevokedEvent>;
 
-export type RollerPoolChangedEvent = TypedEvent<[string], { registry: string }>;
+export type RollerPoolChangedEvent = TypedEvent<[string], { rollerPool: string }>;
 
 export type RollerPoolChangedEventFilter = TypedEventFilter<RollerPoolChangedEvent>;
 
@@ -532,7 +532,7 @@ export interface MystikoSettings extends BaseContract {
     ): Promise<ContractTransaction>;
 
     setCertificateVerifier(
-      _newCertificateRegistry: string,
+      _newCertificateVerifier: string,
       overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<ContractTransaction>;
 
@@ -561,12 +561,12 @@ export interface MystikoSettings extends BaseContract {
     ): Promise<ContractTransaction>;
 
     setRelayerPool(
-      _newRelayerRegistry: string,
+      _newRelayerPool: string,
       overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<ContractTransaction>;
 
     setRollerPool(
-      _newRollerRegistry: string,
+      _newRollerPool: string,
       overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<ContractTransaction>;
 
@@ -718,7 +718,7 @@ export interface MystikoSettings extends BaseContract {
   ): Promise<ContractTransaction>;
 
   setCertificateVerifier(
-    _newCertificateRegistry: string,
+    _newCertificateVerifier: string,
     overrides?: Overrides & { from?: string | Promise<string> },
   ): Promise<ContractTransaction>;
 
@@ -747,12 +747,12 @@ export interface MystikoSettings extends BaseContract {
   ): Promise<ContractTransaction>;
 
   setRelayerPool(
-    _newRelayerRegistry: string,
+    _newRelayerPool: string,
     overrides?: Overrides & { from?: string | Promise<string> },
   ): Promise<ContractTransaction>;
 
   setRollerPool(
-    _newRollerRegistry: string,
+    _newRollerPool: string,
     overrides?: Overrides & { from?: string | Promise<string> },
   ): Promise<ContractTransaction>;
 
@@ -881,7 +881,7 @@ export interface MystikoSettings extends BaseContract {
       overrides?: CallOverrides,
     ): Promise<void>;
 
-    setCertificateVerifier(_newCertificateRegistry: string, overrides?: CallOverrides): Promise<void>;
+    setCertificateVerifier(_newCertificateVerifier: string, overrides?: CallOverrides): Promise<void>;
 
     setDepositDisable(_depositAddress: string, _disable: boolean, overrides?: CallOverrides): Promise<void>;
 
@@ -899,9 +899,9 @@ export interface MystikoSettings extends BaseContract {
 
     setMinRollupFee(_pool: string, _minRollupFee: BigNumberish, overrides?: CallOverrides): Promise<void>;
 
-    setRelayerPool(_newRelayerRegistry: string, overrides?: CallOverrides): Promise<void>;
+    setRelayerPool(_newRelayerPool: string, overrides?: CallOverrides): Promise<void>;
 
-    setRollerPool(_newRollerRegistry: string, overrides?: CallOverrides): Promise<void>;
+    setRollerPool(_newRollerPool: string, overrides?: CallOverrides): Promise<void>;
 
     setSanctionsListAddress(_sanction: string, overrides?: CallOverrides): Promise<void>;
 
@@ -934,8 +934,8 @@ export interface MystikoSettings extends BaseContract {
       publicKey?: null,
     ): AuditorPublicKeyChangedEventFilter;
 
-    'CertificateVerifierChanged(address)'(registry?: string | null): CertificateVerifierChangedEventFilter;
-    CertificateVerifierChanged(registry?: string | null): CertificateVerifierChangedEventFilter;
+    'CertificateVerifierChanged(address)'(verifier?: string | null): CertificateVerifierChangedEventFilter;
+    CertificateVerifierChanged(verifier?: string | null): CertificateVerifierChangedEventFilter;
 
     'DepositDisableChanged(address,bool)'(
       deposit?: string | null,
@@ -967,8 +967,8 @@ export interface MystikoSettings extends BaseContract {
     ): MinRollupFeeChangedEventFilter;
     MinRollupFeeChanged(pool?: string | null, minRollupFee?: null): MinRollupFeeChangedEventFilter;
 
-    'RelayerPoolChanged(address)'(registry?: string | null): RelayerPoolChangedEventFilter;
-    RelayerPoolChanged(registry?: string | null): RelayerPoolChangedEventFilter;
+    'RelayerPoolChanged(address)'(relayerPool?: string | null): RelayerPoolChangedEventFilter;
+    RelayerPoolChanged(relayerPool?: string | null): RelayerPoolChangedEventFilter;
 
     'RoleAdminChanged(bytes32,bytes32,bytes32)'(
       role?: BytesLike | null,
@@ -1003,8 +1003,8 @@ export interface MystikoSettings extends BaseContract {
       sender?: string | null,
     ): RoleRevokedEventFilter;
 
-    'RollerPoolChanged(address)'(registry?: string | null): RollerPoolChangedEventFilter;
-    RollerPoolChanged(registry?: string | null): RollerPoolChangedEventFilter;
+    'RollerPoolChanged(address)'(rollerPool?: string | null): RollerPoolChangedEventFilter;
+    RollerPoolChanged(rollerPool?: string | null): RollerPoolChangedEventFilter;
 
     'RollupVerifierDisabled(uint32)'(rollupSize?: null): RollupVerifierDisabledEventFilter;
     RollupVerifierDisabled(rollupSize?: null): RollupVerifierDisabledEventFilter;
@@ -1157,7 +1157,7 @@ export interface MystikoSettings extends BaseContract {
     ): Promise<BigNumber>;
 
     setCertificateVerifier(
-      _newCertificateRegistry: string,
+      _newCertificateVerifier: string,
       overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<BigNumber>;
 
@@ -1186,12 +1186,12 @@ export interface MystikoSettings extends BaseContract {
     ): Promise<BigNumber>;
 
     setRelayerPool(
-      _newRelayerRegistry: string,
+      _newRelayerPool: string,
       overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<BigNumber>;
 
     setRollerPool(
-      _newRollerRegistry: string,
+      _newRollerPool: string,
       overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<BigNumber>;
 
@@ -1341,7 +1341,7 @@ export interface MystikoSettings extends BaseContract {
     ): Promise<PopulatedTransaction>;
 
     setCertificateVerifier(
-      _newCertificateRegistry: string,
+      _newCertificateVerifier: string,
       overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<PopulatedTransaction>;
 
@@ -1370,12 +1370,12 @@ export interface MystikoSettings extends BaseContract {
     ): Promise<PopulatedTransaction>;
 
     setRelayerPool(
-      _newRelayerRegistry: string,
+      _newRelayerPool: string,
       overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<PopulatedTransaction>;
 
     setRollerPool(
-      _newRollerRegistry: string,
+      _newRollerPool: string,
       overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<PopulatedTransaction>;
 

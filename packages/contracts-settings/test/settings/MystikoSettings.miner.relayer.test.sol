@@ -7,7 +7,7 @@ import "../../contracts/MystikoSettings.sol";
 import "../mock/MockMystikoToken.sol";
 import "@mystikonetwork/contracts-certificate/contracts/MystikoCertificate.sol";
 import "@mystikonetwork/contracts-relayer/contracts/interfaces/IMystikoRelayerPool.sol";
-import "@mystikonetwork/contracts-relayer/contracts/MystikoRelayerPoolErrors.sol";
+import "@mystikonetwork/contracts-relayer/contracts/MystikoRelayerErrors.sol";
 import "@mystikonetwork/contracts-roller/contracts/MystikoRollerPoolErrors.sol";
 import "@mystikonetwork/contracts-relayer/contracts/MystikoRelayerPool.sol";
 import "@mystikonetwork/contracts-roller/contracts/MystikoRollerPool.sol";
@@ -28,7 +28,7 @@ contract MystikoSettingsCenterTest is Test, Random {
   MystikoRelayerPool public relayerPool;
   MystikoSettings public settings;
 
-  event RelayerPoolChanged(address indexed registry);
+  event RelayerPoolChanged(address indexed relayerPool);
 
   function setUp() public {
     dao = address(uint160(uint256(keccak256(abi.encodePacked(_random())))));
@@ -45,8 +45,9 @@ contract MystikoSettingsCenterTest is Test, Random {
     MystikoVoteToken vXZK = new MystikoVoteToken(XZK);
     vm.prank(dao);
     MystikoGovernorRegistry daoRegistry = new MystikoGovernorRegistry();
-    certificateChecker = new MystikoCertificate(address(daoRegistry), address(0));
-    rollerPool = new MystikoRollerPool(address(daoRegistry), address(vXZK), 100_000e18);
+    certificateChecker = new MystikoCertificate(address(daoRegistry), address(0), true);
+    address[] memory zero = new address[](0);
+    rollerPool = new MystikoRollerPool(address(daoRegistry), address(vXZK), 100_000e18, zero);
     relayerPool = new MystikoRelayerPool(address(daoRegistry), address(vXZK), 100_000e18);
 
     settings = new MystikoSettings(
@@ -70,13 +71,6 @@ contract MystikoSettingsCenterTest is Test, Random {
     address relayer = address(uint160(uint256(keccak256(abi.encodePacked(_random())))));
     address pool = address(uint160(uint256(keccak256(abi.encodePacked(_random())))));
     RelayerValidateParams memory p1 = RelayerValidateParams({pool: pool, relayer: relayer});
-    vm.expectRevert(GovernanceErrors.UnauthorizedRole.selector);
-    vm.prank(pool);
-    settings.validateRelayer(p1);
-
-    vm.prank(dao);
-    relayerPool.grantRole(RELAYER_ROLE, relayer);
-
     vm.expectRevert(MystikoSettingsErrors.InsufficientBalanceForAction.selector);
     vm.prank(pool);
     settings.validateRelayer(p1);
@@ -88,21 +82,22 @@ contract MystikoSettingsCenterTest is Test, Random {
     assertTrue(canDo);
   }
 
-  function test_change_relayer_registry() public {
+  function test_change_relayer_pool() public {
     vm.expectRevert(GovernanceErrors.OnlyMystikoDAO.selector);
-    settings.setRelayerPool(IMystikoRelayerPool(relayerPool));
+    settings.setRelayerPool(address(relayerPool));
 
     vm.expectRevert(MystikoSettingsErrors.NotChanged.selector);
     vm.prank(dao);
-    settings.setRelayerPool(IMystikoRelayerPool(relayerPool));
+    settings.setRelayerPool(address(relayerPool));
 
-    IMystikoRelayerPool newRegistry = IMystikoRelayerPool(
+    IMystikoRelayerPool newPool = IMystikoRelayerPool(
       address(uint160(uint256(keccak256(abi.encodePacked(_random())))))
     );
     vm.expectEmit(address(settings));
-    emit RelayerPoolChanged(address(newRegistry));
+    emit RelayerPoolChanged(address(newPool));
     vm.prank(dao);
-    settings.setRelayerPool(newRegistry);
-    assertEq(address(settings.relayerPool()), address(newRegistry));
+    settings.setRelayerPool(address(newPool));
+
+    assertEq(address(settings.relayerPool()), address(newPool));
   }
 }

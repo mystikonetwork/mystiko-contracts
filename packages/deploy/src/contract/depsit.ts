@@ -21,13 +21,11 @@ import {
   BridgeLoop,
   BridgeTBridge,
   LOGRED,
-  MystikoMainnet,
-  MystikoTestnet,
 } from '../common/constant';
 import { DepositDeployConfig } from '../config/bridgeDeposit';
 import { saveConfig } from '../config/config';
 import { BridgeProxyConfig } from '../config/bridgeProxy';
-import { OperatorConfig } from '../config/operator';
+import { getSettingsCenterContract } from './settings';
 
 let MystikoV2LoopERC20: MystikoV2LoopERC20__factory;
 let MystikoV2LoopMain: MystikoV2LoopMain__factory;
@@ -95,39 +93,13 @@ export function getMystikoDeployContract(bridge: string, bErc20: boolean) {
   return coreContract;
 }
 
-export async function setDepositSanctionCheck(
-  c: any,
+export function depositContractInstance(
   bridgeName: string,
   erc20: boolean,
-  inDepositCfg: DepositDeployConfig,
-  check: boolean,
-) {
-  console.log('set deposit sanction check ', check);
-
-  if (!inDepositCfg.isSanctionCheckChange(check)) {
-    return;
-  }
-  const depositCfg = inDepositCfg;
-  const DepositContractFactoruy = getMystikoDeployContract(bridgeName, erc20);
-  const coreContract = await DepositContractFactoruy.attach(depositCfg.address);
-  let rsp: any;
-  try {
-    if (check) {
-      rsp = await coreContract.enableSanctionsCheck();
-      console.log('deposit rsp hash ', rsp.hash);
-      await waitConfirm(ethers, rsp, true);
-    } else {
-      rsp = await coreContract.disableSanctionsCheck();
-      console.log('deposit rsp hash ', rsp.hash);
-      await waitConfirm(ethers, rsp, true);
-    }
-
-    depositCfg.updateSanctionCheck(check, rsp.hash);
-    saveConfig(c.mystikoNetwork, c.cfg);
-  } catch (err: any) {
-    console.error(LOGRED, err);
-    process.exit(1);
-  }
+  addr: string | undefined,
+): Promise<any> {
+  const DepositContractFactory = getMystikoDeployContract(bridgeName, erc20);
+  return Promise.resolve(DepositContractFactory.attach(addr));
 }
 
 export async function deployDepositContract(
@@ -139,6 +111,7 @@ export async function deployDepositContract(
   dstChainTokenCfg: ChainTokenConfig,
   pairSrcDepositContractCfg: DepositDeployConfig,
   commitmentPoolAddress: string,
+  bridgeProxyConfig: BridgeProxyConfig | undefined,
   override: string,
 ) {
   const srcDepositCfg = pairSrcDepositContractCfg;
@@ -161,17 +134,103 @@ export async function deployDepositContract(
   const nonce = await checkNonceExpect(ethers, srcDepositCfg.nonce);
 
   let coreContract: any;
-  if (srcChainTokenCfg.erc20) {
-    // @ts-ignore
-    coreContract = await DepositContractFactory.deploy(srcChainCfg.hasher3Address, srcChainTokenCfg.address);
+  if (bridgeCfg.name === BridgeLoop) {
+    const localConfig = {
+      minAmount: srcChainTokenCfg.minAmount,
+      maxAmount: srcChainTokenCfg.maxAmount,
+    };
+
+    if (srcChainTokenCfg.erc20) {
+      // @ts-ignore
+      coreContract = await DepositContractFactory.deploy(
+        srcChainCfg.hasher3Address,
+        srcChainTokenCfg.address,
+        srcChainCfg.settingsCenter,
+        localConfig,
+      );
+    } else {
+      // @ts-ignore
+      coreContract = await DepositContractFactory.deploy(
+        srcChainCfg.hasher3Address,
+        srcChainCfg.settingsCenter,
+        localConfig,
+      );
+    }
   } else {
-    // @ts-ignore
-    coreContract = await DepositContractFactory.deploy(srcChainCfg.hasher3Address);
+    if (bridgeProxyConfig === undefined) {
+      console.log(' bridge proxy not configure');
+      process.exit(-1);
+    }
+
+    const bridgeFee = bridgeCfg.getMinBridgeFee(srcChainCfg.network);
+    if (bridgeFee === undefined) {
+      console.log('minimal bridge fee not configure');
+      process.exit(-1);
+    }
+
+    const localConfig = {
+      minAmount: srcChainTokenCfg.minAmount,
+      maxAmount: srcChainTokenCfg.maxAmount,
+      minBridgeFee: bridgeFee,
+    };
+
+    const peerConfig = {
+      peerMinExecutorFee: dstChainTokenCfg.minExecutorFee,
+      peerMinRollupFee: dstChainTokenCfg.minRollupFee,
+    };
+
+    if (bridgeCfg.name === BridgeAxelar) {
+      if (bridgeProxyConfig?.gasReceiver === undefined) {
+        console.log(' gas receiver not configure');
+        process.exit(-1);
+      }
+      if (srcChainTokenCfg.erc20) {
+        // @ts-ignore
+        coreContract = await DepositContractFactory.deploy(
+          srcChainCfg.hasher3Address,
+          srcChainTokenCfg.address,
+          bridgeProxyConfig?.address,
+          srcChainCfg.settingsCenter,
+          localConfig,
+          peerConfig,
+          bridgeProxyConfig?.gasReceiver,
+        );
+      } else {
+        // @ts-ignore
+        coreContract = await DepositContractFactory.deploy(
+          srcChainCfg.hasher3Address,
+          bridgeProxyConfig?.address,
+          srcChainCfg.settingsCenter,
+          localConfig,
+          peerConfig,
+          bridgeProxyConfig?.gasReceiver,
+        );
+      }
+    } else if (srcChainTokenCfg.erc20) {
+      // @ts-ignore
+      coreContract = await DepositContractFactory.deploy(
+        srcChainCfg.hasher3Address,
+        srcChainTokenCfg.address,
+        bridgeProxyConfig?.address,
+        srcChainCfg.settingsCenter,
+        localConfig,
+        peerConfig,
+      );
+    } else {
+      // @ts-ignore
+      coreContract = await DepositContractFactory.deploy(
+        srcChainCfg.hasher3Address,
+        bridgeProxyConfig?.address,
+        srcChainCfg.settingsCenter,
+        localConfig,
+        peerConfig,
+      );
+    }
   }
+
   await coreContract.deployed();
 
   const syncStart = await ethers.provider.getBlockNumber();
-  // todo support update contract , flag depositDisabled
   console.log('mystiko core deposit address ', coreContract.address, ' block height ', syncStart);
   srcDepositCfg.address = coreContract.address;
   srcDepositCfg.syncStart = syncStart;
@@ -181,346 +240,27 @@ export async function deployDepositContract(
   return srcDepositCfg;
 }
 
-export async function setBridgeProxyAddress(
-  c: any,
-  bridgeName: string,
-  erc20: boolean,
-  inDepositCfg: DepositDeployConfig,
-  bridgeProxy: BridgeProxyConfig,
-) {
-  if (!inDepositCfg.isBridgeProxyChange(bridgeProxy.address)) {
-    return;
-  }
-
-  const depositCfg = inDepositCfg;
-  console.log('set bridge proxy address');
-  const DepositContractFactoruy = getMystikoDeployContract(bridgeName, erc20);
-  const coreContract = await DepositContractFactoruy.attach(depositCfg.address);
-  let rsp: any;
-  try {
-    if (bridgeName === BridgeTBridge || bridgeName === BridgeCeler) {
-      rsp = await coreContract.setBridgeProxyAddress(bridgeProxy.address);
-      console.log('rsp hash ', rsp.hash);
-      await waitConfirm(ethers, rsp, true);
-    } else if (bridgeName === BridgeAxelar) {
-      const rsp1 = await coreContract.setBridgeProxyAddress(bridgeProxy.address);
-      console.log('rsp hash ', rsp1.hash);
-      console.log('set axelar gas receiver address');
-      await waitConfirm(ethers, rsp1, true);
-      rsp = await coreContract.setAxelarGasReceiver(bridgeProxy.gasReceiver);
-      console.log('rsp hash ', rsp.hash);
-      await waitConfirm(ethers, rsp, true);
-    } else if (bridgeName === BridgeLayerZero) {
-      rsp = await coreContract.setEndpoint(bridgeProxy.mapChainId, bridgeProxy.address);
-      console.log('rsp hash ', rsp.hash);
-      await waitConfirm(ethers, rsp, true);
-    }
-    depositCfg.updateBridgeProxy(bridgeProxy.address, rsp.hash);
-    saveConfig(c.mystikoNetwork, c.cfg);
-  } catch (err: any) {
-    console.error(LOGRED, err);
-    process.exit(1);
-  }
-}
-
-export async function setLzEndpoint(
-  c: any,
-  bridgeName: string,
-  erc20: boolean,
-  inDepositCfg: DepositDeployConfig,
-  bridgeProxyAddress: string,
-) {
-  if (!inDepositCfg.isBridgeProxyChange(bridgeProxyAddress)) {
-    return;
-  }
-  const depositCfg = inDepositCfg;
-
-  console.log('set bridge proxy address');
-  const DepositContractFactoruy = getMystikoDeployContract(bridgeName, erc20);
-  const coreContract = await DepositContractFactoruy.attach(depositCfg.address);
-
-  try {
-    const rsp = await coreContract.setBridgeProxyAddress(bridgeProxyAddress);
-    console.log('rsp hash ', rsp.hash);
-    await waitConfirm(ethers, rsp, true);
-    depositCfg.updateBridgeProxy(bridgeProxyAddress, rsp.hash);
-    saveConfig(c.mystikoNetwork, c.cfg);
-  } catch (err: any) {
-    console.error(LOGRED, err);
-    process.exit(1);
-  }
-}
-
-export async function setMinBridgeFee(
-  c: any,
-  bridgeName: string,
-  erc20: boolean,
-  inDepositCfg: DepositDeployConfig,
-  fee: string,
-) {
-  if (!inDepositCfg.isMinBridgeFeeChange(fee)) {
-    return;
-  }
-  const depositCfg = inDepositCfg;
-
-  console.log('set min bridge fee');
-  const DepositContractFactoruy = getMystikoDeployContract(bridgeName, erc20);
-  const coreContract = await DepositContractFactoruy.attach(depositCfg.address);
-
-  try {
-    const rsp = await coreContract.setMinBridgeFee(fee);
-    console.log('rsp hash ', rsp.hash);
-    await waitConfirm(ethers, rsp, true);
-    depositCfg.setMinBridgeFee(fee, rsp.hash);
-    saveConfig(c.mystikoNetwork, c.cfg);
-  } catch (err: any) {
-    console.error(LOGRED, err);
-    process.exit(1);
-  }
-}
-
-export async function setMinExecutorFee(
-  c: any,
-  bridgeName: string,
-  erc20: boolean,
-  inDepositCfg: DepositDeployConfig,
-  inFee: string,
-) {
-  let fee = inFee;
-  if (bridgeName === BridgeLayerZero || bridgeName === BridgeAxelar) {
-    fee = '0';
-  }
-
-  if (!inDepositCfg.isMinExecutorFeeChange(fee)) {
-    return;
-  }
-
-  const depositCfg = inDepositCfg;
-
-  console.log('set min executor fee ', fee);
-  const DepositContractFactoruy = getMystikoDeployContract(bridgeName, erc20);
-  const coreContract = await DepositContractFactoruy.attach(depositCfg.address);
-
-  try {
-    const rsp = await coreContract.setMinExecutorFee(fee);
-    console.log('rsp hash ', rsp.hash);
-    await waitConfirm(ethers, rsp, true);
-    depositCfg.updateMinExecutorFee(fee, rsp.hash);
-    saveConfig(c.mystikoNetwork, c.cfg);
-  } catch (err: any) {
-    console.error(LOGRED, err);
-    process.exit(1);
-  }
-}
-
-export async function setPeerMinExecutorFee(
-  c: any,
-  bridgeName: string,
-  erc20: boolean,
-  inDepositCfg: DepositDeployConfig,
-  inFee: string,
-) {
-  let fee = inFee;
-  if (bridgeName === BridgeLayerZero || bridgeName === BridgeAxelar) {
-    fee = '0';
-  }
-
-  if (!inDepositCfg.isPeerMinExecutorFeeChange(fee)) {
-    return;
-  }
-
-  const depositCfg = inDepositCfg;
-
-  console.log('set peer min executor fee ', fee);
-  const DepositContractFactoruy = getMystikoDeployContract(bridgeName, erc20);
-  const coreContract = await DepositContractFactoruy.attach(depositCfg.address);
-
-  try {
-    const rsp = await coreContract.setPeerMinExecutorFee(fee);
-    console.log('rsp hash ', rsp.hash);
-    await waitConfirm(ethers, rsp, true);
-    depositCfg.updatePeerMinExecutorFee(fee, rsp.hash);
-    saveConfig(c.mystikoNetwork, c.cfg);
-  } catch (err: any) {
-    console.error(LOGRED, err);
-    process.exit(1);
-  }
-}
-
-export async function setPeerMinRollupFee(
-  c: any,
-  bridgeName: string,
-  erc20: boolean,
-  inDepositCfg: DepositDeployConfig,
-  fee: string,
-) {
-  if (!inDepositCfg.isPeerMinRollupFeeChange(fee)) {
-    return;
-  }
-  const depositCfg = inDepositCfg;
-
-  console.log('set peer min rollup fee');
-  const DepositContractFactoruy = getMystikoDeployContract(bridgeName, erc20);
-  const coreContract = await DepositContractFactoruy.attach(depositCfg.address);
-
-  try {
-    const rsp = await coreContract.setPeerMinRollupFee(fee);
-    console.log('rsp hash ', rsp.hash);
-    await waitConfirm(ethers, rsp, true);
-    depositCfg.updatePeerMinRollupFee(fee, rsp.hash);
-    saveConfig(c.mystikoNetwork, c.cfg);
-  } catch (err: any) {
-    console.error(LOGRED, err);
-    process.exit(1);
-  }
-}
-
-export async function setMinAmount(
-  c: any,
-  bridgeName: string,
-  erc20: boolean,
-  inDepositCfg: DepositDeployConfig,
-  minAmount: string,
-) {
-  if (!inDepositCfg.isMinAmountChange(minAmount)) {
-    return;
-  }
-
-  const depositCfg = inDepositCfg;
-
-  console.log('set min amount ', minAmount);
-  const DepositContractFactoruy = getMystikoDeployContract(bridgeName, erc20);
-  const coreContract = await DepositContractFactoruy.attach(depositCfg.address);
-
-  try {
-    const rsp = await coreContract.setMinAmount(minAmount);
-    console.log('rsp hash ', rsp.hash);
-    await waitConfirm(ethers, rsp, true);
-    depositCfg.updateMinAmount(minAmount, rsp.hash);
-    saveConfig(c.mystikoNetwork, c.cfg);
-  } catch (err: any) {
-    console.error(LOGRED, err);
-    process.exit(1);
-  }
-}
-
-export async function setMaxAmount(
-  c: any,
-  bridgeName: string,
-  erc20: boolean,
-  inDepositCfg: DepositDeployConfig,
-  maxAmount: string,
-) {
-  if (!inDepositCfg.isMaxAmountChange(maxAmount)) {
-    return;
-  }
-
-  const depositCfg = inDepositCfg;
-
-  console.log('set max amount');
-  const DepositContractFactoruy = getMystikoDeployContract(bridgeName, erc20);
-  const coreContract = await DepositContractFactoruy.attach(depositCfg.address);
-
-  try {
-    const rsp = await coreContract.setMaxAmount(maxAmount);
-    console.log('rsp hash ', rsp.hash);
-    await waitConfirm(ethers, rsp, true);
-    depositCfg.updateMaxAmount(maxAmount, rsp.hash);
-    saveConfig(c.mystikoNetwork, c.cfg);
-  } catch (err: any) {
-    console.error(LOGRED, err);
-    process.exit(1);
-  }
-}
-
-export async function updateDepositAmountLimits(
-  c: any,
-  bridgeName: string,
-  erc20: boolean,
-  inDepositCfg: DepositDeployConfig,
-  maxAmount: string,
-  minAmount: string,
-) {
-  if (!inDepositCfg.isMaxAmountChange(maxAmount) && inDepositCfg.isMinAmountChange(maxAmount)) {
-    return;
-  }
-
-  const depositCfg = inDepositCfg;
-
-  console.log('update deposit amount limits');
-  const DepositContractFactoruy = getMystikoDeployContract(bridgeName, erc20);
-  const coreContract = await DepositContractFactoruy.attach(depositCfg.address);
-
-  try {
-    const rsp = await coreContract.updateDepositAmountLimits(maxAmount, minAmount);
-    console.log('rsp hash ', rsp.hash);
-    await waitConfirm(ethers, rsp, true);
-    depositCfg.updateMaxAmount(maxAmount, rsp.hash);
-    depositCfg.updateMinAmount(minAmount, rsp.hash);
-    saveConfig(c.mystikoNetwork, c.cfg);
-  } catch (err: any) {
-    console.error(LOGRED, err);
-    process.exit(1);
-  }
-}
-
-export async function changeDepositOperator(
-  c: any,
-  bridgeName: string,
-  erc20: boolean,
-  inDepositCfg: DepositDeployConfig,
-  operator: string,
-) {
-  if (!inDepositCfg.isOperatorChange(operator)) {
-    return;
-  }
-
-  const depositCfg = inDepositCfg;
-
-  console.log('change operator');
-  const DepositContractFactoruy = getMystikoDeployContract(bridgeName, erc20);
-  const coreContract = await DepositContractFactoruy.attach(depositCfg.address);
-
-  const RevertNotChanged = '0x36a1c33f';
-  try {
-    const rsp = await coreContract.changeOperator(operator);
-    console.log('rsp hash ', rsp.hash);
-    await waitConfirm(ethers, rsp, true);
-    depositCfg.updateOperator(operator, rsp.hash);
-    saveConfig(c.mystikoNetwork, c.cfg);
-  } catch (err: any) {
-    const msg: string = err.message;
-    if (msg.includes(RevertNotChanged) || msg.includes('revert')) {
-      console.log('operator not changed');
-      depositCfg.updateOperator(operator, '');
-      saveConfig(c.mystikoNetwork, c.cfg);
-      return;
-    }
-    console.log('msg ', msg);
-    console.error(LOGRED, err);
-    process.exit(1);
-  }
-}
-
 export async function setAssociatedCommitmentPool(
   c: any,
-  bridgeName: string,
-  erc20: boolean,
+  srcChainCfg: ChainConfig,
   inDepositCfg: DepositDeployConfig,
   poolAddress: string,
 ) {
   if (!inDepositCfg.isCommitmentPoolChange(poolAddress)) {
     return;
   }
+  console.log('set associated commitment pool');
+
+  if (srcChainCfg.settingsCenter === undefined) {
+    console.error(LOGRED, 'settings center not configure');
+    process.exit(1);
+  }
 
   const depositCfg = inDepositCfg;
-
-  console.log('set associated commitment pool');
-  const DepositContractFactoruy = getMystikoDeployContract(bridgeName, erc20);
-  const coreContract = await DepositContractFactoruy.attach(depositCfg.address);
-
+  const settingsFactory = getSettingsCenterContract();
+  const settingsContract = await settingsFactory.attach(srcChainCfg.settingsCenter);
   try {
-    const rsp = await coreContract.setAssociatedCommitmentPool(poolAddress);
+    const rsp = await settingsContract.setAssociatedPool(depositCfg.address, poolAddress);
     console.log('rsp hash ', rsp.hash);
     await waitConfirm(ethers, rsp, true);
     depositCfg.updateCommitmentPool(poolAddress, rsp.hash);
@@ -533,16 +273,9 @@ export async function setAssociatedCommitmentPool(
 
 export async function doDepositContractConfigure(
   c: any,
-  mystikoNetwork: string,
-  depositCfg: DepositDeployConfig,
-  bridgeCfg: BridgeConfig,
   srcChainCfg: ChainConfig,
-  srcChainTokenCfg: ChainTokenConfig,
-  dstChainTokenCfg: ChainTokenConfig,
-  pairSrcDepositContractCfg: DepositDeployConfig,
+  depositCfg: DepositDeployConfig,
   commitmentPoolAddress: string,
-  operatorCfg: OperatorConfig,
-  bridgeProxy?: BridgeProxyConfig,
 ) {
   if (depositCfg.disabled) {
     console.error(LOGRED, 'deposit contract is disabled');
@@ -550,70 +283,7 @@ export async function doDepositContractConfigure(
   }
 
   console.log('do deposit contract configure');
-  if (bridgeCfg.name !== BridgeLoop) {
-    if (bridgeProxy === undefined) {
-      console.log(' bridge proxy not configure');
-      process.exit(-1);
-    }
-
-    await setBridgeProxyAddress(c, bridgeCfg.name, srcChainTokenCfg.erc20, depositCfg, bridgeProxy);
-
-    const bridgeFee = bridgeCfg.getMinBridgeFee(srcChainCfg.network);
-    if (bridgeFee === undefined) {
-      console.log('minimal bridge fee not configure');
-      process.exit(-1);
-    }
-    await setMinBridgeFee(c, bridgeCfg.name, srcChainTokenCfg.erc20, depositCfg, bridgeFee);
-
-    await setMinExecutorFee(
-      c,
-      bridgeCfg.name,
-      srcChainTokenCfg.erc20,
-      depositCfg,
-      srcChainTokenCfg.minExecutorFee,
-    );
-    await setPeerMinExecutorFee(
-      c,
-      bridgeCfg.name,
-      srcChainTokenCfg.erc20,
-      depositCfg,
-      dstChainTokenCfg.minExecutorFee,
-    );
-    await setPeerMinRollupFee(
-      c,
-      bridgeCfg.name,
-      srcChainTokenCfg.erc20,
-      depositCfg,
-      dstChainTokenCfg.minRollupFee,
-    );
-  }
-
-  await updateDepositAmountLimits(
-    c,
-    bridgeCfg.name,
-    srcChainTokenCfg.erc20,
-    depositCfg,
-    srcChainTokenCfg.maxAmount,
-    srcChainTokenCfg.minAmount,
-  );
-  await setAssociatedCommitmentPool(
-    c,
-    bridgeCfg.name,
-    srcChainTokenCfg.erc20,
-    depositCfg,
-    commitmentPoolAddress,
-  );
-
-  if (
-    mystikoNetwork === MystikoTestnet ||
-    (mystikoNetwork === MystikoMainnet && c.srcChainCfg.network === 'Base')
-  ) {
-    await setDepositSanctionCheck(c, bridgeCfg.name, srcChainTokenCfg.erc20, depositCfg, false);
-  }
-
-  if (operatorCfg.admin !== '') {
-    await changeDepositOperator(c, bridgeCfg.name, srcChainTokenCfg.erc20, depositCfg, operatorCfg.admin);
-  }
+  await setAssociatedCommitmentPool(c, srcChainCfg, depositCfg, commitmentPoolAddress);
 }
 
 export async function setPeerContract(
@@ -623,9 +293,9 @@ export async function setPeerContract(
   inDepositConfig: DepositDeployConfig,
   peerChainId: number,
   peerChainMapName: string,
-  peerContractAddress: string,
+  peerContract: string,
 ) {
-  if (!inDepositConfig.isPeerContractChange(peerContractAddress)) {
+  if (!inDepositConfig.isPeerContractChange(peerContract)) {
     return;
   }
   const depositConfig = inDepositConfig;
@@ -634,10 +304,15 @@ export async function setPeerContract(
   const coreContract = await DepositContractFactoruy.attach(depositConfig.address);
 
   try {
-    const rsp = await coreContract.setPeerContract(peerChainId, peerChainMapName, peerContractAddress);
+    const peerContractConfig = {
+      peerChainId,
+      peerChainName: peerChainMapName,
+      peerContract,
+    };
+    const rsp = await coreContract.setPeerContract(peerContractConfig);
     console.log('rsp hash ', rsp.hash);
     await waitConfirm(ethers, rsp, true);
-    depositConfig.updatePeerContract(peerContractAddress, rsp.hash);
+    depositConfig.updatePeerContract(peerContract, rsp.hash);
     saveConfig(c.mystikoNetwork, c.cfg);
   } catch (err: any) {
     console.error(LOGRED, err);
@@ -645,7 +320,30 @@ export async function setPeerContract(
   }
 }
 
-export async function setTrustedRemote(
+export async function setLZEndpoint(
+  c: any,
+  bridgeName: string,
+  erc20: boolean,
+  inDepositConfig: DepositDeployConfig,
+  bridgeProxy: BridgeProxyConfig,
+) {
+  console.log('set LZ Endpoint');
+  const depositConfig = inDepositConfig;
+  const DepositContractFactoruy = getMystikoDeployContract(bridgeName, erc20);
+  const coreContract = await DepositContractFactoruy.attach(depositConfig.address);
+  try {
+    const rsp = await coreContract.setEndpoint(bridgeProxy.mapChainId, bridgeProxy.address);
+    console.log('rsp hash ', rsp.hash);
+    await waitConfirm(ethers, rsp, true);
+    depositConfig.updateLzEndpoint(bridgeProxy.address, rsp.hash);
+    saveConfig(c.mystikoNetwork, c.cfg);
+  } catch (err: any) {
+    console.error(LOGRED, err);
+    process.exit(1);
+  }
+}
+
+export async function setLZTrustedRemote(
   c: any,
   bridgeName: string,
   erc20: boolean,
@@ -659,7 +357,7 @@ export async function setTrustedRemote(
     [peerContractAddress, srcContractAddress],
   );
   console.log('lzPeerAddress ', lzPeerAddress);
-  if (!inDepositConfig.isTrustedRemoteChange(lzPeerAddress)) {
+  if (!inDepositConfig.isLZTrustedRemoteChange(lzPeerAddress)) {
     return;
   }
   const depositConfig = inDepositConfig;
@@ -671,34 +369,7 @@ export async function setTrustedRemote(
     const rsp = await coreContract.setTrustedRemote(peerLayerZeroChainId, lzPeerAddress);
     console.log('rsp hash ', rsp.hash);
     await waitConfirm(ethers, rsp, true);
-    depositConfig.updateTrustedRemote(lzPeerAddress, rsp.hash);
-    saveConfig(c.mystikoNetwork, c.cfg);
-  } catch (err: any) {
-    console.error(LOGRED, err);
-    process.exit(1);
-  }
-}
-
-export async function disableDeposit(
-  c: any,
-  bridgeName: string,
-  erc20: boolean,
-  inDepositCfg: DepositDeployConfig,
-) {
-  if (inDepositCfg.disabled) {
-    return;
-  }
-  const depositCfg = inDepositCfg;
-
-  console.log('disable deposit contract');
-  const DepositContractFactoruy = getMystikoDeployContract(bridgeName, erc20);
-  const coreContract = await DepositContractFactoruy.attach(depositCfg.address);
-
-  try {
-    const rsp = await coreContract.setDepositsDisabled(true);
-    console.log('rsp hash ', rsp.hash);
-    const block = await waitConfirm(ethers, rsp, true);
-    depositCfg.updateDisabledAt(block, rsp.hash);
+    depositConfig.updateLZTrustedRemote(lzPeerAddress, rsp.hash);
     saveConfig(c.mystikoNetwork, c.cfg);
   } catch (err: any) {
     console.error(LOGRED, err);

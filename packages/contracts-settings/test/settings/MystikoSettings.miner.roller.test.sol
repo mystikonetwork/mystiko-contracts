@@ -7,7 +7,7 @@ import "../../contracts/MystikoSettings.sol";
 import "../mock/MockMystikoToken.sol";
 import "@mystikonetwork/contracts-certificate/contracts/MystikoCertificate.sol";
 import "@mystikonetwork/contracts-roller/contracts/interfaces/IMystikoRollerPool.sol";
-import "@mystikonetwork/contracts-relayer/contracts/MystikoRelayerPoolErrors.sol";
+import "@mystikonetwork/contracts-relayer/contracts/MystikoRelayerErrors.sol";
 import "@mystikonetwork/contracts-relayer/contracts/MystikoRelayerPool.sol";
 import "@mystikonetwork/contracts-roller/contracts/MystikoRollerPoolErrors.sol";
 import "@mystikonetwork/contracts-roller/contracts/MystikoRollerPool.sol";
@@ -28,7 +28,7 @@ contract MystikoSettingsCenterTest is Test, Random {
   MystikoRelayerPool public relayerPool;
   MystikoSettings public settings;
 
-  event RollerPoolChanged(address indexed registry);
+  event RollerPoolChanged(address indexed rollerPool);
 
   function setUp() public {
     dao = address(uint160(uint256(keccak256(abi.encodePacked(_random())))));
@@ -45,8 +45,9 @@ contract MystikoSettingsCenterTest is Test, Random {
     MystikoVoteToken vXZK = new MystikoVoteToken(XZK);
     vm.prank(dao);
     MystikoGovernorRegistry daoRegistry = new MystikoGovernorRegistry();
-    certificateChecker = new MystikoCertificate(address(daoRegistry), address(0));
-    rollerPool = new MystikoRollerPool(address(daoRegistry), address(vXZK), 100_000e18);
+    certificateChecker = new MystikoCertificate(address(daoRegistry), address(0), true);
+    address[] memory zero = new address[](0);
+    rollerPool = new MystikoRollerPool(address(daoRegistry), address(vXZK), 100_000e18, zero);
     relayerPool = new MystikoRelayerPool(address(daoRegistry), address(vXZK), 100_000e18);
 
     settings = new MystikoSettings(
@@ -94,21 +95,22 @@ contract MystikoSettingsCenterTest is Test, Random {
     assertTrue(canDo);
   }
 
-  function test_change_roller_registry() public {
+  function test_change_roller_pool() public {
     vm.expectRevert(GovernanceErrors.OnlyMystikoDAO.selector);
-    settings.setRollerPool(IMystikoRollerPool(rollerPool));
+    settings.setRollerPool(address(rollerPool));
 
     vm.expectRevert(MystikoSettingsErrors.NotChanged.selector);
     vm.prank(dao);
-    settings.setRollerPool(IMystikoRollerPool(rollerPool));
+    settings.setRollerPool(address(rollerPool));
 
-    IMystikoRollerPool newRegistry = IMystikoRollerPool(
+    IMystikoRollerPool newPool = IMystikoRollerPool(
       address(uint160(uint256(keccak256(abi.encodePacked(_random())))))
     );
     vm.expectEmit(address(settings));
-    emit RollerPoolChanged(address(newRegistry));
+    emit RollerPoolChanged(address(newPool));
     vm.prank(dao);
-    settings.setRollerPool(newRegistry);
-    assertEq(address(settings.rollerPool()), address(newRegistry));
+    settings.setRollerPool(address(newPool));
+
+    assertEq(address(settings.rollerPool()), address(newPool));
   }
 }

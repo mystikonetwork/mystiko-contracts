@@ -7,7 +7,6 @@ import {Sanctions} from "./screen/impl/Sanctions.sol";
 import {MystikoSettingsErrors} from "./MystikoSettingsErrors.sol";
 import {MystikoDepositConfig} from "./config/impl/MystikoDepositConfig.sol";
 import {MystikoPoolConfig} from "./config/impl/MystikoPoolConfig.sol";
-import {MystikoBridgeConfig} from "./config/impl/MystikoBridgeConfig.sol";
 import {IMystikoRollerPool, RollerValidateParams} from "@mystikonetwork/contracts-roller/contracts/interfaces/IMystikoRollerPool.sol";
 import {IMystikoRelayerPool, RelayerValidateParams} from "@mystikonetwork/contracts-relayer/contracts/interfaces/IMystikoRelayerPool.sol";
 import {IMystikoCertificate, CertificateParams} from "@mystikonetwork/contracts-certificate/contracts/interfaces/IMystikoCertificate.sol";
@@ -28,15 +27,15 @@ abstract contract MystikoSettingsBase is
   IMystikoRollerPool public rollerPool;
   IMystikoRelayerPool public relayerPool;
 
-  event CertificateVerifierChanged(address indexed registry);
-  event RollerPoolChanged(address indexed registry);
-  event RelayerPoolChanged(address indexed registry);
+  event CertificateVerifierChanged(address indexed verifier);
+  event RollerPoolChanged(address indexed rollerPool);
+  event RelayerPoolChanged(address indexed relayerPool);
 
   constructor(
     address _daoRegistry,
-    IMystikoCertificate _certificateRegistry,
-    IMystikoRollerPool _rollerRegistry,
-    IMystikoRelayerPool _relayerRegistry,
+    IMystikoCertificate _certificateVerifier,
+    IMystikoRollerPool _rollerPool,
+    IMystikoRelayerPool _relayerPool,
     address[11] memory _rollupVerifiers,
     address[6] memory _transactVerifiers,
     uint256[AUDITOR_COUNT] memory _auditors
@@ -45,9 +44,9 @@ abstract contract MystikoSettingsBase is
     MystikoVerifierPool(_rollupVerifiers, _transactVerifiers)
     MystikoAuditorPool(_auditors)
   {
-    certificate = _certificateRegistry;
-    rollerPool = _rollerRegistry;
-    relayerPool = _relayerRegistry;
+    certificate = _certificateVerifier;
+    rollerPool = _rollerPool;
+    relayerPool = _relayerPool;
   }
 
   function getCertificateIssuer() external view returns (address) {
@@ -70,21 +69,24 @@ abstract contract MystikoSettingsBase is
     return relayerPool.validateRelayer(_params);
   }
 
-  function setCertificateVerifier(IMystikoCertificate _newCertificateRegistry) external onlyMystikoDAO {
-    if (certificate == _newCertificateRegistry) revert MystikoSettingsErrors.NotChanged();
-    certificate = _newCertificateRegistry;
-    emit CertificateVerifierChanged(address(certificate));
+  function setCertificateVerifier(address _newCertificateVerifier) external onlyMystikoDAO {
+    IMystikoCertificate newCertificate = IMystikoCertificate(_newCertificateVerifier);
+    if (certificate == newCertificate) revert MystikoSettingsErrors.NotChanged();
+    certificate = newCertificate;
+    emit CertificateVerifierChanged(_newCertificateVerifier);
   }
 
-  function setRollerPool(IMystikoRollerPool _newRollerRegistry) external onlyMystikoDAO {
-    if (rollerPool == _newRollerRegistry) revert MystikoSettingsErrors.NotChanged();
-    rollerPool = _newRollerRegistry;
-    emit RollerPoolChanged(address(rollerPool));
+  function setRollerPool(address _newRollerPool) external onlyMystikoDAO {
+    IMystikoRollerPool newRollerPool = IMystikoRollerPool(_newRollerPool);
+    if (rollerPool == newRollerPool) revert MystikoSettingsErrors.NotChanged();
+    rollerPool = newRollerPool;
+    emit RollerPoolChanged(_newRollerPool);
   }
 
-  function setRelayerPool(IMystikoRelayerPool _newRelayerRegistry) external onlyMystikoDAO {
-    if (relayerPool == _newRelayerRegistry) revert MystikoSettingsErrors.NotChanged();
-    relayerPool = _newRelayerRegistry;
-    emit RelayerPoolChanged(address(relayerPool));
+  function setRelayerPool(address _newRelayerPool) external onlyMystikoDAO {
+    IMystikoRelayerPool newRelayerPool = IMystikoRelayerPool(_newRelayerPool);
+    if (relayerPool == newRelayerPool) revert MystikoSettingsErrors.NotChanged();
+    relayerPool = newRelayerPool;
+    emit RelayerPoolChanged(_newRelayerPool);
   }
 }

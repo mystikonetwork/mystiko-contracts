@@ -5,6 +5,11 @@
 #  2. ./scripts/set.sh 0 testnet changeOperator
 #  3. ./scripts/set.sh 0 testnet disablePoolContract
 
+### disable deposit contract
+###    yarn set --network Polygon --bridge loop --dst Polygon --token BUSD --func disableDepositContract
+###    yarn set --network Polygon --bridge loop --dst Polygon --token BUSD --func disablePoolContract
+###    yarn deploy:chain --step step3 --network Ethereum --bridge loop --dst Ethereum --token ETH
+
 set -a # automatically export all variables
 source .env
 set +a

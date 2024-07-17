@@ -51,8 +51,8 @@ jobs:
         working-directory: packages/deploy
         run: cp .env.example .env
 
-      #- name: Run Deploy
-        #run: lerna run deploy
+#      - name: Run Deploy
+#        run: lerna run deploy
 
       - name: Delete Temp Files
         working-directory: packages/deploy
@@ -67,6 +67,9 @@ jobs:
 
       - name: Test
         run: lerna run test
+
+      - name: Coverage
+        run: lerna run test:coverage
 
       - name: Check Dirty Files
         run: git diff --quiet || (echo "some generated files are not included in repo" && exit 1)

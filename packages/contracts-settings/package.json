@@ -1,6 +1,6 @@
 {
   "name": "@mystikonetwork/contracts-settings",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "settings smart contracts of Mystiko.Network",
   "publishConfig": {
     "registry": "https://npm.pkg.github.com/"
@@ -40,11 +40,11 @@
     "@babel/register": "^7.16.8",
     "@ethersproject/units": "^5.5.3",
     "@ethersproject/wallet": "^5.5.3",
-    "@mystikonetwork/contracts-abi": "^0.3.0",
-    "@mystikonetwork/contracts-certificate": "^0.3.0",
-    "@mystikonetwork/contracts-relayer": "^0.3.0",
-    "@mystikonetwork/contracts-roller": "^0.3.0",
-    "@mystikonetwork/contracts-governance": "^0.3.0",
+    "@mystikonetwork/contracts-abi": "^0.3.1",
+    "@mystikonetwork/contracts-certificate": "^0.3.1",
+    "@mystikonetwork/contracts-relayer": "^0.3.1",
+    "@mystikonetwork/contracts-roller": "^0.3.1",
+    "@mystikonetwork/contracts-governance": "^0.3.1",
     "@nomiclabs/hardhat-ethers": "^2.2.3",
     "@nomiclabs/hardhat-waffle": "^2.0.6",
     "@openzeppelin/contracts": "5.0.0",

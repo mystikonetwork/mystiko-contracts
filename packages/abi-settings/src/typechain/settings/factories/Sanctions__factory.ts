@@ -326,7 +326,7 @@ const _abi = [
   {
     inputs: [
       {
-        internalType: 'contract ISanctions',
+        internalType: 'address',
         name: '_sanction',
         type: 'address',
       },

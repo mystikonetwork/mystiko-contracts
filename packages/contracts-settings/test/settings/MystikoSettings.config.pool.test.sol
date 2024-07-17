@@ -5,7 +5,7 @@ import {Test} from "forge-std/Test.sol";
 import "../../contracts/MystikoSettingsErrors.sol";
 import "../../contracts/MystikoSettings.sol";
 import "@mystikonetwork/contracts-certificate/contracts/MystikoCertificate.sol";
-import "@mystikonetwork/contracts-relayer/contracts/MystikoRelayerPoolErrors.sol";
+import "@mystikonetwork/contracts-relayer/contracts/MystikoRelayerErrors.sol";
 import "@mystikonetwork/contracts-roller/contracts/MystikoRollerPoolErrors.sol";
 import "@mystikonetwork/contracts-relayer/contracts/MystikoRelayerPool.sol";
 import "@mystikonetwork/contracts-roller/contracts/MystikoRollerPool.sol";
@@ -44,8 +44,9 @@ contract MystikoSettingsCenterTest is Test, Random {
     MystikoVoteToken vXZK = new MystikoVoteToken(XZK);
     vm.prank(dao);
     MystikoGovernorRegistry daoRegistry = new MystikoGovernorRegistry();
-    certificateChecker = new MystikoCertificate(address(daoRegistry), address(0));
-    rollerPool = new MystikoRollerPool(address(daoRegistry), address(vXZK), 100_000e18);
+    certificateChecker = new MystikoCertificate(address(daoRegistry), address(0), true);
+    address[] memory zero = new address[](0);
+    rollerPool = new MystikoRollerPool(address(daoRegistry), address(vXZK), 100_000e18, zero);
     relayerPool = new MystikoRelayerPool(address(daoRegistry), address(vXZK), 100_000e18);
 
     settings = new MystikoSettings(

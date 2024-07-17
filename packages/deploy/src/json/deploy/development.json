@@ -7,6 +7,10 @@
       "name": "hardhat",
       "network": "hardhat",
       "chainId": 9999999,
+      "governor": "0xea35172e46183169114bd72ba55c64277066f510",
+      "timelock": "0xdfd0362b72c98a45c664f05b086d9ccade2482c7",
+      "daoRegistry": "0x7e75a884116fcb53329327e272b02a8166a7a8d0",
+      "vXZKAddress": "0x34cad209aa2a3e81d988d39786d3e6c14f4d5ba4",
       "tokens": [
         {
           "assetSymbol": "ETH",
@@ -55,7 +59,27 @@
             "4000"
           ]
         }
-      ]
+      ],
+      "settingsConfig": {},
+      "rollup1Address": "0x5FbDB2315678afecb367f032d93F642f64180aa3",
+      "rollup2Address": "0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512",
+      "rollup4Address": "0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0",
+      "rollup8Address": "0xCf7Ed3AccA5a467e9e704C703E8D87F634fB0Fc9",
+      "rollup16Address": "0xDc64a140Aa3E981100a9becA4E685f962f0cF6C9",
+      "rollup32Address": "0x5FC8d32690cc91D4c39d9d3abcBD16989F875707",
+      "rollup64Address": "0x0165878A594ca255338adfa4d48449f69242Eb8F",
+      "transaction1x0VerifierAddress": "0xa513E6E4b8f2a923D98304ec87F64353C4D5C853",
+      "transaction1x1VerifierAddress": "0x2279B7A0a67DB372996a5FaB50D91eAA73d2eBe6",
+      "transaction1x2VerifierAddress": "0x8A791620dd6260079BF849Dc5567aDC3F2FdC318",
+      "transaction2x0VerifierAddress": "0x610178dA211FEF7D417bC0e6FeD39F05609AD788",
+      "transaction2x1VerifierAddress": "0xB7f8BC63BbcaD18155201308C8f3540b07f84F5e",
+      "transaction2x2VerifierAddress": "0xA51c1fc2f0D1a1b8494Ed1FE312d7C3a78Ed91C0",
+      "certificateVerifier": "0x0DCd1Bf9A1b36cE34237eEaFef220932846BCD82",
+      "relayerPool": "0x9A676e781A523b5d0C0e43731313A708CB607508",
+      "relayerRegister": "0x0B306BF915C4d645ff596e518fAf3F9669b97016",
+      "rollerPool": "0x959922bE3CAee4b8Cd9a407cc3ac1C251C2007B1",
+      "settingsCenter": "0x9A9f2CCfdE556A7E9Ff0848998Aa4a0CFD8863AE",
+      "hasher3Address": "0x5FbDB2315678afecb367f032d93F642f64180aa3"
     }
   ],
   "bridges": [
@@ -64,13 +88,26 @@
       "contractName": "Loop",
       "proxys": [],
       "fees": [],
-      "commitmentPools": [],
+      "commitmentPools": [
+        {
+          "network": "hardhat",
+          "assetSymbol": "ETH",
+          "address": "0x5FbDB2315678afecb367f032d93F642f64180aa3",
+          "syncStart": 1,
+          "nonce": 0
+        }
+      ],
       "pairs": [
         {
           "pair": [
             {
               "network": "hardhat",
-              "assetSymbol": "ETH"
+              "assetSymbol": "ETH",
+              "address": "0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512",
+              "syncStart": 2,
+              "nonce": 1,
+              "commitmentPool": "0x5FbDB2315678afecb367f032d93F642f64180aa3",
+              "commitmentPoolTx": "0x0d00ecea4692ccf9d9b14cf1a13e967f41e32e1965fd49b6eb5b49db66f20010"
             }
           ]
         }
@@ -125,6 +162,16 @@
     "rollers": [
       "0x99C286823a73C32553aDEC4434ABD8ED4cd62A27"
     ],
-    "auditors": []
+    "relayers": [
+      "0x99C286823a73C32553aDEC4434ABD8ED4cd62A27"
+    ],
+    "auditors": [
+      "60826029804120993758594597084611195839309412088390412660240912228130196316937",
+      "79574611759777176274121877048537034056498161255611629169156736869686014828214",
+      "76718054985841250963762718943251596041354460913470167364712596502580457507035",
+      "59008791909534960501668617222081257166042547932295904637246803379256854707274",
+      "59407850051236456308159312234055817108465803170572499707777425334332899251557"
+    ],
+    "issuer": "0xA7Ed9F09079551712e7A80883D81CB769bcB04f2"
   }
 }

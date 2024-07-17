@@ -1,0 +1,4 @@
+--network sepolia  --bridge loop --dst sepolia --token ETH
+--network sepolia  --bridge loop --dst sepolia --token MTT
+--network sepolia  --bridge loop --dst sepolia --token mUSD
+--network sepolia  --bridge loop --dst sepolia --token XZK
