@@ -1,5 +1,6 @@
 [profile.default]
 src = 'contracts'
+libs = ["lib"]
 out = 'foundry/out'
 test = 'test'
 cache = true

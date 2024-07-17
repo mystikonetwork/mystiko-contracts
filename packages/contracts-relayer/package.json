@@ -16,6 +16,8 @@
   "author": "Mystiko Network",
   "license": "MIT",
   "scripts": {
+    "pre-link": "ln -s ../../lib .",
+    "delete-link": "rm -rf lib",
     "prettier:check": "prettier --check \"./**/*.{ts,sol}\" --config .prettierrc",
     "prettier:fix": "prettier --write \"./**/*.{ts,sol}\" --config .prettierrc",
     "prettier": "yarn prettier:fix",
@@ -23,12 +25,13 @@
     "report-gas:summary": "REPORT_GAS=true hardhat test",
     "size-contracts": "hardhat size-contracts | sed -r 's/[[:cntrl:]]\\\\\\\\\\\\\\\\[[0-9]{1,3}m//g' > reports/size/contract_sizes.txt",
     "clean": "hardhat clean && rm -rf artifacts && rm -rf artifactsExternal",
-    "build": "yarn build:contract && yarn build:abi",
+    "build": "yarn pre-link && yarn build:contract && yarn build:abi",
     "build:abi": "cd ../.. && lerna run generate --scope @mystikonetwork/contracts-abi-relayer",
     "build:contract": "hardhat compile",
     "test": "yarn test:forge",
-    "test:coverage": "forge coverage --lib-paths=../../node_modules --lib-paths=../../foundry --report lcov",
-    "test:forge": "forge test -vvv --lib-paths=../../node_modules --lib-paths=../../foundry"
+    "test:coverage": "forge coverage --report lcov",
+    "test:forge": "forge test -vvv",
+    "lint:aderyn": "yarn delete-link && cp -rf ../../lib .&& rm -rf lib/mystiko-governance/packages/contracts/lib/openzeppelin-contracts && aderyn"
   },
   "devDependencies": {
     "@babel/cli": "^7.16.8",
@@ -43,7 +46,6 @@
     "@mystikonetwork/contracts-governance": "^0.3.1",
     "@nomiclabs/hardhat-ethers": "^2.2.3",
     "@nomiclabs/hardhat-waffle": "^2.0.6",
-    "@openzeppelin/contracts": "5.0.0",
     "@tsconfig/recommended": "^1.0.1",
     "@types/bn.js": "^5.1.1",
     "@types/chai": "^4.3.0",

@@ -3,7 +3,7 @@ pragma solidity ^0.8.26;
 
 import {WrappedVerifier, IMystikoVerifierPool} from "../interfaces/IMystikoVerifierPool.sol";
 import {MystikoSettingsErrors} from "../../MystikoSettingsErrors.sol";
-import {MystikoDAOAccessControl} from "@mystikonetwork/contracts-governance/contracts/MystikoDAOAccessControl.sol";
+import {MystikoDAOAccessControl} from "lib/mystiko-governance/packages/contracts/contracts/MystikoDAOAccessControl.sol";
 
 abstract contract MystikoVerifierPool is IMystikoVerifierPool, MystikoDAOAccessControl {
   mapping(uint32 => mapping(uint32 => WrappedVerifier)) private transactVerifiers;

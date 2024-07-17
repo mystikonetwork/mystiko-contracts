@@ -2,8 +2,8 @@
 pragma solidity ^0.8.26;
 
 import {IMystikoCertificate, CertificateParams} from "./interfaces/IMystikoCertificate.sol";
-import {ECDSA} from "@openzeppelin/contracts/utils/cryptography/ECDSA.sol";
-import {MystikoDAOAccessControl} from "@mystikonetwork/contracts-governance/contracts/MystikoDAOAccessControl.sol";
+import {ECDSA} from "lib/openzeppelin-contracts/contracts/utils/cryptography/ECDSA.sol";
+import {MystikoDAOAccessControl} from "lib/mystiko-governance/packages/contracts/contracts/MystikoDAOAccessControl.sol";
 
 contract MystikoCertificate is IMystikoCertificate, MystikoDAOAccessControl {
   address public issuer;

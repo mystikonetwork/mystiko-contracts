@@ -6,9 +6,9 @@ import "./mock/MockMystikoToken.sol";
 import "../contracts/MystikoRelayerErrors.sol";
 import "../contracts/MystikoRelayerRegister.sol";
 import "./utils/Random.sol";
-import "@mystikonetwork/contracts-governance/contracts/GovernanceErrors.sol";
-import "@mystikonetwork/contracts-governance/contracts/token/MystikoVoteToken.sol";
-import "@mystikonetwork/contracts-governance/contracts/impl/MystikoGovernorRegistry.sol";
+import "lib/mystiko-governance/packages/contracts/contracts/GovernanceErrors.sol";
+import "lib/mystiko-governance/packages/contracts/contracts/token/MystikoVoteToken.sol";
+import "lib/mystiko-governance/packages/contracts/contracts/impl/MystikoGovernorRegistry.sol";
 
 contract MystikoRelayerRegisterTest is Test, Random {
   address public dao;

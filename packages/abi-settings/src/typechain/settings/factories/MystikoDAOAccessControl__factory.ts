@@ -30,6 +30,11 @@ const _abi = [
   },
   {
     inputs: [],
+    name: 'InvalidMystikoRegistryAddress',
+    type: 'error',
+  },
+  {
+    inputs: [],
     name: 'OnlyMystikoDAO',
     type: 'error',
   },

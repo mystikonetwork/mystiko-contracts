@@ -16,7 +16,8 @@
   "author": "Mystiko Network",
   "license": "MIT",
   "scripts": {
-    "pre-link": "ln -s ../../lib lib || true",
+    "pre-link": "ln -s ../../lib .",
+    "delete-link": "rm -rf lib",
     "prettier:check": "prettier --check \"./**/*.{ts,sol}\" --config .prettierrc",
     "prettier:fix": "prettier --write \"./**/*.{ts,sol}\" --config .prettierrc",
     "prettier": "yarn prettier:fix",
@@ -30,7 +31,7 @@
     "test": "yarn test:forge",
     "test:coverage": "forge coverage --report lcov",
     "test:forge": "forge test -vvv",
-    "lint:aderyn": "rm -rf lib && cp -rf ../../lib lib || true && rm -rf lib/mystiko-governance/packages/contracts/lib/openzeppelin-contracts && aderyn"
+    "lint:aderyn": "yarn delete-link && cp -rf ../../lib .&& rm -rf lib/mystiko-governance/packages/contracts/lib/openzeppelin-contracts && aderyn"
   },
   "devDependencies": {
     "@babel/cli": "^7.16.8",
