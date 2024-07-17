@@ -3,7 +3,7 @@ pragma solidity ^0.8.26;
 
 import {IMystikoRollerPool, RollerValidateParams} from "./interfaces/IMystikoRollerPool.sol";
 import {MystikoRollerPoolErrors} from "./MystikoRollerPoolErrors.sol";
-import {IERC20} from "@openzeppelin/contracts/token/ERC20/ERC20.sol";
+import {IERC20} from "lib/openzeppelin-contracts/contracts/token/ERC20/ERC20.sol";
 import {MystikoDAOAccessControl} from "@mystikonetwork/contracts-governance/contracts/MystikoDAOAccessControl.sol";
 
 contract MystikoRollerPool is IMystikoRollerPool, MystikoDAOAccessControl {

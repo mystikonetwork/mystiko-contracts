@@ -1,3 +1,0 @@
-@openzeppelin/=../../node_modules/@openzeppelin/
-@mystikonetwork/=../../node_modules/@mystikonetwork/
-forge-std/=../../foundry/lib/forge-std/src/

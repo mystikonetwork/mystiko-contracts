@@ -1,6 +1,7 @@
 [profile.default]
 src = 'contracts'
 out = 'foundry/out'
+libs = ["../lib"]
 test = 'test'
 cache = true
 cache_path  = 'foundry/cache'
