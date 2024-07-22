@@ -4,3 +4,8 @@ artifacts
 artifactsExternal
 cache
 coverage.json
+contracts-certificate
+contracts-relayer
+contracts-roller
+contracts-settings
+lib

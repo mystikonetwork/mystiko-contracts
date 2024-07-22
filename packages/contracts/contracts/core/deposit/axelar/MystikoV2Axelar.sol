@@ -8,7 +8,7 @@ import "../base/CrossChainDataSerializable.sol";
 import "../base/MystikoV2Bridge.sol";
 import "../../../libs/utils/Utils.sol";
 import "../../../interfaces/IHasher3.sol";
-import {Strings} from "@openzeppelin/contracts/utils/Strings.sol";
+import {Strings} from "lib/openzeppelin-contracts/contracts/utils/Strings.sol";
 
 abstract contract MystikoV2Axelar is MystikoV2Bridge, IAxelarExecutable {
   event CallContractMessage(string peerChainName, string destinationAddress);

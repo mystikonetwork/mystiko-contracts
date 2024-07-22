@@ -12,6 +12,8 @@
   "license": "MIT",
   "private": true,
   "scripts": {
+    "pre-link": "ln -sf ../../lib . && ln -sf ../contracts-settings . && ln -sf ../contracts-certificate . && ln -sf ../contracts-roller . && ln -sf ../contracts-relayer .",
+    "delete-link": "rm -rf lib && rm -rf contracts-settings && rm -rf contracts-certificate && rm -rf contracts-roller && rm -rf contracts-relayer",
     "prettier:check": "prettier --check \"./**/*.{ts,sol}\" --config .prettierrc",
     "prettier:fix": "prettier --write \"./**/*.{ts,sol}\" --config .prettierrc",
     "prettier": "yarn prettier:fix",
@@ -20,12 +22,13 @@
     "size-contracts": "hardhat size-contracts | sed -r 's/[[:cntrl:]]\\\\\\\\\\\\\\\\[[0-9]{1,3}m//g' > reports/size/contract_sizes.txt",
     "clean": "hardhat clean && rm -rf artifacts && rm -rf artifactsExternal",
     "build:hasher": "hardhat compile-hasher",
-    "build:contract": "hardhat compile",
+    "build:contract": "yarn pre-link && hardhat compile",
     "build:abi": "cd ../.. && lerna run generate:core --scope @mystikonetwork/contracts-abi",
     "build": "yarn build:contract && yarn build:hasher && yarn build:abi",
     "test": "hardhat coverage --testfiles \"./test/core/**/*.test.ts\" --solcoverjs ./.solcover.ts",
     "test:all": "hardhat test",
-    "integration": "env TS_NODE_COMPILER_OPTIONS='{\"module\": \"commonjs\" }' mocha --timeout 600000 --delay --exit"
+    "integration": "env TS_NODE_COMPILER_OPTIONS='{\"module\": \"commonjs\" }' mocha --timeout 600000 --delay --exit",
+    "lint:aderyn": "yarn delete-link && cp -rf ../../lib . && rm -rf lib/mystiko-governance/packages/contracts/lib/openzeppelin-contracts && cp -rf ../contracts-settings . && cp -rf ../contracts-certificate . && cp -rf ../contracts-roller . && cp -rf ../contracts-relayer . && aderyn"
   },
   "devDependencies": {
     "@babel/cli": "^7.16.8",

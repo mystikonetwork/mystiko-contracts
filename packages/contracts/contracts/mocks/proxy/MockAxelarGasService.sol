@@ -4,7 +4,7 @@ pragma solidity ^0.8.26;
 
 import "../../core/deposit/axelar/relay/IAxelarGasService.sol";
 //import { IERC20 } from './IERC20.sol';
-import {IERC20} from "@openzeppelin/contracts/token/ERC20/IERC20.sol";
+import {IERC20} from "lib/openzeppelin-contracts/contracts/token/ERC20/IERC20.sol";
 
 // This should be owned by the microservice that is paying for gas.
 contract MockAxelarGasService is IAxelarGasService {
