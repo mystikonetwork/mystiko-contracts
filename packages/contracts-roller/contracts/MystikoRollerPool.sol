@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.26;
+pragma solidity 0.8.26;
 
 import {IMystikoRollerPool, RollerValidateParams} from "./interfaces/IMystikoRollerPool.sol";
 import {MystikoRollerPoolErrors} from "./MystikoRollerPoolErrors.sol";
