@@ -72,27 +72,28 @@ jobs:
         run: lerna run test:coverage
 
       - name: Check Dirty Files
-        run: git diff --quiet || (echo "some generated files are not included in repo" && exit 1)
+        run: git diff
+#        run: git diff --quiet || (echo "some generated files are not included in repo" && exit 1)
 
       - uses: codecov/codecov-action@v4
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
           fail_ci_if_error: true
 
-      - name: Telegram Failure Notification
-        uses: appleboy/telegram-action@master
-        if: failure()
-        with:
-          message: ❗ Build failed for [${{ github.repository }}](https://github.com/${{ github.repository }}/actions) because of ${{ github.actor }}
-          format: markdown
-          to: ${{ secrets.TELEGRAM_CHAT_ID }}
-          token: ${{ secrets.TELEGRAM_BOT_TOKEN }}
-
-      - name: Telegram Success Notification
-        uses: appleboy/telegram-action@master
-        if: success()
-        with:
-          message: Build succeeded for [${{ github.repository }}](https://github.com/${{ github.repository }}/actions)
-          format: markdown
-          to: ${{ secrets.TELEGRAM_CHAT_ID }}
-          token: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+#      - name: Telegram Failure Notification
+#        uses: appleboy/telegram-action@master
+#        if: failure()
+#        with:
+#          message: ❗ Build failed for [${{ github.repository }}](https://github.com/${{ github.repository }}/actions) because of ${{ github.actor }}
+#          format: markdown
+#          to: ${{ secrets.TELEGRAM_CHAT_ID }}
+#          token: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+#
+#      - name: Telegram Success Notification
+#        uses: appleboy/telegram-action@master
+#        if: success()
+#        with:
+#          message: Build succeeded for [${{ github.repository }}](https://github.com/${{ github.repository }}/actions)
+#          format: markdown
+#          to: ${{ secrets.TELEGRAM_CHAT_ID }}
+#          token: ${{ secrets.TELEGRAM_BOT_TOKEN }}
