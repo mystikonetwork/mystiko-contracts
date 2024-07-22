@@ -71,7 +71,7 @@ contract MystikoSettingsCenterTest is Test, Random {
     address relayer = address(uint160(uint256(keccak256(abi.encodePacked(_random())))));
     address pool = address(uint160(uint256(keccak256(abi.encodePacked(_random())))));
     RelayerValidateParams memory p1 = RelayerValidateParams({pool: pool, relayer: relayer});
-    vm.expectRevert(MystikoSettingsErrors.InsufficientBalanceForAction.selector);
+    vm.expectRevert(MystikoRelayerErrors.InsufficientBalanceForAction.selector);
     vm.prank(pool);
     settings.validateRelayer(p1);
 

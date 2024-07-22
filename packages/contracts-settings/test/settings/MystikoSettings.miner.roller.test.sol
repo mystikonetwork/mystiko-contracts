@@ -84,7 +84,7 @@ contract MystikoSettingsCenterTest is Test, Random {
     vm.prank(dao);
     rollerPool.grantRole(ROLLER_ROLE, roller);
 
-    vm.expectRevert(MystikoSettingsErrors.InsufficientBalanceForAction.selector);
+    vm.expectRevert(MystikoRollerPoolErrors.InsufficientBalanceForAction.selector);
     vm.prank(pool);
     settings.validateRoller(p1);
 
