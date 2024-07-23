@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.26;
+pragma solidity 0.8.26;
 
 import "../../../libs/asset/AssetPool.sol";
 import "../../../libs/common/CustomErrors.sol";
@@ -7,11 +7,11 @@ import "../../../libs/common/DataTypes.sol";
 import "../../../interfaces/IMystikoLoop.sol";
 import "../../../interfaces/IHasher3.sol";
 import "../../../interfaces/ICommitmentPool.sol";
-import {ReentrancyGuard} from "@openzeppelin/contracts/utils/ReentrancyGuard.sol";
-import {ECDSA} from "@openzeppelin/contracts/utils/cryptography/ECDSA.sol";
-import {SafeCast} from "@openzeppelin/contracts/utils/math/SafeCast.sol";
-import {MystikoSettings} from "@mystikonetwork/contracts-settings/contracts/MystikoSettings.sol";
-import {CertificateParams} from "@mystikonetwork/contracts-certificate/contracts/interfaces/IMystikoCertificate.sol";
+import {ReentrancyGuard} from "lib/openzeppelin-contracts/contracts/utils/ReentrancyGuard.sol";
+import {ECDSA} from "lib/openzeppelin-contracts/contracts/utils/cryptography/ECDSA.sol";
+import {SafeCast} from "lib/openzeppelin-contracts/contracts/utils/math/SafeCast.sol";
+import {MystikoSettings} from "contracts-settings/contracts/MystikoSettings.sol";
+import {CertificateParams} from "contracts-certificate/contracts/interfaces/IMystikoCertificate.sol";
 
 abstract contract MystikoV2Loop is IMystikoLoop, AssetPool {
   using SafeCast for uint256;

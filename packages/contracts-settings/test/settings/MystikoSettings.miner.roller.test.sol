@@ -1,19 +1,19 @@
 // SPDX-License-Identifier: UNLICENSED
-pragma solidity ^0.8.26;
+pragma solidity 0.8.26;
 
 import {Test} from "forge-std/Test.sol";
 import "../../contracts/MystikoSettingsErrors.sol";
 import "../../contracts/MystikoSettings.sol";
 import "../mock/MockMystikoToken.sol";
-import "@mystikonetwork/contracts-certificate/contracts/MystikoCertificate.sol";
-import "@mystikonetwork/contracts-roller/contracts/interfaces/IMystikoRollerPool.sol";
-import "@mystikonetwork/contracts-relayer/contracts/MystikoRelayerErrors.sol";
-import "@mystikonetwork/contracts-relayer/contracts/MystikoRelayerPool.sol";
-import "@mystikonetwork/contracts-roller/contracts/MystikoRollerPoolErrors.sol";
-import "@mystikonetwork/contracts-roller/contracts/MystikoRollerPool.sol";
-import "@mystikonetwork/contracts-governance/contracts/token/MystikoVoteToken.sol";
-import "@mystikonetwork/contracts-governance/contracts/impl/MystikoGovernorRegistry.sol";
-import "@mystikonetwork/contracts-governance/contracts/GovernanceErrors.sol";
+import "contracts-certificate/contracts/MystikoCertificate.sol";
+import "contracts-roller/contracts/interfaces/IMystikoRollerPool.sol";
+import "contracts-relayer/contracts/MystikoRelayerErrors.sol";
+import "contracts-relayer/contracts/MystikoRelayerPool.sol";
+import "contracts-roller/contracts/MystikoRollerPoolErrors.sol";
+import "contracts-roller/contracts/MystikoRollerPool.sol";
+import "lib/mystiko-governance/packages/contracts/contracts/token/MystikoVoteToken.sol";
+import "lib/mystiko-governance/packages/contracts/contracts/impl/MystikoGovernorRegistry.sol";
+import "lib/mystiko-governance/packages/contracts/contracts/GovernanceErrors.sol";
 import "../utils/Random.sol";
 
 contract MystikoSettingsCenterTest is Test, Random {
@@ -84,7 +84,7 @@ contract MystikoSettingsCenterTest is Test, Random {
     vm.prank(dao);
     rollerPool.grantRole(ROLLER_ROLE, roller);
 
-    vm.expectRevert(MystikoSettingsErrors.InsufficientBalanceForAction.selector);
+    vm.expectRevert(MystikoRollerPoolErrors.InsufficientBalanceForAction.selector);
     vm.prank(pool);
     settings.validateRoller(p1);
 

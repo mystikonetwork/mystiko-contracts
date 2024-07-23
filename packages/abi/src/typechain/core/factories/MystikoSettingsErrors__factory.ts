@@ -13,22 +13,12 @@ const _abi = [
   },
   {
     inputs: [],
-    name: 'InsufficientBalanceForAction',
-    type: 'error',
-  },
-  {
-    inputs: [],
     name: 'InvalidDepositAmount',
     type: 'error',
   },
   {
     inputs: [],
     name: 'InvalidNumInputs',
-    type: 'error',
-  },
-  {
-    inputs: [],
-    name: 'InvalidRollupFee',
     type: 'error',
   },
   {
@@ -46,15 +36,10 @@ const _abi = [
     name: 'RollupSizeNotPowerOfTwo',
     type: 'error',
   },
-  {
-    inputs: [],
-    name: 'RollupSizeTooSmall',
-    type: 'error',
-  },
 ];
 
 const _bytecode =
-  '0x60566037600b82828239805160001a607314602a57634e487b7160e01b600052600060045260246000fd5b30600052607381538281f3fe73000000000000000000000000000000000000000030146080604052600080fdfea26469706673582212202ca7004cc2c44b44b3f80c7d55512790734ec31f0d9fe10b5fbc3c4fc28fb96f64736f6c634300081a0033';
+  '0x60566037600b82828239805160001a607314602a57634e487b7160e01b600052600060045260246000fd5b30600052607381538281f3fe73000000000000000000000000000000000000000030146080604052600080fdfea2646970667358221220ac84085acbbe63ef9449b45c647783e55ce49529e28d007ea871215f11a0cb6064736f6c634300081a0033';
 
 type MystikoSettingsErrorsConstructorParams =
   | [signer?: Signer]

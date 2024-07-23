@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: UNLICENSED
-pragma solidity ^0.8.26;
+pragma solidity 0.8.26;
 
 import {Test} from "forge-std/Test.sol";
 import "./mock/MockMystikoToken.sol";
@@ -7,9 +7,9 @@ import "../contracts/MystikoRollerPool.sol";
 import "../contracts/interfaces/IMystikoRollerPool.sol";
 import "../contracts/MystikoRollerPoolErrors.sol";
 import "./utils/Random.sol";
-import "@mystikonetwork/contracts-governance/contracts/GovernanceErrors.sol";
-import "@mystikonetwork/contracts-governance/contracts/token/MystikoVoteToken.sol";
-import "@mystikonetwork/contracts-governance/contracts/impl/MystikoGovernorRegistry.sol";
+import "lib/mystiko-governance/packages/contracts/contracts/GovernanceErrors.sol";
+import "lib/mystiko-governance/packages/contracts/contracts/token/MystikoVoteToken.sol";
+import "lib/mystiko-governance/packages/contracts/contracts/impl/MystikoGovernorRegistry.sol";
 
 contract MystikoRollerPoolTest is Test, Random {
   bytes32 public constant ROLLER_ROLE = keccak256("MYSTIKO_ROLLER_ROLE");

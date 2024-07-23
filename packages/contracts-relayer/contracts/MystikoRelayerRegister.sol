@@ -1,8 +1,8 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.26;
+pragma solidity 0.8.26;
 
 import {MystikoRelayerErrors} from "./MystikoRelayerErrors.sol";
-import {MystikoDAOAccessControl} from "@mystikonetwork/contracts-governance/contracts/MystikoDAOAccessControl.sol";
+import {MystikoDAOAccessControl} from "lib/mystiko-governance/packages/contracts/contracts/MystikoDAOAccessControl.sol";
 
 contract MystikoRelayerRegister is MystikoDAOAccessControl {
   struct RelayerMeta {

@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.26;
+pragma solidity 0.8.26;
 
 library Utils {
   /* @notice      Convert the bytes array to bytes32 type, the bytes array length must be 32

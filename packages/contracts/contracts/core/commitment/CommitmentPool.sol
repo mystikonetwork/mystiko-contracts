@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.26;
+pragma solidity 0.8.26;
 
 import "../../libs/asset/AssetPool.sol";
 import "../../libs/common/CustomErrors.sol";
@@ -7,14 +7,14 @@ import "../../libs/common/DataTypes.sol";
 import "../../interfaces/IHasher3.sol";
 import "../../interfaces/IVerifier.sol";
 import "../../interfaces/ICommitmentPool.sol";
-import {ReentrancyGuard} from "@openzeppelin/contracts/utils/ReentrancyGuard.sol";
-import {MessageHashUtils} from "@openzeppelin/contracts/utils/cryptography/MessageHashUtils.sol";
-import {ECDSA} from "@openzeppelin/contracts/utils/cryptography/ECDSA.sol";
-import {SafeCast} from "@openzeppelin/contracts/utils/math/SafeCast.sol";
-import {RollerValidateParams} from "@mystikonetwork/contracts-roller/contracts/interfaces/IMystikoRollerPool.sol";
-import {RelayerValidateParams} from "@mystikonetwork/contracts-relayer/contracts/interfaces/IMystikoRelayerPool.sol";
-import {WrappedVerifier} from "@mystikonetwork/contracts-settings/contracts/verifier/interfaces/IMystikoVerifierPool.sol";
-import {MystikoSettings} from "@mystikonetwork/contracts-settings/contracts/MystikoSettings.sol";
+import {ReentrancyGuard} from "lib/openzeppelin-contracts/contracts/utils/ReentrancyGuard.sol";
+import {MessageHashUtils} from "lib/openzeppelin-contracts/contracts/utils/cryptography/MessageHashUtils.sol";
+import {ECDSA} from "lib/openzeppelin-contracts/contracts/utils/cryptography/ECDSA.sol";
+import {SafeCast} from "lib/openzeppelin-contracts/contracts/utils/math/SafeCast.sol";
+import {RollerValidateParams} from "contracts-roller/contracts/interfaces/IMystikoRollerPool.sol";
+import {RelayerValidateParams} from "contracts-relayer/contracts/interfaces/IMystikoRelayerPool.sol";
+import {WrappedVerifier} from "contracts-settings/contracts/verifier/interfaces/IMystikoVerifierPool.sol";
+import {MystikoSettings} from "contracts-settings/contracts/MystikoSettings.sol";
 
 abstract contract CommitmentPool is ICommitmentPool, AssetPool, ReentrancyGuard {
   uint256 public constant AUDITOR_COUNT = 5;

@@ -1,19 +1,19 @@
 // SPDX-License-Identifier: UNLICENSED
-pragma solidity ^0.8.26;
+pragma solidity 0.8.26;
 
 import {Test} from "forge-std/Test.sol";
 import "../../contracts/MystikoBridgeSettings.sol";
 import "../../contracts/MystikoSettingsErrors.sol";
 import "../mock/MockMystikoToken.sol";
 import "../utils/Random.sol";
-import "@mystikonetwork/contracts-certificate/contracts/MystikoCertificate.sol";
-import "@mystikonetwork/contracts-relayer/contracts/MystikoRelayerErrors.sol";
-import "@mystikonetwork/contracts-roller/contracts/MystikoRollerPoolErrors.sol";
-import "@mystikonetwork/contracts-relayer/contracts/MystikoRelayerPool.sol";
-import "@mystikonetwork/contracts-roller/contracts/MystikoRollerPool.sol";
-import "@mystikonetwork/contracts-governance/contracts/token/MystikoVoteToken.sol";
-import "@mystikonetwork/contracts-governance/contracts/impl/MystikoGovernorRegistry.sol";
-import "@mystikonetwork/contracts-governance/contracts/GovernanceErrors.sol";
+import "contracts-certificate/contracts/MystikoCertificate.sol";
+import "contracts-relayer/contracts/MystikoRelayerErrors.sol";
+import "contracts-roller/contracts/MystikoRollerPoolErrors.sol";
+import "contracts-relayer/contracts/MystikoRelayerPool.sol";
+import "contracts-roller/contracts/MystikoRollerPool.sol";
+import "lib/mystiko-governance/packages/contracts/contracts/token/MystikoVoteToken.sol";
+import "lib/mystiko-governance/packages/contracts/contracts/impl/MystikoGovernorRegistry.sol";
+import "lib/mystiko-governance/packages/contracts/contracts/GovernanceErrors.sol";
 
 contract MystikoSettingsCenterTest is Test, Random {
   address public dao;

@@ -3,4 +3,4 @@ artifactsExternal
 *.log
 yarn.lock
 typechain
-foundry/lib/
+lib

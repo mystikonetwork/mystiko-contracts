@@ -1,10 +1,10 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.26;
+pragma solidity 0.8.26;
 
 import {MystikoSettingsBase} from "./MystikoSettingsBase.sol";
-import {IMystikoRollerPool} from "@mystikonetwork/contracts-roller/contracts/interfaces/IMystikoRollerPool.sol";
-import {IMystikoRelayerPool} from "@mystikonetwork/contracts-relayer/contracts/interfaces/IMystikoRelayerPool.sol";
-import {IMystikoCertificate} from "@mystikonetwork/contracts-certificate/contracts/interfaces/IMystikoCertificate.sol";
+import {IMystikoRollerPool} from "contracts-roller/contracts/interfaces/IMystikoRollerPool.sol";
+import {IMystikoRelayerPool} from "contracts-relayer/contracts/interfaces/IMystikoRelayerPool.sol";
+import {IMystikoCertificate} from "contracts-certificate/contracts/interfaces/IMystikoCertificate.sol";
 
 contract MystikoSettings is MystikoSettingsBase {
   constructor(

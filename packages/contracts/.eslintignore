@@ -2,3 +2,8 @@ build/*
 node_modules/*
 hardhat.config.ts
 coverage
+contracts-certificate
+contracts-relayer
+contracts-roller
+contracts-settings
+lib

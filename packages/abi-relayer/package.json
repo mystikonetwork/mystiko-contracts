@@ -25,7 +25,6 @@
   "license": "MIT",
   "scripts": {
     "generate:relayer": "rm -rf src/typechain/relayer && typechain --target ethers-v5 --out-dir src/typechain/relayer '../contracts-relayer/artifacts/!(build-info)/**/+([a-zA-Z0-9_]).json' && yarn prettier:fix",
-    "generate:settings": "rm -rf src/typechain/settings && typechain --target ethers-v5 --out-dir src/typechain/settings '../contracts-settings/artifacts/!(build-info)/**/+([a-zA-Z0-9_]).json' && yarn prettier:fix",
     "generate": "yarn generate:relayer",
     "postgenerate": "yarn build",
     "build:cjs": "tsc -p ./tsconfig.json",

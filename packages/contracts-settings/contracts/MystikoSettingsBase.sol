@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.26;
+pragma solidity 0.8.26;
 
 import {MystikoVerifierPool} from "./verifier/impl/MystikoVerifierPool.sol";
 import {MystikoAuditorPool} from "./auditor/impl/MystikoAuditorPool.sol";
@@ -7,10 +7,10 @@ import {Sanctions} from "./screen/impl/Sanctions.sol";
 import {MystikoSettingsErrors} from "./MystikoSettingsErrors.sol";
 import {MystikoDepositConfig} from "./config/impl/MystikoDepositConfig.sol";
 import {MystikoPoolConfig} from "./config/impl/MystikoPoolConfig.sol";
-import {IMystikoRollerPool, RollerValidateParams} from "@mystikonetwork/contracts-roller/contracts/interfaces/IMystikoRollerPool.sol";
-import {IMystikoRelayerPool, RelayerValidateParams} from "@mystikonetwork/contracts-relayer/contracts/interfaces/IMystikoRelayerPool.sol";
-import {IMystikoCertificate, CertificateParams} from "@mystikonetwork/contracts-certificate/contracts/interfaces/IMystikoCertificate.sol";
-import {MystikoDAOAccessControl} from "@mystikonetwork/contracts-governance/contracts/MystikoDAOAccessControl.sol";
+import {IMystikoRollerPool, RollerValidateParams} from "contracts-roller/contracts/interfaces/IMystikoRollerPool.sol";
+import {IMystikoRelayerPool, RelayerValidateParams} from "contracts-relayer/contracts/interfaces/IMystikoRelayerPool.sol";
+import {IMystikoCertificate, CertificateParams} from "contracts-certificate/contracts/interfaces/IMystikoCertificate.sol";
+import {MystikoDAOAccessControl} from "lib/mystiko-governance/packages/contracts/contracts/MystikoDAOAccessControl.sol";
 
 abstract contract MystikoSettingsBase is
   IMystikoCertificate,

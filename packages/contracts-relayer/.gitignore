@@ -5,3 +5,4 @@ artifactsExternal
 cache
 coverage.json
 out
+lib

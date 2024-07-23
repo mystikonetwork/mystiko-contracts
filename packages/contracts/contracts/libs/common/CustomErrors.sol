@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.26;
+pragma solidity 0.8.26;
 
 library CustomErrors {
   error RejectRollup();
@@ -37,7 +37,6 @@ library CustomErrors {
   error OnlyRegister();
   error CallCrossChainSyncTxError();
   error WithdrawFailed();
-  error AuditorIndexError();
   error AuditorNotesLengthError();
   error AssociatedPoolNotMatched();
   error AssociatedPoolNotSet();

@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.26;
+pragma solidity 0.8.26;
 
 import "../../../libs/asset/AssetPool.sol";
 import "../../../libs/common/CustomErrors.sol";
@@ -8,11 +8,11 @@ import "../../../interfaces/IMystikoBridge.sol";
 import "../../../interfaces/IHasher3.sol";
 import "../../../interfaces/ICommitmentPool.sol";
 import "./CrossChainDataSerializable.sol";
-import {ReentrancyGuard} from "@openzeppelin/contracts/utils/ReentrancyGuard.sol";
-import {ECDSA} from "@openzeppelin/contracts/utils/cryptography/ECDSA.sol";
-import {SafeCast} from "@openzeppelin/contracts/utils/math/SafeCast.sol";
-import {MystikoBridgeSettings} from "@mystikonetwork/contracts-settings/contracts/MystikoBridgeSettings.sol";
-import {CertificateParams} from "@mystikonetwork/contracts-certificate/contracts/interfaces/IMystikoCertificate.sol";
+import {ReentrancyGuard} from "lib/openzeppelin-contracts/contracts/utils/ReentrancyGuard.sol";
+import {ECDSA} from "lib/openzeppelin-contracts/contracts/utils/cryptography/ECDSA.sol";
+import {SafeCast} from "lib/openzeppelin-contracts/contracts/utils/math/SafeCast.sol";
+import {MystikoBridgeSettings} from "contracts-settings/contracts/MystikoBridgeSettings.sol";
+import {CertificateParams} from "contracts-certificate/contracts/interfaces/IMystikoCertificate.sol";
 
 abstract contract MystikoV2Bridge is IMystikoBridge, AssetPool, CrossChainDataSerializable {
   using SafeCast for uint256;
