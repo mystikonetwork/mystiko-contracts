@@ -3,6 +3,7 @@ pragma solidity 0.8.26;
 
 import {IMystikoCertificate, CertificateParams} from "./interfaces/IMystikoCertificate.sol";
 import {ECDSA} from "lib/openzeppelin-contracts/contracts/utils/cryptography/ECDSA.sol";
+import {MessageHashUtils} from "lib/openzeppelin-contracts/contracts/utils/cryptography/MessageHashUtils.sol";
 import {MystikoDAOAccessControl} from "lib/mystiko-governance/packages/contracts/contracts/MystikoDAOAccessControl.sol";
 
 contract MystikoCertificate is IMystikoCertificate, MystikoDAOAccessControl {
@@ -34,10 +35,11 @@ contract MystikoCertificate is IMystikoCertificate, MystikoDAOAccessControl {
       return false;
     }
 
-    bytes32 hash = keccak256(
+    bytes32 paramHash = keccak256(
       abi.encodePacked(block.chainid, _params.account, _params.asset, _params.deadline)
     );
-    address signer = ECDSA.recover(hash, _params.signature);
+    bytes32 digest = MessageHashUtils.toEthSignedMessageHash(paramHash);
+    address signer = ECDSA.recover(digest, _params.signature);
     return signer == issuer;
   }
 
