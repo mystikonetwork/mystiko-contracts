@@ -9,4 +9,4 @@ packages/deploy/src/json/core/
 .yarn
 lcov.info
 report.md
-lib/lib
+

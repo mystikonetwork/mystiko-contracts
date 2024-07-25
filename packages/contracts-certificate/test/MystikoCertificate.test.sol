@@ -82,8 +82,9 @@ contract MystikoCertificateTest is Test, Random {
     address account = address(uint160(uint256(keccak256(abi.encodePacked(_random())))));
     address asset = address(uint160(uint256(keccak256(abi.encodePacked(_random())))));
 
-    bytes32 hash = keccak256(abi.encodePacked(block.chainid, account, asset, deadline));
-    (uint8 v, bytes32 r, bytes32 s) = vm.sign(privateKey, hash);
+    bytes32 paramHash = keccak256(abi.encodePacked(block.chainid, account, asset, deadline));
+    bytes32 digest = MessageHashUtils.toEthSignedMessageHash(paramHash);
+    (uint8 v, bytes32 r, bytes32 s) = vm.sign(privateKey, digest);
     bytes memory signature = abi.encodePacked(r, s, v);
 
     CertificateParams memory params = CertificateParams({
@@ -115,8 +116,9 @@ contract MystikoCertificateTest is Test, Random {
     address account = address(uint160(uint256(keccak256(abi.encodePacked(_random())))));
     address asset = address(uint160(uint256(keccak256(abi.encodePacked(_random())))));
 
-    bytes32 hash = keccak256(abi.encodePacked(block.chainid, account, asset, deadline));
-    (uint8 v, bytes32 r, bytes32 s) = vm.sign(privateKey, hash);
+    bytes32 paramHash = keccak256(abi.encodePacked(block.chainid, account, asset, deadline));
+    bytes32 digest = MessageHashUtils.toEthSignedMessageHash(paramHash);
+    (uint8 v, bytes32 r, bytes32 s) = vm.sign(privateKey, digest);
     bytes memory signature = abi.encodePacked(r, s, v);
 
     CertificateParams memory params = CertificateParams({

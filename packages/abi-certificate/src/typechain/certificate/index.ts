@@ -11,6 +11,8 @@ export type { IAccessControl } from './IAccessControl';
 export type { ECDSA } from './ECDSA';
 export type { ERC165 } from './ERC165';
 export type { IERC165 } from './IERC165';
+export type { Math } from './Math';
+export type { Strings } from './Strings';
 
 export { IMystikoCertificate__factory } from './factories/IMystikoCertificate__factory';
 export { MystikoCertificate__factory } from './factories/MystikoCertificate__factory';
@@ -22,3 +24,5 @@ export { IAccessControl__factory } from './factories/IAccessControl__factory';
 export { ECDSA__factory } from './factories/ECDSA__factory';
 export { ERC165__factory } from './factories/ERC165__factory';
 export { IERC165__factory } from './factories/IERC165__factory';
+export { Math__factory } from './factories/Math__factory';
+export { Strings__factory } from './factories/Strings__factory';
