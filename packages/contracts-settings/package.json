@@ -1,6 +1,6 @@
 {
   "name": "@mystikonetwork/contracts-settings",
-  "version": "0.3.1",
+  "version": "0.3.2",
   "description": "settings smart contracts of Mystiko.Network",
   "publishConfig": {
     "registry": "https://npm.pkg.github.com/"
