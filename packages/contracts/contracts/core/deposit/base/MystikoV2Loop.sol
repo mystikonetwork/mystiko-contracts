@@ -115,4 +115,8 @@ abstract contract MystikoV2Loop is IMystikoLoop, AssetPool {
   function isDepositsDisabled() public view returns (bool) {
     return settings.isDepositDisable(address(this));
   }
+
+  function isCertificateCheckEnabled() public view returns (bool) {
+    return settings.isCertificateCheckEnabled();
+  }
 }

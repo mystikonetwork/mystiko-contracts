@@ -1,6 +1,6 @@
 {
   "name": "@mystikonetwork/contracts-certificate",
-  "version": "0.3.1",
+  "version": "0.3.2",
   "description": "Certificate smart contracts of Mystiko.Network",
   "publishConfig": {
     "registry": "https://npm.pkg.github.com/"

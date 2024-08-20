@@ -16,8 +16,11 @@ export function testLoopConstructor(
     it('should initialize maxAmount correctly', async () => {
       expect(await depositContract.getMaxAmount()).to.equal(maxAmount);
     });
-    it('should initialize admin related resources correctly', async () => {
+    it('should initialize deposit disable correctly', async () => {
       expect(await depositContract.isDepositsDisabled()).to.equal(false);
+    });
+    it('should initialize certificate enabled correctly', async () => {
+      expect(await depositContract.isCertificateCheckEnabled()).to.equal(false);
     });
     it('should initialize bridge type correctly', async () => {
       expect(await depositContract.bridgeType()).to.equal('loop');
@@ -70,6 +73,9 @@ export function testBridgeConstructor(
     });
     it('should initialize deposit disabled correctly', async () => {
       expect(await depositContract.isDepositsDisabled()).to.equal(false);
+    });
+    it('should initialize certificate enabled correctly', async () => {
+      expect(await depositContract.isCertificateCheckEnabled()).to.equal(false);
     });
     it('should initialize peer chain and contract correctly', async () => {
       expect(await depositContract.peerChainId()).to.equal(peerChainId);

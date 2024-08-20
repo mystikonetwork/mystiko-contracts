@@ -237,6 +237,19 @@ const _abi = [
   },
   {
     inputs: [],
+    name: 'isCertificateCheckEnabled',
+    outputs: [
+      {
+        internalType: 'bool',
+        name: '',
+        type: 'bool',
+      },
+    ],
+    stateMutability: 'view',
+    type: 'function',
+  },
+  {
+    inputs: [],
     name: 'isDepositsDisabled',
     outputs: [
       {

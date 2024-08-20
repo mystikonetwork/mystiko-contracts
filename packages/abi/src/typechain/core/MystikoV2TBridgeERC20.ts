@@ -109,6 +109,7 @@ export interface MystikoV2TBridgeERC20Interface extends utils.Interface {
     'getMinBridgeFee()': FunctionFragment;
     'getMinExecutorFee()': FunctionFragment;
     'getPeerMinRollupFee()': FunctionFragment;
+    'isCertificateCheckEnabled()': FunctionFragment;
     'isDepositsDisabled()': FunctionFragment;
     'isPeerContractSet()': FunctionFragment;
     'peerChainId()': FunctionFragment;
@@ -145,6 +146,7 @@ export interface MystikoV2TBridgeERC20Interface extends utils.Interface {
   encodeFunctionData(functionFragment: 'getMinBridgeFee', values?: undefined): string;
   encodeFunctionData(functionFragment: 'getMinExecutorFee', values?: undefined): string;
   encodeFunctionData(functionFragment: 'getPeerMinRollupFee', values?: undefined): string;
+  encodeFunctionData(functionFragment: 'isCertificateCheckEnabled', values?: undefined): string;
   encodeFunctionData(functionFragment: 'isDepositsDisabled', values?: undefined): string;
   encodeFunctionData(functionFragment: 'isPeerContractSet', values?: undefined): string;
   encodeFunctionData(functionFragment: 'peerChainId', values?: undefined): string;
@@ -177,6 +179,7 @@ export interface MystikoV2TBridgeERC20Interface extends utils.Interface {
   decodeFunctionResult(functionFragment: 'getMinBridgeFee', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'getMinExecutorFee', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'getPeerMinRollupFee', data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'isCertificateCheckEnabled', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'isDepositsDisabled', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'isPeerContractSet', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'peerChainId', data: BytesLike): Result;
@@ -276,6 +279,8 @@ export interface MystikoV2TBridgeERC20 extends BaseContract {
 
     getPeerMinRollupFee(overrides?: CallOverrides): Promise<[BigNumber]>;
 
+    isCertificateCheckEnabled(overrides?: CallOverrides): Promise<[boolean]>;
+
     isDepositsDisabled(overrides?: CallOverrides): Promise<[boolean]>;
 
     isPeerContractSet(overrides?: CallOverrides): Promise<[boolean]>;
@@ -350,6 +355,8 @@ export interface MystikoV2TBridgeERC20 extends BaseContract {
 
   getPeerMinRollupFee(overrides?: CallOverrides): Promise<BigNumber>;
 
+  isCertificateCheckEnabled(overrides?: CallOverrides): Promise<boolean>;
+
   isDepositsDisabled(overrides?: CallOverrides): Promise<boolean>;
 
   isPeerContractSet(overrides?: CallOverrides): Promise<boolean>;
@@ -420,6 +427,8 @@ export interface MystikoV2TBridgeERC20 extends BaseContract {
     getMinExecutorFee(overrides?: CallOverrides): Promise<BigNumber>;
 
     getPeerMinRollupFee(overrides?: CallOverrides): Promise<BigNumber>;
+
+    isCertificateCheckEnabled(overrides?: CallOverrides): Promise<boolean>;
 
     isDepositsDisabled(overrides?: CallOverrides): Promise<boolean>;
 
@@ -501,6 +510,8 @@ export interface MystikoV2TBridgeERC20 extends BaseContract {
 
     getPeerMinRollupFee(overrides?: CallOverrides): Promise<BigNumber>;
 
+    isCertificateCheckEnabled(overrides?: CallOverrides): Promise<BigNumber>;
+
     isDepositsDisabled(overrides?: CallOverrides): Promise<BigNumber>;
 
     isPeerContractSet(overrides?: CallOverrides): Promise<BigNumber>;
@@ -575,6 +586,8 @@ export interface MystikoV2TBridgeERC20 extends BaseContract {
     getMinExecutorFee(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     getPeerMinRollupFee(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+
+    isCertificateCheckEnabled(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     isDepositsDisabled(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 

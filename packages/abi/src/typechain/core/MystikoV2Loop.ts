@@ -48,6 +48,7 @@ export interface MystikoV2LoopInterface extends utils.Interface {
     'getAssociatedCommitmentPool()': FunctionFragment;
     'getMaxAmount()': FunctionFragment;
     'getMinAmount()': FunctionFragment;
+    'isCertificateCheckEnabled()': FunctionFragment;
     'isDepositsDisabled()': FunctionFragment;
     'settings()': FunctionFragment;
   };
@@ -63,6 +64,7 @@ export interface MystikoV2LoopInterface extends utils.Interface {
   encodeFunctionData(functionFragment: 'getAssociatedCommitmentPool', values?: undefined): string;
   encodeFunctionData(functionFragment: 'getMaxAmount', values?: undefined): string;
   encodeFunctionData(functionFragment: 'getMinAmount', values?: undefined): string;
+  encodeFunctionData(functionFragment: 'isCertificateCheckEnabled', values?: undefined): string;
   encodeFunctionData(functionFragment: 'isDepositsDisabled', values?: undefined): string;
   encodeFunctionData(functionFragment: 'settings', values?: undefined): string;
 
@@ -74,6 +76,7 @@ export interface MystikoV2LoopInterface extends utils.Interface {
   decodeFunctionResult(functionFragment: 'getAssociatedCommitmentPool', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'getMaxAmount', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'getMinAmount', data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'isCertificateCheckEnabled', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'isDepositsDisabled', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'settings', data: BytesLike): Result;
 
@@ -128,6 +131,8 @@ export interface MystikoV2Loop extends BaseContract {
 
     getMinAmount(overrides?: CallOverrides): Promise<[BigNumber]>;
 
+    isCertificateCheckEnabled(overrides?: CallOverrides): Promise<[boolean]>;
+
     isDepositsDisabled(overrides?: CallOverrides): Promise<[boolean]>;
 
     settings(overrides?: CallOverrides): Promise<[string]>;
@@ -157,6 +162,8 @@ export interface MystikoV2Loop extends BaseContract {
 
   getMinAmount(overrides?: CallOverrides): Promise<BigNumber>;
 
+  isCertificateCheckEnabled(overrides?: CallOverrides): Promise<boolean>;
+
   isDepositsDisabled(overrides?: CallOverrides): Promise<boolean>;
 
   settings(overrides?: CallOverrides): Promise<string>;
@@ -182,6 +189,8 @@ export interface MystikoV2Loop extends BaseContract {
     getMaxAmount(overrides?: CallOverrides): Promise<BigNumber>;
 
     getMinAmount(overrides?: CallOverrides): Promise<BigNumber>;
+
+    isCertificateCheckEnabled(overrides?: CallOverrides): Promise<boolean>;
 
     isDepositsDisabled(overrides?: CallOverrides): Promise<boolean>;
 
@@ -215,6 +224,8 @@ export interface MystikoV2Loop extends BaseContract {
 
     getMinAmount(overrides?: CallOverrides): Promise<BigNumber>;
 
+    isCertificateCheckEnabled(overrides?: CallOverrides): Promise<BigNumber>;
+
     isDepositsDisabled(overrides?: CallOverrides): Promise<BigNumber>;
 
     settings(overrides?: CallOverrides): Promise<BigNumber>;
@@ -244,6 +255,8 @@ export interface MystikoV2Loop extends BaseContract {
     getMaxAmount(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     getMinAmount(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+
+    isCertificateCheckEnabled(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     isDepositsDisabled(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
