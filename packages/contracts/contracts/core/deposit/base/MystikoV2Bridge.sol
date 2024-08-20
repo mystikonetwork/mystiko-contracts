@@ -180,4 +180,8 @@ abstract contract MystikoV2Bridge is IMystikoBridge, AssetPool, CrossChainDataSe
   function isDepositsDisabled() public view returns (bool) {
     return settings.isDepositDisable(address(this));
   }
+
+  function isCertificateCheckEnabled() public view returns (bool) {
+    return settings.isCertificateCheckEnabled();
+  }
 }
