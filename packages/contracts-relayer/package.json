@@ -1,6 +1,6 @@
 {
   "name": "@mystikonetwork/contracts-relayer",
-  "version": "0.3.2",
+  "version": "0.3.3",
   "description": "Relayer smart contracts of Mystiko.Network",
   "publishConfig": {
     "registry": "https://npm.pkg.github.com/"

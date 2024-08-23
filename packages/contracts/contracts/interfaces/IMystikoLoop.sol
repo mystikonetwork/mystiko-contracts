@@ -2,12 +2,12 @@
 pragma solidity 0.8.26;
 
 interface IMystikoLoop {
-  struct LocalConfig {
+  struct LoopLocalConfig {
     uint256 minAmount;
     uint256 maxAmount;
   }
 
-  struct DepositRequest {
+  struct LoopDepositRequest {
     uint256 amount;
     uint256 commitment;
     uint256 hashK;
@@ -16,10 +16,10 @@ interface IMystikoLoop {
     uint256 rollupFee;
   }
 
-  function deposit(DepositRequest memory _request) external payable;
+  function deposit(LoopDepositRequest memory _request) external payable;
 
   function certDeposit(
-    DepositRequest memory _request,
+    LoopDepositRequest memory _request,
     uint256 certificateDeadline,
     bytes memory certificateSignature
   ) external payable;

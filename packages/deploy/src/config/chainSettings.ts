@@ -8,6 +8,8 @@ export interface RawChainSettingsConfig {
   sanctionListAddressTx?: string;
   certificateCheck?: boolean;
   certificateCheckTx?: string;
+  certificateIssuer?: string;
+  certificateIssuerTx?: string;
   auditors?: string[];
   auditorsTx?: string[];
   rollers?: string[];
@@ -107,6 +109,26 @@ export class ChainSettingsConfig extends BaseConfig {
   public updateCertificateCheck(certificateCheck: boolean, tx: string) {
     this.asRawChainSettingsConfig().certificateCheck = certificateCheck;
     this.asRawChainSettingsConfig().certificateCheckTx = tx;
+  }
+
+  public get certificateIssuer(): string | undefined {
+    return this.asRawChainSettingsConfig().certificateIssuer;
+  }
+
+  public get certificateIssuerTx(): string | undefined {
+    return this.asRawChainSettingsConfig().certificateIssuerTx;
+  }
+
+  public isCertificateIssuerChange(certificateIssuer: string): boolean {
+    if (this.asRawChainSettingsConfig().certificateIssuer !== certificateIssuer) {
+      return true;
+    }
+    return false;
+  }
+
+  public updateCertificateIssuer(certificateIssuer: string, tx: string) {
+    this.asRawChainSettingsConfig().certificateIssuer = certificateIssuer;
+    this.asRawChainSettingsConfig().certificateIssuerTx = tx;
   }
 
   public get auditorsCount(): number {
@@ -263,6 +285,10 @@ export class ChainSettingsConfig extends BaseConfig {
     this.rollersByAddress = {};
     this.asRawChainSettingsConfig().sanctionCheck = undefined;
     this.asRawChainSettingsConfig().sanctionCheckTx = undefined;
+    this.asRawChainSettingsConfig().certificateCheck = undefined;
+    this.asRawChainSettingsConfig().certificateCheckTx = undefined;
+    this.asRawChainSettingsConfig().certificateIssuer = undefined;
+    this.asRawChainSettingsConfig().certificateIssuer = undefined;
     this.asRawChainSettingsConfig().auditors = undefined;
     this.asRawChainSettingsConfig().auditorsTx = undefined;
     this.asRawChainSettingsConfig().rollers = undefined;

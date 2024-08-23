@@ -221,6 +221,33 @@ export async function setChainCertificateCheck(
   }
 }
 
+export async function setChainCertificateIssuer(
+  c: any,
+  issuer: string,
+  settingsConfig: ChainSettingsConfig,
+  certificateAddress: string,
+) {
+  if (!settingsConfig.isCertificateIssuerChange(issuer)) {
+    return;
+  }
+
+  console.log('set chain certifiate issuer ', issuer);
+
+  const certFactory = getCertifacteContract();
+  const certContract = certFactory.attach(certificateAddress);
+  let rsp: any;
+  try {
+    rsp = await certContract.setIssuerAddress(issuer);
+    console.log('setIssuerAddress rsp hash ', rsp.hash);
+    await waitConfirm(ethers, rsp, true);
+    settingsConfig.updateCertificateIssuer(issuer, rsp.hash);
+    saveConfig(c.mystikoNetwork, c.cfg);
+  } catch (err: any) {
+    console.error(LOGRED, err);
+    process.exit(1);
+  }
+}
+
 export async function setRollerPoolRole(
   c: any,
   check: boolean,
@@ -475,7 +502,14 @@ export async function doSettingsCenterConfig(c: any) {
   if (c.mystikoNetwork !== MystikoDevelopment) {
     await updateSettingsPoolAddress(c, chainCfg.settingsConfig, chainCfg.settingsCenter);
   }
-  // await setChainCertificateCheck(c, false, chainCfg.settingsConfig, chainCfg.certificateVerifier);
+
+  await setChainCertificateCheck(c, true, chainCfg.settingsConfig, chainCfg.certificateVerifier);
+  await setChainCertificateIssuer(
+    c,
+    c.operatorCfg.issuer,
+    chainCfg.settingsConfig,
+    chainCfg.certificateVerifier,
+  );
 
   // todo change min vote amount
   // await setRollerPoolMinAmount(c, chainCfg.settingsConfig, chainCfg.rollerPool, '0');

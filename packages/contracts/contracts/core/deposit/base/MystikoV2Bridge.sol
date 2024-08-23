@@ -53,8 +53,8 @@ abstract contract MystikoV2Bridge is IMystikoBridge, AssetPool, CrossChainDataSe
     IHasher3 _hasher3,
     address _bridgeProxyAddress,
     address _settingsCenter,
-    LocalConfig memory _localConfig,
-    PeerConfig memory _peerConfig
+    BridgeLocalConfig memory _localConfig,
+    BridgePeerConfig memory _peerConfig
   ) {
     hasher3 = _hasher3;
     bridgeProxyAddress = _bridgeProxyAddress;
@@ -66,7 +66,7 @@ abstract contract MystikoV2Bridge is IMystikoBridge, AssetPool, CrossChainDataSe
     settings = MystikoBridgeSettings(_settingsCenter);
   }
 
-  function setPeerContract(PeerContract memory _peerContract) external onlySetPeerContractOnce {
+  function setPeerContract(BridgePeerContract memory _peerContract) external onlySetPeerContractOnce {
     peerChainId = _peerContract.peerChainId;
     peerChainName = _peerContract.peerChainName;
     peerContract = _peerContract.peerContract;
@@ -84,12 +84,12 @@ abstract contract MystikoV2Bridge is IMystikoBridge, AssetPool, CrossChainDataSe
     return hasher3.poseidon([_hashK, _amount, _randomS]);
   }
 
-  function deposit(DepositRequest memory _request) external payable override {
+  function deposit(BridgeDepositRequest memory _request) external payable override {
     revert CustomErrors.NotSupport();
   }
 
   function certDeposit(
-    DepositRequest memory _request,
+    BridgeDepositRequest memory _request,
     uint256 _certificateDeadline,
     bytes memory _certificateSignature
   ) external payable override {

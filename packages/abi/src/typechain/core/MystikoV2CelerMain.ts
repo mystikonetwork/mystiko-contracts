@@ -19,29 +19,29 @@ import { Listener, Provider } from '@ethersproject/providers';
 import { TypedEventFilter, TypedEvent, TypedListener, OnEvent } from './common';
 
 export declare namespace IMystikoBridge {
-  export type LocalConfigStruct = {
+  export type BridgeLocalConfigStruct = {
     minAmount: BigNumberish;
     maxAmount: BigNumberish;
     minBridgeFee: BigNumberish;
   };
 
-  export type LocalConfigStructOutput = [BigNumber, BigNumber, BigNumber] & {
+  export type BridgeLocalConfigStructOutput = [BigNumber, BigNumber, BigNumber] & {
     minAmount: BigNumber;
     maxAmount: BigNumber;
     minBridgeFee: BigNumber;
   };
 
-  export type PeerConfigStruct = {
+  export type BridgePeerConfigStruct = {
     peerMinExecutorFee: BigNumberish;
     peerMinRollupFee: BigNumberish;
   };
 
-  export type PeerConfigStructOutput = [BigNumber, BigNumber] & {
+  export type BridgePeerConfigStructOutput = [BigNumber, BigNumber] & {
     peerMinExecutorFee: BigNumber;
     peerMinRollupFee: BigNumber;
   };
 
-  export type DepositRequestStruct = {
+  export type BridgeDepositRequestStruct = {
     amount: BigNumberish;
     commitment: BigNumberish;
     hashK: BigNumberish;
@@ -52,7 +52,7 @@ export declare namespace IMystikoBridge {
     rollupFee: BigNumberish;
   };
 
-  export type DepositRequestStructOutput = [
+  export type BridgeDepositRequestStructOutput = [
     BigNumber,
     BigNumber,
     BigNumber,
@@ -72,13 +72,13 @@ export declare namespace IMystikoBridge {
     rollupFee: BigNumber;
   };
 
-  export type PeerContractStruct = {
+  export type BridgePeerContractStruct = {
     peerChainId: BigNumberish;
     peerChainName: string;
     peerContract: string;
   };
 
-  export type PeerContractStructOutput = [BigNumber, string, string] & {
+  export type BridgePeerContractStructOutput = [BigNumber, string, string] & {
     peerChainId: BigNumber;
     peerChainName: string;
     peerContract: string;
@@ -122,14 +122,17 @@ export interface MystikoV2CelerMainInterface extends utils.Interface {
   encodeFunctionData(functionFragment: 'bridgeType', values?: undefined): string;
   encodeFunctionData(
     functionFragment: 'certDeposit',
-    values: [IMystikoBridge.DepositRequestStruct, BigNumberish, BytesLike],
+    values: [IMystikoBridge.BridgeDepositRequestStruct, BigNumberish, BytesLike],
   ): string;
   encodeFunctionData(functionFragment: 'defaultMaxAmount', values?: undefined): string;
   encodeFunctionData(functionFragment: 'defaultMinAmount', values?: undefined): string;
   encodeFunctionData(functionFragment: 'defaultMinBridgeFee', values?: undefined): string;
   encodeFunctionData(functionFragment: 'defaultPeerMinExecutorFee', values?: undefined): string;
   encodeFunctionData(functionFragment: 'defaultPeerMinRollupFee', values?: undefined): string;
-  encodeFunctionData(functionFragment: 'deposit', values: [IMystikoBridge.DepositRequestStruct]): string;
+  encodeFunctionData(
+    functionFragment: 'deposit',
+    values: [IMystikoBridge.BridgeDepositRequestStruct],
+  ): string;
   encodeFunctionData(
     functionFragment: 'executeMessage',
     values: [string, BigNumberish, BytesLike, string],
@@ -148,7 +151,7 @@ export interface MystikoV2CelerMainInterface extends utils.Interface {
   encodeFunctionData(functionFragment: 'peerContract', values?: undefined): string;
   encodeFunctionData(
     functionFragment: 'setPeerContract',
-    values: [IMystikoBridge.PeerContractStruct],
+    values: [IMystikoBridge.BridgePeerContractStruct],
   ): string;
   encodeFunctionData(functionFragment: 'settings', values?: undefined): string;
 
@@ -223,7 +226,7 @@ export interface MystikoV2CelerMain extends BaseContract {
     bridgeType(overrides?: CallOverrides): Promise<[string]>;
 
     certDeposit(
-      _request: IMystikoBridge.DepositRequestStruct,
+      _request: IMystikoBridge.BridgeDepositRequestStruct,
       _certificateDeadline: BigNumberish,
       _certificateSignature: BytesLike,
       overrides?: PayableOverrides & { from?: string | Promise<string> },
@@ -240,7 +243,7 @@ export interface MystikoV2CelerMain extends BaseContract {
     defaultPeerMinRollupFee(overrides?: CallOverrides): Promise<[BigNumber]>;
 
     deposit(
-      _request: IMystikoBridge.DepositRequestStruct,
+      _request: IMystikoBridge.BridgeDepositRequestStruct,
       overrides?: PayableOverrides & { from?: string | Promise<string> },
     ): Promise<ContractTransaction>;
 
@@ -277,7 +280,7 @@ export interface MystikoV2CelerMain extends BaseContract {
     peerContract(overrides?: CallOverrides): Promise<[string]>;
 
     setPeerContract(
-      _peerContract: IMystikoBridge.PeerContractStruct,
+      _peerContract: IMystikoBridge.BridgePeerContractStruct,
       overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<ContractTransaction>;
 
@@ -293,7 +296,7 @@ export interface MystikoV2CelerMain extends BaseContract {
   bridgeType(overrides?: CallOverrides): Promise<string>;
 
   certDeposit(
-    _request: IMystikoBridge.DepositRequestStruct,
+    _request: IMystikoBridge.BridgeDepositRequestStruct,
     _certificateDeadline: BigNumberish,
     _certificateSignature: BytesLike,
     overrides?: PayableOverrides & { from?: string | Promise<string> },
@@ -310,7 +313,7 @@ export interface MystikoV2CelerMain extends BaseContract {
   defaultPeerMinRollupFee(overrides?: CallOverrides): Promise<BigNumber>;
 
   deposit(
-    _request: IMystikoBridge.DepositRequestStruct,
+    _request: IMystikoBridge.BridgeDepositRequestStruct,
     overrides?: PayableOverrides & { from?: string | Promise<string> },
   ): Promise<ContractTransaction>;
 
@@ -347,7 +350,7 @@ export interface MystikoV2CelerMain extends BaseContract {
   peerContract(overrides?: CallOverrides): Promise<string>;
 
   setPeerContract(
-    _peerContract: IMystikoBridge.PeerContractStruct,
+    _peerContract: IMystikoBridge.BridgePeerContractStruct,
     overrides?: Overrides & { from?: string | Promise<string> },
   ): Promise<ContractTransaction>;
 
@@ -363,7 +366,7 @@ export interface MystikoV2CelerMain extends BaseContract {
     bridgeType(overrides?: CallOverrides): Promise<string>;
 
     certDeposit(
-      _request: IMystikoBridge.DepositRequestStruct,
+      _request: IMystikoBridge.BridgeDepositRequestStruct,
       _certificateDeadline: BigNumberish,
       _certificateSignature: BytesLike,
       overrides?: CallOverrides,
@@ -379,7 +382,7 @@ export interface MystikoV2CelerMain extends BaseContract {
 
     defaultPeerMinRollupFee(overrides?: CallOverrides): Promise<BigNumber>;
 
-    deposit(_request: IMystikoBridge.DepositRequestStruct, overrides?: CallOverrides): Promise<void>;
+    deposit(_request: IMystikoBridge.BridgeDepositRequestStruct, overrides?: CallOverrides): Promise<void>;
 
     executeMessage(
       _sender: string,
@@ -414,7 +417,7 @@ export interface MystikoV2CelerMain extends BaseContract {
     peerContract(overrides?: CallOverrides): Promise<string>;
 
     setPeerContract(
-      _peerContract: IMystikoBridge.PeerContractStruct,
+      _peerContract: IMystikoBridge.BridgePeerContractStruct,
       overrides?: CallOverrides,
     ): Promise<void>;
 
@@ -436,7 +439,7 @@ export interface MystikoV2CelerMain extends BaseContract {
     bridgeType(overrides?: CallOverrides): Promise<BigNumber>;
 
     certDeposit(
-      _request: IMystikoBridge.DepositRequestStruct,
+      _request: IMystikoBridge.BridgeDepositRequestStruct,
       _certificateDeadline: BigNumberish,
       _certificateSignature: BytesLike,
       overrides?: PayableOverrides & { from?: string | Promise<string> },
@@ -453,7 +456,7 @@ export interface MystikoV2CelerMain extends BaseContract {
     defaultPeerMinRollupFee(overrides?: CallOverrides): Promise<BigNumber>;
 
     deposit(
-      _request: IMystikoBridge.DepositRequestStruct,
+      _request: IMystikoBridge.BridgeDepositRequestStruct,
       overrides?: PayableOverrides & { from?: string | Promise<string> },
     ): Promise<BigNumber>;
 
@@ -490,7 +493,7 @@ export interface MystikoV2CelerMain extends BaseContract {
     peerContract(overrides?: CallOverrides): Promise<BigNumber>;
 
     setPeerContract(
-      _peerContract: IMystikoBridge.PeerContractStruct,
+      _peerContract: IMystikoBridge.BridgePeerContractStruct,
       overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<BigNumber>;
 
@@ -507,7 +510,7 @@ export interface MystikoV2CelerMain extends BaseContract {
     bridgeType(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     certDeposit(
-      _request: IMystikoBridge.DepositRequestStruct,
+      _request: IMystikoBridge.BridgeDepositRequestStruct,
       _certificateDeadline: BigNumberish,
       _certificateSignature: BytesLike,
       overrides?: PayableOverrides & { from?: string | Promise<string> },
@@ -524,7 +527,7 @@ export interface MystikoV2CelerMain extends BaseContract {
     defaultPeerMinRollupFee(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     deposit(
-      _request: IMystikoBridge.DepositRequestStruct,
+      _request: IMystikoBridge.BridgeDepositRequestStruct,
       overrides?: PayableOverrides & { from?: string | Promise<string> },
     ): Promise<PopulatedTransaction>;
 
@@ -561,7 +564,7 @@ export interface MystikoV2CelerMain extends BaseContract {
     peerContract(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     setPeerContract(
-      _peerContract: IMystikoBridge.PeerContractStruct,
+      _peerContract: IMystikoBridge.BridgePeerContractStruct,
       overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<PopulatedTransaction>;
 

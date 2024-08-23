@@ -11,8 +11,8 @@ contract MystikoV2LayerZeroERC20 is MystikoV2LayerZero, ERC20AssetPool {
     IERC20Metadata _token,
     address _bridgeProxyAddress,
     address _settingsCenter,
-    LocalConfig memory _localConfig,
-    PeerConfig memory _peerConfig
+    BridgeLocalConfig memory _localConfig,
+    BridgePeerConfig memory _peerConfig
   )
     MystikoV2LayerZero(_hasher3, _bridgeProxyAddress, _settingsCenter, _localConfig, _peerConfig)
     ERC20AssetPool(_token)
