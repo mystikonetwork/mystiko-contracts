@@ -126,7 +126,7 @@ async function settingsQuery(taskArgs: any) {
   const sanctionCheck = await settingsContract.sanctionsCheck();
   console.log('sanction check ', sanctionCheck);
   if (
-    (!chainCfg.settingsConfig.sanctionCheck && !sanctionCheck) ||
+    (!chainCfg.settingsConfig.sanctionCheck && sanctionCheck) ||
     (chainCfg.settingsConfig.sanctionCheck && chainCfg.settingsConfig.sanctionCheck !== sanctionCheck)
   ) {
     console.error(LOGRED, 'sanction check mismatch', sanctionCheck, chainCfg.settingsConfig.sanctionCheck);

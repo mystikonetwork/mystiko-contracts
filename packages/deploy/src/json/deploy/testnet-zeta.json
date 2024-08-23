@@ -77,7 +77,11 @@
       "vXZKAddress": "0xE662feEF4Bb1f25e5eBb4F9f157d37A921Af1587",
       "settingsConfig": {
         "sanctionCheckTx": "0x6534e95a602b940a36591e531e59002f4fbc8f3ffc325b9b53bae70b8c546664",
-        "sanctionCheck": false
+        "sanctionCheck": false,
+        "certificateCheck": true,
+        "certificateCheckTx": "0x85dd1db2ba8402fa4b9b5f0f826565ab871d0d5c56db49edc2a619fa128287fa",
+        "certificateIssuer": "0xcD1Bc0fB1F16160C35F2ADa4fcB0B919211D8321",
+        "certificateIssuerTx": "0x432e41af840557218a05db10643101d41bf28d796fab047ab971ab0eb8ca5c81"
       },
       "hasher3Address": "0x1335db2409b22B88ff8cC9122471Bd9C12dA8D56",
       "rollup1Address": "0xb42e5BDb9c5B170B5aBA8a1CC85F0eFC19287467",
@@ -1410,6 +1414,6 @@
       "59008791909534960501668617222081257166042547932295904637246803379256854707274",
       "59407850051236456308159312234055817108465803170572499707777425334332899251557"
     ],
-    "issuer": "0xA7Ed9F09079551712e7A80883D81CB769bcB04f2"
+    "issuer": "0xcD1Bc0fB1F16160C35F2ADa4fcB0B919211D8321"
   }
 }

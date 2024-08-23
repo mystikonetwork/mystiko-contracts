@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # example
-#  1. ./scripts/set.sh 0 testnet settingsQuery
+#  1. ./scripts/query.sh 0 testnet settingsQuery
 
 set -a # automatically export all variables
 source .env
