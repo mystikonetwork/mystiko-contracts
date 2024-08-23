@@ -3,4 +3,5 @@ artifactsExternal
 *.log
 yarn.lock
 typechain
-
+lib/*
+contracts-*

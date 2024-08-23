@@ -10,8 +10,8 @@ contract MystikoV2LayerZeroMain is MystikoV2LayerZero, MainAssetPool {
     IHasher3 _hasher3,
     address _bridgeProxyAddress,
     address _settingsCenter,
-    LocalConfig memory _localConfig,
-    PeerConfig memory _peerConfig
+    BridgeLocalConfig memory _localConfig,
+    BridgePeerConfig memory _peerConfig
   ) MystikoV2LayerZero(_hasher3, _bridgeProxyAddress, _settingsCenter, _localConfig, _peerConfig) {
     // implemented in MystikoV2LayerZero
   }

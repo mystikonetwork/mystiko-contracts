@@ -18,7 +18,7 @@ import { Listener, Provider } from '@ethersproject/providers';
 import { TypedEventFilter, TypedEvent, TypedListener, OnEvent } from './common';
 
 export declare namespace IMystikoLoop {
-  export type DepositRequestStruct = {
+  export type LoopDepositRequestStruct = {
     amount: BigNumberish;
     commitment: BigNumberish;
     hashK: BigNumberish;
@@ -27,7 +27,14 @@ export declare namespace IMystikoLoop {
     rollupFee: BigNumberish;
   };
 
-  export type DepositRequestStructOutput = [BigNumber, BigNumber, BigNumber, BigNumber, string, BigNumber] & {
+  export type LoopDepositRequestStructOutput = [
+    BigNumber,
+    BigNumber,
+    BigNumber,
+    BigNumber,
+    string,
+    BigNumber,
+  ] & {
     amount: BigNumber;
     commitment: BigNumber;
     hashK: BigNumber;
@@ -46,9 +53,9 @@ export interface IMystikoLoopInterface extends utils.Interface {
 
   encodeFunctionData(
     functionFragment: 'certDeposit',
-    values: [IMystikoLoop.DepositRequestStruct, BigNumberish, BytesLike],
+    values: [IMystikoLoop.LoopDepositRequestStruct, BigNumberish, BytesLike],
   ): string;
-  encodeFunctionData(functionFragment: 'deposit', values: [IMystikoLoop.DepositRequestStruct]): string;
+  encodeFunctionData(functionFragment: 'deposit', values: [IMystikoLoop.LoopDepositRequestStruct]): string;
 
   decodeFunctionResult(functionFragment: 'certDeposit', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'deposit', data: BytesLike): Result;
@@ -81,67 +88,67 @@ export interface IMystikoLoop extends BaseContract {
 
   functions: {
     certDeposit(
-      _request: IMystikoLoop.DepositRequestStruct,
+      _request: IMystikoLoop.LoopDepositRequestStruct,
       certificateDeadline: BigNumberish,
       certificateSignature: BytesLike,
       overrides?: PayableOverrides & { from?: string | Promise<string> },
     ): Promise<ContractTransaction>;
 
     deposit(
-      _request: IMystikoLoop.DepositRequestStruct,
+      _request: IMystikoLoop.LoopDepositRequestStruct,
       overrides?: PayableOverrides & { from?: string | Promise<string> },
     ): Promise<ContractTransaction>;
   };
 
   certDeposit(
-    _request: IMystikoLoop.DepositRequestStruct,
+    _request: IMystikoLoop.LoopDepositRequestStruct,
     certificateDeadline: BigNumberish,
     certificateSignature: BytesLike,
     overrides?: PayableOverrides & { from?: string | Promise<string> },
   ): Promise<ContractTransaction>;
 
   deposit(
-    _request: IMystikoLoop.DepositRequestStruct,
+    _request: IMystikoLoop.LoopDepositRequestStruct,
     overrides?: PayableOverrides & { from?: string | Promise<string> },
   ): Promise<ContractTransaction>;
 
   callStatic: {
     certDeposit(
-      _request: IMystikoLoop.DepositRequestStruct,
+      _request: IMystikoLoop.LoopDepositRequestStruct,
       certificateDeadline: BigNumberish,
       certificateSignature: BytesLike,
       overrides?: CallOverrides,
     ): Promise<void>;
 
-    deposit(_request: IMystikoLoop.DepositRequestStruct, overrides?: CallOverrides): Promise<void>;
+    deposit(_request: IMystikoLoop.LoopDepositRequestStruct, overrides?: CallOverrides): Promise<void>;
   };
 
   filters: {};
 
   estimateGas: {
     certDeposit(
-      _request: IMystikoLoop.DepositRequestStruct,
+      _request: IMystikoLoop.LoopDepositRequestStruct,
       certificateDeadline: BigNumberish,
       certificateSignature: BytesLike,
       overrides?: PayableOverrides & { from?: string | Promise<string> },
     ): Promise<BigNumber>;
 
     deposit(
-      _request: IMystikoLoop.DepositRequestStruct,
+      _request: IMystikoLoop.LoopDepositRequestStruct,
       overrides?: PayableOverrides & { from?: string | Promise<string> },
     ): Promise<BigNumber>;
   };
 
   populateTransaction: {
     certDeposit(
-      _request: IMystikoLoop.DepositRequestStruct,
+      _request: IMystikoLoop.LoopDepositRequestStruct,
       certificateDeadline: BigNumberish,
       certificateSignature: BytesLike,
       overrides?: PayableOverrides & { from?: string | Promise<string> },
     ): Promise<PopulatedTransaction>;
 
     deposit(
-      _request: IMystikoLoop.DepositRequestStruct,
+      _request: IMystikoLoop.LoopDepositRequestStruct,
       overrides?: PayableOverrides & { from?: string | Promise<string> },
     ): Promise<PopulatedTransaction>;
   };

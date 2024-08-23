@@ -28,6 +28,7 @@
     "test": "hardhat coverage --testfiles \"./test/core/**/*.test.ts\" --solcoverjs ./.solcover.ts",
     "test:all": "hardhat test",
     "integration": "env TS_NODE_COMPILER_OPTIONS='{\"module\": \"commonjs\" }' mocha --timeout 600000 --delay --exit",
+    "binding": "rm -rf foundry/out && forge bind",
     "lint:aderyn": "yarn delete-link && cp -rf ../../lib . && rm -rf lib/mystiko-governance/packages/contracts/lib/openzeppelin-contracts && cp -rf ../contracts-settings . && cp -rf ../contracts-certificate . && cp -rf ../contracts-roller . && cp -rf ../contracts-relayer . && aderyn"
   },
   "devDependencies": {

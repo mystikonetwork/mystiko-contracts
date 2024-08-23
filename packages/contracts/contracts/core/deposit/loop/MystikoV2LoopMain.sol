@@ -9,7 +9,7 @@ contract MystikoV2LoopMain is MystikoV2Loop, MainAssetPool {
   constructor(
     IHasher3 _hasher3,
     address _settingsCenter,
-    LocalConfig memory _localConfig
+    LoopLocalConfig memory _localConfig
   ) MystikoV2Loop(_hasher3, _settingsCenter, _localConfig) {
     // implemented in MystikoV2Loop
   }

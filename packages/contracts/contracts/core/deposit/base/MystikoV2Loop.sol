@@ -25,7 +25,7 @@ abstract contract MystikoV2Loop is IMystikoLoop, AssetPool {
   // configure related.
   MystikoSettings public settings;
 
-  constructor(IHasher3 _hasher3, address _settingsCenter, LocalConfig memory _localConfig) {
+  constructor(IHasher3 _hasher3, address _settingsCenter, LoopLocalConfig memory _localConfig) {
     hasher3 = _hasher3;
     defaultMinAmount = _localConfig.minAmount;
     defaultMaxAmount = _localConfig.maxAmount;
@@ -46,12 +46,12 @@ abstract contract MystikoV2Loop is IMystikoLoop, AssetPool {
   /* @notice              Check deposit request parameter and process deposit
    *  @param _request     The transact request parameter
    */
-  function deposit(DepositRequest memory _request) external payable override {
+  function deposit(LoopDepositRequest memory _request) external payable override {
     revert CustomErrors.NotSupport();
   }
 
   function certDeposit(
-    DepositRequest memory _request,
+    LoopDepositRequest memory _request,
     uint256 _certificateDeadline,
     bytes memory _certificateSignature
   ) external payable override {

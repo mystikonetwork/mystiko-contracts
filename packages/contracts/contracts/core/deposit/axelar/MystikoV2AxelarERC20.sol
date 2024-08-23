@@ -11,8 +11,8 @@ contract MystikoV2AxelarERC20 is MystikoV2Axelar, ERC20AssetPool {
     IERC20Metadata _token,
     address _bridgeProxyAddress,
     address _settingsCenter,
-    LocalConfig memory _localConfig,
-    PeerConfig memory _peerConfig,
+    BridgeLocalConfig memory _localConfig,
+    BridgePeerConfig memory _peerConfig,
     address _gasReceiver
   )
     MystikoV2Axelar(_hasher3, _bridgeProxyAddress, _settingsCenter, _localConfig, _peerConfig, _gasReceiver)
