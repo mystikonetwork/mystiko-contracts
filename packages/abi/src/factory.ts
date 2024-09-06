@@ -16,6 +16,8 @@ import {
   MystikoV2Loop__factory,
   MystikoV2TBridge,
   MystikoV2TBridge__factory,
+  MystikoSettings,
+  MystikoSettings__factory,
 } from './typechain/core';
 
 export type SupportedContractType =
@@ -26,7 +28,8 @@ export type SupportedContractType =
   | MystikoV2Bridge
   | MystikoV2Celer
   | MystikoV2LayerZero
-  | MystikoV2TBridge;
+  | MystikoV2TBridge
+  | MystikoSettings;
 
 export class MystikoContractFactory {
   public static connect<T extends SupportedContractType>(
@@ -57,6 +60,9 @@ export class MystikoContractFactory {
     }
     if (contractName.startsWith('MystikoV2TBridge')) {
       return MystikoV2TBridge__factory.connect(address, signerOrProvider) as T;
+    }
+    if (contractName.startsWith('MystikoSettings')) {
+      return MystikoSettings__factory.connect(address, signerOrProvider) as T;
     }
     throw new Error(`unsupported contract name ${contractName}`);
   }
