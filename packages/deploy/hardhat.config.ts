@@ -80,6 +80,9 @@ const polygonTestPrivateKey = process.env.POLYGON_TESTNET_PRIVATE_KEY || DEFAULT
 const moonbaseAlphaTestEndpoint = process.env.MOONBASE_ALPHA_ENDPOINT || DEFAULT_ENDPOINT;
 const moonbaseAlphaTestPrivateKey = process.env.MOONBASE_ALPHA_PRIVATE_KEY || DEFAULT_TESTNET_PRIVATE_KEY;
 
+const zetaTestEndpoint = process.env.ZETA_TESTNET_ENDPOINT || DEFAULT_ENDPOINT;
+const zetaTestPrivateKey = process.env.ZETA_TESTNET_PRIVATE_KEY || DEFAULT_TESTNET_PRIVATE_KEY;
+
 // Mainnets
 const ethEndpoint = process.env.ETH_ENDPOINT || DEFAULT_ENDPOINT;
 const ethPrivateKey = process.env.ETH_MAINNET_PRIVATE_KEY || DEFAULT_MAINNET_PRIVATE_KEY;
@@ -142,6 +145,10 @@ const config: HardhatUserConfig = {
     polygontestnet: {
       url: polygonTestEndpoint,
       accounts: [`0x${polygonTestPrivateKey}`],
+    },
+    zetatestnet: {
+      url: zetaTestEndpoint,
+      accounts: [`0x${zetaTestPrivateKey}`],
     },
     Ethereum: {
       url: ethEndpoint,

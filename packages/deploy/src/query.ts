@@ -46,6 +46,12 @@ async function depositQuery(taskArgs: any) {
     console.error(LOGRED, 'max amount mismatch', maxAmount, c.srcTokenCfg.maxAmount);
   }
 
+  const disabled = await deposit.isDepositsDisabled();
+  console.log('deposit disable ', disabled);
+
+  const enabled = await deposit.isCertificateCheckEnabled();
+  console.log('certificate check ', enabled);
+
   const settingsAddress = await deposit.settings();
   console.log('settings address ', settingsAddress);
   if (c.srcChainCfg.settingsCenter !== settingsAddress) {
@@ -133,7 +139,7 @@ async function settingsQuery(taskArgs: any) {
   }
 
   const certCheck = await settingsContract.isCertificateCheckEnabled();
-  console.log('deposit sanction check ', certCheck);
+  console.log('deposit certificate check ', certCheck);
 
   const issuer = await settingsContract.getCertificateIssuer();
   console.log('certificate issuer ', issuer);
@@ -173,7 +179,10 @@ async function rollerPoolQuery(taskArgs: any) {
 
   const vXZK = await rollerPoolContract.vXZK();
   console.log('vXZK address ', vXZK);
-  if (chainCfg?.vXZKAddress !== vXZK) {
+  if (
+    (vXZK === '0x0000000000000000000000000000000000000000' && chainCfg?.vXZKAddress) ||
+    (vXZK !== '0x0000000000000000000000000000000000000000' && chainCfg?.vXZKAddress !== vXZK)
+  ) {
     console.error(LOGRED, 'vXZK address mismatch', vXZK, chainCfg?.vXZKAddress);
   }
 
@@ -253,7 +262,17 @@ async function relayerRegisterQuery(taskArgs: any) {
   for (let i = 0; i < c.operatorCfg?.relayers.length; i += 1) {
     const relayer = c.operatorCfg?.relayers[i];
     const result = await relayerRegisterContract.getRelayerUrlAndName(relayer);
-    console.log('relayer ', relayer, ' url  ', result[0], ' name ', result[1]);
+    if (result[0] !== c.operatorCfg?.relayerUrls[i] || result[1] !== c.operatorCfg?.relayerNames[i]) {
+      console.error(
+        LOGRED,
+        'relayer url or name mismatch',
+        relayer,
+        result[0],
+        c.operatorCfg?.relayerUrls[i],
+        result[1],
+        c.operatorCfg?.relayerNames[i],
+      );
+    }
   }
   /* eslint-enable no-await-in-loop */
 

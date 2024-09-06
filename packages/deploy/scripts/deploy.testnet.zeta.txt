@@ -2,3 +2,5 @@
 --network sepolia  --bridge loop --dst sepolia --token MTT
 --network sepolia  --bridge loop --dst sepolia --token mUSD
 --network sepolia  --bridge loop --dst sepolia --token XZK
+--network zetatestnet  --bridge loop --dst zetatestnet --token ZETA
+--network zetatestnet  --bridge loop --dst zetatestnet --token MTT

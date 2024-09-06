@@ -1,3 +1,5 @@
  --network Ethereum  --bridge loop --dst Ethereum --token ETH
  --network Ethereum  --bridge loop --dst Ethereum --token USDT
  --network Ethereum  --bridge loop --dst Ethereum --token USDC
+ --network Base  --bridge loop --dst Base --token ETH
+ --network Base  --bridge loop --dst Base --token USDbC

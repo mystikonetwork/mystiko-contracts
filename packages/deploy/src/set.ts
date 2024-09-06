@@ -5,7 +5,11 @@ import { initPoolContractFactory } from './contract/pool';
 import { initDepositContractFactory } from './contract/depsit';
 import { BridgeLoop, LOGRED, MystikoTestnet } from './common/constant';
 import { loadConfig } from './config/config';
-import { getRelayerRegisterContract, initSettingsContractFactory } from './contract/settings';
+import {
+  getRelayerRegisterContract,
+  initSettingsContractFactory,
+  setPoolMinRollupFee,
+} from './contract/settings';
 
 let ethers: any;
 
@@ -24,18 +28,39 @@ async function registerRelayer(taskArgs: any) {
   console.log('register relayer');
   const c = loadConfig(taskArgs);
 
-  const relayer = '';
-  const name = '';
-  const url = '';
-
   if (c.srcChainCfg?.relayerRegister === undefined) {
     console.error(LOGRED, 'relayerRegister contract address is undefined');
     return;
   }
-  const relayerFactory = getRelayerRegisterContract();
-  const relayerContract = relayerFactory.attach(c.srcChainCfg.relayerRegister);
-  const tx = await relayerContract.registerRelayer(relayer, url, name);
-  console.log('tx', tx.hash);
+
+  /* eslint-disable no-await-in-loop */
+  for (let i = 0; i < c.operatorCfg?.relayers.length; i += 1) {
+    const relayer = c.operatorCfg.relayers[i];
+    const name = c.operatorCfg.relayerNames[i];
+    const url = c.operatorCfg.relayerUrls[i];
+    const relayerFactory = getRelayerRegisterContract();
+    const relayerContract = relayerFactory.attach(c.srcChainCfg.relayerRegister);
+    const tx = await relayerContract.registerRelayer(relayer, url, name);
+    console.log('tx', tx.hash);
+  }
+  /* eslint-enable no-await-in-loop */
+}
+
+async function updatePoolMinRollupFee(taskArgs: any) {
+  console.log('update pool min rollup fee');
+  const c = loadConfig(taskArgs);
+
+  if (c.srcChainCfg?.settingsCenter === undefined) {
+    console.error(LOGRED, 'settingsCenter contract address is undefined');
+    return;
+  }
+
+  if (c.srcPoolCfg?.address === undefined) {
+    console.error(LOGRED, 'pool contract address is undefined');
+    return;
+  }
+
+  await setPoolMinRollupFee(c.srcChainCfg?.settingsCenter, c.srcPoolCfg?.address, c.srcTokenCfg.minRollupFee);
 }
 
 export async function set(taskArgs: any, hre: any) {
@@ -51,6 +76,8 @@ export async function set(taskArgs: any, hre: any) {
     await tokenTransfer(taskArgs);
   } else if (taskArgs.func === 'registerRelayer') {
     await registerRelayer(taskArgs);
+  } else if (taskArgs.func === 'updatePoolMinRollupFee') {
+    await updatePoolMinRollupFee(taskArgs);
   } else {
     console.error(LOGRED, 'un support function');
   }

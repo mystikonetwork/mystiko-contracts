@@ -8,6 +8,7 @@ export const TestNetworks = [
   'avalanchetestnet',
   'moonbase',
   'baseGoerli',
+  'zetatestnet',
 ];
 
 export const MerkleTreeHeight = 20;
