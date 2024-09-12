@@ -9,6 +9,7 @@ import {
   MystikoV2TBridge,
   MystikoV2Axelar,
   MystikoV2LayerZero,
+  MystikoSettings,
 } from '../src';
 
 let provider: ethers.providers.Provider;
@@ -89,6 +90,15 @@ test('test connect MystikoV2LayerZero', () => {
 test('test connect MystikoV2TBridge', () => {
   const contract = MystikoContractFactory.connect<MystikoV2TBridge>(
     'MystikoV2TBridgeERC20',
+    '0x5c7c88e07e3899fff3cc0effe23494591dfe87b6',
+    provider,
+  );
+  expect(contract.address).toBe('0x5c7c88e07e3899fff3cc0effe23494591dfe87b6');
+});
+
+test('test connect MystikoSettings', () => {
+  const contract = MystikoContractFactory.connect<MystikoSettings>(
+    'MystikoSettings',
     '0x5c7c88e07e3899fff3cc0effe23494591dfe87b6',
     provider,
   );
