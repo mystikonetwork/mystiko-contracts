@@ -104,6 +104,7 @@ async function settingsQuery(taskArgs: any) {
   }
 
   const settingsContract = await settingsContractInstance(chainCfg.settingsCenter);
+  console.log('settingsContract address ', chainCfg.settingsCenter);
 
   const rollerPool = await settingsContract.rollerPool();
   console.log('roller pool address', rollerPool);
