@@ -38,6 +38,7 @@ async function registerRelayer(taskArgs: any) {
     const relayer = c.operatorCfg.relayers[i];
     const name = c.operatorCfg.relayerNames[i];
     const url = c.operatorCfg.relayerUrls[i];
+    console.log('register relayer', relayer, name, url);
     const relayerFactory = getRelayerRegisterContract();
     const relayerContract = relayerFactory.attach(c.srcChainCfg.relayerRegister);
     const tx = await relayerContract.registerRelayer(relayer, url, name);

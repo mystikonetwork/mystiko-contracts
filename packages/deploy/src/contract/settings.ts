@@ -298,7 +298,7 @@ export async function deploySettingsContract(c: any) {
     const certificateAddress = certificate.address;
     console.log('certificateVerifier address: ', certificateAddress);
     chainCfg.certificateVerifier = certificateAddress;
-    chainCfg.settingsConfig.certificateIssuer = issuer;
+    chainCfg.settingsConfig.updateCertificateIssuer(issuer, 'deploy certificate');
     saveConfig(c.mystikoNetwork, c.cfg);
   }
 

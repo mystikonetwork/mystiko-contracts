@@ -191,7 +191,7 @@ async function deployStep4(taskArgs: any) {
 }
 
 async function testToken(taskArgs: any) {
-  await deployChainTestToken(taskArgs.token);
+  await deployChainTestToken(taskArgs.token, 18);
 }
 
 function dump(taskArgs: any) {
