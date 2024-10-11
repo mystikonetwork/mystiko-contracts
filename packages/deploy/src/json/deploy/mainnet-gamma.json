@@ -165,7 +165,7 @@
       "chainId": 137,
       "tokens": [
         {
-          "assetSymbol": "MATIC",
+          "assetSymbol": "POL",
           "assetDecimals": 18,
           "erc20": false,
           "minAmount": "100000000000000000000",
@@ -505,7 +505,7 @@
         },
         {
           "network": "Polygon",
-          "assetSymbol": "MATIC",
+          "assetSymbol": "POL",
           "address": "0x29ED7DE21ccc80dc5921A8d9d8650247653C1188",
           "syncStart": 61719822,
           "nonce": 6
@@ -671,7 +671,7 @@
           "pair": [
             {
               "network": "Polygon",
-              "assetSymbol": "MATIC",
+              "assetSymbol": "POL",
               "address": "0xEF94b1Ad81E7f4b19882829313D84E05A8965b25",
               "syncStart": 61719825,
               "nonce": 7,
