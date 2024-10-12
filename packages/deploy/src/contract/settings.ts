@@ -16,6 +16,7 @@ import {
   getSettingsArtifact,
   waitConfirm,
 } from '../common/utils';
+import { getMystikoPoolContract } from './pool';
 
 let CertifacteFactory: MystikoCertificate__factory;
 let RelayerPoolFactory: MystikoRelayerPool__factory;
@@ -286,11 +287,18 @@ export async function deploySettingsContract(c: any) {
   const { daoRegistry } = chainCfg;
   const { issuer } = c.operatorCfg;
 
+  if (daoRegistry === undefined) {
+    console.error(LOGRED, 'daoRegistry not configure');
+    process.exit(1);
+  }
+
   if (chainCfg.certificateVerifier === undefined) {
+    console.log('deploy certificateVerifier', daoRegistry, issuer);
     const certificate = await CertifacteFactory.deploy(daoRegistry, issuer, false);
     const certificateAddress = certificate.address;
     console.log('certificateVerifier address: ', certificateAddress);
     chainCfg.certificateVerifier = certificateAddress;
+    chainCfg.settingsConfig.updateCertificateIssuer(issuer, 'deploy certificate');
     saveConfig(c.mystikoNetwork, c.cfg);
   }
 
@@ -480,6 +488,35 @@ export async function setRelayerPoolMinAmount(
   }
 }
 
+export async function setPoolMinRollupFee(
+  settingsAddress: string,
+  poolAddress: string,
+  minRollupFee: string,
+) {
+  console.log('set pool min rollup fee');
+
+  try {
+    const pool = getMystikoPoolContract(false);
+    const poolContract = await pool.attach(poolAddress);
+    const rollupFee = await poolContract.getMinRollupFee();
+    console.log('current rollup fee ', rollupFee.toString());
+    if (rollupFee.toString() === minRollupFee) {
+      console.log('min rollup fee not change');
+      return;
+    }
+    console.log('update min rollup fee ', minRollupFee);
+    const settingsFactory = getSettingsCenterContract();
+    const settingsContract = settingsFactory.attach(settingsAddress);
+
+    const rsp = await settingsContract.setMinRollupFee(poolAddress, minRollupFee);
+    console.log('set min rollup fee ', rsp.hash);
+    await waitConfirm(ethers, rsp, true);
+  } catch (err: any) {
+    console.error(LOGRED, err);
+    process.exit(1);
+  }
+}
+
 export async function doSettingsCenterConfig(c: any) {
   const chainCfg = c.srcChainCfg;
 
@@ -503,7 +540,7 @@ export async function doSettingsCenterConfig(c: any) {
     await updateSettingsPoolAddress(c, chainCfg.settingsConfig, chainCfg.settingsCenter);
   }
 
-  await setChainCertificateCheck(c, true, chainCfg.settingsConfig, chainCfg.certificateVerifier);
+  // await setChainCertificateCheck(c, false, chainCfg.settingsConfig, chainCfg.certificateVerifier);
   await setChainCertificateIssuer(
     c,
     c.operatorCfg.issuer,

@@ -77,11 +77,7 @@
       "vXZKAddress": "0xE662feEF4Bb1f25e5eBb4F9f157d37A921Af1587",
       "settingsConfig": {
         "sanctionCheckTx": "0x6534e95a602b940a36591e531e59002f4fbc8f3ffc325b9b53bae70b8c546664",
-        "sanctionCheck": false,
-        "certificateCheck": true,
-        "certificateCheckTx": "0x85dd1db2ba8402fa4b9b5f0f826565ab871d0d5c56db49edc2a619fa128287fa",
-        "certificateIssuer": "0xcD1Bc0fB1F16160C35F2ADa4fcB0B919211D8321",
-        "certificateIssuerTx": "0x432e41af840557218a05db10643101d41bf28d796fab047ab971ab0eb8ca5c81"
+        "sanctionCheck": false
       },
       "hasher3Address": "0x1335db2409b22B88ff8cC9122471Bd9C12dA8D56",
       "rollup1Address": "0xb42e5BDb9c5B170B5aBA8a1CC85F0eFC19287467",
@@ -97,11 +93,11 @@
       "transaction2x2VerifierAddress": "0xcaCB8A86BC785268AE12E6D44c4106FF1a6Ad24C",
       "rollup32Address": "0xEd8B239dcF010083F7E98E9b2B057cD6a0bc0Ce2",
       "rollup64Address": "0x12aF0bBEfb341Ba732c2ECB3E96a0FDc609090C2",
-      "certificateVerifier": "0x202122Ad28C7dDa353e8b975e086C46Aab1636CC",
       "relayerPool": "0x78588C1c655c345E5b9E2174f83bd2Ca09F9EaE4",
       "rollerPool": "0xd519AEcED1951Fa1B94cC87970d8eaD34482c4Cc",
       "settingsCenter": "0x6cACf15AE27948915fDf767CDD1f042e35E50d14",
-      "relayerRegister": "0xE3E5a17f1b7a3CE6E13D4A9cABceA14c7D60184b"
+      "relayerRegister": "0xE3E5a17f1b7a3CE6E13D4A9cABceA14c7D60184b",
+      "certificateVerifier": "0x380d244d0cE5211059106596b12D69CD07bbe1AC"
     },
     {
       "name": "BSC Testnet",
@@ -699,6 +695,72 @@
       "certificateVerifier": "0x0e459d1566068eBe10F47138bfbd7657063d0dF5",
       "relayerPool": "0x7AC07F4ce6C72d4a620D4C9C88E1BE18945A029a",
       "rollerPool": "0x24Fd8ebc811997E1a362065944CaD87064E44466"
+    },
+    {
+      "name": "Zeta Testnet",
+      "network": "zetatestnet",
+      "chainId": 7001,
+      "tokens": [
+        {
+          "assetSymbol": "ZETA",
+          "assetDecimals": 18,
+          "erc20": false,
+          "minAmount": "100000000000000000",
+          "maxAmount": "1000000000000000000000",
+          "minExecutorFee": "5000000000000",
+          "minRollupFee": "10000000000000",
+          "recommendedAmounts": [
+            "100000000000000000",
+            "1000000000000000000",
+            "10000000000000000000",
+            "100000000000000000000"
+          ]
+        },
+        {
+          "assetSymbol": "MTT",
+          "erc20": true,
+          "assetDecimals": 18,
+          "address": "0xcaCB8A86BC785268AE12E6D44c4106FF1a6Ad24C",
+          "minAmount": "100000000000000000",
+          "maxAmount": "1000000000000000000000",
+          "minExecutorFee": "5000000000000000",
+          "minRollupFee": "10000000000000000",
+          "recommendedAmounts": [
+            "1000000000000000000",
+            "10000000000000000000",
+            "100000000000000000000",
+            "1000000000000000000000"
+          ]
+        }
+      ],
+      "daoRegistry": "0xAA98418708D26d7e0F308bD67B0224995F11963c",
+      "settingsConfig": {
+        "sanctionCheck": false,
+        "sanctionCheckTx": "0xe1bc40b06020ff1dcb79d6e88aa9e3f21fd6d7f4f40a4f695281aa7baac760f7",
+        "certificateCheck": false,
+        "certificateCheckTx": "0x6e0f36b0b9f2c64a82c6577b109169cf238cb20dc8378faed01ae23a3fabe14b",
+        "certificateIssuer": "0xcD1Bc0fB1F16160C35F2ADa4fcB0B919211D8321",
+        "certificateIssuerTx": "0x442343faef3724c34bb44e13d52b133b3906e18ea2cd11420e3202a5736f8095"
+      },
+      "hasher3Address": "0x39d2082dE4FF6ed250f7959A6E9EE441eC2096c4",
+      "rollup1Address": "0xf900322b2D706b35F43B9f8D00dc4617292c2697",
+      "rollup2Address": "0xA008e806e53872DC8C2e60D1Ba8302ccfFA795fB",
+      "rollup4Address": "0xbCE3B10a6aE55CD2fa36F847fd0e829de8f6964b",
+      "rollup8Address": "0x325eDAB94fB2B589ae627272f8feD1949C58f9ad",
+      "rollup16Address": "0xB1f5245F19c1911e5d3B8099188A783326626B83",
+      "rollup32Address": "0x5Ba13050318f6f1127896Dd09ebF51e7C549b3d4",
+      "rollup64Address": "0x6BAF780988066D4744006F6894BCd3A0E181d1b9",
+      "transaction1x0VerifierAddress": "0xB0b8f60Fd4a7b8a7B5577FC05d90811a64513C2B",
+      "transaction1x1VerifierAddress": "0x7Fed9eA345c3e257137359ca1c9A1Cb55A79A061",
+      "transaction1x2VerifierAddress": "0x0e3Ce6d2a3692d1f638537733bd836f2FCb45A19",
+      "transaction2x0VerifierAddress": "0xd5F0E1b5A37A58B26624811514006ceBB961ac1E",
+      "transaction2x1VerifierAddress": "0x083C3808A4a43Fa8a2b19e5b577BE49F280084d0",
+      "transaction2x2VerifierAddress": "0x3B96eAf28D9972F11ED57D7e8DDc5bF42675316E",
+      "certificateVerifier": "0x5AcacBd0485da075bAd7E39193fF59D4BE4eB09B",
+      "relayerPool": "0xe66a7488c462F10eA74Be3454Ede07DAf025B9B6",
+      "relayerRegister": "0xC4D9D217B5B8e50E069Ed2E8512fE32341Ec8413",
+      "rollerPool": "0x0D787aF26326400B72AF3F6a3712b1353120BbbE",
+      "settingsCenter": "0x1335db2409b22B88ff8cC9122471Bd9C12dA8D56"
     }
   ],
   "bridges": [
@@ -840,6 +902,20 @@
           "address": "0x7F1d74B0245748c56ba38Ae207feE80f329dB89F",
           "syncStart": 6096529,
           "nonce": 452
+        },
+        {
+          "network": "zetatestnet",
+          "assetSymbol": "ZETA",
+          "address": "0xa93D37bc8862280C68799f3B5289d298D0d6d8e7",
+          "syncStart": 6905658,
+          "nonce": 17
+        },
+        {
+          "network": "zetatestnet",
+          "assetSymbol": "MTT",
+          "address": "0x09caD274331021f68d2531b7755AFFfBA060Bc59",
+          "syncStart": 6905662,
+          "nonce": 19
         }
       ],
       "pairs": [
@@ -1111,6 +1187,32 @@
               "nonce": 115,
               "commitmentPool": "0x35c3271D79156268cE02106eB058657966B1E5fc",
               "commitmentPoolTx": "0xe89ec76f70f5a1e9e663398b4c33bcb42a45476d5289e65fb9ce71aa6289ea7b"
+            }
+          ]
+        },
+        {
+          "pair": [
+            {
+              "network": "zetatestnet",
+              "assetSymbol": "ZETA",
+              "address": "0x595382A9cc56B007F64ea3857617519a23D1b8e5",
+              "syncStart": 6905660,
+              "nonce": 18,
+              "commitmentPool": "0xa93D37bc8862280C68799f3B5289d298D0d6d8e7",
+              "commitmentPoolTx": "0x8a1be2baf8a58970a7702f3ca8f9588067fd51b2e8d6b9b5a3943ab49ffd481a"
+            }
+          ]
+        },
+        {
+          "pair": [
+            {
+              "network": "zetatestnet",
+              "assetSymbol": "MTT",
+              "address": "0x3Df8021381101f4817d092369714554D3FA94bAF",
+              "syncStart": 6905664,
+              "nonce": 20,
+              "commitmentPool": "0x09caD274331021f68d2531b7755AFFfBA060Bc59",
+              "commitmentPoolTx": "0x9c45ae914e836551e40677e23f0a2ff711a31ab3a924d125d7990fce195e70af"
             }
           ]
         }

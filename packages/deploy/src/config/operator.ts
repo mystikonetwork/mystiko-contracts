@@ -7,6 +7,8 @@ export interface RawOperatorConfig {
   executors: string[];
   rollers: string[];
   relayers: string[];
+  relayerNames: string[];
+  relayerUrls: string[];
   auditors: string[];
   issuer: string;
 }
@@ -49,6 +51,14 @@ export class OperatorConfig extends BaseConfig {
 
   public get relayers(): string[] {
     return this.asRawOperatorConfig().relayers;
+  }
+
+  public get relayerNames(): string[] {
+    return this.asRawOperatorConfig().relayerNames;
+  }
+
+  public get relayerUrls(): string[] {
+    return this.asRawOperatorConfig().relayerUrls;
   }
 
   public get issuer(): string {
