@@ -1924,21 +1924,7 @@
     bn.js "^5.2.0"
     randombytes "^2.1.0"
 
-"@mystikonetwork/utils@>=0.3.4":
-  version "0.3.4"
-  resolved "https://npm.pkg.github.com/download/@mystikonetwork/utils/0.3.4/fb6720fbc3c0d2872a0518aa7d9c5164c4ef5270#fb6720fbc3c0d2872a0518aa7d9c5164c4ef5270"
-  integrity sha512-IXtIrsKONxTez9bJzP9DGYISIgvzgkSZiAbX+8K4pNk+YMhyfoDil9L2P2RB8/TCWcgbhPuEdaEh3OH0JRt5sQ==
-  dependencies:
-    "@mystikonetwork/fastfile" "^0.0.21"
-    axios "^0.27.2"
-    bn.js "^5.2.0"
-    ethers "^5.5.3"
-    js-sha512 "^0.9.0"
-    loglevel "^1.8.0"
-    loglevel-plugin-prefix "^0.8.4"
-    pako "^2.0.4"
-
-"@mystikonetwork/utils@^0.3.8":
+"@mystikonetwork/utils@>=0.3.4", "@mystikonetwork/utils@^0.3.8":
   version "0.3.8"
   resolved "https://npm.pkg.github.com/download/@mystikonetwork/utils/0.3.8/0b52be4eed59589d330fc95e26668262f86054f1#0b52be4eed59589d330fc95e26668262f86054f1"
   integrity sha512-wEm9ZH33DoXtXfWNsU8tvpp+b81ggvjWhwiIpANmtBEZ9uH6z+NltxIXvOLF/N7Dv6OCwtAmiIFu2VwpwP7qtQ==
