@@ -1,4 +1,4 @@
-// SPDX-License-Identifier: MIT
+// SPDX-License-Identifier: GPL-3.0
 pragma solidity 0.8.26;
 
 import "./relay/lzApp/NonblockingLzApp.sol";
@@ -25,7 +25,6 @@ abstract contract MystikoV2LayerZero is MystikoV2Bridge, NonblockingLzApp {
     _lzSend(peerLayerZeroChainId, _requestBytes, payable(msg.sender), address(0x0), bytes(""), _bridgeFee);
   }
 
-  // todo add onlyBridgeProxy
   function _nonblockingLzReceive(
     uint16 _srcChainId,
     bytes memory _srcAddress,
@@ -33,7 +32,6 @@ abstract contract MystikoV2LayerZero is MystikoV2Bridge, NonblockingLzApp {
     bytes memory _payload
   ) internal override {
     ICommitmentPool.CommitmentRequest memory cmRequest = deserializeTxData(_payload);
-    // todo check _srcChainId and _srcAddress
     bridgeCommitment(peerChainId, peerContract, tx.origin, cmRequest);
   }
 
