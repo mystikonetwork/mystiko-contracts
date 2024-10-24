@@ -1,4 +1,4 @@
-// SPDX-License-Identifier: MIT
+// SPDX-License-Identifier: GPL-3.0
 pragma solidity 0.8.26;
 
 import "./relay/IAxelarExecutable.sol";
@@ -30,7 +30,6 @@ abstract contract MystikoV2Axelar is MystikoV2Bridge, IAxelarExecutable {
   }
 
   function _processDeposit(uint256 _bridgeFee, bytes memory _requestBytes) internal override {
-    // todo should save destinationAddress in setPeerContract call
     string memory destinationAddress = Strings.toHexString(uint256(uint160(peerContract)), 20);
     if (_bridgeFee > 0) {
       gasReceiver.payNativeGasForContractCall{value: _bridgeFee}(
@@ -42,19 +41,16 @@ abstract contract MystikoV2Axelar is MystikoV2Bridge, IAxelarExecutable {
       );
     }
 
-    // todo cant remove  emit event ???
     emit CallContractMessage(peerChainName, destinationAddress);
     IAxelarGateway(bridgeProxyAddress).callContract(peerChainName, destinationAddress, _requestBytes);
   }
 
-  // todo add onlyBridgeProxy
   function _execute(
     string memory _sourceChain,
     string memory _sourceAddress,
     bytes calldata _payload
   ) internal override {
     ICommitmentPool.CommitmentRequest memory cmRequest = deserializeTxData(_payload);
-    // todo check _sourceChain and _sourceAddress
     bridgeCommitment(peerChainId, peerContract, tx.origin, cmRequest);
   }
 

@@ -1,4 +1,4 @@
-// SPDX-License-Identifier: MIT
+// SPDX-License-Identifier: GPL-3.0
 
 pragma solidity 0.8.26;
 
@@ -17,7 +17,6 @@ abstract contract IAxelarExecutable {
     string calldata sourceAddress,
     bytes calldata payload
   ) external {
-    // todo check validate call
     //    bytes32 payloadHash = keccak256(payload);
     //    if (!gateway.validateContractCall(commandId, sourceChain, sourceAddress, payloadHash))
     //      revert NotApprovedByGateway();
