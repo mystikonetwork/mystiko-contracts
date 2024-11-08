@@ -16,7 +16,6 @@ import {
   getSettingsArtifact,
   waitConfirm,
 } from '../common/utils';
-import { getMystikoPoolContract } from './pool';
 
 let CertifacteFactory: MystikoCertificate__factory;
 let RelayerPoolFactory: MystikoRelayerPool__factory;
@@ -195,7 +194,7 @@ export async function setChainCertificateCheck(
   settingsConfig: ChainSettingsConfig,
   certificateAddress: string,
 ) {
-  console.log('set chain certifiate check ', check);
+  console.log('set chain certificate check ', check);
 
   if (!settingsConfig.isCertificateCheckChange(check)) {
     return;
@@ -488,35 +487,6 @@ export async function setRelayerPoolMinAmount(
   }
 }
 
-export async function setPoolMinRollupFee(
-  settingsAddress: string,
-  poolAddress: string,
-  minRollupFee: string,
-) {
-  console.log('set pool min rollup fee');
-
-  try {
-    const pool = getMystikoPoolContract(false);
-    const poolContract = await pool.attach(poolAddress);
-    const rollupFee = await poolContract.getMinRollupFee();
-    console.log('current rollup fee ', rollupFee.toString());
-    if (rollupFee.toString() === minRollupFee) {
-      console.log('min rollup fee not change');
-      return;
-    }
-    console.log('update min rollup fee ', minRollupFee);
-    const settingsFactory = getSettingsCenterContract();
-    const settingsContract = settingsFactory.attach(settingsAddress);
-
-    const rsp = await settingsContract.setMinRollupFee(poolAddress, minRollupFee);
-    console.log('set min rollup fee ', rsp.hash);
-    await waitConfirm(ethers, rsp, true);
-  } catch (err: any) {
-    console.error(LOGRED, err);
-    process.exit(1);
-  }
-}
-
 export async function doSettingsCenterConfig(c: any) {
   const chainCfg = c.srcChainCfg;
 
@@ -541,12 +511,12 @@ export async function doSettingsCenterConfig(c: any) {
   }
 
   // await setChainCertificateCheck(c, false, chainCfg.settingsConfig, chainCfg.certificateVerifier);
-  await setChainCertificateIssuer(
-    c,
-    c.operatorCfg.issuer,
-    chainCfg.settingsConfig,
-    chainCfg.certificateVerifier,
-  );
+  // await setChainCertificateIssuer(
+  //   c,
+  //   c.operatorCfg.issuer,
+  //   chainCfg.settingsConfig,
+  //   chainCfg.certificateVerifier,
+  // );
 
   // todo change min vote amount
   // await setRollerPoolMinAmount(c, chainCfg.settingsConfig, chainCfg.rollerPool, '0');

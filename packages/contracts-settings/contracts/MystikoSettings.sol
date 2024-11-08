@@ -1,12 +1,13 @@
 // SPDX-License-Identifier: GPL-3.0
 pragma solidity 0.8.26;
 
-import {MystikoSettingsBase} from "./MystikoSettingsBase.sol";
 import {IMystikoRollerPool} from "contracts-roller/contracts/interfaces/IMystikoRollerPool.sol";
 import {IMystikoRelayerPool} from "contracts-relayer/contracts/interfaces/IMystikoRelayerPool.sol";
 import {IMystikoCertificate} from "contracts-certificate/contracts/interfaces/IMystikoCertificate.sol";
+import {MystikoSettingsBase} from "./MystikoSettingsBase.sol";
+import {MystikoBridgeConfig} from "./config/impl/MystikoBridgeConfig.sol";
 
-contract MystikoSettings is MystikoSettingsBase {
+contract MystikoSettings is MystikoSettingsBase, MystikoBridgeConfig {
   constructor(
     address _daoRegistry,
     IMystikoCertificate _certificateVerifier,
@@ -25,5 +26,6 @@ contract MystikoSettings is MystikoSettingsBase {
       _transactVerifiers,
       _auditors
     )
+    MystikoBridgeConfig()
   {}
 }

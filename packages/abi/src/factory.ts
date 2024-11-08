@@ -18,6 +18,12 @@ import {
   MystikoV2TBridge__factory,
   MystikoSettings,
   MystikoSettings__factory,
+  MystikoV2WormholeUSDC__factory,
+  MystikoV2WormholeUSDC,
+  MystikoV2WormholeETH__factory,
+  MystikoV2WormholeETH,
+  MystikoV2WormholeERC20__factory,
+  MystikoV2WormholeERC20,
 } from './typechain/core';
 
 export type SupportedContractType =
@@ -29,6 +35,9 @@ export type SupportedContractType =
   | MystikoV2Celer
   | MystikoV2LayerZero
   | MystikoV2TBridge
+  | MystikoV2WormholeUSDC
+  | MystikoV2WormholeETH
+  | MystikoV2WormholeERC20
   | MystikoSettings;
 
 export class MystikoContractFactory {
@@ -63,6 +72,15 @@ export class MystikoContractFactory {
     }
     if (contractName.startsWith('MystikoSettings')) {
       return MystikoSettings__factory.connect(address, signerOrProvider) as T;
+    }
+    if (contractName.startsWith('MystikoV2WormholeUSDC')) {
+      return MystikoV2WormholeUSDC__factory.connect(address, signerOrProvider) as T;
+    }
+    if (contractName.startsWith('MystikoV2WormholeETH')) {
+      return MystikoV2WormholeETH__factory.connect(address, signerOrProvider) as T;
+    }
+    if (contractName.startsWith('MystikoV2WormholeERC20')) {
+      return MystikoV2WormholeERC20__factory.connect(address, signerOrProvider) as T;
     }
     throw new Error(`unsupported contract name ${contractName}`);
   }

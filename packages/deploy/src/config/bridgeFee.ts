@@ -3,6 +3,7 @@ import { BaseConfig } from './base';
 export interface RawBridgeFeeConfig {
   network: string;
   minimal: string;
+  gasLimit?: string;
 }
 
 export class BridgeFeeConfig extends BaseConfig {
@@ -18,6 +19,10 @@ export class BridgeFeeConfig extends BaseConfig {
 
   public get minimal(): string {
     return this.asRawBridgeProxyConfig().minimal;
+  }
+
+  public get gasLimit(): string | undefined {
+    return this.asRawBridgeProxyConfig().gasLimit;
   }
 
   private asRawBridgeProxyConfig(): RawBridgeFeeConfig {

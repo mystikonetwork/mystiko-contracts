@@ -9,6 +9,9 @@ import {
   MystikoV2LayerZeroMain__factory,
   MystikoV2AxelarERC20__factory,
   MystikoV2AxelarMain__factory,
+  MystikoV2WormholeUSDC__factory,
+  MystikoV2WormholeETH__factory,
+  MystikoV2WormholeERC20__factory,
 } from '@mystikonetwork/contracts-abi';
 import { checkNonceExpect, waitConfirm } from '../common/utils';
 import { BridgeConfig } from '../config/bridge';
@@ -20,6 +23,7 @@ import {
   BridgeLayerZero,
   BridgeLoop,
   BridgeTBridge,
+  BridgeWormhole,
   LOGRED,
 } from '../common/constant';
 import { DepositDeployConfig } from '../config/bridgeDeposit';
@@ -37,6 +41,9 @@ let MystikoV2LayerZeroERC20: MystikoV2LayerZeroERC20__factory;
 let MystikoV2LayerZeroMain: MystikoV2LayerZeroMain__factory;
 let MystikoV2AxelarERC20: MystikoV2AxelarERC20__factory;
 let MystikoV2AxelarMain: MystikoV2AxelarMain__factory;
+let MystikoV2WormholeUSDC: MystikoV2WormholeUSDC__factory;
+let MystikoV2WormholeETH: MystikoV2WormholeETH__factory;
+let MystikoV2WormholeERC20: MystikoV2WormholeERC20__factory;
 
 let ethers: any;
 
@@ -53,9 +60,12 @@ export async function initDepositContractFactory(eth: any) {
   MystikoV2LayerZeroMain = await ethers.getContractFactory('MystikoV2LayerZeroMain');
   MystikoV2AxelarERC20 = await ethers.getContractFactory('MystikoV2AxelarERC20');
   MystikoV2AxelarMain = await ethers.getContractFactory('MystikoV2AxelarMain');
+  MystikoV2WormholeUSDC = await ethers.getContractFactory('MystikoV2WormholeUSDC');
+  MystikoV2WormholeETH = await ethers.getContractFactory('MystikoV2WormholeETH');
+  MystikoV2WormholeERC20 = await ethers.getContractFactory('MystikoV2WormholeERC20');
 }
 
-export function getMystikoDeployContract(bridge: string, bErc20: boolean) {
+export function getMystikoDepositContract(bridge: string, bErc20: boolean, assetSymbol: string) {
   let coreContract: any;
   if (bridge === BridgeLoop) {
     if (bErc20) {
@@ -87,6 +97,17 @@ export function getMystikoDeployContract(bridge: string, bErc20: boolean) {
     } else {
       coreContract = MystikoV2AxelarMain;
     }
+  } else if (bridge === BridgeWormhole) {
+    if (assetSymbol === 'USDC') {
+      coreContract = MystikoV2WormholeUSDC;
+    } else if (assetSymbol === 'WETHWormhole') {
+      coreContract = MystikoV2WormholeERC20;
+    } else if (assetSymbol === 'ETH') {
+      coreContract = MystikoV2WormholeETH;
+    } else {
+      console.error(LOGRED, 'wormhole not support ', assetSymbol);
+      process.exit(1);
+    }
   } else {
     console.error(LOGRED, 'bridge not support');
   }
@@ -96,9 +117,10 @@ export function getMystikoDeployContract(bridge: string, bErc20: boolean) {
 export function depositContractInstance(
   bridgeName: string,
   erc20: boolean,
+  assetSymbol: string,
   addr: string | undefined,
 ): Promise<any> {
-  const DepositContractFactory = getMystikoDeployContract(bridgeName, erc20);
+  const DepositContractFactory = getMystikoDepositContract(bridgeName, erc20, assetSymbol);
   return Promise.resolve(DepositContractFactory.attach(addr));
 }
 
@@ -107,13 +129,16 @@ export async function deployDepositContract(
   mystikoNetwork: string,
   bridgeCfg: BridgeConfig,
   srcChainCfg: ChainConfig,
+  dstChainCfg: ChainConfig,
   srcChainTokenCfg: ChainTokenConfig,
   dstChainTokenCfg: ChainTokenConfig,
   pairSrcDepositContractCfg: DepositDeployConfig,
   commitmentPoolAddress: string,
   bridgeProxyConfig: BridgeProxyConfig | undefined,
+  peerBridgeProxyCfg: BridgeProxyConfig | undefined,
   override: string,
 ) {
+  console.log('deploy deposit contract');
   const srcDepositCfg = pairSrcDepositContractCfg;
 
   // todo eric override should set old contract disable to core configure
@@ -125,7 +150,11 @@ export async function deployDepositContract(
     return srcDepositCfg;
   }
 
-  const DepositContractFactory = getMystikoDeployContract(bridgeCfg.name, srcChainTokenCfg.erc20);
+  const DepositContractFactory = getMystikoDepositContract(
+    bridgeCfg.name,
+    srcChainTokenCfg.erc20,
+    srcChainTokenCfg.assetSymbol,
+  );
   if (DepositContractFactory === undefined) {
     console.log('depositContract factory not exist');
     process.exit(-1);
@@ -168,6 +197,8 @@ export async function deployDepositContract(
       process.exit(-1);
     }
 
+    const peerBridgeGasLimit = bridgeCfg.getPeerMinBridgeGasLimit(dstChainCfg.network);
+
     const localConfig = {
       minAmount: srcChainTokenCfg.minAmount,
       maxAmount: srcChainTokenCfg.maxAmount,
@@ -204,6 +235,65 @@ export async function deployDepositContract(
           localConfig,
           peerConfig,
           bridgeProxyConfig?.gasReceiver,
+        );
+      }
+    } else if (bridgeCfg.name === BridgeWormhole) {
+      if (
+        srcChainTokenCfg.assetSymbol !== 'USDC' &&
+        srcChainTokenCfg.assetSymbol !== 'WETHWormhole' &&
+        srcChainTokenCfg.assetSymbol !== 'ETH'
+      ) {
+        console.error(LOGRED, 'wormhole not support ', srcChainTokenCfg.assetSymbol);
+        process.exit(1);
+      }
+
+      if (!peerBridgeGasLimit) {
+        console.error(LOGRED, 'bridge gas limit not configure');
+        process.exit(1);
+      }
+
+      if (srcChainTokenCfg.assetSymbol === 'USDC') {
+        const bridgeWormholeConfig = {
+          peerWormholeChainId: peerBridgeProxyCfg?.mapChainId,
+          bridgeGasLimit: peerBridgeGasLimit,
+          wormholeRelayer: bridgeProxyConfig?.wormholeRelayer,
+          wormhole: bridgeProxyConfig?.wormhole,
+          circleMessageTransmitter: bridgeProxyConfig?.circleMessageTransmitter,
+          circleTokenMessenger: bridgeProxyConfig?.circleTokenMessenger,
+          USDCToken: srcChainTokenCfg.address,
+        };
+
+        localConfig.minBridgeFee = '0';
+        peerConfig.peerMinExecutorFee = '0';
+
+        coreContract = await DepositContractFactory.deploy(
+          srcChainCfg.hasher3Address,
+          srcChainCfg.settingsCenter,
+          localConfig,
+          peerConfig,
+          bridgeWormholeConfig,
+        );
+      } else {
+        const bridgeWormholeConfig = {
+          peerWormholeChainId: peerBridgeProxyCfg?.mapChainId,
+          bridgeGasLimit: peerBridgeGasLimit,
+          wormholeRelayer: bridgeProxyConfig?.wormholeRelayer,
+          tokenBridge: bridgeProxyConfig?.wormholeTokenBridge,
+          wormhole: bridgeProxyConfig?.wormhole,
+          token:
+            srcChainTokenCfg.assetSymbol === 'WETHWormhole'
+              ? srcChainTokenCfg.address
+              : '0x0000000000000000000000000000000000000000',
+        };
+
+        localConfig.minBridgeFee = '0';
+        peerConfig.peerMinExecutorFee = '0';
+        coreContract = await DepositContractFactory.deploy(
+          srcChainCfg.hasher3Address,
+          srcChainCfg.settingsCenter,
+          localConfig,
+          peerConfig,
+          bridgeWormholeConfig,
         );
       }
     } else if (srcChainTokenCfg.erc20) {
@@ -290,6 +380,7 @@ export async function setPeerContract(
   c: any,
   bridgeName: string,
   erc20: boolean,
+  assetSymbol: string,
   inDepositConfig: DepositDeployConfig,
   peerChainId: number,
   peerChainMapName: string,
@@ -300,7 +391,7 @@ export async function setPeerContract(
   }
   const depositConfig = inDepositConfig;
   console.log('set peer contract');
-  const DepositContractFactoruy = getMystikoDeployContract(bridgeName, erc20);
+  const DepositContractFactoruy = getMystikoDepositContract(bridgeName, erc20, assetSymbol);
   const coreContract = await DepositContractFactoruy.attach(depositConfig.address);
 
   try {
@@ -329,7 +420,7 @@ export async function setLZEndpoint(
 ) {
   console.log('set LZ Endpoint');
   const depositConfig = inDepositConfig;
-  const DepositContractFactoruy = getMystikoDeployContract(bridgeName, erc20);
+  const DepositContractFactoruy = getMystikoDepositContract(bridgeName, erc20, '');
   const coreContract = await DepositContractFactoruy.attach(depositConfig.address);
   try {
     const rsp = await coreContract.setEndpoint(bridgeProxy.mapChainId, bridgeProxy.address);
@@ -362,7 +453,7 @@ export async function setLZTrustedRemote(
   }
   const depositConfig = inDepositConfig;
   console.log('set trusted remote');
-  const DepositContractFactoruy = getMystikoDeployContract(bridgeName, erc20);
+  const DepositContractFactoruy = getMystikoDepositContract(bridgeName, erc20, '');
   const coreContract = await DepositContractFactoruy.attach(depositConfig.address);
 
   try {

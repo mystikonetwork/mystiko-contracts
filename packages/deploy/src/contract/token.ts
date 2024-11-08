@@ -78,7 +78,7 @@ async function transferTokenToContract(c: any, srcTokenCfg: ChainTokenConfig, in
 }
 
 export async function transferToContract(c: any, srcTokenCfg: ChainTokenConfig, inPoolCfg: PoolDeployConfig) {
-  if (srcTokenCfg.erc20 && srcTokenCfg.assetSymbol !== 'MATIC') {
+  if (srcTokenCfg.assetSymbol === 'MTT') {
     await transferTokenToContract(c, srcTokenCfg, inPoolCfg);
   } else {
     console.log('skip main token transfer');

@@ -29,7 +29,11 @@ abstract contract MystikoV2Axelar is MystikoV2Bridge, IAxelarExecutable {
     gasReceiver = IAxelarGasService(_gasReceiver);
   }
 
-  function _processDeposit(uint256 _bridgeFee, bytes memory _requestBytes) internal override {
+  function _processDeposit(
+    uint256 _amount,
+    uint256 _bridgeFee,
+    bytes memory _requestBytes
+  ) internal override {
     string memory destinationAddress = Strings.toHexString(uint256(uint160(peerContract)), 20);
     if (_bridgeFee > 0) {
       gasReceiver.payNativeGasForContractCall{value: _bridgeFee}(

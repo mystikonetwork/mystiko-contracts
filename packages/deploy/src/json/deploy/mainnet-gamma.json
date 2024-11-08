@@ -137,7 +137,9 @@
       "daoRegistry": "0x33C044e4807ed822724F7c473502B00eD3bf7c7f",
       "settingsConfig": {
         "certificateIssuer": "0xcD1Bc0fB1F16160C35F2ADa4fcB0B919211D8321",
-        "certificateIssuerTx": "deploy certificate"
+        "certificateIssuerTx": "deploy certificate",
+        "certificateCheck": true,
+        "certificateCheckTx": "0xf01247c18ce07c1cc292cb82c8e46db97c79b99d896f65ae9f7ed34fad11d806"
       },
       "hasher3Address": "0x7d8058dC129014968bE5Be0d52C623FFbf16cAEA",
       "rollup1Address": "0xa5c0060cdBf2F5185165e4430c374800d891750C",
@@ -231,7 +233,9 @@
       "daoRegistry": "0x33C044e4807ed822724F7c473502B00eD3bf7c7f",
       "settingsConfig": {
         "certificateIssuer": "0xcD1Bc0fB1F16160C35F2ADa4fcB0B919211D8321",
-        "certificateIssuerTx": "deploy certificate"
+        "certificateIssuerTx": "deploy certificate",
+        "certificateCheck": true,
+        "certificateCheckTx": "0x98d5bbf5478dd136e1bca4b0803cd805c28ad3bea0649b36b9c00fc65be4bc31"
       },
       "hasher3Address": "0x7d8058dC129014968bE5Be0d52C623FFbf16cAEA",
       "rollup1Address": "0x4ba17CA685c360C173c75E841277AE837A0e094C",
@@ -296,7 +300,9 @@
         "sanctionListAddress": "0x3A91A31cB3dC49b4db9Ce721F50a9D076c8D739B",
         "sanctionListAddressTx": "0x07e1079baa3f9cac247c063d9358c20576fa94ac918102291d480c5db80326f0",
         "certificateIssuer": "0xcD1Bc0fB1F16160C35F2ADa4fcB0B919211D8321",
-        "certificateIssuerTx": "0xc81391cb1a90297353f393f0f77ad60e9b7798511a989e9b3c94bdd134285551"
+        "certificateIssuerTx": "0xc81391cb1a90297353f393f0f77ad60e9b7798511a989e9b3c94bdd134285551",
+        "certificateCheck": true,
+        "certificateCheckTx": "0xfa6591c163c4e0a84569104be9a99e39984ec183ebe9f8ed3789f9eaa21b0c1e"
       },
       "hasher3Address": "0x70Bc3d91172C97d9652C65f28a9615Bb6B462828",
       "rollup1Address": "0xeF9482556810c8c8E47fCf141E1b4aFd6326cF44",
@@ -374,7 +380,9 @@
       "daoRegistry": "0x33C044e4807ed822724F7c473502B00eD3bf7c7f",
       "settingsConfig": {
         "certificateIssuer": "0xcD1Bc0fB1F16160C35F2ADa4fcB0B919211D8321",
-        "certificateIssuerTx": "deploy certificate"
+        "certificateIssuerTx": "deploy certificate",
+        "certificateCheck": true,
+        "certificateCheckTx": "0x20c5f6d05411dc4c07719f240d22e92ace9e7e9c4435ffa7a2da1a1c377ec479"
       },
       "hasher3Address": "0xA9d3173fa17D14FC147c993667A97C6889f5D486",
       "rollup1Address": "0xA288b938FE6d6bC70aDb5C545A99985993e398F5",
@@ -438,7 +446,9 @@
         "certificateIssuer": "0xcD1Bc0fB1F16160C35F2ADa4fcB0B919211D8321",
         "certificateIssuerTx": "deploy certificate",
         "sanctionCheck": false,
-        "sanctionCheckTx": "0x5d1c00b0a2669b91410a38e67166162f5b0f478db5be412595834c186f320269"
+        "sanctionCheckTx": "0x5d1c00b0a2669b91410a38e67166162f5b0f478db5be412595834c186f320269",
+        "certificateCheck": true,
+        "certificateCheckTx": "0x15a72a25a5e198773f1ad2c78a13e578766b180ca29f1406ef0aca0056b2bdd3"
       },
       "hasher3Address": "0xA9d3173fa17D14FC147c993667A97C6889f5D486",
       "rollup1Address": "0xA288b938FE6d6bC70aDb5C545A99985993e398F5",

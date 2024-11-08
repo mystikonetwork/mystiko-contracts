@@ -21,7 +21,11 @@ abstract contract MystikoV2LayerZero is MystikoV2Bridge, NonblockingLzApp {
     // implemented in MystikoV2Bridge
   }
 
-  function _processDeposit(uint256 _bridgeFee, bytes memory _requestBytes) internal override {
+  function _processDeposit(
+    uint256 _amount,
+    uint256 _bridgeFee,
+    bytes memory _requestBytes
+  ) internal override {
     _lzSend(peerLayerZeroChainId, _requestBytes, payable(msg.sender), address(0x0), bytes(""), _bridgeFee);
   }
 

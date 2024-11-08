@@ -58,7 +58,7 @@ export function saveTBridgeJson(c: any) {
       pair.local.network === c.pairSrcDepositCfg.network &&
       pair.remote.network === c.pairDstDepositCfg.network
     ) {
-      tbridgeConfig.bridge.pairs[i].local.relayProxyAddress = c.proxyCfg.address;
+      tbridgeConfig.bridge.pairs[i].local.relayProxyAddress = c.bridgeProxyCfg.address;
       tbridgeConfig.bridge.pairs[i].local.bridgeEnalbe = true;
 
       console.log('update tbridge config');
@@ -70,7 +70,7 @@ export function saveTBridgeJson(c: any) {
       pair.remote.network === c.pairSrcDepositCfg.network &&
       pair.local.network === c.pairDstDepositCfg.network
     ) {
-      tbridgeConfig.bridge.pairs[i].remote.relayProxyAddress = c.proxyCfg.address;
+      tbridgeConfig.bridge.pairs[i].remote.relayProxyAddress = c.bridgeProxyCfg.address;
       tbridgeConfig.bridge.pairs[i].remote.bridgeEnalbe = true;
 
       console.log('update tbridge config');
@@ -85,7 +85,7 @@ export function saveTBridgeJson(c: any) {
     local: {
       network: c.pairSrcDepositCfg.network,
       chainId: c.srcChainCfg.chainId,
-      relayProxyAddress: c.proxyCfg.address,
+      relayProxyAddress: c.bridgeProxyCfg.address,
       bridgeEnalbe: true,
     },
     remote: {

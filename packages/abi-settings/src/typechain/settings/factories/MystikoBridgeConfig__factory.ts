@@ -49,7 +49,7 @@ const _abi = [
       {
         indexed: true,
         internalType: 'address',
-        name: 'deposit',
+        name: '_localDeposit',
         type: 'address',
       },
       {
@@ -68,7 +68,7 @@ const _abi = [
       {
         indexed: true,
         internalType: 'address',
-        name: 'deposit',
+        name: '_localDeposit',
         type: 'address',
       },
       {
@@ -87,7 +87,7 @@ const _abi = [
       {
         indexed: true,
         internalType: 'address',
-        name: 'deposit',
+        name: '_localDeposit',
         type: 'address',
       },
       {
@@ -323,7 +323,7 @@ const _abi = [
     inputs: [
       {
         internalType: 'address',
-        name: '_pool',
+        name: '_localDeposit',
         type: 'address',
       },
     ],
@@ -342,7 +342,7 @@ const _abi = [
     inputs: [
       {
         internalType: 'address',
-        name: '_pool',
+        name: '_localDeposit',
         type: 'address',
       },
     ],
@@ -361,7 +361,7 @@ const _abi = [
     inputs: [
       {
         internalType: 'address',
-        name: '_pool',
+        name: '_localDeposit',
         type: 'address',
       },
     ],
@@ -423,7 +423,7 @@ const _abi = [
     inputs: [
       {
         internalType: 'address',
-        name: '_pool',
+        name: '_localDeposit',
         type: 'address',
       },
       {
@@ -441,7 +441,7 @@ const _abi = [
     inputs: [
       {
         internalType: 'address',
-        name: '_pool',
+        name: '_localDeposit',
         type: 'address',
       },
       {
@@ -459,7 +459,7 @@ const _abi = [
     inputs: [
       {
         internalType: 'address',
-        name: '_pool',
+        name: '_localDeposit',
         type: 'address',
       },
       {

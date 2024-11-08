@@ -15,30 +15,30 @@ abstract contract MystikoDepositConfig is MystikoDAOAccessControl {
   event AssociatedPoolChanged(address indexed deposit, address indexed pool);
   event DepositDisableChanged(address indexed deposit, bool disable);
 
-  function queryMinDepositAmount(address _pool) external view returns (uint256) {
-    return minDepositAmountMap[_pool];
+  function queryMinDepositAmount(address _deposit) external view returns (uint256) {
+    return minDepositAmountMap[_deposit];
   }
 
-  function setMinDepositAmount(address _pool, uint256 _minDepositAmount) external onlyMystikoDAO {
-    uint256 currentMaxDepositAmount = maxDepositAmountMap[_pool];
+  function setMinDepositAmount(address _deposit, uint256 _minDepositAmount) external onlyMystikoDAO {
+    uint256 currentMaxDepositAmount = maxDepositAmountMap[_deposit];
     if (_minDepositAmount == 0 || _minDepositAmount > currentMaxDepositAmount)
       revert MystikoSettingsErrors.InvalidDepositAmount();
-    if (minDepositAmountMap[_pool] == _minDepositAmount) revert MystikoSettingsErrors.NotChanged();
-    minDepositAmountMap[_pool] = _minDepositAmount;
-    emit MinDepositAmountChanged(_pool, _minDepositAmount);
+    if (minDepositAmountMap[_deposit] == _minDepositAmount) revert MystikoSettingsErrors.NotChanged();
+    minDepositAmountMap[_deposit] = _minDepositAmount;
+    emit MinDepositAmountChanged(_deposit, _minDepositAmount);
   }
 
-  function queryMaxDepositAmount(address _pool) external view returns (uint256) {
-    return maxDepositAmountMap[_pool];
+  function queryMaxDepositAmount(address _deposit) external view returns (uint256) {
+    return maxDepositAmountMap[_deposit];
   }
 
-  function setMaxDepositAmount(address _pool, uint256 _maxDepositAmount) external onlyMystikoDAO {
-    uint256 currentMinDepositAmount = minDepositAmountMap[_pool];
+  function setMaxDepositAmount(address _deposit, uint256 _maxDepositAmount) external onlyMystikoDAO {
+    uint256 currentMinDepositAmount = minDepositAmountMap[_deposit];
     if (_maxDepositAmount == 0 || _maxDepositAmount < currentMinDepositAmount)
       revert MystikoSettingsErrors.InvalidDepositAmount();
-    if (maxDepositAmountMap[_pool] == _maxDepositAmount) revert MystikoSettingsErrors.NotChanged();
-    maxDepositAmountMap[_pool] = _maxDepositAmount;
-    emit MaxDepositAmountChanged(_pool, _maxDepositAmount);
+    if (maxDepositAmountMap[_deposit] == _maxDepositAmount) revert MystikoSettingsErrors.NotChanged();
+    maxDepositAmountMap[_deposit] = _maxDepositAmount;
+    emit MaxDepositAmountChanged(_deposit, _maxDepositAmount);
   }
 
   function queryAssociatedPool(address _depositAddress) external view returns (address) {

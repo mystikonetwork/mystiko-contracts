@@ -8,8 +8,10 @@ import { loadConfig } from './config/config';
 import {
   getRelayerRegisterContract,
   initSettingsContractFactory,
-  setPoolMinRollupFee,
+  setChainCertificateCheck,
 } from './contract/settings';
+import { setBridgePeerMinRollupFee, setDepositMinAmount } from './contract/settingsDeposit';
+import { setPoolMinRollupFee } from './contract/settingsPool';
 
 let ethers: any;
 
@@ -47,6 +49,29 @@ async function registerRelayer(taskArgs: any) {
   /* eslint-enable no-await-in-loop */
 }
 
+async function updateDepositMinAmount(taskArgs: any) {
+  console.log('update deposit min amount');
+  const c = loadConfig(taskArgs);
+
+  if (c.srcChainCfg?.settingsCenter === undefined) {
+    console.error(LOGRED, 'settingsCenter contract address is undefined');
+    return;
+  }
+
+  if (c.pairSrcDepositCfg?.address === undefined) {
+    console.error(LOGRED, 'pool contract address is undefined');
+    return;
+  }
+
+  await setDepositMinAmount(
+    c.srcChainCfg?.settingsCenter,
+    c.pairSrcDepositCfg?.address,
+    c.srcTokenCfg,
+    c.bridgeCfg?.name,
+    ethers,
+  );
+}
+
 async function updatePoolMinRollupFee(taskArgs: any) {
   console.log('update pool min rollup fee');
   const c = loadConfig(taskArgs);
@@ -61,7 +86,34 @@ async function updatePoolMinRollupFee(taskArgs: any) {
     return;
   }
 
-  await setPoolMinRollupFee(c.srcChainCfg?.settingsCenter, c.srcPoolCfg?.address, c.srcTokenCfg.minRollupFee);
+  await setPoolMinRollupFee(
+    c.srcChainCfg?.settingsCenter,
+    c.srcPoolCfg?.address,
+    c.srcTokenCfg.minRollupFee,
+    ethers,
+  );
+  if (c.bridgeCfg.name !== BridgeLoop) {
+    await setBridgePeerMinRollupFee(
+      c.srcChainCfg?.settingsCenter,
+      c.pairSrcDepositCfg?.address,
+      c.srcTokenCfg,
+      c.bridgeCfg?.name,
+      c.dstTokenCfg.minRollupFee,
+      ethers,
+    );
+  }
+}
+
+async function enableCertificate(taskArgs: any) {
+  console.log('enable certificate');
+  const c = loadConfig(taskArgs);
+
+  if (c.srcChainCfg?.certificateVerifier === undefined) {
+    console.error(LOGRED, 'settingsCenter contract address is undefined');
+    return;
+  }
+
+  await setChainCertificateCheck(c, true, c.srcChainCfg.settingsConfig, c.srcChainCfg.certificateVerifier);
 }
 
 export async function set(taskArgs: any, hre: any) {
@@ -79,6 +131,10 @@ export async function set(taskArgs: any, hre: any) {
     await registerRelayer(taskArgs);
   } else if (taskArgs.func === 'updatePoolMinRollupFee') {
     await updatePoolMinRollupFee(taskArgs);
+  } else if (taskArgs.func === 'updateDepositMinAmount') {
+    await updateDepositMinAmount(taskArgs);
+  } else if (taskArgs.func === 'enableCertificate') {
+    await enableCertificate(taskArgs);
   } else {
     console.error(LOGRED, 'un support function');
   }

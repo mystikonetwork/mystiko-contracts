@@ -3,7 +3,7 @@
  --network Ethereum  --bridge loop --dst Ethereum --token USDC
  --network Base  --bridge loop --dst Base --token ETH
  --network Base  --bridge loop --dst Base --token USDbC
- --network Polygon  --bridge loop --dst Polygon --token MATIC
+ --network Polygon  --bridge loop --dst Polygon --token POL
  --network Polygon  --bridge loop --dst Polygon --token USDT
  --network Polygon  --bridge loop --dst Polygon --token USDC
  --network Polygon  --bridge loop --dst Polygon --token WETH
