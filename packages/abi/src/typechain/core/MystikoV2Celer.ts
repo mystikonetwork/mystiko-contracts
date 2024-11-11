@@ -221,7 +221,7 @@ export interface MystikoV2Celer extends BaseContract {
     defaultPeerMinRollupFee(overrides?: CallOverrides): Promise<[BigNumber]>;
 
     deposit(
-      _request: IMystikoBridge.BridgeDepositRequestStruct,
+      arg0: IMystikoBridge.BridgeDepositRequestStruct,
       overrides?: PayableOverrides & { from?: string | Promise<string> },
     ): Promise<ContractTransaction>;
 
@@ -291,7 +291,7 @@ export interface MystikoV2Celer extends BaseContract {
   defaultPeerMinRollupFee(overrides?: CallOverrides): Promise<BigNumber>;
 
   deposit(
-    _request: IMystikoBridge.BridgeDepositRequestStruct,
+    arg0: IMystikoBridge.BridgeDepositRequestStruct,
     overrides?: PayableOverrides & { from?: string | Promise<string> },
   ): Promise<ContractTransaction>;
 
@@ -360,7 +360,7 @@ export interface MystikoV2Celer extends BaseContract {
 
     defaultPeerMinRollupFee(overrides?: CallOverrides): Promise<BigNumber>;
 
-    deposit(_request: IMystikoBridge.BridgeDepositRequestStruct, overrides?: CallOverrides): Promise<void>;
+    deposit(arg0: IMystikoBridge.BridgeDepositRequestStruct, overrides?: CallOverrides): Promise<void>;
 
     executeMessage(
       _sender: string,
@@ -434,7 +434,7 @@ export interface MystikoV2Celer extends BaseContract {
     defaultPeerMinRollupFee(overrides?: CallOverrides): Promise<BigNumber>;
 
     deposit(
-      _request: IMystikoBridge.BridgeDepositRequestStruct,
+      arg0: IMystikoBridge.BridgeDepositRequestStruct,
       overrides?: PayableOverrides & { from?: string | Promise<string> },
     ): Promise<BigNumber>;
 
@@ -505,7 +505,7 @@ export interface MystikoV2Celer extends BaseContract {
     defaultPeerMinRollupFee(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     deposit(
-      _request: IMystikoBridge.BridgeDepositRequestStruct,
+      arg0: IMystikoBridge.BridgeDepositRequestStruct,
       overrides?: PayableOverrides & { from?: string | Promise<string> },
     ): Promise<PopulatedTransaction>;
 

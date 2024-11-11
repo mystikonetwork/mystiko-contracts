@@ -11,7 +11,7 @@ import { MystikoProtocolV2, ProtocolFactoryV2 } from '@mystikonetwork/protocol';
 import { toDecimals } from '@mystikonetwork/utils';
 import { ZokratesNodeProverFactory } from '@mystikonetwork/zkp-node';
 import { waffle } from 'hardhat';
-import { MystikoBridgeSettings } from '@mystikonetwork/contracts-abi-settings';
+import { MystikoSettings } from '@mystikonetwork/contracts-abi-settings';
 import { constructCommitment, testBridgeConstructor } from '../../../common';
 import { testAxelarDeposit } from '../../../common/depositAxelarTests';
 import {
@@ -89,7 +89,7 @@ describe('Test Mystiko axelar', () => {
   let protocol: MystikoProtocolV2;
   let dummyAxelarGateway: MockAxelarGateway;
   let dummyAxelarGasService: MockAxelarGasService;
-  let settings: MystikoBridgeSettings;
+  let settings: MystikoSettings;
 
   beforeEach(async () => {
     accounts = waffle.provider.getWallets();

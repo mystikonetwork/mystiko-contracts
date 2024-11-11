@@ -85,13 +85,19 @@ export interface MystikoSettingsInterface extends utils.Interface {
     'isSanctioned(address)': FunctionFragment;
     'isTransferDisable(address)': FunctionFragment;
     'maxDepositAmountMap(address)': FunctionFragment;
+    'minBridgeFeeAmount(address)': FunctionFragment;
     'minDepositAmountMap(address)': FunctionFragment;
+    'minPeerExecutorFeeAmount(address)': FunctionFragment;
+    'minPeerRollupFeeAmount(address)': FunctionFragment;
     'minRollupFeeMap(address)': FunctionFragment;
     'queryAllAuditorPublicKeys()': FunctionFragment;
     'queryAssociatedPool(address)': FunctionFragment;
     'queryAuditorPublicKey(uint256)': FunctionFragment;
     'queryMaxDepositAmount(address)': FunctionFragment;
+    'queryMinBridgeFee(address)': FunctionFragment;
     'queryMinDepositAmount(address)': FunctionFragment;
+    'queryMinPeerExecutorFee(address)': FunctionFragment;
+    'queryMinPeerRollupFee(address)': FunctionFragment;
     'queryMinRollupFee(address)': FunctionFragment;
     'queryRollupVerifier(uint32)': FunctionFragment;
     'queryTransactVerifier(uint32,uint32)': FunctionFragment;
@@ -107,7 +113,10 @@ export interface MystikoSettingsInterface extends utils.Interface {
     'setCertificateVerifier(address)': FunctionFragment;
     'setDepositDisable(address,bool)': FunctionFragment;
     'setMaxDepositAmount(address,uint256)': FunctionFragment;
+    'setMinBridgeFee(address,uint256)': FunctionFragment;
     'setMinDepositAmount(address,uint256)': FunctionFragment;
+    'setMinPeerExecutorFee(address,uint256)': FunctionFragment;
+    'setMinPeerRollupFee(address,uint256)': FunctionFragment;
     'setMinRollupFee(address,uint256)': FunctionFragment;
     'setRelayerPool(address)': FunctionFragment;
     'setRollerPool(address)': FunctionFragment;
@@ -147,13 +156,19 @@ export interface MystikoSettingsInterface extends utils.Interface {
   encodeFunctionData(functionFragment: 'isSanctioned', values: [string]): string;
   encodeFunctionData(functionFragment: 'isTransferDisable', values: [string]): string;
   encodeFunctionData(functionFragment: 'maxDepositAmountMap', values: [string]): string;
+  encodeFunctionData(functionFragment: 'minBridgeFeeAmount', values: [string]): string;
   encodeFunctionData(functionFragment: 'minDepositAmountMap', values: [string]): string;
+  encodeFunctionData(functionFragment: 'minPeerExecutorFeeAmount', values: [string]): string;
+  encodeFunctionData(functionFragment: 'minPeerRollupFeeAmount', values: [string]): string;
   encodeFunctionData(functionFragment: 'minRollupFeeMap', values: [string]): string;
   encodeFunctionData(functionFragment: 'queryAllAuditorPublicKeys', values?: undefined): string;
   encodeFunctionData(functionFragment: 'queryAssociatedPool', values: [string]): string;
   encodeFunctionData(functionFragment: 'queryAuditorPublicKey', values: [BigNumberish]): string;
   encodeFunctionData(functionFragment: 'queryMaxDepositAmount', values: [string]): string;
+  encodeFunctionData(functionFragment: 'queryMinBridgeFee', values: [string]): string;
   encodeFunctionData(functionFragment: 'queryMinDepositAmount', values: [string]): string;
+  encodeFunctionData(functionFragment: 'queryMinPeerExecutorFee', values: [string]): string;
+  encodeFunctionData(functionFragment: 'queryMinPeerRollupFee', values: [string]): string;
   encodeFunctionData(functionFragment: 'queryMinRollupFee', values: [string]): string;
   encodeFunctionData(functionFragment: 'queryRollupVerifier', values: [BigNumberish]): string;
   encodeFunctionData(functionFragment: 'queryTransactVerifier', values: [BigNumberish, BigNumberish]): string;
@@ -169,7 +184,10 @@ export interface MystikoSettingsInterface extends utils.Interface {
   encodeFunctionData(functionFragment: 'setCertificateVerifier', values: [string]): string;
   encodeFunctionData(functionFragment: 'setDepositDisable', values: [string, boolean]): string;
   encodeFunctionData(functionFragment: 'setMaxDepositAmount', values: [string, BigNumberish]): string;
+  encodeFunctionData(functionFragment: 'setMinBridgeFee', values: [string, BigNumberish]): string;
   encodeFunctionData(functionFragment: 'setMinDepositAmount', values: [string, BigNumberish]): string;
+  encodeFunctionData(functionFragment: 'setMinPeerExecutorFee', values: [string, BigNumberish]): string;
+  encodeFunctionData(functionFragment: 'setMinPeerRollupFee', values: [string, BigNumberish]): string;
   encodeFunctionData(functionFragment: 'setMinRollupFee', values: [string, BigNumberish]): string;
   encodeFunctionData(functionFragment: 'setRelayerPool', values: [string]): string;
   encodeFunctionData(functionFragment: 'setRollerPool', values: [string]): string;
@@ -202,13 +220,19 @@ export interface MystikoSettingsInterface extends utils.Interface {
   decodeFunctionResult(functionFragment: 'isSanctioned', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'isTransferDisable', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'maxDepositAmountMap', data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'minBridgeFeeAmount', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'minDepositAmountMap', data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'minPeerExecutorFeeAmount', data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'minPeerRollupFeeAmount', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'minRollupFeeMap', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'queryAllAuditorPublicKeys', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'queryAssociatedPool', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'queryAuditorPublicKey', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'queryMaxDepositAmount', data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'queryMinBridgeFee', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'queryMinDepositAmount', data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'queryMinPeerExecutorFee', data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'queryMinPeerRollupFee', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'queryMinRollupFee', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'queryRollupVerifier', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'queryTransactVerifier', data: BytesLike): Result;
@@ -224,7 +248,10 @@ export interface MystikoSettingsInterface extends utils.Interface {
   decodeFunctionResult(functionFragment: 'setCertificateVerifier', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'setDepositDisable', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'setMaxDepositAmount', data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'setMinBridgeFee', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'setMinDepositAmount', data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'setMinPeerExecutorFee', data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'setMinPeerRollupFee', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'setMinRollupFee', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'setRelayerPool', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'setRollerPool', data: BytesLike): Result;
@@ -242,7 +269,10 @@ export interface MystikoSettingsInterface extends utils.Interface {
     'CertificateVerifierChanged(address)': EventFragment;
     'DepositDisableChanged(address,bool)': EventFragment;
     'MaxDepositAmountChanged(address,uint256)': EventFragment;
+    'MinBridgeFeeChanged(address,uint256)': EventFragment;
     'MinDepositAmountChanged(address,uint256)': EventFragment;
+    'MinPeerExecutorFeeChanged(address,uint256)': EventFragment;
+    'MinPeerRollupFeeChanged(address,uint256)': EventFragment;
     'MinRollupFeeChanged(address,uint256)': EventFragment;
     'RelayerPoolChanged(address)': EventFragment;
     'RoleAdminChanged(bytes32,bytes32,bytes32)': EventFragment;
@@ -263,7 +293,10 @@ export interface MystikoSettingsInterface extends utils.Interface {
   getEvent(nameOrSignatureOrTopic: 'CertificateVerifierChanged'): EventFragment;
   getEvent(nameOrSignatureOrTopic: 'DepositDisableChanged'): EventFragment;
   getEvent(nameOrSignatureOrTopic: 'MaxDepositAmountChanged'): EventFragment;
+  getEvent(nameOrSignatureOrTopic: 'MinBridgeFeeChanged'): EventFragment;
   getEvent(nameOrSignatureOrTopic: 'MinDepositAmountChanged'): EventFragment;
+  getEvent(nameOrSignatureOrTopic: 'MinPeerExecutorFeeChanged'): EventFragment;
+  getEvent(nameOrSignatureOrTopic: 'MinPeerRollupFeeChanged'): EventFragment;
   getEvent(nameOrSignatureOrTopic: 'MinRollupFeeChanged'): EventFragment;
   getEvent(nameOrSignatureOrTopic: 'RelayerPoolChanged'): EventFragment;
   getEvent(nameOrSignatureOrTopic: 'RoleAdminChanged'): EventFragment;
@@ -305,12 +338,33 @@ export type MaxDepositAmountChangedEvent = TypedEvent<
 
 export type MaxDepositAmountChangedEventFilter = TypedEventFilter<MaxDepositAmountChangedEvent>;
 
+export type MinBridgeFeeChangedEvent = TypedEvent<
+  [string, BigNumber],
+  { _localDeposit: string; minBridgeFee: BigNumber }
+>;
+
+export type MinBridgeFeeChangedEventFilter = TypedEventFilter<MinBridgeFeeChangedEvent>;
+
 export type MinDepositAmountChangedEvent = TypedEvent<
   [string, BigNumber],
   { deposit: string; minDepositAmount: BigNumber }
 >;
 
 export type MinDepositAmountChangedEventFilter = TypedEventFilter<MinDepositAmountChangedEvent>;
+
+export type MinPeerExecutorFeeChangedEvent = TypedEvent<
+  [string, BigNumber],
+  { _localDeposit: string; minPeerExecutorFee: BigNumber }
+>;
+
+export type MinPeerExecutorFeeChangedEventFilter = TypedEventFilter<MinPeerExecutorFeeChangedEvent>;
+
+export type MinPeerRollupFeeChangedEvent = TypedEvent<
+  [string, BigNumber],
+  { _localDeposit: string; minPeerRollupFee: BigNumber }
+>;
+
+export type MinPeerRollupFeeChangedEventFilter = TypedEventFilter<MinPeerRollupFeeChangedEvent>;
 
 export type MinRollupFeeChangedEvent = TypedEvent<
   [string, BigNumber],
@@ -470,7 +524,13 @@ export interface MystikoSettings extends BaseContract {
 
     maxDepositAmountMap(arg0: string, overrides?: CallOverrides): Promise<[BigNumber]>;
 
+    minBridgeFeeAmount(arg0: string, overrides?: CallOverrides): Promise<[BigNumber]>;
+
     minDepositAmountMap(arg0: string, overrides?: CallOverrides): Promise<[BigNumber]>;
+
+    minPeerExecutorFeeAmount(arg0: string, overrides?: CallOverrides): Promise<[BigNumber]>;
+
+    minPeerRollupFeeAmount(arg0: string, overrides?: CallOverrides): Promise<[BigNumber]>;
 
     minRollupFeeMap(arg0: string, overrides?: CallOverrides): Promise<[BigNumber]>;
 
@@ -480,9 +540,15 @@ export interface MystikoSettings extends BaseContract {
 
     queryAuditorPublicKey(_index: BigNumberish, overrides?: CallOverrides): Promise<[BigNumber]>;
 
-    queryMaxDepositAmount(_pool: string, overrides?: CallOverrides): Promise<[BigNumber]>;
+    queryMaxDepositAmount(_deposit: string, overrides?: CallOverrides): Promise<[BigNumber]>;
 
-    queryMinDepositAmount(_pool: string, overrides?: CallOverrides): Promise<[BigNumber]>;
+    queryMinBridgeFee(_localDeposit: string, overrides?: CallOverrides): Promise<[BigNumber]>;
+
+    queryMinDepositAmount(_deposit: string, overrides?: CallOverrides): Promise<[BigNumber]>;
+
+    queryMinPeerExecutorFee(_localDeposit: string, overrides?: CallOverrides): Promise<[BigNumber]>;
+
+    queryMinPeerRollupFee(_localDeposit: string, overrides?: CallOverrides): Promise<[BigNumber]>;
 
     queryMinRollupFee(_pool: string, overrides?: CallOverrides): Promise<[BigNumber]>;
 
@@ -543,14 +609,32 @@ export interface MystikoSettings extends BaseContract {
     ): Promise<ContractTransaction>;
 
     setMaxDepositAmount(
-      _pool: string,
+      _deposit: string,
       _maxDepositAmount: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<ContractTransaction>;
 
+    setMinBridgeFee(
+      _localDeposit: string,
+      _minBridgeFee: BigNumberish,
+      overrides?: Overrides & { from?: string | Promise<string> },
+    ): Promise<ContractTransaction>;
+
     setMinDepositAmount(
-      _pool: string,
+      _deposit: string,
       _minDepositAmount: BigNumberish,
+      overrides?: Overrides & { from?: string | Promise<string> },
+    ): Promise<ContractTransaction>;
+
+    setMinPeerExecutorFee(
+      _localDeposit: string,
+      _minPeerExecutorFee: BigNumberish,
+      overrides?: Overrides & { from?: string | Promise<string> },
+    ): Promise<ContractTransaction>;
+
+    setMinPeerRollupFee(
+      _localDeposit: string,
+      _minPeerRollupFee: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<ContractTransaction>;
 
@@ -656,7 +740,13 @@ export interface MystikoSettings extends BaseContract {
 
   maxDepositAmountMap(arg0: string, overrides?: CallOverrides): Promise<BigNumber>;
 
+  minBridgeFeeAmount(arg0: string, overrides?: CallOverrides): Promise<BigNumber>;
+
   minDepositAmountMap(arg0: string, overrides?: CallOverrides): Promise<BigNumber>;
+
+  minPeerExecutorFeeAmount(arg0: string, overrides?: CallOverrides): Promise<BigNumber>;
+
+  minPeerRollupFeeAmount(arg0: string, overrides?: CallOverrides): Promise<BigNumber>;
 
   minRollupFeeMap(arg0: string, overrides?: CallOverrides): Promise<BigNumber>;
 
@@ -666,9 +756,15 @@ export interface MystikoSettings extends BaseContract {
 
   queryAuditorPublicKey(_index: BigNumberish, overrides?: CallOverrides): Promise<BigNumber>;
 
-  queryMaxDepositAmount(_pool: string, overrides?: CallOverrides): Promise<BigNumber>;
+  queryMaxDepositAmount(_deposit: string, overrides?: CallOverrides): Promise<BigNumber>;
 
-  queryMinDepositAmount(_pool: string, overrides?: CallOverrides): Promise<BigNumber>;
+  queryMinBridgeFee(_localDeposit: string, overrides?: CallOverrides): Promise<BigNumber>;
+
+  queryMinDepositAmount(_deposit: string, overrides?: CallOverrides): Promise<BigNumber>;
+
+  queryMinPeerExecutorFee(_localDeposit: string, overrides?: CallOverrides): Promise<BigNumber>;
+
+  queryMinPeerRollupFee(_localDeposit: string, overrides?: CallOverrides): Promise<BigNumber>;
 
   queryMinRollupFee(_pool: string, overrides?: CallOverrides): Promise<BigNumber>;
 
@@ -729,14 +825,32 @@ export interface MystikoSettings extends BaseContract {
   ): Promise<ContractTransaction>;
 
   setMaxDepositAmount(
-    _pool: string,
+    _deposit: string,
     _maxDepositAmount: BigNumberish,
     overrides?: Overrides & { from?: string | Promise<string> },
   ): Promise<ContractTransaction>;
 
+  setMinBridgeFee(
+    _localDeposit: string,
+    _minBridgeFee: BigNumberish,
+    overrides?: Overrides & { from?: string | Promise<string> },
+  ): Promise<ContractTransaction>;
+
   setMinDepositAmount(
-    _pool: string,
+    _deposit: string,
     _minDepositAmount: BigNumberish,
+    overrides?: Overrides & { from?: string | Promise<string> },
+  ): Promise<ContractTransaction>;
+
+  setMinPeerExecutorFee(
+    _localDeposit: string,
+    _minPeerExecutorFee: BigNumberish,
+    overrides?: Overrides & { from?: string | Promise<string> },
+  ): Promise<ContractTransaction>;
+
+  setMinPeerRollupFee(
+    _localDeposit: string,
+    _minPeerRollupFee: BigNumberish,
     overrides?: Overrides & { from?: string | Promise<string> },
   ): Promise<ContractTransaction>;
 
@@ -828,7 +942,13 @@ export interface MystikoSettings extends BaseContract {
 
     maxDepositAmountMap(arg0: string, overrides?: CallOverrides): Promise<BigNumber>;
 
+    minBridgeFeeAmount(arg0: string, overrides?: CallOverrides): Promise<BigNumber>;
+
     minDepositAmountMap(arg0: string, overrides?: CallOverrides): Promise<BigNumber>;
+
+    minPeerExecutorFeeAmount(arg0: string, overrides?: CallOverrides): Promise<BigNumber>;
+
+    minPeerRollupFeeAmount(arg0: string, overrides?: CallOverrides): Promise<BigNumber>;
 
     minRollupFeeMap(arg0: string, overrides?: CallOverrides): Promise<BigNumber>;
 
@@ -838,9 +958,15 @@ export interface MystikoSettings extends BaseContract {
 
     queryAuditorPublicKey(_index: BigNumberish, overrides?: CallOverrides): Promise<BigNumber>;
 
-    queryMaxDepositAmount(_pool: string, overrides?: CallOverrides): Promise<BigNumber>;
+    queryMaxDepositAmount(_deposit: string, overrides?: CallOverrides): Promise<BigNumber>;
 
-    queryMinDepositAmount(_pool: string, overrides?: CallOverrides): Promise<BigNumber>;
+    queryMinBridgeFee(_localDeposit: string, overrides?: CallOverrides): Promise<BigNumber>;
+
+    queryMinDepositAmount(_deposit: string, overrides?: CallOverrides): Promise<BigNumber>;
+
+    queryMinPeerExecutorFee(_localDeposit: string, overrides?: CallOverrides): Promise<BigNumber>;
+
+    queryMinPeerRollupFee(_localDeposit: string, overrides?: CallOverrides): Promise<BigNumber>;
 
     queryMinRollupFee(_pool: string, overrides?: CallOverrides): Promise<BigNumber>;
 
@@ -886,14 +1012,32 @@ export interface MystikoSettings extends BaseContract {
     setDepositDisable(_depositAddress: string, _disable: boolean, overrides?: CallOverrides): Promise<void>;
 
     setMaxDepositAmount(
-      _pool: string,
+      _deposit: string,
       _maxDepositAmount: BigNumberish,
       overrides?: CallOverrides,
     ): Promise<void>;
 
+    setMinBridgeFee(
+      _localDeposit: string,
+      _minBridgeFee: BigNumberish,
+      overrides?: CallOverrides,
+    ): Promise<void>;
+
     setMinDepositAmount(
-      _pool: string,
+      _deposit: string,
       _minDepositAmount: BigNumberish,
+      overrides?: CallOverrides,
+    ): Promise<void>;
+
+    setMinPeerExecutorFee(
+      _localDeposit: string,
+      _minPeerExecutorFee: BigNumberish,
+      overrides?: CallOverrides,
+    ): Promise<void>;
+
+    setMinPeerRollupFee(
+      _localDeposit: string,
+      _minPeerRollupFee: BigNumberish,
       overrides?: CallOverrides,
     ): Promise<void>;
 
@@ -952,6 +1096,12 @@ export interface MystikoSettings extends BaseContract {
       maxDepositAmount?: null,
     ): MaxDepositAmountChangedEventFilter;
 
+    'MinBridgeFeeChanged(address,uint256)'(
+      _localDeposit?: string | null,
+      minBridgeFee?: null,
+    ): MinBridgeFeeChangedEventFilter;
+    MinBridgeFeeChanged(_localDeposit?: string | null, minBridgeFee?: null): MinBridgeFeeChangedEventFilter;
+
     'MinDepositAmountChanged(address,uint256)'(
       deposit?: string | null,
       minDepositAmount?: null,
@@ -960,6 +1110,24 @@ export interface MystikoSettings extends BaseContract {
       deposit?: string | null,
       minDepositAmount?: null,
     ): MinDepositAmountChangedEventFilter;
+
+    'MinPeerExecutorFeeChanged(address,uint256)'(
+      _localDeposit?: string | null,
+      minPeerExecutorFee?: null,
+    ): MinPeerExecutorFeeChangedEventFilter;
+    MinPeerExecutorFeeChanged(
+      _localDeposit?: string | null,
+      minPeerExecutorFee?: null,
+    ): MinPeerExecutorFeeChangedEventFilter;
+
+    'MinPeerRollupFeeChanged(address,uint256)'(
+      _localDeposit?: string | null,
+      minPeerRollupFee?: null,
+    ): MinPeerRollupFeeChangedEventFilter;
+    MinPeerRollupFeeChanged(
+      _localDeposit?: string | null,
+      minPeerRollupFee?: null,
+    ): MinPeerRollupFeeChangedEventFilter;
 
     'MinRollupFeeChanged(address,uint256)'(
       pool?: string | null,
@@ -1098,7 +1266,13 @@ export interface MystikoSettings extends BaseContract {
 
     maxDepositAmountMap(arg0: string, overrides?: CallOverrides): Promise<BigNumber>;
 
+    minBridgeFeeAmount(arg0: string, overrides?: CallOverrides): Promise<BigNumber>;
+
     minDepositAmountMap(arg0: string, overrides?: CallOverrides): Promise<BigNumber>;
+
+    minPeerExecutorFeeAmount(arg0: string, overrides?: CallOverrides): Promise<BigNumber>;
+
+    minPeerRollupFeeAmount(arg0: string, overrides?: CallOverrides): Promise<BigNumber>;
 
     minRollupFeeMap(arg0: string, overrides?: CallOverrides): Promise<BigNumber>;
 
@@ -1108,9 +1282,15 @@ export interface MystikoSettings extends BaseContract {
 
     queryAuditorPublicKey(_index: BigNumberish, overrides?: CallOverrides): Promise<BigNumber>;
 
-    queryMaxDepositAmount(_pool: string, overrides?: CallOverrides): Promise<BigNumber>;
+    queryMaxDepositAmount(_deposit: string, overrides?: CallOverrides): Promise<BigNumber>;
 
-    queryMinDepositAmount(_pool: string, overrides?: CallOverrides): Promise<BigNumber>;
+    queryMinBridgeFee(_localDeposit: string, overrides?: CallOverrides): Promise<BigNumber>;
+
+    queryMinDepositAmount(_deposit: string, overrides?: CallOverrides): Promise<BigNumber>;
+
+    queryMinPeerExecutorFee(_localDeposit: string, overrides?: CallOverrides): Promise<BigNumber>;
+
+    queryMinPeerRollupFee(_localDeposit: string, overrides?: CallOverrides): Promise<BigNumber>;
 
     queryMinRollupFee(_pool: string, overrides?: CallOverrides): Promise<BigNumber>;
 
@@ -1168,14 +1348,32 @@ export interface MystikoSettings extends BaseContract {
     ): Promise<BigNumber>;
 
     setMaxDepositAmount(
-      _pool: string,
+      _deposit: string,
       _maxDepositAmount: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<BigNumber>;
 
+    setMinBridgeFee(
+      _localDeposit: string,
+      _minBridgeFee: BigNumberish,
+      overrides?: Overrides & { from?: string | Promise<string> },
+    ): Promise<BigNumber>;
+
     setMinDepositAmount(
-      _pool: string,
+      _deposit: string,
       _minDepositAmount: BigNumberish,
+      overrides?: Overrides & { from?: string | Promise<string> },
+    ): Promise<BigNumber>;
+
+    setMinPeerExecutorFee(
+      _localDeposit: string,
+      _minPeerExecutorFee: BigNumberish,
+      overrides?: Overrides & { from?: string | Promise<string> },
+    ): Promise<BigNumber>;
+
+    setMinPeerRollupFee(
+      _localDeposit: string,
+      _minPeerRollupFee: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<BigNumber>;
 
@@ -1282,7 +1480,13 @@ export interface MystikoSettings extends BaseContract {
 
     maxDepositAmountMap(arg0: string, overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
+    minBridgeFeeAmount(arg0: string, overrides?: CallOverrides): Promise<PopulatedTransaction>;
+
     minDepositAmountMap(arg0: string, overrides?: CallOverrides): Promise<PopulatedTransaction>;
+
+    minPeerExecutorFeeAmount(arg0: string, overrides?: CallOverrides): Promise<PopulatedTransaction>;
+
+    minPeerRollupFeeAmount(arg0: string, overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     minRollupFeeMap(arg0: string, overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
@@ -1292,9 +1496,15 @@ export interface MystikoSettings extends BaseContract {
 
     queryAuditorPublicKey(_index: BigNumberish, overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
-    queryMaxDepositAmount(_pool: string, overrides?: CallOverrides): Promise<PopulatedTransaction>;
+    queryMaxDepositAmount(_deposit: string, overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
-    queryMinDepositAmount(_pool: string, overrides?: CallOverrides): Promise<PopulatedTransaction>;
+    queryMinBridgeFee(_localDeposit: string, overrides?: CallOverrides): Promise<PopulatedTransaction>;
+
+    queryMinDepositAmount(_deposit: string, overrides?: CallOverrides): Promise<PopulatedTransaction>;
+
+    queryMinPeerExecutorFee(_localDeposit: string, overrides?: CallOverrides): Promise<PopulatedTransaction>;
+
+    queryMinPeerRollupFee(_localDeposit: string, overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     queryMinRollupFee(_pool: string, overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
@@ -1352,14 +1562,32 @@ export interface MystikoSettings extends BaseContract {
     ): Promise<PopulatedTransaction>;
 
     setMaxDepositAmount(
-      _pool: string,
+      _deposit: string,
       _maxDepositAmount: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<PopulatedTransaction>;
 
+    setMinBridgeFee(
+      _localDeposit: string,
+      _minBridgeFee: BigNumberish,
+      overrides?: Overrides & { from?: string | Promise<string> },
+    ): Promise<PopulatedTransaction>;
+
     setMinDepositAmount(
-      _pool: string,
+      _deposit: string,
       _minDepositAmount: BigNumberish,
+      overrides?: Overrides & { from?: string | Promise<string> },
+    ): Promise<PopulatedTransaction>;
+
+    setMinPeerExecutorFee(
+      _localDeposit: string,
+      _minPeerExecutorFee: BigNumberish,
+      overrides?: Overrides & { from?: string | Promise<string> },
+    ): Promise<PopulatedTransaction>;
+
+    setMinPeerRollupFee(
+      _localDeposit: string,
+      _minPeerRollupFee: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<PopulatedTransaction>;
 

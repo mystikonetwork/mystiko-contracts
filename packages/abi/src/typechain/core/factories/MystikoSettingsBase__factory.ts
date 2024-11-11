@@ -827,7 +827,7 @@ const _abi = [
     inputs: [
       {
         internalType: 'address',
-        name: '_pool',
+        name: '_deposit',
         type: 'address',
       },
     ],
@@ -846,7 +846,7 @@ const _abi = [
     inputs: [
       {
         internalType: 'address',
-        name: '_pool',
+        name: '_deposit',
         type: 'address',
       },
     ],
@@ -1113,7 +1113,7 @@ const _abi = [
     inputs: [
       {
         internalType: 'address',
-        name: '_pool',
+        name: '_deposit',
         type: 'address',
       },
       {
@@ -1131,7 +1131,7 @@ const _abi = [
     inputs: [
       {
         internalType: 'address',
-        name: '_pool',
+        name: '_deposit',
         type: 'address',
       },
       {

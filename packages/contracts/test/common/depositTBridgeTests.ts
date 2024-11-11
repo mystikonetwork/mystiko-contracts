@@ -5,7 +5,7 @@ import { toBN, toHex } from '@mystikonetwork/utils';
 import { expect } from 'chai';
 import { ethers } from 'ethers';
 import { waffle } from 'hardhat';
-import { MystikoBridgeSettings } from '@mystikonetwork/contracts-abi-settings';
+import { MystikoSettings } from '@mystikonetwork/contracts-abi-settings';
 import {
   BridgeAccountIndex,
   BridgeExecutorIndex,
@@ -29,7 +29,7 @@ export function testTBridgeDeposit(
   mockSanctionList: MockSanctionList,
   tbridgeProxy: any,
   mockToken: MockToken,
-  settings: MystikoBridgeSettings,
+  settings: MystikoSettings,
   accounts: Wallet[],
   depositAmount: string,
   isMainAsset: boolean,
@@ -325,14 +325,16 @@ export function testTBridgeDeposit(
     });
 
     it('should revert sendMessage not register white list', async () => {
+      // OnlyRegister 0x5af0b1c2
       await expect(
         tbridgeProxy
           .connect(accounts[0])
           .sendMessage(peerMystikoContract.address, SourceChainID, bridgeMessages[0]),
-      ).revertedWith('OnlyRegister()');
+      ).revertedWith('0x5af0b1c2');
     });
 
     it('should revert on in executor white list', async () => {
+      // OnlyWhitelistedExecutor 0x00447a64
       await expect(
         tbridgeProxy
           .connect(accounts[0])
@@ -343,7 +345,7 @@ export function testTBridgeDeposit(
             bridgeAccount.address,
             bridgeMessages[0],
           ),
-      ).revertedWith('OnlyWhitelistedExecutor()');
+      ).revertedWith('0x00447a64');
     });
 
     it('should bridge deposit transaction success', async () => {

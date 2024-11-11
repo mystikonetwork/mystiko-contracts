@@ -5,7 +5,7 @@ import { CommitmentOutput, MystikoProtocolV2 } from '@mystikonetwork/protocol';
 import { readCompressedFile, readFile, toBN } from '@mystikonetwork/utils';
 import { expect } from 'chai';
 import { waffle } from 'hardhat';
-import { MystikoRollerPool, MystikoBridgeSettings } from '@mystikonetwork/contracts-abi-settings';
+import { MystikoRollerPool, MystikoSettings } from '@mystikonetwork/contracts-abi-settings';
 import {
   CircuitsPath,
   MerkleTreeHeight,
@@ -96,7 +96,7 @@ export function testRollup(
   protocol: MystikoProtocolV2,
   commitmentPoolContract: any,
   mockToken: MockToken,
-  settings: MystikoBridgeSettings,
+  settings: MystikoSettings,
   rollerPool: MystikoRollerPool,
   accounts: Wallet[],
   commitments: any[],

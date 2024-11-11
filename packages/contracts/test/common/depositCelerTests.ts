@@ -5,7 +5,7 @@ import { toBN, toHex } from '@mystikonetwork/utils';
 import { expect } from 'chai';
 import { ethers } from 'ethers';
 import { waffle } from 'hardhat';
-import { MystikoBridgeSettings } from '@mystikonetwork/contracts-abi-settings';
+import { MystikoSettings } from '@mystikonetwork/contracts-abi-settings';
 import {
   BridgeAccountIndex,
   DefaultPoolAmount,
@@ -28,7 +28,7 @@ export function testCelerDeposit(
   mockSanctionList: MockSanctionList,
   bridgeContract: any,
   mockToken: MockToken,
-  settings: MystikoBridgeSettings,
+  settings: MystikoSettings,
   accounts: Wallet[],
   depositAmount: string,
   isMainAsset: boolean,

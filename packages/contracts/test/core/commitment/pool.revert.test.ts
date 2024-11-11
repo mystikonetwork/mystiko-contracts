@@ -11,7 +11,7 @@ import { MystikoProtocolV2, ProtocolFactoryV2 } from '@mystikonetwork/protocol';
 import { toDecimals } from '@mystikonetwork/utils';
 import { ZokratesNodeProverFactory } from '@mystikonetwork/zkp-node';
 import { waffle } from 'hardhat';
-import { MystikoCertificate, MystikoBridgeSettings } from '@mystikonetwork/contracts-abi-settings';
+import { MystikoCertificate, MystikoSettings } from '@mystikonetwork/contracts-abi-settings';
 import { constructCommitment } from '../../common';
 import { loopDeposit, loopDepositRevert } from '../../common/loopDepositTests';
 import {
@@ -53,7 +53,7 @@ describe('Test Mystiko pool revert', () => {
   let mockToken: MockToken;
   let mockSanctionList: MockSanctionList;
   let certificate: MystikoCertificate;
-  let settings: MystikoBridgeSettings;
+  let settings: MystikoSettings;
   let poolMain: CommitmentPoolMain;
   let loopMain: MystikoV2LoopMain;
   let poolErc20: CommitmentPoolERC20;
