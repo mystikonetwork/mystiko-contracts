@@ -11,7 +11,7 @@ import "./CrossChainDataSerializable.sol";
 import {ReentrancyGuard} from "lib/openzeppelin-contracts/contracts/utils/ReentrancyGuard.sol";
 import {ECDSA} from "lib/openzeppelin-contracts/contracts/utils/cryptography/ECDSA.sol";
 import {SafeCast} from "lib/openzeppelin-contracts/contracts/utils/math/SafeCast.sol";
-import {MystikoBridgeSettings} from "contracts-settings/contracts/MystikoBridgeSettings.sol";
+import {MystikoSettings} from "contracts-settings/contracts/MystikoSettings.sol";
 import {CertificateParams} from "contracts-certificate/contracts/interfaces/IMystikoCertificate.sol";
 
 abstract contract MystikoV2Bridge is IMystikoBridge, AssetPool, CrossChainDataSerializable {
@@ -35,7 +35,7 @@ abstract contract MystikoV2Bridge is IMystikoBridge, AssetPool, CrossChainDataSe
   //bridge proxy address
   address public bridgeProxyAddress;
   // configure related.
-  MystikoBridgeSettings public settings;
+  MystikoSettings public settings;
 
   modifier onlySetPeerContractOnce() {
     if (isPeerContractSet) revert CustomErrors.PeerContractAlreadySet();
@@ -63,7 +63,7 @@ abstract contract MystikoV2Bridge is IMystikoBridge, AssetPool, CrossChainDataSe
     defaultMinBridgeFee = _localConfig.minBridgeFee;
     defaultPeerMinExecutorFee = _peerConfig.peerMinExecutorFee;
     defaultPeerMinRollupFee = _peerConfig.peerMinRollupFee;
-    settings = MystikoBridgeSettings(_settingsCenter);
+    settings = MystikoSettings(_settingsCenter);
   }
 
   function setPeerContract(BridgePeerContract memory _peerContract) external onlySetPeerContractOnce {
@@ -84,7 +84,7 @@ abstract contract MystikoV2Bridge is IMystikoBridge, AssetPool, CrossChainDataSe
     return hasher3.poseidon([_hashK, _amount, _randomS]);
   }
 
-  function deposit(BridgeDepositRequest memory _request) external payable override {
+  function deposit(BridgeDepositRequest memory) external payable override {
     revert CustomErrors.NotSupport();
   }
 
@@ -121,16 +121,13 @@ abstract contract MystikoV2Bridge is IMystikoBridge, AssetPool, CrossChainDataSe
     });
 
     bytes memory cmRequestBytes = serializeTxData(cmRequest);
-    _processDeposit(_request.bridgeFee, cmRequestBytes);
-    _processDepositTransfer(
-      getAssociatedCommitmentPool(),
-      _request.amount + _request.executorFee + _request.rollupFee,
-      _request.bridgeFee
-    );
+    uint256 bridgeAmount = _request.amount + _request.executorFee + _request.rollupFee;
+    _processDeposit(bridgeAmount, _request.bridgeFee, cmRequestBytes);
+    _processDepositTransfer(getAssociatedCommitmentPool(), bridgeAmount, _request.bridgeFee);
     emit CommitmentCrossChain(_request.commitment);
   }
 
-  function _processDeposit(uint256 _bridgeFee, bytes memory _requestBytes) internal virtual;
+  function _processDeposit(uint256 _amount, uint256 _bridgeFee, bytes memory _requestBytes) internal virtual;
 
   function bridgeCommitment(
     uint64 _fromChainId,
@@ -156,7 +153,7 @@ abstract contract MystikoV2Bridge is IMystikoBridge, AssetPool, CrossChainDataSe
     return maxAmount == 0 ? defaultMaxAmount : maxAmount;
   }
 
-  function getMinBridgeFee() public view returns (uint256) {
+  function getMinBridgeFee() public view virtual returns (uint256) {
     uint256 minBridgeFee = settings.queryMinBridgeFee(address(this));
     return minBridgeFee == 0 ? defaultMinBridgeFee : minBridgeFee;
   }

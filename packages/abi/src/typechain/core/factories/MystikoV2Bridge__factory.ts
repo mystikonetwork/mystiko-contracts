@@ -318,7 +318,7 @@ const _abi = [
           },
         ],
         internalType: 'struct IMystikoBridge.BridgeDepositRequest',
-        name: '_request',
+        name: '',
         type: 'tuple',
       },
     ],
@@ -518,7 +518,7 @@ const _abi = [
     name: 'settings',
     outputs: [
       {
-        internalType: 'contract MystikoBridgeSettings',
+        internalType: 'contract MystikoSettings',
         name: '',
         type: 'address',
       },

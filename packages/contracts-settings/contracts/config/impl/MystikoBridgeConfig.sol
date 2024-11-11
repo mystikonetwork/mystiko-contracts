@@ -9,37 +9,38 @@ abstract contract MystikoBridgeConfig is MystikoDAOAccessControl {
   mapping(address => uint256) public minPeerExecutorFeeAmount;
   mapping(address => uint256) public minPeerRollupFeeAmount;
 
-  event MinBridgeFeeChanged(address indexed deposit, uint256 minBridgeFee);
-  event MinPeerExecutorFeeChanged(address indexed deposit, uint256 minPeerExecutorFee);
-  event MinPeerRollupFeeChanged(address indexed deposit, uint256 minPeerRollupFee);
+  event MinBridgeFeeChanged(address indexed _localDeposit, uint256 minBridgeFee);
+  event MinPeerExecutorFeeChanged(address indexed _localDeposit, uint256 minPeerExecutorFee);
+  event MinPeerRollupFeeChanged(address indexed _localDeposit, uint256 minPeerRollupFee);
 
-  function queryMinBridgeFee(address _pool) external view returns (uint256) {
-    return minBridgeFeeAmount[_pool];
+  function queryMinBridgeFee(address _localDeposit) external view returns (uint256) {
+    return minBridgeFeeAmount[_localDeposit];
   }
 
-  function setMinBridgeFee(address _pool, uint256 _minBridgeFee) external onlyMystikoDAO {
-    if (minBridgeFeeAmount[_pool] == _minBridgeFee) revert MystikoSettingsErrors.NotChanged();
-    minBridgeFeeAmount[_pool] = _minBridgeFee;
-    emit MinBridgeFeeChanged(_pool, _minBridgeFee);
+  function setMinBridgeFee(address _localDeposit, uint256 _minBridgeFee) external onlyMystikoDAO {
+    if (minBridgeFeeAmount[_localDeposit] == _minBridgeFee) revert MystikoSettingsErrors.NotChanged();
+    minBridgeFeeAmount[_localDeposit] = _minBridgeFee;
+    emit MinBridgeFeeChanged(_localDeposit, _minBridgeFee);
   }
 
-  function queryMinPeerExecutorFee(address _pool) external view returns (uint256) {
-    return minPeerExecutorFeeAmount[_pool];
+  function queryMinPeerExecutorFee(address _localDeposit) external view returns (uint256) {
+    return minPeerExecutorFeeAmount[_localDeposit];
   }
 
-  function setMinPeerExecutorFee(address _pool, uint256 _minPeerExecutorFee) external onlyMystikoDAO {
-    if (minPeerExecutorFeeAmount[_pool] == _minPeerExecutorFee) revert MystikoSettingsErrors.NotChanged();
-    minPeerExecutorFeeAmount[_pool] = _minPeerExecutorFee;
-    emit MinPeerExecutorFeeChanged(_pool, _minPeerExecutorFee);
+  function setMinPeerExecutorFee(address _localDeposit, uint256 _minPeerExecutorFee) external onlyMystikoDAO {
+    if (minPeerExecutorFeeAmount[_localDeposit] == _minPeerExecutorFee)
+      revert MystikoSettingsErrors.NotChanged();
+    minPeerExecutorFeeAmount[_localDeposit] = _minPeerExecutorFee;
+    emit MinPeerExecutorFeeChanged(_localDeposit, _minPeerExecutorFee);
   }
 
-  function queryMinPeerRollupFee(address _pool) external view returns (uint256) {
-    return minPeerRollupFeeAmount[_pool];
+  function queryMinPeerRollupFee(address _localDeposit) external view returns (uint256) {
+    return minPeerRollupFeeAmount[_localDeposit];
   }
 
-  function setMinPeerRollupFee(address _pool, uint256 _minPeerRollupFee) external onlyMystikoDAO {
-    if (minPeerRollupFeeAmount[_pool] == _minPeerRollupFee) revert MystikoSettingsErrors.NotChanged();
-    minPeerRollupFeeAmount[_pool] = _minPeerRollupFee;
-    emit MinPeerRollupFeeChanged(_pool, _minPeerRollupFee);
+  function setMinPeerRollupFee(address _localDeposit, uint256 _minPeerRollupFee) external onlyMystikoDAO {
+    if (minPeerRollupFeeAmount[_localDeposit] == _minPeerRollupFee) revert MystikoSettingsErrors.NotChanged();
+    minPeerRollupFeeAmount[_localDeposit] = _minPeerRollupFee;
+    emit MinPeerRollupFeeChanged(_localDeposit, _minPeerRollupFee);
   }
 }

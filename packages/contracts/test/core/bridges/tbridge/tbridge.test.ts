@@ -13,7 +13,7 @@ import { toDecimals } from '@mystikonetwork/utils';
 import { ZokratesNodeProverFactory } from '@mystikonetwork/zkp-node';
 import { waffle } from 'hardhat';
 import { expect } from 'chai';
-import { MystikoBridgeSettings } from '@mystikonetwork/contracts-abi-settings';
+import { MystikoSettings } from '@mystikonetwork/contracts-abi-settings';
 import { constructCommitment, testBridgeConstructor } from '../../../common';
 import { testTBridgeDeposit } from '../../../common/depositTBridgeTests';
 import {
@@ -44,8 +44,9 @@ function testTBridgeProxyAdminOperations(
     before(async () => {});
 
     it('should changeOperator correctly', async () => {
+      // OnlyOperator 0x27e1f1e5
       await expect(tbridgeProxy.connect(accounts[1]).changeOperator(accounts[1].address)).to.be.revertedWith(
-        'OnlyOperator()',
+        '0x27e1f1e5',
       );
     });
 
@@ -119,7 +120,7 @@ describe('Test Mystiko tbridge', () => {
   let remoteERC20: MystikoV2TBridgeERC20;
   let remoteMain: MystikoV2TBridgeMain;
   let protocol: MystikoProtocolV2;
-  let settings: MystikoBridgeSettings;
+  let settings: MystikoSettings;
 
   beforeEach(async () => {
     accounts = waffle.provider.getWallets();

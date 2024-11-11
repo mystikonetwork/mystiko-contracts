@@ -178,6 +178,14 @@ export class BridgeConfig extends BaseConfig {
     return undefined;
   }
 
+  public getPeerMinBridgeGasLimit(network: string): string | undefined {
+    const brideFeeCfg = this.feesByNetwork[network];
+    if (brideFeeCfg !== undefined) {
+      return brideFeeCfg.gasLimit;
+    }
+    return undefined;
+  }
+
   public getBridgeTokenPair(
     srcNetwork: string,
     token: string,

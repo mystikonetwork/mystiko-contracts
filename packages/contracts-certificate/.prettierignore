@@ -4,3 +4,4 @@ artifactsExternal
 yarn.lock
 typechain
 foundry/lib/
+lib

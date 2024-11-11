@@ -4,3 +4,11 @@
 --network sepolia  --bridge loop --dst sepolia --token XZK
 --network zetatestnet  --bridge loop --dst zetatestnet --token ZETA
 --network zetatestnet  --bridge loop --dst zetatestnet --token MTT
+--network sepolia  --bridge wormhole --dst baseSepolia --token USDC
+--network baseSepolia  --bridge wormhole --dst sepolia --token USDC
+--network sepolia  --bridge wormhole --dst avalanchetestnet --token USDC
+--network avalanchetestnet  --bridge wormhole --dst sepolia --token USDC
+--network baseSepolia  --bridge wormhole --dst avalanchetestnet --token USDC
+--network avalanchetestnet  --bridge wormhole --dst baseSepolia --token USDC
+--network sepolia  --bridge wormhole --dst avalanchetestnet --token ETH
+--network avalanchetestnet  --bridge wormhole --dst sepolia --token WETHWormhole

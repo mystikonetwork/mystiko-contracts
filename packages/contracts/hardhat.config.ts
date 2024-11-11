@@ -8,6 +8,8 @@ import { HardhatUserConfig } from 'hardhat/types';
 import './scripts/compileHasher.hardhat';
 import 'solidity-coverage';
 
+require('@nomicfoundation/hardhat-foundry');
+
 dotenv.config();
 
 const config: HardhatUserConfig = {
@@ -15,11 +17,6 @@ const config: HardhatUserConfig = {
   networks: {
     hardhat: {},
     localhost: { timeout: 600000 },
-  },
-  namedAccounts: {
-    deployer: {
-      default: 0,
-    },
   },
   solidity: {
     version: '0.8.26',
@@ -31,6 +28,7 @@ const config: HardhatUserConfig = {
           yul: true,
         },
       },
+      viaIR: true,
     },
   },
   contractSizer: {

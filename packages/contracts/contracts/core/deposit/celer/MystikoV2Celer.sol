@@ -18,7 +18,11 @@ abstract contract MystikoV2Celer is MystikoV2Bridge, IMessageReceiverApp {
     // implemented in MystikoV2Bridge
   }
 
-  function _processDeposit(uint256 _bridgeFee, bytes memory _requestBytes) internal override {
+  function _processDeposit(
+    uint256 _amount,
+    uint256 _bridgeFee,
+    bytes memory _requestBytes
+  ) internal override {
     IMessageSenderApp(bridgeProxyAddress).sendMessage{value: _bridgeFee}(
       peerContract,
       peerChainId,

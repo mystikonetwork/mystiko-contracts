@@ -8,6 +8,11 @@ export interface RawBridgeProxyConfig {
   remoteNetwork: string;
   address: string;
   gasReceiver?: string;
+  wormholeRelayer?: string;
+  wormholeTokenBridge?: string;
+  wormhole?: string;
+  circleMessageTransmitter?: string;
+  circleTokenMessenger?: string;
   operator?: string;
   executorWhitelist?: string[];
   registerWhitelist?: string[];
@@ -26,6 +31,11 @@ export class BridgeProxyConfig extends BaseConfig {
     BaseConfig.checkString(this.config, 'remoteNetwork', false);
     BaseConfig.checkEthAddress(this.config, 'address', false);
     BaseConfig.checkEthAddress(this.config, 'gasReceiver', false);
+    BaseConfig.checkEthAddress(this.config, 'wormholeRelayer', false);
+    BaseConfig.checkEthAddress(this.config, 'wormholeTokenBridge', false);
+    BaseConfig.checkEthAddress(this.config, 'wormhole', false);
+    BaseConfig.checkEthAddress(this.config, 'circleMessageTransmitter', false);
+    BaseConfig.checkEthAddress(this.config, 'circleTokenMessenger', false);
     BaseConfig.checkEthAddress(this.config, 'operator', false);
 
     this.executorWhitelistByAddress = {};
@@ -67,6 +77,26 @@ export class BridgeProxyConfig extends BaseConfig {
 
   public get gasReceiver(): string | undefined {
     return this.asRawBridgeProxyConfig().gasReceiver;
+  }
+
+  public get wormholeRelayer(): string | undefined {
+    return this.asRawBridgeProxyConfig().wormholeRelayer;
+  }
+
+  public get wormholeTokenBridge(): string | undefined {
+    return this.asRawBridgeProxyConfig().wormholeTokenBridge;
+  }
+
+  public get wormhole(): string | undefined {
+    return this.asRawBridgeProxyConfig().wormhole;
+  }
+
+  public get circleMessageTransmitter(): string | undefined {
+    return this.asRawBridgeProxyConfig().circleMessageTransmitter;
+  }
+
+  public get circleTokenMessenger(): string | undefined {
+    return this.asRawBridgeProxyConfig().circleTokenMessenger;
   }
 
   public get operator(): string | undefined {

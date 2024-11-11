@@ -17,7 +17,11 @@ abstract contract MystikoV2TBridge is MystikoV2Bridge {
     // implemented in MystikoV2Bridge
   }
 
-  function _processDeposit(uint256 _bridgeFee, bytes memory _requestBytes) internal override {
+  function _processDeposit(
+    uint256 _amount,
+    uint256 _bridgeFee,
+    bytes memory _requestBytes
+  ) internal override {
     ICrossChainProxy(bridgeProxyAddress).sendMessage{value: _bridgeFee}(
       peerContract,
       peerChainId,

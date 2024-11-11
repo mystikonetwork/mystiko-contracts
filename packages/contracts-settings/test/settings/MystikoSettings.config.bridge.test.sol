@@ -2,7 +2,7 @@
 pragma solidity 0.8.26;
 
 import {Test} from "forge-std/Test.sol";
-import "../../contracts/MystikoBridgeSettings.sol";
+import "../../contracts/MystikoSettings.sol";
 import "../../contracts/MystikoSettingsErrors.sol";
 import "../mock/MockMystikoToken.sol";
 import "../utils/Random.sol";
@@ -23,7 +23,7 @@ contract MystikoSettingsCenterTest is Test, Random {
   MystikoCertificate public certificateChecker;
   MystikoRollerPool public rollerPool;
   MystikoRelayerPool public relayerPool;
-  MystikoBridgeSettings public settings;
+  MystikoSettings public settings;
 
   event MinBridgeFeeChanged(address indexed deposit, uint256 minBridgeFee);
   event MinPeerExecutorFeeChanged(address indexed deposit, uint256 minPeerExecutorFee);
@@ -50,7 +50,7 @@ contract MystikoSettingsCenterTest is Test, Random {
     rollerPool = new MystikoRollerPool(address(daoRegistry), address(vXZK), 100_000e18, zero);
     relayerPool = new MystikoRelayerPool(address(daoRegistry), address(vXZK), 100_000e18);
 
-    settings = new MystikoBridgeSettings(
+    settings = new MystikoSettings(
       address(daoRegistry),
       IMystikoCertificate(certificateChecker),
       IMystikoRollerPool(rollerPool),

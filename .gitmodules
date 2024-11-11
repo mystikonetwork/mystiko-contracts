@@ -10,3 +10,9 @@
 [submodule "lib/mystiko-governance"]
 	path = lib/mystiko-governance
 	url = git@github.com:mystikonetwork/mystiko-governance.git
+[submodule "lib/wormhole-sdk"]
+	path = lib/wormhole-sdk
+	url = https://github.com/wormhole-foundation/wormhole-solidity-sdk
+[submodule "lib/evm-cctp-contracts"]
+	path = lib/evm-cctp-contracts
+	url = https://github.com/circlefin/evm-cctp-contracts

@@ -7,7 +7,10 @@ import {ERC20Permit} from "lib/openzeppelin-contracts/contracts/token/ERC20/exte
 contract MockTestToken is ERC20, ERC20Permit {
   uint8 private _decimal = 18;
 
-  constructor(string memory symbol, uint8 decimal) ERC20("Mystiko Test Token", symbol) ERC20Permit("Mystiko Test Token") {
+  constructor(
+    string memory symbol,
+    uint8 decimal
+  ) ERC20("Mystiko Test Token", symbol) ERC20Permit("Mystiko Test Token") {
     _decimal = decimal;
     _mint(msg.sender, 1000 * 1000 * 1000 * (10 ** _decimal));
   }

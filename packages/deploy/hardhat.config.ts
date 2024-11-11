@@ -120,7 +120,7 @@ const config: HardhatUserConfig = {
     baseSepolia: {
       url: baseSepoliaEndpoint,
       accounts: [`0x${baseSepoliaPrivateKey}`],
-      gasPrice: 200000000,
+      gasPrice: 10000000,
     },
     bsctestnet: {
       url: bscTestEndpoint,
@@ -153,6 +153,7 @@ const config: HardhatUserConfig = {
     Ethereum: {
       url: ethEndpoint,
       accounts: [`0x${ethPrivateKey}`],
+      gasPrice: 2800000000,
       timeout: 60000000,
     },
     BSC: {

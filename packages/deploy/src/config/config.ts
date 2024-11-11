@@ -126,11 +126,18 @@ export function loadConfig(taskArgs: any) {
     process.exit(-1);
   }
 
-  let proxyCfg;
+  let bridgeProxyCfg;
   if (bridgeCfg.name === BridgeTBridge) {
-    proxyCfg = bridgeCfg.getBridgeProxyConfig(srcNetwork, dstNetwork);
+    bridgeProxyCfg = bridgeCfg.getBridgeProxyConfig(srcNetwork, dstNetwork);
   } else {
-    proxyCfg = bridgeCfg.getBridgeProxyConfig(srcNetwork, '');
+    bridgeProxyCfg = bridgeCfg.getBridgeProxyConfig(srcNetwork, '');
+  }
+
+  let peerBridgeProxyCfg;
+  if (bridgeCfg.name === BridgeTBridge) {
+    peerBridgeProxyCfg = bridgeCfg.getBridgeProxyConfig(dstNetwork, srcNetwork);
+  } else {
+    peerBridgeProxyCfg = bridgeCfg.getBridgeProxyConfig(dstNetwork, '');
   }
 
   const operatorCfg = cfg.getOperator();
@@ -150,7 +157,8 @@ export function loadConfig(taskArgs: any) {
     pairSrcDepositCfg,
     pairDstDepositCfg,
     srcPoolCfg,
-    proxyCfg,
+    bridgeProxyCfg,
+    peerBridgeProxyCfg,
     operatorCfg,
     override,
   };

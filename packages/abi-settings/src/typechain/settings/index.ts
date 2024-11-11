@@ -11,7 +11,6 @@ export type { MystikoDepositConfig } from './MystikoDepositConfig';
 export type { MystikoPoolConfig } from './MystikoPoolConfig';
 export type { IMystikoBridgeConfig } from './IMystikoBridgeConfig';
 export type { IMystikoPoolConfig } from './IMystikoPoolConfig';
-export type { MystikoBridgeSettings } from './MystikoBridgeSettings';
 export type { MystikoSettings } from './MystikoSettings';
 export type { MystikoSettingsBase } from './MystikoSettingsBase';
 export type { MystikoSettingsErrors } from './MystikoSettingsErrors';
@@ -37,7 +36,6 @@ export { MystikoDepositConfig__factory } from './factories/MystikoDepositConfig_
 export { MystikoPoolConfig__factory } from './factories/MystikoPoolConfig__factory';
 export { IMystikoBridgeConfig__factory } from './factories/IMystikoBridgeConfig__factory';
 export { IMystikoPoolConfig__factory } from './factories/IMystikoPoolConfig__factory';
-export { MystikoBridgeSettings__factory } from './factories/MystikoBridgeSettings__factory';
 export { MystikoSettings__factory } from './factories/MystikoSettings__factory';
 export { MystikoSettingsBase__factory } from './factories/MystikoSettingsBase__factory';
 export { MystikoSettingsErrors__factory } from './factories/MystikoSettingsErrors__factory';

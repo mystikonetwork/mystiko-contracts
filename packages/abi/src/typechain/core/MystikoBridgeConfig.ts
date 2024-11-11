@@ -97,21 +97,21 @@ export interface MystikoBridgeConfigInterface extends utils.Interface {
 
 export type MinBridgeFeeChangedEvent = TypedEvent<
   [string, BigNumber],
-  { deposit: string; minBridgeFee: BigNumber }
+  { _localDeposit: string; minBridgeFee: BigNumber }
 >;
 
 export type MinBridgeFeeChangedEventFilter = TypedEventFilter<MinBridgeFeeChangedEvent>;
 
 export type MinPeerExecutorFeeChangedEvent = TypedEvent<
   [string, BigNumber],
-  { deposit: string; minPeerExecutorFee: BigNumber }
+  { _localDeposit: string; minPeerExecutorFee: BigNumber }
 >;
 
 export type MinPeerExecutorFeeChangedEventFilter = TypedEventFilter<MinPeerExecutorFeeChangedEvent>;
 
 export type MinPeerRollupFeeChangedEvent = TypedEvent<
   [string, BigNumber],
-  { deposit: string; minPeerRollupFee: BigNumber }
+  { _localDeposit: string; minPeerRollupFee: BigNumber }
 >;
 
 export type MinPeerRollupFeeChangedEventFilter = TypedEventFilter<MinPeerRollupFeeChangedEvent>;
@@ -181,11 +181,11 @@ export interface MystikoBridgeConfig extends BaseContract {
 
     minPeerRollupFeeAmount(arg0: string, overrides?: CallOverrides): Promise<[BigNumber]>;
 
-    queryMinBridgeFee(_pool: string, overrides?: CallOverrides): Promise<[BigNumber]>;
+    queryMinBridgeFee(_localDeposit: string, overrides?: CallOverrides): Promise<[BigNumber]>;
 
-    queryMinPeerExecutorFee(_pool: string, overrides?: CallOverrides): Promise<[BigNumber]>;
+    queryMinPeerExecutorFee(_localDeposit: string, overrides?: CallOverrides): Promise<[BigNumber]>;
 
-    queryMinPeerRollupFee(_pool: string, overrides?: CallOverrides): Promise<[BigNumber]>;
+    queryMinPeerRollupFee(_localDeposit: string, overrides?: CallOverrides): Promise<[BigNumber]>;
 
     renounceRole(
       role: BytesLike,
@@ -202,19 +202,19 @@ export interface MystikoBridgeConfig extends BaseContract {
     setAdminRole(overrides?: Overrides & { from?: string | Promise<string> }): Promise<ContractTransaction>;
 
     setMinBridgeFee(
-      _pool: string,
+      _localDeposit: string,
       _minBridgeFee: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<ContractTransaction>;
 
     setMinPeerExecutorFee(
-      _pool: string,
+      _localDeposit: string,
       _minPeerExecutorFee: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<ContractTransaction>;
 
     setMinPeerRollupFee(
-      _pool: string,
+      _localDeposit: string,
       _minPeerRollupFee: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<ContractTransaction>;
@@ -242,11 +242,11 @@ export interface MystikoBridgeConfig extends BaseContract {
 
   minPeerRollupFeeAmount(arg0: string, overrides?: CallOverrides): Promise<BigNumber>;
 
-  queryMinBridgeFee(_pool: string, overrides?: CallOverrides): Promise<BigNumber>;
+  queryMinBridgeFee(_localDeposit: string, overrides?: CallOverrides): Promise<BigNumber>;
 
-  queryMinPeerExecutorFee(_pool: string, overrides?: CallOverrides): Promise<BigNumber>;
+  queryMinPeerExecutorFee(_localDeposit: string, overrides?: CallOverrides): Promise<BigNumber>;
 
-  queryMinPeerRollupFee(_pool: string, overrides?: CallOverrides): Promise<BigNumber>;
+  queryMinPeerRollupFee(_localDeposit: string, overrides?: CallOverrides): Promise<BigNumber>;
 
   renounceRole(
     role: BytesLike,
@@ -263,19 +263,19 @@ export interface MystikoBridgeConfig extends BaseContract {
   setAdminRole(overrides?: Overrides & { from?: string | Promise<string> }): Promise<ContractTransaction>;
 
   setMinBridgeFee(
-    _pool: string,
+    _localDeposit: string,
     _minBridgeFee: BigNumberish,
     overrides?: Overrides & { from?: string | Promise<string> },
   ): Promise<ContractTransaction>;
 
   setMinPeerExecutorFee(
-    _pool: string,
+    _localDeposit: string,
     _minPeerExecutorFee: BigNumberish,
     overrides?: Overrides & { from?: string | Promise<string> },
   ): Promise<ContractTransaction>;
 
   setMinPeerRollupFee(
-    _pool: string,
+    _localDeposit: string,
     _minPeerRollupFee: BigNumberish,
     overrides?: Overrides & { from?: string | Promise<string> },
   ): Promise<ContractTransaction>;
@@ -299,11 +299,11 @@ export interface MystikoBridgeConfig extends BaseContract {
 
     minPeerRollupFeeAmount(arg0: string, overrides?: CallOverrides): Promise<BigNumber>;
 
-    queryMinBridgeFee(_pool: string, overrides?: CallOverrides): Promise<BigNumber>;
+    queryMinBridgeFee(_localDeposit: string, overrides?: CallOverrides): Promise<BigNumber>;
 
-    queryMinPeerExecutorFee(_pool: string, overrides?: CallOverrides): Promise<BigNumber>;
+    queryMinPeerExecutorFee(_localDeposit: string, overrides?: CallOverrides): Promise<BigNumber>;
 
-    queryMinPeerRollupFee(_pool: string, overrides?: CallOverrides): Promise<BigNumber>;
+    queryMinPeerRollupFee(_localDeposit: string, overrides?: CallOverrides): Promise<BigNumber>;
 
     renounceRole(role: BytesLike, callerConfirmation: string, overrides?: CallOverrides): Promise<void>;
 
@@ -311,16 +311,20 @@ export interface MystikoBridgeConfig extends BaseContract {
 
     setAdminRole(overrides?: CallOverrides): Promise<void>;
 
-    setMinBridgeFee(_pool: string, _minBridgeFee: BigNumberish, overrides?: CallOverrides): Promise<void>;
+    setMinBridgeFee(
+      _localDeposit: string,
+      _minBridgeFee: BigNumberish,
+      overrides?: CallOverrides,
+    ): Promise<void>;
 
     setMinPeerExecutorFee(
-      _pool: string,
+      _localDeposit: string,
       _minPeerExecutorFee: BigNumberish,
       overrides?: CallOverrides,
     ): Promise<void>;
 
     setMinPeerRollupFee(
-      _pool: string,
+      _localDeposit: string,
       _minPeerRollupFee: BigNumberish,
       overrides?: CallOverrides,
     ): Promise<void>;
@@ -330,26 +334,26 @@ export interface MystikoBridgeConfig extends BaseContract {
 
   filters: {
     'MinBridgeFeeChanged(address,uint256)'(
-      deposit?: string | null,
+      _localDeposit?: string | null,
       minBridgeFee?: null,
     ): MinBridgeFeeChangedEventFilter;
-    MinBridgeFeeChanged(deposit?: string | null, minBridgeFee?: null): MinBridgeFeeChangedEventFilter;
+    MinBridgeFeeChanged(_localDeposit?: string | null, minBridgeFee?: null): MinBridgeFeeChangedEventFilter;
 
     'MinPeerExecutorFeeChanged(address,uint256)'(
-      deposit?: string | null,
+      _localDeposit?: string | null,
       minPeerExecutorFee?: null,
     ): MinPeerExecutorFeeChangedEventFilter;
     MinPeerExecutorFeeChanged(
-      deposit?: string | null,
+      _localDeposit?: string | null,
       minPeerExecutorFee?: null,
     ): MinPeerExecutorFeeChangedEventFilter;
 
     'MinPeerRollupFeeChanged(address,uint256)'(
-      deposit?: string | null,
+      _localDeposit?: string | null,
       minPeerRollupFee?: null,
     ): MinPeerRollupFeeChangedEventFilter;
     MinPeerRollupFeeChanged(
-      deposit?: string | null,
+      _localDeposit?: string | null,
       minPeerRollupFee?: null,
     ): MinPeerRollupFeeChangedEventFilter;
 
@@ -408,11 +412,11 @@ export interface MystikoBridgeConfig extends BaseContract {
 
     minPeerRollupFeeAmount(arg0: string, overrides?: CallOverrides): Promise<BigNumber>;
 
-    queryMinBridgeFee(_pool: string, overrides?: CallOverrides): Promise<BigNumber>;
+    queryMinBridgeFee(_localDeposit: string, overrides?: CallOverrides): Promise<BigNumber>;
 
-    queryMinPeerExecutorFee(_pool: string, overrides?: CallOverrides): Promise<BigNumber>;
+    queryMinPeerExecutorFee(_localDeposit: string, overrides?: CallOverrides): Promise<BigNumber>;
 
-    queryMinPeerRollupFee(_pool: string, overrides?: CallOverrides): Promise<BigNumber>;
+    queryMinPeerRollupFee(_localDeposit: string, overrides?: CallOverrides): Promise<BigNumber>;
 
     renounceRole(
       role: BytesLike,
@@ -429,19 +433,19 @@ export interface MystikoBridgeConfig extends BaseContract {
     setAdminRole(overrides?: Overrides & { from?: string | Promise<string> }): Promise<BigNumber>;
 
     setMinBridgeFee(
-      _pool: string,
+      _localDeposit: string,
       _minBridgeFee: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<BigNumber>;
 
     setMinPeerExecutorFee(
-      _pool: string,
+      _localDeposit: string,
       _minPeerExecutorFee: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<BigNumber>;
 
     setMinPeerRollupFee(
-      _pool: string,
+      _localDeposit: string,
       _minPeerRollupFee: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<BigNumber>;
@@ -470,11 +474,11 @@ export interface MystikoBridgeConfig extends BaseContract {
 
     minPeerRollupFeeAmount(arg0: string, overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
-    queryMinBridgeFee(_pool: string, overrides?: CallOverrides): Promise<PopulatedTransaction>;
+    queryMinBridgeFee(_localDeposit: string, overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
-    queryMinPeerExecutorFee(_pool: string, overrides?: CallOverrides): Promise<PopulatedTransaction>;
+    queryMinPeerExecutorFee(_localDeposit: string, overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
-    queryMinPeerRollupFee(_pool: string, overrides?: CallOverrides): Promise<PopulatedTransaction>;
+    queryMinPeerRollupFee(_localDeposit: string, overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     renounceRole(
       role: BytesLike,
@@ -491,19 +495,19 @@ export interface MystikoBridgeConfig extends BaseContract {
     setAdminRole(overrides?: Overrides & { from?: string | Promise<string> }): Promise<PopulatedTransaction>;
 
     setMinBridgeFee(
-      _pool: string,
+      _localDeposit: string,
       _minBridgeFee: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<PopulatedTransaction>;
 
     setMinPeerExecutorFee(
-      _pool: string,
+      _localDeposit: string,
       _minPeerExecutorFee: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<PopulatedTransaction>;
 
     setMinPeerRollupFee(
-      _pool: string,
+      _localDeposit: string,
       _minPeerRollupFee: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<PopulatedTransaction>;

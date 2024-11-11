@@ -480,9 +480,9 @@ export interface MystikoSettingsBase extends BaseContract {
 
     queryAuditorPublicKey(_index: BigNumberish, overrides?: CallOverrides): Promise<[BigNumber]>;
 
-    queryMaxDepositAmount(_pool: string, overrides?: CallOverrides): Promise<[BigNumber]>;
+    queryMaxDepositAmount(_deposit: string, overrides?: CallOverrides): Promise<[BigNumber]>;
 
-    queryMinDepositAmount(_pool: string, overrides?: CallOverrides): Promise<[BigNumber]>;
+    queryMinDepositAmount(_deposit: string, overrides?: CallOverrides): Promise<[BigNumber]>;
 
     queryMinRollupFee(_pool: string, overrides?: CallOverrides): Promise<[BigNumber]>;
 
@@ -543,13 +543,13 @@ export interface MystikoSettingsBase extends BaseContract {
     ): Promise<ContractTransaction>;
 
     setMaxDepositAmount(
-      _pool: string,
+      _deposit: string,
       _maxDepositAmount: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<ContractTransaction>;
 
     setMinDepositAmount(
-      _pool: string,
+      _deposit: string,
       _minDepositAmount: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<ContractTransaction>;
@@ -666,9 +666,9 @@ export interface MystikoSettingsBase extends BaseContract {
 
   queryAuditorPublicKey(_index: BigNumberish, overrides?: CallOverrides): Promise<BigNumber>;
 
-  queryMaxDepositAmount(_pool: string, overrides?: CallOverrides): Promise<BigNumber>;
+  queryMaxDepositAmount(_deposit: string, overrides?: CallOverrides): Promise<BigNumber>;
 
-  queryMinDepositAmount(_pool: string, overrides?: CallOverrides): Promise<BigNumber>;
+  queryMinDepositAmount(_deposit: string, overrides?: CallOverrides): Promise<BigNumber>;
 
   queryMinRollupFee(_pool: string, overrides?: CallOverrides): Promise<BigNumber>;
 
@@ -729,13 +729,13 @@ export interface MystikoSettingsBase extends BaseContract {
   ): Promise<ContractTransaction>;
 
   setMaxDepositAmount(
-    _pool: string,
+    _deposit: string,
     _maxDepositAmount: BigNumberish,
     overrides?: Overrides & { from?: string | Promise<string> },
   ): Promise<ContractTransaction>;
 
   setMinDepositAmount(
-    _pool: string,
+    _deposit: string,
     _minDepositAmount: BigNumberish,
     overrides?: Overrides & { from?: string | Promise<string> },
   ): Promise<ContractTransaction>;
@@ -838,9 +838,9 @@ export interface MystikoSettingsBase extends BaseContract {
 
     queryAuditorPublicKey(_index: BigNumberish, overrides?: CallOverrides): Promise<BigNumber>;
 
-    queryMaxDepositAmount(_pool: string, overrides?: CallOverrides): Promise<BigNumber>;
+    queryMaxDepositAmount(_deposit: string, overrides?: CallOverrides): Promise<BigNumber>;
 
-    queryMinDepositAmount(_pool: string, overrides?: CallOverrides): Promise<BigNumber>;
+    queryMinDepositAmount(_deposit: string, overrides?: CallOverrides): Promise<BigNumber>;
 
     queryMinRollupFee(_pool: string, overrides?: CallOverrides): Promise<BigNumber>;
 
@@ -886,13 +886,13 @@ export interface MystikoSettingsBase extends BaseContract {
     setDepositDisable(_depositAddress: string, _disable: boolean, overrides?: CallOverrides): Promise<void>;
 
     setMaxDepositAmount(
-      _pool: string,
+      _deposit: string,
       _maxDepositAmount: BigNumberish,
       overrides?: CallOverrides,
     ): Promise<void>;
 
     setMinDepositAmount(
-      _pool: string,
+      _deposit: string,
       _minDepositAmount: BigNumberish,
       overrides?: CallOverrides,
     ): Promise<void>;
@@ -1108,9 +1108,9 @@ export interface MystikoSettingsBase extends BaseContract {
 
     queryAuditorPublicKey(_index: BigNumberish, overrides?: CallOverrides): Promise<BigNumber>;
 
-    queryMaxDepositAmount(_pool: string, overrides?: CallOverrides): Promise<BigNumber>;
+    queryMaxDepositAmount(_deposit: string, overrides?: CallOverrides): Promise<BigNumber>;
 
-    queryMinDepositAmount(_pool: string, overrides?: CallOverrides): Promise<BigNumber>;
+    queryMinDepositAmount(_deposit: string, overrides?: CallOverrides): Promise<BigNumber>;
 
     queryMinRollupFee(_pool: string, overrides?: CallOverrides): Promise<BigNumber>;
 
@@ -1168,13 +1168,13 @@ export interface MystikoSettingsBase extends BaseContract {
     ): Promise<BigNumber>;
 
     setMaxDepositAmount(
-      _pool: string,
+      _deposit: string,
       _maxDepositAmount: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<BigNumber>;
 
     setMinDepositAmount(
-      _pool: string,
+      _deposit: string,
       _minDepositAmount: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<BigNumber>;
@@ -1292,9 +1292,9 @@ export interface MystikoSettingsBase extends BaseContract {
 
     queryAuditorPublicKey(_index: BigNumberish, overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
-    queryMaxDepositAmount(_pool: string, overrides?: CallOverrides): Promise<PopulatedTransaction>;
+    queryMaxDepositAmount(_deposit: string, overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
-    queryMinDepositAmount(_pool: string, overrides?: CallOverrides): Promise<PopulatedTransaction>;
+    queryMinDepositAmount(_deposit: string, overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     queryMinRollupFee(_pool: string, overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
@@ -1352,13 +1352,13 @@ export interface MystikoSettingsBase extends BaseContract {
     ): Promise<PopulatedTransaction>;
 
     setMaxDepositAmount(
-      _pool: string,
+      _deposit: string,
       _maxDepositAmount: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<PopulatedTransaction>;
 
     setMinDepositAmount(
-      _pool: string,
+      _deposit: string,
       _minDepositAmount: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<PopulatedTransaction>;
