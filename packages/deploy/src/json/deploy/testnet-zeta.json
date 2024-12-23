@@ -1222,7 +1222,7 @@
         {
           "network": "avalanchetestnet",
           "minimal": "0",
-          "gasLimit": "400000"
+          "gasLimit": "450000"
         }
       ],
       "commitmentPools": [
@@ -1250,16 +1250,16 @@
         {
           "network": "sepolia",
           "assetSymbol": "ETH",
-          "address": "0x2B688da7fC52E5Ae0aD77E36eCEF71adC86b01F9",
-          "syncStart": 7013982,
-          "nonce": 668
+          "address": "0x9adD1d5d764EBa9Fe25e1265556CD67d494eaD7D",
+          "syncStart": 7335874,
+          "nonce": 692
         },
         {
           "network": "avalanchetestnet",
           "assetSymbol": "WETHWormhole",
-          "address": "0x8737BB89d5B9F21aDc3193C64bFbB95C4F217C5B",
-          "syncStart": 36541827,
-          "nonce": 1254
+          "address": "0x30cc7374e45ea838b8C314D28098a6C44C2824Ca",
+          "syncStart": 37260990,
+          "nonce": 1277
         }
       ],
       "pairs": [
@@ -1346,24 +1346,24 @@
             {
               "network": "sepolia",
               "assetSymbol": "ETH",
-              "address": "0x798D0A0Ce3EfF077b68cd765e0285D0Cb78400E6",
-              "syncStart": 7015189,
-              "nonce": 680,
-              "commitmentPool": "0x2B688da7fC52E5Ae0aD77E36eCEF71adC86b01F9",
-              "commitmentPoolTx": "0x3835c69de5b462ac298111fccb7c91217722d1b34b82d2595d9f44a465374c56",
-              "peerContract": "0xe4f82B954e7a86D4C1eEAba039459828f2Ac4fB4",
-              "peerContractTx": "0xfbad0b86f2ad0f45795c85564047caf4b5de1c3161ff51bb553b4af5c5fd3863"
+              "address": "0x2d7EeADa3D38673B4713276aDd74A4D2DAd01C11",
+              "syncStart": 7335876,
+              "nonce": 693,
+              "commitmentPool": "0x9adD1d5d764EBa9Fe25e1265556CD67d494eaD7D",
+              "commitmentPoolTx": "0x8e6679580cf872a1c7c17edf562cde84426a10a11c831541cff8ac43c46541bc",
+              "peerContract": "0x61a7b4666028046D40D71F61902f59cD9b933De4",
+              "peerContractTx": "0xe907e130306362ab2d225850eabc8b69a030c39b11464473f3e2628fd8b4ace5"
             },
             {
               "network": "avalanchetestnet",
               "assetSymbol": "WETHWormhole",
-              "address": "0xe4f82B954e7a86D4C1eEAba039459828f2Ac4fB4",
-              "syncStart": 36544736,
-              "nonce": 1266,
-              "commitmentPool": "0x8737BB89d5B9F21aDc3193C64bFbB95C4F217C5B",
-              "commitmentPoolTx": "0xf8a565b1deecc2004b5cc9c426dc5020ab90774a5af0b8660cd02054ac66a044",
-              "peerContract": "0x798D0A0Ce3EfF077b68cd765e0285D0Cb78400E6",
-              "peerContractTx": "0x103423ee0f3117766b4dc77b93c591bb23b469ccca68a08142795f88a43c9a60"
+              "address": "0x61a7b4666028046D40D71F61902f59cD9b933De4",
+              "syncStart": 37260990,
+              "nonce": 1278,
+              "commitmentPool": "0x30cc7374e45ea838b8C314D28098a6C44C2824Ca",
+              "commitmentPoolTx": "0xc6955f195a5ca96118dc5c72f75987d51373109e5da22f0ab9925e093a280687",
+              "peerContract": "0x2d7EeADa3D38673B4713276aDd74A4D2DAd01C11",
+              "peerContractTx": "0x924b0fa38d9e71247360b0531461c09b89858f03a8f8e081658f7f7a8a0d5ff9"
             }
           ]
         }
