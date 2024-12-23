@@ -1,0 +1,616 @@
+{
+  "version": 8,
+  "poolName": "delta-20241102",
+  "circuits": [],
+  "chains": [
+    {
+      "name": "Ethereum",
+      "network": "Ethereum",
+      "chainId": 1,
+      "tokens": [
+        {
+          "assetSymbol": "ETH",
+          "assetDecimals": 18,
+          "erc20": false,
+          "minAmount": "1000000000000",
+          "maxAmount": "1000000000000000000000",
+          "minExecutorFee": "0",
+          "minRollupFee": "1000000000000",
+          "recommendedAmounts": [
+            "100000000000000000",
+            "1000000000000000000",
+            "10000000000000000000",
+            "100000000000000000000"
+          ]
+        },
+        {
+          "assetSymbol": "USDT",
+          "erc20": true,
+          "assetDecimals": 6,
+          "address": "0xdAC17F958D2ee523a2206206994597C13D831ec7",
+          "minAmount": "100000000",
+          "maxAmount": "1000000000000",
+          "minExecutorFee": "0",
+          "minRollupFee": "10000000",
+          "recommendedAmounts": [
+            "100000000",
+            "1000000000",
+            "10000000000",
+            "100000000000"
+          ]
+        },
+        {
+          "assetSymbol": "USDC",
+          "erc20": true,
+          "assetDecimals": 6,
+          "address": "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48",
+          "minAmount": "100000",
+          "maxAmount": "1000000000000",
+          "minExecutorFee": "0",
+          "minRollupFee": "100000",
+          "recommendedAmounts": [
+            "100000000",
+            "1000000000",
+            "10000000000",
+            "100000000000"
+          ]
+        }
+      ],
+      "daoRegistry": "0xc7713f0ec0ddcc20d6e03edf12d85f81d18b74fb",
+      "vXZKAddress": "0x16aFFA80C65Fd7003d40B24eDb96f77b38dDC96A",
+      "hasher3Address": "0x7d8058dC129014968bE5Be0d52C623FFbf16cAEA",
+      "rollup1Address": "0x5841E189B170420b5fc67F58bA79F21f26FE6E4a",
+      "rollup2Address": "0xF2A6b7f5163f984e31b0E8bb5fF6154B3EfF06aD",
+      "rollup4Address": "0x538726AA437e95076e72cA03975Cc248c7A842Ea",
+      "rollup8Address": "0x7dc9242a1220bAF92901c2FbC42BA5bEAfb3641e",
+      "rollup16Address": "0xFd6e126A5dc6CdeC08e101cA6Bfe5dc1e5c5369f",
+      "transaction1x0VerifierAddress": "0xE1Fb407510B50A318a38Cd38c7EF67DdCe17BF01",
+      "transaction1x1VerifierAddress": "0x2f8bC6f7b010d672BABf2c2dcb7300A88aE2c50C",
+      "transaction1x2VerifierAddress": "0xd02c62789D0A5b79D1f0C41500c8382ee8076a2C",
+      "transaction2x0VerifierAddress": "0x00dD8C49Cd45B12A23928eD4203eD44758f457bc",
+      "transaction2x1VerifierAddress": "0x42D8D7082Ada7E497dBc3e36F074086893eD3EF6",
+      "transaction2x2VerifierAddress": "0x4b4136Af5e1D81657bE5cDdc2F24dDb1424204fB",
+      "rollup32Address": "0x3F58Ac2845Be880C932f42843B91be51285ba80d",
+      "rollup64Address": "0x10695d6eDc6e907bCe884314ebf2f4a63F318277",
+      "settingsConfig": {},
+      "certificateVerifier": "0x081E63f27b26B6BdE54412A160528BCA81c15b42",
+      "relayerPool": "0x220b2bD28Af2904284B80932F5ccC053B0A8B8a6",
+      "relayerRegister": "0x29ED7DE21ccc80dc5921A8d9d8650247653C1188",
+      "rollerPool": "0xEF94b1Ad81E7f4b19882829313D84E05A8965b25",
+      "settingsCenter": "0x11B81A8063f996DC1b4c36BC9D9543d48bF4dEF5"
+    },
+    {
+      "name": "BSC",
+      "network": "BSC",
+      "chainId": 56,
+      "tokens": [
+        {
+          "assetSymbol": "BNB",
+          "assetDecimals": 18,
+          "erc20": false,
+          "minAmount": "1000000000000000000",
+          "maxAmount": "10000000000000000000000",
+          "minExecutorFee": "0",
+          "minRollupFee": "4000000000000000",
+          "recommendedAmounts": [
+            "1000000000000000000",
+            "10000000000000000000",
+            "100000000000000000000",
+            "1000000000000000000000"
+          ]
+        },
+        {
+          "assetSymbol": "USDT",
+          "erc20": true,
+          "assetDecimals": 18,
+          "address": "0x55d398326f99059ff775485246999027b3197955",
+          "minAmount": "100000000000000000000",
+          "maxAmount": "1000000000000000000000000",
+          "minExecutorFee": "0",
+          "minRollupFee": "1000000000000000000",
+          "recommendedAmounts": [
+            "100000000000000000000",
+            "1000000000000000000000",
+            "10000000000000000000000",
+            "100000000000000000000000"
+          ]
+        },
+        {
+          "assetSymbol": "USDC",
+          "erc20": true,
+          "assetDecimals": 18,
+          "address": "0x8ac76a51cc950d9822d68b83fe1ad97b32cd580d",
+          "minAmount": "100000000000000000000",
+          "maxAmount": "1000000000000000000000000",
+          "minExecutorFee": "0",
+          "minRollupFee": "1000000000000000000",
+          "recommendedAmounts": [
+            "100000000000000000000",
+            "1000000000000000000000",
+            "10000000000000000000000",
+            "100000000000000000000000"
+          ]
+        }
+      ],
+      "daoRegistry": "0x33C044e4807ed822724F7c473502B00eD3bf7c7f",
+      "settingsConfig": {},
+      "hasher3Address": "0x7d8058dC129014968bE5Be0d52C623FFbf16cAEA",
+      "rollup1Address": "0xa5c0060cdBf2F5185165e4430c374800d891750C",
+      "rollup2Address": "0x97Ff91E0a96294B347d50E0c456f5765bB62B7c0",
+      "rollup4Address": "0x928F8b41Bb07C91CC5Ebc2c20De17d63D046f677",
+      "rollup8Address": "0x3c015FD0716cb82cFeEe0976e2d25E6e545A00cD",
+      "rollup16Address": "0x40bDB50eebA618DEA9FB8dd37ffC3D8111fA2826",
+      "transaction1x0VerifierAddress": "0x57Fbd29A381B09d0f0c94E5622F62aacF9e1B295",
+      "transaction1x1VerifierAddress": "0x422d151d8aa5c9F8AD75dC8Dff2dcd648B8b4e59",
+      "transaction1x2VerifierAddress": "0x8A21c3a4527611aB5CD8d926b33d3DfE539eb3EE",
+      "transaction2x0VerifierAddress": "0x506BCf537698214e8F69B9e96E7f7aBA4F9A9A63",
+      "transaction2x1VerifierAddress": "0x90B78efbF17C7fA8eB9BBb6cca7fcDEA65b516d3",
+      "transaction2x2VerifierAddress": "0x53FDc92C3CAc3A50eb5967c54Add616F3810B1b2",
+      "rollup32Address": "0x9D072215277AE3CD9650fCDC8376946c17b1dc87",
+      "rollup64Address": "0x416EB387ff5f0E7B5FeD6917e5b1109db6495AeE",
+      "certificateVerifier": "0xFa8336C60C39268f38e4123daa5c05E69d023A08",
+      "relayerPool": "0x2a5eEf90F1aA36CaE2535349B522891A044EFCC1",
+      "relayerRegister": "0xC1Bc70C5BEf4E5Dc147D482CE64F5cF062366a74",
+      "rollerPool": "0xa229c30E64DdE2EDEBCA6c657c6549dcA06BD23f"
+    },
+    {
+      "name": "Polygon",
+      "network": "Polygon",
+      "chainId": 137,
+      "tokens": [
+        {
+          "assetSymbol": "POL",
+          "assetDecimals": 18,
+          "erc20": false,
+          "minAmount": "100000000000000000000",
+          "maxAmount": "1000000000000000000000000",
+          "minExecutorFee": "0",
+          "minRollupFee": "100000000000000000",
+          "recommendedAmounts": [
+            "100000000000000000000",
+            "1000000000000000000000",
+            "10000000000000000000000",
+            "100000000000000000000000"
+          ]
+        },
+        {
+          "assetSymbol": "USDT",
+          "erc20": true,
+          "assetDecimals": 6,
+          "address": "0xc2132D05D31c914a87C6611C10748AEb04B58e8F",
+          "minAmount": "100000000",
+          "maxAmount": "1000000000000",
+          "minExecutorFee": "0",
+          "minRollupFee": "100000",
+          "recommendedAmounts": [
+            "100000000",
+            "1000000000",
+            "10000000000",
+            "100000000000"
+          ]
+        },
+        {
+          "assetSymbol": "USDC",
+          "erc20": true,
+          "assetDecimals": 6,
+          "address": "0x3c499c542cEF5E3811e1192ce70d8cC03d5c3359",
+          "minAmount": "100000",
+          "maxAmount": "1000000000000",
+          "minExecutorFee": "0",
+          "minRollupFee": "100000",
+          "recommendedAmounts": [
+            "100000000",
+            "1000000000",
+            "10000000000",
+            "100000000000"
+          ]
+        },
+        {
+          "assetSymbol": "WETHWormhole",
+          "erc20": true,
+          "assetDecimals": 18,
+          "address": "0x11CD37bb86F65419713f30673A480EA33c826872",
+          "minAmount": "1000000000000",
+          "maxAmount": "1000000000000000000000",
+          "minExecutorFee": "0",
+          "minRollupFee": "1000000000000",
+          "recommendedAmounts": [
+            "100000000000000000",
+            "1000000000000000000",
+            "10000000000000000000",
+            "100000000000000000000"
+          ]
+        }
+      ],
+      "daoRegistry": "0x33C044e4807ed822724F7c473502B00eD3bf7c7f",
+      "settingsConfig": {},
+      "hasher3Address": "0x7d8058dC129014968bE5Be0d52C623FFbf16cAEA",
+      "rollup1Address": "0x4ba17CA685c360C173c75E841277AE837A0e094C",
+      "rollup2Address": "0xE321e2D3a302786552B1e39663a46e7a84617565",
+      "rollup4Address": "0xEa2Dafb65f0DFf09416BCa3098b93915C40211C9",
+      "rollup8Address": "0xc30dE5380E370FD3FE74b8E855DA515195086fa5",
+      "rollup16Address": "0x7318AF46Ca9c7aD9845d66f322656335037B1EaC",
+      "transaction1x0VerifierAddress": "0xda84f860B57639B1F04Bb2C9Ef081260A3Da6F0a",
+      "transaction1x1VerifierAddress": "0x84DbE5d8B42d344C8f852d580B0474a96D296186",
+      "transaction1x2VerifierAddress": "0xF2DC0AfE64b26E144F373638298C26D42c654b10",
+      "transaction2x0VerifierAddress": "0x93b21B203d2B5906482030f6fD241dd88D4789f1",
+      "transaction2x1VerifierAddress": "0xb7E99ADFD81F51c031dE82e7A9DBB1E35aC153f5",
+      "transaction2x2VerifierAddress": "0x67d3B78E01b1357241281057B25f856d3b6aAdee",
+      "rollup32Address": "0xD290E660720d7aAd74B43fA85598457545BF76cC",
+      "rollup64Address": "0x6a1e3a22BE09397a3A3616dd757f5aB14Eb0d12D",
+      "certificateVerifier": "0xFa8336C60C39268f38e4123daa5c05E69d023A08",
+      "relayerPool": "0x2a5eEf90F1aA36CaE2535349B522891A044EFCC1",
+      "relayerRegister": "0xC1Bc70C5BEf4E5Dc147D482CE64F5cF062366a74",
+      "rollerPool": "0xa229c30E64DdE2EDEBCA6c657c6549dcA06BD23f",
+      "settingsCenter": "0xa4EfAdcCEa85D4E91B5D64Da92214D3563F75E2e"
+    },
+    {
+      "name": "Base Mainnet",
+      "network": "Base",
+      "chainId": 8453,
+      "tokens": [
+        {
+          "assetSymbol": "ETH",
+          "assetDecimals": 18,
+          "erc20": false,
+          "minAmount": "100000000000000000",
+          "maxAmount": "1000000000000000000000",
+          "minExecutorFee": "0",
+          "minRollupFee": "10000000000000",
+          "recommendedAmounts": [
+            "100000000000000000",
+            "1000000000000000000",
+            "10000000000000000000",
+            "100000000000000000000"
+          ]
+        },
+        {
+          "assetSymbol": "USDC",
+          "erc20": true,
+          "assetDecimals": 6,
+          "address": "0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913",
+          "minAmount": "100000000",
+          "maxAmount": "1000000000000",
+          "minExecutorFee": "0",
+          "minRollupFee": "20000",
+          "recommendedAmounts": [
+            "100000000",
+            "1000000000",
+            "10000000000",
+            "100000000000"
+          ]
+        }
+      ],
+      "daoRegistry": "0x33C044e4807ed822724F7c473502B00eD3bf7c7f",
+      "settingsConfig": {},
+      "hasher3Address": "0x70Bc3d91172C97d9652C65f28a9615Bb6B462828",
+      "rollup1Address": "0xeF9482556810c8c8E47fCf141E1b4aFd6326cF44",
+      "rollup2Address": "0x1A5089B9cc919Af643414C7ddFcFAF2886f02cF7",
+      "rollup4Address": "0xC3FdF3fFe706cB28556598055296044b900f3a08",
+      "rollup8Address": "0x94c7219c779C72e917E55D747B377FA409Be2150",
+      "rollup16Address": "0xbaB90b3c71D0CdD051a0ae15e337c959b44951cF",
+      "transaction1x0VerifierAddress": "0x9FEDACbA4e6646E3764B6Dab9575867265Bb7e3f",
+      "transaction1x1VerifierAddress": "0x9e065E3D7ADaAec9C34AD035a8e0382Fc7b9e838",
+      "transaction1x2VerifierAddress": "0x579011D4F25942604442229e144507798451Cd66",
+      "transaction2x0VerifierAddress": "0xD0b4CE9c55498DD59Ec47F1E699aDE5588fA622d",
+      "transaction2x1VerifierAddress": "0x775175965755FF315a9BC96614988c5EF5fA3d42",
+      "transaction2x2VerifierAddress": "0x932f3DD5b6C0F5fe1aEc31Cb38B7a57d01496411",
+      "rollup32Address": "0x4757B2aF4BA0DA3637e5F0A532e28970EadDB9Bc",
+      "rollup64Address": "0x9bF443aFA3d1D592CBF16E90aC4D790325DfD64D",
+      "certificateVerifier": "0x2a5eEf90F1aA36CaE2535349B522891A044EFCC1",
+      "relayerPool": "0xC1Bc70C5BEf4E5Dc147D482CE64F5cF062366a74",
+      "relayerRegister": "0xa229c30E64DdE2EDEBCA6c657c6549dcA06BD23f",
+      "rollerPool": "0x220b2bD28Af2904284B80932F5ccC053B0A8B8a6"
+    },
+    {
+      "name": "Avalanche C-Chain",
+      "network": "Avalanche",
+      "chainId": 43114,
+      "tokens": [
+        {
+          "assetSymbol": "AVAX",
+          "assetDecimals": 18,
+          "erc20": false,
+          "minAmount": "10000000000000000000",
+          "maxAmount": "100000000000000000000000",
+          "minExecutorFee": "0",
+          "minRollupFee": "20000000000000000",
+          "recommendedAmounts": [
+            "10000000000000000000",
+            "100000000000000000000",
+            "1000000000000000000000",
+            "10000000000000000000000"
+          ]
+        },
+        {
+          "assetSymbol": "USDT",
+          "erc20": true,
+          "assetDecimals": 6,
+          "address": "0x9702230A8Ea53601f5cD2dc00fDBc13d4dF4A8c7",
+          "minAmount": "100000000",
+          "maxAmount": "1000000000000",
+          "minExecutorFee": "0",
+          "minRollupFee": "500000",
+          "recommendedAmounts": [
+            "100000000",
+            "1000000000",
+            "10000000000",
+            "100000000000"
+          ]
+        },
+        {
+          "assetSymbol": "USDC",
+          "erc20": true,
+          "assetDecimals": 6,
+          "address": "0xB97EF9Ef8734C71904D8002F8b6Bc66Dd9c48a6E",
+          "minAmount": "100000000",
+          "maxAmount": "1000000000000",
+          "minExecutorFee": "0",
+          "minRollupFee": "500000",
+          "recommendedAmounts": [
+            "100000000",
+            "1000000000",
+            "10000000000",
+            "100000000000"
+          ]
+        }
+      ],
+      "daoRegistry": "0x33C044e4807ed822724F7c473502B00eD3bf7c7f",
+      "settingsConfig": {},
+      "hasher3Address": "0xA9d3173fa17D14FC147c993667A97C6889f5D486",
+      "rollup1Address": "0xA288b938FE6d6bC70aDb5C545A99985993e398F5",
+      "rollup2Address": "0x58b92DB0b3A7924a383062FD441a7c7218aD1703",
+      "rollup4Address": "0xcfc951490b111267260e58d0515e1dAB71Dde2ff",
+      "rollup8Address": "0x6eCeFEB74c4891c02F533c934E9D139779b55357",
+      "rollup16Address": "0x715c4c1AB3B8cDc764074a295DD9B8AA38453B14",
+      "transaction1x0VerifierAddress": "0x4e491a0429fC092D6dB461498724E53c2149d50E",
+      "transaction1x1VerifierAddress": "0x35dB27BeDA70b87420FC381Ee4ea3e7f9bC4829e",
+      "transaction1x2VerifierAddress": "0x6343a114b47CFc31C1099970f38AC5E423454461",
+      "transaction2x0VerifierAddress": "0x7D74970daEBf0aC772895e85BeF55767cB72ca98",
+      "transaction2x1VerifierAddress": "0xcb3aa1f94f7A3C646D8E8e91756c000e0de9FF41",
+      "transaction2x2VerifierAddress": "0xc5c00c9a613D65fC132Fc17b413F2756b4ddCeB4",
+      "rollup32Address": "0x932f3DD5b6C0F5fe1aEc31Cb38B7a57d01496411",
+      "rollup64Address": "0x7F88F2A3Cf18E96844E14CaE59EC97B908734C01",
+      "certificateVerifier": "0xFa8336C60C39268f38e4123daa5c05E69d023A08",
+      "relayerPool": "0x2a5eEf90F1aA36CaE2535349B522891A044EFCC1",
+      "relayerRegister": "0xC1Bc70C5BEf4E5Dc147D482CE64F5cF062366a74",
+      "rollerPool": "0xa229c30E64DdE2EDEBCA6c657c6549dcA06BD23f"
+    },
+    {
+      "name": "Linea Mainnet",
+      "network": "Linea",
+      "chainId": 59144,
+      "tokens": [
+        {
+          "assetSymbol": "ETH",
+          "assetDecimals": 18,
+          "erc20": false,
+          "minAmount": "100000000000000000",
+          "maxAmount": "1000000000000000000000",
+          "minExecutorFee": "0",
+          "minRollupFee": "40000000000000",
+          "recommendedAmounts": [
+            "100000000000000000",
+            "1000000000000000000",
+            "10000000000000000000",
+            "100000000000000000000"
+          ]
+        },
+        {
+          "assetSymbol": "USDC",
+          "erc20": true,
+          "assetDecimals": 6,
+          "address": "0x176211869cA2b568f2A7D4EE941E073a821EE1ff",
+          "minAmount": "100000000",
+          "maxAmount": "1000000000000",
+          "minExecutorFee": "0",
+          "minRollupFee": "100000",
+          "recommendedAmounts": [
+            "100000000",
+            "1000000000",
+            "10000000000",
+            "100000000000"
+          ]
+        }
+      ],
+      "daoRegistry": "0x33C044e4807ed822724F7c473502B00eD3bf7c7f",
+      "settingsConfig": {},
+      "hasher3Address": "0xA9d3173fa17D14FC147c993667A97C6889f5D486",
+      "rollup1Address": "0xA288b938FE6d6bC70aDb5C545A99985993e398F5",
+      "rollup2Address": "0x58b92DB0b3A7924a383062FD441a7c7218aD1703",
+      "rollup4Address": "0xcfc951490b111267260e58d0515e1dAB71Dde2ff",
+      "rollup8Address": "0x6eCeFEB74c4891c02F533c934E9D139779b55357",
+      "rollup16Address": "0x715c4c1AB3B8cDc764074a295DD9B8AA38453B14",
+      "transaction1x0VerifierAddress": "0x4e491a0429fC092D6dB461498724E53c2149d50E",
+      "transaction1x1VerifierAddress": "0x35dB27BeDA70b87420FC381Ee4ea3e7f9bC4829e",
+      "transaction1x2VerifierAddress": "0x6343a114b47CFc31C1099970f38AC5E423454461",
+      "transaction2x0VerifierAddress": "0x7D74970daEBf0aC772895e85BeF55767cB72ca98",
+      "transaction2x1VerifierAddress": "0xcb3aa1f94f7A3C646D8E8e91756c000e0de9FF41",
+      "transaction2x2VerifierAddress": "0xc5c00c9a613D65fC132Fc17b413F2756b4ddCeB4",
+      "rollup32Address": "0x579011D4F25942604442229e144507798451Cd66",
+      "rollup64Address": "0xD0b4CE9c55498DD59Ec47F1E699aDE5588fA622d",
+      "certificateVerifier": "0xFa8336C60C39268f38e4123daa5c05E69d023A08",
+      "relayerPool": "0x2a5eEf90F1aA36CaE2535349B522891A044EFCC1",
+      "relayerRegister": "0xC1Bc70C5BEf4E5Dc147D482CE64F5cF062366a74",
+      "rollerPool": "0xa229c30E64DdE2EDEBCA6c657c6549dcA06BD23f"
+    }
+  ],
+  "bridges": [
+    {
+      "name": "loop",
+      "contractName": "Loop",
+      "proxys": [],
+      "fees": [],
+      "commitmentPools": [],
+      "pairs": []
+    },
+    {
+      "name": "wormhole",
+      "contractName": "Wormhole",
+      "proxys": [
+        {
+          "network": "Ethereum",
+          "mapChainId": 2,
+          "remoteNetwork": "",
+          "address": "0x27428DD2d3DD32A4D7f7C497eAaa23130d894911",
+          "wormholeRelayer": "0x27428DD2d3DD32A4D7f7C497eAaa23130d894911",
+          "wormholeTokenBridge": "0x3ee18B2214AFF97000D974cf647E7C347E8fa585",
+          "wormhole": "0x98f3c9e6E3fAce36bAAd05FE09d375Ef1464288B",
+          "circleMessageTransmitter": "0x0a992d191deec32afe36203ad87d7d289a738f81",
+          "circleTokenMessenger": "0xbd3fa81b58ba92a82136038b25adec7066af3155"
+        },
+        {
+          "network": "Polygon",
+          "mapChainId": 5,
+          "remoteNetwork": "",
+          "address": "0x27428DD2d3DD32A4D7f7C497eAaa23130d894911",
+          "wormholeRelayer": "0x27428DD2d3DD32A4D7f7C497eAaa23130d894911",
+          "wormholeTokenBridge": "0x5a58505a96D1dbf8dF91cB21B54419FC36e93fdE",
+          "wormhole": "0x7A4B5a56256163F07b2C80A7cA55aBE66c4ec4d7",
+          "circleMessageTransmitter": "0xF3be9355363857F3e001be68856A2f96b4C39Ba9",
+          "circleTokenMessenger": "0x9daF8c91AEFAE50b9c0E69629D3F6Ca40cA3B3FE"
+        },
+        {
+          "network": "Base",
+          "mapChainId": 30,
+          "remoteNetwork": "",
+          "address": "0x706f82e9bb5b0813501714ab5974216704980e31",
+          "wormholeRelayer": "0x706f82e9bb5b0813501714ab5974216704980e31",
+          "wormholeTokenBridge": "0x8d2de8d2f73F1F4cAB472AC9A881C9b123C79627",
+          "wormhole": "0xbebdb6C8ddC678FfA9f8748f85C815C556Dd8ac6",
+          "circleMessageTransmitter": "0xAD09780d193884d503182aD4588450C416D6F9D4",
+          "circleTokenMessenger": "0x1682Ae6375C4E4A97e4B583BC394c861A46D8962"
+        }
+      ],
+      "fees": [
+        {
+          "network": "Ethereum",
+          "minimal": "0",
+          "gasLimit": "400000"
+        },
+        {
+          "network": "Polygon",
+          "minimal": "0",
+          "gasLimit": "450000"
+        },
+        {
+          "network": "Base",
+          "minimal": "0",
+          "gasLimit": "400000"
+        }
+      ],
+      "commitmentPools": [
+        {
+          "network": "Ethereum",
+          "assetSymbol": "USDC",
+          "address": "0xF837ad95C8E298D5df4A442C65aFba5803900047",
+          "syncStart": 21100285,
+          "nonce": 63
+        },
+        {
+          "network": "Polygon",
+          "assetSymbol": "USDC",
+          "address": "0xb8942dfE92edb0Ed6F67935EEF85FC19f3eCEb69",
+          "syncStart": 63795776,
+          "nonce": 23
+        },
+        {
+          "network": "Ethereum",
+          "assetSymbol": "ETH",
+          "address": "0x7bdfE26E42088Ef52aB3B537d672fe7B4Ca16371",
+          "syncStart": 21407144,
+          "nonce": 101
+        },
+        {
+          "network": "Polygon",
+          "assetSymbol": "WETHWormhole",
+          "address": "0xC7713f0eC0ddcc20d6E03eDF12d85f81d18b74FB",
+          "syncStart": 65507996,
+          "nonce": 61
+        }
+      ],
+      "pairs": [
+        {
+          "pair": [
+            {
+              "network": "Ethereum",
+              "assetSymbol": "USDC",
+              "address": "0x61d8f6392DAA1CA8f4F9A88AeCe064eD67134997",
+              "syncStart": 21100286,
+              "nonce": 64,
+              "commitmentPool": "0xF837ad95C8E298D5df4A442C65aFba5803900047",
+              "commitmentPoolTx": "0x3dc92fb78bf31a9bc21e0dcd3c9b7d1ac18790bd2c1213da2babc89a242cc381",
+              "peerContract": "0x52Deb8c40f2D1Cc574Fe958d6f1d387e26EcAc72",
+              "peerContractTx": "0xe81be75d8afe5bab5af0f27388fa33302f7febd5466e0e83f6f73c6b282f4382"
+            },
+            {
+              "network": "Polygon",
+              "assetSymbol": "USDC",
+              "address": "0x52Deb8c40f2D1Cc574Fe958d6f1d387e26EcAc72",
+              "syncStart": 63796310,
+              "nonce": 25,
+              "commitmentPool": "0xb8942dfE92edb0Ed6F67935EEF85FC19f3eCEb69",
+              "commitmentPoolTx": "0x71c48b3d53011b50c352dc308dfdcc0c612600af581968684517bd5fe4009085",
+              "peerContract": "0x61d8f6392DAA1CA8f4F9A88AeCe064eD67134997",
+              "peerContractTx": "0x6563c7cddf75ef9894163ddadf4b9070ac34a0223bc64de8278b7a370f56de33"
+            }
+          ]
+        },
+        {
+          "pair": [
+            {
+              "network": "Ethereum",
+              "assetSymbol": "ETH",
+              "address": "0x6E3ca7ac6495f412F0F6F5Ad48A581dA7258A69f",
+              "syncStart": 21407150,
+              "nonce": 102,
+              "commitmentPool": "0x7bdfE26E42088Ef52aB3B537d672fe7B4Ca16371",
+              "commitmentPoolTx": "0xe9772fd26c1c50ce003a047f14a08ba003d74038da8c09792bacb35191fa0496",
+              "peerContract": "0x11B81A8063f996DC1b4c36BC9D9543d48bF4dEF5",
+              "peerContractTx": "0x97d94c7c6613e68c8f850c7eeaa2d7aebf25c3362811ed2bb079f02e1ad1243b"
+            },
+            {
+              "network": "Polygon",
+              "assetSymbol": "WETHWormhole",
+              "address": "0x11B81A8063f996DC1b4c36BC9D9543d48bF4dEF5",
+              "syncStart": 65508185,
+              "nonce": 62,
+              "commitmentPool": "0xC7713f0eC0ddcc20d6E03eDF12d85f81d18b74FB",
+              "commitmentPoolTx": "0xf381860279edf7414bbb4393b9f5f7f8f29006d1bfabf2738c8ad692187e3b67",
+              "peerContract": "0x6E3ca7ac6495f412F0F6F5Ad48A581dA7258A69f",
+              "peerContractTx": "0xb992f1116ddea647287dfb021a6d1c8f97fd98c3374323d6b188d0d7e9d0866b"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "operator": {
+    "admin": "",
+    "executors": [],
+    "rollers": [
+      "0x740D5941bf285D6070896aAC9084AE9CF64F5913",
+      "0xD2318B8a8028922BCE5871ea26b74babd9d61Cd5"
+    ],
+    "relayers": [
+      "0x11f85D418dE9238a4e48D8e242AA518F0352e280",
+      "0xe30Ad77C188517A61AFD0c559f61e82f4Be6bf63"
+    ],
+    "relayerNames": [
+      "Demon Hunter",
+      "Arthur Morgan"
+    ],
+    "relayerUrls": [
+      "https://gasrelayer01.privacyguard.network",
+      "https://gasrelayer02.privacyguard.network"
+    ],
+    "auditors": [
+      "71974561790665464247604435795065683686381931489528897462330672390776840504073",
+      "4997220442638814810609909752944635265697515387283055012148220746256985615693",
+      "75515112535918662049551479070314526291311940874433203669050730808316017216416",
+      "00000000000000000000000000000000000000000000000000000000000000000000000000000",
+      "00000000000000000000000000000000000000000000000000000000000000000000000000000"
+    ],
+    "issuer": "0xcD1Bc0fB1F16160C35F2ADa4fcB0B919211D8321"
+  }
+}
