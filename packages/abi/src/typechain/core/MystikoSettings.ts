@@ -67,6 +67,7 @@ export interface MystikoSettingsInterface extends utils.Interface {
     'AUDITOR_COUNT()': FunctionFragment;
     'DEFAULT_ADMIN_ROLE()': FunctionFragment;
     'associatedPool(address)': FunctionFragment;
+    'bridgeGasLimit(address)': FunctionFragment;
     'certificate()': FunctionFragment;
     'daoRegistry()': FunctionFragment;
     'depositDisableMap(address)': FunctionFragment;
@@ -93,6 +94,7 @@ export interface MystikoSettingsInterface extends utils.Interface {
     'queryAllAuditorPublicKeys()': FunctionFragment;
     'queryAssociatedPool(address)': FunctionFragment;
     'queryAuditorPublicKey(uint256)': FunctionFragment;
+    'queryBridgeGasLimit(address)': FunctionFragment;
     'queryMaxDepositAmount(address)': FunctionFragment;
     'queryMinBridgeFee(address)': FunctionFragment;
     'queryMinDepositAmount(address)': FunctionFragment;
@@ -110,6 +112,7 @@ export interface MystikoSettingsInterface extends utils.Interface {
     'setAdminRole()': FunctionFragment;
     'setAssociatedPool(address,address)': FunctionFragment;
     'setAuditorPublicKey(uint256,uint256)': FunctionFragment;
+    'setBridgeGasLimit(address,uint256)': FunctionFragment;
     'setCertificateVerifier(address)': FunctionFragment;
     'setDepositDisable(address,bool)': FunctionFragment;
     'setMaxDepositAmount(address,uint256)': FunctionFragment;
@@ -132,6 +135,7 @@ export interface MystikoSettingsInterface extends utils.Interface {
   encodeFunctionData(functionFragment: 'AUDITOR_COUNT', values?: undefined): string;
   encodeFunctionData(functionFragment: 'DEFAULT_ADMIN_ROLE', values?: undefined): string;
   encodeFunctionData(functionFragment: 'associatedPool', values: [string]): string;
+  encodeFunctionData(functionFragment: 'bridgeGasLimit', values: [string]): string;
   encodeFunctionData(functionFragment: 'certificate', values?: undefined): string;
   encodeFunctionData(functionFragment: 'daoRegistry', values?: undefined): string;
   encodeFunctionData(functionFragment: 'depositDisableMap', values: [string]): string;
@@ -164,6 +168,7 @@ export interface MystikoSettingsInterface extends utils.Interface {
   encodeFunctionData(functionFragment: 'queryAllAuditorPublicKeys', values?: undefined): string;
   encodeFunctionData(functionFragment: 'queryAssociatedPool', values: [string]): string;
   encodeFunctionData(functionFragment: 'queryAuditorPublicKey', values: [BigNumberish]): string;
+  encodeFunctionData(functionFragment: 'queryBridgeGasLimit', values: [string]): string;
   encodeFunctionData(functionFragment: 'queryMaxDepositAmount', values: [string]): string;
   encodeFunctionData(functionFragment: 'queryMinBridgeFee', values: [string]): string;
   encodeFunctionData(functionFragment: 'queryMinDepositAmount', values: [string]): string;
@@ -181,6 +186,7 @@ export interface MystikoSettingsInterface extends utils.Interface {
   encodeFunctionData(functionFragment: 'setAdminRole', values?: undefined): string;
   encodeFunctionData(functionFragment: 'setAssociatedPool', values: [string, string]): string;
   encodeFunctionData(functionFragment: 'setAuditorPublicKey', values: [BigNumberish, BigNumberish]): string;
+  encodeFunctionData(functionFragment: 'setBridgeGasLimit', values: [string, BigNumberish]): string;
   encodeFunctionData(functionFragment: 'setCertificateVerifier', values: [string]): string;
   encodeFunctionData(functionFragment: 'setDepositDisable', values: [string, boolean]): string;
   encodeFunctionData(functionFragment: 'setMaxDepositAmount', values: [string, BigNumberish]): string;
@@ -202,6 +208,7 @@ export interface MystikoSettingsInterface extends utils.Interface {
   decodeFunctionResult(functionFragment: 'AUDITOR_COUNT', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'DEFAULT_ADMIN_ROLE', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'associatedPool', data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'bridgeGasLimit', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'certificate', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'daoRegistry', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'depositDisableMap', data: BytesLike): Result;
@@ -228,6 +235,7 @@ export interface MystikoSettingsInterface extends utils.Interface {
   decodeFunctionResult(functionFragment: 'queryAllAuditorPublicKeys', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'queryAssociatedPool', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'queryAuditorPublicKey', data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'queryBridgeGasLimit', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'queryMaxDepositAmount', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'queryMinBridgeFee', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'queryMinDepositAmount', data: BytesLike): Result;
@@ -245,6 +253,7 @@ export interface MystikoSettingsInterface extends utils.Interface {
   decodeFunctionResult(functionFragment: 'setAdminRole', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'setAssociatedPool', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'setAuditorPublicKey', data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'setBridgeGasLimit', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'setCertificateVerifier', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'setDepositDisable', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'setMaxDepositAmount', data: BytesLike): Result;
@@ -266,6 +275,7 @@ export interface MystikoSettingsInterface extends utils.Interface {
   events: {
     'AssociatedPoolChanged(address,address)': EventFragment;
     'AuditorPublicKeyChanged(uint256,uint256)': EventFragment;
+    'BridgeGasLimitChanged(address,uint256)': EventFragment;
     'CertificateVerifierChanged(address)': EventFragment;
     'DepositDisableChanged(address,bool)': EventFragment;
     'MaxDepositAmountChanged(address,uint256)': EventFragment;
@@ -290,6 +300,7 @@ export interface MystikoSettingsInterface extends utils.Interface {
 
   getEvent(nameOrSignatureOrTopic: 'AssociatedPoolChanged'): EventFragment;
   getEvent(nameOrSignatureOrTopic: 'AuditorPublicKeyChanged'): EventFragment;
+  getEvent(nameOrSignatureOrTopic: 'BridgeGasLimitChanged'): EventFragment;
   getEvent(nameOrSignatureOrTopic: 'CertificateVerifierChanged'): EventFragment;
   getEvent(nameOrSignatureOrTopic: 'DepositDisableChanged'): EventFragment;
   getEvent(nameOrSignatureOrTopic: 'MaxDepositAmountChanged'): EventFragment;
@@ -323,6 +334,13 @@ export type AuditorPublicKeyChangedEvent = TypedEvent<
 
 export type AuditorPublicKeyChangedEventFilter = TypedEventFilter<AuditorPublicKeyChangedEvent>;
 
+export type BridgeGasLimitChangedEvent = TypedEvent<
+  [string, BigNumber],
+  { _localDeposit: string; _bridgeGasLimit: BigNumber }
+>;
+
+export type BridgeGasLimitChangedEventFilter = TypedEventFilter<BridgeGasLimitChangedEvent>;
+
 export type CertificateVerifierChangedEvent = TypedEvent<[string], { verifier: string }>;
 
 export type CertificateVerifierChangedEventFilter = TypedEventFilter<CertificateVerifierChangedEvent>;
@@ -340,7 +358,7 @@ export type MaxDepositAmountChangedEventFilter = TypedEventFilter<MaxDepositAmou
 
 export type MinBridgeFeeChangedEvent = TypedEvent<
   [string, BigNumber],
-  { _localDeposit: string; minBridgeFee: BigNumber }
+  { _localDeposit: string; _minBridgeFee: BigNumber }
 >;
 
 export type MinBridgeFeeChangedEventFilter = TypedEventFilter<MinBridgeFeeChangedEvent>;
@@ -354,14 +372,14 @@ export type MinDepositAmountChangedEventFilter = TypedEventFilter<MinDepositAmou
 
 export type MinPeerExecutorFeeChangedEvent = TypedEvent<
   [string, BigNumber],
-  { _localDeposit: string; minPeerExecutorFee: BigNumber }
+  { _localDeposit: string; _minPeerExecutorFee: BigNumber }
 >;
 
 export type MinPeerExecutorFeeChangedEventFilter = TypedEventFilter<MinPeerExecutorFeeChangedEvent>;
 
 export type MinPeerRollupFeeChangedEvent = TypedEvent<
   [string, BigNumber],
-  { _localDeposit: string; minPeerRollupFee: BigNumber }
+  { _localDeposit: string; _minPeerRollupFee: BigNumber }
 >;
 
 export type MinPeerRollupFeeChangedEventFilter = TypedEventFilter<MinPeerRollupFeeChangedEvent>;
@@ -466,6 +484,8 @@ export interface MystikoSettings extends BaseContract {
 
     associatedPool(arg0: string, overrides?: CallOverrides): Promise<[string]>;
 
+    bridgeGasLimit(arg0: string, overrides?: CallOverrides): Promise<[BigNumber]>;
+
     certificate(overrides?: CallOverrides): Promise<[string]>;
 
     daoRegistry(overrides?: CallOverrides): Promise<[string]>;
@@ -540,6 +560,8 @@ export interface MystikoSettings extends BaseContract {
 
     queryAuditorPublicKey(_index: BigNumberish, overrides?: CallOverrides): Promise<[BigNumber]>;
 
+    queryBridgeGasLimit(_localDeposit: string, overrides?: CallOverrides): Promise<[BigNumber]>;
+
     queryMaxDepositAmount(_deposit: string, overrides?: CallOverrides): Promise<[BigNumber]>;
 
     queryMinBridgeFee(_localDeposit: string, overrides?: CallOverrides): Promise<[BigNumber]>;
@@ -594,6 +616,12 @@ export interface MystikoSettings extends BaseContract {
     setAuditorPublicKey(
       _index: BigNumberish,
       _publicKey: BigNumberish,
+      overrides?: Overrides & { from?: string | Promise<string> },
+    ): Promise<ContractTransaction>;
+
+    setBridgeGasLimit(
+      _localDeposit: string,
+      _bridgeGasLimit: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<ContractTransaction>;
 
@@ -682,6 +710,8 @@ export interface MystikoSettings extends BaseContract {
 
   associatedPool(arg0: string, overrides?: CallOverrides): Promise<string>;
 
+  bridgeGasLimit(arg0: string, overrides?: CallOverrides): Promise<BigNumber>;
+
   certificate(overrides?: CallOverrides): Promise<string>;
 
   daoRegistry(overrides?: CallOverrides): Promise<string>;
@@ -756,6 +786,8 @@ export interface MystikoSettings extends BaseContract {
 
   queryAuditorPublicKey(_index: BigNumberish, overrides?: CallOverrides): Promise<BigNumber>;
 
+  queryBridgeGasLimit(_localDeposit: string, overrides?: CallOverrides): Promise<BigNumber>;
+
   queryMaxDepositAmount(_deposit: string, overrides?: CallOverrides): Promise<BigNumber>;
 
   queryMinBridgeFee(_localDeposit: string, overrides?: CallOverrides): Promise<BigNumber>;
@@ -810,6 +842,12 @@ export interface MystikoSettings extends BaseContract {
   setAuditorPublicKey(
     _index: BigNumberish,
     _publicKey: BigNumberish,
+    overrides?: Overrides & { from?: string | Promise<string> },
+  ): Promise<ContractTransaction>;
+
+  setBridgeGasLimit(
+    _localDeposit: string,
+    _bridgeGasLimit: BigNumberish,
     overrides?: Overrides & { from?: string | Promise<string> },
   ): Promise<ContractTransaction>;
 
@@ -898,6 +936,8 @@ export interface MystikoSettings extends BaseContract {
 
     associatedPool(arg0: string, overrides?: CallOverrides): Promise<string>;
 
+    bridgeGasLimit(arg0: string, overrides?: CallOverrides): Promise<BigNumber>;
+
     certificate(overrides?: CallOverrides): Promise<string>;
 
     daoRegistry(overrides?: CallOverrides): Promise<string>;
@@ -958,6 +998,8 @@ export interface MystikoSettings extends BaseContract {
 
     queryAuditorPublicKey(_index: BigNumberish, overrides?: CallOverrides): Promise<BigNumber>;
 
+    queryBridgeGasLimit(_localDeposit: string, overrides?: CallOverrides): Promise<BigNumber>;
+
     queryMaxDepositAmount(_deposit: string, overrides?: CallOverrides): Promise<BigNumber>;
 
     queryMinBridgeFee(_localDeposit: string, overrides?: CallOverrides): Promise<BigNumber>;
@@ -1004,6 +1046,12 @@ export interface MystikoSettings extends BaseContract {
     setAuditorPublicKey(
       _index: BigNumberish,
       _publicKey: BigNumberish,
+      overrides?: CallOverrides,
+    ): Promise<void>;
+
+    setBridgeGasLimit(
+      _localDeposit: string,
+      _bridgeGasLimit: BigNumberish,
       overrides?: CallOverrides,
     ): Promise<void>;
 
@@ -1078,6 +1126,15 @@ export interface MystikoSettings extends BaseContract {
       publicKey?: null,
     ): AuditorPublicKeyChangedEventFilter;
 
+    'BridgeGasLimitChanged(address,uint256)'(
+      _localDeposit?: string | null,
+      _bridgeGasLimit?: null,
+    ): BridgeGasLimitChangedEventFilter;
+    BridgeGasLimitChanged(
+      _localDeposit?: string | null,
+      _bridgeGasLimit?: null,
+    ): BridgeGasLimitChangedEventFilter;
+
     'CertificateVerifierChanged(address)'(verifier?: string | null): CertificateVerifierChangedEventFilter;
     CertificateVerifierChanged(verifier?: string | null): CertificateVerifierChangedEventFilter;
 
@@ -1098,9 +1155,9 @@ export interface MystikoSettings extends BaseContract {
 
     'MinBridgeFeeChanged(address,uint256)'(
       _localDeposit?: string | null,
-      minBridgeFee?: null,
+      _minBridgeFee?: null,
     ): MinBridgeFeeChangedEventFilter;
-    MinBridgeFeeChanged(_localDeposit?: string | null, minBridgeFee?: null): MinBridgeFeeChangedEventFilter;
+    MinBridgeFeeChanged(_localDeposit?: string | null, _minBridgeFee?: null): MinBridgeFeeChangedEventFilter;
 
     'MinDepositAmountChanged(address,uint256)'(
       deposit?: string | null,
@@ -1113,20 +1170,20 @@ export interface MystikoSettings extends BaseContract {
 
     'MinPeerExecutorFeeChanged(address,uint256)'(
       _localDeposit?: string | null,
-      minPeerExecutorFee?: null,
+      _minPeerExecutorFee?: null,
     ): MinPeerExecutorFeeChangedEventFilter;
     MinPeerExecutorFeeChanged(
       _localDeposit?: string | null,
-      minPeerExecutorFee?: null,
+      _minPeerExecutorFee?: null,
     ): MinPeerExecutorFeeChangedEventFilter;
 
     'MinPeerRollupFeeChanged(address,uint256)'(
       _localDeposit?: string | null,
-      minPeerRollupFee?: null,
+      _minPeerRollupFee?: null,
     ): MinPeerRollupFeeChangedEventFilter;
     MinPeerRollupFeeChanged(
       _localDeposit?: string | null,
-      minPeerRollupFee?: null,
+      _minPeerRollupFee?: null,
     ): MinPeerRollupFeeChangedEventFilter;
 
     'MinRollupFeeChanged(address,uint256)'(
@@ -1212,6 +1269,8 @@ export interface MystikoSettings extends BaseContract {
 
     associatedPool(arg0: string, overrides?: CallOverrides): Promise<BigNumber>;
 
+    bridgeGasLimit(arg0: string, overrides?: CallOverrides): Promise<BigNumber>;
+
     certificate(overrides?: CallOverrides): Promise<BigNumber>;
 
     daoRegistry(overrides?: CallOverrides): Promise<BigNumber>;
@@ -1282,6 +1341,8 @@ export interface MystikoSettings extends BaseContract {
 
     queryAuditorPublicKey(_index: BigNumberish, overrides?: CallOverrides): Promise<BigNumber>;
 
+    queryBridgeGasLimit(_localDeposit: string, overrides?: CallOverrides): Promise<BigNumber>;
+
     queryMaxDepositAmount(_deposit: string, overrides?: CallOverrides): Promise<BigNumber>;
 
     queryMinBridgeFee(_localDeposit: string, overrides?: CallOverrides): Promise<BigNumber>;
@@ -1333,6 +1394,12 @@ export interface MystikoSettings extends BaseContract {
     setAuditorPublicKey(
       _index: BigNumberish,
       _publicKey: BigNumberish,
+      overrides?: Overrides & { from?: string | Promise<string> },
+    ): Promise<BigNumber>;
+
+    setBridgeGasLimit(
+      _localDeposit: string,
+      _bridgeGasLimit: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<BigNumber>;
 
@@ -1422,6 +1489,8 @@ export interface MystikoSettings extends BaseContract {
 
     associatedPool(arg0: string, overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
+    bridgeGasLimit(arg0: string, overrides?: CallOverrides): Promise<PopulatedTransaction>;
+
     certificate(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     daoRegistry(overrides?: CallOverrides): Promise<PopulatedTransaction>;
@@ -1496,6 +1565,8 @@ export interface MystikoSettings extends BaseContract {
 
     queryAuditorPublicKey(_index: BigNumberish, overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
+    queryBridgeGasLimit(_localDeposit: string, overrides?: CallOverrides): Promise<PopulatedTransaction>;
+
     queryMaxDepositAmount(_deposit: string, overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     queryMinBridgeFee(_localDeposit: string, overrides?: CallOverrides): Promise<PopulatedTransaction>;
@@ -1547,6 +1618,12 @@ export interface MystikoSettings extends BaseContract {
     setAuditorPublicKey(
       _index: BigNumberish,
       _publicKey: BigNumberish,
+      overrides?: Overrides & { from?: string | Promise<string> },
+    ): Promise<PopulatedTransaction>;
+
+    setBridgeGasLimit(
+      _localDeposit: string,
+      _bridgeGasLimit: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> },
     ): Promise<PopulatedTransaction>;
 

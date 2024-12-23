@@ -76,8 +76,7 @@
       "certificateVerifier": "0x081E63f27b26B6BdE54412A160528BCA81c15b42",
       "relayerPool": "0x220b2bD28Af2904284B80932F5ccC053B0A8B8a6",
       "relayerRegister": "0x29ED7DE21ccc80dc5921A8d9d8650247653C1188",
-      "rollerPool": "0xEF94b1Ad81E7f4b19882829313D84E05A8965b25",
-      "settingsCenter": "0x11B81A8063f996DC1b4c36BC9D9543d48bF4dEF5"
+      "rollerPool": "0xEF94b1Ad81E7f4b19882829313D84E05A8965b25"
     },
     {
       "name": "BSC",
@@ -241,8 +240,7 @@
       "certificateVerifier": "0xFa8336C60C39268f38e4123daa5c05E69d023A08",
       "relayerPool": "0x2a5eEf90F1aA36CaE2535349B522891A044EFCC1",
       "relayerRegister": "0xC1Bc70C5BEf4E5Dc147D482CE64F5cF062366a74",
-      "rollerPool": "0xa229c30E64DdE2EDEBCA6c657c6549dcA06BD23f",
-      "settingsCenter": "0xa4EfAdcCEa85D4E91B5D64Da92214D3563F75E2e"
+      "rollerPool": "0xa229c30E64DdE2EDEBCA6c657c6549dcA06BD23f"
     },
     {
       "name": "Base Mainnet",
@@ -486,7 +484,7 @@
         {
           "network": "Ethereum",
           "minimal": "0",
-          "gasLimit": "400000"
+          "gasLimit": "450000"
         },
         {
           "network": "Polygon",
@@ -496,63 +494,21 @@
         {
           "network": "Base",
           "minimal": "0",
-          "gasLimit": "400000"
+          "gasLimit": "450000"
         }
       ],
       "commitmentPools": [
-        {
-          "network": "Ethereum",
-          "assetSymbol": "USDC",
-          "address": "0xF837ad95C8E298D5df4A442C65aFba5803900047",
-          "syncStart": 21100285,
-          "nonce": 63
-        },
-        {
-          "network": "Polygon",
-          "assetSymbol": "USDC",
-          "address": "0xb8942dfE92edb0Ed6F67935EEF85FC19f3eCEb69",
-          "syncStart": 63795776,
-          "nonce": 23
-        },
-        {
-          "network": "Ethereum",
-          "assetSymbol": "ETH",
-          "address": "0x7bdfE26E42088Ef52aB3B537d672fe7B4Ca16371",
-          "syncStart": 21407144,
-          "nonce": 101
-        },
-        {
-          "network": "Polygon",
-          "assetSymbol": "WETHWormhole",
-          "address": "0xC7713f0eC0ddcc20d6E03eDF12d85f81d18b74FB",
-          "syncStart": 65507996,
-          "nonce": 61
-        }
       ],
       "pairs": [
         {
           "pair": [
             {
               "network": "Ethereum",
-              "assetSymbol": "USDC",
-              "address": "0x61d8f6392DAA1CA8f4F9A88AeCe064eD67134997",
-              "syncStart": 21100286,
-              "nonce": 64,
-              "commitmentPool": "0xF837ad95C8E298D5df4A442C65aFba5803900047",
-              "commitmentPoolTx": "0x3dc92fb78bf31a9bc21e0dcd3c9b7d1ac18790bd2c1213da2babc89a242cc381",
-              "peerContract": "0x52Deb8c40f2D1Cc574Fe958d6f1d387e26EcAc72",
-              "peerContractTx": "0xe81be75d8afe5bab5af0f27388fa33302f7febd5466e0e83f6f73c6b282f4382"
+              "assetSymbol": "USDC"
             },
             {
               "network": "Polygon",
-              "assetSymbol": "USDC",
-              "address": "0x52Deb8c40f2D1Cc574Fe958d6f1d387e26EcAc72",
-              "syncStart": 63796310,
-              "nonce": 25,
-              "commitmentPool": "0xb8942dfE92edb0Ed6F67935EEF85FC19f3eCEb69",
-              "commitmentPoolTx": "0x71c48b3d53011b50c352dc308dfdcc0c612600af581968684517bd5fe4009085",
-              "peerContract": "0x61d8f6392DAA1CA8f4F9A88AeCe064eD67134997",
-              "peerContractTx": "0x6563c7cddf75ef9894163ddadf4b9070ac34a0223bc64de8278b7a370f56de33"
+              "assetSymbol": "USDC"
             }
           ]
         },
@@ -560,25 +516,11 @@
           "pair": [
             {
               "network": "Ethereum",
-              "assetSymbol": "ETH",
-              "address": "0x6E3ca7ac6495f412F0F6F5Ad48A581dA7258A69f",
-              "syncStart": 21407150,
-              "nonce": 102,
-              "commitmentPool": "0x7bdfE26E42088Ef52aB3B537d672fe7B4Ca16371",
-              "commitmentPoolTx": "0xe9772fd26c1c50ce003a047f14a08ba003d74038da8c09792bacb35191fa0496",
-              "peerContract": "0x11B81A8063f996DC1b4c36BC9D9543d48bF4dEF5",
-              "peerContractTx": "0x97d94c7c6613e68c8f850c7eeaa2d7aebf25c3362811ed2bb079f02e1ad1243b"
+              "assetSymbol": "ETH"
             },
             {
               "network": "Polygon",
-              "assetSymbol": "WETHWormhole",
-              "address": "0x11B81A8063f996DC1b4c36BC9D9543d48bF4dEF5",
-              "syncStart": 65508185,
-              "nonce": 62,
-              "commitmentPool": "0xC7713f0eC0ddcc20d6E03eDF12d85f81d18b74FB",
-              "commitmentPoolTx": "0xf381860279edf7414bbb4393b9f5f7f8f29006d1bfabf2738c8ad692187e3b67",
-              "peerContract": "0x6E3ca7ac6495f412F0F6F5Ad48A581dA7258A69f",
-              "peerContractTx": "0xb992f1116ddea647287dfb021a6d1c8f97fd98c3374323d6b188d0d7e9d0866b"
+              "assetSymbol": "WETHWormhole"
             }
           ]
         }

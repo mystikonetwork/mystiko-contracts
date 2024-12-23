@@ -23,12 +23,14 @@ export declare namespace IMystikoBridge {
     minAmount: BigNumberish;
     maxAmount: BigNumberish;
     minBridgeFee: BigNumberish;
+    bridgeGasLimit: BigNumberish;
   };
 
-  export type BridgeLocalConfigStructOutput = [BigNumber, BigNumber, BigNumber] & {
+  export type BridgeLocalConfigStructOutput = [BigNumber, BigNumber, BigNumber, BigNumber] & {
     minAmount: BigNumber;
     maxAmount: BigNumber;
     minBridgeFee: BigNumber;
+    bridgeGasLimit: BigNumber;
   };
 
   export type BridgePeerConfigStruct = {
@@ -96,6 +98,7 @@ export interface MystikoV2AxelarERC20Interface extends utils.Interface {
     'bridgeProxyAddress()': FunctionFragment;
     'bridgeType()': FunctionFragment;
     'certDeposit((uint256,uint256,uint256,uint128,bytes,uint256,uint256,uint256),uint256,bytes)': FunctionFragment;
+    'defaultBridgeGasLimit()': FunctionFragment;
     'defaultMaxAmount()': FunctionFragment;
     'defaultMinAmount()': FunctionFragment;
     'defaultMinBridgeFee()': FunctionFragment;
@@ -106,6 +109,7 @@ export interface MystikoV2AxelarERC20Interface extends utils.Interface {
     'executeWithToken(bytes32,string,string,bytes,string,uint256)': FunctionFragment;
     'gateway()': FunctionFragment;
     'getAssociatedCommitmentPool()': FunctionFragment;
+    'getBridgeGasLimit()': FunctionFragment;
     'getMaxAmount()': FunctionFragment;
     'getMinAmount()': FunctionFragment;
     'getMinBridgeFee()': FunctionFragment;
@@ -132,6 +136,7 @@ export interface MystikoV2AxelarERC20Interface extends utils.Interface {
     functionFragment: 'certDeposit',
     values: [IMystikoBridge.BridgeDepositRequestStruct, BigNumberish, BytesLike],
   ): string;
+  encodeFunctionData(functionFragment: 'defaultBridgeGasLimit', values?: undefined): string;
   encodeFunctionData(functionFragment: 'defaultMaxAmount', values?: undefined): string;
   encodeFunctionData(functionFragment: 'defaultMinAmount', values?: undefined): string;
   encodeFunctionData(functionFragment: 'defaultMinBridgeFee', values?: undefined): string;
@@ -148,6 +153,7 @@ export interface MystikoV2AxelarERC20Interface extends utils.Interface {
   ): string;
   encodeFunctionData(functionFragment: 'gateway', values?: undefined): string;
   encodeFunctionData(functionFragment: 'getAssociatedCommitmentPool', values?: undefined): string;
+  encodeFunctionData(functionFragment: 'getBridgeGasLimit', values?: undefined): string;
   encodeFunctionData(functionFragment: 'getMaxAmount', values?: undefined): string;
   encodeFunctionData(functionFragment: 'getMinAmount', values?: undefined): string;
   encodeFunctionData(functionFragment: 'getMinBridgeFee', values?: undefined): string;
@@ -173,6 +179,7 @@ export interface MystikoV2AxelarERC20Interface extends utils.Interface {
   decodeFunctionResult(functionFragment: 'bridgeProxyAddress', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'bridgeType', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'certDeposit', data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'defaultBridgeGasLimit', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'defaultMaxAmount', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'defaultMinAmount', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'defaultMinBridgeFee', data: BytesLike): Result;
@@ -183,6 +190,7 @@ export interface MystikoV2AxelarERC20Interface extends utils.Interface {
   decodeFunctionResult(functionFragment: 'executeWithToken', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'gateway', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'getAssociatedCommitmentPool', data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'getBridgeGasLimit', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'getMaxAmount', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'getMinAmount', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'getMinBridgeFee', data: BytesLike): Result;
@@ -262,6 +270,8 @@ export interface MystikoV2AxelarERC20 extends BaseContract {
       overrides?: PayableOverrides & { from?: string | Promise<string> },
     ): Promise<ContractTransaction>;
 
+    defaultBridgeGasLimit(overrides?: CallOverrides): Promise<[BigNumber]>;
+
     defaultMaxAmount(overrides?: CallOverrides): Promise<[BigNumber]>;
 
     defaultMinAmount(overrides?: CallOverrides): Promise<[BigNumber]>;
@@ -298,6 +308,8 @@ export interface MystikoV2AxelarERC20 extends BaseContract {
     gateway(overrides?: CallOverrides): Promise<[string]>;
 
     getAssociatedCommitmentPool(overrides?: CallOverrides): Promise<[string]>;
+
+    getBridgeGasLimit(overrides?: CallOverrides): Promise<[BigNumber]>;
 
     getMaxAmount(overrides?: CallOverrides): Promise<[BigNumber]>;
 
@@ -350,6 +362,8 @@ export interface MystikoV2AxelarERC20 extends BaseContract {
     overrides?: PayableOverrides & { from?: string | Promise<string> },
   ): Promise<ContractTransaction>;
 
+  defaultBridgeGasLimit(overrides?: CallOverrides): Promise<BigNumber>;
+
   defaultMaxAmount(overrides?: CallOverrides): Promise<BigNumber>;
 
   defaultMinAmount(overrides?: CallOverrides): Promise<BigNumber>;
@@ -386,6 +400,8 @@ export interface MystikoV2AxelarERC20 extends BaseContract {
   gateway(overrides?: CallOverrides): Promise<string>;
 
   getAssociatedCommitmentPool(overrides?: CallOverrides): Promise<string>;
+
+  getBridgeGasLimit(overrides?: CallOverrides): Promise<BigNumber>;
 
   getMaxAmount(overrides?: CallOverrides): Promise<BigNumber>;
 
@@ -438,6 +454,8 @@ export interface MystikoV2AxelarERC20 extends BaseContract {
       overrides?: CallOverrides,
     ): Promise<void>;
 
+    defaultBridgeGasLimit(overrides?: CallOverrides): Promise<BigNumber>;
+
     defaultMaxAmount(overrides?: CallOverrides): Promise<BigNumber>;
 
     defaultMinAmount(overrides?: CallOverrides): Promise<BigNumber>;
@@ -471,6 +489,8 @@ export interface MystikoV2AxelarERC20 extends BaseContract {
     gateway(overrides?: CallOverrides): Promise<string>;
 
     getAssociatedCommitmentPool(overrides?: CallOverrides): Promise<string>;
+
+    getBridgeGasLimit(overrides?: CallOverrides): Promise<BigNumber>;
 
     getMaxAmount(overrides?: CallOverrides): Promise<BigNumber>;
 
@@ -535,6 +555,8 @@ export interface MystikoV2AxelarERC20 extends BaseContract {
       overrides?: PayableOverrides & { from?: string | Promise<string> },
     ): Promise<BigNumber>;
 
+    defaultBridgeGasLimit(overrides?: CallOverrides): Promise<BigNumber>;
+
     defaultMaxAmount(overrides?: CallOverrides): Promise<BigNumber>;
 
     defaultMinAmount(overrides?: CallOverrides): Promise<BigNumber>;
@@ -571,6 +593,8 @@ export interface MystikoV2AxelarERC20 extends BaseContract {
     gateway(overrides?: CallOverrides): Promise<BigNumber>;
 
     getAssociatedCommitmentPool(overrides?: CallOverrides): Promise<BigNumber>;
+
+    getBridgeGasLimit(overrides?: CallOverrides): Promise<BigNumber>;
 
     getMaxAmount(overrides?: CallOverrides): Promise<BigNumber>;
 
@@ -624,6 +648,8 @@ export interface MystikoV2AxelarERC20 extends BaseContract {
       overrides?: PayableOverrides & { from?: string | Promise<string> },
     ): Promise<PopulatedTransaction>;
 
+    defaultBridgeGasLimit(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+
     defaultMaxAmount(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     defaultMinAmount(overrides?: CallOverrides): Promise<PopulatedTransaction>;
@@ -660,6 +686,8 @@ export interface MystikoV2AxelarERC20 extends BaseContract {
     gateway(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     getAssociatedCommitmentPool(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+
+    getBridgeGasLimit(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     getMaxAmount(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 

@@ -10,7 +10,11 @@ import {
   initSettingsContractFactory,
   setChainCertificateCheck,
 } from './contract/settings';
-import { setBridgePeerMinRollupFee, setDepositMinAmount } from './contract/settingsDeposit';
+import {
+  setBridgePeerMinRollupFee,
+  setDepositBridgeGasLimit,
+  setDepositMinAmount,
+} from './contract/settingsDeposit';
 import { setPoolMinRollupFee } from './contract/settingsPool';
 
 let ethers: any;
@@ -49,6 +53,29 @@ async function registerRelayer(taskArgs: any) {
   /* eslint-enable no-await-in-loop */
 }
 
+async function updateDepositBridgeGasLimit(taskArgs: any) {
+  console.log('update deposit bridge gas limit');
+  const c = loadConfig(taskArgs);
+
+  if (c.srcChainCfg?.settingsCenter === undefined) {
+    console.error(LOGRED, 'settingsCenter contract address is undefined');
+    return;
+  }
+
+  if (c.pairSrcDepositCfg?.address === undefined) {
+    console.error(LOGRED, 'deposit contract address is undefined');
+    return;
+  }
+
+  await setDepositBridgeGasLimit(
+    c.srcChainCfg?.settingsCenter,
+    c.pairSrcDepositCfg?.address,
+    c.bridgeCfg,
+    c.pairDstDepositCfg.network,
+    ethers,
+  );
+}
+
 async function updateDepositMinAmount(taskArgs: any) {
   console.log('update deposit min amount');
   const c = loadConfig(taskArgs);
@@ -59,7 +86,7 @@ async function updateDepositMinAmount(taskArgs: any) {
   }
 
   if (c.pairSrcDepositCfg?.address === undefined) {
-    console.error(LOGRED, 'pool contract address is undefined');
+    console.error(LOGRED, 'deposit contract address is undefined');
     return;
   }
 
@@ -135,6 +162,8 @@ export async function set(taskArgs: any, hre: any) {
     await updateDepositMinAmount(taskArgs);
   } else if (taskArgs.func === 'enableCertificate') {
     await enableCertificate(taskArgs);
+  } else if (taskArgs.func === 'updateDepositBridgeGasLimit') {
+    await updateDepositBridgeGasLimit(taskArgs);
   } else {
     console.error(LOGRED, 'un support function');
   }

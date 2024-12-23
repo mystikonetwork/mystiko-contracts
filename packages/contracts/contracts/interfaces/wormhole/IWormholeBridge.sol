@@ -3,7 +3,6 @@ pragma solidity 0.8.26;
 
 struct BridgeWormholeCCTPConfig {
   uint16 peerWormholeChainId;
-  uint256 bridgeGasLimit;
   address wormholeRelayer;
   address wormhole;
   address circleMessageTransmitter;
@@ -13,7 +12,6 @@ struct BridgeWormholeCCTPConfig {
 
 struct BridgeWormholeTokenConfig {
   uint16 peerWormholeChainId;
-  uint256 bridgeGasLimit;
   address wormholeRelayer;
   address tokenBridge;
   address wormhole;

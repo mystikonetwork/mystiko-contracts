@@ -93,7 +93,7 @@ async function depositQuery(taskArgs: any) {
     }
 
     if (c.bridgeCfg?.name === BridgeWormhole) {
-      const gasLimit = await deposit.bridgeGasLimit();
+      const gasLimit = await deposit.getBridgeGasLimit();
       const bridgeGasLimit = c.bridgeCfg.getPeerMinBridgeGasLimit(c.dstChainCfg?.network);
       if (gasLimit.toString() !== bridgeGasLimit) {
         console.error(LOGRED, 'bridge gas limit mismatch', gasLimit, bridgeGasLimit);

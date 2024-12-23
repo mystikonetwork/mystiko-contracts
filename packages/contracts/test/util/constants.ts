@@ -7,6 +7,7 @@ export const MinAmount = toDecimals(0.1).toString();
 export const MaxAmount = toDecimals(100).toString();
 export const MinRollupFee = toDecimals(0.01).toString();
 export const MinBridgeFee = toDecimals(1000, 0).toString();
+export const BridgeGasLimit = toDecimals(450000, 0).toString();
 export const PeerMinExecutorFee = toDecimals(0.01).toString();
 export const PeerMinRollupFee = toDecimals(0.01).toString();
 

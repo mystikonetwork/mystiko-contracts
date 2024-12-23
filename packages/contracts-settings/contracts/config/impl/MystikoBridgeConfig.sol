@@ -5,13 +5,25 @@ import {MystikoSettingsErrors} from "../../MystikoSettingsErrors.sol";
 import {MystikoDAOAccessControl} from "lib/mystiko-governance/packages/contracts/contracts/MystikoDAOAccessControl.sol";
 
 abstract contract MystikoBridgeConfig is MystikoDAOAccessControl {
+  mapping(address => uint256) public bridgeGasLimit;
   mapping(address => uint256) public minBridgeFeeAmount;
   mapping(address => uint256) public minPeerExecutorFeeAmount;
   mapping(address => uint256) public minPeerRollupFeeAmount;
 
-  event MinBridgeFeeChanged(address indexed _localDeposit, uint256 minBridgeFee);
-  event MinPeerExecutorFeeChanged(address indexed _localDeposit, uint256 minPeerExecutorFee);
-  event MinPeerRollupFeeChanged(address indexed _localDeposit, uint256 minPeerRollupFee);
+  event BridgeGasLimitChanged(address indexed _localDeposit, uint256 _bridgeGasLimit);
+  event MinBridgeFeeChanged(address indexed _localDeposit, uint256 _minBridgeFee);
+  event MinPeerExecutorFeeChanged(address indexed _localDeposit, uint256 _minPeerExecutorFee);
+  event MinPeerRollupFeeChanged(address indexed _localDeposit, uint256 _minPeerRollupFee);
+
+  function queryBridgeGasLimit(address _localDeposit) external view returns (uint256) {
+    return bridgeGasLimit[_localDeposit];
+  }
+
+  function setBridgeGasLimit(address _localDeposit, uint256 _bridgeGasLimit) external onlyMystikoDAO {
+    if (bridgeGasLimit[_localDeposit] == _bridgeGasLimit) revert MystikoSettingsErrors.NotChanged();
+    bridgeGasLimit[_localDeposit] = _bridgeGasLimit;
+    emit BridgeGasLimitChanged(_localDeposit, _bridgeGasLimit);
+  }
 
   function queryMinBridgeFee(address _localDeposit) external view returns (uint256) {
     return minBridgeFeeAmount[_localDeposit];

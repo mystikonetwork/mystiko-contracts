@@ -203,8 +203,8 @@ export async function deployDepositContract(
       minAmount: srcChainTokenCfg.minAmount,
       maxAmount: srcChainTokenCfg.maxAmount,
       minBridgeFee: bridgeFee,
+      bridgeGasLimit: peerBridgeGasLimit || '0',
     };
-
     const peerConfig = {
       peerMinExecutorFee: dstChainTokenCfg.minExecutorFee,
       peerMinRollupFee: dstChainTokenCfg.minRollupFee,
@@ -247,7 +247,7 @@ export async function deployDepositContract(
         process.exit(1);
       }
 
-      if (!peerBridgeGasLimit) {
+      if (localConfig.bridgeGasLimit === '0') {
         console.error(LOGRED, 'bridge gas limit not configure');
         process.exit(1);
       }
@@ -255,7 +255,6 @@ export async function deployDepositContract(
       if (srcChainTokenCfg.assetSymbol === 'USDC') {
         const bridgeWormholeConfig = {
           peerWormholeChainId: peerBridgeProxyCfg?.mapChainId,
-          bridgeGasLimit: peerBridgeGasLimit,
           wormholeRelayer: bridgeProxyConfig?.wormholeRelayer,
           wormhole: bridgeProxyConfig?.wormhole,
           circleMessageTransmitter: bridgeProxyConfig?.circleMessageTransmitter,
@@ -265,7 +264,6 @@ export async function deployDepositContract(
 
         localConfig.minBridgeFee = '0';
         peerConfig.peerMinExecutorFee = '0';
-
         coreContract = await DepositContractFactory.deploy(
           srcChainCfg.hasher3Address,
           srcChainCfg.settingsCenter,
@@ -276,7 +274,6 @@ export async function deployDepositContract(
       } else {
         const bridgeWormholeConfig = {
           peerWormholeChainId: peerBridgeProxyCfg?.mapChainId,
-          bridgeGasLimit: peerBridgeGasLimit,
           wormholeRelayer: bridgeProxyConfig?.wormholeRelayer,
           tokenBridge: bridgeProxyConfig?.wormholeTokenBridge,
           wormhole: bridgeProxyConfig?.wormhole,

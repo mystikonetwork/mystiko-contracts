@@ -25,6 +25,7 @@ contract MystikoSettingsCenterTest is Test, Random {
   MystikoRelayerPool public relayerPool;
   MystikoSettings public settings;
 
+  event BridgeGasLimitChanged(address indexed deposit, uint256 bridgeGasLimit);
   event MinBridgeFeeChanged(address indexed deposit, uint256 minBridgeFee);
   event MinPeerExecutorFeeChanged(address indexed deposit, uint256 minPeerExecutorFee);
   event MinPeerRollupFeeChanged(address indexed deposit, uint256 minPeerRollupFee);
@@ -59,6 +60,21 @@ contract MystikoSettingsCenterTest is Test, Random {
       transactVerifiers,
       auditors
     );
+  }
+
+  function test_bridge_gas_limit() public {
+    address deposit = address(uint160(uint256(keccak256(abi.encodePacked(_random())))));
+    assertEq(settings.queryBridgeGasLimit(deposit), 0);
+
+    vm.expectRevert(GovernanceErrors.OnlyMystikoDAO.selector);
+    settings.setBridgeGasLimit(deposit, 100);
+    assertEq(settings.queryBridgeGasLimit(deposit), 0);
+
+    vm.expectEmit(address(settings));
+    emit BridgeGasLimitChanged(deposit, 200);
+    vm.prank(dao);
+    settings.setBridgeGasLimit(deposit, 200);
+    assertEq(settings.queryBridgeGasLimit(deposit), 200);
   }
 
   function test_min_bridge_fee() public {

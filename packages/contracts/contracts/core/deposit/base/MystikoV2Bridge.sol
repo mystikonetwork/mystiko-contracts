@@ -29,6 +29,7 @@ abstract contract MystikoV2Bridge is IMystikoBridge, AssetPool, CrossChainDataSe
   uint256 public defaultMinAmount;
   uint256 public defaultMaxAmount;
   uint256 public defaultMinBridgeFee;
+  uint256 public defaultBridgeGasLimit;
   uint256 public defaultPeerMinExecutorFee;
   uint256 public defaultPeerMinRollupFee;
 
@@ -61,6 +62,7 @@ abstract contract MystikoV2Bridge is IMystikoBridge, AssetPool, CrossChainDataSe
     defaultMinAmount = _localConfig.minAmount;
     defaultMaxAmount = _localConfig.maxAmount;
     defaultMinBridgeFee = _localConfig.minBridgeFee;
+    defaultBridgeGasLimit = _localConfig.bridgeGasLimit;
     defaultPeerMinExecutorFee = _peerConfig.peerMinExecutorFee;
     defaultPeerMinRollupFee = _peerConfig.peerMinRollupFee;
     settings = MystikoSettings(_settingsCenter);
@@ -151,6 +153,11 @@ abstract contract MystikoV2Bridge is IMystikoBridge, AssetPool, CrossChainDataSe
   function getMaxAmount() public view returns (uint256) {
     uint256 maxAmount = settings.queryMaxDepositAmount(address(this));
     return maxAmount == 0 ? defaultMaxAmount : maxAmount;
+  }
+
+  function getBridgeGasLimit() public view returns (uint256) {
+    uint256 gasLimit = settings.queryBridgeGasLimit(address(this));
+    return gasLimit == 0 ? defaultBridgeGasLimit : gasLimit;
   }
 
   function getMinBridgeFee() public view virtual returns (uint256) {

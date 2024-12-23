@@ -123,6 +123,7 @@ describe('Test Mystiko celer', () => {
       PeerMinRollupFee,
       DestinationChainID,
       remoteMain.address,
+      '0',
     );
 
     testBridgeConstructor(
@@ -136,6 +137,7 @@ describe('Test Mystiko celer', () => {
       PeerMinRollupFee,
       DestinationChainID,
       remoteERC20.address,
+      '0',
     );
   });
 

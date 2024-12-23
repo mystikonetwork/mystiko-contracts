@@ -20,16 +20,14 @@ import { TypedEventFilter, TypedEvent, TypedListener, OnEvent } from './common';
 
 export type BridgeWormholeTokenConfigStruct = {
   peerWormholeChainId: BigNumberish;
-  bridgeGasLimit: BigNumberish;
   wormholeRelayer: string;
   tokenBridge: string;
   wormhole: string;
   token: string;
 };
 
-export type BridgeWormholeTokenConfigStructOutput = [number, BigNumber, string, string, string, string] & {
+export type BridgeWormholeTokenConfigStructOutput = [number, string, string, string, string] & {
   peerWormholeChainId: number;
-  bridgeGasLimit: BigNumber;
   wormholeRelayer: string;
   tokenBridge: string;
   wormhole: string;
@@ -41,12 +39,14 @@ export declare namespace IMystikoBridge {
     minAmount: BigNumberish;
     maxAmount: BigNumberish;
     minBridgeFee: BigNumberish;
+    bridgeGasLimit: BigNumberish;
   };
 
-  export type BridgeLocalConfigStructOutput = [BigNumber, BigNumber, BigNumber] & {
+  export type BridgeLocalConfigStructOutput = [BigNumber, BigNumber, BigNumber, BigNumber] & {
     minAmount: BigNumber;
     maxAmount: BigNumber;
     minBridgeFee: BigNumber;
+    bridgeGasLimit: BigNumber;
   };
 
   export type BridgePeerConfigStruct = {
@@ -108,10 +108,10 @@ export interface MystikoV2WormholeETHInterface extends utils.Interface {
   functions: {
     'assetAddress()': FunctionFragment;
     'assetType()': FunctionFragment;
-    'bridgeGasLimit()': FunctionFragment;
     'bridgeProxyAddress()': FunctionFragment;
     'bridgeType()': FunctionFragment;
     'certDeposit((uint256,uint256,uint256,uint128,bytes,uint256,uint256,uint256),uint256,bytes)': FunctionFragment;
+    'defaultBridgeGasLimit()': FunctionFragment;
     'defaultMaxAmount()': FunctionFragment;
     'defaultMinAmount()': FunctionFragment;
     'defaultMinBridgeFee()': FunctionFragment;
@@ -119,6 +119,7 @@ export interface MystikoV2WormholeETHInterface extends utils.Interface {
     'defaultPeerMinRollupFee()': FunctionFragment;
     'deposit((uint256,uint256,uint256,uint128,bytes,uint256,uint256,uint256))': FunctionFragment;
     'getAssociatedCommitmentPool()': FunctionFragment;
+    'getBridgeGasLimit()': FunctionFragment;
     'getMaxAmount()': FunctionFragment;
     'getMinAmount()': FunctionFragment;
     'getMinBridgeFee()': FunctionFragment;
@@ -142,13 +143,13 @@ export interface MystikoV2WormholeETHInterface extends utils.Interface {
 
   encodeFunctionData(functionFragment: 'assetAddress', values?: undefined): string;
   encodeFunctionData(functionFragment: 'assetType', values?: undefined): string;
-  encodeFunctionData(functionFragment: 'bridgeGasLimit', values?: undefined): string;
   encodeFunctionData(functionFragment: 'bridgeProxyAddress', values?: undefined): string;
   encodeFunctionData(functionFragment: 'bridgeType', values?: undefined): string;
   encodeFunctionData(
     functionFragment: 'certDeposit',
     values: [IMystikoBridge.BridgeDepositRequestStruct, BigNumberish, BytesLike],
   ): string;
+  encodeFunctionData(functionFragment: 'defaultBridgeGasLimit', values?: undefined): string;
   encodeFunctionData(functionFragment: 'defaultMaxAmount', values?: undefined): string;
   encodeFunctionData(functionFragment: 'defaultMinAmount', values?: undefined): string;
   encodeFunctionData(functionFragment: 'defaultMinBridgeFee', values?: undefined): string;
@@ -159,6 +160,7 @@ export interface MystikoV2WormholeETHInterface extends utils.Interface {
     values: [IMystikoBridge.BridgeDepositRequestStruct],
   ): string;
   encodeFunctionData(functionFragment: 'getAssociatedCommitmentPool', values?: undefined): string;
+  encodeFunctionData(functionFragment: 'getBridgeGasLimit', values?: undefined): string;
   encodeFunctionData(functionFragment: 'getMaxAmount', values?: undefined): string;
   encodeFunctionData(functionFragment: 'getMinAmount', values?: undefined): string;
   encodeFunctionData(functionFragment: 'getMinBridgeFee', values?: undefined): string;
@@ -187,10 +189,10 @@ export interface MystikoV2WormholeETHInterface extends utils.Interface {
 
   decodeFunctionResult(functionFragment: 'assetAddress', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'assetType', data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: 'bridgeGasLimit', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'bridgeProxyAddress', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'bridgeType', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'certDeposit', data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'defaultBridgeGasLimit', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'defaultMaxAmount', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'defaultMinAmount', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'defaultMinBridgeFee', data: BytesLike): Result;
@@ -198,6 +200,7 @@ export interface MystikoV2WormholeETHInterface extends utils.Interface {
   decodeFunctionResult(functionFragment: 'defaultPeerMinRollupFee', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'deposit', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'getAssociatedCommitmentPool', data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'getBridgeGasLimit', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'getMaxAmount', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'getMinAmount', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'getMinBridgeFee', data: BytesLike): Result;
@@ -257,8 +260,6 @@ export interface MystikoV2WormholeETH extends BaseContract {
 
     assetType(overrides?: CallOverrides): Promise<[number]>;
 
-    bridgeGasLimit(overrides?: CallOverrides): Promise<[BigNumber]>;
-
     bridgeProxyAddress(overrides?: CallOverrides): Promise<[string]>;
 
     bridgeType(overrides?: CallOverrides): Promise<[string]>;
@@ -269,6 +270,8 @@ export interface MystikoV2WormholeETH extends BaseContract {
       _certificateSignature: BytesLike,
       overrides?: PayableOverrides & { from?: string | Promise<string> },
     ): Promise<ContractTransaction>;
+
+    defaultBridgeGasLimit(overrides?: CallOverrides): Promise<[BigNumber]>;
 
     defaultMaxAmount(overrides?: CallOverrides): Promise<[BigNumber]>;
 
@@ -286,6 +289,8 @@ export interface MystikoV2WormholeETH extends BaseContract {
     ): Promise<ContractTransaction>;
 
     getAssociatedCommitmentPool(overrides?: CallOverrides): Promise<[string]>;
+
+    getBridgeGasLimit(overrides?: CallOverrides): Promise<[BigNumber]>;
 
     getMaxAmount(overrides?: CallOverrides): Promise<[BigNumber]>;
 
@@ -344,8 +349,6 @@ export interface MystikoV2WormholeETH extends BaseContract {
 
   assetType(overrides?: CallOverrides): Promise<number>;
 
-  bridgeGasLimit(overrides?: CallOverrides): Promise<BigNumber>;
-
   bridgeProxyAddress(overrides?: CallOverrides): Promise<string>;
 
   bridgeType(overrides?: CallOverrides): Promise<string>;
@@ -356,6 +359,8 @@ export interface MystikoV2WormholeETH extends BaseContract {
     _certificateSignature: BytesLike,
     overrides?: PayableOverrides & { from?: string | Promise<string> },
   ): Promise<ContractTransaction>;
+
+  defaultBridgeGasLimit(overrides?: CallOverrides): Promise<BigNumber>;
 
   defaultMaxAmount(overrides?: CallOverrides): Promise<BigNumber>;
 
@@ -373,6 +378,8 @@ export interface MystikoV2WormholeETH extends BaseContract {
   ): Promise<ContractTransaction>;
 
   getAssociatedCommitmentPool(overrides?: CallOverrides): Promise<string>;
+
+  getBridgeGasLimit(overrides?: CallOverrides): Promise<BigNumber>;
 
   getMaxAmount(overrides?: CallOverrides): Promise<BigNumber>;
 
@@ -431,8 +438,6 @@ export interface MystikoV2WormholeETH extends BaseContract {
 
     assetType(overrides?: CallOverrides): Promise<number>;
 
-    bridgeGasLimit(overrides?: CallOverrides): Promise<BigNumber>;
-
     bridgeProxyAddress(overrides?: CallOverrides): Promise<string>;
 
     bridgeType(overrides?: CallOverrides): Promise<string>;
@@ -443,6 +448,8 @@ export interface MystikoV2WormholeETH extends BaseContract {
       _certificateSignature: BytesLike,
       overrides?: CallOverrides,
     ): Promise<void>;
+
+    defaultBridgeGasLimit(overrides?: CallOverrides): Promise<BigNumber>;
 
     defaultMaxAmount(overrides?: CallOverrides): Promise<BigNumber>;
 
@@ -457,6 +464,8 @@ export interface MystikoV2WormholeETH extends BaseContract {
     deposit(arg0: IMystikoBridge.BridgeDepositRequestStruct, overrides?: CallOverrides): Promise<void>;
 
     getAssociatedCommitmentPool(overrides?: CallOverrides): Promise<string>;
+
+    getBridgeGasLimit(overrides?: CallOverrides): Promise<BigNumber>;
 
     getMaxAmount(overrides?: CallOverrides): Promise<BigNumber>;
 
@@ -521,8 +530,6 @@ export interface MystikoV2WormholeETH extends BaseContract {
 
     assetType(overrides?: CallOverrides): Promise<BigNumber>;
 
-    bridgeGasLimit(overrides?: CallOverrides): Promise<BigNumber>;
-
     bridgeProxyAddress(overrides?: CallOverrides): Promise<BigNumber>;
 
     bridgeType(overrides?: CallOverrides): Promise<BigNumber>;
@@ -533,6 +540,8 @@ export interface MystikoV2WormholeETH extends BaseContract {
       _certificateSignature: BytesLike,
       overrides?: PayableOverrides & { from?: string | Promise<string> },
     ): Promise<BigNumber>;
+
+    defaultBridgeGasLimit(overrides?: CallOverrides): Promise<BigNumber>;
 
     defaultMaxAmount(overrides?: CallOverrides): Promise<BigNumber>;
 
@@ -550,6 +559,8 @@ export interface MystikoV2WormholeETH extends BaseContract {
     ): Promise<BigNumber>;
 
     getAssociatedCommitmentPool(overrides?: CallOverrides): Promise<BigNumber>;
+
+    getBridgeGasLimit(overrides?: CallOverrides): Promise<BigNumber>;
 
     getMaxAmount(overrides?: CallOverrides): Promise<BigNumber>;
 
@@ -609,8 +620,6 @@ export interface MystikoV2WormholeETH extends BaseContract {
 
     assetType(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
-    bridgeGasLimit(overrides?: CallOverrides): Promise<PopulatedTransaction>;
-
     bridgeProxyAddress(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     bridgeType(overrides?: CallOverrides): Promise<PopulatedTransaction>;
@@ -621,6 +630,8 @@ export interface MystikoV2WormholeETH extends BaseContract {
       _certificateSignature: BytesLike,
       overrides?: PayableOverrides & { from?: string | Promise<string> },
     ): Promise<PopulatedTransaction>;
+
+    defaultBridgeGasLimit(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     defaultMaxAmount(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
@@ -638,6 +649,8 @@ export interface MystikoV2WormholeETH extends BaseContract {
     ): Promise<PopulatedTransaction>;
 
     getAssociatedCommitmentPool(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+
+    getBridgeGasLimit(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     getMaxAmount(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
