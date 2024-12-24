@@ -71,6 +71,7 @@ export interface MystikoV2LayerZeroInterface extends utils.Interface {
     'bridgeProxyAddress()': FunctionFragment;
     'bridgeType()': FunctionFragment;
     'certDeposit((uint256,uint256,uint256,uint128,bytes,uint256,uint256,uint256),uint256,bytes)': FunctionFragment;
+    'defaultBridgeGasLimit()': FunctionFragment;
     'defaultMaxAmount()': FunctionFragment;
     'defaultMinAmount()': FunctionFragment;
     'defaultMinBridgeFee()': FunctionFragment;
@@ -80,6 +81,7 @@ export interface MystikoV2LayerZeroInterface extends utils.Interface {
     'failedMessages(uint16,bytes,uint64)': FunctionFragment;
     'forceResumeReceive(uint16,bytes)': FunctionFragment;
     'getAssociatedCommitmentPool()': FunctionFragment;
+    'getBridgeGasLimit()': FunctionFragment;
     'getConfig(uint16,uint16,address,uint256)': FunctionFragment;
     'getMaxAmount()': FunctionFragment;
     'getMinAmount()': FunctionFragment;
@@ -120,6 +122,7 @@ export interface MystikoV2LayerZeroInterface extends utils.Interface {
     functionFragment: 'certDeposit',
     values: [IMystikoBridge.BridgeDepositRequestStruct, BigNumberish, BytesLike],
   ): string;
+  encodeFunctionData(functionFragment: 'defaultBridgeGasLimit', values?: undefined): string;
   encodeFunctionData(functionFragment: 'defaultMaxAmount', values?: undefined): string;
   encodeFunctionData(functionFragment: 'defaultMinAmount', values?: undefined): string;
   encodeFunctionData(functionFragment: 'defaultMinBridgeFee', values?: undefined): string;
@@ -135,6 +138,7 @@ export interface MystikoV2LayerZeroInterface extends utils.Interface {
   ): string;
   encodeFunctionData(functionFragment: 'forceResumeReceive', values: [BigNumberish, BytesLike]): string;
   encodeFunctionData(functionFragment: 'getAssociatedCommitmentPool', values?: undefined): string;
+  encodeFunctionData(functionFragment: 'getBridgeGasLimit', values?: undefined): string;
   encodeFunctionData(
     functionFragment: 'getConfig',
     values: [BigNumberish, BigNumberish, string, BigNumberish],
@@ -189,6 +193,7 @@ export interface MystikoV2LayerZeroInterface extends utils.Interface {
   decodeFunctionResult(functionFragment: 'bridgeProxyAddress', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'bridgeType', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'certDeposit', data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'defaultBridgeGasLimit', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'defaultMaxAmount', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'defaultMinAmount', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'defaultMinBridgeFee', data: BytesLike): Result;
@@ -198,6 +203,7 @@ export interface MystikoV2LayerZeroInterface extends utils.Interface {
   decodeFunctionResult(functionFragment: 'failedMessages', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'forceResumeReceive', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'getAssociatedCommitmentPool', data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'getBridgeGasLimit', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'getConfig', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'getMaxAmount', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'getMinAmount', data: BytesLike): Result;
@@ -311,6 +317,8 @@ export interface MystikoV2LayerZero extends BaseContract {
       overrides?: PayableOverrides & { from?: string | Promise<string> },
     ): Promise<ContractTransaction>;
 
+    defaultBridgeGasLimit(overrides?: CallOverrides): Promise<[BigNumber]>;
+
     defaultMaxAmount(overrides?: CallOverrides): Promise<[BigNumber]>;
 
     defaultMinAmount(overrides?: CallOverrides): Promise<[BigNumber]>;
@@ -340,6 +348,8 @@ export interface MystikoV2LayerZero extends BaseContract {
     ): Promise<ContractTransaction>;
 
     getAssociatedCommitmentPool(overrides?: CallOverrides): Promise<[string]>;
+
+    getBridgeGasLimit(overrides?: CallOverrides): Promise<[BigNumber]>;
 
     getConfig(
       _version: BigNumberish,
@@ -473,6 +483,8 @@ export interface MystikoV2LayerZero extends BaseContract {
     overrides?: PayableOverrides & { from?: string | Promise<string> },
   ): Promise<ContractTransaction>;
 
+  defaultBridgeGasLimit(overrides?: CallOverrides): Promise<BigNumber>;
+
   defaultMaxAmount(overrides?: CallOverrides): Promise<BigNumber>;
 
   defaultMinAmount(overrides?: CallOverrides): Promise<BigNumber>;
@@ -502,6 +514,8 @@ export interface MystikoV2LayerZero extends BaseContract {
   ): Promise<ContractTransaction>;
 
   getAssociatedCommitmentPool(overrides?: CallOverrides): Promise<string>;
+
+  getBridgeGasLimit(overrides?: CallOverrides): Promise<BigNumber>;
 
   getConfig(
     _version: BigNumberish,
@@ -635,6 +649,8 @@ export interface MystikoV2LayerZero extends BaseContract {
       overrides?: CallOverrides,
     ): Promise<void>;
 
+    defaultBridgeGasLimit(overrides?: CallOverrides): Promise<BigNumber>;
+
     defaultMaxAmount(overrides?: CallOverrides): Promise<BigNumber>;
 
     defaultMinAmount(overrides?: CallOverrides): Promise<BigNumber>;
@@ -661,6 +677,8 @@ export interface MystikoV2LayerZero extends BaseContract {
     ): Promise<void>;
 
     getAssociatedCommitmentPool(overrides?: CallOverrides): Promise<string>;
+
+    getBridgeGasLimit(overrides?: CallOverrides): Promise<BigNumber>;
 
     getConfig(
       _version: BigNumberish,
@@ -810,6 +828,8 @@ export interface MystikoV2LayerZero extends BaseContract {
       overrides?: PayableOverrides & { from?: string | Promise<string> },
     ): Promise<BigNumber>;
 
+    defaultBridgeGasLimit(overrides?: CallOverrides): Promise<BigNumber>;
+
     defaultMaxAmount(overrides?: CallOverrides): Promise<BigNumber>;
 
     defaultMinAmount(overrides?: CallOverrides): Promise<BigNumber>;
@@ -839,6 +859,8 @@ export interface MystikoV2LayerZero extends BaseContract {
     ): Promise<BigNumber>;
 
     getAssociatedCommitmentPool(overrides?: CallOverrides): Promise<BigNumber>;
+
+    getBridgeGasLimit(overrides?: CallOverrides): Promise<BigNumber>;
 
     getConfig(
       _version: BigNumberish,
@@ -971,6 +993,8 @@ export interface MystikoV2LayerZero extends BaseContract {
       overrides?: PayableOverrides & { from?: string | Promise<string> },
     ): Promise<PopulatedTransaction>;
 
+    defaultBridgeGasLimit(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+
     defaultMaxAmount(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     defaultMinAmount(overrides?: CallOverrides): Promise<PopulatedTransaction>;
@@ -1000,6 +1024,8 @@ export interface MystikoV2LayerZero extends BaseContract {
     ): Promise<PopulatedTransaction>;
 
     getAssociatedCommitmentPool(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+
+    getBridgeGasLimit(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     getConfig(
       _version: BigNumberish,

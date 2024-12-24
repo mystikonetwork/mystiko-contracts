@@ -8,6 +8,7 @@ interface IMystikoBridge {
     uint256 minAmount;
     uint256 maxAmount;
     uint256 minBridgeFee;
+    uint256 bridgeGasLimit;
   }
 
   struct BridgePeerConfig {

@@ -15,8 +15,6 @@ import {IWETH} from "lib/wormhole-sdk/src/interfaces/token/IWETH.sol";
 contract MystikoV2WormholeETH is MystikoV2Bridge, TokenSender, TokenReceiver, MainAssetPool {
   using SafeERC20 for IERC20Metadata;
 
-  //todo add to settings center config
-  uint256 public bridgeGasLimit;
   uint16 public peerWormholeChainId;
 
   receive() external payable {}
@@ -33,14 +31,12 @@ contract MystikoV2WormholeETH is MystikoV2Bridge, TokenSender, TokenReceiver, Ma
   {
     if (_localConfig.minBridgeFee != 0) revert CustomErrors.Invalid("min bridge fee");
     if (_peerConfig.peerMinExecutorFee != 0) revert CustomErrors.Invalid("peer min executor fee");
-    if (_wormhole.bridgeGasLimit < 400_000) revert CustomErrors.Invalid("bridge gas limit");
-
-    bridgeGasLimit = _wormhole.bridgeGasLimit;
     peerWormholeChainId = _wormhole.peerWormholeChainId;
   }
 
   function getMinBridgeFee() public view override(MystikoV2Bridge) returns (uint256 cost) {
     uint256 deliveryCost;
+    uint256 bridgeGasLimit = getBridgeGasLimit();
     (deliveryCost, ) = wormholeRelayer.quoteEVMDeliveryPrice(peerWormholeChainId, 0, bridgeGasLimit);
     cost = deliveryCost + wormhole.messageFee();
   }
@@ -55,6 +51,7 @@ contract MystikoV2WormholeETH is MystikoV2Bridge, TokenSender, TokenReceiver, Ma
     if (_bridgeFee + _bridgeAmount != msg.value) revert CustomErrors.Invalid("msg value");
     IWETH wrappedNativeToken = IWETH(tokenBridge.WETH());
     wrappedNativeToken.deposit{value: _bridgeAmount}();
+    uint256 bridgeGasLimit = getBridgeGasLimit();
     sendTokenWithPayloadToEvm(
       peerWormholeChainId,
       peerContract,

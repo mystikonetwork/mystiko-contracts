@@ -54,6 +54,7 @@ export function testBridgeConstructor(
   peerMinRoolupFee: string,
   peerChainId: number,
   peerContractAddress: string,
+  bridgeGasLimit: string,
 ) {
   describe(`Test ${contractName} constructor`, () => {
     it('should initialize minAmount correctly', async () => {
@@ -64,6 +65,9 @@ export function testBridgeConstructor(
     });
     it('should initialize minBridgeFee correctly', async () => {
       expect(await depositContract.getMinBridgeFee()).to.equal(minBridgeFee);
+    });
+    it('should initialize bridgeGasLimit correctly', async () => {
+      expect(await depositContract.getBridgeGasLimit()).to.equal(bridgeGasLimit);
     });
     it('should initialize peerMinExecutorFee correctly', async () => {
       expect(await depositContract.getMinExecutorFee()).to.equal(minExecutorFee);

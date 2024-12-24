@@ -21,6 +21,7 @@ export interface MystikoBridgeConfigInterface extends utils.Interface {
   contractName: 'MystikoBridgeConfig';
   functions: {
     'DEFAULT_ADMIN_ROLE()': FunctionFragment;
+    'bridgeGasLimit(address)': FunctionFragment;
     'daoRegistry()': FunctionFragment;
     'getRoleAdmin(bytes32)': FunctionFragment;
     'grantRole(bytes32,address)': FunctionFragment;
@@ -28,12 +29,14 @@ export interface MystikoBridgeConfigInterface extends utils.Interface {
     'minBridgeFeeAmount(address)': FunctionFragment;
     'minPeerExecutorFeeAmount(address)': FunctionFragment;
     'minPeerRollupFeeAmount(address)': FunctionFragment;
+    'queryBridgeGasLimit(address)': FunctionFragment;
     'queryMinBridgeFee(address)': FunctionFragment;
     'queryMinPeerExecutorFee(address)': FunctionFragment;
     'queryMinPeerRollupFee(address)': FunctionFragment;
     'renounceRole(bytes32,address)': FunctionFragment;
     'revokeRole(bytes32,address)': FunctionFragment;
     'setAdminRole()': FunctionFragment;
+    'setBridgeGasLimit(address,uint256)': FunctionFragment;
     'setMinBridgeFee(address,uint256)': FunctionFragment;
     'setMinPeerExecutorFee(address,uint256)': FunctionFragment;
     'setMinPeerRollupFee(address,uint256)': FunctionFragment;
@@ -41,6 +44,7 @@ export interface MystikoBridgeConfigInterface extends utils.Interface {
   };
 
   encodeFunctionData(functionFragment: 'DEFAULT_ADMIN_ROLE', values?: undefined): string;
+  encodeFunctionData(functionFragment: 'bridgeGasLimit', values: [string]): string;
   encodeFunctionData(functionFragment: 'daoRegistry', values?: undefined): string;
   encodeFunctionData(functionFragment: 'getRoleAdmin', values: [BytesLike]): string;
   encodeFunctionData(functionFragment: 'grantRole', values: [BytesLike, string]): string;
@@ -48,18 +52,21 @@ export interface MystikoBridgeConfigInterface extends utils.Interface {
   encodeFunctionData(functionFragment: 'minBridgeFeeAmount', values: [string]): string;
   encodeFunctionData(functionFragment: 'minPeerExecutorFeeAmount', values: [string]): string;
   encodeFunctionData(functionFragment: 'minPeerRollupFeeAmount', values: [string]): string;
+  encodeFunctionData(functionFragment: 'queryBridgeGasLimit', values: [string]): string;
   encodeFunctionData(functionFragment: 'queryMinBridgeFee', values: [string]): string;
   encodeFunctionData(functionFragment: 'queryMinPeerExecutorFee', values: [string]): string;
   encodeFunctionData(functionFragment: 'queryMinPeerRollupFee', values: [string]): string;
   encodeFunctionData(functionFragment: 'renounceRole', values: [BytesLike, string]): string;
   encodeFunctionData(functionFragment: 'revokeRole', values: [BytesLike, string]): string;
   encodeFunctionData(functionFragment: 'setAdminRole', values?: undefined): string;
+  encodeFunctionData(functionFragment: 'setBridgeGasLimit', values: [string, BigNumberish]): string;
   encodeFunctionData(functionFragment: 'setMinBridgeFee', values: [string, BigNumberish]): string;
   encodeFunctionData(functionFragment: 'setMinPeerExecutorFee', values: [string, BigNumberish]): string;
   encodeFunctionData(functionFragment: 'setMinPeerRollupFee', values: [string, BigNumberish]): string;
   encodeFunctionData(functionFragment: 'supportsInterface', values: [BytesLike]): string;
 
   decodeFunctionResult(functionFragment: 'DEFAULT_ADMIN_ROLE', data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'bridgeGasLimit', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'daoRegistry', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'getRoleAdmin', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'grantRole', data: BytesLike): Result;
@@ -67,18 +74,21 @@ export interface MystikoBridgeConfigInterface extends utils.Interface {
   decodeFunctionResult(functionFragment: 'minBridgeFeeAmount', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'minPeerExecutorFeeAmount', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'minPeerRollupFeeAmount', data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'queryBridgeGasLimit', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'queryMinBridgeFee', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'queryMinPeerExecutorFee', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'queryMinPeerRollupFee', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'renounceRole', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'revokeRole', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'setAdminRole', data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'setBridgeGasLimit', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'setMinBridgeFee', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'setMinPeerExecutorFee', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'setMinPeerRollupFee', data: BytesLike): Result;
   decodeFunctionResult(functionFragment: 'supportsInterface', data: BytesLike): Result;
 
   events: {
+    'BridgeGasLimitChanged(address,uint256)': EventFragment;
     'MinBridgeFeeChanged(address,uint256)': EventFragment;
     'MinPeerExecutorFeeChanged(address,uint256)': EventFragment;
     'MinPeerRollupFeeChanged(address,uint256)': EventFragment;
@@ -87,6 +97,7 @@ export interface MystikoBridgeConfigInterface extends utils.Interface {
     'RoleRevoked(bytes32,address,address)': EventFragment;
   };
 
+  getEvent(nameOrSignatureOrTopic: 'BridgeGasLimitChanged'): EventFragment;
   getEvent(nameOrSignatureOrTopic: 'MinBridgeFeeChanged'): EventFragment;
   getEvent(nameOrSignatureOrTopic: 'MinPeerExecutorFeeChanged'): EventFragment;
   getEvent(nameOrSignatureOrTopic: 'MinPeerRollupFeeChanged'): EventFragment;
@@ -95,23 +106,30 @@ export interface MystikoBridgeConfigInterface extends utils.Interface {
   getEvent(nameOrSignatureOrTopic: 'RoleRevoked'): EventFragment;
 }
 
+export type BridgeGasLimitChangedEvent = TypedEvent<
+  [string, BigNumber],
+  { _localDeposit: string; _bridgeGasLimit: BigNumber }
+>;
+
+export type BridgeGasLimitChangedEventFilter = TypedEventFilter<BridgeGasLimitChangedEvent>;
+
 export type MinBridgeFeeChangedEvent = TypedEvent<
   [string, BigNumber],
-  { _localDeposit: string; minBridgeFee: BigNumber }
+  { _localDeposit: string; _minBridgeFee: BigNumber }
 >;
 
 export type MinBridgeFeeChangedEventFilter = TypedEventFilter<MinBridgeFeeChangedEvent>;
 
 export type MinPeerExecutorFeeChangedEvent = TypedEvent<
   [string, BigNumber],
-  { _localDeposit: string; minPeerExecutorFee: BigNumber }
+  { _localDeposit: string; _minPeerExecutorFee: BigNumber }
 >;
 
 export type MinPeerExecutorFeeChangedEventFilter = TypedEventFilter<MinPeerExecutorFeeChangedEvent>;
 
 export type MinPeerRollupFeeChangedEvent = TypedEvent<
   [string, BigNumber],
-  { _localDeposit: string; minPeerRollupFee: BigNumber }
+  { _localDeposit: string; _minPeerRollupFee: BigNumber }
 >;
 
 export type MinPeerRollupFeeChangedEventFilter = TypedEventFilter<MinPeerRollupFeeChangedEvent>;
@@ -163,6 +181,8 @@ export interface MystikoBridgeConfig extends BaseContract {
   functions: {
     DEFAULT_ADMIN_ROLE(overrides?: CallOverrides): Promise<[string]>;
 
+    bridgeGasLimit(arg0: string, overrides?: CallOverrides): Promise<[BigNumber]>;
+
     daoRegistry(overrides?: CallOverrides): Promise<[string]>;
 
     getRoleAdmin(role: BytesLike, overrides?: CallOverrides): Promise<[string]>;
@@ -180,6 +200,8 @@ export interface MystikoBridgeConfig extends BaseContract {
     minPeerExecutorFeeAmount(arg0: string, overrides?: CallOverrides): Promise<[BigNumber]>;
 
     minPeerRollupFeeAmount(arg0: string, overrides?: CallOverrides): Promise<[BigNumber]>;
+
+    queryBridgeGasLimit(_localDeposit: string, overrides?: CallOverrides): Promise<[BigNumber]>;
 
     queryMinBridgeFee(_localDeposit: string, overrides?: CallOverrides): Promise<[BigNumber]>;
 
@@ -200,6 +222,12 @@ export interface MystikoBridgeConfig extends BaseContract {
     ): Promise<ContractTransaction>;
 
     setAdminRole(overrides?: Overrides & { from?: string | Promise<string> }): Promise<ContractTransaction>;
+
+    setBridgeGasLimit(
+      _localDeposit: string,
+      _bridgeGasLimit: BigNumberish,
+      overrides?: Overrides & { from?: string | Promise<string> },
+    ): Promise<ContractTransaction>;
 
     setMinBridgeFee(
       _localDeposit: string,
@@ -224,6 +252,8 @@ export interface MystikoBridgeConfig extends BaseContract {
 
   DEFAULT_ADMIN_ROLE(overrides?: CallOverrides): Promise<string>;
 
+  bridgeGasLimit(arg0: string, overrides?: CallOverrides): Promise<BigNumber>;
+
   daoRegistry(overrides?: CallOverrides): Promise<string>;
 
   getRoleAdmin(role: BytesLike, overrides?: CallOverrides): Promise<string>;
@@ -241,6 +271,8 @@ export interface MystikoBridgeConfig extends BaseContract {
   minPeerExecutorFeeAmount(arg0: string, overrides?: CallOverrides): Promise<BigNumber>;
 
   minPeerRollupFeeAmount(arg0: string, overrides?: CallOverrides): Promise<BigNumber>;
+
+  queryBridgeGasLimit(_localDeposit: string, overrides?: CallOverrides): Promise<BigNumber>;
 
   queryMinBridgeFee(_localDeposit: string, overrides?: CallOverrides): Promise<BigNumber>;
 
@@ -261,6 +293,12 @@ export interface MystikoBridgeConfig extends BaseContract {
   ): Promise<ContractTransaction>;
 
   setAdminRole(overrides?: Overrides & { from?: string | Promise<string> }): Promise<ContractTransaction>;
+
+  setBridgeGasLimit(
+    _localDeposit: string,
+    _bridgeGasLimit: BigNumberish,
+    overrides?: Overrides & { from?: string | Promise<string> },
+  ): Promise<ContractTransaction>;
 
   setMinBridgeFee(
     _localDeposit: string,
@@ -285,6 +323,8 @@ export interface MystikoBridgeConfig extends BaseContract {
   callStatic: {
     DEFAULT_ADMIN_ROLE(overrides?: CallOverrides): Promise<string>;
 
+    bridgeGasLimit(arg0: string, overrides?: CallOverrides): Promise<BigNumber>;
+
     daoRegistry(overrides?: CallOverrides): Promise<string>;
 
     getRoleAdmin(role: BytesLike, overrides?: CallOverrides): Promise<string>;
@@ -299,6 +339,8 @@ export interface MystikoBridgeConfig extends BaseContract {
 
     minPeerRollupFeeAmount(arg0: string, overrides?: CallOverrides): Promise<BigNumber>;
 
+    queryBridgeGasLimit(_localDeposit: string, overrides?: CallOverrides): Promise<BigNumber>;
+
     queryMinBridgeFee(_localDeposit: string, overrides?: CallOverrides): Promise<BigNumber>;
 
     queryMinPeerExecutorFee(_localDeposit: string, overrides?: CallOverrides): Promise<BigNumber>;
@@ -310,6 +352,12 @@ export interface MystikoBridgeConfig extends BaseContract {
     revokeRole(role: BytesLike, account: string, overrides?: CallOverrides): Promise<void>;
 
     setAdminRole(overrides?: CallOverrides): Promise<void>;
+
+    setBridgeGasLimit(
+      _localDeposit: string,
+      _bridgeGasLimit: BigNumberish,
+      overrides?: CallOverrides,
+    ): Promise<void>;
 
     setMinBridgeFee(
       _localDeposit: string,
@@ -333,28 +381,37 @@ export interface MystikoBridgeConfig extends BaseContract {
   };
 
   filters: {
+    'BridgeGasLimitChanged(address,uint256)'(
+      _localDeposit?: string | null,
+      _bridgeGasLimit?: null,
+    ): BridgeGasLimitChangedEventFilter;
+    BridgeGasLimitChanged(
+      _localDeposit?: string | null,
+      _bridgeGasLimit?: null,
+    ): BridgeGasLimitChangedEventFilter;
+
     'MinBridgeFeeChanged(address,uint256)'(
       _localDeposit?: string | null,
-      minBridgeFee?: null,
+      _minBridgeFee?: null,
     ): MinBridgeFeeChangedEventFilter;
-    MinBridgeFeeChanged(_localDeposit?: string | null, minBridgeFee?: null): MinBridgeFeeChangedEventFilter;
+    MinBridgeFeeChanged(_localDeposit?: string | null, _minBridgeFee?: null): MinBridgeFeeChangedEventFilter;
 
     'MinPeerExecutorFeeChanged(address,uint256)'(
       _localDeposit?: string | null,
-      minPeerExecutorFee?: null,
+      _minPeerExecutorFee?: null,
     ): MinPeerExecutorFeeChangedEventFilter;
     MinPeerExecutorFeeChanged(
       _localDeposit?: string | null,
-      minPeerExecutorFee?: null,
+      _minPeerExecutorFee?: null,
     ): MinPeerExecutorFeeChangedEventFilter;
 
     'MinPeerRollupFeeChanged(address,uint256)'(
       _localDeposit?: string | null,
-      minPeerRollupFee?: null,
+      _minPeerRollupFee?: null,
     ): MinPeerRollupFeeChangedEventFilter;
     MinPeerRollupFeeChanged(
       _localDeposit?: string | null,
-      minPeerRollupFee?: null,
+      _minPeerRollupFee?: null,
     ): MinPeerRollupFeeChangedEventFilter;
 
     'RoleAdminChanged(bytes32,bytes32,bytes32)'(
@@ -394,6 +451,8 @@ export interface MystikoBridgeConfig extends BaseContract {
   estimateGas: {
     DEFAULT_ADMIN_ROLE(overrides?: CallOverrides): Promise<BigNumber>;
 
+    bridgeGasLimit(arg0: string, overrides?: CallOverrides): Promise<BigNumber>;
+
     daoRegistry(overrides?: CallOverrides): Promise<BigNumber>;
 
     getRoleAdmin(role: BytesLike, overrides?: CallOverrides): Promise<BigNumber>;
@@ -411,6 +470,8 @@ export interface MystikoBridgeConfig extends BaseContract {
     minPeerExecutorFeeAmount(arg0: string, overrides?: CallOverrides): Promise<BigNumber>;
 
     minPeerRollupFeeAmount(arg0: string, overrides?: CallOverrides): Promise<BigNumber>;
+
+    queryBridgeGasLimit(_localDeposit: string, overrides?: CallOverrides): Promise<BigNumber>;
 
     queryMinBridgeFee(_localDeposit: string, overrides?: CallOverrides): Promise<BigNumber>;
 
@@ -431,6 +492,12 @@ export interface MystikoBridgeConfig extends BaseContract {
     ): Promise<BigNumber>;
 
     setAdminRole(overrides?: Overrides & { from?: string | Promise<string> }): Promise<BigNumber>;
+
+    setBridgeGasLimit(
+      _localDeposit: string,
+      _bridgeGasLimit: BigNumberish,
+      overrides?: Overrides & { from?: string | Promise<string> },
+    ): Promise<BigNumber>;
 
     setMinBridgeFee(
       _localDeposit: string,
@@ -456,6 +523,8 @@ export interface MystikoBridgeConfig extends BaseContract {
   populateTransaction: {
     DEFAULT_ADMIN_ROLE(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
+    bridgeGasLimit(arg0: string, overrides?: CallOverrides): Promise<PopulatedTransaction>;
+
     daoRegistry(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     getRoleAdmin(role: BytesLike, overrides?: CallOverrides): Promise<PopulatedTransaction>;
@@ -473,6 +542,8 @@ export interface MystikoBridgeConfig extends BaseContract {
     minPeerExecutorFeeAmount(arg0: string, overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     minPeerRollupFeeAmount(arg0: string, overrides?: CallOverrides): Promise<PopulatedTransaction>;
+
+    queryBridgeGasLimit(_localDeposit: string, overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     queryMinBridgeFee(_localDeposit: string, overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
@@ -493,6 +564,12 @@ export interface MystikoBridgeConfig extends BaseContract {
     ): Promise<PopulatedTransaction>;
 
     setAdminRole(overrides?: Overrides & { from?: string | Promise<string> }): Promise<PopulatedTransaction>;
+
+    setBridgeGasLimit(
+      _localDeposit: string,
+      _bridgeGasLimit: BigNumberish,
+      overrides?: Overrides & { from?: string | Promise<string> },
+    ): Promise<PopulatedTransaction>;
 
     setMinBridgeFee(
       _localDeposit: string,

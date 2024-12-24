@@ -92,10 +92,8 @@
       "daoRegistry": "0x0bF5B2d61BD12A6Ea08A4DC0ff35223d3A2d5698",
       "vXZKAddress": "0xE662feEF4Bb1f25e5eBb4F9f157d37A921Af1587",
       "settingsConfig": {
-        "certificateIssuer": "0xcD1Bc0fB1F16160C35F2ADa4fcB0B919211D8321",
-        "certificateIssuerTx": "deploy certificate",
         "sanctionCheck": false,
-        "sanctionCheckTx": "0xa258ee155c25b9058ae0f053ddc4d4f41cddc2f6c24ded0bd80553214476d957"
+        "sanctionCheckTx": "0x99b5c2ae08f33629e94ff12a956f6f9e967c32538192d08df6a14a835dcee36b"
       },
       "hasher3Address": "0x1335db2409b22B88ff8cC9122471Bd9C12dA8D56",
       "rollup1Address": "0xb42e5BDb9c5B170B5aBA8a1CC85F0eFC19287467",
@@ -114,8 +112,8 @@
       "certificateVerifier": "0x0d3B94E421401Fdb08af5C9117d7505C42a9CC92",
       "relayerPool": "0x068125cBfB0d4711569B8b1Bedc8F0292efcf8a4",
       "rollerPool": "0xBa79435927FE34D9bEC23AFF7600Fc1A1050B7BB",
-      "settingsCenter": "0xF72a1f60024f56c573077C8e2e9B696646D906B5",
-      "relayerRegister": "0x3AEB7b1250b7ACe45B8A2Ed91A867302610FC164"
+      "relayerRegister": "0x3AEB7b1250b7ACe45B8A2Ed91A867302610FC164",
+      "settingsCenter": "0x41558fC787B08fF7644ce31a3A02eE1632c62243"
     },
     {
       "name": "BSC Testnet",
@@ -467,7 +465,7 @@
       "daoRegistry": "0xA37e3505ad3Fb87cDE77b327Ddd0cb04C4E1585D",
       "settingsConfig": {
         "sanctionCheck": false,
-        "sanctionCheckTx": "0x490300d10ae727689c1550bd1b56d126eba6714436b0b47f2666bb46fcc329cb"
+        "sanctionCheckTx": "0xf78d93f9a411f5cee6b9b9b152eeb44d5cdde8873bf3a0b0593d1a3592fd5f4f"
       },
       "hasher3Address": "0x507218CF058095B6BEC479657a5fEcdbE54dC545",
       "rollup1Address": "0xd7503D1015f5f046d546086383a4f5B7c555021b",
@@ -487,7 +485,7 @@
       "relayerPool": "0x0e20BC6168e73677ACe12C4E37C1668c2C3FE6d1",
       "rollerPool": "0xd4424AC8fcFD49dee08A029936bae33174F21Ada",
       "relayerRegister": "0x2434D4997Db67e5fA6d250fc57bB648d2a7Ef24f",
-      "settingsCenter": "0x876Ad1e80A878591e5A0D1aE8DEAF92E65ab544e"
+      "settingsCenter": "0xC3B0CC840519a5860e9b125179083351818c1f97"
     },
     {
       "name": "Moonbase Alpha",
@@ -637,7 +635,7 @@
           "address": "0x036CbD53842c5426634e7929541eC2318f3dCF7e",
           "minAmount": "100000",
           "maxAmount": "1000000000",
-          "minExecutorFee": "5000",
+          "minExecutorFee": "0",
           "minRollupFee": "10000",
           "recommendedAmounts": [
             "1000000",
@@ -650,7 +648,7 @@
       "daoRegistry": "0x6AC8D3C92A200778dFCFa059A112F4A6BB34CDB7",
       "settingsConfig": {
         "sanctionCheck": false,
-        "sanctionCheckTx": "0x56000fa6c0a4e17ec0428ce109103d99f904b5897c876265b30be297635154b2"
+        "sanctionCheckTx": "0x26e44dbc011d8886e54232fdc7ca07c5e46f284330edaebc86f9ff62fab0bb9e"
       },
       "hasher3Address": "0x0D787aF26326400B72AF3F6a3712b1353120BbbE",
       "rollup1Address": "0x1335db2409b22B88ff8cC9122471Bd9C12dA8D56",
@@ -670,7 +668,7 @@
       "relayerPool": "0x7AC07F4ce6C72d4a620D4C9C88E1BE18945A029a",
       "rollerPool": "0x24Fd8ebc811997E1a362065944CaD87064E44466",
       "relayerRegister": "0x8fa97774a7F013Aac324B3994f27Efa7416cD1d9",
-      "settingsCenter": "0x342957680cf56FB1109a62d7D092e46941666548"
+      "settingsCenter": "0x55539993e1946C6Cb7c3d9e9552738ca805330A8"
     },
     {
       "name": "Zeta Testnet",
@@ -1229,37 +1227,37 @@
         {
           "network": "sepolia",
           "assetSymbol": "USDC",
-          "address": "0xE87a96c3C5840783001f6597280B708F1E59893D",
-          "syncStart": 6928279,
-          "nonce": 570
+          "address": "0x76CEC7441dDFe35652DEF14dF2dDCB341507a13b",
+          "syncStart": 7337188,
+          "nonce": 697
         },
         {
           "network": "baseSepolia",
           "assetSymbol": "USDC",
-          "address": "0xaA5393C35B9b0558B713e3A619392D1C35954F3D",
-          "syncStart": 16953830,
-          "nonce": 208
+          "address": "0x7E75A884116Fcb53329327e272B02a8166A7A8d0",
+          "syncStart": 19587585,
+          "nonce": 235
         },
         {
           "network": "avalanchetestnet",
           "assetSymbol": "USDC",
-          "address": "0x94C1FA07234acEF7C27238C12D17d88720FbFC87",
-          "syncStart": 36380183,
-          "nonce": 1176
+          "address": "0x96A6757d1e7C031Ca071730a3F10b7230512E6d6",
+          "syncStart": 37263368,
+          "nonce": 1282
         },
         {
           "network": "sepolia",
           "assetSymbol": "ETH",
-          "address": "0x2B688da7fC52E5Ae0aD77E36eCEF71adC86b01F9",
-          "syncStart": 7013982,
-          "nonce": 668
+          "address": "0x447b788496e7408c784FB5a311CdEa922755771C",
+          "syncStart": 7337258,
+          "nonce": 700
         },
         {
           "network": "avalanchetestnet",
           "assetSymbol": "WETHWormhole",
-          "address": "0x8737BB89d5B9F21aDc3193C64bFbB95C4F217C5B",
-          "syncStart": 36541827,
-          "nonce": 1254
+          "address": "0xAcb94b137EAe943EfD91843934A4D1A3081FF42F",
+          "syncStart": 37263387,
+          "nonce": 1285
         }
       ],
       "pairs": [
@@ -1268,24 +1266,24 @@
             {
               "network": "sepolia",
               "assetSymbol": "USDC",
-              "address": "0x50b52A673536ee0C83F0fe8De7554De47D219ee3",
-              "syncStart": 7015181,
-              "nonce": 678,
-              "commitmentPool": "0xE87a96c3C5840783001f6597280B708F1E59893D",
-              "commitmentPoolTx": "0x832dcd5a8a00212b691918eaaec3f6dba4d5010c8cb50a02aa0abe33ddac2bfc",
-              "peerContract": "0xcdc0683Df6edCad6e9d458a9b48CF6A5a4C44834",
-              "peerContractTx": "0x7e201baa4b61134b86b97b169e243d51d4f5c83fedbd8674870036c782bcdd3b"
+              "address": "0xc554e7c7499e03dE23C66f0c0398f7FeC421B805",
+              "syncStart": 7337247,
+              "nonce": 698,
+              "commitmentPool": "0x76CEC7441dDFe35652DEF14dF2dDCB341507a13b",
+              "commitmentPoolTx": "0xbbbc6b6b49b36acaa9423c156f85a498f2e3932895a90a8ecf8d563db7daafdc",
+              "peerContract": "0x34cAD209Aa2A3e81D988d39786d3e6c14F4d5bA4",
+              "peerContractTx": "0xf5b430f34037552fb2dcb828f0aaeaab9445c2682a1a25f779a7ae904680f760"
             },
             {
               "network": "baseSepolia",
               "assetSymbol": "USDC",
-              "address": "0xcdc0683Df6edCad6e9d458a9b48CF6A5a4C44834",
-              "syncStart": 17510037,
-              "nonce": 228,
-              "commitmentPool": "0xaA5393C35B9b0558B713e3A619392D1C35954F3D",
-              "commitmentPoolTx": "0xc40b475460c2b1b04b003c63599148df387670bb98a947f5d7a44801661e6d2d",
-              "peerContract": "0x50b52A673536ee0C83F0fe8De7554De47D219ee3",
-              "peerContractTx": "0x7b77c73cf97605e62aa536f57b2660520a8d089f14cf4b23f9792bf6692a5165"
+              "address": "0x34cAD209Aa2A3e81D988d39786d3e6c14F4d5bA4",
+              "syncStart": 19587591,
+              "nonce": 236,
+              "commitmentPool": "0x7E75A884116Fcb53329327e272B02a8166A7A8d0",
+              "commitmentPoolTx": "0x286406d074300242889c964b627449ee3b86e2555209ba5ed3f17141e16ed3ad",
+              "peerContract": "0xc554e7c7499e03dE23C66f0c0398f7FeC421B805",
+              "peerContractTx": "0x6fb94fc88001b3bd32bf10652f7c2340f32d1694326551ee004660a1da437fab"
             }
           ]
         },
@@ -1294,24 +1292,24 @@
             {
               "network": "sepolia",
               "assetSymbol": "USDC",
-              "address": "0x9ebAA6dC8f98a4daA39d96Bc53DF25585E5D3DF4",
-              "syncStart": 7015184,
-              "nonce": 679,
-              "commitmentPool": "0xE87a96c3C5840783001f6597280B708F1E59893D",
-              "commitmentPoolTx": "0xd769d3b817b6111d6fe87bb2809675658c529bf8b6fd7645852b17002b6b2df1",
-              "peerContract": "0x522E8497af69ba5dc6945D0b46B714de4e0077d1",
-              "peerContractTx": "0xd3dfc5473eacca32e898b418dd2e829af2f18adf7c52f5bba7149db610ddd6ba"
+              "address": "0x28ee3B75D7fe0a8003dA7B557705331caB0f1Dd4",
+              "syncStart": 7337252,
+              "nonce": 699,
+              "commitmentPool": "0x76CEC7441dDFe35652DEF14dF2dDCB341507a13b",
+              "commitmentPoolTx": "0x73adaed0ea554acd3d6a9de13a42d7bc6491c6c3b83a05ca95899eace99e3a3e",
+              "peerContract": "0xF14719949AE9E87b4cFf3BB593E503b0eb938B9E",
+              "peerContractTx": "0x4b4a53179f1a4749ea7e02606de445b9af84a98847fd3556f075ac56981c4df7"
             },
             {
               "network": "avalanchetestnet",
               "assetSymbol": "USDC",
-              "address": "0x522E8497af69ba5dc6945D0b46B714de4e0077d1",
-              "syncStart": 36544724,
-              "nonce": 1264,
-              "commitmentPool": "0x94C1FA07234acEF7C27238C12D17d88720FbFC87",
-              "commitmentPoolTx": "0x1d44000532a39242c6b7af60afaeacc8da6cf734a04e85b11fe1a9f68ed1f61a",
-              "peerContract": "0x9ebAA6dC8f98a4daA39d96Bc53DF25585E5D3DF4",
-              "peerContractTx": "0xcded90e3f55bce2ff7da78f42c17b7dfe219e4dd799a614b8529bbd0d60fe1a2"
+              "address": "0xF14719949AE9E87b4cFf3BB593E503b0eb938B9E",
+              "syncStart": 37263369,
+              "nonce": 1283,
+              "commitmentPool": "0x96A6757d1e7C031Ca071730a3F10b7230512E6d6",
+              "commitmentPoolTx": "0xe8eac87c806e2c44739e5224af0eb42a4bd480b79741ca123d7d372a536801d6",
+              "peerContract": "0x28ee3B75D7fe0a8003dA7B557705331caB0f1Dd4",
+              "peerContractTx": "0xf3c35db389d4293923eb2c037f87dbc545b3dd64d6909489cfeda336c860132a"
             }
           ]
         },
@@ -1320,24 +1318,24 @@
             {
               "network": "baseSepolia",
               "assetSymbol": "USDC",
-              "address": "0xB09BBC77E866e1B6C833e144572Ee26C3A6Bd61c",
-              "syncStart": 17510059,
-              "nonce": 229,
-              "commitmentPool": "0xaA5393C35B9b0558B713e3A619392D1C35954F3D",
-              "commitmentPoolTx": "0x286c561094ee81d7197742543774e24466eac1535986c30fc24a537240867e92",
-              "peerContract": "0xa483A341aA7Cb42A665a4959Bf6056b8E7DBa87F",
-              "peerContractTx": "0x8f2a0d36a6fc7cb030e71f5779f5f9305130f4d737dc6ebcf62cafc140250282"
+              "address": "0xea35172e46183169114bD72ba55c64277066f510",
+              "syncStart": 19587629,
+              "nonce": 237,
+              "commitmentPool": "0x7E75A884116Fcb53329327e272B02a8166A7A8d0",
+              "commitmentPoolTx": "0x669b81ee37685536d1f21e688670da0b0c00d974794d21b313ab7ad1a4141976",
+              "peerContract": "0x72cE67906d2194F4055AcFBBe55b7967ef8B6812",
+              "peerContractTx": "0x4a2cbc5ad579ca74a3a6422fe50bdcf168d0a651319843665d351f8f5e892a67"
             },
             {
               "network": "avalanchetestnet",
               "assetSymbol": "USDC",
-              "address": "0xa483A341aA7Cb42A665a4959Bf6056b8E7DBa87F",
-              "syncStart": 36544730,
-              "nonce": 1265,
-              "commitmentPool": "0x94C1FA07234acEF7C27238C12D17d88720FbFC87",
-              "commitmentPoolTx": "0xcbadcd9d606e2752a393cc524821721071b807f70c0b69c72fa550faf0e662c7",
-              "peerContract": "0xB09BBC77E866e1B6C833e144572Ee26C3A6Bd61c",
-              "peerContractTx": "0x8fed55c838f0109cd21fd67da679b8b3a6b9b8a622368c19b3bf8ecd8e5e1a00"
+              "address": "0x72cE67906d2194F4055AcFBBe55b7967ef8B6812",
+              "syncStart": 37263374,
+              "nonce": 1284,
+              "commitmentPool": "0x96A6757d1e7C031Ca071730a3F10b7230512E6d6",
+              "commitmentPoolTx": "0x449d219f23bf90cade46d9cba4119e25fe7423fa005427312ccd24e17b3e8119",
+              "peerContract": "0xea35172e46183169114bD72ba55c64277066f510",
+              "peerContractTx": "0xf0d9ff2ff504de6220dcb7b691ab7a2164ecc6c501dac7edcbc1ef673e1637bf"
             }
           ]
         },
@@ -1346,24 +1344,24 @@
             {
               "network": "sepolia",
               "assetSymbol": "ETH",
-              "address": "0x798D0A0Ce3EfF077b68cd765e0285D0Cb78400E6",
-              "syncStart": 7015189,
-              "nonce": 680,
-              "commitmentPool": "0x2B688da7fC52E5Ae0aD77E36eCEF71adC86b01F9",
-              "commitmentPoolTx": "0x3835c69de5b462ac298111fccb7c91217722d1b34b82d2595d9f44a465374c56",
-              "peerContract": "0xe4f82B954e7a86D4C1eEAba039459828f2Ac4fB4",
-              "peerContractTx": "0xfbad0b86f2ad0f45795c85564047caf4b5de1c3161ff51bb553b4af5c5fd3863"
+              "address": "0x11AF0051B09A1E311cA8cF78BDac1fa5319B5Aff",
+              "syncStart": 7337259,
+              "nonce": 701,
+              "commitmentPool": "0x447b788496e7408c784FB5a311CdEa922755771C",
+              "commitmentPoolTx": "0x17790d2c12a7382da1d3071ef8e501eb0a1b15c53073727d81d850d73e904479",
+              "peerContract": "0xA367c643F9F2b7E004d61feAA666783d12737654",
+              "peerContractTx": "0xe5eb054ce0e22ff20c8f9b2e9d280b75ab850d4ad46d4d026713e48311026931"
             },
             {
               "network": "avalanchetestnet",
               "assetSymbol": "WETHWormhole",
-              "address": "0xe4f82B954e7a86D4C1eEAba039459828f2Ac4fB4",
-              "syncStart": 36544736,
-              "nonce": 1266,
-              "commitmentPool": "0x8737BB89d5B9F21aDc3193C64bFbB95C4F217C5B",
-              "commitmentPoolTx": "0xf8a565b1deecc2004b5cc9c426dc5020ab90774a5af0b8660cd02054ac66a044",
-              "peerContract": "0x798D0A0Ce3EfF077b68cd765e0285D0Cb78400E6",
-              "peerContractTx": "0x103423ee0f3117766b4dc77b93c591bb23b469ccca68a08142795f88a43c9a60"
+              "address": "0xA367c643F9F2b7E004d61feAA666783d12737654",
+              "syncStart": 37263390,
+              "nonce": 1286,
+              "commitmentPool": "0xAcb94b137EAe943EfD91843934A4D1A3081FF42F",
+              "commitmentPoolTx": "0x9990084f8726be8023785d784a8f591b3142ece251e32b36fd60ada2fbe3ec13",
+              "peerContract": "0x11AF0051B09A1E311cA8cF78BDac1fa5319B5Aff",
+              "peerContractTx": "0x2b8a22e09d1d124de5527a93a23f129cc13b27084cb79524d0095b8d3b7535b4"
             }
           ]
         }

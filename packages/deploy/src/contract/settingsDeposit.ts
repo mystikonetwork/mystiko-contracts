@@ -3,6 +3,37 @@ import { getSettingsCenterContract } from './settings';
 import { waitConfirm } from '../common/utils';
 import { ChainTokenConfig } from '../config/chainToken';
 import { getMystikoDepositContract } from './depsit';
+import { BridgeConfig } from '../config/bridge';
+
+export async function setDepositBridgeGasLimit(
+  settingsAddress: string,
+  depositAddress: string,
+  bridgeCfg: BridgeConfig,
+  peerNetwork: string,
+  ethers: any,
+) {
+  console.log('set deposit bridge gas limit');
+  try {
+    const settingsFactory = getSettingsCenterContract();
+    const settingsContract = settingsFactory.attach(settingsAddress);
+    const bridgeGasLimit = await settingsContract.queryBridgeGasLimit(depositAddress);
+    const peerBridgeGasLimit = bridgeCfg.getPeerMinBridgeGasLimit(peerNetwork);
+    if (peerBridgeGasLimit === undefined) {
+      console.error(LOGRED, 'peer bridge gas limit not found');
+      process.exit(1);
+    }
+    if (bridgeGasLimit.toString() === peerBridgeGasLimit) {
+      return;
+    }
+
+    const rsp = await settingsContract.setBridgeGasLimit(depositAddress, peerBridgeGasLimit);
+    console.log('set deposit min amount ', rsp.hash);
+    await waitConfirm(ethers, rsp, true);
+  } catch (err: any) {
+    console.error(LOGRED, err);
+    process.exit(1);
+  }
+}
 
 export async function setDepositMinAmount(
   settingsAddress: string,

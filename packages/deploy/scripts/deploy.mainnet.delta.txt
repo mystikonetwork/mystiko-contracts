@@ -1,0 +1,4 @@
+ --network Ethereum  --bridge wormhole --dst Polygon --token USDC
+ --network Polygon  --bridge wormhole --dst Ethereum --token USDC
+ --network Ethereum  --bridge wormhole --dst Polygon --token ETH
+ --network Polygon  --bridge wormhole --dst Ethereum --token WETHWormhole

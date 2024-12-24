@@ -120,6 +120,7 @@ describe('Test Mystiko axelar', () => {
       PeerMinRollupFee,
       DestinationChainID,
       remoteMain.address,
+      '0',
     );
   });
 

@@ -27,6 +27,7 @@ import {
 
 // @ts-ignore
 import {
+  BridgeGasLimit,
   DestinationChainID,
   MaxAmount,
   MinAmount,
@@ -155,6 +156,7 @@ describe('Test Mystiko tbridge', () => {
       PeerMinRollupFee,
       DestinationChainID,
       remoteMain.address,
+      BridgeGasLimit,
     );
 
     testBridgeConstructor(
@@ -168,6 +170,7 @@ describe('Test Mystiko tbridge', () => {
       PeerMinRollupFee,
       DestinationChainID,
       remoteERC20.address,
+      BridgeGasLimit,
     );
   });
 

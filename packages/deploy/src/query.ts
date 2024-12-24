@@ -93,8 +93,8 @@ async function depositQuery(taskArgs: any) {
     }
 
     if (c.bridgeCfg?.name === BridgeWormhole) {
-      const gasLimit = await deposit.bridgeGasLimit();
-      const bridgeGasLimit = c.bridgeCfg.getPeerMinBridgeGasLimit(c.dstChainCfg?.name);
+      const gasLimit = await deposit.getBridgeGasLimit();
+      const bridgeGasLimit = c.bridgeCfg.getPeerMinBridgeGasLimit(c.dstChainCfg?.network);
       if (gasLimit.toString() !== bridgeGasLimit) {
         console.error(LOGRED, 'bridge gas limit mismatch', gasLimit, bridgeGasLimit);
       } else {
@@ -194,7 +194,7 @@ async function settingsQuery(taskArgs: any) {
 
   const dao = await settingsContract.daoRegistry();
   console.log('dao address', dao);
-  if (chainCfg.daoRegistry !== dao) {
+  if (chainCfg.daoRegistry.toLowerCase() !== dao.toLowerCase()) {
     console.error(LOGRED, 'dao address mismatch', dao, chainCfg.daoRegistry);
   }
 

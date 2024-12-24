@@ -55,7 +55,26 @@ const _abi = [
       {
         indexed: false,
         internalType: 'uint256',
-        name: 'minBridgeFee',
+        name: '_bridgeGasLimit',
+        type: 'uint256',
+      },
+    ],
+    name: 'BridgeGasLimitChanged',
+    type: 'event',
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: true,
+        internalType: 'address',
+        name: '_localDeposit',
+        type: 'address',
+      },
+      {
+        indexed: false,
+        internalType: 'uint256',
+        name: '_minBridgeFee',
         type: 'uint256',
       },
     ],
@@ -74,7 +93,7 @@ const _abi = [
       {
         indexed: false,
         internalType: 'uint256',
-        name: 'minPeerExecutorFee',
+        name: '_minPeerExecutorFee',
         type: 'uint256',
       },
     ],
@@ -93,7 +112,7 @@ const _abi = [
       {
         indexed: false,
         internalType: 'uint256',
-        name: 'minPeerRollupFee',
+        name: '_minPeerRollupFee',
         type: 'uint256',
       },
     ],
@@ -183,6 +202,25 @@ const _abi = [
         internalType: 'bytes32',
         name: '',
         type: 'bytes32',
+      },
+    ],
+    stateMutability: 'view',
+    type: 'function',
+  },
+  {
+    inputs: [
+      {
+        internalType: 'address',
+        name: '',
+        type: 'address',
+      },
+    ],
+    name: 'bridgeGasLimit',
+    outputs: [
+      {
+        internalType: 'uint256',
+        name: '',
+        type: 'uint256',
       },
     ],
     stateMutability: 'view',
@@ -327,6 +365,25 @@ const _abi = [
         type: 'address',
       },
     ],
+    name: 'queryBridgeGasLimit',
+    outputs: [
+      {
+        internalType: 'uint256',
+        name: '',
+        type: 'uint256',
+      },
+    ],
+    stateMutability: 'view',
+    type: 'function',
+  },
+  {
+    inputs: [
+      {
+        internalType: 'address',
+        name: '_localDeposit',
+        type: 'address',
+      },
+    ],
     name: 'queryMinBridgeFee',
     outputs: [
       {
@@ -415,6 +472,24 @@ const _abi = [
   {
     inputs: [],
     name: 'setAdminRole',
+    outputs: [],
+    stateMutability: 'nonpayable',
+    type: 'function',
+  },
+  {
+    inputs: [
+      {
+        internalType: 'address',
+        name: '_localDeposit',
+        type: 'address',
+      },
+      {
+        internalType: 'uint256',
+        name: '_bridgeGasLimit',
+        type: 'uint256',
+      },
+    ],
+    name: 'setBridgeGasLimit',
     outputs: [],
     stateMutability: 'nonpayable',
     type: 'function',

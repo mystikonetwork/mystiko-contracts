@@ -153,7 +153,7 @@ const config: HardhatUserConfig = {
     Ethereum: {
       url: ethEndpoint,
       accounts: [`0x${ethPrivateKey}`],
-      gasPrice: 2800000000,
+      gasPrice: 5400000000,
       timeout: 60000000,
     },
     BSC: {
@@ -175,7 +175,7 @@ const config: HardhatUserConfig = {
     Polygon: {
       url: polygonEndpoint,
       accounts: [`0x${polygonPrivateKey}`],
-      gasPrice: 60000000000,
+      gasPrice: 80000000000,
     },
     Base: {
       url: baseEndpoint,

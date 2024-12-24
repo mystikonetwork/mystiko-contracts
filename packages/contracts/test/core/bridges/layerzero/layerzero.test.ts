@@ -113,6 +113,7 @@ describe('Test Mystiko layer zero', () => {
       PeerMinRollupFee,
       DestinationChainID,
       remoteMain.address,
+      '0',
     );
   });
 

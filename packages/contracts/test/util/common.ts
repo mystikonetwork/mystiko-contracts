@@ -68,6 +68,7 @@ import {
   MerkleTreeHeight,
   MinAmount,
   MinBridgeFee,
+  BridgeGasLimit,
   MinRollupFee,
   PeerMinExecutorFee,
   PeerMinRollupFee,
@@ -206,11 +207,12 @@ export async function deployTBridgeContracts(
     minAmount = MinAmount,
     maxAmount = MaxAmount,
     minBridgeFee = MinBridgeFee,
+    bridgeGasLimit = BridgeGasLimit,
     peerMinExecutorFee = PeerMinExecutorFee,
     peerMinRollupFee = PeerMinRollupFee,
   },
 ): Promise<CoreBridgeDeploymentInfo> {
-  const localConfig = { minAmount, maxAmount, minBridgeFee };
+  const localConfig = { minAmount, maxAmount, minBridgeFee, bridgeGasLimit };
   const peerConfig = { peerMinExecutorFee, peerMinRollupFee };
 
   const tBridgeMainFactory = (await ethers.getContractFactory(
@@ -249,7 +251,8 @@ export async function deployCelerContracts(
     peerMinRollupFee = PeerMinRollupFee,
   },
 ): Promise<CoreBridgeDeploymentInfo> {
-  const localConfig = { minAmount, maxAmount, minBridgeFee };
+  const bridgeGasLimit = 0;
+  const localConfig = { minAmount, maxAmount, minBridgeFee, bridgeGasLimit };
   const peerConfig = { peerMinExecutorFee, peerMinRollupFee };
 
   const celerMainFactory = (await ethers.getContractFactory(
@@ -286,7 +289,8 @@ export async function deployLayerZeroContracts(
     peerMinRollupFee = PeerMinRollupFee,
   },
 ): Promise<CoreBridgeDeploymentInfo> {
-  const localConfig = { minAmount, maxAmount, minBridgeFee };
+  const bridgeGasLimit = 0;
+  const localConfig = { minAmount, maxAmount, minBridgeFee, bridgeGasLimit };
   const peerConfig = { peerMinExecutorFee, peerMinRollupFee };
 
   const lzMainFactory = (await ethers.getContractFactory(
@@ -327,7 +331,8 @@ export async function deployAxelarContracts(
     peerMinRollupFee = PeerMinRollupFee,
   },
 ): Promise<CoreBridgeDeploymentInfo> {
-  const localConfig = { minAmount, maxAmount, minBridgeFee };
+  const bridgeGasLimit = 0;
+  const localConfig = { minAmount, maxAmount, minBridgeFee, bridgeGasLimit };
   const peerConfig = { peerMinExecutorFee, peerMinRollupFee };
 
   const lzMainFactory = (await ethers.getContractFactory(
