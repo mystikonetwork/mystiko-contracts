@@ -1,6 +1,6 @@
 {
   "version": 8,
-  "poolName": "delta-20241102",
+  "poolName": "delta-20241224",
   "circuits": [],
   "chains": [
     {
@@ -12,10 +12,10 @@
           "assetSymbol": "ETH",
           "assetDecimals": 18,
           "erc20": false,
-          "minAmount": "1000000000000",
+          "minAmount": "100000000000000000",
           "maxAmount": "1000000000000000000000",
           "minExecutorFee": "0",
-          "minRollupFee": "1000000000000",
+          "minRollupFee": "3000000000000000",
           "recommendedAmounts": [
             "100000000000000000",
             "1000000000000000000",
@@ -44,10 +44,10 @@
           "erc20": true,
           "assetDecimals": 6,
           "address": "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48",
-          "minAmount": "100000",
+          "minAmount": "100000000",
           "maxAmount": "1000000000000",
           "minExecutorFee": "0",
-          "minRollupFee": "100000",
+          "minRollupFee": "10000000",
           "recommendedAmounts": [
             "100000000",
             "1000000000",
@@ -76,7 +76,8 @@
       "certificateVerifier": "0x081E63f27b26B6BdE54412A160528BCA81c15b42",
       "relayerPool": "0x220b2bD28Af2904284B80932F5ccC053B0A8B8a6",
       "relayerRegister": "0x29ED7DE21ccc80dc5921A8d9d8650247653C1188",
-      "rollerPool": "0xEF94b1Ad81E7f4b19882829313D84E05A8965b25"
+      "rollerPool": "0xEF94b1Ad81E7f4b19882829313D84E05A8965b25",
+      "settingsCenter": "0x4cAf6620f9df423C8AE2F7BB91F3F1cB6E9836f1"
     },
     {
       "name": "BSC",
@@ -193,7 +194,7 @@
           "erc20": true,
           "assetDecimals": 6,
           "address": "0x3c499c542cEF5E3811e1192ce70d8cC03d5c3359",
-          "minAmount": "100000",
+          "minAmount": "100000000",
           "maxAmount": "1000000000000",
           "minExecutorFee": "0",
           "minRollupFee": "100000",
@@ -209,7 +210,7 @@
           "erc20": true,
           "assetDecimals": 18,
           "address": "0x11CD37bb86F65419713f30673A480EA33c826872",
-          "minAmount": "1000000000000",
+          "minAmount": "100000000000000000",
           "maxAmount": "1000000000000000000000",
           "minExecutorFee": "0",
           "minRollupFee": "1000000000000",
@@ -240,7 +241,8 @@
       "certificateVerifier": "0xFa8336C60C39268f38e4123daa5c05E69d023A08",
       "relayerPool": "0x2a5eEf90F1aA36CaE2535349B522891A044EFCC1",
       "relayerRegister": "0xC1Bc70C5BEf4E5Dc147D482CE64F5cF062366a74",
-      "rollerPool": "0xa229c30E64DdE2EDEBCA6c657c6549dcA06BD23f"
+      "rollerPool": "0xa229c30E64DdE2EDEBCA6c657c6549dcA06BD23f",
+      "settingsCenter": "0x1EB9e706A98bd563938EA9816fF9FDED17A781BC"
     },
     {
       "name": "Base Mainnet",
@@ -498,17 +500,59 @@
         }
       ],
       "commitmentPools": [
+        {
+          "network": "Ethereum",
+          "assetSymbol": "USDC",
+          "address": "0x3f60d67412A4eDD7b6995EE983e44FaAb323cE27",
+          "syncStart": 21464831,
+          "nonce": 106
+        },
+        {
+          "network": "Polygon",
+          "assetSymbol": "USDC",
+          "address": "0xB96d25C8cB04BE7a5e3CaFAe2dbde76CF18FBAA9",
+          "syncStart": 65828928,
+          "nonce": 66
+        },
+        {
+          "network": "Ethereum",
+          "assetSymbol": "ETH",
+          "address": "0x91479C4C5785285f5E92eBd02A4bA2E247cBA84a",
+          "syncStart": 21469657,
+          "nonce": 116
+        },
+        {
+          "network": "Polygon",
+          "assetSymbol": "WETHWormhole",
+          "address": "0xeAF142294522D4C55D1F82f83B94Ee25333B42Ed",
+          "syncStart": 65855773,
+          "nonce": 74
+        }
       ],
       "pairs": [
         {
           "pair": [
             {
               "network": "Ethereum",
-              "assetSymbol": "USDC"
+              "assetSymbol": "USDC",
+              "address": "0xe314C1bF3C00c58815CD69dc109b7D3CB192e30e",
+              "syncStart": 21464834,
+              "nonce": 107,
+              "commitmentPool": "0x3f60d67412A4eDD7b6995EE983e44FaAb323cE27",
+              "commitmentPoolTx": "0x7430bd984a6f5a064155350ae6594e38e79eb8c09dc7c5fa50673e71475730ba",
+              "peerContract": "0xdc2e1fc2e3aF24C325d0c29e8E8421669501AaD8",
+              "peerContractTx": "0x1f2c3e15270be7257aac0846aafed7fb431dbbb168249124e9d35c41daf067dd"
             },
             {
               "network": "Polygon",
-              "assetSymbol": "USDC"
+              "assetSymbol": "USDC",
+              "address": "0xdc2e1fc2e3aF24C325d0c29e8E8421669501AaD8",
+              "syncStart": 65828938,
+              "nonce": 67,
+              "commitmentPool": "0xB96d25C8cB04BE7a5e3CaFAe2dbde76CF18FBAA9",
+              "commitmentPoolTx": "0x550f999dfedacf510d08098f5376ccf700820179e4e7b083cdfe0e231064176d",
+              "peerContract": "0xe314C1bF3C00c58815CD69dc109b7D3CB192e30e",
+              "peerContractTx": "0xb071efa2df8e51e5690a754544e5ba5724b3580f03329ff7d346707a284a4f17"
             }
           ]
         },
@@ -516,11 +560,25 @@
           "pair": [
             {
               "network": "Ethereum",
-              "assetSymbol": "ETH"
+              "assetSymbol": "ETH",
+              "address": "0xEF91A352Ec60fa43B5dAa30990A4c170085A947e",
+              "syncStart": 21469658,
+              "nonce": 117,
+              "commitmentPool": "0x91479C4C5785285f5E92eBd02A4bA2E247cBA84a",
+              "commitmentPoolTx": "0x8aa47b51f2914ac60f6eb80d7612248b305eda8f82b93e1483e8305af3feff36",
+              "peerContract": "0x4FA03c412d5c4eB237EC107Ce4e0CbAC912E7c14",
+              "peerContractTx": "0x32a49ca3f2984449056046ed2106b010fe8751f7c9ed7dfef0134f798edaba58"
             },
             {
               "network": "Polygon",
-              "assetSymbol": "WETHWormhole"
+              "assetSymbol": "WETHWormhole",
+              "address": "0x4FA03c412d5c4eB237EC107Ce4e0CbAC912E7c14",
+              "syncStart": 65855780,
+              "nonce": 75,
+              "commitmentPool": "0xeAF142294522D4C55D1F82f83B94Ee25333B42Ed",
+              "commitmentPoolTx": "0x8c4579938f889ec2ca9c149abf50b7005b8cdfdbef96d021af4d20bf6f295a71",
+              "peerContract": "0xEF91A352Ec60fa43B5dAa30990A4c170085A947e",
+              "peerContractTx": "0x670370cd824281dfad0759217b0f11b25e316530d26a703e266999ca91865212"
             }
           ]
         }

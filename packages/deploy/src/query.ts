@@ -194,7 +194,7 @@ async function settingsQuery(taskArgs: any) {
 
   const dao = await settingsContract.daoRegistry();
   console.log('dao address', dao);
-  if (chainCfg.daoRegistry !== dao) {
+  if (chainCfg.daoRegistry.toLowerCase() !== dao.toLowerCase()) {
     console.error(LOGRED, 'dao address mismatch', dao, chainCfg.daoRegistry);
   }
 
